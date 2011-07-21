@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="79">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="grammar" displayName="grammar" projectFiles="true">
+      <itemPath>grammar/grammar.c</itemPath>
+      <itemPath>grammar/grammar.h</itemPath>
+      <itemPath>grammar/grammar.y</itemPath>
+      <itemPath>grammar/lex.c</itemPath>
+      <itemPath>grammar/lex.l</itemPath>
+      <itemPath>grammar/vexopc.h</itemPath>
+      <itemPath>grammar/vextypes.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <logicalFolder name="f2" displayName="PBIW" projectFiles="true">
+        <logicalFolder name="f2" displayName="Concrete" projectFiles="true">
+          <itemPath>PBIW.h</itemPath>
+          <itemPath>rVex64PBIWInstruction.h</itemPath>
+          <itemPath>rVex96PBIWPattern.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="f1" displayName="Interfaces" projectFiles="true">
+          <itemPath>IPBIW.h</itemPath>
+          <itemPath>IPBIWInstruction.h</itemPath>
+        </logicalFolder>
+      </logicalFolder>
+      <itemPath>pbiw_encoder.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <logicalFolder name="f1" displayName="PBIW" projectFiles="true">
+        <logicalFolder name="f1" displayName="Concrete" projectFiles="true">
+          <itemPath>PBIW.cpp</itemPath>
+          <itemPath>rVex64PBIWInstruction.cpp</itemPath>
+          <itemPath>rVex96PBIWPattern.cpp</itemPath>
+        </logicalFolder>
+      </logicalFolder>
+      <itemPath>pbiw_encoder.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceRootList>
+    <Elem>grammar</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>default</compilerSet>
+      </toolsSet>
+      <compileType>
+      </compileType>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>default</compilerSet>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+      </compileType>
+    </conf>
+  </confs>
+</configurationDescriptor>
