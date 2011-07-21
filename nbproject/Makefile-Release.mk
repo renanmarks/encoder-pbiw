@@ -39,6 +39,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/grammar/lex.o \
 	${OBJECTDIR}/pbiw_encoder.o \
 	${OBJECTDIR}/rVex96PBIWPattern.o \
+	${OBJECTDIR}/rVexInstruction.o \
 	${OBJECTDIR}/PBIW.o
 
 
@@ -90,6 +91,11 @@ ${OBJECTDIR}/rVex96PBIWPattern.o: rVex96PBIWPattern.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/rVex96PBIWPattern.o rVex96PBIWPattern.cpp
+
+${OBJECTDIR}/rVexInstruction.o: rVexInstruction.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/rVexInstruction.o rVexInstruction.cpp
 
 ${OBJECTDIR}/PBIW.o: PBIW.cpp 
 	${MKDIR} -p ${OBJECTDIR}

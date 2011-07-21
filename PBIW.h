@@ -10,13 +10,13 @@
 
 #include "IPBIW.h"
 
-
 namespace PBIW
-{
-  using namespace Interfaces;
-  
+{ 
   namespace Concrete
   {
+    using namespace Interfaces;
+    using namespace Base;
+    
     /**
     * Classe que realiza a codificação PBIW
     * 
@@ -29,15 +29,18 @@ namespace PBIW
     class PBIW: public IPBIW
     {
       private:
-
+        std::vector<IVLIWInstruction> originalInstructions;
+        
+        std::vector<IPBIWInstruction> codedInstructions;
+        std::vector<IPBIWPattern> codedPatterns;
 
       public:
         PBIW();
         PBIW(const PBIW& orig);
         virtual ~PBIW();
 
-        virtual void encode();
-        virtual void decode();
+        virtual void encode(std::vector<IVLIWInstruction>);
+        virtual void decode(std::vector<IPBIWInstruction>, std::vector<IPBIWPattern>);
 
         virtual std::ostream getInstructions();
         virtual std::ostream getPatterns();

@@ -13,6 +13,11 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <logicalFolder name="f4" displayName="Base" projectFiles="true">
+        <logicalFolder name="f1" displayName="Generics" projectFiles="true">
+        </logicalFolder>
+        <itemPath>IVLIWInstruction.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="f2" displayName="PBIW" projectFiles="true">
         <logicalFolder name="f2" displayName="Concrete" projectFiles="true">
           <itemPath>PBIW.h</itemPath>
@@ -22,6 +27,14 @@
         <logicalFolder name="f1" displayName="Interfaces" projectFiles="true">
           <itemPath>IPBIW.h</itemPath>
           <itemPath>IPBIWInstruction.h</itemPath>
+          <itemPath>IPBIWPattern.h</itemPath>
+        </logicalFolder>
+      </logicalFolder>
+      <logicalFolder name="f1" displayName="rVex" projectFiles="true">
+        <logicalFolder name="f2" displayName="Concrete" projectFiles="true">
+          <itemPath>rVexInstruction.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="f1" displayName="Interfaces" projectFiles="true">
         </logicalFolder>
       </logicalFolder>
       <itemPath>pbiw_encoder.h</itemPath>
@@ -38,6 +51,11 @@
           <itemPath>PBIW.cpp</itemPath>
           <itemPath>rVex64PBIWInstruction.cpp</itemPath>
           <itemPath>rVex96PBIWPattern.cpp</itemPath>
+        </logicalFolder>
+      </logicalFolder>
+      <logicalFolder name="f2" displayName="rVex" projectFiles="true">
+        <logicalFolder name="f1" displayName="Concrete" projectFiles="true">
+          <itemPath>rVexInstruction.cpp</itemPath>
         </logicalFolder>
       </logicalFolder>
       <itemPath>pbiw_encoder.cpp</itemPath>

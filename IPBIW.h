@@ -10,18 +10,25 @@
 
 #include <ostream>
 #include <vector>
+#include "IVLIWInstruction.h"
 #include "IPBIWInstruction.h"
+#include "IPBIWPattern.h"
 
 namespace PBIW
 {
   namespace Interfaces
-  {
+  {   
+    using namespace Base;
+    
+    /**
+     * PBIW codec interface
+     */
     class IPBIW
     {
       public:
         virtual ~IPBIW() {};
-        virtual void encode(std::vector<IPBIWInstruction>) = 0;
-        virtual void decode() = 0;
+        virtual void encode(std::vector<IVLIWInstruction>) = 0;
+        virtual void decode(std::vector<IPBIWInstruction>, std::vector<IPBIWPattern>) = 0;
 
         virtual std::ostream getPatterns() = 0;
         virtual std::ostream getInstructions() = 0;
