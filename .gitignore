@@ -1,2 +1,5 @@
 *.o
 *.o.d
+gtest/
+dist/
+build/
