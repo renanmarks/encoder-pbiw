@@ -26,12 +26,12 @@ namespace PBIW
       
     }
     
-    void PBIW::encode(std::vector<IVLIWInstruction> originalInstructions)
+    void PBIW::encode(const std::vector<IVLIWInstruction>& originalInstructions)
     {
 
     }
     
-    void PBIW::decode(std::vector<IPBIWInstruction> codedInstructions, std::vector<IPBIWPattern> codedPatterns)
+    void PBIW::decode(const std::vector<IPBIWInstruction>& codedInstructions, const std::vector<IPBIWPattern>& codedPatterns)
     {
       
     }

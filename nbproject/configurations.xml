@@ -17,6 +17,7 @@
         <logicalFolder name="f1" displayName="Generics" projectFiles="true">
         </logicalFolder>
         <itemPath>IVLIWInstruction.h</itemPath>
+        <itemPath>IVLIWOperation.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f2" displayName="PBIW" projectFiles="true">
         <logicalFolder name="f2" displayName="Concrete" projectFiles="true">
@@ -31,11 +32,8 @@
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="f1" displayName="rVex" projectFiles="true">
-        <logicalFolder name="f2" displayName="Concrete" projectFiles="true">
-          <itemPath>rVexInstruction.h</itemPath>
-        </logicalFolder>
-        <logicalFolder name="f1" displayName="Interfaces" projectFiles="true">
-        </logicalFolder>
+        <itemPath>rVexInstruction.h</itemPath>
+        <itemPath>rVexSyllable.h</itemPath>
       </logicalFolder>
       <itemPath>pbiw_encoder.h</itemPath>
     </logicalFolder>
@@ -54,9 +52,8 @@
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="f2" displayName="rVex" projectFiles="true">
-        <logicalFolder name="f1" displayName="Concrete" projectFiles="true">
-          <itemPath>rVexInstruction.cpp</itemPath>
-        </logicalFolder>
+        <itemPath>rVexInstruction.cpp</itemPath>
+        <itemPath>rVexSyllable.cpp</itemPath>
       </logicalFolder>
       <itemPath>pbiw_encoder.cpp</itemPath>
     </logicalFolder>
@@ -64,6 +61,9 @@
                    displayName="Test Files"
                    projectFiles="false"
                    kind="TEST_LOGICAL_FOLDER">
+      <logicalFolder name="f1" displayName="Test" projectFiles="true" kind="TEST">
+        <itemPath>Teste.cpp</itemPath>
+      </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -84,6 +84,87 @@
       </toolsSet>
       <compileType>
       </compileType>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+          <linkerAddLib>
+            <pElem>gtest/lib</pElem>
+          </linkerAddLib>
+          <linkerLibItems>
+            <linkerLibFileItem>gtest/lib/libgtest.so</linkerLibFileItem>
+            <linkerLibFileItem>gtest/lib/libgtest_dll.so</linkerLibFileItem>
+            <linkerLibFileItem>gtest/lib/libgtest_main.so</linkerLibFileItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
+          <linkerAddLib>
+            <pElem>gtest/lib</pElem>
+          </linkerAddLib>
+          <linkerLibItems>
+            <linkerLibFileItem>gtest/lib/libgtest.so</linkerLibFileItem>
+            <linkerLibFileItem>gtest/lib/libgtest_dll.so</linkerLibFileItem>
+            <linkerLibFileItem>gtest/lib/libgtest_main.so</linkerLibFileItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f3">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f3</output>
+          <linkerLibItems>
+            <linkerLibStdlibItem>CppUnit</linkerLibStdlibItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f4">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f4</output>
+        </linkerTool>
+      </folder>
     </conf>
     <conf name="Release" type="1">
       <toolsSet>
@@ -104,6 +185,75 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <folder path="TestFiles">
+        <linkerTool>
+          <linkerLibItems>
+            <linkerLibLibItem>gtest</linkerLibLibItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f3">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f3</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f4">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f4</output>
+        </linkerTool>
+      </folder>
     </conf>
   </confs>
 </configurationDescriptor>

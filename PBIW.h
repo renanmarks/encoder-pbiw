@@ -39,8 +39,8 @@ namespace PBIW
         PBIW(const PBIW& orig);
         virtual ~PBIW();
 
-        virtual void encode(std::vector<IVLIWInstruction>);
-        virtual void decode(std::vector<IPBIWInstruction>, std::vector<IPBIWPattern>);
+        virtual void encode(const std::vector<IVLIWInstruction>&);
+        virtual void decode(const std::vector<IPBIWInstruction>&, const std::vector<IPBIWPattern>&);
 
         virtual std::ostream getInstructions();
         virtual std::ostream getPatterns();

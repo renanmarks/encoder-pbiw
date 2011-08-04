@@ -8,18 +8,33 @@
 #include "rVexInstruction.h"
 namespace rVex
 {
-  namespace Concrete
+  rVexInstruction::rVexInstruction( )
   {
-    rVexInstruction::rVexInstruction( )
-    {
-    }
+    
+  }
 
-    rVexInstruction::rVexInstruction( const rVexInstruction& orig )
-    {
-    }
+  rVexInstruction::rVexInstruction( const rVexInstruction& orig )
+  {
+    
+  }
 
-    rVexInstruction::~rVexInstruction( )
-    {
-    }
+  rVexInstruction::~rVexInstruction( )
+  {
+    
+  }
+  
+  bool rVexInstruction::addOperation(const rVexSyllable& syllable)
+  {
+    if (this->syllables.size() < this->syllables.max_size())
+      this->syllables.push_back(syllable);
+  }
+  
+  bool rVexInstruction::removeOperation(const rVexSyllable&)
+  {
+  }
+
+  std::vector<rVexSyllable>* rVexInstruction::getSyllables() const
+  {
+    return new std::vector<rVexSyllable>(syllables);
   }
 }

@@ -9,23 +9,26 @@
 #define	RVEXINSTRUCTION_H
 
 #include "IVLIWInstruction.h"
+#include "rVexSyllable.h"
 
 namespace rVex
 {
-  namespace Concrete
+  class rVexInstruction
   {
-    using namespace Base;
-    
-    class rVexInstruction : public IVLIWInstruction
-    {
-      public:
-        rVexInstruction();
-        rVexInstruction(const rVexInstruction& orig);
-        virtual ~rVexInstruction();
-      private:
+    public:
+      rVexInstruction();
+      rVexInstruction(const rVexInstruction& orig);
+      virtual ~rVexInstruction();
 
-    };
-  }
+      virtual bool addOperation(const rVexSyllable&);
+      virtual bool removeOperation(const rVexSyllable&);
+
+      virtual std::vector<rVexSyllable>* getSyllables() const;
+    
+    private:
+      std::vector<rVexSyllable> syllables;
+      
+  };
 }
 
 #endif	/* RVEXINSTRUCTION_H */
