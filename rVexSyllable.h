@@ -24,17 +24,19 @@ namespace rVex
       rVexSyllable(const rVexSyllable& orig);
       virtual ~rVexSyllable();
 
-      virtual bool setOpcode(int);
+      virtual void setOpcode(int);
       virtual int getOpcode();
 
-      virtual bool setReadRegisters(const std::vector<int>&);
+      virtual void setReadRegisters(const std::vector<int>&);
       virtual std::vector<int> getReadRegisters();
 
-      virtual bool setWriteRegisters(const std::vector<int>&);
+      virtual void setWriteRegisters(const std::vector<int>&);
       virtual std::vector<int> getWriteRegisters();
 
     private:
       int opcode;
+      std::vector<int> readRegisters;
+      std::vector<int> writeRegisters;
   };
 }
 

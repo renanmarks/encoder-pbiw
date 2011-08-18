@@ -31,10 +31,11 @@ namespace rVex
   
   bool rVexInstruction::removeOperation(const rVexSyllable&)
   {
+    
   }
 
-  std::vector<rVexSyllable>* rVexInstruction::getSyllables() const
+  std::vector<rVexSyllable> rVexInstruction::getSyllables() const
   {
-    return new std::vector<rVexSyllable>(syllables);
+    return this->syllables;
   }
 }

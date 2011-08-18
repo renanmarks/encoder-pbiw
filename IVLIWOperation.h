@@ -20,13 +20,13 @@ namespace Base
     public:
       virtual ~IVLIWOperation() {};
 
-      virtual bool setOpcode(int) = 0;
+      virtual void setOpcode(int) = 0;
       virtual int getOpcode() = 0;
       
-      virtual bool setReadRegisters(const std::vector<int>&) = 0;
+      virtual void setReadRegisters(const std::vector<int>&) = 0;
       virtual std::vector<int> getReadRegisters() = 0;
       
-      virtual bool setWriteRegisters(const std::vector<int>&) = 0;
+      virtual void setWriteRegisters(const std::vector<int>&) = 0;
       virtual std::vector<int> getWriteRegisters() = 0;
   };
 }

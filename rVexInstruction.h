@@ -23,7 +23,7 @@ namespace rVex
       virtual bool addOperation(const rVexSyllable&);
       virtual bool removeOperation(const rVexSyllable&);
 
-      virtual std::vector<rVexSyllable>* getSyllables() const;
+      virtual std::vector<rVexSyllable> getSyllables() const;
     
     private:
       std::vector<rVexSyllable> syllables;
