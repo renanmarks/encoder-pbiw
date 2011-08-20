@@ -37,6 +37,22 @@
       </logicalFolder>
       <itemPath>pbiw_encoder.h</itemPath>
     </logicalFolder>
+    <logicalFolder name="new_grammar" displayName="new_grammar" projectFiles="true">
+      <itemPath>new_grammar/FlexLexer.h</itemPath>
+      <itemPath>new_grammar/driver.cc</itemPath>
+      <itemPath>new_grammar/driver.h</itemPath>
+      <itemPath>expression.h</itemPath>
+      <itemPath>new_grammar/location.hh</itemPath>
+      <itemPath>new_grammar/parser.cc</itemPath>
+      <itemPath>new_grammar/parser.hh</itemPath>
+      <itemPath>new_grammar/parser.yy</itemPath>
+      <itemPath>new_grammar/position.hh</itemPath>
+      <itemPath>new_grammar/scanner.cc</itemPath>
+      <itemPath>new_grammar/scanner.h</itemPath>
+      <itemPath>new_grammar/scanner.ll</itemPath>
+      <itemPath>new_grammar/stack.hh</itemPath>
+      <itemPath>new_grammar/y.tab.h</itemPath>
+    </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
                    projectFiles="true">
@@ -62,7 +78,7 @@
                    projectFiles="false"
                    kind="TEST_LOGICAL_FOLDER">
       <logicalFolder name="f1" displayName="Test" projectFiles="true" kind="TEST">
-        <itemPath>rVexSyllableTest.cpp</itemPath>
+        <itemPath>Teste.cpp</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -74,6 +90,7 @@
   </logicalFolder>
   <sourceRootList>
     <Elem>grammar</Elem>
+    <Elem>new_grammar</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -84,14 +101,19 @@
       </toolsSet>
       <compileType>
         <cTool>
-          <warningLevel>2</warningLevel>
+          <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+          </incDir>
         </cTool>
         <ccTool>
-          <warningLevel>2</warningLevel>
+          <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+          </incDir>
         </ccTool>
-        <asmTool>
-          <warningLevel>2</warningLevel>
-        </asmTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f4</output>
           <linkerAddLib>
@@ -195,10 +217,6 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
-      <item path="grammar/grammar.c" ex="false" tool="1" flavor="0">
-      </item>
-      <item path="grammar/lex.c" ex="false" tool="1" flavor="0">
-      </item>
     </conf>
   </confs>
 </configurationDescriptor>

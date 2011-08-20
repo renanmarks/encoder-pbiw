@@ -13,7 +13,7 @@
 
 namespace rVex
 {
-  class rVexInstruction
+  class rVexInstruction : public IVLIWInstruction
   {
     public:
       rVexInstruction();

@@ -37,7 +37,10 @@ OBJECTFILES= \
 	${OBJECTDIR}/grammar/grammar.o \
 	${OBJECTDIR}/rVex64PBIWInstruction.o \
 	${OBJECTDIR}/grammar/lex.o \
+	${OBJECTDIR}/new_grammar/parser.o \
+	${OBJECTDIR}/new_grammar/scanner.o \
 	${OBJECTDIR}/pbiw_encoder.o \
+	${OBJECTDIR}/new_grammar/driver.o \
 	${OBJECTDIR}/rVex96PBIWPattern.o \
 	${OBJECTDIR}/rVexSyllable.o \
 	${OBJECTDIR}/rVexInstruction.o \
@@ -77,7 +80,7 @@ ${TESTDIR}/TestFiles/f4: ${OBJECTFILES}
 ${OBJECTDIR}/grammar/grammar.o: grammar/grammar.c 
 	${MKDIR} -p ${OBJECTDIR}/grammar
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/grammar/grammar.o grammar/grammar.c
+	$(COMPILE.c) -O2 -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/grammar/grammar.o grammar/grammar.c
 
 ${OBJECTDIR}/rVex64PBIWInstruction.o: rVex64PBIWInstruction.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -87,12 +90,27 @@ ${OBJECTDIR}/rVex64PBIWInstruction.o: rVex64PBIWInstruction.cpp
 ${OBJECTDIR}/grammar/lex.o: grammar/lex.c 
 	${MKDIR} -p ${OBJECTDIR}/grammar
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/grammar/lex.o grammar/lex.c
+	$(COMPILE.c) -O2 -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/grammar/lex.o grammar/lex.c
+
+${OBJECTDIR}/new_grammar/parser.o: new_grammar/parser.cc 
+	${MKDIR} -p ${OBJECTDIR}/new_grammar
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/new_grammar/parser.o new_grammar/parser.cc
+
+${OBJECTDIR}/new_grammar/scanner.o: new_grammar/scanner.cc 
+	${MKDIR} -p ${OBJECTDIR}/new_grammar
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/new_grammar/scanner.o new_grammar/scanner.cc
 
 ${OBJECTDIR}/pbiw_encoder.o: pbiw_encoder.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/pbiw_encoder.o pbiw_encoder.cpp
+
+${OBJECTDIR}/new_grammar/driver.o: new_grammar/driver.cc 
+	${MKDIR} -p ${OBJECTDIR}/new_grammar
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/new_grammar/driver.o new_grammar/driver.cc
 
 ${OBJECTDIR}/rVex96PBIWPattern.o: rVex96PBIWPattern.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -119,15 +137,15 @@ ${OBJECTDIR}/PBIW.o: PBIW.cpp
 
 # Build Test Targets
 .build-tests-conf: .build-conf ${TESTFILES}
-${TESTDIR}/TestFiles/f1: ${TESTDIR}/rVexSyllableTest.o ${OBJECTFILES:%.o=%_nomain.o}
+${TESTDIR}/TestFiles/f1: ${TESTDIR}/Teste.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc}   -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS} -lgtest 
 
 
-${TESTDIR}/rVexSyllableTest.o: rVexSyllableTest.cpp 
+${TESTDIR}/Teste.o: Teste.cpp 
 	${MKDIR} -p ${TESTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/rVexSyllableTest.o rVexSyllableTest.cpp
+	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/Teste.o Teste.cpp
 
 
 ${OBJECTDIR}/grammar/grammar_nomain.o: ${OBJECTDIR}/grammar/grammar.o grammar/grammar.c 
@@ -138,7 +156,7 @@ ${OBJECTDIR}/grammar/grammar_nomain.o: ${OBJECTDIR}/grammar/grammar.o grammar/gr
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -O2 -I. -I. -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/grammar/grammar_nomain.o grammar/grammar.c;\
+	    $(COMPILE.c) -O2 -I. -I. -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/grammar/grammar_nomain.o grammar/grammar.c;\
 	else  \
 	    ${CP} ${OBJECTDIR}/grammar/grammar.o ${OBJECTDIR}/grammar/grammar_nomain.o;\
 	fi
@@ -164,9 +182,35 @@ ${OBJECTDIR}/grammar/lex_nomain.o: ${OBJECTDIR}/grammar/lex.o grammar/lex.c
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -O2 -I. -I. -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/grammar/lex_nomain.o grammar/lex.c;\
+	    $(COMPILE.c) -O2 -I. -I. -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/grammar/lex_nomain.o grammar/lex.c;\
 	else  \
 	    ${CP} ${OBJECTDIR}/grammar/lex.o ${OBJECTDIR}/grammar/lex_nomain.o;\
+	fi
+
+${OBJECTDIR}/new_grammar/parser_nomain.o: ${OBJECTDIR}/new_grammar/parser.o new_grammar/parser.cc 
+	${MKDIR} -p ${OBJECTDIR}/new_grammar
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/new_grammar/parser.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -O2 -I. -I. -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/new_grammar/parser_nomain.o new_grammar/parser.cc;\
+	else  \
+	    ${CP} ${OBJECTDIR}/new_grammar/parser.o ${OBJECTDIR}/new_grammar/parser_nomain.o;\
+	fi
+
+${OBJECTDIR}/new_grammar/scanner_nomain.o: ${OBJECTDIR}/new_grammar/scanner.o new_grammar/scanner.cc 
+	${MKDIR} -p ${OBJECTDIR}/new_grammar
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/new_grammar/scanner.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -O2 -I. -I. -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/new_grammar/scanner_nomain.o new_grammar/scanner.cc;\
+	else  \
+	    ${CP} ${OBJECTDIR}/new_grammar/scanner.o ${OBJECTDIR}/new_grammar/scanner_nomain.o;\
 	fi
 
 ${OBJECTDIR}/pbiw_encoder_nomain.o: ${OBJECTDIR}/pbiw_encoder.o pbiw_encoder.cpp 
@@ -180,6 +224,19 @@ ${OBJECTDIR}/pbiw_encoder_nomain.o: ${OBJECTDIR}/pbiw_encoder.o pbiw_encoder.cpp
 	    $(COMPILE.cc) -O2 -I. -I. -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/pbiw_encoder_nomain.o pbiw_encoder.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/pbiw_encoder.o ${OBJECTDIR}/pbiw_encoder_nomain.o;\
+	fi
+
+${OBJECTDIR}/new_grammar/driver_nomain.o: ${OBJECTDIR}/new_grammar/driver.o new_grammar/driver.cc 
+	${MKDIR} -p ${OBJECTDIR}/new_grammar
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/new_grammar/driver.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -O2 -I. -I. -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/new_grammar/driver_nomain.o new_grammar/driver.cc;\
+	else  \
+	    ${CP} ${OBJECTDIR}/new_grammar/driver.o ${OBJECTDIR}/new_grammar/driver_nomain.o;\
 	fi
 
 ${OBJECTDIR}/rVex96PBIWPattern_nomain.o: ${OBJECTDIR}/rVex96PBIWPattern.o rVex96PBIWPattern.cpp 
