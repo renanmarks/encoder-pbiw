@@ -20,15 +20,17 @@ int main(int argc, char** argv)
     yydebug = 1;
     #endif
 
-    if (argc < 2) {
-	fprintf(stderr,"Usage: %s <vex_file.s>\n", argv[0]);
-	exit(1);
+    if (argc < 2)
+    {
+      fprintf(stderr,"Usage: %s <vex_file.s>\n", argv[0]);
+      return 1;
     }
 
     yyin = fopen(argv[1], "r");
-    if (!yyin) {
-	fprintf(stderr, "Error: can't open input file %s\n", argv[1]);
-	exit(1);
+    if (!yyin) 
+    {
+      fprintf(stderr, "Error: can't open input file %s\n", argv[1]);
+      return 1;
     }
 
     yyout = stdout;

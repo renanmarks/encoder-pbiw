@@ -13,12 +13,6 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <logicalFolder name="f4" displayName="Base" projectFiles="true">
-        <logicalFolder name="f1" displayName="Generics" projectFiles="true">
-        </logicalFolder>
-        <itemPath>IVLIWInstruction.h</itemPath>
-        <itemPath>IVLIWOperation.h</itemPath>
-      </logicalFolder>
       <logicalFolder name="f2" displayName="PBIW" projectFiles="true">
         <logicalFolder name="f2" displayName="Concrete" projectFiles="true">
           <itemPath>PBIW.h</itemPath>
@@ -32,8 +26,25 @@
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="f1" displayName="rVex" projectFiles="true">
-        <itemPath>rVexInstruction.h</itemPath>
-        <itemPath>rVexSyllable.h</itemPath>
+        <logicalFolder name="f1" displayName="Operations" projectFiles="true">
+          <logicalFolder name="f1" displayName="ALU" projectFiles="true">
+            <itemPath>rVex/Operations/ALU/ADD.cpp</itemPath>
+            <itemPath>rVex/Operations/ALU/ADD.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="f3" displayName="CTRL" projectFiles="true">
+          </logicalFolder>
+          <logicalFolder name="f2" displayName="MEM" projectFiles="true">
+          </logicalFolder>
+          <logicalFolder name="f4" displayName="MUL" projectFiles="true">
+          </logicalFolder>
+          <itemPath>rVex/Operations/Operations.h</itemPath>
+        </logicalFolder>
+        <itemPath>rVex/Instruction.h</itemPath>
+        <itemPath>rVex/Syllable.h</itemPath>
+        <itemPath>rVex/SyllableALU.h</itemPath>
+        <itemPath>rVex/SyllableCTRL.h</itemPath>
+        <itemPath>rVex/SyllableMEM.h</itemPath>
+        <itemPath>rVex/SyllableMUL.h</itemPath>
       </logicalFolder>
       <itemPath>pbiw_encoder.h</itemPath>
     </logicalFolder>
@@ -41,7 +52,7 @@
       <itemPath>new_grammar/FlexLexer.h</itemPath>
       <itemPath>new_grammar/driver.cc</itemPath>
       <itemPath>new_grammar/driver.h</itemPath>
-      <itemPath>expression.h</itemPath>
+      <itemPath>new_grammar/expression.h</itemPath>
       <itemPath>new_grammar/location.hh</itemPath>
       <itemPath>new_grammar/parser.cc</itemPath>
       <itemPath>new_grammar/parser.hh</itemPath>
@@ -68,8 +79,7 @@
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="f2" displayName="rVex" projectFiles="true">
-        <itemPath>rVexInstruction.cpp</itemPath>
-        <itemPath>rVexSyllable.cpp</itemPath>
+        <itemPath>rVex/Instruction.cpp</itemPath>
       </logicalFolder>
       <itemPath>pbiw_encoder.cpp</itemPath>
     </logicalFolder>
@@ -78,7 +88,8 @@
                    projectFiles="false"
                    kind="TEST_LOGICAL_FOLDER">
       <logicalFolder name="f1" displayName="Test" projectFiles="true" kind="TEST">
-        <itemPath>Teste.cpp</itemPath>
+        <itemPath>tests/rVexInstructionTest.cpp</itemPath>
+        <itemPath>tests/rVexSyllableTest.cpp</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -97,7 +108,7 @@
     <conf name="Debug" type="1">
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
-        <compilerSet>default</compilerSet>
+        <compilerSet>GNU|GNU</compilerSet>
       </toolsSet>
       <compileType>
         <cTool>
@@ -107,23 +118,13 @@
             <pElem>.</pElem>
           </incDir>
         </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f4</output>
           <linkerAddLib>
-            <pElem>gtest/lib</pElem>
+            <pElem>/usr/local/lib/gtest</pElem>
           </linkerAddLib>
           <linkerLibItems>
-            <linkerLibFileItem>gtest/lib/libgtest.so</linkerLibFileItem>
-            <linkerLibFileItem>gtest/lib/libgtest_dll.so</linkerLibFileItem>
-            <linkerLibFileItem>gtest/lib/libgtest_main.so</linkerLibFileItem>
-            <linkerLibStdlibItem>CppUnit</linkerLibStdlibItem>
+            <linkerLibLibItem>gtest</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
@@ -134,10 +135,16 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -187,6 +194,14 @@
         </asmTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f4</output>
+          <linkerAddLib>
+            <pElem>gtest/lib</pElem>
+          </linkerAddLib>
+          <linkerLibItems>
+            <linkerLibFileItem>gtest/lib/libgtest.so</linkerLibFileItem>
+            <linkerLibFileItem>gtest/lib/libgtest_dll.so</linkerLibFileItem>
+            <linkerLibFileItem>gtest/lib/libgtest_main.so</linkerLibFileItem>
+          </linkerLibItems>
         </linkerTool>
       </compileType>
       <folder path="TestFiles">
@@ -203,10 +218,16 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
