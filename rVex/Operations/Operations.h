@@ -9,6 +9,7 @@
 #define	OPERATIONS_H
 
 #include "ALU/ADD.h"
+#include "ALU/AND.h"
 
 #endif	/* OPERATIONS_H */
 

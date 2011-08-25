@@ -1,7 +1,6 @@
 #include <vector>
 
-#include "rVex/Instruction.h"
-#include "rVex/Operations/Operations.h"
+#include "rVex/rVex.h"
 #include "gtest/gtest.h"
 
 namespace InstructionTest
@@ -9,15 +8,16 @@ namespace InstructionTest
   TEST(InstructionTest, AddSyllable)
   {
     rVex::Instruction instruction;
-    rVex::Operations::ALU::ADD aluOp;
+    rVex::Operations::ALU::ADD ADD;
+    rVex::Operations::ALU::AND AND;
 
     ASSERT_EQ(0, instruction.getSyllables().size());
 
-    instruction.addSyllable(aluOp);
+    instruction.addSyllable(ADD);
 
     ASSERT_EQ(1, instruction.getSyllables().size());
 
-    instruction.addSyllable(aluOp);
+    instruction.addSyllable(AND);
 
     ASSERT_EQ(2, instruction.getSyllables().size());
   }
@@ -25,18 +25,19 @@ namespace InstructionTest
   TEST(InstructionTest, RemoveSyllable)
   {
     rVex::Instruction instruction;
-    rVex::Operations::ALU::ADD aluOp;
+    rVex::Operations::ALU::ADD ADD;
+    rVex::Operations::ALU::AND AND;
 
-    instruction.addSyllable(aluOp);
-    instruction.addSyllable(aluOp);
+    instruction.addSyllable(ADD);
+    instruction.addSyllable(AND);
 
     ASSERT_EQ(2, instruction.getSyllables().size());
 
-    instruction.removeSyllable(aluOp);
+    instruction.removeSyllable(ADD);
 
     ASSERT_EQ(1, instruction.getSyllables().size());
 
-    instruction.removeSyllable(aluOp);
+    instruction.removeSyllable(AND);
 
     ASSERT_EQ(0, instruction.getSyllables().size());
   }
@@ -44,14 +45,15 @@ namespace InstructionTest
   TEST(InstructionTest, GetSyllables)
   {
     rVex::Instruction instruction;
-    rVex::Operations::ALU::ADD aluOp;
+    rVex::Operations::ALU::ADD ADD;
+    rVex::Operations::ALU::AND AND;
     std::vector<rVex::Syllable*> other;
     
-    other.push_back(&aluOp);
-    other.push_back(&aluOp);
+    other.push_back(&ADD);
+    other.push_back(&AND);
     
-    instruction.addSyllable(aluOp);
-    instruction.addSyllable(aluOp);
+    instruction.addSyllable(ADD);
+    instruction.addSyllable(AND);
     
     ASSERT_EQ(other, instruction.getSyllables());
   }
@@ -59,14 +61,17 @@ namespace InstructionTest
   TEST(InstructionTest, PrintInstruction)
   {
     rVex::Instruction instruction;
-    rVex::Operations::ALU::ADD aluOp;
+    rVex::Operations::ALU::ADD ADD;
+    rVex::Operations::ALU::AND AND;
     std::string compareStr;
     
-    instruction.addSyllable(aluOp);
-    instruction.addSyllable(aluOp);
+    instruction.addSyllable(ADD);
+    instruction.addSyllable(AND);
+    instruction.addSyllable(ADD);
     
-    compareStr.append(aluOp.print());
-    compareStr.append(aluOp.print());
+    compareStr.append(ADD.print(true, false));
+    compareStr.append(AND.print(false, false));
+    compareStr.append(ADD.print(false, true));
     
     ASSERT_EQ(compareStr, instruction.print());
   }

@@ -18,10 +18,10 @@ namespace rVex
   class SyllableMEM : public Syllable
   {
     public:
-      virtual ~ALUSyllable() { };
+      virtual ~SyllableMEM() { };
       
-      virtual bool operator==(const SyllableMEM& other) const = 0;
-      virtual bool operator!=(const SyllableMEM& other) const = 0;
+      virtual bool operator==(const Syllable& other) const;
+      virtual bool operator!=(const Syllable& other) const;
   };
 }
 

@@ -20,8 +20,8 @@ namespace rVex
     public:
       virtual ~SyllableMUL() { };
       
-      virtual bool operator==(const SyllableMUL& other) const = 0;
-      virtual bool operator!=(const SyllableMUL& other) const = 0;
+      virtual bool operator==(const Syllable& other) const;
+      virtual bool operator!=(const Syllable& other) const;
   };
 }
 

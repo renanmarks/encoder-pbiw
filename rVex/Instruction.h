@@ -18,12 +18,12 @@ namespace rVex
   class Instruction
   {
     public:
-      virtual bool addSyllable(Syllable&);
-      virtual bool removeSyllable(const Syllable&);
+      bool addSyllable(Syllable&);
+      bool removeSyllable(const Syllable&);
       
-      virtual std::string print() const;
+      std::string print() const;
       
-      virtual std::vector<Syllable*> getSyllables() const;
+      std::vector<Syllable*> getSyllables() const;
     
     private:
       typedef std::vector<Syllable*> SyllableVec;

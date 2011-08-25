@@ -20,8 +20,8 @@ namespace rVex
     public:
       virtual ~SyllableCTRL() { };
       
-      virtual bool operator==(const SyllableCTRL& other) const = 0;
-      virtual bool operator!=(const SyllableCTRL& other) const = 0;
+      virtual bool operator==(const Syllable& other) const;
+      virtual bool operator!=(const Syllable& other) const;
   };
 }
 
