@@ -48,7 +48,13 @@
       <itemPath>pbiw_encoder.h</itemPath>
     </logicalFolder>
     <logicalFolder name="new_grammar" displayName="new_grammar" projectFiles="true">
+      <logicalFolder name="Expressions" displayName="Expressions" projectFiles="true">
+        <itemPath>new_grammar/Expressions/Expression.cpp</itemPath>
+        <itemPath>new_grammar/Expressions/Expression.h</itemPath>
+      </logicalFolder>
       <itemPath>new_grammar/FlexLexer.h</itemPath>
+      <itemPath>new_grammar/VexContext.cpp</itemPath>
+      <itemPath>new_grammar/VexContext.h</itemPath>
       <itemPath>new_grammar/driver.cc</itemPath>
       <itemPath>new_grammar/driver.h</itemPath>
       <itemPath>new_grammar/location.hh</itemPath>

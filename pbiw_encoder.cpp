@@ -5,42 +5,43 @@
  * Created on July 20, 2011, 3:15 PM
  */
 
-#include <cstdio>
-#include <cstdlib>
+#include <iostream>
+#include <fstream>
 using namespace std;
 
-//#include "grammar/vextypes.h"
-//#include "grammar/grammar.h"
-
-//#include "new_grammar/vextypes.h"
-#include "new_grammar/parser.tab.hh"
+#include "new_grammar/driver.h"
+#include "new_grammar/VexContext.h"
 #include "pbiw_encoder.h"
 
-int main(int argc, char** argv) 
+int
+main( int argc, char** argv )
 {
+  VexContext context;
+  VexParser::Driver driver(context);
+  bool result = false;
   
-//    #ifdef YYDEBUG
-//    yydebug = 1;
-//    #endif
-//
-//    if (argc < 2)
-//    {
-//      fprintf(stderr,"Usage: %s <vex_file.s>\n", argv[0]);
-//      return 1;
-//    }
-//
-//    yyin = fopen(argv[1], "r");
-//    if (!yyin) 
-//    {
-//      fprintf(stderr, "Error: can't open input file %s\n", argv[1]);
-//      return 1;
-//    }
-//
-//    yyout = stdout;
-//
-//    yyparse();
-    
-    
-    return 0;
-}
+  for (int ai=1; ai < argc; ++ai)
+  {
+    if (argv[ai] == std::string("-p"))
+    {
+      driver.trace_parsing=true;
+    } else if (argv[ai] == std::string("-s"))
+    {
+      driver.trace_scanning=true;
+    } else
+    {
+      // read a file with expressions
 
+      std::fstream infile(argv[ai]);
+      if (!infile.good())
+      {
+        std::cerr << "Could not open file: " << argv[ai] << std::endl;
+        return 0;
+      }
+
+      result = driver.parse_stream(infile, argv[ai]);
+    }
+  }
+  
+  return result ? 0 : 1;
+}

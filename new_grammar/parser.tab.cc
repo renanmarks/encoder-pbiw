@@ -41,14 +41,14 @@
 #line 4 "parser.yy"
  /*** C/C++ Declarations ***/
   
-#include <stdio.h>
+//#include <stdio.h>
+#include <iostream>
 #include <string>
 #include <vector>
 
 #include "vextypes.h"
-#include "../rVex/rVex.h"
-using namespace rVex::Operands;
-  
+#include "Expressions/Expression.h"
+
 enum { LOCAL = 0, GLOBAL = 1 };
   
 
@@ -563,14 +563,7 @@ namespace VexParser {
     YY_REDUCE_PRINT (yyn);
     switch (yyn)
       {
-	  case 7:
-
-/* Line 678 of lalr1.cc  */
-#line 196 "parser.yy"
-    { }
-    break;
-
-  case 15:
+	  case 15:
 
 /* Line 678 of lalr1.cc  */
 #line 218 "parser.yy"
@@ -658,7 +651,7 @@ namespace VexParser {
 
 /* Line 678 of lalr1.cc  */
 #line 238 "parser.yy"
-    {  }
+    { (yyval.expression) = new Expression((yysemantic_stack_[(3) - (1)].value)); }
     break;
 
   case 30:
@@ -819,7 +812,7 @@ namespace VexParser {
 
 /* Line 678 of lalr1.cc  */
 #line 341 "parser.yy"
-    {  }
+    { (yyval.text) = new std::string(""); }
     break;
 
   case 83:
@@ -1028,56 +1021,56 @@ namespace VexParser {
 
 /* Line 678 of lalr1.cc  */
 #line 470 "parser.yy"
-    {  }
+    { (yyval.expression) = new Expression('+', *(yysemantic_stack_[(3) - (1)].expression), *(yysemantic_stack_[(3) - (3)].expression)); }
     break;
 
   case 133:
 
 /* Line 678 of lalr1.cc  */
 #line 471 "parser.yy"
-    {  }
+    { (yyval.expression) = new Expression('-', *(yysemantic_stack_[(3) - (1)].expression), *(yysemantic_stack_[(3) - (3)].expression)); }
     break;
 
   case 134:
 
 /* Line 678 of lalr1.cc  */
 #line 472 "parser.yy"
-    {  }
+    { (yyval.expression) = new Expression('-', *(yysemantic_stack_[(2) - (2)].expression)); }
     break;
 
   case 135:
 
 /* Line 678 of lalr1.cc  */
 #line 473 "parser.yy"
-    {  }
+    { (yyval.expression) = new Expression('+', *(yysemantic_stack_[(2) - (2)].expression)); }
     break;
 
   case 136:
 
 /* Line 678 of lalr1.cc  */
 #line 474 "parser.yy"
-    {  }
+    { (yyval.expression) = new Expression('~', *(yysemantic_stack_[(2) - (2)].expression)); }
     break;
 
   case 137:
 
 /* Line 678 of lalr1.cc  */
 #line 475 "parser.yy"
-    {  }
+    { (yyval.expression) = new Expression(*(yysemantic_stack_[(1) - (1)].text)); }
     break;
 
   case 138:
 
 /* Line 678 of lalr1.cc  */
 #line 476 "parser.yy"
-    {  }
+    { (yyval.expression) = new Expression(*(yysemantic_stack_[(1) - (1)].text)); }
     break;
 
   case 139:
 
 /* Line 678 of lalr1.cc  */
 #line 477 "parser.yy"
-    {  }
+    { (yyval.expression) = new Expression((yysemantic_stack_[(1) - (1)].value)); }
     break;
 
   case 140:
@@ -1104,7 +1097,7 @@ namespace VexParser {
 
 
 /* Line 678 of lalr1.cc  */
-#line 1108 "parser.tab.cc"
+#line 1101 "parser.tab.cc"
 	default:
           break;
       }
@@ -1777,7 +1770,7 @@ namespace VexParser {
 } // VexParser
 
 /* Line 1054 of lalr1.cc  */
-#line 1781 "parser.tab.cc"
+#line 1774 "parser.tab.cc"
 
 
 /* Line 1056 of lalr1.cc  */

@@ -204,18 +204,18 @@ const VexParser::VexOpcode _optab[] = {
    
 /*************  Operators **********************/
 
-   {"+",       token::__PLUS,     NONE,         opASMDIR},
-   {"-",       token::__MINUS,     NONE,         opASMDIR},
-   {"~",       token::__NOT,     NONE,         opASMDIR},
-   {",",       token::__COMMA,     NONE,         opASMDIR},
-   {":",       token::__COLON,     NONE,         opASMDIR},
-   {";",       token::__SEMICOLON,     NONE,         opASMDIR},
-   {"(",       token::__LPAREN,     NONE,         opASMDIR},
-   {")",       token::__RPAREN,     NONE,         opASMDIR},
-   {"[",       token::__LBRACKET,     NONE,         opASMDIR},
-   {"]",       token::__RBRACKET,     NONE,         opASMDIR},
-   {"=",       token::__EQUAL,     NONE,         opASMDIR},
-   {"@",       token::__AT,     NONE,         opASMDIR}
+   {"+",       token::__PLUS,       NONE,         opNONE},
+   {"-",       token::__MINUS,      NONE,         opNONE},
+   {"~",       token::__NOT,        NONE,         opNONE},
+   {",",       token::__COMMA,      NONE,         opNONE},
+   {":",       token::__COLON,      NONE,         opNONE},
+   {";",       token::__SEMICOLON,  NONE,         opNONE},
+   {"(",       token::__LPAREN,     NONE,         opNONE},
+   {")",       token::__RPAREN,     NONE,         opNONE},
+   {"[",       token::__LBRACKET,   NONE,         opNONE},
+   {"]",       token::__RBRACKET,   NONE,         opNONE},
+   {"=",       token::__EQUAL,      NONE,         opNONE},
+   {"@",       token::__AT,         NONE,         opNONE}
 };
 
 std::vector<VexParser::VexOpcode> 

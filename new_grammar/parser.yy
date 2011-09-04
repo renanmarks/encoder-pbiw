@@ -3,14 +3,14 @@
 
 %{ /*** C/C++ Declarations ***/
   
-#include <stdio.h>
+//#include <stdio.h>
+#include <iostream>
 #include <string>
 #include <vector>
 
 #include "vextypes.h"
-#include "../rVex/rVex.h"
-using namespace rVex::Operands;
-  
+#include "Expressions/Expression.h"
+
 enum { LOCAL = 0, GLOBAL = 1 };
   
 %}
@@ -193,7 +193,7 @@ asm_file        :       asm_section
 asm_section     :       _SECTION data_section
                 |       _SECTION bss_section
                 |       _SECTION text_section
-                |       _COMMENT QUOTE_STRING { } // comment
+                |       _COMMENT QUOTE_STRING // comment
                 |       _SVERSION name
                 |       _RTA NUMBER
                 ;
@@ -235,7 +235,7 @@ init_dir        :       data_size data_val .dup { } // init: size: INT dup INT
                 ;
 
 data_val        :       expr               { $$ = $1; }
-                |       NUMBER __COMMA NUMBER  {  } // $$ = build_numexp($1);
+                |       NUMBER __COMMA NUMBER  { $$ = new Expression($1); } // $$ = build_numexp($1);
 
 data_size       :       _DATA1          { $$ = 1; }
                 |       _DATA2          { $$ = 2; }
@@ -338,7 +338,7 @@ call_jmp_dir    :       _CALL_JMP call_jmp_tgt __COMMA callc __COMMA { }
 
 call_jmp_tgt    :       name          { $$ = $1; }
                 |       REGNAME       { $$ = $1; }
-                |       /* empty */   {  } // $$ = new std::string("(empty)");
+                |       /* empty */   { $$ = new std::string(""); }
                 ;
 
 entry_dir       :       _ENTRY callc __COMMA regloclist __COMMA arg __LPAREN .arg_list __RPAREN name scope { 
@@ -466,15 +466,15 @@ mop_arg         :       expr { }
  **     General add/sub arithmetic expression
  **********************************************************************************/
 
-expr            :       __LPAREN expr __RPAREN          { $$ = $2; }
-                |       expr __PLUS expr         {  } // $$ = build_binexp('+', $1, $3);
-                |       expr __MINUS expr         {  } // $$ = build_binexp('-', $1, $3);
-                |       __MINUS expr %prec USIGN  {  } // $$ = build_unexp('-', $2);
-                |       __PLUS expr %prec USIGN  {  } // $$ = build_unexp('+', $2);
-                |       __NOT expr %prec USIGN  {  } // $$ = build_unexp('~', $2);
-                |       name                  {  } // $$ = build_strexp($1);
-                |       REGNAME               {  } // $$ = build_strexp($1);
-                |       NUMBER                {  } // $$ = build_numexp($1);
+expr            :       __LPAREN expr __RPAREN    { $$ = $2; }
+                |       expr __PLUS expr          { $$ = new Expression('+', *$1, *$3); } // $$ = build_binexp('+', $1, $3);
+                |       expr __MINUS expr         { $$ = new Expression('-', *$1, *$3); } // $$ = build_binexp('-', $1, $3);
+                |       __MINUS expr %prec USIGN  { $$ = new Expression('-', *$2); } // $$ = build_unexp('-', $2);
+                |       __PLUS expr %prec USIGN   { $$ = new Expression('+', *$2); } // $$ = build_unexp('+', $2);
+                |       __NOT expr %prec USIGN    { $$ = new Expression('~', *$2); } // $$ = build_unexp('~', $2);
+                |       name                      { $$ = new Expression(*$1); } // $$ = build_strexp($1);
+                |       REGNAME                   { $$ = new Expression(*$1); } // $$ = build_strexp($1);
+                |       NUMBER                    { $$ = new Expression($1); } // $$ = build_numexp($1);
                 ;
 
 /**********************************************************************************

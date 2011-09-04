@@ -113,7 +113,8 @@ typedef enum {
 	opXNOP,
 	opXOR,
 	opZXTB,
-	opZXTH
+	opZXTH,
+  opNONE = 0
 } VEX_tok;
 
 typedef enum {

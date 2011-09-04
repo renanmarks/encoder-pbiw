@@ -2036,10 +2036,7 @@ namespace VexParser {
   
   token_type Scanner::makeOperator(const char *buf, VexParser::Parser::semantic_type* yylval)
   {
-      // TODO
-    
-//      yylval->text = strdup(buf);
-      Token(token::__PLUS);
+    return checkReserved(buf, yylval);
   }
 
   /*  count new lines in quoted string  */

@@ -35,9 +35,11 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/new_grammar/parser.tab.o \
+	${OBJECTDIR}/new_grammar/VexContext.o \
 	${OBJECTDIR}/rVex64PBIWInstruction.o \
 	${OBJECTDIR}/new_grammar/scanner.o \
 	${OBJECTDIR}/pbiw_encoder.o \
+	${OBJECTDIR}/new_grammar/Expressions/Expression.o \
 	${OBJECTDIR}/new_grammar/driver.o \
 	${OBJECTDIR}/rVex/Instruction.o \
 	${OBJECTDIR}/rVex/SyllableALU.o \
@@ -82,6 +84,11 @@ ${OBJECTDIR}/new_grammar/parser.tab.o: new_grammar/parser.tab.cc
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/new_grammar/parser.tab.o new_grammar/parser.tab.cc
 
+${OBJECTDIR}/new_grammar/VexContext.o: new_grammar/VexContext.cpp 
+	${MKDIR} -p ${OBJECTDIR}/new_grammar
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/new_grammar/VexContext.o new_grammar/VexContext.cpp
+
 ${OBJECTDIR}/rVex64PBIWInstruction.o: rVex64PBIWInstruction.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
@@ -96,6 +103,11 @@ ${OBJECTDIR}/pbiw_encoder.o: pbiw_encoder.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/pbiw_encoder.o pbiw_encoder.cpp
+
+${OBJECTDIR}/new_grammar/Expressions/Expression.o: new_grammar/Expressions/Expression.cpp 
+	${MKDIR} -p ${OBJECTDIR}/new_grammar/Expressions
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/new_grammar/Expressions/Expression.o new_grammar/Expressions/Expression.cpp
 
 ${OBJECTDIR}/new_grammar/driver.o: new_grammar/driver.cc 
 	${MKDIR} -p ${OBJECTDIR}/new_grammar
@@ -167,6 +179,19 @@ ${OBJECTDIR}/new_grammar/parser.tab_nomain.o: ${OBJECTDIR}/new_grammar/parser.ta
 	    ${CP} ${OBJECTDIR}/new_grammar/parser.tab.o ${OBJECTDIR}/new_grammar/parser.tab_nomain.o;\
 	fi
 
+${OBJECTDIR}/new_grammar/VexContext_nomain.o: ${OBJECTDIR}/new_grammar/VexContext.o new_grammar/VexContext.cpp 
+	${MKDIR} -p ${OBJECTDIR}/new_grammar
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/new_grammar/VexContext.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -g -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/new_grammar/VexContext_nomain.o new_grammar/VexContext.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/new_grammar/VexContext.o ${OBJECTDIR}/new_grammar/VexContext_nomain.o;\
+	fi
+
 ${OBJECTDIR}/rVex64PBIWInstruction_nomain.o: ${OBJECTDIR}/rVex64PBIWInstruction.o rVex64PBIWInstruction.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	@NMOUTPUT=`${NM} ${OBJECTDIR}/rVex64PBIWInstruction.o`; \
@@ -204,6 +229,19 @@ ${OBJECTDIR}/pbiw_encoder_nomain.o: ${OBJECTDIR}/pbiw_encoder.o pbiw_encoder.cpp
 	    $(COMPILE.cc) -g -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/pbiw_encoder_nomain.o pbiw_encoder.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/pbiw_encoder.o ${OBJECTDIR}/pbiw_encoder_nomain.o;\
+	fi
+
+${OBJECTDIR}/new_grammar/Expressions/Expression_nomain.o: ${OBJECTDIR}/new_grammar/Expressions/Expression.o new_grammar/Expressions/Expression.cpp 
+	${MKDIR} -p ${OBJECTDIR}/new_grammar/Expressions
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/new_grammar/Expressions/Expression.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -g -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/new_grammar/Expressions/Expression_nomain.o new_grammar/Expressions/Expression.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/new_grammar/Expressions/Expression.o ${OBJECTDIR}/new_grammar/Expressions/Expression_nomain.o;\
 	fi
 
 ${OBJECTDIR}/new_grammar/driver_nomain.o: ${OBJECTDIR}/new_grammar/driver.o new_grammar/driver.cc 

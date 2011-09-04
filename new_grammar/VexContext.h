@@ -8,12 +8,12 @@
 #ifndef ASMCONTEXT_H
 #define	ASMCONTEXT_H
 
-class AsmContext
+class VexContext
 {
 public:
-  AsmContext( );
-  AsmContext( const AsmContext& orig );
-  virtual ~AsmContext( );
+  VexContext( );
+  VexContext( const VexContext& orig );
+  virtual ~VexContext( );
 private:
 
 };
