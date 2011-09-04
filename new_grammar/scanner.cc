@@ -28,7 +28,7 @@
      * We will address this in a future release of flex, or omit the C++ scanner
      * altogether.
      */
-    #define yyFlexLexer ExampleFlexLexer
+    #define yyFlexLexer VexFlexLexer
 /* %endif */
 
 /* %if-c-only */
@@ -350,9 +350,9 @@ struct yy_buffer_state
 /* %endif */
 /* %endif */
 
-void *Examplealloc (yy_size_t  );
-void *Examplerealloc (void *,yy_size_t  );
-void Examplefree (void *  );
+void *Vexalloc (yy_size_t  );
+void *Vexrealloc (void *,yy_size_t  );
+void Vexfree (void *  );
 
 #define yy_new_buffer yy_create_buffer
 
@@ -405,8 +405,8 @@ typedef unsigned char YY_CHAR;
 	(yy_c_buf_p) = yy_cp;
 
 /* %% [4.0] data tables for the DFA and the user's section 1 definitions go here */
-#define YY_NUM_RULES 7
-#define YY_END_OF_BUFFER 8
+#define YY_NUM_RULES 12
+#define YY_END_OF_BUFFER 13
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -414,28 +414,31 @@ struct yy_trans_info
 	flex_int32_t yy_verify;
 	flex_int32_t yy_nxt;
 	};
-static yyconst flex_int16_t yy_accept[15] =
+static yyconst flex_int16_t yy_accept[48] =
     {   0,
-        0,    0,    8,    6,    4,    5,    1,    3,    4,    2,
-        1,    3,    2,    0
+        0,    0,   13,   11,    9,    8,   11,   11,    7,   10,
+        7,    3,    3,    7,    7,    9,    0,    4,    0,    0,
+        1,    7,    7,    7,    3,    7,    6,    4,    7,    7,
+        3,    7,    0,    7,    7,    6,    0,    5,    7,    6,
+        7,    0,    0,    2,    7,    6,    0
     } ;
 
 static yyconst flex_int32_t yy_ec[256] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    2,    3,
-        1,    1,    2,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    2,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    4,    4,    5,    1,    6,    6,    6,
-        6,    6,    6,    6,    6,    6,    6,    1,    1,    1,
-        1,    1,    1,    1,    7,    7,    7,    7,    7,    7,
-        7,    7,    7,    7,    7,    7,    7,    7,    7,    7,
-        7,    7,    7,    7,    7,    7,    7,    7,    7,    7,
-        1,    1,    1,    1,    4,    1,    7,    7,    7,    7,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    2,    1,    4,    5,    6,    1,    1,    1,    7,
+        7,    1,    7,    7,    7,    8,    1,    9,   10,   10,
+       10,   10,   10,   10,   10,   10,   10,    7,    7,    1,
+       11,    1,   12,    7,   12,   12,   12,   12,   12,   12,
+       12,   12,   12,   12,   12,   12,   12,   12,   12,   12,
+       12,   12,   12,   12,   12,   12,   12,   12,   12,   12,
+        7,   13,    7,    1,   12,    1,   14,   15,   16,   17,
 
-        7,    7,    7,    7,    7,    7,    7,    7,    7,    7,
-        7,    7,    7,    7,    7,    7,    7,    7,    7,    7,
-        7,    7,    1,    1,    1,    1,    1,    1,    1,    1,
+       18,   18,   12,   12,   12,   12,   12,   19,   12,   20,
+       12,   12,   12,   21,   22,   23,   12,   12,   12,   24,
+       12,   12,    1,    1,    1,    7,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -452,40 +455,75 @@ static yyconst flex_int32_t yy_ec[256] =
         1,    1,    1,    1,    1
     } ;
 
-static yyconst flex_int32_t yy_meta[8] =
+static yyconst flex_int32_t yy_meta[25] =
     {   0,
-        1,    1,    1,    2,    2,    2,    2
+        1,    1,    1,    1,    1,    2,    1,    2,    2,    2,
+        1,    2,    1,    2,    2,    2,    2,    2,    2,    2,
+        2,    2,    2,    2
     } ;
 
-static yyconst flex_int16_t yy_base[16] =
+static yyconst flex_int16_t yy_base[53] =
     {   0,
-        0,    0,   15,   16,   12,   16,    3,    0,   11,    6,
-        0,    0,    5,   16,    8
+        0,    0,   97,  109,   94,  109,   21,   92,   11,  109,
+       71,   18,   26,    0,   28,   84,   27,  109,   35,   81,
+      109,    0,   34,   60,   36,   40,   51,   47,   74,   66,
+        0,   43,   57,   54,   46,   36,   56,   58,   52,   33,
+       74,   61,   30,  109,   87,  109,  109,  100,  102,   27,
+      104,  106
     } ;
 
-static yyconst flex_int16_t yy_def[16] =
+static yyconst flex_int16_t yy_def[53] =
     {   0,
-       14,    1,   14,   14,   14,   14,   14,   15,   14,   14,
-        7,   15,   14,    0,   14
+       47,    1,   47,   47,   47,   47,   48,   49,   50,   47,
+       50,   50,   50,   50,   50,   47,   48,   47,   48,   49,
+       47,   50,   50,   50,   50,   50,   50,   48,   50,   50,
+       26,   50,   47,   50,   50,   50,   47,   50,   50,   47,
+       51,   47,   52,   47,   51,   47,    0,   47,   47,   47,
+       47,   47
     } ;
 
-static yyconst flex_int16_t yy_nxt[24] =
+static yyconst flex_int16_t yy_nxt[134] =
     {   0,
-        4,    5,    6,    4,    4,    7,    8,   10,   11,   12,
-       13,   13,    9,    9,   14,    3,   14,   14,   14,   14,
-       14,   14,   14
+        4,    5,    6,    7,    8,    9,   10,   11,   12,   13,
+       10,   14,    4,   14,   14,   15,   14,   14,   14,   14,
+       14,   14,   14,   14,   18,   23,   25,   25,   22,   23,
+       18,   23,   44,   19,   25,   25,   27,   27,   28,   19,
+       42,   26,   29,   29,   25,   25,   33,   19,   31,   31,
+       18,   36,   36,   31,   31,   31,   31,   31,   32,   19,
+       39,   33,   38,   38,   40,   40,   38,   38,   41,   46,
+       46,   41,   37,   41,   43,   43,   44,   43,   43,   35,
+       43,   34,   30,   21,   43,   16,   43,   43,   43,   44,
+       43,   43,   24,   43,   21,   16,   47,   43,   47,   43,
+
+       17,   17,   20,   20,   45,   45,   43,   43,    3,   47,
+       47,   47,   47,   47,   47,   47,   47,   47,   47,   47,
+       47,   47,   47,   47,   47,   47,   47,   47,   47,   47,
+       47,   47,   47
     } ;
 
-static yyconst flex_int16_t yy_chk[24] =
+static yyconst flex_int16_t yy_chk[134] =
     {   0,
-        1,    1,    1,    1,    1,    1,    1,    7,    7,   15,
-       13,   10,    9,    5,    3,   14,   14,   14,   14,   14,
-       14,   14,   14
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    7,    9,   12,   12,   50,    9,
+       17,    9,   43,    7,   13,   13,   15,   15,   19,   17,
+       40,   12,   23,   23,   25,   25,   36,   19,   26,   26,
+       28,   32,   32,   26,   26,   26,   26,   26,   27,   28,
+       35,   27,   34,   34,   37,   37,   38,   38,   39,   42,
+       42,   39,   33,   39,   41,   41,   41,   41,   41,   30,
+       41,   29,   24,   20,   41,   16,   41,   45,   45,   45,
+       45,   45,   11,   45,    8,    5,    3,   45,    0,   45,
+
+       48,   48,   49,   49,   51,   51,   52,   52,   47,   47,
+       47,   47,   47,   47,   47,   47,   47,   47,   47,   47,
+       47,   47,   47,   47,   47,   47,   47,   47,   47,   47,
+       47,   47,   47
     } ;
 
-static yyconst flex_int16_t yy_rule_linenum[7] =
+static yyconst flex_int16_t yy_rule_linenum[12] =
     {   0,
-       61,   66,   71,   77,   82,   88
+       81,   82,   83,   84,   85,   86,   87,   88,   89,   90,
+       93
     } ;
 
 /* The intent behind this definition is that it'll catch
@@ -500,13 +538,19 @@ static yyconst flex_int16_t yy_rule_linenum[7] =
 /** \file scanner.ll Define the example Flex lexical scanner */
 #line 5 "scanner.ll"
 
+#include <cstdio>
 #include <string>
-
+using namespace std;
+  
 #include "scanner.h"
+#include "vextypes.h"
+
+/* opcode definitions */
+#include "vexopc.h"
 
 /* import the parser's token type into a local typedef */
-typedef example::Parser::token token;
-typedef example::Parser::token_type token_type;
+typedef VexParser::Parser::token token;
+typedef VexParser::Parser::token_type token_type;
 
 /* By default yylex returns int, we use token_type. Unfortunately yyterminate
  * by default returns 0, which is not of token_type. */
@@ -516,9 +560,11 @@ typedef example::Parser::token_type token_type;
  * on Win32. The C++ scanner uses STL streams instead. */
 #define YY_NO_UNISTD_H
 
+#define Token(n) return(n)
+
 /*** Flex Declarations and Options ***/
 /* enable c++ scanner class generation */
-/* change the name of the scanner class. results in "ExampleFlexLexer" */
+/* change the name of the scanner class. results in "VexFlexLexer" */
 /* the manual says "somewhat more optimized" */
 /* enable scanner to generate debug output. disable this for release
  * versions. */
@@ -526,9 +572,9 @@ typedef example::Parser::token_type token_type;
 /* enables the use of start condition stacks */
 /* The following paragraph suffices to track locations accurately. Each time
  * yylex is invoked, the begin position is moved onto the end position. */
-#line 48 "scanner.ll"
+#line 56 "scanner.ll"
 #define YY_USER_ACTION  yylloc->columns(yyleng);
-#line 532 "lex.Example.cc"
+#line 578 "scanner.cc"
 
 #define INITIAL 0
 
@@ -690,7 +736,7 @@ YY_DECL
 	register int yy_act;
     
 /* %% [7.0] user's declarations go here */
-#line 51 "scanner.ll"
+#line 71 "scanner.ll"
 
 
  /* code to place at the beginning of yylex() */
@@ -701,7 +747,7 @@ YY_DECL
 
  /*** BEGIN EXAMPLE - Change the example lexer rules below ***/
 
-#line 705 "lex.Example.cc"
+#line 751 "scanner.cc"
 
 	if ( !(yy_init) )
 		{
@@ -764,13 +810,13 @@ yy_match:
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
-				if ( yy_current_state >= 15 )
+				if ( yy_current_state >= 48 )
 					yy_c = yy_meta[(unsigned int) yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
 			++yy_cp;
 			}
-		while ( yy_current_state != 14 );
+		while ( yy_current_state != 47 );
 		yy_cp = (yy_last_accepting_cpos);
 		yy_current_state = (yy_last_accepting_state);
 
@@ -789,12 +835,12 @@ do_action:	/* This label is used only to access EOF actions. */
 			{
 			if ( yy_act == 0 )
 				std::cerr << "--scanner backing up\n";
-			else if ( yy_act < 7 )
+			else if ( yy_act < 12 )
 				std::cerr << "--accepting rule at line " << yy_rule_linenum[yy_act] <<
 				         "(\"" << yytext << "\")\n";
-			else if ( yy_act == 7 )
+			else if ( yy_act == 12 )
 				std::cerr << "--accepting default rule (\"" << yytext << "\")\n";
-			else if ( yy_act == 8 )
+			else if ( yy_act == 13 )
 				std::cerr << "--(end of buffer or a NUL)\n";
 			else
 				std::cerr << "--EOF (start condition " << YY_START << ")\n";
@@ -811,62 +857,80 @@ do_action:	/* This label is used only to access EOF actions. */
 			goto yy_find_action;
 
 case 1:
+*yy_cp = (yy_hold_char); /* undo effects of setting up yytext */
+(yy_c_buf_p) = yy_cp -= 1;
+YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 61 "scanner.ll"
-{
-    yylval->integerVal = atoi(yytext);
-    return token::INTEGER;
-}
+#line 81 "scanner.ll"
+{ }
 	YY_BREAK
 case 2:
+*yy_cp = (yy_hold_char); /* undo effects of setting up yytext */
+(yy_c_buf_p) = yy_cp -= 1;
+YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 66 "scanner.ll"
-{
-    yylval->doubleVal = atof(yytext);
-    return token::DOUBLE;
-}
+#line 82 "scanner.ll"
+{ }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 71 "scanner.ll"
-{
-    yylval->stringVal = new std::string(yytext, yyleng);
-    return token::STRING;
-}
+#line 83 "scanner.ll"
+{ yylval->value = strtol(yytext,0,0); Token(token::NUMBER); }
 	YY_BREAK
-/* gobble up white-spaces */
 case 4:
+/* rule 4 can match eol */
 YY_RULE_SETUP
-#line 77 "scanner.ll"
-{
-    yylloc->step();
-}
+#line 84 "scanner.ll"
+{ return makeQuoted(yytext, yylval);                                }
 	YY_BREAK
-/* gobble up end-of-lines */
 case 5:
-/* rule 5 can match eol */
 YY_RULE_SETUP
-#line 82 "scanner.ll"
-{
-    yylloc->lines(yyleng); yylloc->step();
-    return token::EOL;
-}
+#line 85 "scanner.ll"
+{ return makeRegister(yytext, yylval);                              }
 	YY_BREAK
-/* pass all other characters up to bison */
 case 6:
 YY_RULE_SETUP
+#line 86 "scanner.ll"
+{ return makeCluster(yytext, yylval);                               }
+	YY_BREAK
+case 7:
+YY_RULE_SETUP
+#line 87 "scanner.ll"
+{ return checkReserved(yytext, yylval);                             }
+	YY_BREAK
+case 8:
+/* rule 8 can match eol */
+YY_RULE_SETUP
 #line 88 "scanner.ll"
+{ }
+	YY_BREAK
+case 9:
+YY_RULE_SETUP
+#line 89 "scanner.ll"
+{ /* ignore white space */                                  }
+	YY_BREAK
+case 10:
+YY_RULE_SETUP
+#line 90 "scanner.ll"
+{ return makeOperator(yytext, yylval);                              }
+	YY_BREAK
+/* pass all other characters up to bison */
+case 11:
+YY_RULE_SETUP
+#line 93 "scanner.ll"
 {
+    cerr << "error: unexpected " << yytext[0] << " at " << yylineno << endl;
+//    return 2;
     return static_cast<token_type>(*yytext);
 }
 	YY_BREAK
 /*** END EXAMPLE - Change the example lexer rules above ***/
-case 7:
+case 12:
 YY_RULE_SETUP
-#line 94 "scanner.ll"
+#line 101 "scanner.ll"
 ECHO;
 	YY_BREAK
-#line 870 "lex.Example.cc"
+#line 934 "scanner.cc"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1040,9 +1104,9 @@ yyFlexLexer::yyFlexLexer( std::istream* arg_yyin, std::ostream* arg_yyout )
 yyFlexLexer::~yyFlexLexer()
 {
 	delete [] yy_state_buf;
-	Examplefree(yy_start_stack  );
+	Vexfree(yy_start_stack  );
 	yy_delete_buffer( YY_CURRENT_BUFFER );
-	Examplefree(yy_buffer_stack  );
+	Vexfree(yy_buffer_stack  );
 }
 
 /* The contents of this function are C++ specific, so the () macro is not used.
@@ -1177,7 +1241,7 @@ int yyFlexLexer::yy_get_next_buffer()
 
 				b->yy_ch_buf = (char *)
 					/* Include room in for 2 EOB chars. */
-					Examplerealloc((void *) b->yy_ch_buf,b->yy_buf_size + 2  );
+					Vexrealloc((void *) b->yy_ch_buf,b->yy_buf_size + 2  );
 				}
 			else
 				/* Can't grow it, we don't own it. */
@@ -1226,7 +1290,7 @@ int yyFlexLexer::yy_get_next_buffer()
 	if ((yy_size_t) ((yy_n_chars) + number_to_move) > YY_CURRENT_BUFFER_LVALUE->yy_buf_size) {
 		/* Extend the array by 50%, plus the number we really need. */
 		yy_size_t new_size = (yy_n_chars) + number_to_move + ((yy_n_chars) >> 1);
-		YY_CURRENT_BUFFER_LVALUE->yy_ch_buf = (char *) Examplerealloc((void *) YY_CURRENT_BUFFER_LVALUE->yy_ch_buf,new_size  );
+		YY_CURRENT_BUFFER_LVALUE->yy_ch_buf = (char *) Vexrealloc((void *) YY_CURRENT_BUFFER_LVALUE->yy_ch_buf,new_size  );
 		if ( ! YY_CURRENT_BUFFER_LVALUE->yy_ch_buf )
 			YY_FATAL_ERROR( "out of dynamic memory in yy_get_next_buffer()" );
 	}
@@ -1268,7 +1332,7 @@ int yyFlexLexer::yy_get_next_buffer()
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
-			if ( yy_current_state >= 15 )
+			if ( yy_current_state >= 48 )
 				yy_c = yy_meta[(unsigned int) yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
@@ -1301,11 +1365,11 @@ int yyFlexLexer::yy_get_next_buffer()
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
-		if ( yy_current_state >= 15 )
+		if ( yy_current_state >= 48 )
 			yy_c = yy_meta[(unsigned int) yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
-	yy_is_jam = (yy_current_state == 14);
+	yy_is_jam = (yy_current_state == 47);
 
 	return yy_is_jam ? 0 : yy_current_state;
 }
@@ -1517,7 +1581,7 @@ int yyFlexLexer::yy_get_next_buffer()
 {
 	YY_BUFFER_STATE b;
     
-	b = (YY_BUFFER_STATE) Examplealloc(sizeof( struct yy_buffer_state )  );
+	b = (YY_BUFFER_STATE) Vexalloc(sizeof( struct yy_buffer_state )  );
 	if ( ! b )
 		YY_FATAL_ERROR( "out of dynamic memory in yy_create_buffer()" );
 
@@ -1526,7 +1590,7 @@ int yyFlexLexer::yy_get_next_buffer()
 	/* yy_ch_buf has to be 2 characters longer than the size given because
 	 * we need to put in 2 end-of-buffer characters.
 	 */
-	b->yy_ch_buf = (char *) Examplealloc(b->yy_buf_size + 2  );
+	b->yy_ch_buf = (char *) Vexalloc(b->yy_buf_size + 2  );
 	if ( ! b->yy_ch_buf )
 		YY_FATAL_ERROR( "out of dynamic memory in yy_create_buffer()" );
 
@@ -1555,9 +1619,9 @@ int yyFlexLexer::yy_get_next_buffer()
 		YY_CURRENT_BUFFER_LVALUE = (YY_BUFFER_STATE) 0;
 
 	if ( b->yy_is_our_buffer )
-		Examplefree((void *) b->yy_ch_buf  );
+		Vexfree((void *) b->yy_ch_buf  );
 
-	Examplefree((void *) b  );
+	Vexfree((void *) b  );
 }
 
 /* %if-c-only */
@@ -1718,7 +1782,7 @@ void yyFlexLexer::yyensure_buffer_stack(void)
 		 * immediate realloc on the next call.
          */
 		num_to_alloc = 1;
-		(yy_buffer_stack) = (struct yy_buffer_state**)Examplealloc
+		(yy_buffer_stack) = (struct yy_buffer_state**)Vexalloc
 								(num_to_alloc * sizeof(struct yy_buffer_state*)
 								);
 		if ( ! (yy_buffer_stack) )
@@ -1737,7 +1801,7 @@ void yyFlexLexer::yyensure_buffer_stack(void)
 		int grow_size = 8 /* arbitrary grow size */;
 
 		num_to_alloc = (yy_buffer_stack_max) + grow_size;
-		(yy_buffer_stack) = (struct yy_buffer_state**)Examplerealloc
+		(yy_buffer_stack) = (struct yy_buffer_state**)Vexrealloc
 								((yy_buffer_stack),
 								num_to_alloc * sizeof(struct yy_buffer_state*)
 								);
@@ -1774,10 +1838,10 @@ void yyFlexLexer::yyensure_buffer_stack(void)
 		new_size = (yy_start_stack_depth) * sizeof( int );
 
 		if ( ! (yy_start_stack) )
-			(yy_start_stack) = (int *) Examplealloc(new_size  );
+			(yy_start_stack) = (int *) Vexalloc(new_size  );
 
 		else
-			(yy_start_stack) = (int *) Examplerealloc((void *) (yy_start_stack),new_size  );
+			(yy_start_stack) = (int *) Vexrealloc((void *) (yy_start_stack),new_size  );
 
 		if ( ! (yy_start_stack) )
 			YY_FATAL_ERROR( "out of memory expanding start-condition stack" );
@@ -1886,12 +1950,12 @@ static int yy_flex_strlen (yyconst char * s )
 }
 #endif
 
-void *Examplealloc (yy_size_t  size )
+void *Vexalloc (yy_size_t  size )
 {
 	return (void *) malloc( size );
 }
 
-void *Examplerealloc  (void * ptr, yy_size_t  size )
+void *Vexrealloc  (void * ptr, yy_size_t  size )
 {
 	/* The cast to (char *) in the following accommodates both
 	 * implementations that use char* generic pointers, and those
@@ -1903,9 +1967,9 @@ void *Examplerealloc  (void * ptr, yy_size_t  size )
 	return (void *) realloc( (char *) ptr, size );
 }
 
-void Examplefree (void * ptr )
+void Vexfree (void * ptr )
 {
-	free( (char *) ptr );	/* see Examplerealloc() for (char *) cast */
+	free( (char *) ptr );	/* see Vexrealloc() for (char *) cast */
 }
 
 /* %if-tables-serialization definitions */
@@ -1915,40 +1979,89 @@ void Examplefree (void * ptr )
 
 /* %ok-for-header */
 
-#line 94 "scanner.ll"
+#line 101 "scanner.ll"
 
 
 
-namespace example {
+namespace VexParser {
 
-Scanner::Scanner(std::istream* in,
-		 std::ostream* out)
-    : ExampleFlexLexer(in, out)
-{
+  Scanner::Scanner(std::istream* in,
+       std::ostream* out)
+      : VexFlexLexer(in, out)
+  {
+  }
+
+  Scanner::~Scanner()
+  {
+  }
+
+  void Scanner::set_debug(bool b)
+  {
+      yy_flex_debug = b;
+  }
+
+  /* check list of reserved words       */
+  
+  token_type Scanner::checkReserved(const char *buf, VexParser::Parser::semantic_type* yylval)
+  {
+      int i;
+      int sizeOperationTable = optab.size();
+      
+      yylval->opcode = NULL;
+      
+      for (i = 0; i < sizeOperationTable; i++)
+      {
+        if (optab[i].as_op == buf)
+        {
+            yylval->opcode = &optab[i];
+            Token(yylval->opcode->tok);
+        }
+      }
+      
+      yylval->text = new std::string(buf);
+      Token(token::NAME);
+  }
+
+  token_type Scanner::makeCluster(const char *buf, VexParser::Parser::semantic_type* yylval)
+  {
+      yylval->text = new std::string(buf);
+      Token(token::CLUST);
+  }
+
+  token_type Scanner::makeRegister(const char *buf, VexParser::Parser::semantic_type* yylval)
+  {
+      yylval->text = new std::string(buf);
+      Token(token::REGNAME);
+  }
+  
+  token_type Scanner::makeOperator(const char *buf, VexParser::Parser::semantic_type* yylval)
+  {
+      // TODO
+    
+//      yylval->text = strdup(buf);
+      Token(token::__PLUS);
+  }
+
+  /*  count new lines in quoted string  */
+
+  token_type Scanner::makeQuoted(const char *buf, VexParser::Parser::semantic_type* yylval)
+  {
+      yylval->text = new std::string(buf);
+      Token(token::QUOTE_STRING);
+  }
 }
 
-Scanner::~Scanner()
-{
-}
-
-void Scanner::set_debug(bool b)
-{
-    yy_flex_debug = b;
-}
-
-}
-
-/* This implementation of ExampleFlexLexer::yylex() is required to fill the
- * vtable of the class ExampleFlexLexer. We define the scanner's main yylex
+/* This implementation of VexFlexLexer::yylex() is required to fill the
+ * vtable of the class VexFlexLexer. We define the scanner's main yylex
  * function via YY_DECL to reside in the Scanner class instead. */
 
 #ifdef yylex
 #undef yylex
 #endif
 
-int ExampleFlexLexer::yylex()
+int VexFlexLexer::yylex()
 {
-    std::cerr << "in ExampleFlexLexer::yylex() !" << std::endl;
+    std::cerr << "in VexFlexLexer::yylex() !" << std::endl;
     return 0;
 }
 
@@ -1958,7 +2071,7 @@ int ExampleFlexLexer::yylex()
  * another input file, and scanning continues. If it returns true (non-zero),
  * then the scanner terminates, returning 0 to its caller. */
 
-int ExampleFlexLexer::yywrap()
+int VexFlexLexer::yywrap()
 {
     return 1;
 }

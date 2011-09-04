@@ -8,11 +8,11 @@
 #include <vector>
 
 // forward declaration
-class CalcContext;
+class VexContext;
 
-/** The example namespace is used to encapsulate the three parser classes
- * example::Parser, example::Scanner and example::Driver */
-namespace example {
+/** The VexParser namespace is used to encapsulate the three parser classes
+ * VexParser::Parser, VexParser::Scanner and VexParser::Driver */
+namespace VexParser {
 
 /** The Driver class brings together all components. It creates an instance of
  * the Parser and Scanner classes and connects them. Then the input stream is
@@ -24,7 +24,7 @@ class Driver
 {
 public:
     /// construct a new parser driver context
-    Driver(class CalcContext& calc);
+    Driver(class VexContext& calc);
 
     /// enable debug output in the flex scanner
     bool trace_scanning;
@@ -76,9 +76,9 @@ public:
 
     /** Reference to the calculator context filled during parsing of the
      * expressions. */
-    class CalcContext& calc;
+    class VexContext& calc;
 };
 
-} // namespace example
+} // namespace VexParser
 
 #endif // EXAMPLE_DRIVER_H

@@ -33,7 +33,7 @@
 
 /**
  ** \file position.hh
- ** Define the example::position class.
+ ** Define the VexParser::position class.
  */
 
 #ifndef BISON_POSITION_HH
@@ -47,7 +47,7 @@
 /* Line 38 of location.cc  */
 #line 1 "[Bison:b4_percent_define_default]"
 
-namespace example {
+namespace VexParser {
 
 /* Line 38 of location.cc  */
 #line 54 "position.hh"
@@ -160,7 +160,7 @@ namespace example {
 /* Line 144 of location.cc  */
 #line 1 "[Bison:b4_percent_define_default]"
 
-} // example
+} // VexParser
 
 /* Line 144 of location.cc  */
 #line 167 "position.hh"

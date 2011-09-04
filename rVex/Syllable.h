@@ -22,22 +22,22 @@ namespace rVex
       
       /**
        * The execution type of syllable*/
-      enum Type { 
+      typedef enum { 
         ALU = 1, MUL, MEM, CTRL 
-      };
+      } Type;
 
       /**
        * The layout type of syllable (if it is a register type, immediate type,
        * branch type, etc). */
-      enum LayoutType {
+      typedef enum {
         RTYPE = 1, ISTYPE, ILTYPE, BRANCH, RTYPE_BS, MEMTYPE 
-      };
+      } LayoutType;
 
       /**
        * The immediate switch of syllable */
-      enum ImmediateSwitch { 
+      typedef enum { 
         NO_IMM, SHORT_IMM, BRANCH_IMM, LONG_IMM 
-      };
+      } ImmediateSwitch;
       
       /**
        * Get the syllable Opcode.

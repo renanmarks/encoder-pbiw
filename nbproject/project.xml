@@ -4,7 +4,7 @@
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
             <name>pbiw_encoder</name>
-            <c-extensions>c</c-extensions>
+            <c-extensions/>
             <cpp-extensions>cc,cpp</cpp-extensions>
             <header-extensions>h,hh,ll,yy</header-extensions>
             <sourceEncoding>UTF-8</sourceEncoding>
@@ -12,6 +12,7 @@
             <sourceRootList>
                 <sourceRootElem>grammar</sourceRootElem>
                 <sourceRootElem>new_grammar</sourceRootElem>
+                <sourceRootElem>rVex/Operands</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>

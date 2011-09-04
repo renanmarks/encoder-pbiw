@@ -9,29 +9,29 @@
 #ifndef YY_DECL
 
 #define	YY_DECL						\
-    example::Parser::token_type				\
-    example::Scanner::lex(				\
-	example::Parser::semantic_type* yylval,		\
-	example::Parser::location_type* yylloc		\
+    VexParser::Parser::token_type				\
+    VexParser::Scanner::lex(				\
+	VexParser::Parser::semantic_type* yylval,		\
+	VexParser::Parser::location_type* yylloc		\
     )
 #endif
 
 #ifndef __FLEX_LEXER_H
-#define yyFlexLexer ExampleFlexLexer
+#define yyFlexLexer VexFlexLexer
 #include "FlexLexer.h"
 #undef yyFlexLexer
 #endif
 
-#include "parser.hh"
+#include "parser.tab.hh"
 
-namespace example {
+namespace VexParser {
 
 /** Scanner is a derived class to add some extra function to the scanner
  * class. Flex itself creates a class named yyFlexLexer, which is renamed using
- * macros to ExampleFlexLexer. However we change the context of the generated
+ * macros to VexFlexLexer. However we change the context of the generated
  * yylex() function to be contained within the Scanner class. This is required
- * because the yylex() defined in ExampleFlexLexer has no parameters. */
-class Scanner : public ExampleFlexLexer
+ * because the yylex() defined in VexFlexLexer has no parameters. */
+class Scanner : public VexFlexLexer
 {
 public:
     /** Create a new scanner object. The streams arg_yyin and arg_yyout default
@@ -51,6 +51,15 @@ public:
 	Parser::location_type* yylloc
 	);
 
+    /**
+     * Port from C functions provided in the C version of lexer.
+     */
+    VexParser::Parser::token_type makeRegister(const char *, VexParser::Parser::semantic_type*);
+    VexParser::Parser::token_type makeCluster(const char *, VexParser::Parser::semantic_type*);
+    VexParser::Parser::token_type makeQuoted(const char *, VexParser::Parser::semantic_type*);
+    VexParser::Parser::token_type checkReserved(const char *, VexParser::Parser::semantic_type*);
+    VexParser::Parser::token_type makeOperator(const char *, VexParser::Parser::semantic_type*);
+    
     /** Enable debug output (via arg_yyout) if compiled into the scanner. */
     void set_debug(bool b);
 };

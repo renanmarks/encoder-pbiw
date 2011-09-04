@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurationDescriptor version="79">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
-    <logicalFolder name="grammar" displayName="grammar" projectFiles="true">
-      <itemPath>grammar/grammar.c</itemPath>
-      <itemPath>grammar/grammar.h</itemPath>
-      <itemPath>grammar/grammar.y</itemPath>
-      <itemPath>grammar/lex.c</itemPath>
-      <itemPath>grammar/lex.l</itemPath>
-      <itemPath>grammar/vexopc.h</itemPath>
-      <itemPath>grammar/vextypes.h</itemPath>
-    </logicalFolder>
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
@@ -26,6 +17,13 @@
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="f1" displayName="rVex" projectFiles="true">
+        <logicalFolder name="Operands" displayName="Operands" projectFiles="true">
+          <itemPath>rVex/Operands/Cluster.h</itemPath>
+          <itemPath>rVex/Operands/Expression.h</itemPath>
+          <itemPath>rVex/Operands/Number.h</itemPath>
+          <itemPath>rVex/Operands/Opcode.h</itemPath>
+          <itemPath>rVex/Operands/Register.h</itemPath>
+        </logicalFolder>
         <logicalFolder name="f1" displayName="Operations" projectFiles="true">
           <logicalFolder name="f1" displayName="ALU" projectFiles="true">
             <itemPath>rVex/Operations/ALU/ADD.h</itemPath>
@@ -40,13 +38,12 @@
           <itemPath>rVex/Operations/Operations.h</itemPath>
         </logicalFolder>
         <itemPath>rVex/Instruction.h</itemPath>
-        <itemPath>rVex/Syllable.cpp</itemPath>
         <itemPath>rVex/Syllable.h</itemPath>
-        <itemPath>rVex/SyllableALU.cpp</itemPath>
         <itemPath>rVex/SyllableALU.h</itemPath>
         <itemPath>rVex/SyllableCTRL.h</itemPath>
         <itemPath>rVex/SyllableMEM.h</itemPath>
         <itemPath>rVex/SyllableMUL.h</itemPath>
+        <itemPath>rVex/rVex.h</itemPath>
       </logicalFolder>
       <itemPath>pbiw_encoder.h</itemPath>
     </logicalFolder>
@@ -54,10 +51,9 @@
       <itemPath>new_grammar/FlexLexer.h</itemPath>
       <itemPath>new_grammar/driver.cc</itemPath>
       <itemPath>new_grammar/driver.h</itemPath>
-      <itemPath>new_grammar/expression.h</itemPath>
       <itemPath>new_grammar/location.hh</itemPath>
-      <itemPath>new_grammar/parser.cc</itemPath>
-      <itemPath>new_grammar/parser.hh</itemPath>
+      <itemPath>new_grammar/parser.tab.cc</itemPath>
+      <itemPath>new_grammar/parser.tab.hh</itemPath>
       <itemPath>new_grammar/parser.yy</itemPath>
       <itemPath>new_grammar/position.hh</itemPath>
       <itemPath>new_grammar/scanner.cc</itemPath>
@@ -81,7 +77,12 @@
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="f2" displayName="rVex" projectFiles="true">
+        <logicalFolder name="Operands" displayName="Operands" projectFiles="true">
+          <itemPath>rVex/Operands/Expression.cpp</itemPath>
+        </logicalFolder>
         <itemPath>rVex/Instruction.cpp</itemPath>
+        <itemPath>rVex/Syllable.cpp</itemPath>
+        <itemPath>rVex/SyllableALU.cpp</itemPath>
       </logicalFolder>
       <itemPath>pbiw_encoder.cpp</itemPath>
     </logicalFolder>
@@ -104,6 +105,7 @@
   <sourceRootList>
     <Elem>grammar</Elem>
     <Elem>new_grammar</Elem>
+    <Elem>rVex/Operands</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -142,10 +144,18 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -229,10 +239,18 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>

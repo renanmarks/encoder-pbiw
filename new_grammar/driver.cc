@@ -1,5 +1,5 @@
 // $Id: driver.cc 39 2008-08-03 10:07:15Z tb $
-/** \file driver.cc Implementation of the example::Driver class. */
+/** \file driver.cc Implementation of the VexParser::Driver class. */
 
 #include <fstream>
 #include <sstream>
@@ -7,9 +7,9 @@
 #include "driver.h"
 #include "scanner.h"
 
-namespace example {
+namespace VexParser {
 
-Driver::Driver(class CalcContext& _calc)
+Driver::Driver(class VexContext& _calc)
     : trace_scanning(false),
       trace_parsing(false),
       calc(_calc)
@@ -53,4 +53,4 @@ void Driver::error(const std::string& m)
     std::cerr << m << std::endl;
 }
 
-} // namespace example
+} // namespace VexParser

@@ -2,13 +2,17 @@
 /** \file parser.yy Contains the example Bison parser source */
 
 %{ /*** C/C++ Declarations ***/
-
+  
 #include <stdio.h>
 #include <string>
 #include <vector>
 
-#include "expression.h"
-
+#include "vextypes.h"
+#include "../rVex/rVex.h"
+using namespace rVex::Operands;
+  
+enum { LOCAL = 0, GLOBAL = 1 };
+  
 %}
 
 /*** yacc/bison Declarations ***/
@@ -21,7 +25,7 @@
 %debug
 
 /* start symbol is named "start" */
-%start start
+%start asm_file
 
 /* write out a header file containing the token defines */
 %defines
@@ -30,7 +34,7 @@
 %skeleton "lalr1.cc"
 
 /* namespace to enclose parser in */
-%name-prefix="example"
+%name-prefix="VexParser"
 
 /* set the parser's class identifier */
 %define "parser_class_name" "Parser"
@@ -54,24 +58,110 @@
  /*** BEGIN EXAMPLE - Change the example grammar's tokens below ***/
 
 %union {
-    int  			integerVal;
-    double 			doubleVal;
-    std::string*		stringVal;
-    class CalcNode*		calcnode;
+   int                  value;
+   std::string*         text;
+   struct VexOpcode*    opcode;
+   struct VexFunction*  function;
+   class Expression*    expression;
 }
 
 %token			END	     0	"end of file"
-%token			EOL		"end of line"
-%token <integerVal> 	INTEGER		"integer"
-%token <doubleVal> 	DOUBLE		"double"
-%token <stringVal> 	STRING		"string"
 
-%type <calcnode>	constant variable
-%type <calcnode>	atomexpr powexpr unaryexpr mulexpr addexpr expr
+%token            _ALIGN
+%token            _ASCII
+%token            _BSS
+%token <opcode>   _CALL_JMP
+%token            _COMMENT
+%token            _COMMON
+%token            _DATA
+%token            _DATA1
+%token            _DATA2
+%token            _DATA4
+%token            _ENDP
+%token            _ENTRY
+%token            _EQU
+%token            _IMPORT
+%token            _PROC
+%token            _REAL4
+%token            _REAL8
+%token            _RETURN
+%token            _RTA
+%token            _SECTION
+%token            _SKIP
+%token            _SVERSION
+%token            _TEXT
+%token            _TRACE
+%token            _TYPE
 
-%destructor { delete $$; } STRING
-%destructor { delete $$; } constant variable
-%destructor { delete $$; } atomexpr powexpr unaryexpr mulexpr addexpr expr
+%token            __PLUS
+%token            __MINUS
+%token            __NOT
+%token            __COMMA
+%token            __COLON
+%token            __SEMICOLON
+%token            __LPAREN
+%token            __RPAREN
+%token            __LBRACKET
+%token            __RBRACKET
+%token            __EQUAL
+%token            __AT
+
+%token <text>     CLUST
+%token <text>     NAME
+%token <value>    NUMBER
+%token <opcode>   OPCODE
+%token <opcode>   XNOP
+%token <text>     QUOTE_STRING
+%token <text>     REGNAME
+
+%type   <text>    call_jmp_tgt
+%type   <text>    name
+%type   <text>    arg
+%type   <text>    ret
+
+%type   <value>   data_size
+%type   <value>   scope
+%type   <value>   .dup
+
+%type   <expression>   data_val
+%type   <expression>   expr
+
+%type   <function>     entry_dir
+
+%left __PLUS __MINUS 
+%left USIGN
+
+%left INIT
+%left _SKIP
+
+%left ARGS
+%left CLUST
+
+/* dummy tokens, used outside yacc */
+%token            BLOCK
+%token            BUNDLE
+%token            EQU
+%token            LABEL
+
+
+%destructor { delete $$; } CLUST 
+%destructor { delete $$; } NAME 
+//%destructor { delete $$; } NUMBER 
+%destructor { delete $$; } OPCODE 
+%destructor { delete $$; } XNOP 
+%destructor { delete $$; } QUOTE_STRING 
+%destructor { delete $$; } _CALL_JMP
+
+%destructor { delete $$; } call_jmp_tgt
+%destructor { delete $$; } name
+%destructor { delete $$; } arg
+%destructor { delete $$; } ret
+//%destructor { delete $$; } data_size
+//%destructor { delete $$; } scope
+//%destructor { delete $$; } .dup
+%destructor { delete $$; } data_val
+%destructor { delete $$; } expr
+%destructor { delete $$; } entry_dir
 
  /*** END EXAMPLE - Change the example grammar's tokens above ***/
 
@@ -92,131 +182,316 @@
 
  /*** BEGIN EXAMPLE - Change the example grammar rules below ***/
 
-constant : INTEGER
-           {
-	       $$ = new CNConstant($1);
-	   }
-         | DOUBLE
-           {
-	       $$ = new CNConstant($1);
-	   }
+/********************************************************************************
+ **     File structure
+ ********************************************************************************/
 
-variable : STRING
-           {
-	       if (!driver.calc.existsVariable(*$1)) {
-		   error(yyloc, std::string("Unknown variable \"") + *$1 + "\"");
-		   delete $1;
-		   YYERROR;
-	       }
-	       else {
-		   $$ = new CNConstant( driver.calc.getVariable(*$1) );
-		   delete $1;
-	       }
-	   }
+asm_file        :       asm_section
+                |       asm_file asm_section 
+                ;
 
-atomexpr : constant
-           {
-	       $$ = $1;
-	   }
-         | variable
-           {
-	       $$ = $1;
-	   }
-         | '(' expr ')'
-           {
-	       $$ = $2;
-	   }
+asm_section     :       _SECTION data_section
+                |       _SECTION bss_section
+                |       _SECTION text_section
+                |       _COMMENT QUOTE_STRING { } // comment
+                |       _SVERSION name
+                |       _RTA NUMBER
+                ;
 
-powexpr	: atomexpr
-          {
-	      $$ = $1;
-	  }
-        | atomexpr '^' powexpr
-          {
-	      $$ = new CNPower($1, $3);
-	  }
+        /*------------------------------------------------------*/
+        /*              data section                            */
+        /*------------------------------------------------------*/
 
-unaryexpr : powexpr
-            {
-		$$ = $1;
-	    }
-          | '+' powexpr
-            {
-		$$ = $2;
-	    }
-          | '-' powexpr
-            {
-		$$ = new CNNegate($2);
-	    }
+data_section    :       _DATA .data_dir_list 
+                ;
 
-mulexpr : unaryexpr
-          {
-	      $$ = $1;
-	  }
-        | mulexpr '*' unaryexpr
-          {
-	      $$ = new CNMultiply($1, $3);
-	  }
-        | mulexpr '/' unaryexpr
-          {
-	      $$ = new CNDivide($1, $3);
-	  }
-        | mulexpr '%' unaryexpr
-          {
-	      $$ = new CNModulo($1, $3);
-	  }
 
-addexpr : mulexpr
-          {
-	      $$ = $1;
-	  }
-        | addexpr '+' mulexpr
-          {
-	      $$ = new CNAdd($1, $3);
-	  }
-        | addexpr '-' mulexpr
-          {
-	      $$ = new CNSubtract($1, $3);
-	  }
+.data_dir_list  :       /* empty */
+                |       data_dir_list
+                ;
 
-expr	: addexpr
-          {
-	      $$ = $1;
-	  }
+data_dir_list   :       data_dir
+                |       data_dir_list data_dir
+                ;
 
-assignment : STRING '=' expr
-             {
-		 driver.calc.variables[*$1] = $3->evaluate();
-		 std::cout << "Setting variable " << *$1
-			   << " = " << driver.calc.variables[*$1] << "\n";
-		 delete $1;
-		 delete $3;
-	     }
 
-start	: /* empty */
-        | start ';'
-        | start EOL
-	| start assignment ';'
-	| start assignment EOL
-	| start assignment END
-        | start expr ';'
-          {
-	      driver.calc.expressions.push_back($2);
-	  }
-        | start expr EOL
-          {
-	      driver.calc.expressions.push_back($2);
-	  }
-        | start expr END
-          {
-	      driver.calc.expressions.push_back($2);
-	  }
+data_dir        :       _ALIGN NUMBER                   { } // data align
+                |       _SKIP NUMBER                    { } // data skip
+                |       name scope                      { } // data item
+                        init_list %prec INIT            { }
+                |       equ_dir                         { }
+                |       common_dir                      { }
+                |       data_global_dir                 { }
+                |       type_dir                        { }
+                ;
+
+init_list       :       init_dir
+                |       init_list init_dir
+                ;
+
+init_dir        :       data_size data_val .dup { } // init: size: INT dup INT
+                |       _SKIP NUMBER { } // init skip
+                |       _ASCII QUOTE_STRING { } // init string
+                ;
+
+data_val        :       expr               { $$ = $1; }
+                |       NUMBER __COMMA NUMBER  {  } // $$ = build_numexp($1);
+
+data_size       :       _DATA1          { $$ = 1; }
+                |       _DATA2          { $$ = 2; }
+                |       _DATA4          { $$ = 4; }
+                |       _REAL4          { $$ = 4; }
+                |       _REAL8          { $$ = 8; }
+                ;
+
+.dup            :       /* empty */     { $$ = 0;  }
+                |       __COLON NUMBER      { $$ = $2; }
+                ;
+
+
+data_global_dir :       _IMPORT name    { } // data import
+                ;
+
+        /*------------------------------------------------------*/
+        /*              bss section                             */
+        /*------------------------------------------------------*/
+
+bss_section     :       _BSS .bss_dir_list
+                ;
+
+.bss_dir_list   :       /* empty */
+                |       bss_dir_list
+                ;
+
+bss_dir_list    :       bss_dir
+                |       bss_dir_list bss_dir
+                ;
+
+bss_dir         :       bss_label_decl
+                |       common_dir
+                |       equ_dir
+                |       _ALIGN NUMBER { } // bss align
+                |       _SKIP NUMBER { } // bss skip
+                ;
+
+bss_label_decl  :       name scope { } // bss item
+                ;
+
+common_dir      :       _COMMON name __COMMA NUMBER __COMMA NUMBER 
+                ;
+
+        /*------------------------------------------------------*/
+        /*              text section                            */
+        /*------------------------------------------------------*/
+
+text_section    :       _TEXT .text_inst_list
+                ;
+
+.text_inst_list :       /* empty */
+                |       text_inst_list
+                ;
+
+text_inst_list  :       text_inst                   
+                |       text_inst_list text_inst
+                ;
+
+text_inst       :       proc_inst     
+                |       equ_dir
+                |       text_global_dir
+                |       type_dir
+                |       label_decl
+                |       _ALIGN NUMBER { }
+                ;
+
+proc_inst       :       proc entry_dir  { } // begin of function
+                        code_list _ENDP { } // end of function
+                |       proc name scope _ENDP { } // empty function
+                |       proc _ENDP
+                ;
+
+proc            :       _PROC { }
+                ;
+
+code_list       :       code_item
+                |       code_list code_item 
+                ;
+
+code_item       :       bundle 
+                |       call_jmp_dir   
+                |       equ_dir        
+                |       label_decl     
+                |       return_dir     
+                |       trace_dir      
+                ;
+
+trace_dir       :       _TRACE NUMBER
+                |       _TRACE NUMBER __COMMA NUMBER 
+                ;
+
+label_decl      :       name scope  { }
+                ;
+
+call_jmp_dir    :       _CALL_JMP call_jmp_tgt __COMMA callc __COMMA { }
+                        arg __LPAREN .arg_list __RPAREN __COMMA            { }
+                        ret __LPAREN .arg_list __RPAREN                { }
+                ;
+
+call_jmp_tgt    :       name          { $$ = $1; }
+                |       REGNAME       { $$ = $1; }
+                |       /* empty */   {  } // $$ = new std::string("(empty)");
+                ;
+
+entry_dir       :       _ENTRY callc __COMMA regloclist __COMMA arg __LPAREN .arg_list __RPAREN name scope { 
+                            $$->str = $10;
+                            $$->scope = $11;
+                        }
+                |       name scope  {
+                            $$->str = $1;
+                            $$->scope = $2;
+                        }
+                ;
+
+callc           :       NAME  { }
+                ;
+
+return_dir      :       _RETURN  ret __LPAREN .arg_list __RPAREN  { }
+                ;
+
+arg             :       NAME  { $$ = $1; }
+                ;
+
+ret             :       NAME  { $$ = $1; }
+                ;
+
+text_global_dir :       _IMPORT name  { }
+                ;
+
+equ_dir         :       _EQU name __COMMA expr { }
+                ;
+
+scope           :       __COLON          { $$ = LOCAL; }
+                |       __COLON __COLON       { $$ = GLOBAL; }
+                ;
+
+type_dir        :       _TYPE name __COMMA __AT NAME
+                ;
+
+/**********************************************************************************
+ **     Pseudo-instruction argument list (call, return, entry)
+ **********************************************************************************/
+
+.arg_list       :       /* empty */
+                |       arg_list 
+                |       stackexp arg_list 
+                ;
+
+stackexp        :       expr __COMMA NUMBER __SEMICOLON  { }
+                ;
+
+arg_list        :       arg_desc              
+                |       arg_list __COMMA arg_desc 
+                ;
+
+arg_desc        :       expr __COLON arg_type               { }
+                |       expr __COLON expr __COLON arg_type      { }
+                |       __COLON expr __COLON arg_type           { }
+                ;
+
+arg_type        :       name            { }
+                |       __LBRACKET NUMBER __RBRACKET  { }
+                ;
+
+regloclist      :       regloc         
+                |       regloclist __COMMA regloc 
+                ;
+
+regloc          :       NAME __EQUAL expr  { }
+                ;
+
+/**********************************************************************************
+ **     BUNDLE structure and MOP opcodes
+ **********************************************************************************/
+
+bundle          :      .mop_list  end_bundle  { }
+                ;
+
+end_bundle      :       __SEMICOLON __SEMICOLON 
+                ;
+
+.mop_list       :       /* empty */   { }
+                |       mop_list     
+                ;
+
+mop_list        :       mop         
+                |       mop_list mop 
+                ;
+
+mop             :       normal_mop  
+                |       xnop_mop
+                |       asm_mop    
+                ;
+
+normal_mop      :       CLUST OPCODE { }
+                        .mop_arglist { }
+                ;
+
+xnop_mop        :       XNOP NUMBER { }
+                ;
+
+asm_mop         :       CLUST OPCODE __COMMA NUMBER { }
+                        .mop_arglist { }
+                ;
+
+/**********************************************************************************
+ **     MOP argument list
+ **********************************************************************************/
+
+.mop_arglist    :       /* empty */   %prec ARGS    
+                |       mop_arglist __EQUAL mop_arglist 
+                |       mop_arglist __EQUAL %prec ARGS 
+                |       mop_arglist 
+                ;
+
+
+mop_arglist     :       mop_arg                   
+                |       mop_arglist __COMMA mop_arg   
+                ;
+
+mop_arg         :       expr { }
+                |       __LBRACKET REGNAME __RBRACKET { }
+                |       expr __LBRACKET REGNAME __RBRACKET { }
+                ;
+
+/**********************************************************************************
+ **     General add/sub arithmetic expression
+ **********************************************************************************/
+
+expr            :       __LPAREN expr __RPAREN          { $$ = $2; }
+                |       expr __PLUS expr         {  } // $$ = build_binexp('+', $1, $3);
+                |       expr __MINUS expr         {  } // $$ = build_binexp('-', $1, $3);
+                |       __MINUS expr %prec USIGN  {  } // $$ = build_unexp('-', $2);
+                |       __PLUS expr %prec USIGN  {  } // $$ = build_unexp('+', $2);
+                |       __NOT expr %prec USIGN  {  } // $$ = build_unexp('~', $2);
+                |       name                  {  } // $$ = build_strexp($1);
+                |       REGNAME               {  } // $$ = build_strexp($1);
+                |       NUMBER                {  } // $$ = build_numexp($1);
+                ;
+
+/**********************************************************************************
+ **     Generic name (could be NAME or OPCODE)
+ **********************************************************************************/
+name            :       NAME                  { $$ = $1; }
+                |       OPCODE                { $$ = new std::string($1->as_op); }
+                |       CLUST                 { $$ = $1; }
+                ;
+/**********************************************************************************/
+/**********************************************************************************/
 
  /*** END EXAMPLE - Change the example grammar rules above ***/
 
 %% /*** Additional Code ***/
 
-void example::Parser::error(const Parser::location_type& l,
+void VexParser::Parser::error(const Parser::location_type& l,
 			    const std::string& m)
 {
     driver.error(l, m);

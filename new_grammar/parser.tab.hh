@@ -47,7 +47,7 @@
 /* Line 35 of lalr1.cc  */
 #line 1 "[Bison:b4_percent_define_default]"
 
-namespace example {
+namespace VexParser {
 
 /* Line 35 of lalr1.cc  */
 #line 54 "parser.tab.hh"
@@ -57,7 +57,7 @@ namespace example {
 /* Line 35 of lalr1.cc  */
 #line 1 "[Bison:b4_percent_define_default]"
 
-} // example
+} // VexParser
 
 /* Line 35 of lalr1.cc  */
 #line 64 "parser.tab.hh"
@@ -105,7 +105,7 @@ do {							\
 /* Line 35 of lalr1.cc  */
 #line 1 "[Bison:b4_percent_define_default]"
 
-namespace example {
+namespace VexParser {
 
 /* Line 35 of lalr1.cc  */
 #line 112 "parser.tab.hh"
@@ -120,17 +120,18 @@ namespace example {
     {
 
 /* Line 35 of lalr1.cc  */
-#line 56 "parser.yy"
+#line 60 "parser.yy"
 
-    int  			integerVal;
-    double 			doubleVal;
-    std::string*		stringVal;
-    class CalcNode*		calcnode;
+   int                  value;
+   std::string*         text;
+   struct VexOpcode*    opcode;
+   struct VexFunction*  function;
+   class Expression*    expression;
 
 
 
 /* Line 35 of lalr1.cc  */
-#line 134 "parser.tab.hh"
+#line 135 "parser.tab.hh"
     };
 #else
     typedef YYSTYPE semantic_type;
@@ -143,10 +144,57 @@ namespace example {
       /* Tokens.  */
    enum yytokentype {
      END = 0,
-     EOL = 258,
-     INTEGER = 259,
-     DOUBLE = 260,
-     STRING = 261
+     _ALIGN = 258,
+     _ASCII = 259,
+     _BSS = 260,
+     _CALL_JMP = 261,
+     _COMMENT = 262,
+     _COMMON = 263,
+     _DATA = 264,
+     _DATA1 = 265,
+     _DATA2 = 266,
+     _DATA4 = 267,
+     _ENDP = 268,
+     _ENTRY = 269,
+     _EQU = 270,
+     _IMPORT = 271,
+     _PROC = 272,
+     _REAL4 = 273,
+     _REAL8 = 274,
+     _RETURN = 275,
+     _RTA = 276,
+     _SECTION = 277,
+     _SKIP = 278,
+     _SVERSION = 279,
+     _TEXT = 280,
+     _TRACE = 281,
+     _TYPE = 282,
+     __PLUS = 283,
+     __MINUS = 284,
+     __NOT = 285,
+     __COMMA = 286,
+     __COLON = 287,
+     __SEMICOLON = 288,
+     __LPAREN = 289,
+     __RPAREN = 290,
+     __LBRACKET = 291,
+     __RBRACKET = 292,
+     __EQUAL = 293,
+     __AT = 294,
+     CLUST = 295,
+     NAME = 296,
+     NUMBER = 297,
+     OPCODE = 298,
+     XNOP = 299,
+     QUOTE_STRING = 300,
+     REGNAME = 301,
+     USIGN = 302,
+     INIT = 303,
+     ARGS = 304,
+     BLOCK = 305,
+     BUNDLE = 306,
+     EQU = 307,
+     LABEL = 308
    };
 
     };
@@ -224,26 +272,26 @@ namespace example {
     typedef unsigned char token_number_type;
     /* Tables.  */
     /// For a state, the index in \a yytable_ of its portion.
-    static const signed char yypact_[];
-    static const signed char yypact_ninf_;
+    static const short int yypact_[];
+    static const short int yypact_ninf_;
 
     /// For a state, default rule to reduce.
     /// Unless\a  yytable_ specifies something else to do.
     /// Zero means the default is an error.
     static const unsigned char yydefact_[];
 
-    static const signed char yypgoto_[];
-    static const signed char yydefgoto_[];
+    static const short int yypgoto_[];
+    static const short int yydefgoto_[];
 
     /// What to do in a state.
     /// \a yytable_[yypact_[s]]: what to do in state \a s.
     /// - if positive, shift that token.
     /// - if negative, reduce the rule which number is the opposite.
     /// - if zero, do what YYDEFACT says.
-    static const unsigned char yytable_[];
+    static const short int yytable_[];
     static const signed char yytable_ninf_;
 
-    static const unsigned char yycheck_[];
+    static const short int yycheck_[];
 
     /// For a state, its accessing symbol.
     static const unsigned char yystos_[];
@@ -269,9 +317,9 @@ namespace example {
     /// A `-1'-separated list of the rules' RHS.
     static const rhs_number_type yyrhs_[];
     /// For each rule, the index of the first RHS symbol in \a yyrhs_.
-    static const unsigned char yyprhs_[];
+    static const unsigned short int yyprhs_[];
     /// For each rule, its source line number.
-    static const unsigned char yyrline_[];
+    static const unsigned short int yyrline_[];
     /// For each scanner token number, its symbol number.
     static const unsigned short int yytoken_number_[];
     /// Report on the debug stream that the rule \a r is going to be reduced.
@@ -320,10 +368,10 @@ namespace example {
 /* Line 35 of lalr1.cc  */
 #line 1 "[Bison:b4_percent_define_default]"
 
-} // example
+} // VexParser
 
 /* Line 35 of lalr1.cc  */
-#line 327 "parser.tab.hh"
+#line 375 "parser.tab.hh"
 
 
 
