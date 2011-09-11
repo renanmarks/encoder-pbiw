@@ -8,15 +8,38 @@
 #ifndef ASMCONTEXT_H
 #define	ASMCONTEXT_H
 
-class VexContext
+#include <string>
+#include <vector>
+#include <list>
+#include "../rVex/rVex.h"
+
+namespace VexParser
 {
-public:
-  VexContext( );
-  VexContext( const VexContext& orig );
-  virtual ~VexContext( );
-private:
 
-};
+  class VexContext
+  {
+  public:
+//    VexContext( );
+//    VexContext( const VexContext& orig );
+//    virtual ~VexContext( );
+    
+    void newInstruction();
+    void packSyllable(rVex::Syllable&);
+    void endInstruction();
+    
+    rVex::Instruction getInstruction(unsigned int);
+  private:
+    typedef std::vector<rVex::Syllable*> SyllableBufferVector;
+    SyllableBufferVector syllableBuffer;
+    
+    typedef std::list<rVex::Syllable*> SyllableList;
+    SyllableList syllables;
+    SyllableList::iterator startSyllable;
+    
+    typedef std::list<rVex::Instruction> InstructionList;
+    InstructionList instructions;
+  };
 
+}
 #endif	/* ASMCONTEXT_H */
 

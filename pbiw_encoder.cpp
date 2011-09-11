@@ -16,7 +16,7 @@ using namespace std;
 int
 main( int argc, char** argv )
 {
-  VexContext context;
+  VexParser::VexContext context;
   VexParser::Driver driver(context);
   bool result = false;
   

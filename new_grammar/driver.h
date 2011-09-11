@@ -7,13 +7,13 @@
 #include <string>
 #include <vector>
 
-// forward declaration
-class VexContext;
-
 /** The VexParser namespace is used to encapsulate the three parser classes
  * VexParser::Parser, VexParser::Scanner and VexParser::Driver */
 namespace VexParser {
 
+// forward declaration
+class VexContext;
+  
 /** The Driver class brings together all components. It creates an instance of
  * the Parser and Scanner classes and connects them. Then the input stream is
  * fed into the scanner object and the parser gets it's token

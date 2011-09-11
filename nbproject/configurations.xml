@@ -97,6 +97,7 @@
                    projectFiles="false"
                    kind="TEST_LOGICAL_FOLDER">
       <logicalFolder name="f1" displayName="Test" projectFiles="true" kind="TEST">
+        <itemPath>tests/VexContextTest.cpp</itemPath>
         <itemPath>tests/rVexInstructionTest.cpp</itemPath>
         <itemPath>tests/rVexSyllableTest.cpp</itemPath>
       </logicalFolder>
@@ -109,9 +110,9 @@
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
-    <Elem>grammar</Elem>
-    <Elem>new_grammar</Elem>
-    <Elem>rVex/Operands</Elem>
+    <Elem>/home/helix/NetBeansProjects/pbiw_encoder/grammar</Elem>
+    <Elem>/home/helix/NetBeansProjects/pbiw_encoder/new_grammar</Elem>
+    <Elem>/home/helix/NetBeansProjects/pbiw_encoder/rVex/Operands</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -124,12 +125,14 @@
         <cTool>
           <incDir>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </incDir>
         </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
         <linkerTool>
-          <output>${TESTDIR}/TestFiles/f4</output>
           <linkerAddLib>
             <pElem>/usr/local/lib/gtest</pElem>
           </linkerAddLib>
@@ -143,32 +146,10 @@
           <incDir>
             <pElem>.</pElem>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
@@ -202,6 +183,7 @@
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
+          <stripSymbols>true</stripSymbols>
           <incDir>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -214,17 +196,6 @@
         <asmTool>
           <developmentMode>5</developmentMode>
         </asmTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f4</output>
-          <linkerAddLib>
-            <pElem>gtest/lib</pElem>
-          </linkerAddLib>
-          <linkerLibItems>
-            <linkerLibFileItem>gtest/lib/libgtest.so</linkerLibFileItem>
-            <linkerLibFileItem>gtest/lib/libgtest_dll.so</linkerLibFileItem>
-            <linkerLibFileItem>gtest/lib/libgtest_main.so</linkerLibFileItem>
-          </linkerLibItems>
-        </linkerTool>
       </compileType>
       <folder path="TestFiles">
         <linkerTool>
@@ -238,32 +209,10 @@
           <incDir>
             <pElem>.</pElem>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
