@@ -23,7 +23,7 @@ namespace rVex
       /**
        * The execution type of syllable*/
       typedef enum { 
-        ALU = 1, MUL, MEM, CTRL 
+        ALU = 1, MUL, MEM, CTRL
       } Type;
 
       /**

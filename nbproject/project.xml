@@ -13,6 +13,7 @@
                 <sourceRootElem>/home/helix/NetBeansProjects/pbiw_encoder/grammar</sourceRootElem>
                 <sourceRootElem>/home/helix/NetBeansProjects/pbiw_encoder/new_grammar</sourceRootElem>
                 <sourceRootElem>/home/helix/NetBeansProjects/pbiw_encoder/rVex/Operands</sourceRootElem>
+                <sourceRootElem>rVex/Operations</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>

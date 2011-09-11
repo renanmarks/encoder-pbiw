@@ -35,14 +35,15 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/new_grammar/parser.tab.o \
-	${OBJECTDIR}/new_grammar/VexContext.o \
 	${OBJECTDIR}/rVex64PBIWInstruction.o \
+	${OBJECTDIR}/new_grammar/VexContext.o \
 	${OBJECTDIR}/new_grammar/scanner.o \
 	${OBJECTDIR}/pbiw_encoder.o \
 	${OBJECTDIR}/new_grammar/Expressions/Expression.o \
 	${OBJECTDIR}/new_grammar/driver.o \
 	${OBJECTDIR}/rVex/Instruction.o \
 	${OBJECTDIR}/rVex/SyllableALU.o \
+	${OBJECTDIR}/rVex/SyllableMUL.o \
 	${OBJECTDIR}/rVex96PBIWPattern.o \
 	${OBJECTDIR}/rVex/Syllable.o \
 	${OBJECTDIR}/PBIW.o \
@@ -84,15 +85,15 @@ ${OBJECTDIR}/new_grammar/parser.tab.o: new_grammar/parser.tab.cc
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -s -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/new_grammar/parser.tab.o new_grammar/parser.tab.cc
 
-${OBJECTDIR}/new_grammar/VexContext.o: new_grammar/VexContext.cpp 
-	${MKDIR} -p ${OBJECTDIR}/new_grammar
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -s -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/new_grammar/VexContext.o new_grammar/VexContext.cpp
-
 ${OBJECTDIR}/rVex64PBIWInstruction.o: rVex64PBIWInstruction.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -s -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/rVex64PBIWInstruction.o rVex64PBIWInstruction.cpp
+
+${OBJECTDIR}/new_grammar/VexContext.o: new_grammar/VexContext.cpp 
+	${MKDIR} -p ${OBJECTDIR}/new_grammar
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -s -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/new_grammar/VexContext.o new_grammar/VexContext.cpp
 
 ${OBJECTDIR}/new_grammar/scanner.o: new_grammar/scanner.cc 
 	${MKDIR} -p ${OBJECTDIR}/new_grammar
@@ -124,6 +125,11 @@ ${OBJECTDIR}/rVex/SyllableALU.o: rVex/SyllableALU.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -s -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/rVex/SyllableALU.o rVex/SyllableALU.cpp
 
+${OBJECTDIR}/rVex/SyllableMUL.o: rVex/SyllableMUL.cpp 
+	${MKDIR} -p ${OBJECTDIR}/rVex
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -s -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/rVex/SyllableMUL.o rVex/SyllableMUL.cpp
+
 ${OBJECTDIR}/rVex96PBIWPattern.o: rVex96PBIWPattern.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
@@ -149,7 +155,7 @@ ${OBJECTDIR}/rVex/Operands/Expression.o: rVex/Operands/Expression.cpp
 
 # Build Test Targets
 .build-tests-conf: .build-conf ${TESTFILES}
-${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/VexContextTest.o ${TESTDIR}/tests/rVexInstructionTest.o ${TESTDIR}/tests/rVexSyllableTest.o ${OBJECTFILES:%.o=%_nomain.o}
+${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/VexContextTest.o ${TESTDIR}/tests/rVexInstrucionMulTest.o ${TESTDIR}/tests/rVexInstructionTest.o ${TESTDIR}/tests/rVexSyllableMulTest.o ${TESTDIR}/tests/rVexSyllableTest.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc}   -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS} -lgtest 
 
@@ -157,19 +163,31 @@ ${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/VexContextTest.o ${TESTDIR}/tests/rVex
 ${TESTDIR}/tests/VexContextTest.o: tests/VexContextTest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -s -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/VexContextTest.o tests/VexContextTest.cpp
+	$(COMPILE.cc) -O2 -s -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/VexContextTest.o tests/VexContextTest.cpp
+
+
+${TESTDIR}/tests/rVexInstrucionMulTest.o: tests/rVexInstrucionMulTest.cpp 
+	${MKDIR} -p ${TESTDIR}/tests
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -s -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/rVexInstrucionMulTest.o tests/rVexInstrucionMulTest.cpp
 
 
 ${TESTDIR}/tests/rVexInstructionTest.o: tests/rVexInstructionTest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -s -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/rVexInstructionTest.o tests/rVexInstructionTest.cpp
+	$(COMPILE.cc) -O2 -s -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/rVexInstructionTest.o tests/rVexInstructionTest.cpp
+
+
+${TESTDIR}/tests/rVexSyllableMulTest.o: tests/rVexSyllableMulTest.cpp 
+	${MKDIR} -p ${TESTDIR}/tests
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -s -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/rVexSyllableMulTest.o tests/rVexSyllableMulTest.cpp
 
 
 ${TESTDIR}/tests/rVexSyllableTest.o: tests/rVexSyllableTest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -s -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/rVexSyllableTest.o tests/rVexSyllableTest.cpp
+	$(COMPILE.cc) -O2 -s -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/rVexSyllableTest.o tests/rVexSyllableTest.cpp
 
 
 ${OBJECTDIR}/new_grammar/parser.tab_nomain.o: ${OBJECTDIR}/new_grammar/parser.tab.o new_grammar/parser.tab.cc 
@@ -185,19 +203,6 @@ ${OBJECTDIR}/new_grammar/parser.tab_nomain.o: ${OBJECTDIR}/new_grammar/parser.ta
 	    ${CP} ${OBJECTDIR}/new_grammar/parser.tab.o ${OBJECTDIR}/new_grammar/parser.tab_nomain.o;\
 	fi
 
-${OBJECTDIR}/new_grammar/VexContext_nomain.o: ${OBJECTDIR}/new_grammar/VexContext.o new_grammar/VexContext.cpp 
-	${MKDIR} -p ${OBJECTDIR}/new_grammar
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/new_grammar/VexContext.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} $@.d;\
-	    $(COMPILE.cc) -O2 -s -I. -I. -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/new_grammar/VexContext_nomain.o new_grammar/VexContext.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/new_grammar/VexContext.o ${OBJECTDIR}/new_grammar/VexContext_nomain.o;\
-	fi
-
 ${OBJECTDIR}/rVex64PBIWInstruction_nomain.o: ${OBJECTDIR}/rVex64PBIWInstruction.o rVex64PBIWInstruction.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	@NMOUTPUT=`${NM} ${OBJECTDIR}/rVex64PBIWInstruction.o`; \
@@ -209,6 +214,19 @@ ${OBJECTDIR}/rVex64PBIWInstruction_nomain.o: ${OBJECTDIR}/rVex64PBIWInstruction.
 	    $(COMPILE.cc) -O2 -s -I. -I. -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/rVex64PBIWInstruction_nomain.o rVex64PBIWInstruction.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/rVex64PBIWInstruction.o ${OBJECTDIR}/rVex64PBIWInstruction_nomain.o;\
+	fi
+
+${OBJECTDIR}/new_grammar/VexContext_nomain.o: ${OBJECTDIR}/new_grammar/VexContext.o new_grammar/VexContext.cpp 
+	${MKDIR} -p ${OBJECTDIR}/new_grammar
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/new_grammar/VexContext.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -O2 -s -I. -I. -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/new_grammar/VexContext_nomain.o new_grammar/VexContext.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/new_grammar/VexContext.o ${OBJECTDIR}/new_grammar/VexContext_nomain.o;\
 	fi
 
 ${OBJECTDIR}/new_grammar/scanner_nomain.o: ${OBJECTDIR}/new_grammar/scanner.o new_grammar/scanner.cc 
@@ -287,6 +305,19 @@ ${OBJECTDIR}/rVex/SyllableALU_nomain.o: ${OBJECTDIR}/rVex/SyllableALU.o rVex/Syl
 	    $(COMPILE.cc) -O2 -s -I. -I. -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/rVex/SyllableALU_nomain.o rVex/SyllableALU.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/rVex/SyllableALU.o ${OBJECTDIR}/rVex/SyllableALU_nomain.o;\
+	fi
+
+${OBJECTDIR}/rVex/SyllableMUL_nomain.o: ${OBJECTDIR}/rVex/SyllableMUL.o rVex/SyllableMUL.cpp 
+	${MKDIR} -p ${OBJECTDIR}/rVex
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/rVex/SyllableMUL.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -O2 -s -I. -I. -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/rVex/SyllableMUL_nomain.o rVex/SyllableMUL.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/rVex/SyllableMUL.o ${OBJECTDIR}/rVex/SyllableMUL_nomain.o;\
 	fi
 
 ${OBJECTDIR}/rVex96PBIWPattern_nomain.o: ${OBJECTDIR}/rVex96PBIWPattern.o rVex96PBIWPattern.cpp 

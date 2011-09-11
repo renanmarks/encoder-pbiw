@@ -18,7 +18,7 @@ namespace rVex
   class SyllableCTRL : public Syllable
   {
     public:
-      virtual ~SyllableCTRL() { };
+      virtual ~SyllableCTRL() { }
       
       virtual bool operator==(const Syllable& other) const;
       virtual bool operator!=(const Syllable& other) const;

@@ -25,15 +25,90 @@
           <itemPath>rVex/Operands/Register.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f1" displayName="Operations" projectFiles="true">
-          <logicalFolder name="f1" displayName="ALU" projectFiles="true">
+          <logicalFolder name="ALU" displayName="ALU" projectFiles="true">
             <itemPath>rVex/Operations/ALU/ADD.h</itemPath>
+            <itemPath>rVex/Operations/ALU/ADDCG.h</itemPath>
             <itemPath>rVex/Operations/ALU/AND.h</itemPath>
+            <itemPath>rVex/Operations/ALU/ANDC.h</itemPath>
+            <itemPath>rVex/Operations/ALU/ANDL.h</itemPath>
+            <itemPath>rVex/Operations/ALU/CMPEQ.h</itemPath>
+            <itemPath>rVex/Operations/ALU/CMPGE.h</itemPath>
+            <itemPath>rVex/Operations/ALU/CMPGEU.h</itemPath>
+            <itemPath>rVex/Operations/ALU/CMPGT.h</itemPath>
+            <itemPath>rVex/Operations/ALU/CMPGTU.h</itemPath>
+            <itemPath>rVex/Operations/ALU/CMPLE.h</itemPath>
+            <itemPath>rVex/Operations/ALU/CMPLEU.h</itemPath>
+            <itemPath>rVex/Operations/ALU/CMPLT.h</itemPath>
+            <itemPath>rVex/Operations/ALU/CMPLTU.h</itemPath>
+            <itemPath>rVex/Operations/ALU/CMPNE.h</itemPath>
+            <itemPath>rVex/Operations/ALU/DIVS.h</itemPath>
+            <itemPath>rVex/Operations/ALU/MAX.h</itemPath>
+            <itemPath>rVex/Operations/ALU/MAXU.h</itemPath>
+            <itemPath>rVex/Operations/ALU/MIN.h</itemPath>
+            <itemPath>rVex/Operations/ALU/MINU.h</itemPath>
+            <itemPath>rVex/Operations/ALU/MOV.h</itemPath>
+            <itemPath>rVex/Operations/ALU/MTB.h</itemPath>
+            <itemPath>rVex/Operations/ALU/NANDL.h</itemPath>
+            <itemPath>rVex/Operations/ALU/NORL.h</itemPath>
+            <itemPath>rVex/Operations/ALU/OR.h</itemPath>
+            <itemPath>rVex/Operations/ALU/ORC.h</itemPath>
+            <itemPath>rVex/Operations/ALU/ORL.h</itemPath>
+            <itemPath>rVex/Operations/ALU/SH1ADD.h</itemPath>
+            <itemPath>rVex/Operations/ALU/SH2ADD.h</itemPath>
+            <itemPath>rVex/Operations/ALU/SH3ADD.h</itemPath>
+            <itemPath>rVex/Operations/ALU/SH4ADD.h</itemPath>
+            <itemPath>rVex/Operations/ALU/SHL.h</itemPath>
+            <itemPath>rVex/Operations/ALU/SHR.h</itemPath>
+            <itemPath>rVex/Operations/ALU/SHRU.h</itemPath>
+            <itemPath>rVex/Operations/ALU/SLCT.h</itemPath>
+            <itemPath>rVex/Operations/ALU/SLCTF.h</itemPath>
+            <itemPath>rVex/Operations/ALU/SUB.h</itemPath>
+            <itemPath>rVex/Operations/ALU/SXTB.h</itemPath>
+            <itemPath>rVex/Operations/ALU/SXTH.h</itemPath>
+            <itemPath>rVex/Operations/ALU/XOR.h</itemPath>
+            <itemPath>rVex/Operations/ALU/ZXTB.h</itemPath>
+            <itemPath>rVex/Operations/ALU/ZXTH.h</itemPath>
           </logicalFolder>
-          <logicalFolder name="f3" displayName="CTRL" projectFiles="true">
+          <logicalFolder name="CTRL" displayName="CTRL" projectFiles="true">
+            <itemPath>rVex/Operations/CTRL/BR.h</itemPath>
+            <itemPath>rVex/Operations/CTRL/BRF.h</itemPath>
+            <itemPath>rVex/Operations/CTRL/CALL.h</itemPath>
+            <itemPath>rVex/Operations/CTRL/GOTO.h</itemPath>
+            <itemPath>rVex/Operations/CTRL/ICALL.h</itemPath>
+            <itemPath>rVex/Operations/CTRL/IGOTO.h</itemPath>
+            <itemPath>rVex/Operations/CTRL/RETURN.h</itemPath>
+            <itemPath>rVex/Operations/CTRL/RFI.h</itemPath>
+            <itemPath>rVex/Operations/CTRL/XNOP.h</itemPath>
           </logicalFolder>
-          <logicalFolder name="f2" displayName="MEM" projectFiles="true">
+          <logicalFolder name="MEM" displayName="MEM" projectFiles="true">
+            <itemPath>rVex/Operations/MEM/LDB.h</itemPath>
+            <itemPath>rVex/Operations/MEM/LDBU.h</itemPath>
+            <itemPath>rVex/Operations/MEM/LDH.h</itemPath>
+            <itemPath>rVex/Operations/MEM/LDHU.h</itemPath>
+            <itemPath>rVex/Operations/MEM/LDW.h</itemPath>
+            <itemPath>rVex/Operations/MEM/PFT.h</itemPath>
+            <itemPath>rVex/Operations/MEM/STB.h</itemPath>
+            <itemPath>rVex/Operations/MEM/STH.h</itemPath>
+            <itemPath>rVex/Operations/MEM/STW.h</itemPath>
           </logicalFolder>
-          <logicalFolder name="f4" displayName="MUL" projectFiles="true">
+          <logicalFolder name="MISC" displayName="MISC" projectFiles="true">
+            <itemPath>rVex/Operations/MISC/NOP.h</itemPath>
+            <itemPath>rVex/Operations/MISC/RECV.h</itemPath>
+            <itemPath>rVex/Operations/MISC/SEND.h</itemPath>
+            <itemPath>rVex/Operations/MISC/STOP.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="MUL" displayName="MUL" projectFiles="true">
+            <itemPath>rVex/Operations/MUL/MPYH.h</itemPath>
+            <itemPath>rVex/Operations/MUL/MPYHH.h</itemPath>
+            <itemPath>rVex/Operations/MUL/MPYHHU.h</itemPath>
+            <itemPath>rVex/Operations/MUL/MPYHS.h</itemPath>
+            <itemPath>rVex/Operations/MUL/MPYHU.h</itemPath>
+            <itemPath>rVex/Operations/MUL/MPYL.h</itemPath>
+            <itemPath>rVex/Operations/MUL/MPYLH.h</itemPath>
+            <itemPath>rVex/Operations/MUL/MPYLHU.h</itemPath>
+            <itemPath>rVex/Operations/MUL/MPYLL.h</itemPath>
+            <itemPath>rVex/Operations/MUL/MPYLLU.h</itemPath>
+            <itemPath>rVex/Operations/MUL/MPYLU.h</itemPath>
           </logicalFolder>
           <itemPath>rVex/Operations/Operations.h</itemPath>
         </logicalFolder>
@@ -42,6 +117,7 @@
         <itemPath>rVex/SyllableALU.h</itemPath>
         <itemPath>rVex/SyllableCTRL.h</itemPath>
         <itemPath>rVex/SyllableMEM.h</itemPath>
+        <itemPath>rVex/SyllableMISC.h</itemPath>
         <itemPath>rVex/SyllableMUL.h</itemPath>
         <itemPath>rVex/rVex.h</itemPath>
       </logicalFolder>
@@ -89,6 +165,7 @@
         <itemPath>rVex/Instruction.cpp</itemPath>
         <itemPath>rVex/Syllable.cpp</itemPath>
         <itemPath>rVex/SyllableALU.cpp</itemPath>
+        <itemPath>rVex/SyllableMUL.cpp</itemPath>
       </logicalFolder>
       <itemPath>pbiw_encoder.cpp</itemPath>
     </logicalFolder>
@@ -98,7 +175,9 @@
                    kind="TEST_LOGICAL_FOLDER">
       <logicalFolder name="f1" displayName="Test" projectFiles="true" kind="TEST">
         <itemPath>tests/VexContextTest.cpp</itemPath>
+        <itemPath>tests/rVexInstrucionMulTest.cpp</itemPath>
         <itemPath>tests/rVexInstructionTest.cpp</itemPath>
+        <itemPath>tests/rVexSyllableMulTest.cpp</itemPath>
         <itemPath>tests/rVexSyllableTest.cpp</itemPath>
       </logicalFolder>
     </logicalFolder>
@@ -113,6 +192,7 @@
     <Elem>/home/helix/NetBeansProjects/pbiw_encoder/grammar</Elem>
     <Elem>/home/helix/NetBeansProjects/pbiw_encoder/new_grammar</Elem>
     <Elem>/home/helix/NetBeansProjects/pbiw_encoder/rVex/Operands</Elem>
+    <Elem>rVex/Operations</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -146,10 +226,12 @@
           <incDir>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
@@ -209,10 +291,12 @@
           <incDir>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
