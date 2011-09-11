@@ -16,11 +16,15 @@
 namespace VexParser
 {
 
+  /**
+   * VexContext parser class
+   */
   class VexContext
   {
   public:
-//    VexContext( );
-//    VexContext( const VexContext& orig );
+    /**
+     * All the memory allocated by the syllables are freed.
+     */
     virtual ~VexContext( );
     
     void newInstruction();

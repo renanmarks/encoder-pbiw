@@ -8,7 +8,7 @@
 #ifndef PBIW_H
 #define	PBIW_H
 
-#include "IPBIW.h"
+#include "Interfaces/IPBIW.h"
 
 namespace PBIW
 { 

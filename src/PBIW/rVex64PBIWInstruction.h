@@ -8,7 +8,7 @@
 #ifndef RVEX64PBIWINSTRUCTION_H
 #define	RVEX64PBIWINSTRUCTION_H
 
-#include "IPBIWInstruction.h"
+#include "Interfaces/IPBIWInstruction.h"
 
 namespace PBIW
 {

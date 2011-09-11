@@ -10,14 +10,6 @@
 namespace VexParser
 {
 
-//  VexContext::VexContext( )
-//  {
-//  }
-//
-//  VexContext::VexContext( const VexContext& orig )
-//  {
-//  }
-
   VexContext::~VexContext( )
   {
     if (!syllables.empty())

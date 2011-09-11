@@ -10,11 +10,11 @@
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects/>
             <sourceRootList>
-                <sourceRootElem>/home/helix/NetBeansProjects/pbiw_encoder/grammar</sourceRootElem>
-                <sourceRootElem>/home/helix/NetBeansProjects/pbiw_encoder/new_grammar</sourceRootElem>
-                <sourceRootElem>/home/helix/NetBeansProjects/pbiw_encoder/rVex/Operands</sourceRootElem>
-                <sourceRootElem>/home/helix/NetBeansProjects/pbiw_encoder/rVex/Operations</sourceRootElem>
-                <sourceRootElem>/home/helix/NetBeansProjects/pbiw_encoder/VexParser</sourceRootElem>
+                <sourceRootElem>grammar</sourceRootElem>
+                <sourceRootElem>new_grammar</sourceRootElem>
+                <sourceRootElem>rVex/Operands</sourceRootElem>
+                <sourceRootElem>rVex/Operations</sourceRootElem>
+                <sourceRootElem>VexParser</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>
