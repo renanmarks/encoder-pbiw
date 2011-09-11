@@ -176,13 +176,13 @@
                    projectFiles="false"
                    kind="TEST_LOGICAL_FOLDER">
       <logicalFolder name="f2" displayName="Parser" projectFiles="true" kind="TEST">
-        <itemPath>Tests/Parser/VexContextTest.cpp</itemPath>
+        <itemPath>tests/Parser/VexContextTest.cpp</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="rVex" projectFiles="true" kind="TEST">
-        <itemPath>Tests/rVex/rVexInstrucionMulTest.cpp</itemPath>
-        <itemPath>Tests/rVex/rVexInstructionTest.cpp</itemPath>
-        <itemPath>Tests/rVex/rVexSyllableMulTest.cpp</itemPath>
-        <itemPath>Tests/rVex/rVexSyllableTest.cpp</itemPath>
+        <itemPath>tests/rVex/rVexInstrucionMulTest.cpp</itemPath>
+        <itemPath>tests/rVex/rVexInstructionTest.cpp</itemPath>
+        <itemPath>tests/rVex/rVexSyllableMulTest.cpp</itemPath>
+        <itemPath>tests/rVex/rVexSyllableTest.cpp</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -231,12 +231,10 @@
         <cTool>
           <incDir>
             <pElem>.</pElem>
-            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
         </ccTool>
@@ -248,12 +246,10 @@
         <cTool>
           <incDir>
             <pElem>.</pElem>
-            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
         </ccTool>
@@ -305,12 +301,10 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
-            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
-            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -324,12 +318,10 @@
         <cTool>
           <incDir>
             <pElem>.</pElem>
-            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
         </ccTool>

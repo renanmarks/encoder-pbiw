@@ -21,16 +21,16 @@ namespace VexParser
   public:
 //    VexContext( );
 //    VexContext( const VexContext& orig );
-//    virtual ~VexContext( );
+    virtual ~VexContext( );
     
     void newInstruction();
-    void packSyllable(rVex::Syllable&);
+    void packSyllable(rVex::Syllable*);
     void endInstruction();
     
     rVex::Instruction getInstruction(unsigned int);
   private:
-    typedef std::vector<rVex::Syllable*> SyllableBufferVector;
-    SyllableBufferVector syllableBuffer;
+    typedef std::vector<rVex::Syllable*> SyllableBuffer;
+    SyllableBuffer syllableBuffer;
     
     typedef std::list<rVex::Syllable*> SyllableList;
     SyllableList syllables;

@@ -17,34 +17,36 @@ namespace VexParser
 //  VexContext::VexContext( const VexContext& orig )
 //  {
 //  }
-//
-//  VexContext::~VexContext( )
-//  {
-//    SyllableList::iterator it;
-//    
-//    for (it = syllables.begin();
-//         it != syllables.end();
-//         it++)
-//    {
-//      delete *it;
-//      syllables.erase(it);
-//    }
-//  }
+
+  VexContext::~VexContext( )
+  {
+    if (!syllables.empty())
+    {
+      SyllableList::iterator it;
+      
+      for (it = syllables.begin();
+           it != syllables.end();
+           it++)
+      {
+        delete *it;
+      }
+    }
+  }
   
   void VexContext::newInstruction()
   {
     syllableBuffer.clear();
   }
   
-  void VexContext::packSyllable(rVex::Syllable& syllable)
+  void VexContext::packSyllable(rVex::Syllable* syllable)
   {
-    syllableBuffer.push_back(&syllable);
+    syllableBuffer.push_back(&*syllable);
   }
   
   void VexContext::endInstruction()
   {
     rVex::Instruction instruction;
-    SyllableBufferVector::iterator it;
+    SyllableBuffer::iterator it;
     
     for (it = syllableBuffer.begin();
          it < syllableBuffer.end();
@@ -54,6 +56,7 @@ namespace VexParser
       instruction.addSyllable(**it);
     }
     
+    syllableBuffer.clear();
     instructions.push_back(instruction);
   }
   
