@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "new_grammar/VexContext.h"
+#include "VexParser/VexContext.h"
 #include "rVex/rVex.h"
 
 #include <memory>

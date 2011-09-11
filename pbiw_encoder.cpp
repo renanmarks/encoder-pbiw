@@ -9,8 +9,8 @@
 #include <fstream>
 using namespace std;
 
-#include "new_grammar/driver.h"
-#include "new_grammar/VexContext.h"
+#include "VexParser/driver.h"
+#include "VexParser/VexContext.h"
 #include "pbiw_encoder.h"
 
 int

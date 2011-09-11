@@ -61,7 +61,7 @@ namespace VexParser
   VexContext::getInstruction(unsigned int index)
   {
     InstructionList::iterator it = instructions.begin();
-    int i = 0;
+    unsigned int i = 0;
     
     while (i++ < index)
       it++;
