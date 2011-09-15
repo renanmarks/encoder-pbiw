@@ -12,7 +12,7 @@ namespace VexParser {
 Driver::Driver(class VexContext& _calc)
     : trace_scanning(false),
       trace_parsing(false),
-      calc(_calc)
+      context(_calc)
 {
 }
 

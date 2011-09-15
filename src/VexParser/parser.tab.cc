@@ -944,7 +944,7 @@ namespace VexParser {
 
 /* Line 678 of lalr1.cc  */
 #line 415 "parser.yy"
-    { }
+    {}
     break;
 
   case 110:

@@ -122,15 +122,15 @@ namespace VexParser {
   token_type Scanner::checkReserved(const char *buf, VexParser::Parser::semantic_type* yylval)
   {
       int i;
-      int sizeOperationTable = optab.size();
+      int sizeOperationTable = operationTable.size();
       
       yylval->opcode = NULL;
       
       for (i = 0; i < sizeOperationTable; i++)
       {
-        if (optab[i].as_op == buf)
+        if (operationTable[i].as_op == buf)
         {
-            yylval->opcode = &optab[i];
+            yylval->opcode = &operationTable[i];
             Token(yylval->opcode->tok);
         }
       }

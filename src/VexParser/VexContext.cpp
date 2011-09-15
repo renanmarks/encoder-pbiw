@@ -66,5 +66,18 @@ namespace VexParser
     
     return rVex::Instruction();
   }
+  
+  void
+  VexContext::print(std::ostream& stream)
+  {
+    InstructionList::const_iterator it;
+    
+    for(it = instructions.begin();
+        it != instructions.end();
+        it++)
+    {
+      stream << (*it).print() << std::endl;
+    }
+  }
 
 }

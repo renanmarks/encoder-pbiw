@@ -412,7 +412,7 @@ regloc          :       NAME __EQUAL expr  { }
  **     BUNDLE structure and MOP opcodes
  **********************************************************************************/
 
-bundle          :      .mop_list  end_bundle  { }
+bundle          :      .mop_list  end_bundle {}
                 ;
 
 end_bundle      :       __SEMICOLON __SEMICOLON 

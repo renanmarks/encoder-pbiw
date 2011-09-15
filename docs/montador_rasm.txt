@@ -1,0 +1,14 @@
+Bugs no r-ASM:
+
+- GOTO, BR, BRF: os 6 bits de 22 a 17 devem sempre gerar '0's para não dar problema na hora da execução.
+
+- GOTO:
+01 = imm switch
+- CALL:
+01 = imm switch
+- IGOTO:
+00 = imm switch
+- ICALL:
+00 = imm switch
+
+

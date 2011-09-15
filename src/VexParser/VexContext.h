@@ -30,6 +30,7 @@ namespace VexParser
     void newInstruction();
     void packSyllable(rVex::Syllable*);
     void endInstruction();
+    void print(std::ostream&);
     
     rVex::Instruction getInstruction(unsigned int);
   private:

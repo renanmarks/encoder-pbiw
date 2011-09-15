@@ -26,6 +26,7 @@
 #include <vector>
 
 #include "parser.tab.hh"
+#include "../rVex/Syllable.h"
 
 typedef VexParser::Parser::token token;
 typedef VexParser::Parser::token_type token_type;
@@ -100,8 +101,8 @@ typedef enum {
 	opSHL,
 	opSHR,
 	opSHRU,
-        opSLCT,
-        opSLCTF,
+  opSLCT,
+  opSLCTF,
 	opSTB,
 	opSTH,
 	opSTW,
@@ -129,27 +130,34 @@ typedef enum {
 
 namespace VexParser 
 {
-  struct VexOpcode {
-      std::string as_op;     /* opcode string      */
-      token_type tok;     /* yacc token         */
-      VEX_flags flags; /* flags (e.g. SPEC)  */
-      VEX_tok op;          /* operation type     */
+  template < typename T >
+  struct SyllableConstructor
+  {
+    typedef T value_type;
+    typedef T* pointer;
+
+    pointer operator() ( void ) const {
+      return ( new T () );
+    }
+  };
+  
+  struct VexOpcode 
+  {
+      std::string as_op;              /* opcode string      */
+      token_type tok;                 /* yacc token         */
+      VEX_flags flags;                /* flags (e.g. SPEC)  */
+      VEX_tok op;                     /* operation type     */
   };
 
-  struct VexFunction {
+  struct VexFunction 
+  {
       std::string *str;
       int scope;
   };
 }
-//struct VexExpression {
-//    int val;
-//    char *str;
-//};
 
-//extern FILE *yyout;
-//extern int yydebug;
-//extern int yylineno;
-extern std::vector<VexParser::VexOpcode> optab;
+extern std::vector<VexParser::VexOpcode> operationTable;
+extern std::vector<VexParser::SyllableConstructor> syllableContructorTable;
 
 #endif
 

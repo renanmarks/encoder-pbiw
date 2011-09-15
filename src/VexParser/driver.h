@@ -24,7 +24,7 @@ class Driver
 {
 public:
     /// construct a new parser driver context
-    Driver(class VexContext& calc);
+    Driver(class VexContext& context);
 
     /// enable debug output in the flex scanner
     bool trace_scanning;
@@ -76,7 +76,7 @@ public:
 
     /** Reference to the calculator context filled during parsing of the
      * expressions. */
-    class VexContext& calc;
+    class VexContext& context;
 };
 
 } // namespace VexParser
