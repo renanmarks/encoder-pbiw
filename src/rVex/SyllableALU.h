@@ -21,7 +21,7 @@ namespace rVex
     public:
       SyllableALU();
       SyllableALU(LayoutType, unsigned char, unsigned char, unsigned short);
-      virtual ~SyllableALU() { };
+      virtual ~SyllableALU() { }
       
       virtual void setLayoutType(Syllable::LayoutType);
       virtual LayoutType getLayoutType() const { return layoutType; }

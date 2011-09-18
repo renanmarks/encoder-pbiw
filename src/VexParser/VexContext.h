@@ -11,11 +11,10 @@
 #include <string>
 #include <vector>
 #include <list>
-#include "../rVex/rVex.h"
+#include "../rVex/Instruction.h"
 
 namespace VexParser
 {
-
   /**
    * VexContext parser class
    */

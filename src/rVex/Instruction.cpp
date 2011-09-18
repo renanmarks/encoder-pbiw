@@ -66,7 +66,7 @@ namespace rVex
       else 
         syllableStr = (*it)->print(false, false);
       
-      returnStr.append( syllableStr );
+      returnStr.append( syllableStr ) += ", ";
     }
     
     return returnStr;

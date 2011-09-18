@@ -23,6 +23,17 @@ namespace rVex
           
           unsigned int getOpcode() const { return 0; }
           Type getSyllableType() const { return CTRL; }
+          
+          virtual bool operator==(const Syllable& other) const
+          { return other.getOpcode() == this->getOpcode(); }
+          
+          virtual bool operator!=(const Syllable& other) const
+          { return !(*this == other); }
+          
+          virtual LayoutType getLayoutType() const { return RTYPE; }
+      
+          virtual std::string print(bool first, bool last) const 
+          { return printBinary(0, first, last); }
       };
     }
   }

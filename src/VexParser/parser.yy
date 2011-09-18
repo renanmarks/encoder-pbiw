@@ -58,11 +58,12 @@ enum { LOCAL = 0, GLOBAL = 1 };
  /*** BEGIN EXAMPLE - Change the example grammar's tokens below ***/
 
 %union {
-   int                  value;
-   std::string*         text;
-   struct VexOpcode*    opcode;
-   struct VexFunction*  function;
-   class Expression*    expression;
+   int                        value;
+   std::string*               text;
+   struct VexOpcode*          opcode;
+   struct VexFunction*        function;
+//   struct SyllableArguments*  arguments;
+   class Expression*          expression;
 }
 
 %token			END	     0	"end of file"
@@ -412,14 +413,14 @@ regloc          :       NAME __EQUAL expr  { }
  **     BUNDLE structure and MOP opcodes
  **********************************************************************************/
 
-bundle          :      .mop_list  end_bundle {}
+bundle          :      .mop_list end_bundle { driver.context.endInstruction(); }
                 ;
 
 end_bundle      :       __SEMICOLON __SEMICOLON 
                 ;
 
-.mop_list       :       /* empty */   { }
-                |       mop_list     
+.mop_list       :       /* empty */
+                |       mop_list 
                 ;
 
 mop_list        :       mop         
@@ -431,11 +432,19 @@ mop             :       normal_mop
                 |       asm_mop    
                 ;
 
-normal_mop      :       CLUST OPCODE { }
-                        .mop_arglist { }
+normal_mop      :       CLUST OPCODE 
+                        .mop_arglist 
+{ 
+  rVex::Syllable* syllable = $2->syllableConstructor->create();
+  driver.context.packSyllable( syllable ); 
+}
                 ;
 
-xnop_mop        :       XNOP NUMBER { }
+xnop_mop        :       XNOP NUMBER 
+{ 
+  rVex::Syllable* syllable = $1->syllableConstructor->create();
+  driver.context.packSyllable( syllable ); 
+}
                 ;
 
 asm_mop         :       CLUST OPCODE __COMMA NUMBER { }

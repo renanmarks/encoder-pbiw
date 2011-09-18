@@ -108,8 +108,10 @@ namespace rVex
 
     final |= this->getOpcode();
     final <<= 2;
+    
     final |= Syllable::NO_IMM;
     final <<= 6;
+    
     final |= grDestiny;
 
     readRegVector::const_iterator it;

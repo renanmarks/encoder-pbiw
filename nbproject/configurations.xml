@@ -138,12 +138,11 @@
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="f2" displayName="rVex" projectFiles="true">
-        <logicalFolder name="Operands" displayName="Operands" projectFiles="true">
-          <itemPath>src/rVex/Operands/Expression.cpp</itemPath>
-        </logicalFolder>
         <itemPath>src/rVex/Instruction.cpp</itemPath>
         <itemPath>src/rVex/Syllable.cpp</itemPath>
         <itemPath>src/rVex/SyllableALU.cpp</itemPath>
+        <itemPath>src/rVex/SyllableCTRL.cpp</itemPath>
+        <itemPath>src/rVex/SyllableMEM.cpp</itemPath>
         <itemPath>src/rVex/SyllableMUL.cpp</itemPath>
       </logicalFolder>
       <itemPath>src/pbiw_encoder.cpp</itemPath>
@@ -239,10 +238,12 @@
           <incDir>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
@@ -256,10 +257,12 @@
           <incDir>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
@@ -313,10 +316,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -332,10 +337,12 @@
           <incDir>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>

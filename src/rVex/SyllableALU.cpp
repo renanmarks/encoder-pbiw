@@ -14,7 +14,8 @@ namespace rVex
    : layoutType(RTYPE),
         grDestiny(0), brDestiny(0), shortImmediate(0)
   {
-    
+    readRegisters.push_back(3);
+    readRegisters.push_back(3);
   }
   
   SyllableALU::SyllableALU

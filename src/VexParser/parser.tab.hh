@@ -122,16 +122,17 @@ namespace VexParser {
 /* Line 35 of lalr1.cc  */
 #line 60 "parser.yy"
 
-   int                  value;
-   std::string*         text;
-   struct VexOpcode*    opcode;
-   struct VexFunction*  function;
-   class Expression*    expression;
+   int                        value;
+   std::string*               text;
+   struct VexOpcode*          opcode;
+   struct VexFunction*        function;
+//   struct SyllableArguments*  arguments;
+   class Expression*          expression;
 
 
 
 /* Line 35 of lalr1.cc  */
-#line 135 "parser.tab.hh"
+#line 136 "parser.tab.hh"
     };
 #else
     typedef YYSTYPE semantic_type;
@@ -371,7 +372,7 @@ namespace VexParser {
 } // VexParser
 
 /* Line 35 of lalr1.cc  */
-#line 375 "parser.tab.hh"
+#line 376 "parser.tab.hh"
 
 
 

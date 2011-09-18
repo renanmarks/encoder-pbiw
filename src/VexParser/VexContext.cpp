@@ -5,6 +5,7 @@
  * Created on September 3, 2011, 8:57 PM
  */
 
+#include <ostream>
 #include "VexContext.h"
 
 namespace VexParser

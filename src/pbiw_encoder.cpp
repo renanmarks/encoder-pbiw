@@ -43,5 +43,7 @@ main( int argc, char** argv )
     }
   }
   
+  context.print(std::cout);
+  
   return result ? 0 : 1;
 }

@@ -19,7 +19,7 @@ namespace rVex
       class XNOP : public SyllableCTRL
       {
         public:
-          XNOP() {};
+          XNOP() {}
           
           unsigned int getOpcode() const { return 41; }
           Type getSyllableType() const { return CTRL; }
