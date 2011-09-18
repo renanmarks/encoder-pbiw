@@ -8,10 +8,10 @@
 using namespace std;
   
 #include "scanner.h"
-#include "vextypes.h"
+#include "VexTypes.h"
 
 /* opcode definitions */
-#include "vexopc.h"
+#include "VexOpcodes.h"
 
 /* import the parser's token type into a local typedef */
 typedef VexParser::Parser::token token;

@@ -62,12 +62,28 @@ namespace VexParser
     this->SetValue(nval);
   }
 
+  /**
+   * Memory reference. 
+   * First parameter is the offset, second parameter is register.
+   */
+  Expression::Expression( Expression& s1, std::string s2 )
+  {
+    this->SetString(s2);
+    this->SetValue(s1.GetValue());
+  }
+  
+  /**
+   * Register reference
+   */
   Expression::Expression( std::string string )
   : value( 0 )
   {
     this->SetString(string);
   }
 
+  /**
+   * Integer value
+   */
   Expression::Expression( int value )
   : value( value ), string( "" )
   {
@@ -75,25 +91,25 @@ namespace VexParser
   }
 
   void
-  Expression::print( )
+  Expression::print(std::ostream& ostream )
   {
-    int x=this->GetValue();
-    std::string s=this->GetString();
+    int x = this->GetValue();
+    std::string s = this->GetString();
 
     if (x && s.length())
-      std::cout << "(";
+      ostream << "(";
 
     if (s.length())
     {
-      std::cout << s;
+      ostream << s;
       if (x > 0)
-        std::cout << " + " << x;
+        ostream << " + " << x;
       if (x < 0)
-        std::cout << " - " << -x;
+        ostream << " - " << -x;
     } else
-      std::cout << x;
+      ostream << x;
 
     if (x && s.length())
-      std::cout << ")";
+      ostream << ")";
   }
 }

@@ -17,13 +17,6 @@
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="f1" displayName="rVex" projectFiles="true">
-        <logicalFolder name="Operands" displayName="Operands" projectFiles="true">
-          <itemPath>src/rVex/Operands/Cluster.h</itemPath>
-          <itemPath>src/rVex/Operands/Expression.h</itemPath>
-          <itemPath>src/rVex/Operands/Number.h</itemPath>
-          <itemPath>src/rVex/Operands/Opcode.h</itemPath>
-          <itemPath>src/rVex/Operands/Register.h</itemPath>
-        </logicalFolder>
         <logicalFolder name="f1" displayName="Operations" projectFiles="true">
           <logicalFolder name="ALU" displayName="ALU" projectFiles="true">
             <itemPath>src/rVex/Operations/ALU/ADD.h</itemPath>
@@ -121,6 +114,24 @@
         <itemPath>src/rVex/SyllableMUL.h</itemPath>
         <itemPath>src/rVex/rVex.h</itemPath>
       </logicalFolder>
+      <logicalFolder name="f3" displayName="VexParser" projectFiles="true">
+        <itemPath>src/VexParser/Expressions/Arguments.h</itemPath>
+        <itemPath>src/VexParser/Expressions/Expression.h</itemPath>
+        <itemPath>src/VexParser/FlexLexer.h</itemPath>
+        <itemPath>src/VexParser/Expressions/SyllableArguments.h</itemPath>
+        <itemPath>src/VexParser/VexContext.h</itemPath>
+        <itemPath>src/VexParser/VexOpcodes.h</itemPath>
+        <itemPath>src/VexParser/VexTypes.h</itemPath>
+        <itemPath>src/VexParser/driver.h</itemPath>
+        <itemPath>src/VexParser/location.hh</itemPath>
+        <itemPath>src/VexParser/parser.tab.hh</itemPath>
+        <itemPath>src/VexParser/parser.yy</itemPath>
+        <itemPath>src/VexParser/position.hh</itemPath>
+        <itemPath>src/VexParser/scanner.h</itemPath>
+        <itemPath>src/VexParser/scanner.ll</itemPath>
+        <itemPath>src/VexParser/stack.hh</itemPath>
+        <itemPath>src/VexParser/y.tab.h</itemPath>
+      </logicalFolder>
       <itemPath>src/pbiw_encoder.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -143,32 +154,18 @@
         <itemPath>src/rVex/SyllableALU.cpp</itemPath>
         <itemPath>src/rVex/SyllableCTRL.cpp</itemPath>
         <itemPath>src/rVex/SyllableMEM.cpp</itemPath>
+        <itemPath>src/rVex/SyllableMISC.cpp</itemPath>
         <itemPath>src/rVex/SyllableMUL.cpp</itemPath>
       </logicalFolder>
-      <itemPath>src/pbiw_encoder.cpp</itemPath>
-    </logicalFolder>
-    <logicalFolder name="VexParser" displayName="VexParser" projectFiles="true">
-      <logicalFolder name="Expressions" displayName="Expressions" projectFiles="true">
+      <logicalFolder name="f3" displayName="VexParser" projectFiles="true">
+        <itemPath>src/VexParser/Expressions/Arguments.cpp</itemPath>
         <itemPath>src/VexParser/Expressions/Expression.cpp</itemPath>
-        <itemPath>src/VexParser/Expressions/Expression.h</itemPath>
+        <itemPath>src/VexParser/VexContext.cpp</itemPath>
+        <itemPath>src/VexParser/driver.cc</itemPath>
+        <itemPath>src/VexParser/parser.tab.cc</itemPath>
+        <itemPath>src/VexParser/scanner.cc</itemPath>
       </logicalFolder>
-      <itemPath>src/VexParser/FlexLexer.h</itemPath>
-      <itemPath>src/VexParser/VexContext.cpp</itemPath>
-      <itemPath>src/VexParser/VexContext.h</itemPath>
-      <itemPath>src/VexParser/driver.cc</itemPath>
-      <itemPath>src/VexParser/driver.h</itemPath>
-      <itemPath>src/VexParser/location.hh</itemPath>
-      <itemPath>src/VexParser/parser.tab.cc</itemPath>
-      <itemPath>src/VexParser/parser.tab.hh</itemPath>
-      <itemPath>src/VexParser/parser.yy</itemPath>
-      <itemPath>src/VexParser/position.hh</itemPath>
-      <itemPath>src/VexParser/scanner.cc</itemPath>
-      <itemPath>src/VexParser/scanner.h</itemPath>
-      <itemPath>src/VexParser/scanner.ll</itemPath>
-      <itemPath>src/VexParser/stack.hh</itemPath>
-      <itemPath>src/VexParser/vexopc.h</itemPath>
-      <itemPath>src/VexParser/vextypes.h</itemPath>
-      <itemPath>src/VexParser/y.tab.h</itemPath>
+      <itemPath>src/pbiw_encoder.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -239,10 +236,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -258,10 +257,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -317,10 +318,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -338,10 +341,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>

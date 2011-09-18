@@ -5,8 +5,10 @@
  * Created on September 3, 2011, 8:57 PM
  */
 
-#include <ostream>
+#include <iostream>
 #include "VexContext.h"
+#include "src/rVex/SyllableALU.h"
+#include "src/rVex/SyllableMISC.h"
 
 namespace VexParser
 {
@@ -30,10 +32,48 @@ namespace VexParser
   {
     syllableBuffer.clear();
   }
-  
-  void VexContext::packSyllable(rVex::Syllable* syllable)
+   
+  void VexContext::packSyllable(rVex::SyllableALU* syllable, SyllableArguments* arguments)
   {
-    syllableBuffer.push_back(&*syllable);
+    std::cout << "ALU";
+  }
+  
+  void VexContext::packSyllable(rVex::SyllableMEM* syllable, SyllableArguments* arguments)
+  {
+    std::cout << "MEM";
+  }
+  
+  void VexContext::packSyllable(rVex::SyllableMUL* syllable, SyllableArguments* arguments)
+  {
+    std::cout << "MUL";
+  }
+  
+  void VexContext::packSyllable(rVex::SyllableCTRL* syllable, SyllableArguments* arguments)
+  {
+    std::cout << "CTRL";
+  }
+  
+  void VexContext::packSyllable(rVex::SyllableMISC* syllable, SyllableArguments* arguments)
+  {
+    std::cout << "MISC";
+  }
+    
+  void VexContext::packSyllable(rVex::Syllable* syllable, SyllableArguments* arguments)
+  {
+    if (rVex::SyllableALU* syllableALU = dynamic_cast<rVex::SyllableALU*>(syllable))
+      packSyllable(syllableALU, arguments);
+    else if (rVex::SyllableMEM* syllableMEM = dynamic_cast<rVex::SyllableMEM*>(syllable))
+      packSyllable(syllableMEM, arguments);
+    else if (rVex::SyllableMUL* syllableMUL = dynamic_cast<rVex::SyllableMUL*>(syllable))
+      packSyllable(syllableMUL, arguments);
+    else if (rVex::SyllableMISC* syllableMISC = dynamic_cast<rVex::SyllableMISC*>(syllable))
+      packSyllable(syllableMISC, arguments);
+    else if (rVex::SyllableCTRL* syllableCTRL = dynamic_cast<rVex::SyllableCTRL*>(syllable))
+      packSyllable(syllableCTRL, arguments);
+    else
+      return;
+    
+//    syllableBuffer.push_back(&*syllable);
   }
   
   void VexContext::endInstruction()

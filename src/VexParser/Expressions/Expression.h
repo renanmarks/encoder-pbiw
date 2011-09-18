@@ -8,7 +8,7 @@
 #ifndef EXPRESSION_H
 #define	EXPRESSION_H
 
-#include <iostream>
+#include <ostream>
 #include <string>
 
 namespace VexParser
@@ -17,9 +17,19 @@ namespace VexParser
   class Expression
   {
   public:
+    /* Binary Operation */
     explicit Expression( char, Expression&, Expression& );
+    
+    /* Unary Operation */
     explicit Expression( char, Expression& );
+    
+    /* Memory Reference */
+    explicit Expression( Expression&, std::string );
+    
+    /* Label Reference */
     explicit Expression( std::string );
+    
+    /* Register or number */
     explicit Expression( int );
 
     virtual
@@ -52,7 +62,7 @@ namespace VexParser
     }
 
     virtual void
-    print( );
+    print(std::ostream&);
 
   protected:
     int value;
@@ -60,6 +70,9 @@ namespace VexParser
 
   };
 
+  /**
+   * Exception trown when there is a invalid operation in a expression.
+   */
   class IllegalBinaryOperationException : public std::exception
   {
   public:

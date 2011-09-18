@@ -1,5 +1,5 @@
 
-#line 3 "scanner.cc"
+#line 3 "lex.Vex.cc"
 
 #define  YY_INT_ALIGNED short int
 
@@ -543,10 +543,10 @@ static yyconst flex_int16_t yy_rule_linenum[12] =
 using namespace std;
   
 #include "scanner.h"
-#include "vextypes.h"
+#include "VexTypes.h"
 
 /* opcode definitions */
-#include "vexopc.h"
+#include "VexOpcodes.h"
 
 /* import the parser's token type into a local typedef */
 typedef VexParser::Parser::token token;
@@ -574,7 +574,7 @@ typedef VexParser::Parser::token_type token_type;
  * yylex is invoked, the begin position is moved onto the end position. */
 #line 56 "scanner.ll"
 #define YY_USER_ACTION  yylloc->columns(yyleng);
-#line 578 "scanner.cc"
+#line 578 "lex.Vex.cc"
 
 #define INITIAL 0
 
@@ -747,7 +747,7 @@ YY_DECL
 
  /*** BEGIN EXAMPLE - Change the example lexer rules below ***/
 
-#line 751 "scanner.cc"
+#line 751 "lex.Vex.cc"
 
 	if ( !(yy_init) )
 		{
@@ -930,7 +930,7 @@ YY_RULE_SETUP
 #line 101 "scanner.ll"
 ECHO;
 	YY_BREAK
-#line 934 "scanner.cc"
+#line 934 "lex.Vex.cc"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 

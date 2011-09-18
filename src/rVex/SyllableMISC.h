@@ -22,6 +22,11 @@ namespace rVex
       
       virtual bool operator==(const Syllable& other) const;
       virtual bool operator!=(const Syllable& other) const;
+      virtual LayoutType getLayoutType() const { return layoutType; }
+      
+      virtual std::string print(bool, bool) const;
+  private:
+      Syllable::LayoutType layoutType;
   };
 }
 

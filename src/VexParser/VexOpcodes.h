@@ -25,7 +25,7 @@
 
 #include <vector>
 
-#include "vextypes.h"
+#include "VexTypes.h"
 #include "parser.tab.hh"
 #include "../rVex/Operations/Operations.h"
 
