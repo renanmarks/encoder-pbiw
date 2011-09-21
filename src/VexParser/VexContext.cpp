@@ -9,6 +9,7 @@
 #include "VexContext.h"
 #include "src/rVex/SyllableALU.h"
 #include "src/rVex/SyllableMISC.h"
+#include "Expressions/SyllableArguments.h"
 
 namespace VexParser
 {
@@ -35,7 +36,25 @@ namespace VexParser
    
   void VexContext::packSyllable(rVex::SyllableALU* syllable, SyllableArguments* arguments)
   {
-    std::cout << "ALU";
+    try
+    {
+      
+      
+    }
+    catch (CouldNotParseValueException e)
+    {
+      
+    }
+    
+//    std::cout << "Argumentos ALU origem: ";
+//    arguments->getSourceArguments()->print(std::cout);
+//    std::cout << std::endl;
+//    
+//    std::cout << "Argumentos ALU destino: ";
+//    arguments->getDestinyArguments()->print(std::cout);
+//    std::cout << std::endl;
+//    
+//    std::cout << "ALU";
   }
   
   void VexContext::packSyllable(rVex::SyllableMEM* syllable, SyllableArguments* arguments)

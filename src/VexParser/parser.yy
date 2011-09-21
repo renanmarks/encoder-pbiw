@@ -443,11 +443,14 @@ normal_mop      :       CLUST OPCODE .mop_arglist
                           driver.context.packSyllable( $2->syllableConstructor->create(), $3 ); 
                           
                           std::cout << " " << $2->as_op << " ";
-                          $3->getSourceArguments()->print(std::cout);
-                          if ( $3->getDestinyArguments() ) {
-                            std::cout << " = ";
+                          
+                          if ( $3->getDestinyArguments() )
+                          {
                             $3->getDestinyArguments()->print(std::cout);
+                            std::cout << " = ";
                           }
+                          $3->getSourceArguments()->print(std::cout);
+                          
                           std::cout << std::endl;
                         }
                 ;
@@ -481,7 +484,7 @@ mop_arglist     :       mop_arg                               { $$ = new Argumen
                 |       mop_arglist __COMMA mop_arg           { $$ = new Arguments(*$1, $3); }
                 ;
 
-mop_arg         :       expr { $$ = $1; }
+mop_arg         :       expr                                  { $$ = $1; }
                 |       __LBRACKET REGNAME __RBRACKET         { $$ = new Expression(*$2); }
                 |       expr __LBRACKET REGNAME __RBRACKET    { $$ = new Expression(*$1, *$3); }
                 ;

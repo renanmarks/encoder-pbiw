@@ -112,4 +112,35 @@ namespace VexParser
     if (x && s.length())
       ostream << ")";
   }
+  
+  virtual int
+  Expression::getParsedValue() const
+  {
+    int integerValue = this->GetValue();
+    std::string stringValue = this->GetString();
+    int parsedValue = 0;
+    
+    /* TODO: Parsing */
+    
+    throw new CouldNotParseValueException("DEU MERDA");
+    
+    
+    return parsedValue;
+    
+//    if (x && s.length())
+//      ostream << "(";
+//
+//    if (s.length())
+//    {
+//      ostream << s;
+//      if (x > 0)
+//        ostream << " + " << x;
+//      if (x < 0)
+//        ostream << " - " << -x;
+//    } else
+//      ostream << x;
+//
+//    if (x && s.length())
+//      ostream << ")";
+  }
 }

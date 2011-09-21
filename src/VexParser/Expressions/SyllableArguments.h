@@ -16,7 +16,7 @@ namespace VexParser
   {
   public:
     explicit 
-    SyllableArguments(Arguments* source, Arguments* destiny) 
+    SyllableArguments(Arguments* destiny, Arguments* source) 
     : source(source), destiny(destiny) { }
     
     explicit 

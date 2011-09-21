@@ -38,28 +38,35 @@ namespace VexParser
     };
 
     virtual void
-    SetString( std::string string )
+    setString( std::string string )
     {
       this->string=string;
     }
 
     virtual std::string
-    GetString( ) const
+    getString( ) const
     {
       return string;
     }
 
     virtual void
-    SetValue( int value )
+    setValue( int value )
     {
       this->value=value;
     }
 
     virtual int
-    GetValue( ) const
+    getValue( ) const
     {
       return value;
     }
+    
+    /**
+     * Receives a register string and returns a unsigned integer that 
+     * represents this register.
+     */
+    virtual int
+    getParsedValue() const;
 
     virtual void
     print(std::ostream&);
@@ -71,7 +78,7 @@ namespace VexParser
   };
 
   /**
-   * Exception trown when there is a invalid operation in a expression.
+   * Exception thrown when there is a invalid operation in a expression.
    */
   class IllegalBinaryOperationException : public std::exception
   {
@@ -85,6 +92,34 @@ namespace VexParser
 
     virtual
     ~IllegalBinaryOperationException( ) throw ()
+    {
+    };
+
+    virtual const char*
+    what( ) const throw ()
+    {
+      return reason.c_str();
+    }
+
+  private:
+    std::string reason;
+  };
+  
+  /**
+   * Exception thrown when the value cannot be parsed.
+   */
+  class CouldNotParseValueException : public std::exception
+  {
+  public:
+    CouldNotParseValueException( );
+
+    explicit
+    CouldNotParseValueException( std::string reason ) throw () : reason( reason )
+    {
+    }
+
+    virtual
+    ~CouldNotParseValueException( ) throw ()
     {
     };
 

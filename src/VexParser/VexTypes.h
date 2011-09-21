@@ -145,7 +145,7 @@ namespace VexParser
   struct OperationConstructor {
     virtual rVex::Syllable* create( void ) const = 0;
     
-    rVex::Syllable* operator()( void ) const {
+    virtual rVex::Syllable* operator()( void ) const {
       return create();
     }
   };
