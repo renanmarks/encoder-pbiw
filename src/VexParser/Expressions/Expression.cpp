@@ -113,12 +113,12 @@ namespace VexParser
       ostream << ")";
   }
   
-  virtual int
+  virtual ParseInfo
   Expression::getParsedValue() const
   {
     int integerValue = this->GetValue();
     std::string stringValue = this->GetString();
-    int parsedValue = 0;
+    ParseInfo parsedValue;
     
     /* TODO: Parsing */
     

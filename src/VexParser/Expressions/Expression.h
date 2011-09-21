@@ -61,15 +61,24 @@ namespace VexParser
       return value;
     }
     
+    struct ParseInfo
+    {
+      int value;
+      bool isImmediate; // Is immediate(1) or is register(0)
+      bool isBranchRegister; // If BR(1) or is GR(0)
+    };
+    
     /**
      * Receives a register string and returns a unsigned integer that 
      * represents this register.
      */
-    virtual int
+    virtual ParseInfo
     getParsedValue() const;
 
     virtual void
     print(std::ostream&);
+    
+    
 
   protected:
     int value;
