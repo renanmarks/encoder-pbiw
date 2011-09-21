@@ -42,7 +42,7 @@ namespace VexParser
     {
       this->string=string;
     }
-
+// comentario
     virtual std::string
     getString( ) const
     {
