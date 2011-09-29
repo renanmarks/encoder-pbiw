@@ -17,7 +17,6 @@
 #include "SyllableMEM.h"
 
 #include "Operations/Operations.h"
-#include "Operands/Operands.h"
 
 #endif	/* RVEX_H */
 

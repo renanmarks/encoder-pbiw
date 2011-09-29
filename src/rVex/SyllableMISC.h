@@ -25,6 +25,8 @@ namespace rVex
       virtual LayoutType getLayoutType() const { return layoutType; }
       
       virtual std::string print(bool, bool) const;
+      
+      virtual void fillSyllable(VexParser::SyllableArguments*) = 0;
   private:
       Syllable::LayoutType layoutType;
   };

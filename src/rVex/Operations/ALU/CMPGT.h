@@ -19,11 +19,11 @@ namespace rVex
       class CMPGT : public SyllableALU
       {
         public:
-          CMPGT() {};
-          CMPGT(LayoutType layoutType) : SyllableALU(layoutType, 0, 0, 0) {};
-          
           unsigned int getOpcode() const { return 92; }
           Type getSyllableType() const { return ALU; }
+          
+          virtual void fillSyllable(VexParser::SyllableArguments* arguments)
+          { this->fillTypeII(arguments); }
       };
     }
   }

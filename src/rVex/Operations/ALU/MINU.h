@@ -19,11 +19,11 @@ namespace rVex
       class MINU : public SyllableALU
       {
         public:
-          MINU() {};
-          MINU(LayoutType layoutType) : SyllableALU(layoutType, 0, 0, 0) {};
-          
           unsigned int getOpcode() const { return 72; }
           Type getSyllableType() const { return ALU; }
+          
+          virtual void fillSyllable(VexParser::SyllableArguments* arguments)
+          { this->fillTypeI(arguments); }
       };
     }
   }

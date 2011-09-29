@@ -19,11 +19,11 @@ namespace rVex
       class MOV : public SyllableALU
       {
         public:
-          MOV() {};
-          MOV(LayoutType layoutType) : SyllableALU(layoutType, 0, 0, 0) {};
-          
           unsigned int getOpcode() const { return 88; }
           Type getSyllableType() const { return ALU; }
+          
+          virtual void fillSyllable(VexParser::SyllableArguments* arguments)
+          { this->fillTypeVII(arguments); }
       };
     }
   }

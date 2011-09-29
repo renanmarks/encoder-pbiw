@@ -19,11 +19,11 @@ namespace rVex
       class SLCTF : public SyllableALU
       {
         public:
-          SLCTF() {};
-          SLCTF(LayoutType layoutType) : SyllableALU(layoutType, 0, 0, 0) {};
-          
           unsigned int getOpcode() const { return 48; }
           Type getSyllableType() const { return ALU; }
+          
+          virtual void fillSyllable(VexParser::SyllableArguments* arguments)
+          { this->fillTypeIII(arguments); }
       };
     }
   }

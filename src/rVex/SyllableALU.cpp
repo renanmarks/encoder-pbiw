@@ -10,86 +10,10 @@
 
 namespace rVex
 {
-  SyllableALU::SyllableALU()
-   : layoutType(RTYPE),
-        grDestiny(0), brDestiny(0), shortImmediate(0)
-  {
-    readRegisters.push_back(3);
-    readRegisters.push_back(3);
-  }
-  
-  SyllableALU::SyllableALU
-  (LayoutType layout = RTYPE, 
-   unsigned char grDestiny = 0, 
-   unsigned char brDestiny = 0, 
-   unsigned short shortImmediate = 0)
-   : layoutType(layout),
-        grDestiny(grDestiny), brDestiny(brDestiny), shortImmediate(shortImmediate)
-  {
-    
-  }
-  
-  std::vector<unsigned int> 
-  SyllableALU::getReadRegisters() const 
-  { 
-    return this->readRegisters;
-  }
-
-  void
-  SyllableALU::setShortImmediate( unsigned short shortImmediate )
-  {
-    this->shortImmediate=shortImmediate;
-  }
-
-  unsigned short
-  SyllableALU::getShortImmediate( ) const
-  {
-    return shortImmediate;
-  }
-
-  void
-  SyllableALU::addReadRegister( unsigned int readRegister )
-  {
-    if ( this->readRegisters.size() > 2 )
-      return;
-
-    this->readRegisters.push_back(readRegister);
-  }
-
-  void
-  SyllableALU::setBrDestiny( unsigned char brDestiny )
-  {
-    this->brDestiny=brDestiny;
-  }
-
-  unsigned char
-  SyllableALU::getBrDestiny( ) const
-  {
-    return brDestiny;
-  }
-
-  void
-  SyllableALU::setGrDestiny( unsigned char grDestiny )
-  {
-    this->grDestiny=grDestiny;
-  }
-
-  unsigned char
-  SyllableALU::getGrDestiny( ) const
-  {
-    return grDestiny;
-  }
-
-  void
-  SyllableALU::setLayoutType( Syllable::LayoutType layoutType )
-  {
-    this->layoutType=layoutType;
-  }
-  
   std::string 
   SyllableALU::print(bool first, bool last) const
   {
-    switch (layoutType)
+    switch (this->layoutType)
     {
       case Syllable::RTYPE:
         return this->printRTYPE(first, last);

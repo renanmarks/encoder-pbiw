@@ -42,6 +42,8 @@ namespace rVex
       virtual bool operator!=(const Syllable&) const;
       
       virtual std::string print(bool, bool) const;
+      
+      virtual void fillSyllable(VexParser::SyllableArguments*) = 0;
     
     private:
       Syllable::LayoutType layoutType;

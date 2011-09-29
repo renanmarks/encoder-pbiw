@@ -19,11 +19,11 @@ namespace rVex
       class MPYHHU : public SyllableMUL
       {
         public:
-          MPYHHU() {};
-          MPYHHU(LayoutType layoutType) : SyllableMUL(layoutType, 0, 0, 0) {};
-          
           unsigned int getOpcode() const { return 6; }
           Type getSyllableType() const { return MUL; }
+          
+          virtual void fillSyllable(VexParser::SyllableArguments* arguments)
+          { this->fillTypeI(arguments); }
       };
     }
   }

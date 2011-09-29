@@ -34,6 +34,9 @@ namespace rVex
       
           virtual std::string print(bool first, bool last) const 
           { return printBinary(0, first, last); }
+          
+          virtual void fillSyllable(VexParser::SyllableArguments* arguments)
+          { this->fillTypeXIV(arguments); }
       };
     }
   }

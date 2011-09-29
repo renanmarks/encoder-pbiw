@@ -23,6 +23,9 @@ namespace rVex
           
           unsigned int getOpcode() const { return 21; }
           Type getSyllableType() const { return MEM; }
+          
+          virtual void fillSyllable(VexParser::SyllableArguments* arguments)
+          { this->fillTypeX(arguments); }
       };
     }
   }

@@ -19,11 +19,11 @@ namespace rVex
       class SH1ADD : public SyllableALU
       {
         public:
-          SH1ADD() {};
-          SH1ADD(LayoutType layoutType) : SyllableALU(layoutType, 0, 0, 0) {};
-          
           unsigned int getOpcode() const { return 75; }
           Type getSyllableType() const { return ALU; }
+          
+          virtual void fillSyllable(VexParser::SyllableArguments* arguments)
+          { this->fillTypeI(arguments); }
       };
     }
   }

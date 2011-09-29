@@ -174,7 +174,7 @@ ${OBJECTDIR}/src/rVex/Instruction.o: src/rVex/Instruction.cpp
 
 # Build Test Targets
 .build-tests-conf: .build-conf ${TESTFILES}
-${TESTDIR}/TestFiles/f2: ${TESTDIR}/src/Tests/Parser/VexContextTest.o ${OBJECTFILES:%.o=%_nomain.o}
+${TESTDIR}/TestFiles/f2: ${TESTDIR}/src/Tests/Parser/ExpressionTest.o ${TESTDIR}/src/Tests/Parser/VexContextTest.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc}   -o ${TESTDIR}/TestFiles/f2 $^ ${LDLIBSOPTIONS} 
 
@@ -183,34 +183,40 @@ ${TESTDIR}/TestFiles/f1: ${TESTDIR}/src/Tests/rVex/rVexInstrucionMulTest.o ${TES
 	${LINK.cc}   -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS} 
 
 
+${TESTDIR}/src/Tests/Parser/ExpressionTest.o: src/Tests/Parser/ExpressionTest.cpp 
+	${MKDIR} -p ${TESTDIR}/src/Tests/Parser
+	${RM} $@.d
+	$(COMPILE.cc) -g -I. -I. -I. -I. -I. -I. -I. -Isrc -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/Parser/ExpressionTest.o src/Tests/Parser/ExpressionTest.cpp
+
+
 ${TESTDIR}/src/Tests/Parser/VexContextTest.o: src/Tests/Parser/VexContextTest.cpp 
 	${MKDIR} -p ${TESTDIR}/src/Tests/Parser
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -I. -I. -I. -Isrc -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/Parser/VexContextTest.o src/Tests/Parser/VexContextTest.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -I. -I. -I. -I. -Isrc -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/Parser/VexContextTest.o src/Tests/Parser/VexContextTest.cpp
 
 
 ${TESTDIR}/src/Tests/rVex/rVexInstrucionMulTest.o: src/Tests/rVex/rVexInstrucionMulTest.cpp 
 	${MKDIR} -p ${TESTDIR}/src/Tests/rVex
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -I. -I. -I. -Isrc -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/rVex/rVexInstrucionMulTest.o src/Tests/rVex/rVexInstrucionMulTest.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -I. -I. -I. -I. -Isrc -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/rVex/rVexInstrucionMulTest.o src/Tests/rVex/rVexInstrucionMulTest.cpp
 
 
 ${TESTDIR}/src/Tests/rVex/rVexInstructionTest.o: src/Tests/rVex/rVexInstructionTest.cpp 
 	${MKDIR} -p ${TESTDIR}/src/Tests/rVex
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -I. -I. -I. -Isrc -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/rVex/rVexInstructionTest.o src/Tests/rVex/rVexInstructionTest.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -I. -I. -I. -I. -Isrc -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/rVex/rVexInstructionTest.o src/Tests/rVex/rVexInstructionTest.cpp
 
 
 ${TESTDIR}/src/Tests/rVex/rVexSyllableMulTest.o: src/Tests/rVex/rVexSyllableMulTest.cpp 
 	${MKDIR} -p ${TESTDIR}/src/Tests/rVex
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -I. -I. -I. -Isrc -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/rVex/rVexSyllableMulTest.o src/Tests/rVex/rVexSyllableMulTest.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -I. -I. -I. -I. -Isrc -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/rVex/rVexSyllableMulTest.o src/Tests/rVex/rVexSyllableMulTest.cpp
 
 
 ${TESTDIR}/src/Tests/rVex/rVexSyllableTest.o: src/Tests/rVex/rVexSyllableTest.cpp 
 	${MKDIR} -p ${TESTDIR}/src/Tests/rVex
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -I. -I. -I. -Isrc -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/rVex/rVexSyllableTest.o src/Tests/rVex/rVexSyllableTest.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -I. -I. -I. -I. -Isrc -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/rVex/rVexSyllableTest.o src/Tests/rVex/rVexSyllableTest.cpp
 
 
 ${OBJECTDIR}/src/PBIW/PBIW_nomain.o: ${OBJECTDIR}/src/PBIW/PBIW.o src/PBIW/PBIW.cpp 

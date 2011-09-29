@@ -19,11 +19,11 @@ namespace rVex
       class SUB : public SyllableALU
       {
         public:
-          SUB() {};
-          SUB(LayoutType layoutType) : SyllableALU(layoutType, 0, 0, 0) {};
-          
           unsigned int getOpcode() const { return 82; }
           Type getSyllableType() const { return ALU; }
+          
+          virtual void fillSyllable(VexParser::SyllableArguments* arguments)
+          { this->fillTypeVI(arguments); }
       };
     }
   }

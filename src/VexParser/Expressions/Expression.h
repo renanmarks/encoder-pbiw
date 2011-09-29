@@ -16,19 +16,12 @@ namespace VexParser
 
   class Expression
   {
-    
-  struct ParseInfo
-    {
-      int value;
-      bool isImmediate; // Is immediate(1) or is register(0)
-      bool isBranchRegister; // If BR(1) or is GR(0)
-    };  
-    
   protected:
     int value;
     std::string string;
      
   public:
+    
     /* Binary Operation */
     explicit Expression( char, Expression&, Expression& );
     
@@ -73,6 +66,14 @@ namespace VexParser
       return value;
     }
     
+    struct ParseInfo
+    {
+      int value;
+      std::string label;
+      bool isImmediate; // Is immediate(1) or register(0)
+      bool isBranchRegister; // Is BR(1) or GR(0)
+      bool isLabel;   // Master of obvious
+    };
     
     /**
      * Receives a register string and returns a unsigned integer that 

@@ -9,6 +9,8 @@
 #include "VexContext.h"
 #include "src/rVex/SyllableALU.h"
 #include "src/rVex/SyllableMISC.h"
+#include "src/rVex/Syllable.h"
+
 #include "Expressions/SyllableArguments.h"
 
 namespace VexParser
@@ -33,18 +35,12 @@ namespace VexParser
   {
     syllableBuffer.clear();
   }
-   
+  
   void VexContext::packSyllable(rVex::SyllableALU* syllable, SyllableArguments* arguments)
   {
-    try
-    {
-      
-      
-    }
-    catch (CouldNotParseValueException e)
-    {
-      
-    }
+//    if (syllable->getOpcode() == Syllable::opMOV)
+    
+    syllable->fillSyllable(arguments);
     
 //    std::cout << "Argumentos ALU origem: ";
 //    arguments->getSourceArguments()->print(std::cout);
@@ -79,6 +75,7 @@ namespace VexParser
     
   void VexContext::packSyllable(rVex::Syllable* syllable, SyllableArguments* arguments)
   {
+    // FIXME TODO
     if (rVex::SyllableALU* syllableALU = dynamic_cast<rVex::SyllableALU*>(syllable))
       packSyllable(syllableALU, arguments);
     else if (rVex::SyllableMEM* syllableMEM = dynamic_cast<rVex::SyllableMEM*>(syllable))
@@ -92,15 +89,15 @@ namespace VexParser
     else
       return;
     
-//    syllableBuffer.push_back(&*syllable);
+    syllableBuffer.push_back(syllable);
   }
   
   void VexContext::endInstruction()
   {
     rVex::Instruction instruction;
     SyllableBuffer::iterator it;
-    
     for (it = syllableBuffer.begin();
+    
          it < syllableBuffer.end();
          it++)
     {
@@ -136,8 +133,20 @@ namespace VexParser
         it != instructions.end();
         it++)
     {
-      stream << (*it).print() << std::endl;
+      try
+      {
+        stream << it->print() << std::endl;
+      }
+      catch (rVex::Syllable::LayoutNotSupportedException* e)
+      {
+        std::cout << "Erro imprimindo: " << e->what() << "Opcode: " << it->getSyllables()[0]->getOpcode() << std::endl;
+      }
     }
   }
-
+  
+  void
+  VexContext::enableDebugging(bool enableSwitch)
+  {
+    debuggingEnabled = enableSwitch;
+  }
 }

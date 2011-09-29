@@ -19,11 +19,11 @@ namespace rVex
       class ZXTB : public SyllableALU
       {
         public:
-          ZXTB() {};
-          ZXTB(LayoutType layoutType) : SyllableALU(layoutType, 0, 0, 0) {};
-          
           unsigned int getOpcode() const { return 85; }
           Type getSyllableType() const { return ALU; }
+          
+          virtual void fillSyllable(VexParser::SyllableArguments* arguments)
+          { this->fillTypeVII(arguments); }
       };
     }
   }

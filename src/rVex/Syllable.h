@@ -9,16 +9,21 @@
 #define	RVEXSYLLABE_H
 
 #include <string>
+#include "../VexParser/Expressions/SyllableArguments.h"
 
 namespace rVex
 {
+  // Forwarding declaration
+  class Instruction;
+  
   /**
    * A r-Vex instruction syllable (operation)
    */
   class Syllable
   {
     public:
-      virtual ~Syllable() { };
+      Syllable() : labelDestiny(NULL) { }
+      virtual ~Syllable() { }
       
       /**
        * The execution type of syllable*/
@@ -38,6 +43,58 @@ namespace rVex
       typedef enum { 
         NO_IMM, SHORT_IMM, BRANCH_IMM, LONG_IMM 
       } ImmediateSwitch;
+      
+      virtual void setLayoutType(Syllable::LayoutType layoutType) 
+      { this->layoutType=layoutType; }
+      
+      virtual LayoutType getLayoutType() const
+      { return layoutType; }
+
+      virtual void addReadRegister(unsigned int);
+      virtual std::vector<unsigned int> getReadRegisters() const 
+      { return this->readRegisters; }
+
+      virtual void setShortImmediate(unsigned short shortImmediate) 
+      { this->shortImmediate=shortImmediate; }
+      
+      virtual unsigned short getShortImmediate() const 
+      { return shortImmediate; }
+
+      virtual void setBrDestiny(unsigned char brDestiny) 
+      { this->brDestiny=brDestiny; }
+      
+      virtual unsigned char getBrDestiny() const 
+      { return brDestiny; }
+      
+      virtual void setBrSource(unsigned char brSource) 
+      { this->brSource=brSource; }
+      
+      virtual unsigned char getBrSource() const 
+      { return brSource; }
+
+      virtual void setGrDestiny(unsigned char grDestiny) 
+      { this->grDestiny=grDestiny; }
+      
+      virtual unsigned char getGrDestiny() const 
+      { return grDestiny; }
+      
+      virtual void setLabel(std::string label)
+      { this->label = label; }
+      
+      virtual std::string getLabel() const
+      { return this->label; }
+      
+      virtual void setLabelDestiny(Instruction* instructionDestiny)
+      { this->labelDestiny = instructionDestiny; }
+      
+      virtual Instruction* getLabelDestiny() const
+      { return this->labelDestiny; }
+      
+      virtual void setPath(std::string path)
+      { this->path = path; }
+      
+      virtual std::string getPath() const
+      { return this->path; }
       
       /**
        * Get the syllable Opcode.
@@ -61,7 +118,7 @@ namespace rVex
        * 
        * @return the structure type of a syllable
        */
-      virtual LayoutType getLayoutType() const = 0;
+//      virtual LayoutType getLayoutType() const = 0;
       
       /**
        * Prints the binary representation of the syllable in string format.
@@ -74,6 +131,11 @@ namespace rVex
  
       virtual bool operator==(const Syllable&) const = 0;
       virtual bool operator!=(const Syllable&) const = 0;
+      
+      /**
+       * Set the arguments and the syllable data with the arguments
+       */
+      virtual void fillSyllable(VexParser::SyllableArguments*) = 0;
       
     /**
      * Exception throwed when the syllable layout is not supported by the
@@ -101,6 +163,41 @@ namespace rVex
        * @return A std::string containing binary digits
        */
       std::string printBinary(unsigned int, bool, bool) const;
+      
+      Syllable::LayoutType layoutType;
+      unsigned char grDestiny;
+      unsigned char brDestiny;
+      
+      typedef std::vector<unsigned int> readRegVector;
+      readRegVector readRegisters;
+      unsigned char brSource;
+      unsigned short shortImmediate;
+      
+      std::string label;
+      Instruction* labelDestiny;
+      
+      std::string path;
+      
+      virtual void fillTypeI(VexParser::SyllableArguments*);
+      virtual void fillTypeII(VexParser::SyllableArguments*);
+      virtual void fillTypeIII(VexParser::SyllableArguments*);
+      virtual void fillTypeIV(VexParser::SyllableArguments*);
+      virtual void fillTypeV(VexParser::SyllableArguments*);
+      virtual void fillTypeVI(VexParser::SyllableArguments*);
+      virtual void fillTypeVII(VexParser::SyllableArguments*);
+      virtual void fillTypeVIII(VexParser::SyllableArguments*);
+      virtual void fillTypeIX(VexParser::SyllableArguments*);
+      virtual void fillTypeX(VexParser::SyllableArguments*);
+      virtual void fillTypeXI(VexParser::SyllableArguments*);
+      virtual void fillTypeXII(VexParser::SyllableArguments*);
+      virtual void fillTypeXIII(VexParser::SyllableArguments*);
+      virtual void fillTypeXIV(VexParser::SyllableArguments*); // Only opcode
+      virtual void fillTypeXV(VexParser::SyllableArguments*);
+      virtual void fillTypeXVI(VexParser::SyllableArguments*);
+      virtual void fillTypeXVII(VexParser::SyllableArguments*);
+      virtual void fillTypeXVIII(VexParser::SyllableArguments*);
+      virtual void fillTypeXIX(VexParser::SyllableArguments*);
+      virtual void fillTypeXX(VexParser::SyllableArguments*);
   };
 }
 

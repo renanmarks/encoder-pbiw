@@ -32,6 +32,9 @@ namespace VexParser
     /**
      * All the memory allocated by the syllables are freed.
      */
+    VexContext() : debuggingEnabled(false)
+    { }
+    
     virtual ~VexContext( );
     
     void newInstruction();
@@ -47,8 +50,11 @@ namespace VexParser
     rVex::Instruction getInstruction(unsigned int);
     
     void print(std::ostream&);
+    void enableDebugging(bool enableSwitch);
     
   private:
+    bool debuggingEnabled;
+    
     typedef std::vector<rVex::Syllable*> SyllableBuffer;
     SyllableBuffer syllableBuffer;
     

@@ -24,6 +24,8 @@ namespace rVex
       
       virtual std::string print(bool, bool) const;
       
+      virtual void fillSyllable(VexParser::SyllableArguments*) = 0;
+      
     protected:
       Syllable::LayoutType layoutType;
   };

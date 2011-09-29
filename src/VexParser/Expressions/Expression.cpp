@@ -3,6 +3,7 @@
 using namespace std;
 
 #include <sstream>
+#include <cstdlib>
 
 #include "Expression.h"
 
@@ -74,7 +75,7 @@ namespace VexParser
     this->setString(s2);
     this->setValue(s1.getValue());
   }
-  
+
   /**
    * Register reference
    */
@@ -94,10 +95,10 @@ namespace VexParser
   }
 
   void
-  Expression::print(std::ostream& ostream )
+  Expression::print( std::ostream& ostream )
   {
-    int x = this->getValue();
-    std::string s = this->getString();
+    int x=this->getValue();
+    std::string s=this->getString();
 
     if (x && s.length())
       ostream << "(";
@@ -115,51 +116,53 @@ namespace VexParser
     if (x && s.length())
       ostream << ")";
   }
-  
-  Expression::ParseInfo 
-  Expression::getParsedValue() const
+
+  Expression::ParseInfo
+  Expression::getParsedValue( ) const
   {
-    int integerValue = this->getValue();
-    std::string stringValue = this->getString();
+    int integerValue=this->getValue();
+    std::string stringValue=this->getString();
     ParseInfo parsedValue;
     
-    size_t pos1, pos2;
-    string strTmp1, strTmp2;
-    const char *convert;
-        /* TODO: Parsing */
-        
-    // verified if string has a register
-    pos1 = stringValue.find("$");
-    pos2 = stringValue.find("L");
-    
-    // enter if register
-    if(pos1 != string::npos){
-        strTmp1 = stringValue.substr(pos1);
-        pos1 = strTmp1.find(".");
-        strTmp2 = strTmp1.substr(++pos1);
-        
-        convert = strTmp2.c_str();
-        parsedValue.value = atoi(convert);
-        parsedValue.isImmediate = 0;
-        parsedValue.isBranchRegister = 0;
-        
-    }
-    else if(pos2 != string::npos){      // enter if label
-		strTmp1 = stringValue.substr(pos2);
-		parsedValue.isImmediate = 0;
-                parsedValue.isBranchRegister = 1;
-    }
-    else {      // immediate.
-        convert = stringValue.c_str();
-        parsedValue.value = atoi(convert);        
-        parsedValue.isImmediate = 1;
-        parsedValue.isBranchRegister = 0;
-    }
-   
-    //throw new CouldNotParseValueException("DEU MERDA");
-    
-    
-    return parsedValue;
+    parsedValue.isImmediate      = false;
+    parsedValue.isBranchRegister = false;
+    parsedValue.isLabel          = false;
 
+    // verify if string has a register
+    std::size_t registerString = stringValue.find("$r");
+    std::size_t linkRegisterString = stringValue.find("$l");
+    std::size_t branchRegisterString = stringValue.find("$b");
+
+    if (registerString != string::npos ) // General Register
+    {
+      std::size_t number        = stringValue.substr(registerString).find(".");
+      std::string numberString  = stringValue.substr(++number);
+      parsedValue.value         = std::atoi(numberString.c_str());
+    } 
+    else if (linkRegisterString != string::npos ) // Link Register
+    {
+      std::size_t number        = stringValue.substr(linkRegisterString).find(".");
+      std::string numberString  = stringValue.substr(++number);
+      parsedValue.value         = std::atoi(numberString.c_str());
+    } 
+    else if (branchRegisterString != string::npos ) // Branch Register
+    {
+      std::size_t number        = stringValue.substr(branchRegisterString).find(".");
+      std::string numberString  = stringValue.substr(++number);
+      parsedValue.value            = std::atoi(numberString.c_str());
+      parsedValue.isBranchRegister = true;
+    } 
+    else if (stringValue.length() > 0) // Label
+    { 
+      parsedValue.label   = stringValue;
+      parsedValue.isLabel = true;
+    }
+    else // Immediate
+    {
+      parsedValue.value       = integerValue;
+      parsedValue.isImmediate = true;
+    } 
+
+    return parsedValue;
   }
 }

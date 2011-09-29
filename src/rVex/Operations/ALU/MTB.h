@@ -19,11 +19,11 @@ namespace rVex
       class MTB : public SyllableALU
       {
         public:
-          MTB() {};
-          MTB(LayoutType layoutType) : SyllableALU(layoutType, 0, 0, 0) {};
-          
           unsigned int getOpcode() const { return 103; }
           Type getSyllableType() const { return ALU; }
+          
+          virtual void fillSyllable(VexParser::SyllableArguments* arguments)
+          { this->fillTypeV(arguments); }
       };
     }
   }

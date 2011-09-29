@@ -19,11 +19,11 @@ namespace rVex
       class DIVS : public SyllableALU
       {
         public:
-          DIVS() {};
-          DIVS(LayoutType layoutType) : SyllableALU(layoutType, 0, 0, 0) {};
-          
           unsigned int getOpcode() const { return 102; }
           Type getSyllableType() const { return ALU; }
+          
+          virtual void fillSyllable(VexParser::SyllableArguments* arguments)
+          { this->fillTypeIV(arguments); }
       };
     }
   }

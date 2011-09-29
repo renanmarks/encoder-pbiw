@@ -19,11 +19,11 @@ namespace rVex
       class ZXTH : public SyllableALU
       {
         public:
-          ZXTH() {};
-          ZXTH(LayoutType layoutType) : SyllableALU(layoutType, 0, 0, 0) {};
-          
           unsigned int getOpcode() const { return 86; }
           Type getSyllableType() const { return ALU; }
+          
+          virtual void fillSyllable(VexParser::SyllableArguments* arguments)
+          { this->fillTypeVII(arguments); }
       };
     }
   }

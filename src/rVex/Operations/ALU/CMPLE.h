@@ -19,11 +19,11 @@ namespace rVex
       class CMPLE : public SyllableALU
       {
         public:
-          CMPLE() {};
-          CMPLE(LayoutType layoutType) : SyllableALU(layoutType, 0, 0, 0) {};
-          
           unsigned int getOpcode() const { return 94; }
           Type getSyllableType() const { return ALU; }
+          
+          virtual void fillSyllable(VexParser::SyllableArguments* arguments)
+          { this->fillTypeII(arguments); }
       };
     }
   }
