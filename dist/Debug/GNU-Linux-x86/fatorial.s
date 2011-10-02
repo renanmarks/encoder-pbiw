@@ -3,7 +3,7 @@
 .comment "Copyright (C) 1990-2010 Hewlett-Packard Company"
 .comment "VEX C compiler version 3.43 (20110131 release)"
 .comment ""
-.comment "-dir /opt/vex -S -fmm=modelo.fmm -fmmdump"
+.comment "-dir /opt/vex -S"
 .sversion 3.43
 .rta 2
 .section .bss
@@ -13,31 +13,18 @@
  ## Begin main
 .section .text
 .proc
-.entry caller, sp=$r0.1, rl=$l0.0, asize=-32, arg()
+.entry caller, sp=$r0.1, rl=$l0.0, asize=0, arg()
 main::
 .trace 4
-	c0    add $r0.1 = $r0.1, (-0x20)
+	      ## auto_size == 0
 	c0    mov $r0.8 = 3   ## bblock 0, line 0,  t30,  3(I32)
 	c0    mov $r0.9 = 4   ## bblock 0, line 0,  t29,  4(I32)
 ;;								## 0
 	c0    mov $r0.3 = 1   ## bblock 0, line 6,  t18,  1(SI32)
+	c0    mov $r0.2 = 1   ## bblock 0, line 6,  t19,  1(SI32)
 	c0    mov $r0.7 = 1   ## bblock 0, line 0,  t20,  1(I32)
 	c0    mov $r0.6 = 2   ## bblock 0, line 0,  t31,  2(I32)
-	c0    stw 0x0[$r0.1] = $r0.57  ## spill ## t11
 ;;								## 1
-	c0    mov $r0.2 = 1   ## bblock 0, line 6,  t19,  1(SI32)
-	c0    stw 0x4[$r0.1] = $r0.58  ## spill ## t12
-;;								## 2
-	c0    stw 0x8[$r0.1] = $r0.59  ## spill ## t13
-;;								## 3
-	c0    stw 0xc[$r0.1] = $r0.60  ## spill ## t14
-;;								## 4
-	c0    stw 0x10[$r0.1] = $r0.61  ## spill ## t15
-;;								## 5
-	c0    stw 0x14[$r0.1] = $r0.62  ## spill ## t16
-;;								## 6
-	c0    stw 0x18[$r0.1] = $r0.63  ## spill ## t17
-;;								## 7
 .trace 1
 L0?3:
 	c0    mpylu $r0.4 = $r0.2, $r0.3   ## bblock 1, line 9,  t41,  t19,  t18
@@ -80,32 +67,16 @@ L1?3:
 	c0    mpyhs $r0.4 = $r0.4, $r0.10   ## bblock 9, line 0,  t57,  t23,  t27
 	      xnop 1
 ;;								## 1
-	c0    add $r0.3 = $r0.2, $r0.4   ## bblock 9, line 0,  t21,  t56,  t57
-	c0    ldw $r0.57 = 0x0[$r0.1]  ## restore ## t11
-;;								## 2
-	c0    ldw $r0.58 = 0x4[$r0.1]  ## restore ## t12
-;;								## 3
-	c0    ldw $r0.59 = 0x8[$r0.1]  ## restore ## t13
-;;								## 4
-	c0    ldw $r0.60 = 0xc[$r0.1]  ## restore ## t14
-;;								## 5
-	c0    ldw $r0.61 = 0x10[$r0.1]  ## restore ## t15
-;;								## 6
-	c0    ldw $r0.62 = 0x14[$r0.1]  ## restore ## t16
-;;								## 7
-	c0    ldw $r0.63 = 0x18[$r0.1]  ## restore ## t17
-	      xnop 1
-;;								## 9
 .return ret($r0.3:s32)
-	c0    return $r0.1 = $r0.1, (0x20), $l0.0   ## bblock 9, line 13,  t8,  ?2.1?2auto_size(I32),  t7
-;;								## 10
+	c0    add $r0.3 = $r0.2, $r0.4   ## bblock 9, line 0,  t21,  t56,  t57
+	c0    return $r0.1 = $r0.1, (LABEL + 0xf + 0x1), $l0.0   ## bblock 9, line 13,  t8,  ?2.1?2auto_size(I32),  t7
+;;								## 2
 .endp
 .section .bss
 .section .data
-.equ ?2.1?2spill_p, 0x0
 .section .data
 .section .text
-.equ ?2.1?2auto_size, 0x20
+.equ ?2.1?2auto_size, 0x0
  ## End main
 .section .bss
 .section .data

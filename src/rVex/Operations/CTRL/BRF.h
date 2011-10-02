@@ -19,13 +19,13 @@ namespace rVex
       class BRF : public SyllableCTRL
       {
         public:
-          BRF() {}
-          
           unsigned int getOpcode() const { return 38; }
           Type getSyllableType() const { return CTRL; }
           
           virtual void fillSyllable(VexParser::SyllableArguments* arguments)
           { this->fillTypeVIII(arguments); }
+          
+          virtual std::string print(bool, bool) const;
       };
     }
   }

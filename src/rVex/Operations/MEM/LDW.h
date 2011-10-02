@@ -19,8 +19,6 @@ namespace rVex
       class LDW : public SyllableMEM
       {
         public:
-          LDW() {}
-          
           unsigned int getOpcode() const { return 17; }
           Type getSyllableType() const { return MEM; }
           

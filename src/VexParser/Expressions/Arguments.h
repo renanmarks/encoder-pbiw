@@ -27,6 +27,8 @@ namespace VexParser
     void addArgument(Expression*);
     std::vector<Expression*> getArguments() const;
     
+    void clearArguments();
+    
     void print(std::ostream&) const;
     
   private:

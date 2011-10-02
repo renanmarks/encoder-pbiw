@@ -19,13 +19,13 @@ namespace rVex
       class XNOP : public SyllableCTRL
       {
         public:
-          XNOP() {}
-          
           unsigned int getOpcode() const { return 41; }
           Type getSyllableType() const { return CTRL; }
           
           virtual void fillSyllable(VexParser::SyllableArguments* arguments)
           { this->fillTypeXV(arguments); }
+          
+          virtual std::string print(bool, bool) const { return ""; }
       };
     }
   }

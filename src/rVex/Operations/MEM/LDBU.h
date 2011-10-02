@@ -19,8 +19,6 @@ namespace rVex
       class LDBU : public SyllableMEM
       {
         public:
-          LDBU() {}
-          
           unsigned int getOpcode() const { return 21; }
           Type getSyllableType() const { return MEM; }
           

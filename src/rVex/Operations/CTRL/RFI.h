@@ -19,13 +19,13 @@ namespace rVex
       class RFI : public SyllableCTRL
       {
         public:
-          RFI() {};
-          
           unsigned int getOpcode() const { return 40; }
           Type getSyllableType() const { return CTRL; }
           
           virtual void fillSyllable(VexParser::SyllableArguments* arguments)
           { this->fillTypeXIV(arguments); }
+          
+          virtual std::string print(bool, bool) const;
       };
     }
   }

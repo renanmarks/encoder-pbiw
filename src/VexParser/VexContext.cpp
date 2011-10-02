@@ -6,12 +6,15 @@
  */
 
 #include <iostream>
+#include <string.h>
 #include "VexContext.h"
 #include "src/rVex/SyllableALU.h"
 #include "src/rVex/SyllableMISC.h"
 #include "src/rVex/Syllable.h"
 
 #include "Expressions/SyllableArguments.h"
+#include "src/rVex/Operations/ALU/ADD.h"
+#include "src/rVex/Operations/ALU/MOV.h"
 
 namespace VexParser
 {
@@ -38,56 +41,71 @@ namespace VexParser
   
   void VexContext::packSyllable(rVex::SyllableALU* syllable, SyllableArguments* arguments)
   {
-//    if (syllable->getOpcode() == Syllable::opMOV)
-    
+    // If is a MOV with immediate operand then is a pseudo-instruction...
+    if (
+        (syllable->getOpcode() == rVex::Syllable::opMOV) &&
+        (arguments->getSourceArguments()->getArguments()[0]->getParsedValue().isImmediate)
+       )
+    {
+      // Change MOV syllable to ADD syllable
+      rVex::Operations::ALU::ADD add;
+      memcpy(syllable, &add, sizeof(add));
+      
+      // Change from: mov $r0.x = 12345
+      // to: add $r0.x = $r0.0, 12345
+      int value = arguments->getSourceArguments()->getArguments()[0]->getValue();
+      arguments->getSourceArguments()->clearArguments();
+      arguments->getSourceArguments()->addArgument(new Expression("$r0.0"));
+      arguments->getSourceArguments()->addArgument(new Expression(value));
+    }
+
     syllable->fillSyllable(arguments);
-    
-//    std::cout << "Argumentos ALU origem: ";
-//    arguments->getSourceArguments()->print(std::cout);
-//    std::cout << std::endl;
-//    
-//    std::cout << "Argumentos ALU destino: ";
-//    arguments->getDestinyArguments()->print(std::cout);
-//    std::cout << std::endl;
-//    
-//    std::cout << "ALU";
   }
   
   void VexContext::packSyllable(rVex::SyllableMEM* syllable, SyllableArguments* arguments)
   {
-    std::cout << "MEM";
+    syllable->fillSyllable(arguments);
   }
   
   void VexContext::packSyllable(rVex::SyllableMUL* syllable, SyllableArguments* arguments)
   {
-    std::cout << "MUL";
+    syllable->fillSyllable(arguments);
   }
   
   void VexContext::packSyllable(rVex::SyllableCTRL* syllable, SyllableArguments* arguments)
   {
-    std::cout << "CTRL";
+    syllable->fillSyllable(arguments);
   }
   
   void VexContext::packSyllable(rVex::SyllableMISC* syllable, SyllableArguments* arguments)
   {
-    std::cout << "MISC";
+    syllable->fillSyllable(arguments);
   }
     
   void VexContext::packSyllable(rVex::Syllable* syllable, SyllableArguments* arguments)
   {
-    // FIXME TODO
-    if (rVex::SyllableALU* syllableALU = dynamic_cast<rVex::SyllableALU*>(syllable))
-      packSyllable(syllableALU, arguments);
-    else if (rVex::SyllableMEM* syllableMEM = dynamic_cast<rVex::SyllableMEM*>(syllable))
-      packSyllable(syllableMEM, arguments);
-    else if (rVex::SyllableMUL* syllableMUL = dynamic_cast<rVex::SyllableMUL*>(syllable))
-      packSyllable(syllableMUL, arguments);
-    else if (rVex::SyllableMISC* syllableMISC = dynamic_cast<rVex::SyllableMISC*>(syllable))
-      packSyllable(syllableMISC, arguments);
-    else if (rVex::SyllableCTRL* syllableCTRL = dynamic_cast<rVex::SyllableCTRL*>(syllable))
-      packSyllable(syllableCTRL, arguments);
-    else
-      return;
+    switch(syllable->getSyllableType())
+    {
+      case rVex::Syllable::ALU:
+        packSyllable(dynamic_cast<rVex::SyllableALU*>(syllable), arguments);
+        break;
+        
+      case rVex::Syllable::MEM:
+        packSyllable(dynamic_cast<rVex::SyllableMEM*>(syllable), arguments);
+        break;
+        
+      case rVex::Syllable::MUL:
+        packSyllable(dynamic_cast<rVex::SyllableMUL*>(syllable), arguments);
+        break;
+        
+      case rVex::Syllable::CTRL:
+        packSyllable(dynamic_cast<rVex::SyllableCTRL*>(syllable), arguments);
+        break;
+        
+      default: // MISC
+        packSyllable(dynamic_cast<rVex::SyllableMISC*>(syllable), arguments);
+        break;
+    }
     
     syllableBuffer.push_back(syllable);
   }
@@ -96,8 +114,8 @@ namespace VexParser
   {
     rVex::Instruction instruction;
     SyllableBuffer::iterator it;
-    for (it = syllableBuffer.begin();
     
+    for (it = syllableBuffer.begin();
          it < syllableBuffer.end();
          it++)
     {
@@ -135,7 +153,7 @@ namespace VexParser
     {
       try
       {
-        stream << it->print() << std::endl;
+        stream << (*it).print() << std::endl;
       }
       catch (rVex::Syllable::LayoutNotSupportedException* e)
       {

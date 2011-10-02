@@ -48,5 +48,16 @@ namespace VexParser
     for (it=arguments.begin(); it < arguments.end(); it++)
       (*it)->print(ostream);
   }
+  
+  void
+  Arguments::clearArguments( )
+  {
+    ArgumentVector::iterator it;
+
+    for (it=arguments.begin(); it < arguments.end(); it++)
+      delete *it;
+    
+    arguments.clear();
+  }
 }
 

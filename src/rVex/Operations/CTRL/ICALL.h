@@ -19,8 +19,6 @@ namespace rVex
       class ICALL : public SyllableCTRL
       {
         public:
-          ICALL() {};
-          
           unsigned int getOpcode() const { return 36; }
           Type getSyllableType() const { return CTRL; }
           

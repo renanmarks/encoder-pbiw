@@ -26,6 +26,98 @@ namespace rVex
       virtual ~Syllable() { }
       
       /**
+       * Syllables opcodes
+       */
+      typedef enum {
+        opNOP    = 0x00000000,
+        opSTOP   = 53,
+
+        /* ALU opcodes */
+        opADD    = 65,
+        opAND    = 67,
+        opANDC   = 68,
+        opMAX    = 69,
+        opMAXU   = 70,
+        opMIN    = 71,
+        opMINU   = 72,
+        opOR     = 73,
+        opORC    = 74,
+        opSH1ADD = 75,
+        opSH2ADD = 76,
+        opSH3ADD = 77,
+        opSH4ADD = 78,
+        opSHL    = 79,
+        opSHR    = 80,
+        opSHRU   = 81,
+        opSUB    = 82,
+        opSXTB   = 83,
+        opSXTH   = 84,
+        opZXTB   = 85,
+        opZXTH   = 86,
+        opXOR    = 87,
+        opMOV    = 88,
+
+        opCMPEQ  = 89,
+        opCMPGE  = 90,
+        opCMPGEU = 91,
+        opCMPGT  = 92,
+        opCMPGTU = 93,
+        opCMPLE  = 94,
+        opCMPLEU = 95,
+        opCMPLT  = 96,
+        opCMPLTU = 97,
+        opCMPNE  = 98,
+        opNANDL  = 99,
+        opNORL   = 100,
+        opORL    = 102,
+        opMTB    = 103,
+        opANDL   = 104,
+
+        opADDCG  = 120,
+        opDIVS   = 112,
+        opSLCT   = 56,
+        opSLCTF  = 48,
+
+        /* MUL opcodes */
+        opMPYLL  =  1,
+        opMPYLLU =  2,
+        opMPYLH  =  3,
+        opMPYLHU =  4,
+        opMPYHH  =  5,
+        opMPYHHU =  6,
+        opMPYL   =  7,
+        opMPYLU  =  8,
+        opMPYH   =  9,
+        opMPYHU  = 10,
+        opMPYHS  = 11,
+
+        /* Control opcodes */
+        opGOTO   = 33,
+        opIGOTO  = 34,
+        opCALL   = 35,
+        opICALL  = 36,
+        opBR     = 37,
+        opBRF    = 38,
+        opRETURN = 39,
+        opRFI    = 40,
+        opXNOP   = 41,
+
+        opSEND   = 42,
+        opRECV   = 43,
+
+        /* Memory opcodes */
+        opLDW    = 17,
+        opLDH    = 18,
+        opLDHU   = 19,
+        opLDB    = 20,
+        opLDBU   = 21,
+        opSTW    = 22,
+        opSTH    = 23,
+        opSTB    = 24,
+        opPFT    = 25,
+      } SyllableType;
+      
+      /**
        * The execution type of syllable*/
       typedef enum { 
         ALU = 1, MUL, MEM, CTRL
@@ -98,14 +190,12 @@ namespace rVex
       
       /**
        * Get the syllable Opcode.
-       * 
        * @return The syllable Opcode
        */
       virtual unsigned int getOpcode() const = 0;
       
       /**
        * Get the type of syllable: ALU, MUL, MEM or CTRL.
-       * 
        * @return Type of syllable.
        */
       virtual Type getSyllableType() const = 0;
@@ -122,43 +212,40 @@ namespace rVex
       
       /**
        * Prints the binary representation of the syllable in string format.
-       * 
        * @param True if the syllable is the first in the instruction.
        * @param True if the syllable is the last in the instruction.
        * @return String containing the binary representation of the syllable.
        */
       virtual std::string print(bool, bool) const = 0;
  
-      virtual bool operator==(const Syllable&) const = 0;
-      virtual bool operator!=(const Syllable&) const = 0;
+      virtual bool operator==(const Syllable&) const;
+      virtual bool operator!=(const Syllable&) const;
       
       /**
        * Set the arguments and the syllable data with the arguments
        */
       virtual void fillSyllable(VexParser::SyllableArguments*) = 0;
       
-    /**
-     * Exception throwed when the syllable layout is not supported by the
-     * syllable.
-     * @param reason
-     */
-      class LayoutNotSupportedException : public std::exception
-      {
-        public:
-          LayoutNotSupportedException() ;
-          explicit LayoutNotSupportedException(std::string reason) throw() : reason(reason) { }
-          virtual ~LayoutNotSupportedException() throw() {};
+      /**
+       * Exception throwed when the syllable layout is not supported by the
+       * syllable.
+       * @param reason
+       */
+        class LayoutNotSupportedException : public std::exception
+        {
+          public:
+            LayoutNotSupportedException() ;
+            explicit LayoutNotSupportedException(std::string reason) throw() : reason(reason) { }
+            virtual ~LayoutNotSupportedException() throw() {};
 
-          virtual const char* what() const throw() { return reason.c_str(); }
+            virtual const char* what() const throw() { return reason.c_str(); }
 
-        private:
-          std::string reason;
-      };
-      
+          private:
+            std::string reason;
+        };
     protected:
       /**
        * Prints a unsigned integer into a binary string containing 0's and 1's.
-       * 
        * @param An integer
        * @return A std::string containing binary digits
        */
@@ -177,6 +264,14 @@ namespace rVex
       Instruction* labelDestiny;
       
       std::string path;
+      
+      std::string printRTYPE(bool first, bool last) const;
+      std::string printISTYPE(bool first, bool last) const;
+      std::string printILTYPE(bool first, bool last) const;
+      std::string printBRANCH(bool first, bool last) const;
+      std::string printRTYPE_BS(bool first, bool last) const;
+      std::string printMEMLOADTYPE(bool first, bool last) const;
+      std::string printMEMSTORETYPE(bool first, bool last) const;
       
       virtual void fillTypeI(VexParser::SyllableArguments*);
       virtual void fillTypeII(VexParser::SyllableArguments*);

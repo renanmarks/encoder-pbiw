@@ -18,18 +18,12 @@ namespace rVex
   class SyllableCTRL : public Syllable
   {
     public:
-      virtual bool operator==(const Syllable& other) const;
-      virtual bool operator!=(const Syllable& other) const;
-      virtual LayoutType getLayoutType() const { return layoutType; }
+      virtual ~SyllableCTRL() { }
       
-      virtual std::string print(bool, bool) const;
+      virtual std::string print(bool, bool) const = 0;
       
       virtual void fillSyllable(VexParser::SyllableArguments*) = 0;
-      
-    protected:
-      Syllable::LayoutType layoutType;
   };
 }
 
 #endif	/* ALUSYLLABLE_H */
-

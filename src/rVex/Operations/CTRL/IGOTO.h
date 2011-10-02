@@ -19,8 +19,6 @@ namespace rVex
       class IGOTO : public SyllableCTRL
       {
         public:
-          IGOTO() {};
-          
           unsigned int getOpcode() const { return 34; }
           Type getSyllableType() const { return CTRL; }
           

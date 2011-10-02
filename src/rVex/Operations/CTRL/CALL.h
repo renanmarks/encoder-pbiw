@@ -19,13 +19,13 @@ namespace rVex
       class CALL : public SyllableCTRL
       {
         public:
-          CALL() {}
-          
           unsigned int getOpcode() const { return 35; }
           Type getSyllableType() const { return CTRL; }
           
           virtual void fillSyllable(VexParser::SyllableArguments* arguments)
           { this->fillTypeXVI(arguments); }
+          
+          virtual std::string print(bool, bool) const;
       };
     }
   }

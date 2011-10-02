@@ -141,9 +141,10 @@ namespace VexParser
     } 
     else if (linkRegisterString != string::npos ) // Link Register
     {
-      std::size_t number        = stringValue.substr(linkRegisterString).find(".");
-      std::string numberString  = stringValue.substr(++number);
-      parsedValue.value         = std::atoi(numberString.c_str());
+//      std::size_t number        = stringValue.substr(linkRegisterString).find(".");
+//      std::string numberString  = stringValue.substr(++number);
+//      parsedValue.value         = std::atoi(numberString.c_str());
+      parsedValue.value         = 31;
     } 
     else if (branchRegisterString != string::npos ) // Branch Register
     {

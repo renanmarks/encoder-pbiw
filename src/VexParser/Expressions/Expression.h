@@ -31,7 +31,7 @@ namespace VexParser
     /* Memory Reference */
     explicit Expression( Expression&, std::string );
     
-    /* Label Reference */
+    /* Register or Label Reference */
     explicit Expression( std::string );
     
     /* Register or number */
