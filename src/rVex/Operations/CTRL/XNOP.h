@@ -25,7 +25,7 @@ namespace rVex
           virtual void fillSyllable(VexParser::SyllableArguments* arguments)
           { this->fillTypeXV(arguments); }
           
-          virtual std::string print(bool, bool) const { return ""; }
+          virtual void print(rVex::Printers::IPrinter&, bool, bool) const { }
       };
     }
   }

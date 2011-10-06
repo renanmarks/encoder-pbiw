@@ -105,6 +105,10 @@
           </logicalFolder>
           <itemPath>src/rVex/Operations/Operations.h</itemPath>
         </logicalFolder>
+        <logicalFolder name="Printers" displayName="Printers" projectFiles="true">
+          <itemPath>src/rVex/Printers/IPrinter.h</itemPath>
+          <itemPath>src/rVex/Printers/rVexPrinter.h</itemPath>
+        </logicalFolder>
         <itemPath>src/rVex/Instruction.h</itemPath>
         <itemPath>src/rVex/Syllable.h</itemPath>
         <itemPath>src/rVex/SyllableALU.h</itemPath>
@@ -161,6 +165,9 @@
             <itemPath>src/rVex/Operations/CTRL/RFI.cpp</itemPath>
           </logicalFolder>
         </logicalFolder>
+        <logicalFolder name="Printers" displayName="Printers" projectFiles="true">
+          <itemPath>src/rVex/Printers/rVexPrinter.cpp</itemPath>
+        </logicalFolder>
         <itemPath>src/rVex/Instruction.cpp</itemPath>
         <itemPath>src/rVex/Syllable.cpp</itemPath>
         <itemPath>src/rVex/SyllableALU.cpp</itemPath>
@@ -206,6 +213,7 @@
     <Elem>rVex/Operands</Elem>
     <Elem>rVex/Operations</Elem>
     <Elem>VexParser</Elem>
+    <Elem>src/rVex/Printers</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -253,10 +261,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -282,10 +292,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -351,10 +363,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -382,10 +396,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>

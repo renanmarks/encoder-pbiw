@@ -12,6 +12,7 @@
 #include <vector>
 #include <list>
 #include "../rVex/Instruction.h"
+#include "../rVex/Label.h"
 #include "../rVex/SyllableMUL.h"
 #include "../rVex/SyllableMISC.h"
 #include "../rVex/SyllableMEM.h"
@@ -32,13 +33,22 @@ namespace VexParser
     /**
      * All the memory allocated by the syllables are freed.
      */
-    VexContext() : debuggingEnabled(false)
+    VexContext() : 
+      debuggingEnabled(false), 
+      syllableCounter(0), 
+      instructionCounter(0)
     { }
     
     virtual ~VexContext( );
     
     void newInstruction();
     void packSyllable(rVex::Syllable*, SyllableArguments*);
+    
+    void setLabel(std::string label, rVex::Label::LabelScope scope) 
+    { 
+      this->labelBuffer.label = label; 
+      this->labelBuffer.scope = scope;
+    }
     
     void packSyllable(rVex::SyllableALU*, SyllableArguments*);
     void packSyllable(rVex::SyllableMEM*, SyllableArguments*);
@@ -54,6 +64,10 @@ namespace VexParser
     
   private:
     bool debuggingEnabled;
+    rVex::Label labelBuffer;
+    
+    unsigned int syllableCounter;
+    unsigned int instructionCounter;
     
     typedef std::vector<rVex::Syllable*> SyllableBuffer;
     SyllableBuffer syllableBuffer;

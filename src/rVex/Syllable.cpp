@@ -3,8 +3,8 @@
 
 namespace rVex
 {
-  std::string 
-  Syllable::printRTYPE(bool first, bool last) const 
+  unsigned int 
+  Syllable::printRTYPE() const 
   {
     unsigned int final = 0;
 
@@ -27,11 +27,11 @@ namespace rVex
 
     final <<= 2;
 
-    return this->printBinary(final, first, last); 
+    return final; 
   }
   
-  std::string 
-  Syllable::printISTYPE(bool first, bool last) const 
+  unsigned int 
+  Syllable::printISTYPE() const 
   {
     unsigned int final = 0;
 
@@ -56,17 +56,17 @@ namespace rVex
 
     final <<= 2;
 
-    return this->printBinary(final, first, last); 
+    return final;
   }
   
-  std::string 
-  Syllable::printILTYPE(bool first, bool last) const
+  unsigned int 
+  Syllable::printILTYPE() const
   {
     // TODO
   }
   
-  std::string 
-  Syllable::printBRANCH(bool first, bool last) const
+  unsigned int 
+  Syllable::printBRANCH() const
   {
     unsigned int final = 0;
 
@@ -86,11 +86,11 @@ namespace rVex
 
     final <<= 2;
 
-    return this->printBinary(final, first, last);
+    return final;
   }
   
-  std::string 
-  Syllable::printRTYPE_BS(bool first, bool last) const
+  unsigned int 
+  Syllable::printRTYPE_BS() const
   {
     unsigned int final = 0;
 
@@ -116,11 +116,11 @@ namespace rVex
 
     final <<= 2;
 
-    return this->printBinary(final, first, last);
+    return final;
   }
   
-  std::string 
-  Syllable::printMEMLOADTYPE(bool first, bool last) const
+  unsigned int 
+  Syllable::printMEMLOADTYPE() const
   {
     unsigned int final = 0;
 
@@ -145,11 +145,11 @@ namespace rVex
 
     final <<= 2;
 
-    return this->printBinary(final, first, last);
+    return final;
   }
   
-  std::string 
-  Syllable::printMEMSTORETYPE(bool first, bool last) const
+  unsigned int 
+  Syllable::printMEMSTORETYPE() const
   {
     unsigned int final = 0;
 
@@ -174,7 +174,7 @@ namespace rVex
 
     final <<= 2;
 
-    return this->printBinary(final, first, last);
+    return final;
   }
   
   bool 
@@ -195,32 +195,6 @@ namespace rVex
   Syllable::operator!=(const Syllable& other) const 
   { 
     return !(*this == other); 
-  }
-  
-  std::string Syllable::printBinary(unsigned int number, bool first, bool last) const
-  {
-    std::string resultBinary;
-    unsigned int temp = number;
-    
-    for (unsigned char counter=0; counter < 30; temp <<= 1, counter++)
-    {
-      if (temp & 0x80000000)
-        resultBinary.append("1");
-      else
-        resultBinary.append("0");
-    }
-    
-    if (last)
-      resultBinary.append("1");
-    else
-      resultBinary.append("0");
-    
-    if (first)
-      resultBinary.append("1");
-    else
-      resultBinary.append("0");
-    
-    return resultBinary;
   }
   
   void

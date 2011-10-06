@@ -9,7 +9,10 @@
 #define	RVEXSYLLABE_H
 
 #include <string>
+#include "Label.h"
+
 #include "../VexParser/Expressions/SyllableArguments.h"
+#include "Printers/IPrinter.h"
 
 namespace rVex
 {
@@ -22,7 +25,7 @@ namespace rVex
   class Syllable
   {
     public:
-      Syllable() : labelDestiny(NULL) { }
+      Syllable() : labelDestiny(NULL), address(0) { }
       virtual ~Syllable() { }
       
       /**
@@ -136,6 +139,18 @@ namespace rVex
         NO_IMM, SHORT_IMM, BRANCH_IMM, LONG_IMM 
       } ImmediateSwitch;
       
+      void setBelongedInstruction(rVex::Instruction* instruction)
+      { this->belongedInstruction = instruction; }
+      
+      rVex::Instruction* getBelongedInstruction()
+      { return this->belongedInstruction; }
+      
+      unsigned int getAddress()
+      { return this->address; }
+      
+      void setAddress(unsigned int address)
+      { this->address = address; }
+      
       virtual void setLayoutType(Syllable::LayoutType layoutType) 
       { this->layoutType=layoutType; }
       
@@ -171,15 +186,15 @@ namespace rVex
       { return grDestiny; }
       
       virtual void setLabel(std::string label)
-      { this->label = label; }
+      { this->labelStringDestiny = label; }
       
       virtual std::string getLabel() const
-      { return this->label; }
+      { return this->labelStringDestiny; }
       
-      virtual void setLabelDestiny(Instruction* instructionDestiny)
-      { this->labelDestiny = instructionDestiny; }
+      virtual void setLabelDestiny(Syllable* syllableDestiny)
+      { this->labelDestiny = syllableDestiny; }
       
-      virtual Instruction* getLabelDestiny() const
+      virtual Syllable* getLabelDestiny() const
       { return this->labelDestiny; }
       
       virtual void setPath(std::string path)
@@ -216,7 +231,7 @@ namespace rVex
        * @param True if the syllable is the last in the instruction.
        * @return String containing the binary representation of the syllable.
        */
-      virtual std::string print(bool, bool) const = 0;
+      virtual void print(rVex::Printers::IPrinter&, bool, bool) const = 0;
  
       virtual bool operator==(const Syllable&) const;
       virtual bool operator!=(const Syllable&) const;
@@ -244,12 +259,8 @@ namespace rVex
             std::string reason;
         };
     protected:
-      /**
-       * Prints a unsigned integer into a binary string containing 0's and 1's.
-       * @param An integer
-       * @return A std::string containing binary digits
-       */
-      std::string printBinary(unsigned int, bool, bool) const;
+      Instruction* belongedInstruction;
+      unsigned int address;
       
       Syllable::LayoutType layoutType;
       unsigned char grDestiny;
@@ -260,18 +271,20 @@ namespace rVex
       unsigned char brSource;
       unsigned short shortImmediate;
       
-      std::string label;
-      Instruction* labelDestiny;
+      Label labelDeclaration;
+      
+      std::string labelStringDestiny;
+      Syllable* labelDestiny;
       
       std::string path;
       
-      std::string printRTYPE(bool first, bool last) const;
-      std::string printISTYPE(bool first, bool last) const;
-      std::string printILTYPE(bool first, bool last) const;
-      std::string printBRANCH(bool first, bool last) const;
-      std::string printRTYPE_BS(bool first, bool last) const;
-      std::string printMEMLOADTYPE(bool first, bool last) const;
-      std::string printMEMSTORETYPE(bool first, bool last) const;
+      unsigned int printRTYPE() const;
+      unsigned int printISTYPE() const;
+      unsigned int printILTYPE() const;
+      unsigned int printBRANCH() const;
+      unsigned int printRTYPE_BS() const;
+      unsigned int printMEMLOADTYPE() const;
+      unsigned int printMEMSTORETYPE() const;
       
       virtual void fillTypeI(VexParser::SyllableArguments*);
       virtual void fillTypeII(VexParser::SyllableArguments*);

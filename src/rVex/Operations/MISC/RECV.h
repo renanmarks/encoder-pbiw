@@ -16,7 +16,7 @@ namespace rVex
   {
     namespace MISC
     {
-      class RECV : public Syllable
+      class RECV : public SyllableMISC
       {
         public:
           RECV() {}

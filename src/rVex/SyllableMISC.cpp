@@ -1,12 +1,13 @@
 
 #include <string>
 #include "SyllableMISC.h"
+#include "Printers/IPrinter.h"
 
 namespace rVex
 {
-  std::string 
-  SyllableMISC::print(bool first, bool last) const
+  void
+  SyllableMISC::print(rVex::Printers::IPrinter& output, bool first, bool last) const
   {
-    return this->printRTYPE(first, last); 
+    output.printSyllable(printRTYPE(), first, last);
   }
 }

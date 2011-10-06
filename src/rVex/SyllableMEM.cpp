@@ -3,17 +3,15 @@
 
 namespace rVex
 {
-  std::string 
-  SyllableMEM::print(bool first, bool last) const
+  void
+  SyllableMEM::print(rVex::Printers::IPrinter& output, bool first, bool last) const
   {
     switch (layoutType)
     {
       case Syllable::MEMTYPE:
-        return this->printMEMLOADTYPE(first, last);
+        output.printSyllable(printMEMLOADTYPE(), first, last);
       default:
         throw new LayoutNotSupportedException("This instruction only supports R or IS layouts.");
     }
-    
-    return std::string("Error printing syllable");
   }
 }

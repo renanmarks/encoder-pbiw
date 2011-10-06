@@ -5,7 +5,7 @@
  * Created on September 3, 2011, 8:57 PM
  */
 
-#include <iostream>
+#include <ostream>
 #include <string.h>
 #include "VexContext.h"
 #include "src/rVex/SyllableALU.h"
@@ -15,6 +15,7 @@
 #include "Expressions/SyllableArguments.h"
 #include "src/rVex/Operations/ALU/ADD.h"
 #include "src/rVex/Operations/ALU/MOV.h"
+#include "src/rVex/Printers/rVexPrinter.h"
 
 namespace VexParser
 {
@@ -112,16 +113,19 @@ namespace VexParser
   
   void VexContext::endInstruction()
   {
-    rVex::Instruction instruction;
     SyllableBuffer::iterator it;
+    rVex::Instruction instruction;
     
     for (it = syllableBuffer.begin();
          it < syllableBuffer.end();
          it++)
     {
+      (*it)->setAddress(this->syllableCounter++);
       syllables.push_back(*it);
       instruction.addSyllable(**it);
     }
+    
+    instruction.setAddress(this->instructionCounter++);
     
     syllableBuffer.clear();
     instructions.push_back(instruction);
@@ -146,6 +150,7 @@ namespace VexParser
   VexContext::print(std::ostream& stream)
   {
     InstructionList::const_iterator it;
+    rVex::Printers::rVexPrinter printer(stream);
     
     for(it = instructions.begin();
         it != instructions.end();
@@ -153,11 +158,12 @@ namespace VexParser
     {
       try
       {
-        stream << (*it).print() << std::endl;
+        it->print(printer);
+//        stream << "Address: " << it->getAddress() << " - " << it->print(printer) << std::endl;
       }
       catch (rVex::Syllable::LayoutNotSupportedException* e)
       {
-        std::cout << "Erro imprimindo: " << e->what() << "Opcode: " << it->getSyllables()[0]->getOpcode() << std::endl;
+//        stream << "Erro imprimindo: " << e->what() << "Opcode: " << it->getSyllables()[0]->getOpcode() << std::endl;
       }
     }
   }

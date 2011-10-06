@@ -16,7 +16,7 @@ namespace rVex
   {
     namespace MISC
     {
-      class SEND : public Syllable
+      class SEND : public SyllableMISC
       {
         public:
           SEND() {}

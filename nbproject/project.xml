@@ -15,6 +15,7 @@
                 <sourceRootElem>rVex/Operands</sourceRootElem>
                 <sourceRootElem>rVex/Operations</sourceRootElem>
                 <sourceRootElem>VexParser</sourceRootElem>
+                <sourceRootElem>src/rVex/Printers</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>

@@ -37,6 +37,17 @@
 #ifndef PARSER_HEADER_H
 # define PARSER_HEADER_H
 
+/* "%code requires" blocks.  */
+
+/* Line 35 of lalr1.cc  */
+#line 23 "parser.yy"
+
+#include "../rVex/Label.h"
+
+
+
+/* Line 35 of lalr1.cc  */
+#line 51 "parser.tab.hh"
 
 
 #include <string>
@@ -50,7 +61,7 @@
 namespace VexParser {
 
 /* Line 35 of lalr1.cc  */
-#line 54 "parser.tab.hh"
+#line 65 "parser.tab.hh"
   class position;
   class location;
 
@@ -60,7 +71,7 @@ namespace VexParser {
 } // VexParser
 
 /* Line 35 of lalr1.cc  */
-#line 64 "parser.tab.hh"
+#line 75 "parser.tab.hh"
 
 #include "location.hh"
 
@@ -108,7 +119,7 @@ do {							\
 namespace VexParser {
 
 /* Line 35 of lalr1.cc  */
-#line 112 "parser.tab.hh"
+#line 123 "parser.tab.hh"
 
   /// A Bison parser.
   class Parser
@@ -120,9 +131,10 @@ namespace VexParser {
     {
 
 /* Line 35 of lalr1.cc  */
-#line 62 "parser.yy"
+#line 69 "parser.yy"
 
    int                        value;
+   rVex::Label::LabelScope    scope;
    std::string*               text;
    struct VexOpcode*          opcode;
    struct VexFunction*        function;
@@ -133,7 +145,7 @@ namespace VexParser {
 
 
 /* Line 35 of lalr1.cc  */
-#line 137 "parser.tab.hh"
+#line 149 "parser.tab.hh"
     };
 #else
     typedef YYSTYPE semantic_type;
@@ -373,7 +385,7 @@ namespace VexParser {
 } // VexParser
 
 /* Line 35 of lalr1.cc  */
-#line 377 "parser.tab.hh"
+#line 389 "parser.tab.hh"
 
 
 

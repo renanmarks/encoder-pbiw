@@ -8,7 +8,9 @@
 #ifndef NOP_H
 #define	NOP_H
 
+#include "../../Syllable.h"
 #include "../../SyllableMISC.h"
+#include "../../Printers/IPrinter.h"
 
 namespace rVex
 {
@@ -16,7 +18,7 @@ namespace rVex
   {
     namespace MISC
     {
-      class NOP : public Syllable
+      class NOP : public SyllableMISC
       {
         public:
           NOP() {}
@@ -32,8 +34,8 @@ namespace rVex
           
           virtual LayoutType getLayoutType() const { return RTYPE; }
       
-          virtual std::string print(bool first, bool last) const 
-          { return printBinary(0, first, last); }
+          virtual void print(rVex::Printers::IPrinter& output, bool first, bool last) const
+          { output.printSyllable(0, first, last); }
           
           virtual void fillSyllable(VexParser::SyllableArguments* arguments)
           { this->fillTypeXIV(arguments); }

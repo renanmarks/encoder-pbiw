@@ -9,6 +9,7 @@
 #define	SYLLABLECTRL_H
 
 #include "Syllable.h"
+#include "Printers/IPrinter.h"
 
 namespace rVex
 {
@@ -20,7 +21,7 @@ namespace rVex
     public:
       virtual ~SyllableCTRL() { }
       
-      virtual std::string print(bool, bool) const = 0;
+      virtual void print(rVex::Printers::IPrinter&, bool, bool) const = 0;
       
       virtual void fillSyllable(VexParser::SyllableArguments*) = 0;
   };

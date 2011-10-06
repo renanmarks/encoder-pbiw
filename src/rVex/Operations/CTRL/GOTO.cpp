@@ -6,8 +6,8 @@ namespace rVex
   {
     namespace CTRL
     {
-      std::string
-      GOTO::print(bool first, bool last) const
+      void 
+      GOTO::print(rVex::Printers::IPrinter& output, bool first, bool last) const
       {
         unsigned int final = 0;
 
@@ -20,8 +20,8 @@ namespace rVex
         final |= this->shortImmediate;
 
         final <<= 17;
-
-        return this->printBinary(final, first, last); 
+        
+        output.printSyllable(final, first, last);
       }
     }
   }

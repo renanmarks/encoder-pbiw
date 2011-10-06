@@ -7,23 +7,22 @@
 
 #include <vector>
 #include "SyllableMUL.h"
+#include "Printers/IPrinter.h"
 
 namespace rVex
 {
-  std::string 
-  SyllableMUL::print(bool first, bool last) const
+  void
+  SyllableMUL::print(rVex::Printers::IPrinter& output, bool first, bool last) const
   {
     switch (this->layoutType)
     {
       case Syllable::RTYPE:
-        return this->printRTYPE(first, last);
+        output.printSyllable(printRTYPE(), first, last);
       case Syllable::ISTYPE:
-        return this->printISTYPE(first, last);
+        output.printSyllable(printISTYPE(), first, last);
       default:
         throw new LayoutNotSupportedException("This instruction only supports R or IS layouts.");
     }
-    
-    return std::string("Error printing syllable");
   }
  
 }

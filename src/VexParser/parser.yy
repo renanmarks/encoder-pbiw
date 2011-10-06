@@ -1,6 +1,7 @@
 /* $Id: parser.yy 48 2009-09-05 08:07:10Z tb $ -*- mode: c++ -*- */
-/** \file parser.yy Contains the example Bison parser source */
+/** \file parser.yy Contains the rVex Bison parser source */
 
+/* Declaration at parser implementation */
 %{ /*** C/C++ Declarations ***/
   
 //#include <stdio.h>
@@ -12,10 +13,16 @@
 #include "Expressions/Expression.h"
 #include "Expressions/Arguments.h"
 #include "Expressions/SyllableArguments.h"
-
-enum { LOCAL = 0, GLOBAL = 1 };
+//#include "../rVex/Label.h"
+  
+//enum { LOCAL = 0, GLOBAL = 1 };
   
 %}
+
+/* Declaration at parser header */
+%code requires {
+#include "../rVex/Label.h"
+}
 
 /*** yacc/bison Declarations ***/
 
@@ -61,6 +68,7 @@ enum { LOCAL = 0, GLOBAL = 1 };
 
 %union {
    int                        value;
+   rVex::Label::LabelScope    scope;
    std::string*               text;
    struct VexOpcode*          opcode;
    struct VexFunction*        function;
@@ -124,7 +132,7 @@ enum { LOCAL = 0, GLOBAL = 1 };
 %type   <text>    ret
 
 %type   <value>   data_size
-%type   <value>   scope
+%type   <scope>   scope
 %type   <value>   .dup
 
 %type   <expression>            data_val
@@ -335,7 +343,7 @@ trace_dir       :       _TRACE NUMBER
                 |       _TRACE NUMBER __COMMA NUMBER 
                 ;
 
-label_decl      :       name scope  { }
+label_decl      :       name scope  { driver.context.setLabel(*$1, $2); }
                 ;
 
 call_jmp_dir    :       _CALL_JMP call_jmp_tgt __COMMA callc __COMMA { }
@@ -376,8 +384,8 @@ text_global_dir :       _IMPORT name  { }
 equ_dir         :       _EQU name __COMMA expr { }
                 ;
 
-scope           :       __COLON          { $$ = LOCAL; }
-                |       __COLON __COLON       { $$ = GLOBAL; }
+scope           :       __COLON          { $$ = rVex::Label::LOCAL; }
+                |       __COLON __COLON       { $$ = rVex::Label::GLOBAL; }
                 ;
 
 type_dir        :       _TYPE name __COMMA __AT NAME

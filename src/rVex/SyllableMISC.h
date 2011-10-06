@@ -9,6 +9,7 @@
 #define	SYLLABLEMISC_H
 
 #include "Syllable.h"
+#include "Printers/IPrinter.h"
 
 namespace rVex
 {
@@ -20,7 +21,7 @@ namespace rVex
     public:
       virtual ~SyllableMISC() { }
       
-      virtual std::string print(bool, bool) const;
+      virtual void print(rVex::Printers::IPrinter&, bool, bool) const;
       
       virtual void fillSyllable(VexParser::SyllableArguments*) = 0;
   };
