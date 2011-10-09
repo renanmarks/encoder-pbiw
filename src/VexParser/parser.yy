@@ -427,7 +427,11 @@ regloc          :       NAME __EQUAL expr  { }
  **     BUNDLE structure and MOP opcodes
  **********************************************************************************/
 
-bundle          :      .mop_list end_bundle { driver.context.endInstruction(); std::cout << ";;" << std::endl; }
+bundle          :      .mop_list end_bundle 
+                        { 
+                          driver.context.endInstruction(); 
+                          std::cout << ";;" << std::endl; 
+                        }
                 ;
 
 end_bundle      :       __SEMICOLON __SEMICOLON 

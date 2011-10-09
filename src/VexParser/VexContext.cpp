@@ -104,6 +104,7 @@ namespace VexParser
         break;
         
       default: // MISC
+        throw new std::exception();
         packSyllable(dynamic_cast<rVex::SyllableMISC*>(syllable), arguments);
         break;
     }
@@ -156,15 +157,7 @@ namespace VexParser
         it != instructions.end();
         it++)
     {
-      try
-      {
         it->print(printer);
-//        stream << "Address: " << it->getAddress() << " - " << it->print(printer) << std::endl;
-      }
-      catch (rVex::Syllable::LayoutNotSupportedException* e)
-      {
-//        stream << "Erro imprimindo: " << e->what() << "Opcode: " << it->getSyllables()[0]->getOpcode() << std::endl;
-      }
     }
   }
   

@@ -142,10 +142,10 @@ namespace rVex
       void setBelongedInstruction(rVex::Instruction* instruction)
       { this->belongedInstruction = instruction; }
       
-      rVex::Instruction* getBelongedInstruction()
+      rVex::Instruction* getBelongedInstruction() const
       { return this->belongedInstruction; }
       
-      unsigned int getAddress()
+      unsigned int getAddress() const
       { return this->address; }
       
       void setAddress(unsigned int address)

@@ -21,10 +21,10 @@ namespace rVex
      * @return A std::string containing binary digits
      */
     void 
-    rVexPrinter::printSyllable(unsigned int syllable, bool first, bool last)
+    rVexPrinter::printSyllable(const rVex::Syllable* syllable, unsigned int binary, bool first, bool last)
     {
       std::string resultBinary;
-      unsigned int temp = syllable;
+      unsigned int temp = binary;
 
       for (unsigned char counter=0; counter < 30; temp <<= 1, counter++)
       {
@@ -44,7 +44,7 @@ namespace rVex
       else
         resultBinary.append("0");
 
-      output << resultBinary;
+      output << "\t(S: " << syllable->getAddress() << ") " << resultBinary << std::endl;
     }
 
     /**
@@ -58,20 +58,29 @@ namespace rVex
       SyllableVec syllables = instruction.getSyllables();
       SyllableVec::const_iterator it;
       
-      output << "[" << instruction.getAddress() << "] ";
+      output << "[I: " << instruction.getAddress() << "]";
       
-      for ( it = syllables.begin(); it < syllables.end(); it++)
+      try 
       {
-        // If the current is the first put 01 in LF...
-        if (it == syllables.begin()) 
-          (*it)->print(*this, true, false);
-        
-        // ... if the current is the last put 10 in LF ...
-        else if (it+1 == syllables.end()) 
-          (*it)->print(*this, false, true);
-        
-        else // ... if is in the middle, put 00 in LF bits
-          (*it)->print(*this, false, false);
+      
+        for ( it = syllables.begin(); it < syllables.end(); it++)
+        {
+          // If the current is the first put 01 in LF...
+          if (it == syllables.begin()) 
+            (*it)->print(*this, true, false);
+
+          // ... if the current is the last put 10 in LF ...
+          else if (it+1 == syllables.end()) 
+            (*it)->print(*this, false, true);
+
+          else // ... if is in the middle, put 00 in LF bits
+            (*it)->print(*this, false, false);
+        }
+      
+      }
+      catch (rVex::Syllable::LayoutNotSupportedException* e)
+      {
+        output << "Erro imprimindo: " << e->what() << "Opcode: " << (*it)->getOpcode() << std::endl;
       }
       
       output << std::endl;

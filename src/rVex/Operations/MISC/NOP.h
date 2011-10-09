@@ -35,7 +35,7 @@ namespace rVex
           virtual LayoutType getLayoutType() const { return RTYPE; }
       
           virtual void print(rVex::Printers::IPrinter& output, bool first, bool last) const
-          { output.printSyllable(0, first, last); }
+          { output.printSyllable(this, 0, first, last); }
           
           virtual void fillSyllable(VexParser::SyllableArguments* arguments)
           { this->fillTypeXIV(arguments); }

@@ -13,6 +13,7 @@
 namespace rVex
 {
   class Instruction;
+  class Syllable;
   
   namespace Printers
   {
@@ -28,7 +29,7 @@ namespace rVex
       /**
        * Print the syllable.
        */
-      virtual void printSyllable(unsigned int, bool, bool) = 0;
+      virtual void printSyllable(const rVex::Syllable*,unsigned int, bool, bool) = 0;
       
       /**
        * Print the instruction.

@@ -9,7 +9,8 @@ namespace rVex
     switch (layoutType)
     {
       case Syllable::MEMTYPE:
-        output.printSyllable(printMEMLOADTYPE(), first, last);
+        output.printSyllable(this, printMEMLOADTYPE(), first, last);
+        break;
       default:
         throw new LayoutNotSupportedException("This instruction only supports R or IS layouts.");
     }

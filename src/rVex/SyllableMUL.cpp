@@ -17,9 +17,11 @@ namespace rVex
     switch (this->layoutType)
     {
       case Syllable::RTYPE:
-        output.printSyllable(printRTYPE(), first, last);
+        output.printSyllable(this, printRTYPE(), first, last);
+        break;
       case Syllable::ISTYPE:
-        output.printSyllable(printISTYPE(), first, last);
+        output.printSyllable(this, printISTYPE(), first, last);
+        break;
       default:
         throw new LayoutNotSupportedException("This instruction only supports R or IS layouts.");
     }

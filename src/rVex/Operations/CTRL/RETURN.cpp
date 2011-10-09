@@ -24,7 +24,7 @@ namespace rVex
 
         final <<= 2;
 
-        output.printSyllable(final, first, last);
+        output.printSyllable(this, final, first, last);
       }
     }
   }
