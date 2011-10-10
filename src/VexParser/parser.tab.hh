@@ -40,7 +40,7 @@
 /* "%code requires" blocks.  */
 
 /* Line 35 of lalr1.cc  */
-#line 23 "parser.yy"
+#line 21 "parser.yy"
 
 #include "../rVex/Label.h"
 
@@ -131,7 +131,7 @@ namespace VexParser {
     {
 
 /* Line 35 of lalr1.cc  */
-#line 69 "parser.yy"
+#line 67 "parser.yy"
 
    int                        value;
    rVex::Label::LabelScope    scope;

@@ -45,6 +45,12 @@ namespace rVex
        */
       virtual void printFooter();
       
+      /**
+       * Return output print stream.
+       */
+      virtual std::ostream& getOutputStream()
+      { return output; }
+      
     private:
       std::ostream& output;
       

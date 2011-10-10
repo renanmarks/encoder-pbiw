@@ -12,6 +12,7 @@ using namespace std;
 #include "VexParser/driver.h"
 #include "VexParser/VexContext.h"
 #include "pbiw_encoder.h"
+#include "rVex/Printers/rVexPrinter.h"
 
 int
 main( int argc, char** argv )
@@ -43,7 +44,8 @@ main( int argc, char** argv )
     }
   }
   
-  context.print(std::cout);
+  rVex::Printers::rVexPrinter printer(std::cout);
+  context.print(printer);
   
   return result ? 0 : 1;
 }

@@ -13,14 +13,12 @@
 #include "Expressions/Expression.h"
 #include "Expressions/Arguments.h"
 #include "Expressions/SyllableArguments.h"
-//#include "../rVex/Label.h"
-  
-//enum { LOCAL = 0, GLOBAL = 1 };
   
 %}
 
 /* Declaration at parser header */
-%code requires {
+%code requires 
+{
 #include "../rVex/Label.h"
 }
 
@@ -357,12 +355,10 @@ call_jmp_tgt    :       name          { $$ = $1; }
                 ;
 
 entry_dir       :       _ENTRY callc __COMMA regloclist __COMMA arg __LPAREN .arg_list __RPAREN name scope { 
-                            $$->str = $10;
-                            $$->scope = $11;
+                            driver.context.setLabel(*$10, $11);
                         }
                 |       name scope  {
-                            $$->str = $1;
-                            $$->scope = $2;
+                            driver.context.setLabel(*$1, $2);
                         }
                 ;
 

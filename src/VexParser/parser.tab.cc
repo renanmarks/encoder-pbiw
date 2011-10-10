@@ -50,14 +50,11 @@
 #include "Expressions/Expression.h"
 #include "Expressions/Arguments.h"
 #include "Expressions/SyllableArguments.h"
-//#include "../rVex/Label.h"
-  
-//enum { LOCAL = 0, GLOBAL = 1 };
   
 
 
 /* Line 311 of lalr1.cc  */
-#line 61 "parser.tab.cc"
+#line 58 "parser.tab.cc"
 
 
 #include "parser.tab.hh"
@@ -65,7 +62,7 @@
 /* User implementation prologue.  */
 
 /* Line 317 of lalr1.cc  */
-#line 183 "parser.yy"
+#line 181 "parser.yy"
 
 
 #include "driver.h"
@@ -80,7 +77,7 @@
 
 
 /* Line 317 of lalr1.cc  */
-#line 84 "parser.tab.cc"
+#line 81 "parser.tab.cc"
 
 #ifndef YY_
 # if YYENABLE_NLS
@@ -149,7 +146,7 @@ do {					\
 namespace VexParser {
 
 /* Line 380 of lalr1.cc  */
-#line 153 "parser.tab.cc"
+#line 150 "parser.tab.cc"
 #if YYERROR_VERBOSE
 
   /* Return YYSTR after stripping away unnecessary quotes and
@@ -252,146 +249,146 @@ namespace VexParser {
         case 6: /* "_CALL_JMP" */
 
 /* Line 480 of lalr1.cc  */
-#line 167 "parser.yy"
-	{ delete (yyvaluep->opcode); };
-
-/* Line 480 of lalr1.cc  */
-#line 260 "parser.tab.cc"
-	break;
-      case 40: /* "CLUST" */
-
-/* Line 480 of lalr1.cc  */
-#line 162 "parser.yy"
-	{ delete (yyvaluep->text); };
-
-/* Line 480 of lalr1.cc  */
-#line 269 "parser.tab.cc"
-	break;
-      case 41: /* "NAME" */
-
-/* Line 480 of lalr1.cc  */
-#line 163 "parser.yy"
-	{ delete (yyvaluep->text); };
-
-/* Line 480 of lalr1.cc  */
-#line 278 "parser.tab.cc"
-	break;
-      case 43: /* "OPCODE" */
-
-/* Line 480 of lalr1.cc  */
-#line 164 "parser.yy"
-	{ delete (yyvaluep->opcode); };
-
-/* Line 480 of lalr1.cc  */
-#line 287 "parser.tab.cc"
-	break;
-      case 44: /* "XNOP" */
-
-/* Line 480 of lalr1.cc  */
 #line 165 "parser.yy"
 	{ delete (yyvaluep->opcode); };
 
 /* Line 480 of lalr1.cc  */
-#line 296 "parser.tab.cc"
+#line 257 "parser.tab.cc"
+	break;
+      case 40: /* "CLUST" */
+
+/* Line 480 of lalr1.cc  */
+#line 160 "parser.yy"
+	{ delete (yyvaluep->text); };
+
+/* Line 480 of lalr1.cc  */
+#line 266 "parser.tab.cc"
+	break;
+      case 41: /* "NAME" */
+
+/* Line 480 of lalr1.cc  */
+#line 161 "parser.yy"
+	{ delete (yyvaluep->text); };
+
+/* Line 480 of lalr1.cc  */
+#line 275 "parser.tab.cc"
+	break;
+      case 43: /* "OPCODE" */
+
+/* Line 480 of lalr1.cc  */
+#line 162 "parser.yy"
+	{ delete (yyvaluep->opcode); };
+
+/* Line 480 of lalr1.cc  */
+#line 284 "parser.tab.cc"
+	break;
+      case 44: /* "XNOP" */
+
+/* Line 480 of lalr1.cc  */
+#line 163 "parser.yy"
+	{ delete (yyvaluep->opcode); };
+
+/* Line 480 of lalr1.cc  */
+#line 293 "parser.tab.cc"
 	break;
       case 45: /* "QUOTE_STRING" */
 
 /* Line 480 of lalr1.cc  */
-#line 166 "parser.yy"
+#line 164 "parser.yy"
 	{ delete (yyvaluep->text); };
 
 /* Line 480 of lalr1.cc  */
-#line 305 "parser.tab.cc"
+#line 302 "parser.tab.cc"
 	break;
       case 64: /* "data_val" */
 
 /* Line 480 of lalr1.cc  */
-#line 173 "parser.yy"
+#line 171 "parser.yy"
 	{ delete (yyvaluep->expression); };
 
 /* Line 480 of lalr1.cc  */
-#line 314 "parser.tab.cc"
+#line 311 "parser.tab.cc"
 	break;
       case 88: /* "call_jmp_tgt" */
+
+/* Line 480 of lalr1.cc  */
+#line 167 "parser.yy"
+	{ delete (yyvaluep->text); };
+
+/* Line 480 of lalr1.cc  */
+#line 320 "parser.tab.cc"
+	break;
+      case 89: /* "entry_dir" */
+
+/* Line 480 of lalr1.cc  */
+#line 173 "parser.yy"
+	{ delete (yyvaluep->function); };
+
+/* Line 480 of lalr1.cc  */
+#line 329 "parser.tab.cc"
+	break;
+      case 92: /* "arg" */
 
 /* Line 480 of lalr1.cc  */
 #line 169 "parser.yy"
 	{ delete (yyvaluep->text); };
 
 /* Line 480 of lalr1.cc  */
-#line 323 "parser.tab.cc"
-	break;
-      case 89: /* "entry_dir" */
-
-/* Line 480 of lalr1.cc  */
-#line 175 "parser.yy"
-	{ delete (yyvaluep->function); };
-
-/* Line 480 of lalr1.cc  */
-#line 332 "parser.tab.cc"
-	break;
-      case 92: /* "arg" */
-
-/* Line 480 of lalr1.cc  */
-#line 171 "parser.yy"
-	{ delete (yyvaluep->text); };
-
-/* Line 480 of lalr1.cc  */
-#line 341 "parser.tab.cc"
+#line 338 "parser.tab.cc"
 	break;
       case 93: /* "ret" */
-
-/* Line 480 of lalr1.cc  */
-#line 172 "parser.yy"
-	{ delete (yyvaluep->text); };
-
-/* Line 480 of lalr1.cc  */
-#line 350 "parser.tab.cc"
-	break;
-      case 114: /* ".mop_arglist" */
-
-/* Line 480 of lalr1.cc  */
-#line 179 "parser.yy"
-	{ delete (yyvaluep->syllableArguments); };
-
-/* Line 480 of lalr1.cc  */
-#line 359 "parser.tab.cc"
-	break;
-      case 115: /* "mop_arglist" */
-
-/* Line 480 of lalr1.cc  */
-#line 178 "parser.yy"
-	{ delete (yyvaluep->arguments); };
-
-/* Line 480 of lalr1.cc  */
-#line 368 "parser.tab.cc"
-	break;
-      case 116: /* "mop_arg" */
-
-/* Line 480 of lalr1.cc  */
-#line 177 "parser.yy"
-	{ delete (yyvaluep->expression); };
-
-/* Line 480 of lalr1.cc  */
-#line 377 "parser.tab.cc"
-	break;
-      case 117: /* "expr" */
-
-/* Line 480 of lalr1.cc  */
-#line 174 "parser.yy"
-	{ delete (yyvaluep->expression); };
-
-/* Line 480 of lalr1.cc  */
-#line 386 "parser.tab.cc"
-	break;
-      case 118: /* "name" */
 
 /* Line 480 of lalr1.cc  */
 #line 170 "parser.yy"
 	{ delete (yyvaluep->text); };
 
 /* Line 480 of lalr1.cc  */
-#line 395 "parser.tab.cc"
+#line 347 "parser.tab.cc"
+	break;
+      case 114: /* ".mop_arglist" */
+
+/* Line 480 of lalr1.cc  */
+#line 177 "parser.yy"
+	{ delete (yyvaluep->syllableArguments); };
+
+/* Line 480 of lalr1.cc  */
+#line 356 "parser.tab.cc"
+	break;
+      case 115: /* "mop_arglist" */
+
+/* Line 480 of lalr1.cc  */
+#line 176 "parser.yy"
+	{ delete (yyvaluep->arguments); };
+
+/* Line 480 of lalr1.cc  */
+#line 365 "parser.tab.cc"
+	break;
+      case 116: /* "mop_arg" */
+
+/* Line 480 of lalr1.cc  */
+#line 175 "parser.yy"
+	{ delete (yyvaluep->expression); };
+
+/* Line 480 of lalr1.cc  */
+#line 374 "parser.tab.cc"
+	break;
+      case 117: /* "expr" */
+
+/* Line 480 of lalr1.cc  */
+#line 172 "parser.yy"
+	{ delete (yyvaluep->expression); };
+
+/* Line 480 of lalr1.cc  */
+#line 383 "parser.tab.cc"
+	break;
+      case 118: /* "name" */
+
+/* Line 480 of lalr1.cc  */
+#line 168 "parser.yy"
+	{ delete (yyvaluep->text); };
+
+/* Line 480 of lalr1.cc  */
+#line 392 "parser.tab.cc"
 	break;
 
 	default:
@@ -470,14 +467,14 @@ namespace VexParser {
     /* User initialization code.  */
     
 /* Line 553 of lalr1.cc  */
-#line 54 "parser.yy"
+#line 52 "parser.yy"
 {
     // initialize the initial location object
     yylloc.begin.filename = yylloc.end.filename = &driver.streamname;
 }
 
 /* Line 553 of lalr1.cc  */
-#line 481 "parser.tab.cc"
+#line 478 "parser.tab.cc"
 
     /* Initialize the stacks.  The initial state will be pushed in
        yynewstate, since the latter expects the semantical and the
@@ -596,385 +593,386 @@ namespace VexParser {
 	  case 15:
 
 /* Line 678 of lalr1.cc  */
-#line 233 "parser.yy"
+#line 231 "parser.yy"
     { }
     break;
 
   case 16:
 
 /* Line 678 of lalr1.cc  */
-#line 234 "parser.yy"
+#line 232 "parser.yy"
     { }
     break;
 
   case 17:
 
 /* Line 678 of lalr1.cc  */
-#line 235 "parser.yy"
+#line 233 "parser.yy"
     { }
     break;
 
   case 18:
 
 /* Line 678 of lalr1.cc  */
-#line 236 "parser.yy"
+#line 234 "parser.yy"
     { }
     break;
 
   case 19:
 
 /* Line 678 of lalr1.cc  */
-#line 237 "parser.yy"
+#line 235 "parser.yy"
     { }
     break;
 
   case 20:
 
 /* Line 678 of lalr1.cc  */
-#line 238 "parser.yy"
+#line 236 "parser.yy"
     { }
     break;
 
   case 21:
 
 /* Line 678 of lalr1.cc  */
-#line 239 "parser.yy"
+#line 237 "parser.yy"
     { }
     break;
 
   case 22:
 
 /* Line 678 of lalr1.cc  */
-#line 240 "parser.yy"
+#line 238 "parser.yy"
     { }
     break;
 
   case 25:
 
 /* Line 678 of lalr1.cc  */
-#line 247 "parser.yy"
+#line 245 "parser.yy"
     { }
     break;
 
   case 26:
 
 /* Line 678 of lalr1.cc  */
-#line 248 "parser.yy"
+#line 246 "parser.yy"
     { }
     break;
 
   case 27:
 
 /* Line 678 of lalr1.cc  */
-#line 249 "parser.yy"
+#line 247 "parser.yy"
     { }
     break;
 
   case 28:
 
 /* Line 678 of lalr1.cc  */
-#line 252 "parser.yy"
+#line 250 "parser.yy"
     { (yyval.expression) = (yysemantic_stack_[(1) - (1)].expression); }
     break;
 
   case 29:
 
 /* Line 678 of lalr1.cc  */
-#line 253 "parser.yy"
+#line 251 "parser.yy"
     { (yyval.expression) = new Expression((yysemantic_stack_[(3) - (1)].value)); }
     break;
 
   case 30:
 
 /* Line 678 of lalr1.cc  */
-#line 255 "parser.yy"
+#line 253 "parser.yy"
     { (yyval.value) = 1; }
     break;
 
   case 31:
 
 /* Line 678 of lalr1.cc  */
-#line 256 "parser.yy"
+#line 254 "parser.yy"
     { (yyval.value) = 2; }
     break;
 
   case 32:
 
 /* Line 678 of lalr1.cc  */
-#line 257 "parser.yy"
+#line 255 "parser.yy"
     { (yyval.value) = 4; }
     break;
 
   case 33:
 
 /* Line 678 of lalr1.cc  */
-#line 258 "parser.yy"
+#line 256 "parser.yy"
     { (yyval.value) = 4; }
     break;
 
   case 34:
 
 /* Line 678 of lalr1.cc  */
-#line 259 "parser.yy"
+#line 257 "parser.yy"
     { (yyval.value) = 8; }
     break;
 
   case 35:
 
 /* Line 678 of lalr1.cc  */
-#line 262 "parser.yy"
+#line 260 "parser.yy"
     { (yyval.value) = 0;  }
     break;
 
   case 36:
 
 /* Line 678 of lalr1.cc  */
-#line 263 "parser.yy"
+#line 261 "parser.yy"
     { (yyval.value) = (yysemantic_stack_[(2) - (2)].value); }
     break;
 
   case 37:
 
 /* Line 678 of lalr1.cc  */
-#line 267 "parser.yy"
+#line 265 "parser.yy"
     { }
     break;
 
   case 46:
 
 /* Line 678 of lalr1.cc  */
-#line 288 "parser.yy"
+#line 286 "parser.yy"
     { }
     break;
 
   case 47:
 
 /* Line 678 of lalr1.cc  */
-#line 289 "parser.yy"
+#line 287 "parser.yy"
     { }
     break;
 
   case 48:
 
 /* Line 678 of lalr1.cc  */
-#line 292 "parser.yy"
+#line 290 "parser.yy"
     { }
     break;
 
   case 60:
 
 /* Line 678 of lalr1.cc  */
-#line 318 "parser.yy"
+#line 316 "parser.yy"
     { }
     break;
 
   case 61:
 
 /* Line 678 of lalr1.cc  */
-#line 321 "parser.yy"
+#line 319 "parser.yy"
     { }
     break;
 
   case 62:
 
 /* Line 678 of lalr1.cc  */
-#line 322 "parser.yy"
+#line 320 "parser.yy"
     { }
     break;
 
   case 63:
 
 /* Line 678 of lalr1.cc  */
-#line 323 "parser.yy"
+#line 321 "parser.yy"
     { }
     break;
 
   case 65:
 
 /* Line 678 of lalr1.cc  */
-#line 327 "parser.yy"
+#line 325 "parser.yy"
     { }
     break;
 
   case 76:
 
 /* Line 678 of lalr1.cc  */
-#line 346 "parser.yy"
+#line 344 "parser.yy"
     { driver.context.setLabel(*(yysemantic_stack_[(2) - (1)].text), (yysemantic_stack_[(2) - (2)].scope)); }
     break;
 
   case 77:
 
 /* Line 678 of lalr1.cc  */
-#line 349 "parser.yy"
+#line 347 "parser.yy"
     { }
     break;
 
   case 78:
 
 /* Line 678 of lalr1.cc  */
-#line 350 "parser.yy"
+#line 348 "parser.yy"
     { }
     break;
 
   case 79:
 
 /* Line 678 of lalr1.cc  */
-#line 351 "parser.yy"
+#line 349 "parser.yy"
     { }
     break;
 
   case 80:
 
 /* Line 678 of lalr1.cc  */
-#line 354 "parser.yy"
+#line 352 "parser.yy"
     { (yyval.text) = (yysemantic_stack_[(1) - (1)].text); }
     break;
 
   case 81:
 
 /* Line 678 of lalr1.cc  */
-#line 355 "parser.yy"
+#line 353 "parser.yy"
     { (yyval.text) = (yysemantic_stack_[(1) - (1)].text); }
     break;
 
   case 82:
 
 /* Line 678 of lalr1.cc  */
-#line 356 "parser.yy"
+#line 354 "parser.yy"
     { (yyval.text) = new std::string(""); }
     break;
 
   case 83:
 
 /* Line 678 of lalr1.cc  */
-#line 359 "parser.yy"
+#line 357 "parser.yy"
     { 
-                            (yyval.function)->str = (yysemantic_stack_[(11) - (10)].text);
-                            (yyval.function)->scope = (yysemantic_stack_[(11) - (11)].scope);
+                            driver.context.setLabel(*(yysemantic_stack_[(11) - (10)].text), (yysemantic_stack_[(11) - (11)].scope));
                         }
     break;
 
   case 84:
 
 /* Line 678 of lalr1.cc  */
-#line 363 "parser.yy"
+#line 360 "parser.yy"
     {
-                            (yyval.function)->str = (yysemantic_stack_[(2) - (1)].text);
-                            (yyval.function)->scope = (yysemantic_stack_[(2) - (2)].scope);
+                            driver.context.setLabel(*(yysemantic_stack_[(2) - (1)].text), (yysemantic_stack_[(2) - (2)].scope));
                         }
     break;
 
   case 85:
 
 /* Line 678 of lalr1.cc  */
-#line 369 "parser.yy"
+#line 365 "parser.yy"
     { }
     break;
 
   case 86:
 
 /* Line 678 of lalr1.cc  */
-#line 372 "parser.yy"
+#line 368 "parser.yy"
     { }
     break;
 
   case 87:
 
 /* Line 678 of lalr1.cc  */
-#line 375 "parser.yy"
+#line 371 "parser.yy"
     { (yyval.text) = (yysemantic_stack_[(1) - (1)].text); }
     break;
 
   case 88:
 
 /* Line 678 of lalr1.cc  */
-#line 378 "parser.yy"
+#line 374 "parser.yy"
     { (yyval.text) = (yysemantic_stack_[(1) - (1)].text); }
     break;
 
   case 89:
 
 /* Line 678 of lalr1.cc  */
-#line 381 "parser.yy"
+#line 377 "parser.yy"
     { }
     break;
 
   case 90:
 
 /* Line 678 of lalr1.cc  */
-#line 384 "parser.yy"
+#line 380 "parser.yy"
     { }
     break;
 
   case 91:
 
 /* Line 678 of lalr1.cc  */
-#line 387 "parser.yy"
+#line 383 "parser.yy"
     { (yyval.scope) = rVex::Label::LOCAL; }
     break;
 
   case 92:
 
 /* Line 678 of lalr1.cc  */
-#line 388 "parser.yy"
+#line 384 "parser.yy"
     { (yyval.scope) = rVex::Label::GLOBAL; }
     break;
 
   case 97:
 
 /* Line 678 of lalr1.cc  */
-#line 403 "parser.yy"
+#line 399 "parser.yy"
     { }
     break;
 
   case 100:
 
 /* Line 678 of lalr1.cc  */
-#line 410 "parser.yy"
+#line 406 "parser.yy"
     { }
     break;
 
   case 101:
 
 /* Line 678 of lalr1.cc  */
-#line 411 "parser.yy"
+#line 407 "parser.yy"
     { }
     break;
 
   case 102:
 
 /* Line 678 of lalr1.cc  */
-#line 412 "parser.yy"
+#line 408 "parser.yy"
     { }
     break;
 
   case 103:
 
 /* Line 678 of lalr1.cc  */
-#line 415 "parser.yy"
+#line 411 "parser.yy"
     { }
     break;
 
   case 104:
 
 /* Line 678 of lalr1.cc  */
-#line 416 "parser.yy"
+#line 412 "parser.yy"
     { }
     break;
 
   case 107:
 
 /* Line 678 of lalr1.cc  */
-#line 423 "parser.yy"
+#line 419 "parser.yy"
     { }
     break;
 
   case 108:
 
 /* Line 678 of lalr1.cc  */
-#line 430 "parser.yy"
-    { driver.context.endInstruction(); std::cout << ";;" << std::endl; }
+#line 427 "parser.yy"
+    { 
+                          driver.context.endInstruction(); 
+                          std::cout << ";;" << std::endl; 
+                        }
     break;
 
   case 117:
@@ -1174,7 +1172,7 @@ namespace VexParser {
 
 
 /* Line 678 of lalr1.cc  */
-#line 1178 "parser.tab.cc"
+#line 1176 "parser.tab.cc"
 	default:
           break;
       }
@@ -1739,17 +1737,17 @@ namespace VexParser {
   const unsigned short int
   Parser::yyrline_[] =
   {
-         0,   204,   204,   205,   208,   209,   210,   211,   212,   213,
-     220,   224,   225,   228,   229,   233,   234,   235,   235,   237,
-     238,   239,   240,   243,   244,   247,   248,   249,   252,   253,
-     255,   256,   257,   258,   259,   262,   263,   267,   274,   277,
-     278,   281,   282,   285,   286,   287,   288,   289,   292,   295,
-     302,   305,   306,   309,   310,   313,   314,   315,   316,   317,
-     318,   321,   321,   323,   324,   327,   330,   331,   334,   335,
-     336,   337,   338,   339,   342,   343,   346,   349,   350,   349,
-     354,   355,   356,   359,   363,   369,   372,   375,   378,   381,
-     384,   387,   388,   391,   398,   399,   400,   403,   406,   407,
-     410,   411,   412,   415,   416,   419,   420,   423,   430,   433,
+         0,   202,   202,   203,   206,   207,   208,   209,   210,   211,
+     218,   222,   223,   226,   227,   231,   232,   233,   233,   235,
+     236,   237,   238,   241,   242,   245,   246,   247,   250,   251,
+     253,   254,   255,   256,   257,   260,   261,   265,   272,   275,
+     276,   279,   280,   283,   284,   285,   286,   287,   290,   293,
+     300,   303,   304,   307,   308,   311,   312,   313,   314,   315,
+     316,   319,   319,   321,   322,   325,   328,   329,   332,   333,
+     334,   335,   336,   337,   340,   341,   344,   347,   348,   347,
+     352,   353,   354,   357,   360,   365,   368,   371,   374,   377,
+     380,   383,   384,   387,   394,   395,   396,   399,   402,   403,
+     406,   407,   408,   411,   412,   415,   416,   419,   426,   433,
      436,   437,   440,   441,   444,   445,   446,   449,   466,   476,
      476,   484,   485,   486,   487,   491,   492,   495,   496,   497,
      504,   505,   506,   507,   508,   509,   510,   511,   512,   518,
@@ -1850,7 +1848,7 @@ namespace VexParser {
 } // VexParser
 
 /* Line 1054 of lalr1.cc  */
-#line 1854 "parser.tab.cc"
+#line 1852 "parser.tab.cc"
 
 
 /* Line 1056 of lalr1.cc  */

@@ -12,19 +12,23 @@
 
 namespace rVex
 {
+  class Syllable;
+  
   /**
    * Structure used to save the label definition information.
    */
-  struct Label
+  typedef struct
   {
     typedef enum 
     {
       GLOBAL = 0, LOCAL = 1
     } LabelScope;
 
-    std::string label;
+    std::string name;
     LabelScope scope;
-  };
+    rVex::Syllable* destiny;
+    unsigned int absoluteAddress;
+  } Label;
 }
 
 #endif	/* LABEL_H */

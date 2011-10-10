@@ -45,6 +45,8 @@ namespace rVex
        * Print the file footer.
        */
       virtual void printFooter() = 0;
+      
+      virtual std::ostream& getOutputStream() = 0;
     };
   }
 }

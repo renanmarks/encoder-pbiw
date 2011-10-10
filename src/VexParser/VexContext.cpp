@@ -19,7 +19,6 @@
 
 namespace VexParser
 {
-
   VexContext::~VexContext( )
   {
     if (!syllables.empty())
@@ -120,10 +119,29 @@ namespace VexParser
     
   }
   
+  void VexContext::processLabels()
+  {
+    
+  }
+  
+  void VexContext::setLabel(std::string name, rVex::Label::LabelScope scope) 
+  { 
+    rVex::Label label;
+    
+    hasLabel = true;
+    
+    label.name = name;
+    label.scope = scope;
+    
+    labels.push_back(label);
+  }
+  
   void VexContext::endInstruction()
   {
     SyllableBuffer::iterator it;
     rVex::Instruction instruction;
+    
+    // Reorder and put NOPs - TODO
     
     for (it = syllableBuffer.begin();
          it < syllableBuffer.end();
@@ -135,6 +153,18 @@ namespace VexParser
     }
     
     instruction.setAddress(this->instructionCounter++);
+    
+    // Post process
+    
+    if (hasLabel)
+    {
+      rVex::Label& label = labels.back();
+
+      label.destiny = instruction.getSyllables()[0];
+      label.absoluteAddress = instruction.getAddress();
+      
+      hasLabel = false;
+    }
     
     syllableBuffer.clear();
     instructions.push_back(instruction);
@@ -156,10 +186,31 @@ namespace VexParser
   }
   
   void
-  VexContext::print(std::ostream& stream)
+  VexContext::print(rVex::Printers::IPrinter& printer)
   {
+    std::ostream& stream = printer.getOutputStream();
+    
+    LabelVector::const_iterator labelIt;
+    
+    stream << "Labels.L/G (instruction address)[syllable address]:" << std::endl;
+    
+    for(labelIt = labels.begin();
+        labelIt != labels.end();
+        labelIt++)
+    {
+      stream << labelIt->name; 
+      
+      if (labelIt->scope == rVex::Label::GLOBAL)
+        stream << ".G";
+      else
+        stream << ".L";
+          
+      stream << "(" << labelIt->absoluteAddress << ")"
+             << "[" << labelIt->destiny->getAddress() << "]"
+             << std::endl;
+    }
+    
     InstructionList::const_iterator it;
-    rVex::Printers::rVexPrinter printer(stream);
     
     for(it = instructions.begin();
         it != instructions.end();
