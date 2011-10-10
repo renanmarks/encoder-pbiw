@@ -1,5 +1,6 @@
 #include <endian.h>
 #include "Syllable.h"
+#include <iostream>
 
 namespace rVex
 {
@@ -346,20 +347,20 @@ namespace rVex
   Syllable::fillTypeX(VexParser::SyllableArguments* arguments) 
   { 
     VexParser::Expression::ParseInfo destiny = arguments->getDestinyArguments()->getArguments()[0]->getParsedValue();
-    VexParser::Expression::ParseInfo source1 = arguments->getSourceArguments()->getArguments()[0]->getParsedValue();
-    VexParser::Expression::ParseInfo source2 = arguments->getSourceArguments()->getArguments()[1]->getParsedValue();
+    VexParser::Expression::ParseInfo offset = arguments->getSourceArguments()->getArguments()[0]->getParsedValue();
+    VexParser::Expression::ParseInfo source = arguments->getSourceArguments()->getArguments()[1]->getParsedValue();
 
     this->setGrDestiny(static_cast<unsigned char>(destiny.value));
-    this->setShortImmediate(static_cast<unsigned short>(source1.value));
-    this->addReadRegister (static_cast<unsigned int>(source2.value));
+    this->setShortImmediate(static_cast<unsigned short>(offset.value));
+    this->addReadRegister (static_cast<unsigned int>(source.value));
   }
   
   void 
   Syllable::fillTypeXI(VexParser::SyllableArguments* arguments) 
   { 
     VexParser::Expression::ParseInfo offset = arguments->getDestinyArguments()->getArguments()[0]->getParsedValue();
-    VexParser::Expression::ParseInfo destiny = arguments->getSourceArguments()->getArguments()[0]->getParsedValue();
-    VexParser::Expression::ParseInfo source = arguments->getSourceArguments()->getArguments()[1]->getParsedValue();
+    VexParser::Expression::ParseInfo destiny = arguments->getDestinyArguments()->getArguments()[1]->getParsedValue();
+    VexParser::Expression::ParseInfo source = arguments->getSourceArguments()->getArguments()[0]->getParsedValue();
 
     this->setShortImmediate(static_cast<unsigned short>(offset.value));
     this->setGrDestiny(static_cast<unsigned char>(destiny.value));

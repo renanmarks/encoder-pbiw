@@ -11,6 +11,13 @@ namespace VexParser
 {
   Arguments::Arguments( Expression* ex )
   {
+    if (ex->isMemoryReference())
+    {
+      addArgument(new Expression(ex->getValue()));  // offset
+      addArgument(new Expression(ex->getString())); // register
+      return;
+    }
+    
     addArgument(ex);
   }
 
@@ -22,10 +29,7 @@ namespace VexParser
   
   Arguments::~Arguments()
   {
-    ArgumentVector::iterator it;
-    
-    for (it = arguments.begin(); it < arguments.end(); it++)
-      delete (*it);
+    clearArguments();
   }
 
   void

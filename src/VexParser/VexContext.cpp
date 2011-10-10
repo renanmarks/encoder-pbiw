@@ -77,9 +77,42 @@ namespace VexParser
   
   void VexContext::packSyllable(rVex::SyllableCTRL* syllable, SyllableArguments* arguments)
   {
-    // Does not support XNOP yet.
-    if (syllable->getOpcode() == rVex::Syllable::opXNOP)
-      return;
+    switch(syllable->getOpcode())
+    {
+      case rVex::Syllable::opXNOP:
+        return; // Does not support XNOP yet.
+      
+      case rVex::Syllable::opCALL:
+      case rVex::Syllable::opGOTO:
+      {
+        Expression::ParseInfo argumentInfo = 
+          arguments->getSourceArguments()->getArguments()[0]->getParsedValue();
+        
+        if (argumentInfo.isLabel)
+          controlSyllables.push_back(syllable);
+        
+        break;
+      }
+      
+      case rVex::Syllable::opRETURN:
+      {
+        Expression::ParseInfo argumentInfo = 
+          arguments->getSourceArguments()->getArguments()[1]->getParsedValue();
+        
+        if (argumentInfo.isLabel)
+          controlSyllables.push_back(syllable);
+        
+        break;
+      }  
+      
+      case rVex::Syllable::opBR:
+      case rVex::Syllable::opBRF:
+          controlSyllables.push_back(syllable);
+        break;
+      
+      default:
+        break;
+    }
     
     syllable->fillSyllable(arguments);
     syllableBuffer.push_back(syllable);
@@ -112,11 +145,9 @@ namespace VexParser
         break;
         
       default: // MISC
-        throw new std::exception();
         packSyllable(dynamic_cast<rVex::SyllableMISC*>(syllable), arguments);
         break;
     }
-    
   }
   
   void VexContext::processLabels()
@@ -141,7 +172,7 @@ namespace VexParser
     SyllableBuffer::iterator it;
     rVex::Instruction instruction;
     
-    // Reorder and put NOPs - TODO
+    reorder(syllableBuffer); // Reorder and put NOPs
     
     for (it = syllableBuffer.begin();
          it < syllableBuffer.end();
@@ -154,9 +185,7 @@ namespace VexParser
     
     instruction.setAddress(this->instructionCounter++);
     
-    // Post process
-    
-    if (hasLabel)
+    if (hasLabel) // Define the label
     {
       rVex::Label& label = labels.back();
 
@@ -227,81 +256,80 @@ namespace VexParser
     debuggingEnabled = enableSwitch;
   }
 
-    void
-  VexContext::reorder(rVex::Instruction* instruction)
+  void
+  VexContext::reorder(SyllableBuffer& syllableBuffer)
   {
-      typedef std::vector<rVex::Syllable*> SyllablesAux;
-      SyllablesAux syllAux;
-      SyllablesAux::iterator it;
+      int counterIt = 0;
+      SyllableBuffer::iterator it;
       
       rVex::Syllable* syllable;
-      int counterIt = 0;
-      
-      syllAux = instruction->getSyllables();
             
-      if(syllAux.capacity() < 4){
-          syllAux.resize(4,new rVex::Operations::MISC::NOP());
-      }
+      // Generate NOPS if we have less than 4 syllables in the buffer
+      while ( syllableBuffer.size() < 4 )
+        syllableBuffer.push_back(new rVex::Operations::MISC::NOP());
       
-      for(it = syllAux.begin(); it < syllAux.end(); it++)
+      // Go through all the syllables ordering them
+      for(it = syllableBuffer.begin(); 
+          it < syllableBuffer.end(); 
+          it++)
       {
           // ALU = 1, MUL = 2, MEM = 3 , CTRL = 4
-          if((*it)->getOpcode() && ((*it)->getSyllableType() != rVex::Syllable::ALU))
+          if( 
+              (*it)->getOpcode() && 
+              ((*it)->getSyllableType() != rVex::Syllable::ALU) 
+            )
           {
-              if(((*it)->getSyllableType() == rVex::Syllable::CTRL) && (counterIt != 0))
+              if(
+                  ((*it)->getSyllableType() == rVex::Syllable::CTRL) && 
+                  (counterIt != 0)
+                )
               {
                   // exchange the indexes
-                  syllable = syllAux.at(0);
-                  syllAux.at(0) = syllAux.at(counterIt);
-                  syllAux.at(counterIt) = syllable;
+                  syllable = syllableBuffer.at(0);
+                  syllableBuffer.at(0) = syllableBuffer.at(counterIt);
+                  syllableBuffer.at(counterIt) = syllable;
                   
                   counterIt--;
                   it--;
               }
-
-              else if(((*it)->getSyllableType() == rVex::Syllable::MEM)  && (counterIt != 3))
+              else if(
+                       ((*it)->getSyllableType() == rVex::Syllable::MEM) && 
+                       (counterIt != 3)
+                     )
               {
                   // exchange the indexes
-                  syllable = syllAux.at(3);
-                  syllAux.at(3) = syllAux.at(counterIt);
-                  syllAux.at(counterIt) = syllable;
+                  syllable = syllableBuffer.at(3);
+                  syllableBuffer.at(3) = syllableBuffer.at(counterIt);
+                  syllableBuffer.at(counterIt) = syllable;
                   
                   counterIt--;
                   it--;
               }   
 
-              else if(((*it)->getSyllableType() == rVex::Syllable::MUL) && ((counterIt != 1) & (counterIt != 2)))
+              else if(
+                       ((*it)->getSyllableType() == rVex::Syllable::MUL) && 
+                       ((counterIt != 1) && (counterIt != 2))
+                     )
               {
                   int index;                  
                   
                   // set up the index that will receive the MUL syllable
-                  if(syllAux.at(1)->getSyllableType() != 2)
+                  if (syllableBuffer.at(1)->getSyllableType() != rVex::Syllable::MUL)
                       index = 1;
                   else
                       index = 2;
                   
                   // exchange the indexes
-                  syllable = syllAux.at(index);
-                  syllAux.at(index) = syllAux.at(counterIt);
-                  syllAux.at(counterIt) = syllable;
+                  syllable = syllableBuffer.at(index);
+                  syllableBuffer.at(index) = syllableBuffer.at(counterIt);
+                  syllableBuffer.at(counterIt) = syllable;
                                     
                   counterIt--;
                   it--;
               }             
           }
-
           counterIt++;             
       }
-      
-      int i = 0;
-      
-      for(it = syllAux.begin(); it < syllAux.end(); it++){
-          instruction->removeSyllable(*syllAux.at(i));
-          instruction->addSyllable(*syllAux.at(i));
-          std::cout << (*it)->getOpcode() << std::endl;
-          std::cout << "I -> " << i++ << std::endl;
-      }
-          
     }      
       
 //void
@@ -313,7 +341,7 @@ namespace VexParser
 //      InstructionList instructions;
 //      InstructionList::const_iterator it;
 //      typedef std::vector<rVex::Syllable*> instructionsVec;
-////      SyllablesAux syllAux;
+////      SyllablesAux syllableBuffer;
 ////      SyllablesAux::iterator it;
 ////      instructionsVec instructions;
 ////      instructionsVec::iterator it;

@@ -17,8 +17,8 @@ namespace VexContextReorderTest
     // EX:
     // Operations::ALU::ADD* addOp = new Operations::ALU::ADD();
     
-    Operations::ALU::ADD addOp();
-    Operations::MEM::LDB ldbOp();
+    Operations::ALU::ADD addOp;
+    Operations::MEM::LDB ldbOp;
     
     Expression r0("$r0.0");
     Expression r1("$r0.1");
@@ -34,12 +34,12 @@ namespace VexContextReorderTest
     // fillsyllable do ldb seguindo os argumentos que pede
     // ex: ldb $r0.d = imm[$r0.s1]
     
-    Instruction instruction();
+    Instruction instruction;
     
     instruction.addSyllable(addOp);
     instruction.addSyllable(ldbOp);
     
-    VexContext context();
+    VexContext context;
     
     context.packSyllable(&addOp, &sArguments);
     // pack

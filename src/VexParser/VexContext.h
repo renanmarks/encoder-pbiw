@@ -29,6 +29,48 @@ namespace VexParser
    */
   class VexContext
   {
+  private:
+    
+    bool debuggingEnabled;
+    
+    typedef std::vector<rVex::Label> LabelVector;
+    LabelVector labels;
+    
+    bool hasLabel; // Used to know when a label is defined
+    
+    /**
+     * Buffer to hold the syllables processed until an end of instruction
+     * is issued.
+     */
+    typedef std::vector<rVex::SyllableCTRL*> ControlSyllablesVector;
+    ControlSyllablesVector controlSyllables;
+    
+    /**
+     * Buffer to hold the syllables processed until an end of instruction
+     * is issued.
+     */
+    typedef std::vector<rVex::Syllable*> SyllableBuffer;
+    SyllableBuffer syllableBuffer;
+    
+    /**
+     * Syllable and Instruction counter.
+     * Used to address the syllables and instructions being saved in the
+     * respective lists.
+     */
+    unsigned int syllableCounter;
+    unsigned int instructionCounter;
+    
+    /**
+     * The two main lists which holds the instructions and its respective
+     * syllables parsed.
+     */
+    typedef std::list<rVex::Syllable*> SyllableList;
+    SyllableList syllables;
+    SyllableList::iterator startSyllable;
+    
+    typedef std::list<rVex::Instruction> InstructionList;
+    InstructionList instructions;
+    
   public:
     /**
      * All the memory allocated by the syllables are freed.
@@ -88,44 +130,9 @@ namespace VexParser
     
     void enableDebugging(bool enableSwitch);
 
-    void reorder(rVex::Instruction*);
+    void reorder(SyllableBuffer&);
     
-  private:
-    
-    bool debuggingEnabled;
-    
-    typedef std::vector<rVex::Label> LabelVector;
-    LabelVector labels;
-    
-    bool hasLabel; // Used to know when a label is defined
-    
-    /**
-     * Buffer to hold the syllables processed until an end of instruction
-     * is issued.
-     */
-    typedef std::vector<rVex::Syllable*> SyllableBuffer;
-    SyllableBuffer syllableBuffer;
-    
-    /**
-     * Syllable and Instruction counter.
-     * Used to address the syllables and instructions being saved in the
-     * respective lists.
-     */
-    unsigned int syllableCounter;
-    unsigned int instructionCounter;
-    
-    /**
-     * The two main lists which holds the instructions and its respective
-     * syllables parsed.
-     */
-    typedef std::list<rVex::Syllable*> SyllableList;
-    SyllableList syllables;
-    SyllableList::iterator startSyllable;
-    
-    typedef std::list<rVex::Instruction> InstructionList;
-    InstructionList instructions;
   };
-
 }
 #endif	/* ASMCONTEXT_H */
 

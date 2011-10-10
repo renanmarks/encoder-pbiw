@@ -19,6 +19,7 @@ namespace VexParser
   protected:
     int value;
     std::string string;
+    bool isMemReference;
      
   public:
     
@@ -42,6 +43,10 @@ namespace VexParser
     {
     };
 
+    virtual bool
+    isMemoryReference() const
+    { return isMemReference; }
+    
     virtual void
     setString( std::string string )
     {

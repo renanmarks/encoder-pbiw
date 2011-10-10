@@ -11,6 +11,7 @@ namespace VexParser
 {
 
   Expression::Expression( char op, Expression& s1, Expression& s2 )
+    : isMemReference(false)
   {
     int nval;
     int v1=s1.getValue();
@@ -39,6 +40,7 @@ namespace VexParser
   }
 
   Expression::Expression( char op, Expression& s1 )
+    : isMemReference(false)
   {
     int nval;
     int v1=s1.getValue();
@@ -71,25 +73,25 @@ namespace VexParser
    * First parameter is the offset, second parameter is register.
    */
   Expression::Expression( Expression& s1, std::string s2 )
+  : value(s1.getValue()), string(s2), isMemReference(true)
   {
-    this->setString(s2);
-    this->setValue(s1.getValue());
+    
   }
 
   /**
    * Register reference
    */
   Expression::Expression( std::string string )
-  : value( 0 )
+  : value( 0 ), string(string), isMemReference(false)
   {
-    this->setString(string);
+    
   }
 
   /**
    * Integer value
    */
   Expression::Expression( int value )
-  : value( value ), string( "" )
+  : value( value ), string( "" ), isMemReference(false)
   {
 
   }
