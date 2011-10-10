@@ -22,6 +22,9 @@ namespace rVex
           unsigned int getOpcode() const { return 17; }
           Type getSyllableType() const { return MEM; }
           
+          void print(rVex::Printers::IPrinter& output, bool first, bool last) const
+          { output.printSyllable(this, printMEMLOADTYPE(), first, last); }
+          
           virtual void fillSyllable(VexParser::SyllableArguments* arguments)
           { this->fillTypeX(arguments); }
       };

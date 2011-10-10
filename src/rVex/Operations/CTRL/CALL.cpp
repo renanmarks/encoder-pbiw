@@ -19,7 +19,7 @@ namespace rVex
         final <<= 6;
         final |= this->grDestiny;
 
-        final <<= 17;
+        final <<= 15;
 
         output.printSyllable(this, final, first, last);
       }

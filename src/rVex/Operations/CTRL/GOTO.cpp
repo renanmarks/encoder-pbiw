@@ -19,7 +19,7 @@ namespace rVex
         final <<= 18;
         final |= this->shortImmediate;
 
-        final <<= 17;
+        final <<= 5;
         
         output.printSyllable(this, final, first, last);
       }

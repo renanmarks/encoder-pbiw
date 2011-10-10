@@ -19,7 +19,7 @@ namespace rVex
         final <<= 18;
         final |= this->shortImmediate;
 
-        final <<= 12;
+        final <<= 3;
         final |= this->brSource;
 
         final <<= 2;

@@ -61,26 +61,35 @@ namespace VexParser
     }
 
     syllable->fillSyllable(arguments);
+    syllableBuffer.push_back(syllable);
   }
   
   void VexContext::packSyllable(rVex::SyllableMEM* syllable, SyllableArguments* arguments)
   {
     syllable->fillSyllable(arguments);
+    syllableBuffer.push_back(syllable);
   }
   
   void VexContext::packSyllable(rVex::SyllableMUL* syllable, SyllableArguments* arguments)
   {
     syllable->fillSyllable(arguments);
+    syllableBuffer.push_back(syllable);
   }
   
   void VexContext::packSyllable(rVex::SyllableCTRL* syllable, SyllableArguments* arguments)
   {
+    // Does not support XNOP yet.
+    if (syllable->getOpcode() == rVex::Syllable::opXNOP)
+      return;
+    
     syllable->fillSyllable(arguments);
+    syllableBuffer.push_back(syllable);
   }
   
   void VexContext::packSyllable(rVex::SyllableMISC* syllable, SyllableArguments* arguments)
   {
     syllable->fillSyllable(arguments);
+    syllableBuffer.push_back(syllable);
   }
     
   void VexContext::packSyllable(rVex::Syllable* syllable, SyllableArguments* arguments)
@@ -109,7 +118,6 @@ namespace VexParser
         break;
     }
     
-    syllableBuffer.push_back(syllable);
   }
   
   void VexContext::endInstruction()
