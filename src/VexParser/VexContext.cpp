@@ -220,9 +220,172 @@ namespace VexParser
     }
   }
   
+
   void
   VexContext::enableDebugging(bool enableSwitch)
   {
     debuggingEnabled = enableSwitch;
   }
+
+    void
+  VexContext::reorder(rVex::Instruction* instruction)
+  {
+      typedef std::vector<rVex::Syllable*> SyllablesAux;
+      SyllablesAux syllAux;
+      SyllablesAux::iterator it;
+      
+      rVex::Syllable* syllable;
+      int counterIt = 0;
+      
+      syllAux = instruction->getSyllables();
+            
+      if(syllAux.capacity() < 4){
+          syllAux.resize(4,new rVex::Operations::MISC::NOP());
+      }
+      
+      for(it = syllAux.begin(); it < syllAux.end(); it++)
+      {
+          // ALU = 1, MUL = 2, MEM = 3 , CTRL = 4
+          if((*it)->getOpcode() && ((*it)->getSyllableType() != rVex::Syllable::ALU))
+          {
+              if(((*it)->getSyllableType() == rVex::Syllable::CTRL) && (counterIt != 0))
+              {
+                  // exchange the indexes
+                  syllable = syllAux.at(0);
+                  syllAux.at(0) = syllAux.at(counterIt);
+                  syllAux.at(counterIt) = syllable;
+                  
+                  counterIt--;
+                  it--;
+              }
+
+              else if(((*it)->getSyllableType() == rVex::Syllable::MEM)  && (counterIt != 3))
+              {
+                  // exchange the indexes
+                  syllable = syllAux.at(3);
+                  syllAux.at(3) = syllAux.at(counterIt);
+                  syllAux.at(counterIt) = syllable;
+                  
+                  counterIt--;
+                  it--;
+              }   
+
+              else if(((*it)->getSyllableType() == rVex::Syllable::MUL) && ((counterIt != 1) & (counterIt != 2)))
+              {
+                  int index;                  
+                  
+                  // set up the index that will receive the MUL syllable
+                  if(syllAux.at(1)->getSyllableType() != 2)
+                      index = 1;
+                  else
+                      index = 2;
+                  
+                  // exchange the indexes
+                  syllable = syllAux.at(index);
+                  syllAux.at(index) = syllAux.at(counterIt);
+                  syllAux.at(counterIt) = syllable;
+                                    
+                  counterIt--;
+                  it--;
+              }             
+          }
+
+          counterIt++;             
+      }
+      
+      int i = 0;
+      
+      for(it = syllAux.begin(); it < syllAux.end(); it++){
+          instruction->removeSyllable(*syllAux.at(i));
+          instruction->addSyllable(*syllAux.at(i));
+          std::cout << (*it)->getOpcode() << std::endl;
+          std::cout << "I -> " << i++ << std::endl;
+      }
+          
+    }      
+      
+//void
+//  VexContext::reorder(rVex::Instruction* instruction)
+//  {
+//      rVex::Syllable* syllable;
+//      int counterIt = 0;
+//      std::cout << "Passou aqui -> 1" << std::endl;
+//      InstructionList instructions;
+//      InstructionList::const_iterator it;
+//      typedef std::vector<rVex::Syllable*> instructionsVec;
+////      SyllablesAux syllAux;
+////      SyllablesAux::iterator it;
+////      instructionsVec instructions;
+////      instructionsVec::iterator it;
+//      //instructions = instruction->getSyllables();
+//     
+////      if(instructions.size() < 4){
+////          instructions.resize(4,new rVex::Operations::MISC::NOP());
+////      }
+//      
+//      for(it = instructions.begin(); it == instructions.end(); it++)
+//      {
+//          std::cout << "Passou aqui -> for " << std::endl;
+//          // ALU = 1, MUL = 2, MEM = 3 , CTRL = 4
+//          if((*it).getSyllables()[counterIt]->getOpcode() && 
+//                  ((*it).getSyllables()[counterIt]->getSyllableType() != rVex::Syllable::ALU))
+//          {
+//              std::cout << "Passou aqui -> if" << std::endl;
+//              if(((*it).getSyllables()[counterIt]->getSyllableType() == rVex::Syllable::CTRL) && (counterIt != 0))
+//              {
+//                  // exchange the indexes
+//                  syllable = (*it).getSyllables()[0];
+//                  (*it).getSyllables()[0] = (*it).getSyllables()[counterIt];
+//                  (*it).getSyllables()[counterIt] = syllable;
+//                  
+//                  counterIt--;
+//                  it--;
+//              }
+//
+//              else if(((*it).getSyllables()[counterIt]->getSyllableType() == rVex::Syllable::MEM)  && (counterIt != 3))
+//              {
+//                  // exchange the indexes
+//                  syllable = (*it).getSyllables()[3];
+//                  (*it).getSyllables()[3] = (*it).getSyllables()[counterIt];
+//                  (*it).getSyllables()[counterIt] = syllable;
+//                  
+//                  counterIt--;
+//                  it--;
+//              }   
+//
+//              else if(((*it).getSyllables()[counterIt]->getSyllableType() == rVex::Syllable::MUL) && ((counterIt != 1) & (counterIt != 2)))
+//              {
+//                  int index;                  
+//                  
+//                  // set up the index that will receive the MUL syllable
+//                  if((*it).getSyllables()[1]->getSyllableType() != 2)
+//                      index = 1;
+//                  else
+//                      index = 2;
+//                  std::cout << "Passou aqui -> MUL" << std::endl;
+//                  // exchange the indexes
+//                  syllable = (*it).getSyllables()[index];
+//                  (*it).getSyllables()[index] = (*it).getSyllables()[counterIt];
+//                  (*it).getSyllables()[counterIt] = syllable;
+//                                    
+//                  counterIt--;
+//                  it--;
+//              }             
+//          }
+//          
+//          counterIt++;             
+//      }
+//      int count = 0;
+//      for(it = instructions.begin(); it == instructions.end(); it++)
+//      {
+//          std::cout << "Passou aqui -> " << std::endl;
+//          std::cout << "OP " << (*it).getSyllables()[count]->getSyllableType() << std::endl;
+//          count++;
+//          if(count < 4)
+//              break;
+//          
+//      }
+//  }
+
+
 }

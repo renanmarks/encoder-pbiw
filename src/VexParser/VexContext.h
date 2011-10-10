@@ -88,6 +88,8 @@ namespace VexParser
     
     void enableDebugging(bool enableSwitch);
 
+    void reorder(rVex::Instruction*);
+    
   private:
     
     bool debuggingEnabled;
