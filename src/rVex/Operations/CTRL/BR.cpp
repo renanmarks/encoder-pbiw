@@ -1,4 +1,6 @@
 #include "BR.h"
+#include "../../Instruction.h"
+#include "src/rVex/Instruction.h"
 
 namespace rVex
 {
@@ -17,7 +19,7 @@ namespace rVex
         final |= Syllable::BRANCH_IMM;
         
         final <<= 18;
-        final |= this->shortImmediate;
+        final |= (this->labelDestiny->getBelongedInstruction()->getAddress() & 0x00000FFF);
 
         final <<= 3;
         final |= this->brSource;

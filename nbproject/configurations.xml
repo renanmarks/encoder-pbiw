@@ -107,6 +107,7 @@
         </logicalFolder>
         <logicalFolder name="Printers" displayName="Printers" projectFiles="true">
           <itemPath>src/rVex/Printers/IPrinter.h</itemPath>
+          <itemPath>src/rVex/Printers/VHDLPrinter.h</itemPath>
           <itemPath>src/rVex/Printers/rVexPrinter.h</itemPath>
         </logicalFolder>
         <itemPath>src/rVex/Instruction.h</itemPath>
@@ -166,6 +167,7 @@
           </logicalFolder>
         </logicalFolder>
         <logicalFolder name="Printers" displayName="Printers" projectFiles="true">
+          <itemPath>src/rVex/Printers/VHDLPrinter.cpp</itemPath>
           <itemPath>src/rVex/Printers/rVexPrinter.cpp</itemPath>
         </logicalFolder>
         <itemPath>src/rVex/Instruction.cpp</itemPath>
@@ -260,10 +262,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -297,10 +301,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -375,10 +381,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -414,10 +422,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>

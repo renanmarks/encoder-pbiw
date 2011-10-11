@@ -96,6 +96,22 @@ namespace VexParser
         return; // Does not support XNOP yet.
       
       case rVex::Syllable::opCALL:
+      {
+        Expression::ParseInfo argumentInfo = 
+          arguments->getSourceArguments()->getArguments()[0]->getParsedValue();
+        
+        if (argumentInfo.isLabel)
+          controlSyllables.push_back(syllable);
+        else
+        {
+          // If is a register, change CALL syllable to ICALL syllable
+          rVex::Operations::CTRL::ICALL icall;
+          memcpy(syllable, &icall, sizeof(icall));
+        }
+        
+        break;
+      }
+      
       case rVex::Syllable::opGOTO:
       {
         Expression::ParseInfo argumentInfo = 
@@ -103,6 +119,12 @@ namespace VexParser
         
         if (argumentInfo.isLabel)
           controlSyllables.push_back(syllable);
+        else
+        {
+          // If is a register, change GOTO syllable to IGOTO syllable
+          rVex::Operations::CTRL::IGOTO igoto;
+          memcpy(syllable, &igoto, sizeof(igoto));
+        }
         
         break;
       }
@@ -196,8 +218,7 @@ namespace VexParser
            controlIt < controlSyllables.end();
            controlIt++)
       {
-        stream << "Syllable addr: " << (*controlIt)->getAddress()
-          << "(opcode: " << (*controlIt)->getOpcode() << ")"
+        stream << "Syllable " << "(opcode: " << (*controlIt)->getOpcode() << ") addr: " 
           << "[" << (*controlIt)->getBelongedInstruction()->getAddress() << "]"
           << "(" << (*controlIt)->getAddress() << ")"
           << std::endl;
@@ -221,8 +242,7 @@ namespace VexParser
     
       if (debugEnabled)
       {
-        stream << "Syllable addr: " << (*it)->getAddress()
-          << "(opcode: " << (*it)->getOpcode() << ")"
+        stream << "Syllable " << "(opcode: " << (*it)->getOpcode() << ") addr:"
           << "[" << (*it)->getBelongedInstruction()->getAddress() << "]"
           << "(" << (*it)->getAddress() << ")"
           << " now points to " << (*it)->getLabel()

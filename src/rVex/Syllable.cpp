@@ -304,9 +304,15 @@ namespace rVex
     this->setGrDestiny    (static_cast<unsigned char>(destiny.value));
     
     if (origin1.isImmediate)
+    {
+      this->setLayoutType(rVex::Syllable::ISTYPE);
       this->setShortImmediate (static_cast<unsigned short>(origin1.value));
+    }
     else
+    {
+      this->setLayoutType(rVex::Syllable::RTYPE);
       this->addReadRegister (static_cast<unsigned int>(origin1.value));
+    }
     
     this->addReadRegister (static_cast<unsigned int>(origin2.value));
   }

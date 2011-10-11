@@ -92,7 +92,7 @@ namespace rVex
     void 
     rVexPrinter::printHeader()
     {
-      output << ">>>>>> VHDL Header >>>>>>" << std::endl;
+      output << ">>>>>> Begin of Instructions >>>>>>" << std::endl;
     }
 
     /**
@@ -101,7 +101,7 @@ namespace rVex
      void 
     rVexPrinter::printFooter()
     {
-      output << "<<<<<< VHDL Footer <<<<<<" << std::endl;
+      output << "<<<<<< End of Instructions <<<<<<" << std::endl;
     }
   }
 }

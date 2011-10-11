@@ -13,13 +13,16 @@ using namespace std;
 #include "VexParser/VexContext.h"
 #include "pbiw_encoder.h"
 #include "rVex/Printers/rVexPrinter.h"
+#include "rVex/Printers/VHDLPrinter.h"
 
 int
 main( int argc, char** argv )
 {
-  rVex::Printers::rVexPrinter printer(std::cout);
+//  rVex::Printers::rVexPrinter printer(std::cout);
+  rVex::Printers::VHDLPrinter printer(std::cout);
   VexParser::VexContext context(printer);
   VexParser::Driver driver(context);
+  std::string flags;
   bool result = false;
   
   for (int ai=1; ai < argc; ++ai)
@@ -38,14 +41,17 @@ main( int argc, char** argv )
     }
     else if (argv[ai] == std::string("-p"))
     {
+      flags.append("-p ");
       driver.trace_parsing=true;
     } 
     else if (argv[ai] == std::string("-s"))
     {
+      flags.append("-s ");
       driver.trace_scanning=true;
     } 
     else if (argv[ai] == std::string("-d"))
     {
+      flags.append("-d ");
       // Lets be verbose! :)
       context.enableDebugging(true);
     }
@@ -53,6 +59,10 @@ main( int argc, char** argv )
     {
       // read a file with expressions
       std::fstream infile(argv[ai]);
+      
+      std::string filename = argv[ai];
+      printer.setFileName(filename);
+      printer.setAssemblerFlags(flags);
       
       if (!infile.good())
       {
