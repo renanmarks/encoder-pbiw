@@ -335,8 +335,9 @@
           </incDir>
         </cTool>
         <ccTool>
-          <developmentMode>5</developmentMode>
+          <developmentMode>6</developmentMode>
           <stripSymbols>true</stripSymbols>
+          <commandlineTool>g++</commandlineTool>
           <incDir>
             <pElem>.</pElem>
             <pElem>.</pElem>

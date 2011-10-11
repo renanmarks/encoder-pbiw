@@ -271,8 +271,6 @@ namespace rVex
       unsigned char brSource;
       unsigned short shortImmediate;
       
-      Label labelDeclaration;
-      
       std::string labelStringDestiny;
       Syllable* labelDestiny;
       

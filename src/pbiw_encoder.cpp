@@ -17,23 +17,43 @@ using namespace std;
 int
 main( int argc, char** argv )
 {
-  VexParser::VexContext context;
+  rVex::Printers::rVexPrinter printer(std::cout);
+  VexParser::VexContext context(printer);
   VexParser::Driver driver(context);
   bool result = false;
   
   for (int ai=1; ai < argc; ++ai)
   {
-    if (argv[ai] == std::string("-p"))
+    if (argv[ai] == std::string("-h") || argv[ai] == std::string("--help"))
+    {
+      std::cout << "rVex Assembler" << std::endl
+        << "--------------" << std::endl
+        << "Options:" << std::endl
+        << "-p\tTrace parsing" << std::endl
+        << "-s\tTrace scanning" << std::endl
+        << "-d\tEnable verbose debug" << std::endl
+        << std::endl;
+      
+      return 0;
+    }
+    else if (argv[ai] == std::string("-p"))
     {
       driver.trace_parsing=true;
-    } else if (argv[ai] == std::string("-s"))
+    } 
+    else if (argv[ai] == std::string("-s"))
     {
       driver.trace_scanning=true;
-    } else
+    } 
+    else if (argv[ai] == std::string("-d"))
+    {
+      // Lets be verbose! :)
+      context.enableDebugging(true);
+    }
+    else
     {
       // read a file with expressions
-
       std::fstream infile(argv[ai]);
+      
       if (!infile.good())
       {
         std::cerr << "Could not open file: " << argv[ai] << std::endl;
@@ -41,11 +61,11 @@ main( int argc, char** argv )
       }
 
       result = driver.parse_stream(infile, argv[ai]);
+      
+      context.processLabels();
+      context.print();
     }
   }
-  
-  rVex::Printers::rVexPrinter printer(std::cout);
-  context.print(printer);
   
   return result ? 0 : 1;
 }

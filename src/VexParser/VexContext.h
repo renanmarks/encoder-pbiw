@@ -11,6 +11,7 @@
 #include <string>
 #include <vector>
 #include <list>
+#include <functional>
 #include "../rVex/Instruction.h"
 #include "../rVex/Label.h"
 #include "../rVex/SyllableMUL.h"
@@ -31,12 +32,34 @@ namespace VexParser
   {
   private:
     
-    bool debuggingEnabled;
+    /**
+     * Status variables.
+     */
+    bool debugEnabled; // Be verbose or not, that's the question!
+    rVex::Printers::IPrinter& printer; // Printer used to output data
     
+    /**
+     * Vector of the labels in assembly
+     */
     typedef std::vector<rVex::Label> LabelVector;
     LabelVector labels;
     
     bool hasLabel; // Used to know when a label is defined
+    
+    /**
+     * Functor used to find a label.
+     */
+    class FindLabel : public std::unary_function<rVex::Label, bool>
+    {
+    public:
+        FindLabel(const std::string label) : label(label) {}
+
+        bool operator()(const rVex::Label& t) const 
+        { return (t.name == label); }
+        
+    private:
+        const std::string label;
+    };
     
     /**
      * Buffer to hold the syllables processed until an end of instruction
@@ -68,18 +91,19 @@ namespace VexParser
     SyllableList syllables;
     SyllableList::iterator startSyllable;
     
-    typedef std::list<rVex::Instruction> InstructionList;
+    typedef std::list<rVex::Instruction*> InstructionList;
     InstructionList instructions;
     
   public:
     /**
      * All the memory allocated by the syllables are freed.
      */
-    VexContext() : 
-      debuggingEnabled(false), 
+    VexContext(rVex::Printers::IPrinter& printer) : 
+      debugEnabled(false), 
       syllableCounter(0), 
       instructionCounter(0),
-      hasLabel(false)
+      hasLabel(false),
+      printer(printer)
     { }
     
     virtual ~VexContext( );
@@ -110,7 +134,7 @@ namespace VexParser
     /**
      * Given a address, returns the instruction.
      */
-    rVex::Instruction getInstruction(unsigned int);
+    rVex::Instruction* getInstruction(unsigned int);
 
     /**
      * Add the labels to the label vector.
@@ -124,13 +148,21 @@ namespace VexParser
     void processLabels();
     
     /**
+     * Reorder the syllables in the buffer to store them in correct order.
+     */
+    void reorder(SyllableBuffer&);
+    
+    /**
      * Prints the data to the specified output.
      */
-    void print(rVex::Printers::IPrinter&);
+    void print();
     
+    /**
+     * Used to check and switch the debug mode (i.e. verbose output)
+     */
     void enableDebugging(bool enableSwitch);
-
-    void reorder(SyllableBuffer&);
+    bool isDebuggingEnabled() const
+    { return this->debugEnabled; }
     
   };
 }

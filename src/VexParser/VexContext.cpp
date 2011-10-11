@@ -5,8 +5,9 @@
  * Created on September 3, 2011, 8:57 PM
  */
 
-#include <ostream>
+#include <iostream>
 #include <string.h>
+#include <algorithm>
 #include "VexContext.h"
 #include "src/rVex/SyllableALU.h"
 #include "src/rVex/SyllableMISC.h"
@@ -27,6 +28,18 @@ namespace VexParser
       
       for (it = syllables.begin();
            it != syllables.end();
+           it++)
+      {
+        delete *it;
+      }
+    }
+    
+    if (!instructions.empty())
+    {
+      InstructionList::iterator it;
+      
+      for (it = instructions.begin();
+           it != instructions.end();
            it++)
       {
         delete *it;
@@ -152,7 +165,72 @@ namespace VexParser
   
   void VexContext::processLabels()
   {
+    std::ostream& stream = printer.getOutputStream();
+    LabelVector::iterator labelIt;
     
+    if (debugEnabled)
+    {
+      stream << "----- Labels.L/G [instr addr](syl addr)" << std::endl;
+
+      for(labelIt = labels.begin();
+          labelIt != labels.end();
+          labelIt++)
+      {
+        stream << labelIt->name; 
+
+        if (labelIt->scope == rVex::Label::GLOBAL)
+          stream << ".G";
+        else
+          stream << ".L";
+
+        stream << "[" << labelIt->absoluteAddress << "]"
+          << "(" << labelIt->destiny->getAddress() << ")"
+          << std::endl;
+      }
+
+      ControlSyllablesVector::const_iterator controlIt;
+
+      stream << "----- Control instructions ("<< controlSyllables.size() << " Total)" << std::endl;
+
+      for (controlIt = controlSyllables.begin();
+           controlIt < controlSyllables.end();
+           controlIt++)
+      {
+        stream << "Syllable addr: " << (*controlIt)->getAddress()
+          << "(opcode: " << (*controlIt)->getOpcode() << ")"
+          << "[" << (*controlIt)->getBelongedInstruction()->getAddress() << "]"
+          << "(" << (*controlIt)->getAddress() << ")"
+          << std::endl;
+      }
+    }
+    
+    if (debugEnabled)
+      std::cout << "----- Processing labels..." << std::endl;
+
+    ControlSyllablesVector::const_iterator it;
+    
+    for (it = controlSyllables.begin();
+         it < controlSyllables.end();
+         it++)
+    {
+      std::string label = (*it)->getLabel();
+      LabelVector::iterator labelIt = std::find_if(labels.begin(), labels.end(), FindLabel(label));
+      
+      if ( labelIt != (labels.end()+1) )
+        (*it)->setLabelDestiny(labelIt->destiny);
+    
+      if (debugEnabled)
+      {
+        stream << "Syllable addr: " << (*it)->getAddress()
+          << "(opcode: " << (*it)->getOpcode() << ")"
+          << "[" << (*it)->getBelongedInstruction()->getAddress() << "]"
+          << "(" << (*it)->getAddress() << ")"
+          << " now points to " << (*it)->getLabel()
+          << "[" << (*it)->getLabelDestiny()->getBelongedInstruction()->getAddress() << "]"
+          << "("  << (*it)->getLabelDestiny()->getAddress() << ")" 
+          << std::endl;
+      }
+    }
   }
   
   void VexContext::setLabel(std::string name, rVex::Label::LabelScope scope) 
@@ -170,7 +248,7 @@ namespace VexParser
   void VexContext::endInstruction()
   {
     SyllableBuffer::iterator it;
-    rVex::Instruction instruction;
+    rVex::Instruction* instruction = new rVex::Instruction();
     
     reorder(syllableBuffer); // Reorder and put NOPs
     
@@ -179,18 +257,20 @@ namespace VexParser
          it++)
     {
       (*it)->setAddress(this->syllableCounter++);
+      (*it)->setBelongedInstruction(instruction);
+      
       syllables.push_back(*it);
-      instruction.addSyllable(**it);
+      instruction->addSyllable(**it);
     }
     
-    instruction.setAddress(this->instructionCounter++);
+    instruction->setAddress(this->instructionCounter++);
     
     if (hasLabel) // Define the label
     {
       rVex::Label& label = labels.back();
 
-      label.destiny = instruction.getSyllables()[0];
-      label.absoluteAddress = instruction.getAddress();
+      label.destiny = instruction->getSyllables()[0];
+      label.absoluteAddress = instruction->getAddress();
       
       hasLabel = false;
     }
@@ -199,7 +279,7 @@ namespace VexParser
     instructions.push_back(instruction);
   }
   
-  rVex::Instruction
+  rVex::Instruction*
   VexContext::getInstruction(unsigned int index)
   {
     InstructionList::iterator it = instructions.begin();
@@ -211,49 +291,31 @@ namespace VexParser
     if (it != instructions.end())
       return *it;
     
-    return rVex::Instruction();
+    return NULL;
   }
   
   void
-  VexContext::print(rVex::Printers::IPrinter& printer)
+  VexContext::print()
   {
-    std::ostream& stream = printer.getOutputStream();
+    InstructionList::const_iterator instructionIt;
     
-    LabelVector::const_iterator labelIt;
+    printer.printHeader();
     
-    stream << "Labels.L/G (instruction address)[syllable address]:" << std::endl;
-    
-    for(labelIt = labels.begin();
-        labelIt != labels.end();
-        labelIt++)
+    for(instructionIt = instructions.begin();
+        instructionIt != instructions.end();
+        instructionIt++)
     {
-      stream << labelIt->name; 
-      
-      if (labelIt->scope == rVex::Label::GLOBAL)
-        stream << ".G";
-      else
-        stream << ".L";
-          
-      stream << "(" << labelIt->absoluteAddress << ")"
-             << "[" << labelIt->destiny->getAddress() << "]"
-             << std::endl;
+        (*instructionIt)->print(printer);
     }
     
-    InstructionList::const_iterator it;
-    
-    for(it = instructions.begin();
-        it != instructions.end();
-        it++)
-    {
-        it->print(printer);
-    }
+    printer.printFooter();
   }
   
 
   void
   VexContext::enableDebugging(bool enableSwitch)
   {
-    debuggingEnabled = enableSwitch;
+    debugEnabled = enableSwitch;
   }
 
   void

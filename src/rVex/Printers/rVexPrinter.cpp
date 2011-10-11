@@ -80,7 +80,7 @@ namespace rVex
       }
       catch (rVex::Syllable::LayoutNotSupportedException* e)
       {
-        output << "Erro imprimindo: " << e->what() << "Opcode: " << (*it)->getOpcode() << std::endl;
+        output << "Error printing: " << e->what() << "Opcode: " << (*it)->getOpcode() << std::endl;
       }
       
       output << std::endl;
@@ -92,7 +92,7 @@ namespace rVex
     void 
     rVexPrinter::printHeader()
     {
-      output << ">>>>>> Cabeçalho de impressão" << std::endl;
+      output << ">>>>>> VHDL Header >>>>>>" << std::endl;
     }
 
     /**
@@ -101,7 +101,7 @@ namespace rVex
      void 
     rVexPrinter::printFooter()
     {
-      output << "<<<<<< Rodapé de impressão" << std::endl;
+      output << "<<<<<< VHDL Footer <<<<<<" << std::endl;
     }
   }
 }

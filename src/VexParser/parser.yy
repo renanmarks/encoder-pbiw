@@ -425,8 +425,10 @@ regloc          :       NAME __EQUAL expr  { }
 
 bundle          :      .mop_list end_bundle 
                         { 
-                          driver.context.endInstruction(); 
-                          std::cout << ";;" << std::endl; 
+                          driver.context.endInstruction();
+                          
+                          if (driver.context.isDebuggingEnabled())
+                            std::cout << ";;" << std::endl; 
                         }
                 ;
 
@@ -450,16 +452,17 @@ normal_mop      :       CLUST OPCODE .mop_arglist
                         { 
                           driver.context.packSyllable( $2->syllableConstructor->create(), $3 ); 
                           
-                          std::cout << " " << $2->as_op << " ";
-                          
-                          if ( $3->getDestinyArguments() )
+                          if (driver.context.isDebuggingEnabled())
                           {
-                            $3->getDestinyArguments()->print(std::cout);
-                            std::cout << " = ";
+                            std::cout << " " << $2->as_op << " ";
+                            if ( $3->getDestinyArguments() )
+                            {
+                              $3->getDestinyArguments()->print(std::cout);
+                              std::cout << " = ";
+                            }
+                            $3->getSourceArguments()->print(std::cout);
+                            std::cout << std::endl;
                           }
-                          $3->getSourceArguments()->print(std::cout);
-                          
-                          std::cout << std::endl;
                         }
                 ;
 
@@ -469,6 +472,7 @@ xnop_mop        :       XNOP NUMBER
                           SyllableArguments* argument = new SyllableArguments(new Arguments(ex));
                           driver.context.packSyllable( $1->syllableConstructor->create(), argument ); 
                           
+                          if (driver.context.isDebuggingEnabled())
                           std::cout << " " << $1->as_op << " " << $2 << std::endl;
                         }
                 ;
