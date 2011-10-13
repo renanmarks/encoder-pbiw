@@ -39,9 +39,7 @@ namespace VexParser
     explicit Expression( int );
 
     virtual
-    ~Expression( )
-    {
-    };
+    ~Expression( ) {}
 
     virtual bool
     isMemoryReference() const

@@ -6,7 +6,9 @@
  */
 
 #include <vector>
+#include <iomanip>
 #include <ostream>
+
 #include <ctime>
 #include "VHDLPrinter.h"
 
@@ -79,7 +81,9 @@ namespace rVex
       
       try 
       {
-        output << "\t\t\t\twhen x\"" << instruction.getAddress() << "\" => instr <= ";
+        output << "\t\t\t\twhen x\"" 
+          << std::setw(2) << std::setfill('0') << std::hex << std::uppercase
+          << instruction.getAddress() << "\" => instr <= ";
         
         for ( it = syllables.rbegin(); it < syllables.rend(); it++)
         {
