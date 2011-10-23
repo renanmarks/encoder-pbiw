@@ -18,6 +18,8 @@ namespace rVex
   class Instruction
   {
     public:
+      typedef std::vector<Syllable*> SyllableVector;
+      
       Instruction() : address(0) {}
       
       bool addSyllable(Syllable&);
@@ -31,12 +33,10 @@ namespace rVex
       
       void print(rVex::Printers::IPrinter&) const;
       
-      std::vector<Syllable*> getSyllables() const;
+      SyllableVector getSyllables() const;
     
     private:
-      typedef std::vector<Syllable*> SyllableVec;
-      SyllableVec syllables;
-      
+      SyllableVector syllables;
       unsigned int address;
   };
 }

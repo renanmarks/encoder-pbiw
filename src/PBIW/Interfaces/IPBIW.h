@@ -10,7 +10,7 @@
 
 #include <ostream>
 #include <vector>
-#include "IVLIWInstruction.h"
+#include "src/rVex/Instruction.h"
 #include "IPBIWInstruction.h"
 #include "IPBIWPattern.h"
 
@@ -18,8 +18,6 @@ namespace PBIW
 {
   namespace Interfaces
   {   
-    using namespace Base;
-    
     /**
      * PBIW codec interface
      */
@@ -27,11 +25,11 @@ namespace PBIW
     {
       public:
         virtual ~IPBIW() {};
-        virtual void encode(const std::vector<IVLIWInstruction>&) = 0;
-        virtual void decode(const std::vector<IPBIWInstruction>&, const std::vector<IPBIWPattern>&) = 0;
+        virtual void encode(const std::vector<rVex::Instruction*>&) = 0;
+        virtual void decode(const std::vector<IPBIWInstruction*>&, const std::vector<IPBIWPattern*>&) = 0;
 
-        virtual std::ostream getPatterns() = 0;
-        virtual std::ostream getInstructions() = 0;
+        virtual std::vector<IPBIWPattern*> getPatterns() = 0;
+        virtual std::vector<IPBIWInstruction*> getInstructions() = 0;
     };
   }
 }

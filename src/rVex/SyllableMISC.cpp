@@ -1,7 +1,7 @@
 
 #include <string>
 #include "SyllableMISC.h"
-#include "Printers/IPrinter.h"
+#include "src/Interfaces/IPrinter.h"
 
 namespace rVex
 {

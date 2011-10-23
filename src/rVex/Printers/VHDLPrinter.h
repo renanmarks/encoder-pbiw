@@ -10,7 +10,7 @@
 
 #include <ostream>
 #include "../rVex.h"
-#include "IPrinter.h"
+#include "src/Interfaces/IPrinter.h"
 
 namespace rVex
 {

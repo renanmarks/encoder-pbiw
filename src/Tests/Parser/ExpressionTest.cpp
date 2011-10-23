@@ -1,7 +1,7 @@
 #include <memory>
 
 #include "gtest/gtest.h"
-#include "VexParser/Expressions/Expression.h"
+#include "../../VexParser/Expressions/Expression.h"
 
 namespace ExpressionTest
 {

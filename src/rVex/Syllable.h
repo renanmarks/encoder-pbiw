@@ -8,11 +8,12 @@
 #ifndef RVEXSYLLABE_H
 #define	RVEXSYLLABE_H
 
+#include <utility>
 #include <string>
 #include "Label.h"
 
 #include "../VexParser/Expressions/SyllableArguments.h"
-#include "Printers/IPrinter.h"
+#include "src/Interfaces/IPrinter.h"
 
 namespace rVex
 {
@@ -25,7 +26,16 @@ namespace rVex
   class Syllable
   {
     public:
-      Syllable() : labelDestiny(NULL), address(0) { }
+      Syllable() : 
+      address(-1),
+      layoutType(),
+      grDestiny(),
+      brDestiny(),
+      brSource(),
+      shortImmediate(),
+      labelDestiny(NULL)
+      {}
+      
       virtual ~Syllable() { }
       
       /**
@@ -118,26 +128,57 @@ namespace rVex
         opSTH    = 23,
         opSTB    = 24,
         opPFT    = 25,
-      } SyllableType;
+      } SyllableOpcode;
       
       /**
        * The execution type of syllable*/
-      typedef enum { 
-        ALU = 1, MUL, MEM, CTRL
-      } Type;
+      typedef struct {
+        typedef enum {
+          ALU = 1, MUL, MEM, CTRL
+        } Type;
+      } SyllableType;
 
       /**
        * The layout type of syllable (if it is a register type, immediate type,
        * branch type, etc). */
-      typedef enum {
-        RTYPE = 1, ISTYPE, ILTYPE, BRANCH, RTYPE_BS, MEMTYPE 
+      typedef struct {
+        typedef enum {
+          RTYPE = 1, ISTYPE, ILTYPE, BRANCH, RTYPE_BS, MEMTYPE 
+        } Type;
       } LayoutType;
 
+      
+      
       /**
        * The immediate switch of syllable */
-      typedef enum { 
-        NO_IMM, SHORT_IMM, BRANCH_IMM, LONG_IMM 
+      typedef struct {
+        typedef enum { 
+          NO_IMM, SHORT_IMM, BRANCH_IMM, LONG_IMM 
+        } Type;
       } ImmediateSwitch;
+      
+      // ---
+      
+      /**
+       * Used by the PBIW Algorithm. Provides an vector
+       * with all the operands (destiny, source and immediate) inside.
+       */
+      typedef struct {
+        typedef enum {
+          GRSource, GRDestiny, BRSource, BRDestiny, Imm
+        } Type;
+      } OperandType;
+      
+      typedef std::pair<unsigned int, OperandType::Type> OperandItem;
+      typedef std::vector<OperandItem> OperandVector;
+      
+      OperandVector getOperandVector() const;
+      
+      // ---
+      
+      typedef std::vector<unsigned int> ReadRegVector;
+      
+      // ---
       
       void setBelongedInstruction(rVex::Instruction* instruction)
       { this->belongedInstruction = instruction; }
@@ -151,14 +192,14 @@ namespace rVex
       void setAddress(unsigned int address)
       { this->address = address; }
       
-      virtual void setLayoutType(Syllable::LayoutType layoutType) 
+      virtual void setLayoutType(Syllable::LayoutType::Type layoutType) 
       { this->layoutType=layoutType; }
       
-      virtual LayoutType getLayoutType() const
+      virtual LayoutType::Type getLayoutType() const
       { return layoutType; }
 
       virtual void addReadRegister(unsigned int);
-      virtual std::vector<unsigned int> getReadRegisters() const 
+      virtual ReadRegVector getReadRegisters() const 
       { return this->readRegisters; }
 
       virtual void setShortImmediate(unsigned short shortImmediate) 
@@ -213,7 +254,7 @@ namespace rVex
        * Get the type of syllable: ALU, MUL, MEM or CTRL.
        * @return Type of syllable.
        */
-      virtual Type getSyllableType() const = 0;
+      virtual SyllableType::Type getSyllableType() const = 0;
       
       /**
        * Get the structure/layout type of a syllable.
@@ -262,12 +303,11 @@ namespace rVex
       Instruction* belongedInstruction;
       unsigned int address;
       
-      Syllable::LayoutType layoutType;
+      Syllable::LayoutType::Type layoutType;
       unsigned char grDestiny;
       unsigned char brDestiny;
       
-      typedef std::vector<unsigned int> readRegVector;
-      readRegVector readRegisters;
+      ReadRegVector readRegisters;
       unsigned char brSource;
       unsigned short shortImmediate;
       

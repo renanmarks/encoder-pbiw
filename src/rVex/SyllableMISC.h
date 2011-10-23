@@ -9,7 +9,7 @@
 #define	SYLLABLEMISC_H
 
 #include "Syllable.h"
-#include "Printers/IPrinter.h"
+#include "src/Interfaces/IPrinter.h"
 
 namespace rVex
 {

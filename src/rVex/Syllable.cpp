@@ -1,9 +1,43 @@
-#include <endian.h>
-#include "Syllable.h"
+#include <utility>
 #include <iostream>
+#include "Syllable.h"
 
 namespace rVex
 {
+  Syllable::OperandVector 
+  Syllable::getOperandVector() const
+  {
+    Syllable::OperandVector returnVector;
+    
+    switch( getLayoutType() )
+    {
+      case LayoutType::RTYPE:
+        returnVector.push_back(std::make_pair(this->grDestiny,OperandType::GRDestiny));
+        returnVector.push_back(std::make_pair(this->brSource,OperandType::GRDestiny));
+        break;
+        
+      case LayoutType::ISTYPE:
+        returnVector.push_back(std::make_pair(this->grDestiny,OperandType::GRDestiny));
+        returnVector.push_back(std::make_pair(this->shortImmediate,OperandType::Imm));
+        break;
+        
+      case LayoutType::BRANCH:
+        break;
+        
+      case LayoutType::RTYPE_BS:
+        break;
+        
+      case LayoutType::MEMTYPE:
+        break;
+      
+      case LayoutType::ILTYPE:
+      default:
+        break;
+    }
+    
+    return returnVector;
+  }
+  
   unsigned int 
   Syllable::printRTYPE() const 
   {
@@ -11,11 +45,11 @@ namespace rVex
 
     final |= this->getOpcode();
     final <<= 2;
-    final |= Syllable::NO_IMM;
+    final |= Syllable::ImmediateSwitch::NO_IMM;
     final <<= 6;
     final |= grDestiny;
 
-    readRegVector::const_iterator it;
+    ReadRegVector::const_iterator it;
 
     for (it = readRegisters.begin(); it < readRegisters.end(); it++)
     {
@@ -39,12 +73,12 @@ namespace rVex
     final |= this->getOpcode();
     final <<= 2;
 
-    final |= Syllable::SHORT_IMM;
+    final |= Syllable::ImmediateSwitch::SHORT_IMM;
     final <<= 6;
     
     final |= grDestiny;
 
-    readRegVector::const_iterator it;
+    ReadRegVector::const_iterator it;
 
     for (it = readRegisters.begin(); it < readRegisters.end(); it++)
     {
@@ -74,7 +108,7 @@ namespace rVex
     final |= this->getOpcode();
     final <<= 2;
 
-    final |= Syllable::BRANCH_IMM;
+    final |= Syllable::ImmediateSwitch::BRANCH_IMM;
     final <<= 6;
     
     final |= grDestiny;
@@ -99,12 +133,12 @@ namespace rVex
     final |= this->brSource;
     
     final <<= 2;
-    final |= Syllable::NO_IMM;
+    final |= Syllable::ImmediateSwitch::NO_IMM;
     
     final <<= 6;
     final |= grDestiny;
     
-    readRegVector::const_iterator it;
+    ReadRegVector::const_iterator it;
 
     for (it = readRegisters.begin(); it < readRegisters.end(); it++)
     {
@@ -128,12 +162,12 @@ namespace rVex
     final |= this->getOpcode();
     
     final <<= 2;
-    final |= Syllable::NO_IMM;
+    final |= Syllable::ImmediateSwitch::NO_IMM;
     
     final <<= 6;
     final |= grDestiny;
     
-    readRegVector::const_iterator it;
+    ReadRegVector::const_iterator it;
 
     for (it = readRegisters.begin(); it < readRegisters.end(); it++)
     {
@@ -157,12 +191,12 @@ namespace rVex
     final |= this->getOpcode();
     
     final <<= 2;
-    final |= Syllable::NO_IMM;
+    final |= Syllable::ImmediateSwitch::NO_IMM;
     
     final <<= 6;
     final |= grDestiny;
     
-    readRegVector::const_iterator it;
+    ReadRegVector::const_iterator it;
 
     for (it = readRegisters.begin(); it < readRegisters.end(); it++)
     {
@@ -224,12 +258,12 @@ namespace rVex
 
     if (origin2.isImmediate)
     {
-      this->setLayoutType(rVex::Syllable::ISTYPE);
+      this->setLayoutType(rVex::Syllable::LayoutType::ISTYPE);
       this->setShortImmediate(static_cast<unsigned short>(origin2.value));
     }
     else
     {
-      this->setLayoutType(rVex::Syllable::RTYPE);
+      this->setLayoutType(rVex::Syllable::LayoutType::RTYPE);
       this->addReadRegister(static_cast<unsigned int>(origin2.value));
     }
 
@@ -253,12 +287,12 @@ namespace rVex
 
     if (origin3.isImmediate)
     {
-      this->setLayoutType(rVex::Syllable::ISTYPE);
+      this->setLayoutType(rVex::Syllable::LayoutType::ISTYPE);
       this->setShortImmediate(static_cast<unsigned short>(origin3.value));
     }
     else
     {
-      this->setLayoutType(rVex::Syllable::RTYPE);
+      this->setLayoutType(rVex::Syllable::LayoutType::RTYPE);
       this->addReadRegister(static_cast<unsigned int>(origin3.value));
     }
 
@@ -305,12 +339,12 @@ namespace rVex
     
     if (origin1.isImmediate)
     {
-      this->setLayoutType(rVex::Syllable::ISTYPE);
+      this->setLayoutType(rVex::Syllable::LayoutType::ISTYPE);
       this->setShortImmediate (static_cast<unsigned short>(origin1.value));
     }
     else
     {
-      this->setLayoutType(rVex::Syllable::RTYPE);
+      this->setLayoutType(rVex::Syllable::LayoutType::RTYPE);
       this->addReadRegister (static_cast<unsigned int>(origin1.value));
     }
     
@@ -324,7 +358,7 @@ namespace rVex
     VexParser::Expression::ParseInfo origin = arguments->getSourceArguments()->getArguments()[0]->getParsedValue();
 
     
-    this->setLayoutType(Syllable::RTYPE);
+    this->setLayoutType(Syllable::LayoutType::RTYPE);
     this->setGrDestiny    (static_cast<unsigned char>(destiny.value));
     this->addReadRegister (static_cast<unsigned int>(origin.value));
   }

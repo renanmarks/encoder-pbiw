@@ -16,7 +16,7 @@ namespace rVex
         final |= this->getOpcode();
         
         final <<= 2;
-        final |= Syllable::BRANCH_IMM;
+        final |= Syllable::ImmediateSwitch::BRANCH_IMM;
         
         final <<= 18;
         final |= (this->labelDestiny->getBelongedInstruction()->getAddress() & 0x00000FFF);

@@ -8,7 +8,7 @@
 #include <vector>
 #include <iostream>
 #include "SyllableCTRL.h"
-#include "Printers/IPrinter.h"
+#include "src/Interfaces/IPrinter.h"
 
 namespace rVex
 {

@@ -4,17 +4,21 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <logicalFolder name="f4" displayName="Interfaces" projectFiles="true">
+        <itemPath>src/Interfaces/IPrinter.h</itemPath>
+        <itemPath>src/Interfaces/IVLIWInstruction.h</itemPath>
+        <itemPath>src/Interfaces/IVLIWOperation.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="f2" displayName="PBIW" projectFiles="true">
-        <logicalFolder name="f2" displayName="Concrete" projectFiles="true">
-          <itemPath>src/PBIW/PBIW.h</itemPath>
-          <itemPath>src/PBIW/rVex64PBIWInstruction.h</itemPath>
-          <itemPath>src/PBIW/rVex96PBIWPattern.h</itemPath>
-        </logicalFolder>
         <logicalFolder name="f1" displayName="Interfaces" projectFiles="true">
           <itemPath>src/PBIW/Interfaces/IPBIW.h</itemPath>
           <itemPath>src/PBIW/Interfaces/IPBIWInstruction.h</itemPath>
           <itemPath>src/PBIW/Interfaces/IPBIWPattern.h</itemPath>
         </logicalFolder>
+        <itemPath>src/PBIW/Operand.h</itemPath>
+        <itemPath>src/PBIW/PBIW.h</itemPath>
+        <itemPath>src/PBIW/rVex64PBIWInstruction.h</itemPath>
+        <itemPath>src/PBIW/rVex96PBIWPattern.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="rVex" projectFiles="true">
         <logicalFolder name="f1" displayName="Operations" projectFiles="true">
@@ -106,7 +110,6 @@
           <itemPath>src/rVex/Operations/Operations.h</itemPath>
         </logicalFolder>
         <logicalFolder name="Printers" displayName="Printers" projectFiles="true">
-          <itemPath>src/rVex/Printers/IPrinter.h</itemPath>
           <itemPath>src/rVex/Printers/VHDLPrinter.h</itemPath>
           <itemPath>src/rVex/Printers/rVexPrinter.h</itemPath>
         </logicalFolder>
@@ -147,11 +150,10 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="f1" displayName="PBIW" projectFiles="true">
-        <logicalFolder name="f1" displayName="Concrete" projectFiles="true">
-          <itemPath>src/PBIW/PBIW.cpp</itemPath>
-          <itemPath>src/PBIW/rVex64PBIWInstruction.cpp</itemPath>
-          <itemPath>src/PBIW/rVex96PBIWPattern.cpp</itemPath>
-        </logicalFolder>
+        <itemPath>src/PBIW/Operand.cpp</itemPath>
+        <itemPath>src/PBIW/PBIW.cpp</itemPath>
+        <itemPath>src/PBIW/rVex64PBIWInstruction.cpp</itemPath>
+        <itemPath>src/PBIW/rVex96PBIWPattern.cpp</itemPath>
       </logicalFolder>
       <logicalFolder name="f2" displayName="rVex" projectFiles="true">
         <logicalFolder name="f1" displayName="Operations" projectFiles="true">
@@ -193,8 +195,12 @@
                    projectFiles="false"
                    kind="TEST_LOGICAL_FOLDER">
       <logicalFolder name="f2" displayName="Parser" projectFiles="true" kind="TEST">
+        <itemPath>src/Tests/Parser/ExpressionTest.cpp</itemPath>
+        <itemPath>src/Tests/Parser/VexContextTest.cpp</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="rVex" projectFiles="true" kind="TEST">
+        <itemPath>src/Tests/rVex/rVexInstructionTest.cpp</itemPath>
+        <itemPath>src/Tests/rVex/rVexSyllableTest.cpp</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -263,10 +269,18 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -302,10 +316,18 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -360,7 +382,8 @@
       <folder path="TestFiles">
         <linkerTool>
           <linkerLibItems>
-            <linkerLibLibItem>gtest</linkerLibLibItem>
+            <linkerLibFileItem>/usr/local/lib/gtest/libgtest.so</linkerLibFileItem>
+            <linkerLibFileItem>/usr/local/lib/gtest/libgtest_main.so</linkerLibFileItem>
           </linkerLibItems>
         </linkerTool>
       </folder>
@@ -382,10 +405,18 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -423,10 +454,18 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>

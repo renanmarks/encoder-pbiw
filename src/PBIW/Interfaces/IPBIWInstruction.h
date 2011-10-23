@@ -18,7 +18,7 @@ namespace PBIW
     class IPBIWInstruction
     {
       public:
-        virtual ~IPBIWInstruction() {};
+        virtual ~IPBIWInstruction() {}
     };
 
   }

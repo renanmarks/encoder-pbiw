@@ -51,175 +51,175 @@ namespace InstructionTest
     rVex::Operations::ALU::SLCT SLCT;
     rVex::Operations::ALU::SLCTF SLCTF;
 
-    ASSERT_EQ(0, instruction.getSyllables().size());
+    ASSERT_EQ(0, instruction.getOperations().size());
 
     instruction.addSyllable(ADD);
 
-    ASSERT_EQ(1, instruction.getSyllables().size());
+    ASSERT_EQ(1, instruction.getOperations().size());
 
     instruction.addSyllable(AND);
 
-    ASSERT_EQ(2, instruction.getSyllables().size());
+    ASSERT_EQ(2, instruction.getOperations().size());
     
     instruction.addSyllable(ANDC);
 
-    ASSERT_EQ(3, instruction.getSyllables().size());
+    ASSERT_EQ(3, instruction.getOperations().size());
     
     instruction.addSyllable(MAX);
 
-    ASSERT_EQ(4, instruction.getSyllables().size());
+    ASSERT_EQ(4, instruction.getOperations().size());
     
     instruction.addSyllable(MAXU);
 
-    ASSERT_EQ(5, instruction.getSyllables().size());
+    ASSERT_EQ(5, instruction.getOperations().size());
     
     instruction.addSyllable(MIN);
 
-    ASSERT_EQ(6, instruction.getSyllables().size());
+    ASSERT_EQ(6, instruction.getOperations().size());
     
     instruction.addSyllable(MINU);
 
-    ASSERT_EQ(7, instruction.getSyllables().size());
+    ASSERT_EQ(7, instruction.getOperations().size());
     
     instruction.addSyllable(OR);
 
-    ASSERT_EQ(8, instruction.getSyllables().size());
+    ASSERT_EQ(8, instruction.getOperations().size());
     
     instruction.addSyllable(ORC);
 
-    ASSERT_EQ(9, instruction.getSyllables().size());
+    ASSERT_EQ(9, instruction.getOperations().size());
     
     instruction.addSyllable(SH1ADD);
 
-    ASSERT_EQ(10, instruction.getSyllables().size());
+    ASSERT_EQ(10, instruction.getOperations().size());
     
     instruction.addSyllable(SH2ADD);
 
-    ASSERT_EQ(11, instruction.getSyllables().size());
+    ASSERT_EQ(11, instruction.getOperations().size());
     
     instruction.addSyllable(SH3ADD);
 
-    ASSERT_EQ(12, instruction.getSyllables().size());
+    ASSERT_EQ(12, instruction.getOperations().size());
     
     instruction.addSyllable(SH4ADD);
 
-    ASSERT_EQ(13, instruction.getSyllables().size());
+    ASSERT_EQ(13, instruction.getOperations().size());
     
     instruction.addSyllable(SHL);
 
-    ASSERT_EQ(14, instruction.getSyllables().size());
+    ASSERT_EQ(14, instruction.getOperations().size());
     
     instruction.addSyllable(SHR);
 
-    ASSERT_EQ(15, instruction.getSyllables().size());
+    ASSERT_EQ(15, instruction.getOperations().size());
     
     instruction.addSyllable(SHRU);
 
-    ASSERT_EQ(16, instruction.getSyllables().size());
+    ASSERT_EQ(16, instruction.getOperations().size());
     
     instruction.addSyllable(SUB);
 
-    ASSERT_EQ(17, instruction.getSyllables().size());
+    ASSERT_EQ(17, instruction.getOperations().size());
     
     instruction.addSyllable(SXTB);
 
-    ASSERT_EQ(18, instruction.getSyllables().size());
+    ASSERT_EQ(18, instruction.getOperations().size());
     
     instruction.addSyllable(SXTH);
 
-    ASSERT_EQ(19, instruction.getSyllables().size());
+    ASSERT_EQ(19, instruction.getOperations().size());
     
     instruction.addSyllable(ZXTB);
 
-    ASSERT_EQ(20, instruction.getSyllables().size());
+    ASSERT_EQ(20, instruction.getOperations().size());
     
     instruction.addSyllable(ZXTH);
 
-    ASSERT_EQ(21, instruction.getSyllables().size());
+    ASSERT_EQ(21, instruction.getOperations().size());
     
     instruction.addSyllable(XOR);
 
-    ASSERT_EQ(22, instruction.getSyllables().size());
+    ASSERT_EQ(22, instruction.getOperations().size());
     
     instruction.addSyllable(MOV);
 
-    ASSERT_EQ(23, instruction.getSyllables().size());
+    ASSERT_EQ(23, instruction.getOperations().size());
     
     instruction.addSyllable(CMPEQ);
 
-    ASSERT_EQ(24, instruction.getSyllables().size());
+    ASSERT_EQ(24, instruction.getOperations().size());
     
     instruction.addSyllable(CMPGE);
 
-    ASSERT_EQ(25, instruction.getSyllables().size());
+    ASSERT_EQ(25, instruction.getOperations().size());
     
     instruction.addSyllable(CMPGEU);
 
-    ASSERT_EQ(26, instruction.getSyllables().size());
+    ASSERT_EQ(26, instruction.getOperations().size());
     
     instruction.addSyllable(CMPGT);
 
-    ASSERT_EQ(27, instruction.getSyllables().size());
+    ASSERT_EQ(27, instruction.getOperations().size());
     
     instruction.addSyllable(CMPGTU);
 
-    ASSERT_EQ(28, instruction.getSyllables().size());
+    ASSERT_EQ(28, instruction.getOperations().size());
     
     instruction.addSyllable(CMPLE);
 
-    ASSERT_EQ(29, instruction.getSyllables().size());
+    ASSERT_EQ(29, instruction.getOperations().size());
     
     instruction.addSyllable(CMPLEU);
 
-    ASSERT_EQ(30, instruction.getSyllables().size());
+    ASSERT_EQ(30, instruction.getOperations().size());
     
     instruction.addSyllable(CMPLT);
 
-    ASSERT_EQ(31, instruction.getSyllables().size());
+    ASSERT_EQ(31, instruction.getOperations().size());
     
     instruction.addSyllable(CMPLTU);
 
-    ASSERT_EQ(32, instruction.getSyllables().size());
+    ASSERT_EQ(32, instruction.getOperations().size());
     
     instruction.addSyllable(CMPNE);
 
-    ASSERT_EQ(33, instruction.getSyllables().size());
+    ASSERT_EQ(33, instruction.getOperations().size());
     
     instruction.addSyllable(NANDL);
 
-    ASSERT_EQ(34, instruction.getSyllables().size());
+    ASSERT_EQ(34, instruction.getOperations().size());
     
     instruction.addSyllable(NORL);
 
-    ASSERT_EQ(35, instruction.getSyllables().size());
+    ASSERT_EQ(35, instruction.getOperations().size());
     
     instruction.addSyllable(ORL);
 
-    ASSERT_EQ(36, instruction.getSyllables().size());
+    ASSERT_EQ(36, instruction.getOperations().size());
     
     instruction.addSyllable(MTB);
 
-    ASSERT_EQ(37, instruction.getSyllables().size());
+    ASSERT_EQ(37, instruction.getOperations().size());
     
     instruction.addSyllable(ANDL);
 
-    ASSERT_EQ(38, instruction.getSyllables().size());
+    ASSERT_EQ(38, instruction.getOperations().size());
     
     instruction.addSyllable(ADDCG);
 
-    ASSERT_EQ(39, instruction.getSyllables().size());
+    ASSERT_EQ(39, instruction.getOperations().size());
     
     instruction.addSyllable(DIVS);
 
-    ASSERT_EQ(40, instruction.getSyllables().size());
+    ASSERT_EQ(40, instruction.getOperations().size());
     
     instruction.addSyllable(SLCT);
 
-    ASSERT_EQ(41, instruction.getSyllables().size());
+    ASSERT_EQ(41, instruction.getOperations().size());
     
     instruction.addSyllable(SLCTF);
 
-    ASSERT_EQ(42, instruction.getSyllables().size());
+    ASSERT_EQ(42, instruction.getOperations().size());
   }
 
   TEST(InstructionTest, RemoveSyllable)
@@ -311,175 +311,175 @@ namespace InstructionTest
     instruction.addSyllable(SLCT);
     instruction.addSyllable(SLCTF);
 
-    ASSERT_EQ(42, instruction.getSyllables().size());
+    ASSERT_EQ(42, instruction.getOperations().size());
 
     instruction.removeSyllable(ADD);
 
-    ASSERT_EQ(41, instruction.getSyllables().size());
+    ASSERT_EQ(41, instruction.getOperations().size());
 
     instruction.removeSyllable(AND);
 
-    ASSERT_EQ(40, instruction.getSyllables().size());
+    ASSERT_EQ(40, instruction.getOperations().size());
     
     instruction.removeSyllable(ANDC);
 
-    ASSERT_EQ(39, instruction.getSyllables().size());
+    ASSERT_EQ(39, instruction.getOperations().size());
     
     instruction.removeSyllable(MAX);
 
-    ASSERT_EQ(38, instruction.getSyllables().size());
+    ASSERT_EQ(38, instruction.getOperations().size());
     
     instruction.removeSyllable(MAXU);
 
-    ASSERT_EQ(37, instruction.getSyllables().size());
+    ASSERT_EQ(37, instruction.getOperations().size());
     
     instruction.removeSyllable(MIN);
 
-    ASSERT_EQ(36, instruction.getSyllables().size());
+    ASSERT_EQ(36, instruction.getOperations().size());
     
     instruction.removeSyllable(MINU);
 
-    ASSERT_EQ(35, instruction.getSyllables().size());
+    ASSERT_EQ(35, instruction.getOperations().size());
     
     instruction.removeSyllable(OR);
 
-    ASSERT_EQ(34, instruction.getSyllables().size());
+    ASSERT_EQ(34, instruction.getOperations().size());
     
     instruction.removeSyllable(ORC);
 
-    ASSERT_EQ(33, instruction.getSyllables().size());
+    ASSERT_EQ(33, instruction.getOperations().size());
     
     instruction.removeSyllable(SH1ADD);
 
-    ASSERT_EQ(32, instruction.getSyllables().size());
+    ASSERT_EQ(32, instruction.getOperations().size());
     
     instruction.removeSyllable(SH2ADD);
 
-    ASSERT_EQ(31, instruction.getSyllables().size());
+    ASSERT_EQ(31, instruction.getOperations().size());
     
     instruction.removeSyllable(SH3ADD);
 
-    ASSERT_EQ(30, instruction.getSyllables().size());
+    ASSERT_EQ(30, instruction.getOperations().size());
     
     instruction.removeSyllable(SH4ADD);
 
-    ASSERT_EQ(29, instruction.getSyllables().size());
+    ASSERT_EQ(29, instruction.getOperations().size());
     
     instruction.removeSyllable(SHL);
 
-    ASSERT_EQ(28, instruction.getSyllables().size());
+    ASSERT_EQ(28, instruction.getOperations().size());
     
     instruction.removeSyllable(SHR);
 
-    ASSERT_EQ(27, instruction.getSyllables().size());
+    ASSERT_EQ(27, instruction.getOperations().size());
     
     instruction.removeSyllable(SHRU);
 
-    ASSERT_EQ(26, instruction.getSyllables().size());
+    ASSERT_EQ(26, instruction.getOperations().size());
     
     instruction.removeSyllable(SUB);
 
-    ASSERT_EQ(25, instruction.getSyllables().size());
+    ASSERT_EQ(25, instruction.getOperations().size());
     
     instruction.removeSyllable(SXTB);
 
-    ASSERT_EQ(24, instruction.getSyllables().size());
+    ASSERT_EQ(24, instruction.getOperations().size());
     
     instruction.removeSyllable(SXTH);
 
-    ASSERT_EQ(23, instruction.getSyllables().size());
+    ASSERT_EQ(23, instruction.getOperations().size());
   
     instruction.removeSyllable(ZXTB);
 
-    ASSERT_EQ(22, instruction.getSyllables().size());
+    ASSERT_EQ(22, instruction.getOperations().size());
     
     instruction.removeSyllable(ZXTH);
 
-    ASSERT_EQ(21, instruction.getSyllables().size());
+    ASSERT_EQ(21, instruction.getOperations().size());
     
     instruction.removeSyllable(XOR);
 
-    ASSERT_EQ(20, instruction.getSyllables().size());
+    ASSERT_EQ(20, instruction.getOperations().size());
     
     instruction.removeSyllable(MOV);
 
-    ASSERT_EQ(19, instruction.getSyllables().size());
+    ASSERT_EQ(19, instruction.getOperations().size());
     
     instruction.removeSyllable(CMPEQ);
 
-    ASSERT_EQ(18, instruction.getSyllables().size());
+    ASSERT_EQ(18, instruction.getOperations().size());
     
     instruction.removeSyllable(CMPGE);
 
-    ASSERT_EQ(17, instruction.getSyllables().size());
+    ASSERT_EQ(17, instruction.getOperations().size());
     
     instruction.removeSyllable(CMPGEU);
 
-    ASSERT_EQ(16, instruction.getSyllables().size());
+    ASSERT_EQ(16, instruction.getOperations().size());
     
     instruction.removeSyllable(CMPGT);
 
-    ASSERT_EQ(15, instruction.getSyllables().size());
+    ASSERT_EQ(15, instruction.getOperations().size());
     
     instruction.removeSyllable(CMPGTU);
 
-    ASSERT_EQ(14, instruction.getSyllables().size());
+    ASSERT_EQ(14, instruction.getOperations().size());
     
     instruction.removeSyllable(CMPLE);
 
-    ASSERT_EQ(13, instruction.getSyllables().size());
+    ASSERT_EQ(13, instruction.getOperations().size());
     
     instruction.removeSyllable(CMPLEU);
 
-    ASSERT_EQ(12, instruction.getSyllables().size());
+    ASSERT_EQ(12, instruction.getOperations().size());
     
     instruction.removeSyllable(CMPLT);
 
-    ASSERT_EQ(11, instruction.getSyllables().size());
+    ASSERT_EQ(11, instruction.getOperations().size());
     
     instruction.removeSyllable(CMPLTU);
 
-    ASSERT_EQ(10, instruction.getSyllables().size());
+    ASSERT_EQ(10, instruction.getOperations().size());
     
     instruction.removeSyllable(CMPNE);
 
-    ASSERT_EQ(9, instruction.getSyllables().size());
+    ASSERT_EQ(9, instruction.getOperations().size());
     
     instruction.removeSyllable(NANDL);
 
-    ASSERT_EQ(8, instruction.getSyllables().size());
+    ASSERT_EQ(8, instruction.getOperations().size());
     
     instruction.removeSyllable(NORL);
 
-    ASSERT_EQ(7, instruction.getSyllables().size());
+    ASSERT_EQ(7, instruction.getOperations().size());
     
     instruction.removeSyllable(ORL);
 
-    ASSERT_EQ(6, instruction.getSyllables().size());
+    ASSERT_EQ(6, instruction.getOperations().size());
     
     instruction.removeSyllable(MTB);
 
-    ASSERT_EQ(5, instruction.getSyllables().size());
+    ASSERT_EQ(5, instruction.getOperations().size());
     
     instruction.removeSyllable(ANDL);
 
-    ASSERT_EQ(4, instruction.getSyllables().size());
+    ASSERT_EQ(4, instruction.getOperations().size());
     
     instruction.removeSyllable(ADDCG);
 
-    ASSERT_EQ(3, instruction.getSyllables().size());
+    ASSERT_EQ(3, instruction.getOperations().size());
     
     instruction.removeSyllable(DIVS);
 
-    ASSERT_EQ(2, instruction.getSyllables().size());
+    ASSERT_EQ(2, instruction.getOperations().size());
     
     instruction.removeSyllable(SLCT);
 
-    ASSERT_EQ(1, instruction.getSyllables().size());
+    ASSERT_EQ(1, instruction.getOperations().size());
     
     instruction.removeSyllable(SLCTF);
 
-    ASSERT_EQ(0, instruction.getSyllables().size());
+    ASSERT_EQ(0, instruction.getOperations().size());
   }
   
   TEST(InstructionTest, GetSyllables)
@@ -615,7 +615,7 @@ namespace InstructionTest
     instruction.addSyllable(SLCT);
     instruction.addSyllable(SLCTF);
     
-    ASSERT_EQ(other, instruction.getSyllables());
+    ASSERT_EQ(other, instruction.getOperations());
   }
   
   TEST(InstructionTest, PrintInstruction)

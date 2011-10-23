@@ -7,7 +7,7 @@
 
 #include <vector>
 #include "SyllableMUL.h"
-#include "Printers/IPrinter.h"
+#include "src/Interfaces/IPrinter.h"
 
 namespace rVex
 {
@@ -16,10 +16,10 @@ namespace rVex
   {
     switch (this->layoutType)
     {
-      case Syllable::RTYPE:
+      case LayoutType::RTYPE:
         output.printSyllable(this, printRTYPE(), first, last);
         break;
-      case Syllable::ISTYPE:
+      case LayoutType::ISTYPE:
         output.printSyllable(this, printISTYPE(), first, last);
         break;
       default:

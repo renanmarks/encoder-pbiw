@@ -20,7 +20,7 @@ namespace rVex
       {
         public:
           unsigned int getOpcode() const { return 88; }
-          Type getSyllableType() const { return ALU; }
+          SyllableType::Type getSyllableType() const { return SyllableType::ALU; }
           
           virtual void fillSyllable(VexParser::SyllableArguments* arguments)
           { this->fillTypeVII(arguments); }

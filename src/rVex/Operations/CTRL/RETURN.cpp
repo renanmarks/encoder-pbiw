@@ -14,7 +14,7 @@ namespace rVex
         final |= this->getOpcode();
         
         final <<= 2;
-        final |= Syllable::BRANCH_IMM;
+        final |= Syllable::ImmediateSwitch::BRANCH_IMM;
         
         final <<= 6;
         final |= this->grDestiny;

@@ -6,7 +6,7 @@
  */
 
 #include "Instruction.h"
-#include "Printers/IPrinter.h"
+#include "src/Interfaces/IPrinter.h"
 
 namespace rVex
 {
@@ -27,7 +27,7 @@ namespace rVex
   {
     if (this->syllables.size() > 0)
     {
-      SyllableVec::iterator it;
+      SyllableVector::iterator it;
       
       it = std::find(this->syllables.begin(), this->syllables.end(), &syllable);
       
@@ -41,7 +41,7 @@ namespace rVex
     return false;
   }
 
-  std::vector<Syllable*> 
+  Instruction::SyllableVector
   Instruction::getSyllables() const
   {
     return this->syllables;

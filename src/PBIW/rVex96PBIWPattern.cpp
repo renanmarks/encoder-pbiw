@@ -9,20 +9,17 @@
 
 namespace PBIW
 {
-  namespace Concrete
+
+  rVex96PBIWPattern::rVex96PBIWPattern()
   {
-
-    rVex96PBIWPattern::rVex96PBIWPattern( )
-    {
-    }
-
-    rVex96PBIWPattern::rVex96PBIWPattern( const rVex96PBIWPattern& orig )
-    {
-    }
-
-    rVex96PBIWPattern::~rVex96PBIWPattern( )
-    {
-    }
-
   }
+
+  rVex96PBIWPattern::rVex96PBIWPattern(const rVex96PBIWPattern& orig)
+  {
+  }
+
+  rVex96PBIWPattern::~rVex96PBIWPattern()
+  {
+  }
+
 }

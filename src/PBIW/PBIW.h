@@ -11,41 +11,45 @@
 #include "Interfaces/IPBIW.h"
 
 namespace PBIW
-{ 
-  namespace Concrete
+{
+  using namespace Interfaces;
+
+  /**
+   * Class responsible for encoding the r-Vex instructions in
+   * PBIW scheme.
+   * 
+   * The flexibility of this class is in the fact that it operates only
+   * using the interfaces to the data structures used.
+   */
+  class PBIW : public IPBIW
   {
-    using namespace Interfaces;
-    using namespace Base;
+  private:
+    typedef rVex::Syllable::OperandVector VexSyllableOperandVector; 
+    typedef rVex::Instruction::SyllableVector VexSyllableVector;
+    typedef std::vector<rVex::Instruction*> VexInstructionVector;
+    VexInstructionVector originalInstructions;
+
+    typedef std::vector<IPBIWInstruction*> PBIWInstructionVector;
+    PBIWInstructionVector codedInstructions;
     
-    /**
-    * Classe que realiza a codificação PBIW
-    * 
-    * Entrada do codificador: 128 caracteres ascii 0/1 que representam a instrução 
-    * VEX em formato binário.
-    * 
-    * Saída do codificador: instruções e padrões em formato ascii onde cada
-    * caractere é 0/1.
-    */
-    class PBIW: public IPBIW
-    {
-      private:
-        std::vector<IVLIWInstruction> originalInstructions;
-        
-        std::vector<IPBIWInstruction> codedInstructions;
-        std::vector<IPBIWPattern> codedPatterns;
+    typedef std::vector<IPBIWPattern*> PBIWPatternVector;
+    PBIWPatternVector codedPatterns;
 
-      public:
-        PBIW();
-        PBIW(const PBIW& orig);
-        virtual ~PBIW();
+  public:
 
-        virtual void encode(const std::vector<IVLIWInstruction>&);
-        virtual void decode(const std::vector<IPBIWInstruction>&, const std::vector<IPBIWPattern>&);
+    explicit
+    PBIW(const std::vector<rVex::Instruction*>& original)
+    : originalInstructions(original)
+    { }
+    
+    virtual ~PBIW();
 
-        virtual std::ostream getInstructions();
-        virtual std::ostream getPatterns();
-    };
-  }
+    virtual void encode();
+    virtual void decode(const std::vector<IPBIWInstruction*>&, const std::vector<IPBIWPattern*>&);
+
+    virtual std::vector<IPBIWPattern*> getPatterns();
+    virtual std::vector<IPBIWInstruction*> getInstructions();
+  };
 }
 
 

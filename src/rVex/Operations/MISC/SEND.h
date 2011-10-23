@@ -22,7 +22,7 @@ namespace rVex
           SEND() {}
           
           unsigned int getOpcode() const { return 42; }
-          Type getSyllableType() const { return CTRL; }
+          SyllableType::Type getSyllableType() const { return SyllableType::CTRL; }
       };
     }
   }

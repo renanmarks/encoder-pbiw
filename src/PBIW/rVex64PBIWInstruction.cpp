@@ -9,19 +9,16 @@
 
 namespace PBIW
 {
-  namespace Concrete
+
+  rVex64PBIWInstruction::rVex64PBIWInstruction()
   {
-    rVex64PBIWInstruction::rVex64PBIWInstruction( )
-    {
-    }
+  }
 
-    rVex64PBIWInstruction::rVex64PBIWInstruction( const rVex64PBIWInstruction& orig )
-    {
-    }
+  rVex64PBIWInstruction::rVex64PBIWInstruction(const rVex64PBIWInstruction& orig)
+  {
+  }
 
-    rVex64PBIWInstruction::~rVex64PBIWInstruction( )
-    {
-    }
+  rVex64PBIWInstruction::~rVex64PBIWInstruction()
+  {
   }
 }
-

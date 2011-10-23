@@ -8,6 +8,8 @@
 #ifndef IPBIWPATTERN_H
 #define	IPBIWPATTERN_H
 
+#include "IPattern.h"
+
 namespace PBIW
 {
   namespace Interfaces
@@ -18,7 +20,10 @@ namespace PBIW
     class IPBIWPattern
     {
       public:
-        virtual ~IPBIWPattern() {};
+        virtual ~IPBIWPattern() {}
+        
+        virtual void addPattern(IPattern&) = 0;
+        virtual IPattern getPattern() const = 0;
         
     };
   }

@@ -163,19 +163,19 @@ namespace VexParser
   {
     switch(syllable->getSyllableType())
     {
-      case rVex::Syllable::ALU:
+      case rVex::Syllable::SyllableType::ALU:
         packSyllable(dynamic_cast<rVex::SyllableALU*>(syllable), arguments);
         break;
         
-      case rVex::Syllable::MEM:
+      case rVex::Syllable::SyllableType::MEM:
         packSyllable(dynamic_cast<rVex::SyllableMEM*>(syllable), arguments);
         break;
         
-      case rVex::Syllable::MUL:
+      case rVex::Syllable::SyllableType::MUL:
         packSyllable(dynamic_cast<rVex::SyllableMUL*>(syllable), arguments);
         break;
         
-      case rVex::Syllable::CTRL:
+      case rVex::Syllable::SyllableType::CTRL:
         packSyllable(dynamic_cast<rVex::SyllableCTRL*>(syllable), arguments);
         break;
         
@@ -358,11 +358,11 @@ namespace VexParser
           // ALU = 1, MUL = 2, MEM = 3 , CTRL = 4
           if( 
               (*it)->getOpcode() && 
-              ((*it)->getSyllableType() != rVex::Syllable::ALU) 
+              ((*it)->getSyllableType() != rVex::Syllable::SyllableType::ALU) 
             )
           {
               if(
-                  ((*it)->getSyllableType() == rVex::Syllable::CTRL) && 
+                  ((*it)->getSyllableType() == rVex::Syllable::SyllableType::CTRL) && 
                   (counterIt != 0)
                 )
               {
@@ -375,7 +375,7 @@ namespace VexParser
                   it--;
               }
               else if(
-                       ((*it)->getSyllableType() == rVex::Syllable::MEM) && 
+                       ((*it)->getSyllableType() == rVex::Syllable::SyllableType::MEM) && 
                        (counterIt != 3)
                      )
               {
@@ -389,14 +389,14 @@ namespace VexParser
               }   
 
               else if(
-                       ((*it)->getSyllableType() == rVex::Syllable::MUL) && 
+                       ((*it)->getSyllableType() == rVex::Syllable::SyllableType::MUL) && 
                        ((counterIt != 1) && (counterIt != 2))
                      )
               {
                   int index;                  
                   
                   // set up the index that will receive the MUL syllable
-                  if (syllableBuffer.at(1)->getSyllableType() != rVex::Syllable::MUL)
+                  if (syllableBuffer.at(1)->getSyllableType() != rVex::Syllable::SyllableType::MUL)
                       index = 1;
                   else
                       index = 2;

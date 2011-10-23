@@ -8,23 +8,33 @@
 #ifndef RVEX96PBIWPATTERN_H
 #define	RVEX96PBIWPATTERN_H
 
+#include <vector>
+#include "Interfaces/IPBIWPattern.h"
+#include "UnitaryPattern.h"
+
 namespace PBIW
 {
-  namespace Concrete
-  {
-    /**
-     * r-VEX 96 bits length pattern
-     */
-    class rVex96PBIWPattern 
-    {
-      public:
-        rVex96PBIWPattern();
-        rVex96PBIWPattern(const rVex96PBIWPattern& orig);
-        virtual ~rVex96PBIWPattern();
-      private:
+  using namespace Interfaces;
 
-    };
-  }
+  /**
+   * r-VEX 96 bits length pattern
+   */
+  class rVex96PBIWPattern : public IPBIWPattern
+  {
+  public:
+    rVex96PBIWPattern();
+    rVex96PBIWPattern(const rVex96PBIWPattern& orig);
+    virtual ~rVex96PBIWPattern();
+
+    
+    virtual void addPattern(IPattern&) { }
+    virtual IPattern getPattern() const { }
+
+  private:
+    typedef std::vector<UnitaryPattern> PatternVector;
+    PatternVector patterns; // Max 4
+    
+  };
 }
 
 #endif	/* RVEX96PBIWPATTERN_H */

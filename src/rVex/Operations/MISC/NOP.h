@@ -10,7 +10,7 @@
 
 #include "../../Syllable.h"
 #include "../../SyllableMISC.h"
-#include "../../Printers/IPrinter.h"
+#include "src/Interfaces/IPrinter.h"
 
 namespace rVex
 {
@@ -24,7 +24,7 @@ namespace rVex
           NOP() {}
           
           unsigned int getOpcode() const { return 0; }
-          Type getSyllableType() const { return CTRL; }
+          SyllableType::Type getSyllableType() const { return SyllableType::CTRL; }
           
           virtual bool operator==(const Syllable& other) const
           { return other.getOpcode() == this->getOpcode(); }
@@ -32,7 +32,7 @@ namespace rVex
           virtual bool operator!=(const Syllable& other) const
           { return !(*this == other); }
           
-          virtual LayoutType getLayoutType() const { return RTYPE; }
+          virtual LayoutType::Type getLayoutType() const { return LayoutType::RTYPE; }
       
           virtual void print(rVex::Printers::IPrinter& output, bool first, bool last) const
           { output.printSyllable(this, 0, first, last); }

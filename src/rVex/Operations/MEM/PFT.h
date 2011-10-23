@@ -22,7 +22,7 @@ namespace rVex
           PFT() {}
           
           unsigned int getOpcode() const { return 25; }
-          Type getSyllableType() const { return MEM; }
+          SyllableType::Type getSyllableType() const { return SyllableType::MEM; }
           
           void print(rVex::Printers::IPrinter& output, bool first, bool last) const
           { output.printSyllable(this, 0xDEAD0000, first, last); }

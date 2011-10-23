@@ -20,7 +20,7 @@ namespace rVex
       {
         public:
           unsigned int getOpcode() const { return 36; }
-          Type getSyllableType() const { return CTRL; }
+          SyllableType::Type getSyllableType() const { return SyllableType::CTRL; }
           
           virtual void print(rVex::Printers::IPrinter&, bool, bool) const;
           
