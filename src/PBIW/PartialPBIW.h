@@ -1,0 +1,94 @@
+/* 
+ * File:   PBIW.h
+ * Author: helix
+ *
+ * Created on July 20, 2011, 4:13 PM
+ */
+
+#ifndef PBIW_H
+#define	PBIW_H
+
+#include <set>
+#include <vector>
+#include <list>
+
+#include "Interfaces/IPBIW.h"
+#include "Label.h"
+
+namespace PBIW
+{
+  using namespace Interfaces;
+
+  /**
+   * Class responsible for encoding the r-Vex instructions in
+   * "Partial" PBIW scheme.
+   *
+   * The "Partial" PBIW scheme is different from the "Full" PBIW scheme in the
+   * following details: it is not implemented the optimization that reuses an
+   * operand present in the write/immediate section to the read/write of the
+   * same instruction. This is done by moving this operand in the write/immediate
+   * section to the read section and updating the pointers.
+   * 
+   * The flexibility of this class is in the fact that it operates only
+   * using the interfaces to the data structures used.
+   */
+  class PartialPBIW : public IPBIW
+  {
+  private:
+    
+    /**
+     * Type definitions to references rVex structures
+     */
+    typedef rVex::Syllable::OperandVector VexSyllableOperandVector; 
+    typedef rVex::Instruction::SyllableVector VexSyllableVector;
+    
+    typedef std::vector<rVex::Instruction*> VexInstructionVector;
+    const VexInstructionVector& originalInstructions;
+    
+    /**
+     * Internal data structures
+     */
+    typedef std::list<Label> LabelVector;
+    LabelVector labels;
+    
+    typedef std::list<IPBIWInstruction*> PBIWInstructionVector;
+    PBIWInstructionVector codedInstructions;
+    
+    typedef std::set<IPBIWPattern*> PBIWPatternVector;
+    PBIWPatternVector codedPatterns;
+
+    /**
+     * Functor used to find a label.
+     */
+    class FindLabel : public std::unary_function<Label, bool>
+    {
+    public:
+        FindLabel(const std::string label) : label(label) {}
+
+        bool operator()(const Label& t) const 
+        { return (t.name == label); }
+        
+    private:
+        const std::string label;
+    };
+    
+  public:
+
+    explicit
+    PartialPBIW(const VexInstructionVector& originalInstructions)
+    : originalInstructions(originalInstructions)
+    { }
+    
+    virtual ~PartialPBIW();
+
+    virtual void encode();
+    virtual void decode(const std::vector<IPBIWInstruction*>&, const std::vector<IPBIWPattern*>&);
+
+    virtual std::vector<IPBIWPattern*> getPatterns();
+    virtual std::vector<IPBIWInstruction*> getInstructions();
+  };
+}
+
+
+#endif	/* PBIW_H */
+

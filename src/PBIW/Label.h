@@ -5,31 +5,32 @@
  * Created on October 5, 2011, 2:25 PM
  */
 
-#ifndef LABEL_H
-#define	LABEL_H
+#ifndef PBIWLABEL_H
+#define	PBIWLABEL_H
 
 #include <string>
+#include "Interfaces/IPBIWInstruction.h"
 
-namespace rVex
+namespace PBIW
 {
-  class Syllable;
+  using namespace Interfaces;
   
   /**
    * Structure used to save the label definition information.
    */
   struct Label
   {
-    typedef enum 
+    typedef enum
     {
       GLOBAL = 0, LOCAL = 1
     } LabelScope;
 
     std::string name;
     LabelScope scope;
-    rVex::Syllable* destiny;
+    IPBIWInstruction* destiny;
     unsigned int absoluteAddress;
   };
 }
 
-#endif	/* LABEL_H */
+#endif	/* PBIWLABEL_H */
 

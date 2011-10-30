@@ -292,6 +292,8 @@ namespace VexParser
       label.destiny = instruction->getSyllables()[0];
       label.absoluteAddress = instruction->getAddress();
       
+      instruction->setLabel(label);
+      
       hasLabel = false;
     }
     

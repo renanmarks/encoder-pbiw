@@ -16,7 +16,7 @@
           <itemPath>src/PBIW/Interfaces/IPBIWPattern.h</itemPath>
         </logicalFolder>
         <itemPath>src/PBIW/Operand.h</itemPath>
-        <itemPath>src/PBIW/PBIW.h</itemPath>
+        <itemPath>src/PBIW/PartialPBIW.h</itemPath>
         <itemPath>src/PBIW/rVex64PBIWInstruction.h</itemPath>
         <itemPath>src/PBIW/rVex96PBIWPattern.h</itemPath>
       </logicalFolder>
@@ -151,7 +151,7 @@
                    projectFiles="true">
       <logicalFolder name="f1" displayName="PBIW" projectFiles="true">
         <itemPath>src/PBIW/Operand.cpp</itemPath>
-        <itemPath>src/PBIW/PBIW.cpp</itemPath>
+        <itemPath>src/PBIW/PartialPBIW.cpp</itemPath>
         <itemPath>src/PBIW/rVex64PBIWInstruction.cpp</itemPath>
         <itemPath>src/PBIW/rVex96PBIWPattern.cpp</itemPath>
       </logicalFolder>
@@ -273,10 +273,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -320,10 +322,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -409,10 +413,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -458,10 +464,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>

@@ -21,14 +21,42 @@ namespace PBIW
   {
   public:
     
-    explicit Operand(unsigned char, bool);
+    typedef struct {
+      typedef enum {
+        None, NineBits, TwelveBits
+      } Type;
+    } Immediate;
+    
+    explicit Operand(unsigned char);
+    explicit Operand(unsigned char, Immediate::Type);
     virtual ~Operand() { }
   
     virtual void setIndex(unsigned int index) 
     { this->index = index; }
+    
     virtual unsigned int getIndex() const
     { return this->index; }
+    
+    virtual bool isImmediate9Bits() const
+    { return immType == Immediate::NineBits; }
+    
+    virtual bool isImmediate12Bits() const
+    { return immType == Immediate::TwelveBits; }
+    
+    virtual bool isImmediate() const
+    { return isImmediate12Bits() || isImmediate9Bits(); }
+    
+    virtual void setValue(short value)
+    { this->value = value; }
+    
+    virtual short getValue() const
+    { return value; }
 
+    virtual bool operator<(const IOperand&) const;
+    virtual bool operator>(const IOperand&) const;
+    virtual bool operator<=(const IOperand&) const;
+    virtual bool operator>=(const IOperand&) const;
+    
     virtual bool operator==(const IOperand&) const;
     virtual bool operator!=(const IOperand&) const;
     
@@ -37,7 +65,7 @@ namespace PBIW
     unsigned char index;
     
     // This is an immediate operand?
-    bool isImmediate;
+    Immediate::Type immType;
     
     // The value of this operand (register number or immediate number)
     short value;

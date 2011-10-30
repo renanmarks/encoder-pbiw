@@ -12,6 +12,7 @@
 #include "Interfaces/IPBIWInstruction.h"
 #include "Interfaces/IOperand.h"
 #include "rVex96PBIWPattern.h"
+#include "src/rVex/Syllable.h"
 
 namespace PBIW
 {
@@ -23,9 +24,20 @@ namespace PBIW
   class rVex64PBIWInstruction : public IPBIWInstruction
   {
   public:
-    rVex64PBIWInstruction();
-    rVex64PBIWInstruction(const rVex64PBIWInstruction& orig);
-    virtual ~rVex64PBIWInstruction();
+    virtual ~rVex64PBIWInstruction() { }
+    
+    virtual void pointToPattern(IPBIWPattern* pattern);
+    
+    virtual bool containsOperand(const IOperand&) const;
+    
+    virtual void addReadOperand(IOperand* operand);
+    
+    virtual void addWriteOperand(IOperand* operand);
+    
+    virtual bool hasOperandSlot() const;
+    virtual bool hasReadOperandSlot() const;
+    virtual bool hasWriteOperandSlot() const;
+    
   private:
 
     rVex96PBIWPattern* pattern;
@@ -39,7 +51,9 @@ namespace PBIW
                                                        \      /
                                                         Br src
      */
-    std::vector<IOperand*> readRegs; // Max 8
+    
+    typedef std::vector<IOperand*> OperandVector;
+    OperandVector readOperands; // Max 8
 
     /* The writeRegs/imm organization is as follows:
          
@@ -50,8 +64,15 @@ namespace PBIW
              '----9b imm---'
              '-------12b imm------'
      */
-    unsigned short immediate; // For the 9 and 12 bit immediates
-    std::vector<IOperand*> writeRegs; // Max 4 regs
+    
+    bool has9BitImm;
+    bool has12BitImm;
+    OperandVector writeOperands; // Max 4 (9 and 12 bit immediates inclusive)
+    
+    /**
+     * Keeps track of what syllables were packed in this instruction
+     */
+    std::vector<rVex::Syllable*> syllablesPacked;
   };
 }
 

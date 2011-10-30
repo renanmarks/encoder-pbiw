@@ -26,9 +26,16 @@ namespace PBIW
     rVex96PBIWPattern(const rVex96PBIWPattern& orig);
     virtual ~rVex96PBIWPattern();
 
+    virtual void addPattern(IPattern&);
+    virtual UnitaryPattern& getPattern(unsigned int);
     
-    virtual void addPattern(IPattern&) { }
-    virtual IPattern getPattern() const { }
+    virtual bool operator<(const IPBIWPattern&) const;
+    virtual bool operator>(const IPBIWPattern&) const;
+    virtual bool operator<=(const IPBIWPattern&) const;
+    virtual bool operator>=(const IPBIWPattern&) const;
+
+    virtual bool operator==(const IPBIWPattern&) const;
+    virtual bool operator!=(const IPBIWPattern&) const;
 
   private:
     typedef std::vector<UnitaryPattern> PatternVector;

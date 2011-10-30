@@ -8,8 +8,7 @@
 #ifndef UNITARYPATTERN_H
 #define	UNITARYPATTERN_H
 
-#include <vector>
-#include "Interfaces/IOperand.h"
+#include "Interfaces/IPattern.h"
 
 namespace PBIW
 {
@@ -23,12 +22,47 @@ namespace PBIW
     ---------------------------------------
     ' Opcode ' Write ' Read ' Read '  wBr '
  */
-  struct UnitaryPattern
+  class UnitaryPattern : public IPattern
   {
+  public:
+    virtual void setOpcode(unsigned short opcode)
+    { this->opcode = opcode; }
+    
+    virtual unsigned short getOpcode() const
+    { return this->opcode; }
+    
+    virtual void addReadOperand(IOperand* operand)
+    { this->readOperands.push_back(operand); }
+    
+    virtual OperandVector getOperands() const
+    { return this->readOperands; }
+    
+    virtual void pointToWriteOperand(IOperand* operand)
+    { this->writeOperand = operand; }
+    
+    virtual void pointToWriteBrOperand(IOperand* operand)
+    { this->writeBrOperand = operand; }
+    
+  private:
+    /**
+     * Syllable opcode
+     */ 
     unsigned short opcode; // 9b
-    IOperand* writeGr; // 4b
-    std::vector<IOperand*> readGr; // 2 x 4b
-    IOperand* writeBr; // 3b
+    
+    /**
+     * Pointer to the write GR operand
+     */
+    IOperand* writeOperand; // 4b
+    
+    /**
+     * Vector of pointers to read operands
+     */
+    OperandVector readOperands; // 2 x 4b
+    
+    /**
+     * Pointer to the write BR operand
+     */
+    IOperand* writeBrOperand; // 3b
   };
 }
 

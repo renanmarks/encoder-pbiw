@@ -23,7 +23,19 @@ namespace PBIW
       
       virtual void setIndex(unsigned int) = 0;
       virtual unsigned int getIndex() const = 0;
+      
+      virtual bool isImmediate() const = 0;
+      virtual bool isImmediate9Bits() const = 0;
+      virtual bool isImmediate12Bits() const = 0;
+      
+      virtual void setValue(short) = 0;
+      virtual short getValue() const = 0;
 
+      virtual bool operator<(const IOperand&) const = 0;
+      virtual bool operator>(const IOperand&) const = 0;
+      virtual bool operator<=(const IOperand&) const = 0;
+      virtual bool operator>=(const IOperand&) const = 0;
+    
       virtual bool operator==(const IOperand&) const = 0;
       virtual bool operator!=(const IOperand&) const = 0;
     };

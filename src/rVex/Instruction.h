@@ -31,11 +31,18 @@ namespace rVex
       void setAddress(unsigned int address)
       { this->address = address; }
       
+      void setLabel(rVex::Label& label)
+      { this->label = &label; }
+      
+      rVex::Label* getLabel() const
+      { return this->label; }
+      
       void print(rVex::Printers::IPrinter&) const;
       
       SyllableVector getSyllables() const;
     
     private:
+      rVex::Label* label;
       SyllableVector syllables;
       unsigned int address;
   };

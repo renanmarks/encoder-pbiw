@@ -7,18 +7,40 @@ namespace rVex
   Syllable::OperandVector 
   Syllable::getOperandVector() const
   {
+    using PBIW::Operand;
+    
     Syllable::OperandVector returnVector;
     
     switch( getLayoutType() )
     {
       case LayoutType::RTYPE:
-        returnVector.push_back(std::make_pair(this->grDestiny,OperandType::GRDestiny));
-        returnVector.push_back(std::make_pair(this->brSource,OperandType::GRDestiny));
+        returnVector.push_back(
+          std::make_pair(
+            new Operand(this->grDestiny),
+            OperandType::GRDestiny
+          )
+        );
+        returnVector.push_back(
+          std::make_pair(
+            new Operand(this->brSource), 
+            OperandType::GRDestiny
+          )
+        );
         break;
         
       case LayoutType::ISTYPE:
-        returnVector.push_back(std::make_pair(this->grDestiny,OperandType::GRDestiny));
-        returnVector.push_back(std::make_pair(this->shortImmediate,OperandType::Imm));
+        returnVector.push_back(
+            std::make_pair(
+              new Operand(this->grDestiny), 
+              OperandType::GRDestiny
+            )
+          );
+        returnVector.push_back(
+          std::make_pair(
+            new Operand(this->shortImmediate, Operand::Immediate::NineBits),
+            OperandType::Imm
+          )
+        );
         break;
         
       case LayoutType::BRANCH:

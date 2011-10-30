@@ -12,6 +12,7 @@
 #include <string>
 #include "Label.h"
 
+#include "src/PBIW/Operand.h"
 #include "../VexParser/Expressions/SyllableArguments.h"
 #include "src/Interfaces/IPrinter.h"
 
@@ -169,7 +170,7 @@ namespace rVex
         } Type;
       } OperandType;
       
-      typedef std::pair<unsigned int, OperandType::Type> OperandItem;
+      typedef std::pair<PBIW::Interfaces::IOperand*, OperandType::Type> OperandItem;
       typedef std::vector<OperandItem> OperandVector;
       
       OperandVector getOperandVector() const;

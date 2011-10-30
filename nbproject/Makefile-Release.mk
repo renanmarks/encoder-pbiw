@@ -37,7 +37,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/rVex/Operations/CTRL/GOTO.o \
 	${OBJECTDIR}/src/rVex/Operations/CTRL/RETURN.o \
 	${OBJECTDIR}/src/rVex/Operations/CTRL/ICALL.o \
-	${OBJECTDIR}/src/PBIW/PBIW.o \
 	${OBJECTDIR}/src/rVex/SyllableMUL.o \
 	${OBJECTDIR}/src/VexParser/scanner.o \
 	${OBJECTDIR}/src/rVex/Operations/CTRL/BR.o \
@@ -53,6 +52,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/rVex/SyllableCTRL.o \
 	${OBJECTDIR}/src/rVex/Syllable.o \
 	${OBJECTDIR}/src/VexParser/driver.o \
+	${OBJECTDIR}/src/PBIW/PartialPBIW.o \
 	${OBJECTDIR}/src/rVex/SyllableMEM.o \
 	${OBJECTDIR}/src/PBIW/rVex96PBIWPattern.o \
 	${OBJECTDIR}/src/rVex/Printers/VHDLPrinter.o \
@@ -109,11 +109,6 @@ ${OBJECTDIR}/src/rVex/Operations/CTRL/ICALL.o: src/rVex/Operations/CTRL/ICALL.cp
 	${MKDIR} -p ${OBJECTDIR}/src/rVex/Operations/CTRL
 	${RM} $@.d
 	$(COMPILE.cc) -O3 -s -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/CTRL/ICALL.o src/rVex/Operations/CTRL/ICALL.cpp
-
-${OBJECTDIR}/src/PBIW/PBIW.o: src/PBIW/PBIW.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/PBIW
-	${RM} $@.d
-	$(COMPILE.cc) -O3 -s -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/PBIW.o src/PBIW/PBIW.cpp
 
 ${OBJECTDIR}/src/rVex/SyllableMUL.o: src/rVex/SyllableMUL.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/rVex
@@ -189,6 +184,11 @@ ${OBJECTDIR}/src/VexParser/driver.o: src/VexParser/driver.cc
 	${MKDIR} -p ${OBJECTDIR}/src/VexParser
 	${RM} $@.d
 	$(COMPILE.cc) -O3 -s -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/VexParser/driver.o src/VexParser/driver.cc
+
+${OBJECTDIR}/src/PBIW/PartialPBIW.o: src/PBIW/PartialPBIW.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/PBIW
+	${RM} $@.d
+	$(COMPILE.cc) -O3 -s -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/PartialPBIW.o src/PBIW/PartialPBIW.cpp
 
 ${OBJECTDIR}/src/rVex/SyllableMEM.o: src/rVex/SyllableMEM.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/rVex
@@ -310,19 +310,6 @@ ${OBJECTDIR}/src/rVex/Operations/CTRL/ICALL_nomain.o: ${OBJECTDIR}/src/rVex/Oper
 	    $(COMPILE.cc) -O3 -s -I. -I. -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/CTRL/ICALL_nomain.o src/rVex/Operations/CTRL/ICALL.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/rVex/Operations/CTRL/ICALL.o ${OBJECTDIR}/src/rVex/Operations/CTRL/ICALL_nomain.o;\
-	fi
-
-${OBJECTDIR}/src/PBIW/PBIW_nomain.o: ${OBJECTDIR}/src/PBIW/PBIW.o src/PBIW/PBIW.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/PBIW
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/PBIW/PBIW.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} $@.d;\
-	    $(COMPILE.cc) -O3 -s -I. -I. -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/PBIW_nomain.o src/PBIW/PBIW.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/src/PBIW/PBIW.o ${OBJECTDIR}/src/PBIW/PBIW_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/rVex/SyllableMUL_nomain.o: ${OBJECTDIR}/src/rVex/SyllableMUL.o src/rVex/SyllableMUL.cpp 
@@ -518,6 +505,19 @@ ${OBJECTDIR}/src/VexParser/driver_nomain.o: ${OBJECTDIR}/src/VexParser/driver.o 
 	    $(COMPILE.cc) -O3 -s -I. -I. -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/VexParser/driver_nomain.o src/VexParser/driver.cc;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/VexParser/driver.o ${OBJECTDIR}/src/VexParser/driver_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/PBIW/PartialPBIW_nomain.o: ${OBJECTDIR}/src/PBIW/PartialPBIW.o src/PBIW/PartialPBIW.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/PBIW
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/PBIW/PartialPBIW.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -O3 -s -I. -I. -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/PartialPBIW_nomain.o src/PBIW/PartialPBIW.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/PBIW/PartialPBIW.o ${OBJECTDIR}/src/PBIW/PartialPBIW_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/rVex/SyllableMEM_nomain.o: ${OBJECTDIR}/src/rVex/SyllableMEM.o src/rVex/SyllableMEM.cpp 

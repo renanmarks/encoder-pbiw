@@ -23,7 +23,15 @@ namespace PBIW
         virtual ~IPBIWPattern() {}
         
         virtual void addPattern(IPattern&) = 0;
-        virtual IPattern getPattern() const = 0;
+        virtual IPattern& getPattern(unsigned int) = 0;
+        
+        virtual bool operator<(const IPBIWPattern&) const = 0;
+        virtual bool operator>(const IPBIWPattern&) const = 0;
+        virtual bool operator<=(const IPBIWPattern&) const = 0;
+        virtual bool operator>=(const IPBIWPattern&) const = 0;
+
+        virtual bool operator==(const IPBIWPattern&) const = 0;
+        virtual bool operator!=(const IPBIWPattern&) const = 0;
         
     };
   }
