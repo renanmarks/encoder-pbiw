@@ -14,7 +14,7 @@
 
 #include "src/PBIW/Operand.h"
 #include "../VexParser/Expressions/SyllableArguments.h"
-#include "src/Interfaces/IPrinter.h"
+#include "src/rVex/Printers/IPrinter.h"
 
 namespace rVex
 {

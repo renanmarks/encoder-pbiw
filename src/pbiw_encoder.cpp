@@ -14,12 +14,14 @@ using namespace std;
 #include "pbiw_encoder.h"
 #include "rVex/Printers/rVexPrinter.h"
 #include "rVex/Printers/VHDLPrinter.h"
+#include "PBIW/PartialPBIW.h"
+#include "PBIW/PartialPBIWPrinter.h"
 
 int
 main( int argc, char** argv )
 {
-//  rVex::Printers::rVexPrinter printer(std::cout);
-  rVex::Printers::VHDLPrinter printer(std::cout);
+  rVex::Printers::rVexPrinter printer(std::cout);
+  //rVex::Printers::VHDLPrinter printer(std::cout);
   VexParser::VexContext context(printer);
   VexParser::Driver driver(context);
   std::string flags;
@@ -61,8 +63,8 @@ main( int argc, char** argv )
       std::fstream infile(argv[ai]);
       
       std::string filename = argv[ai];
-      printer.setFileName(filename);
-      printer.setAssemblerFlags(flags);
+//      printer.setFileName(filename);
+//      printer.setAssemblerFlags(flags);
       
       if (!infile.good())
       {
@@ -74,6 +76,11 @@ main( int argc, char** argv )
       
       context.processLabels();
       context.print();
+      
+      PBIW::PartialPBIW pbiw;
+      PBIW::PartialPBIWPrinter pbiwPrinter(std::cout);
+      
+      context.encodePBIW(pbiw, pbiwPrinter);
     }
   }
   

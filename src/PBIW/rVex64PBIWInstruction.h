@@ -28,6 +28,9 @@ namespace PBIW
     
     virtual void pointToPattern(IPBIWPattern* pattern);
     
+    virtual rVex96PBIWPattern* getPattern() const
+    { return this->pattern; }
+    
     virtual bool containsOperand(const IOperand&) const;
     
     virtual void addReadOperand(IOperand* operand);
@@ -37,6 +40,10 @@ namespace PBIW
     virtual bool hasOperandSlot() const;
     virtual bool hasReadOperandSlot() const;
     virtual bool hasWriteOperandSlot() const;
+    
+    virtual void print(IPBIWPrinter&) const;
+    
+    virtual OperandVector getOperands() const;
     
   private:
 
@@ -51,8 +58,6 @@ namespace PBIW
                                                        \      /
                                                         Br src
      */
-    
-    typedef std::vector<IOperand*> OperandVector;
     OperandVector readOperands; // Max 8
 
     /* The writeRegs/imm organization is as follows:
@@ -64,10 +69,9 @@ namespace PBIW
              '----9b imm---'
              '-------12b imm------'
      */
-    
+    OperandVector writeOperands; // Max 4 (9 and 12 bit immediates inclusive)
     bool has9BitImm;
     bool has12BitImm;
-    OperandVector writeOperands; // Max 4 (9 and 12 bit immediates inclusive)
     
     /**
      * Keeps track of what syllables were packed in this instruction

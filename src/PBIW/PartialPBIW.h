@@ -5,8 +5,8 @@
  * Created on July 20, 2011, 4:13 PM
  */
 
-#ifndef PBIW_H
-#define	PBIW_H
+#ifndef PARTIALPBIW_H
+#define	PARTIALPBIW_H
 
 #include <set>
 #include <vector>
@@ -41,9 +41,9 @@ namespace PBIW
      */
     typedef rVex::Syllable::OperandVector VexSyllableOperandVector; 
     typedef rVex::Instruction::SyllableVector VexSyllableVector;
-    
-    typedef std::vector<rVex::Instruction*> VexInstructionVector;
-    const VexInstructionVector& originalInstructions;
+//    
+//    typedef std::vector<rVex::Instruction*> VexInstructionVector;
+//    const VexInstructionVector& originalInstructions;
     
     /**
      * Internal data structures
@@ -51,11 +51,13 @@ namespace PBIW
     typedef std::list<Label> LabelVector;
     LabelVector labels;
     
-    typedef std::list<IPBIWInstruction*> PBIWInstructionVector;
-    PBIWInstructionVector codedInstructions;
+    typedef std::list<IPBIWInstruction*> PBIWInstructionList;
+    PBIWInstructionList codedInstructions;
     
-    typedef std::set<IPBIWPattern*> PBIWPatternVector;
-    PBIWPatternVector codedPatterns;
+    typedef std::set<IPBIWPattern*> PBIWPatternSet;
+    PBIWPatternSet codedPatterns;
+    
+    bool hasPattern(const IPBIWPattern*) const;
 
     /**
      * Functor used to find a label.
@@ -73,16 +75,12 @@ namespace PBIW
     };
     
   public:
+    virtual ~PartialPBIW() { }
 
-    explicit
-    PartialPBIW(const VexInstructionVector& originalInstructions)
-    : originalInstructions(originalInstructions)
-    { }
-    
-    virtual ~PartialPBIW();
-
-    virtual void encode();
+    virtual void encode(const std::vector<rVex::Instruction*>&);
     virtual void decode(const std::vector<IPBIWInstruction*>&, const std::vector<IPBIWPattern*>&);
+    
+    virtual void print(IPBIWPrinter& printer);
 
     virtual std::vector<IPBIWPattern*> getPatterns();
     virtual std::vector<IPBIWInstruction*> getInstructions();
@@ -90,5 +88,5 @@ namespace PBIW
 }
 
 
-#endif	/* PBIW_H */
+#endif	/* PARTIALPBIW_H */
 

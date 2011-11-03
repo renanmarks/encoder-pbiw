@@ -15,10 +15,10 @@ namespace rVex
   {
     /**
      * Prints a unsigned integer into a binary string containing 0's and 1's.
-     * @param An integer
+     * @param The syllable
+     * @param An int containing binary digits of the syllable
      * @param If it is the first syllable
      * @param If it is the last syllable
-     * @return A std::string containing binary digits
      */
     void 
     rVexPrinter::printSyllable(const rVex::Syllable* syllable, unsigned int binary, bool first, bool last)

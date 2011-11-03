@@ -10,6 +10,7 @@
 
 #include "IOperand.h"
 #include "IPBIWPattern.h"
+#include "IPBIWPrinter.h"
 
 namespace PBIW
 {
@@ -28,6 +29,12 @@ namespace PBIW
          * @param The pattern referenced by this instruction
          */
         virtual void pointToPattern(IPBIWPattern*) = 0;
+        
+        /**
+         * Return the pattern that this instruction points to.
+         * @return The pattern pointed by this instruction
+         */
+        virtual IPBIWPattern* getPattern() const = 0;
         
         /**
          * Check if this instruction has the informed Operand.
@@ -53,6 +60,21 @@ namespace PBIW
          * write operand).
          */
         virtual bool hasOperandSlot() const = 0;
+        
+        /**
+         * Print this instruction using the specified printer.
+         * @param An IPBIWPrinter
+         */
+        virtual void print(IPBIWPrinter&) const = 0;
+        
+        
+        typedef std::vector<IOperand*> OperandVector;
+        
+        /**
+         * Return a vector of all operands in this instruction.
+         * @return An operand vector
+         */
+        virtual OperandVector getOperands() const = 0;
     };
 
   }

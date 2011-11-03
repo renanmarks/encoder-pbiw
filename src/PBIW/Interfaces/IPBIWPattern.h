@@ -8,7 +8,8 @@
 #ifndef IPBIWPATTERN_H
 #define	IPBIWPATTERN_H
 
-#include "IPattern.h"
+#include "IOperation.h"
+#include "IPBIWPrinter.h"
 
 namespace PBIW
 {
@@ -22,8 +23,31 @@ namespace PBIW
       public:
         virtual ~IPBIWPattern() {}
         
-        virtual void addPattern(IPattern&) = 0;
-        virtual IPattern& getPattern(unsigned int) = 0;
+        /**
+         * Add a single pattern to this sets of patterns.
+         * @param Pattern to be added
+         */
+        virtual void addOperation(IOperation&) = 0;
+        
+        /**
+         * Returns a pattern of this set of patterns.
+         * @param Index of pattern to be returned
+         * @return The operation
+         */
+        virtual const IOperation& getOperation(unsigned int) const = 0;
+        virtual const IOperation& operator[](const unsigned int) const = 0;
+        
+        /**
+         * Returns how many operations this pattern contains.
+         * @return Quantity of operations
+         */
+        virtual unsigned int getOperationCount() const = 0;
+        
+        /**
+         * Print this pattern using the specified printer.
+         * @param An IPBIWPrinter
+         */
+        virtual void print(IPBIWPrinter&) const = 0;
         
         virtual bool operator<(const IPBIWPattern&) const = 0;
         virtual bool operator>(const IPBIWPattern&) const = 0;

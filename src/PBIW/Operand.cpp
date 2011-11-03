@@ -21,6 +21,11 @@ namespace PBIW
   {
   }
   
+  Operand::Operand(const Operand& other)
+  : value(other.getValue()), immType(other.getImmediateType()), index(other.getIndex())
+  {
+  }
+  
   bool 
   Operand::operator<(const IOperand& operand) const
   {

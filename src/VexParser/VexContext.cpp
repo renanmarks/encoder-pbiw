@@ -17,6 +17,7 @@
 #include "src/rVex/Operations/ALU/ADD.h"
 #include "src/rVex/Operations/ALU/MOV.h"
 #include "src/rVex/Printers/rVexPrinter.h"
+#include "src/PBIW/Interfaces/IPBIW.h"
 
 namespace VexParser
 {
@@ -416,88 +417,12 @@ namespace VexParser
       }
     }      
       
-//void
-//  VexContext::reorder(rVex::Instruction* instruction)
-//  {
-//      rVex::Syllable* syllable;
-//      int counterIt = 0;
-//      std::cout << "Passou aqui -> 1" << std::endl;
-//      InstructionList instructions;
-//      InstructionList::const_iterator it;
-//      typedef std::vector<rVex::Syllable*> instructionsVec;
-////      SyllablesAux syllableBuffer;
-////      SyllablesAux::iterator it;
-////      instructionsVec instructions;
-////      instructionsVec::iterator it;
-//      //instructions = instruction->getSyllables();
-//     
-////      if(instructions.size() < 4){
-////          instructions.resize(4,new rVex::Operations::MISC::NOP());
-////      }
-//      
-//      for(it = instructions.begin(); it == instructions.end(); it++)
-//      {
-//          std::cout << "Passou aqui -> for " << std::endl;
-//          // ALU = 1, MUL = 2, MEM = 3 , CTRL = 4
-//          if((*it).getSyllables()[counterIt]->getOpcode() && 
-//                  ((*it).getSyllables()[counterIt]->getSyllableType() != rVex::Syllable::ALU))
-//          {
-//              std::cout << "Passou aqui -> if" << std::endl;
-//              if(((*it).getSyllables()[counterIt]->getSyllableType() == rVex::Syllable::CTRL) && (counterIt != 0))
-//              {
-//                  // exchange the indexes
-//                  syllable = (*it).getSyllables()[0];
-//                  (*it).getSyllables()[0] = (*it).getSyllables()[counterIt];
-//                  (*it).getSyllables()[counterIt] = syllable;
-//                  
-//                  counterIt--;
-//                  it--;
-//              }
-//
-//              else if(((*it).getSyllables()[counterIt]->getSyllableType() == rVex::Syllable::MEM)  && (counterIt != 3))
-//              {
-//                  // exchange the indexes
-//                  syllable = (*it).getSyllables()[3];
-//                  (*it).getSyllables()[3] = (*it).getSyllables()[counterIt];
-//                  (*it).getSyllables()[counterIt] = syllable;
-//                  
-//                  counterIt--;
-//                  it--;
-//              }   
-//
-//              else if(((*it).getSyllables()[counterIt]->getSyllableType() == rVex::Syllable::MUL) && ((counterIt != 1) & (counterIt != 2)))
-//              {
-//                  int index;                  
-//                  
-//                  // set up the index that will receive the MUL syllable
-//                  if((*it).getSyllables()[1]->getSyllableType() != 2)
-//                      index = 1;
-//                  else
-//                      index = 2;
-//                  std::cout << "Passou aqui -> MUL" << std::endl;
-//                  // exchange the indexes
-//                  syllable = (*it).getSyllables()[index];
-//                  (*it).getSyllables()[index] = (*it).getSyllables()[counterIt];
-//                  (*it).getSyllables()[counterIt] = syllable;
-//                                    
-//                  counterIt--;
-//                  it--;
-//              }             
-//          }
-//          
-//          counterIt++;             
-//      }
-//      int count = 0;
-//      for(it = instructions.begin(); it == instructions.end(); it++)
-//      {
-//          std::cout << "Passou aqui -> " << std::endl;
-//          std::cout << "OP " << (*it).getSyllables()[count]->getSyllableType() << std::endl;
-//          count++;
-//          if(count < 4)
-//              break;
-//          
-//      }
-//  }
-
-
+  void 
+  VexContext::encodePBIW(PBIW::Interfaces::IPBIW& pbiw, PBIW::Interfaces::IPBIWPrinter& pbiwPrinter) const
+  {
+    std::vector<rVex::Instruction*> instructionVector(instructions.begin(), instructions.end());
+    
+    pbiw.encode(instructionVector);
+    pbiw.print(pbiwPrinter);
+  }
 }

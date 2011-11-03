@@ -7,16 +7,34 @@
 
 #include "PartialPBIW.h"
 #include "rVex64PBIWInstruction.h"
-#include "UnitaryPattern.h"
+#include "Operation.h"
 #include "Operand.h"
 
 namespace PBIW
 {
+  using namespace Interfaces;
 
-  void
-  PartialPBIW::encode()
+  
+  bool 
+  PartialPBIW::hasPattern(const IPBIWPattern* other) const
   {
-    VexInstructionVector::const_iterator instructionIt;
+    PBIWPatternSet::const_iterator it;
+    
+    for (it = codedPatterns.begin();
+         it != codedPatterns.end();
+         it++)
+    {
+      if ( **it != *other )
+        return false;
+    }
+    
+    return true;
+  }
+  
+  void
+  PartialPBIW::encode(const std::vector<rVex::Instruction*>& originalInstructions)
+  {
+    std::vector<rVex::Instruction*>::const_iterator instructionIt;
     
     // For each group of 4 syllables...
     for(instructionIt = originalInstructions.begin();
@@ -35,7 +53,7 @@ namespace PBIW
            syllableIt < syllables.end();
            syllableIt++)
       {
-        UnitaryPattern unitaryPattern;
+        Operation unitaryPattern;
         unitaryPattern.setOpcode( (*syllableIt)->getOpcode() );
         
         // TODO: pattern->addOpcode()
@@ -54,7 +72,7 @@ namespace PBIW
             // TODO: Check the read AND write slots separately!
             if ( !instruction->hasOperandSlot() )
             {
-              if ( codedPatterns.find(pattern) != codedPatterns.end() )
+              if ( !hasPattern(pattern) )
                 codedPatterns.insert(pattern);
               
               instruction->pointToPattern(pattern);
@@ -80,13 +98,15 @@ namespace PBIW
             }
           }
           
-          // TODO: pattern->addOperand( (*operandIt)->first->getIndex() )
+          unitaryPattern.addOperand( operandIt->first );
           
         } // ... end for each operand
+        
+        pattern->addOperation(unitaryPattern);
       } // ... end for each syllable
       
       // If the pattern has not already been included, include it
-      if ( codedPatterns.find(pattern) != codedPatterns.end() )
+      if ( !hasPattern(pattern) )
         codedPatterns.insert(pattern);
       
       // Point to the new pattern and save the instruction
@@ -97,6 +117,36 @@ namespace PBIW
   }
 
   void
+  PartialPBIW::print(IPBIWPrinter& printer)
+  {
+    printer.printHeader();
+    
+    PBIWPatternSet::const_iterator patternIt;
+    
+    printer.getOutputStream() << "Patterns: " << codedPatterns.size() << std::endl;
+    
+    for (patternIt = codedPatterns.begin();
+         patternIt != codedPatterns.end();
+         patternIt++)
+    {
+      printer.printPattern(**patternIt);
+    }
+    
+    PBIWInstructionList::const_iterator instructionIt;
+    
+    printer.getOutputStream() << "Instructions: " << codedInstructions.size() << std::endl;
+    
+    for (instructionIt = codedInstructions.begin();
+         instructionIt != codedInstructions.end();
+         instructionIt++)
+    {
+      printer.printInstruction(**instructionIt);
+    }
+    
+    printer.printFooter();
+  }
+  
+  void
   PartialPBIW::decode(const std::vector<IPBIWInstruction*>& codedInstructions, 
                const std::vector<IPBIWPattern*>& codedPatterns)
   {
@@ -106,12 +156,12 @@ namespace PBIW
   std::vector<IPBIWInstruction*>
   PartialPBIW::getInstructions()
   {
-
+    return std::vector<IPBIWInstruction*>(codedInstructions.begin(), codedInstructions.end());
   }
 
   std::vector<IPBIWPattern*>
   PartialPBIW::getPatterns()
   {
-
+    return std::vector<IPBIWPattern*>(codedPatterns.begin(), codedPatterns.end());
   }
 }

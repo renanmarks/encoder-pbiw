@@ -10,7 +10,7 @@
 
 #include "../../Syllable.h"
 #include "../../SyllableMISC.h"
-#include "src/Interfaces/IPrinter.h"
+#include "src/rVex/Printers/IPrinter.h"
 
 namespace rVex
 {

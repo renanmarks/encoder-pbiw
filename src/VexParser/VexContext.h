@@ -19,6 +19,8 @@
 #include "../rVex/SyllableMEM.h"
 #include "../rVex/SyllableCTRL.h"
 #include "../rVex/SyllableALU.h"
+#include "src/PBIW/Interfaces/IPBIW.h"
+#include "src/PBIW/Interfaces/IPBIWPrinter.h"
 
 namespace VexParser
 {
@@ -156,6 +158,14 @@ namespace VexParser
      * Prints the data to the specified output.
      */
     void print();
+    
+    /**
+     * Encode the Vex Instructions using the referenced PBIW algorithm and
+     * print using the referenced PBIW printer.
+     * @param The PBIW algorithm used to encode
+     * @param The PBIW printer used to print the result
+     */
+    void encodePBIW(PBIW::Interfaces::IPBIW&, PBIW::Interfaces::IPBIWPrinter&) const;
     
     /**
      * Used to check and switch the debug mode (i.e. verbose output)

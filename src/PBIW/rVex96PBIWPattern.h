@@ -10,7 +10,7 @@
 
 #include <vector>
 #include "Interfaces/IPBIWPattern.h"
-#include "UnitaryPattern.h"
+#include "Operation.h"
 
 namespace PBIW
 {
@@ -26,8 +26,18 @@ namespace PBIW
     rVex96PBIWPattern(const rVex96PBIWPattern& orig);
     virtual ~rVex96PBIWPattern();
 
-    virtual void addPattern(IPattern&);
-    virtual UnitaryPattern& getPattern(unsigned int);
+    virtual void addOperation(IOperation&);
+    
+    virtual const Operation& getOperation(unsigned int index) const
+    { return operations[index]; }
+    
+    virtual const Operation& operator[](const unsigned int index) const
+    { return getOperation(index); }
+    
+    virtual unsigned int getOperationCount() const
+    { return operations.size(); }
+    
+    virtual void print(IPBIWPrinter&) const;
     
     virtual bool operator<(const IPBIWPattern&) const;
     virtual bool operator>(const IPBIWPattern&) const;
@@ -38,8 +48,8 @@ namespace PBIW
     virtual bool operator!=(const IPBIWPattern&) const;
 
   private:
-    typedef std::vector<UnitaryPattern> PatternVector;
-    PatternVector patterns; // Max 4
+    typedef std::vector<Operation> OperationVector;
+    OperationVector operations; // Max 4
     
   };
 }

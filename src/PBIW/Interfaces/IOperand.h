@@ -28,8 +28,8 @@ namespace PBIW
       virtual bool isImmediate9Bits() const = 0;
       virtual bool isImmediate12Bits() const = 0;
       
-      virtual void setValue(short) = 0;
-      virtual short getValue() const = 0;
+      virtual void setValue(int) = 0;
+      virtual int getValue() const = 0;
 
       virtual bool operator<(const IOperand&) const = 0;
       virtual bool operator>(const IOperand&) const = 0;

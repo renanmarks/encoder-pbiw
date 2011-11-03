@@ -1,12 +1,12 @@
 /* 
- * File:   IPattern.h
+ * File:   IOperation.h
  * Author: helix
  *
  * Created on October 20, 2011, 4:49 PM
  */
 
-#ifndef IPATTERN_H
-#define	IPATTERN_H
+#ifndef IOPERATION_H
+#define	IOPERATION_H
 
 #include <vector>
 #include "IOperand.h"
@@ -15,25 +15,23 @@ namespace PBIW
 {
   namespace Interfaces
   {
-    class IPattern
+    class IOperation
     {
     public:
-      typedef std::vector<IOperand*> OperandVector;
-      
       virtual void setOpcode(unsigned short opcode) = 0;
     
       virtual unsigned short getOpcode() const = 0;
 
-      virtual void addReadOperand(IOperand* operand) = 0;
+      virtual void addOperand(IOperand* operand) = 0;
 
+      typedef std::vector<IOperand*> OperandVector;
       virtual OperandVector getOperands() const = 0;
-
-      virtual void pointToWriteOperand(IOperand* operand) = 0;
-
-      virtual void pointToWriteBrOperand(IOperand* operand) = 0;
+      
+      virtual bool operator==(const IOperation&) const = 0;
+      virtual bool operator!=(const IOperation&) const = 0;
     };
   }
 }
 
-#endif	/* IPATTERN_H */
+#endif	/* IOPERATION_H */
 

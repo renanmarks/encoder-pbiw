@@ -13,6 +13,7 @@
 #include "src/rVex/Instruction.h"
 #include "IPBIWInstruction.h"
 #include "IPBIWPattern.h"
+#include "IPBIWPrinter.h"
 
 namespace PBIW
 {
@@ -27,6 +28,8 @@ namespace PBIW
         virtual ~IPBIW() {};
         virtual void encode(const std::vector<rVex::Instruction*>&) = 0;
         virtual void decode(const std::vector<IPBIWInstruction*>&, const std::vector<IPBIWPattern*>&) = 0;
+        
+        virtual void print(IPBIWPrinter& printer) = 0;
 
         virtual std::vector<IPBIWPattern*> getPatterns() = 0;
         virtual std::vector<IPBIWInstruction*> getInstructions() = 0;

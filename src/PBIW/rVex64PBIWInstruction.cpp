@@ -11,7 +11,22 @@
 
 namespace PBIW
 {
-  using Interfaces::IOperand;
+  using namespace Interfaces;
+
+  rVex64PBIWInstruction::OperandVector
+  rVex64PBIWInstruction::getOperands() const
+  {
+    rVex64PBIWInstruction::OperandVector returnVector(readOperands.begin(), readOperands.end());
+    returnVector.insert(returnVector.end(), writeOperands.begin(), writeOperands.end());
+    
+    return returnVector;
+  }
+
+  void
+  rVex64PBIWInstruction::print(IPBIWPrinter&) const
+  {
+
+  }
 
   void
   rVex64PBIWInstruction::pointToPattern(IPBIWPattern* pattern)
@@ -35,8 +50,8 @@ namespace PBIW
          it < readOperands.end();
          it++)
     {
-      if ( (*it)->getValue() == operand.getValue() && 
-           (*it)->isImmediate() == operand.isImmediate() )
+      if ((*it)->getValue() == operand.getValue() &&
+          (*it)->isImmediate() == operand.isImmediate())
         return true;
     }
 
@@ -44,11 +59,11 @@ namespace PBIW
          it < writeOperands.end();
          it++)
     {
-      if ( (*it)->getValue() == operand.getValue() && 
-           (*it)->isImmediate() == operand.isImmediate() )
+      if ((*it)->getValue() == operand.getValue() &&
+          (*it)->isImmediate() == operand.isImmediate())
         return true;
     }
-    
+
     return false;
   }
 
@@ -56,29 +71,28 @@ namespace PBIW
   rVex64PBIWInstruction::addReadOperand(IOperand* operand)
   {
     this->readOperands.push_back(operand);
-    
-    unsigned int index = this->readOperands.size();
+
+    unsigned int index=this->readOperands.size();
     operand->setIndex(index);
   }
 
   void
   rVex64PBIWInstruction::addWriteOperand(IOperand* operand)
   {
-    this->writeOperands.push_back(operand);
-    
     if (operand->isImmediate9Bits())
-      has9BitImm = true;
+      has9BitImm=true;
     else if (operand->isImmediate12Bits())
-      has12BitImm = true;
-    
-    unsigned int index = this->writeOperands.size();
+      has12BitImm=true;
+
+    this->writeOperands.push_back(operand);
+    unsigned int index=this->writeOperands.size() - 1;
     operand->setIndex(index);
   }
 
   bool
   rVex64PBIWInstruction::hasOperandSlot() const
   {
-    return hasReadOperandSlot() || hasWriteOperandSlot();
+    return hasWriteOperandSlot() || hasReadOperandSlot();
   }
 
   bool
@@ -90,6 +104,11 @@ namespace PBIW
   bool
   rVex64PBIWInstruction::hasWriteOperandSlot() const
   {
-    return readOperands.size() < 4;
+    bool fullWriteSlots=
+      (has12BitImm && writeOperands.size() == 2) ||
+      (has9BitImm && writeOperands.size() == 3) ||
+      (writeOperands.size() == 4);
+
+    return !fullWriteSlots;
   }
 }

@@ -4,19 +4,20 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <logicalFolder name="f4" displayName="Interfaces" projectFiles="true">
-        <itemPath>src/Interfaces/IPrinter.h</itemPath>
-        <itemPath>src/Interfaces/IVLIWInstruction.h</itemPath>
-        <itemPath>src/Interfaces/IVLIWOperation.h</itemPath>
-      </logicalFolder>
       <logicalFolder name="f2" displayName="PBIW" projectFiles="true">
         <logicalFolder name="f1" displayName="Interfaces" projectFiles="true">
+          <itemPath>src/PBIW/Interfaces/IOperand.h</itemPath>
+          <itemPath>src/PBIW/Interfaces/IOperation.h</itemPath>
           <itemPath>src/PBIW/Interfaces/IPBIW.h</itemPath>
           <itemPath>src/PBIW/Interfaces/IPBIWInstruction.h</itemPath>
           <itemPath>src/PBIW/Interfaces/IPBIWPattern.h</itemPath>
+          <itemPath>src/PBIW/Interfaces/IPBIWPrinter.h</itemPath>
         </logicalFolder>
+        <itemPath>src/PBIW/Label.h</itemPath>
         <itemPath>src/PBIW/Operand.h</itemPath>
+        <itemPath>src/PBIW/Operation.h</itemPath>
         <itemPath>src/PBIW/PartialPBIW.h</itemPath>
+        <itemPath>src/PBIW/PartialPBIWPrinter.h</itemPath>
         <itemPath>src/PBIW/rVex64PBIWInstruction.h</itemPath>
         <itemPath>src/PBIW/rVex96PBIWPattern.h</itemPath>
       </logicalFolder>
@@ -110,6 +111,7 @@
           <itemPath>src/rVex/Operations/Operations.h</itemPath>
         </logicalFolder>
         <logicalFolder name="Printers" displayName="Printers" projectFiles="true">
+          <itemPath>src/rVex/Printers/IPrinter.h</itemPath>
           <itemPath>src/rVex/Printers/VHDLPrinter.h</itemPath>
           <itemPath>src/rVex/Printers/rVexPrinter.h</itemPath>
         </logicalFolder>
@@ -151,7 +153,9 @@
                    projectFiles="true">
       <logicalFolder name="f1" displayName="PBIW" projectFiles="true">
         <itemPath>src/PBIW/Operand.cpp</itemPath>
+        <itemPath>src/PBIW/Operation.cpp</itemPath>
         <itemPath>src/PBIW/PartialPBIW.cpp</itemPath>
+        <itemPath>src/PBIW/PartialPBIWPrinter.cpp</itemPath>
         <itemPath>src/PBIW/rVex64PBIWInstruction.cpp</itemPath>
         <itemPath>src/PBIW/rVex96PBIWPattern.cpp</itemPath>
       </logicalFolder>
@@ -274,10 +278,14 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -323,10 +331,14 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -414,10 +426,14 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -465,10 +481,14 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>

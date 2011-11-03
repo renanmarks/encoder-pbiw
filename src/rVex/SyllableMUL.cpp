@@ -7,7 +7,7 @@
 
 #include <vector>
 #include "SyllableMUL.h"
-#include "src/Interfaces/IPrinter.h"
+#include "src/rVex/Printers/IPrinter.h"
 
 namespace rVex
 {

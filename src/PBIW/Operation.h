@@ -1,14 +1,14 @@
 /* 
- * File:   UnitaryPattern.h
+ * File:   Operation.h
  * Author: helix
  *
  * Created on October 20, 2011, 3:38 PM
  */
 
-#ifndef UNITARYPATTERN_H
-#define	UNITARYPATTERN_H
+#ifndef OPERATION_H
+#define	OPERATION_H
 
-#include "Interfaces/IPattern.h"
+#include "Interfaces/IOperation.h"
 
 namespace PBIW
 {
@@ -22,26 +22,31 @@ namespace PBIW
     ---------------------------------------
     ' Opcode ' Write ' Read ' Read '  wBr '
  */
-  class UnitaryPattern : public IPattern
+  class Operation : public IOperation
   {
   public:
+    Operation()
+    :opcode(0), writeBrOperand(NULL), writeOperand(NULL)
+    {}
+    
     virtual void setOpcode(unsigned short opcode)
     { this->opcode = opcode; }
     
     virtual unsigned short getOpcode() const
     { return this->opcode; }
     
-    virtual void addReadOperand(IOperand* operand)
-    { this->readOperands.push_back(operand); }
+    virtual void addOperand(IOperand* operand);
     
-    virtual OperandVector getOperands() const
-    { return this->readOperands; }
+    virtual OperandVector getOperands() const;
     
     virtual void pointToWriteOperand(IOperand* operand)
     { this->writeOperand = operand; }
     
     virtual void pointToWriteBrOperand(IOperand* operand)
     { this->writeBrOperand = operand; }
+    
+    virtual bool operator==(const IOperation&) const;
+    virtual bool operator!=(const IOperation&) const;
     
   private:
     /**
@@ -66,5 +71,5 @@ namespace PBIW
   };
 }
 
-#endif	/* UNITARYPATTERN_H */
+#endif	/* OPERATION_H */
 

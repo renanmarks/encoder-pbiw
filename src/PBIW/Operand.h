@@ -29,6 +29,7 @@ namespace PBIW
     
     explicit Operand(unsigned char);
     explicit Operand(unsigned char, Immediate::Type);
+    Operand(const Operand&);
     virtual ~Operand() { }
   
     virtual void setIndex(unsigned int index) 
@@ -46,10 +47,13 @@ namespace PBIW
     virtual bool isImmediate() const
     { return isImmediate12Bits() || isImmediate9Bits(); }
     
-    virtual void setValue(short value)
+    virtual Immediate::Type getImmediateType() const
+    { return immType; }
+    
+    virtual void setValue(int value)
     { this->value = value; }
     
-    virtual short getValue() const
+    virtual int getValue() const
     { return value; }
 
     virtual bool operator<(const IOperand&) const;
@@ -62,13 +66,13 @@ namespace PBIW
     
   private:
     // Used to know in what position we are in the PBIW instruction
-    unsigned char index;
+    unsigned int index;
     
     // This is an immediate operand?
     Immediate::Type immType;
     
     // The value of this operand (register number or immediate number)
-    short value;
+    int value;
   };
 }
 
