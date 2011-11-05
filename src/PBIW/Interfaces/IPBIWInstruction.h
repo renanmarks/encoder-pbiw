@@ -75,6 +75,11 @@ namespace PBIW
          * @return An operand vector
          */
         virtual OperandVector getOperands() const = 0;
+        
+        /**
+         * Informs if the PBIW instruction contains immediate operand
+         */
+        virtual bool containsImmediate() const = 0;
     };
 
   }

@@ -27,15 +27,15 @@ namespace PBIW
          * Add a single pattern to this sets of patterns.
          * @param Pattern to be added
          */
-        virtual void addOperation(IOperation&) = 0;
+        virtual void addOperation(IOperation*) = 0;
         
         /**
          * Returns a pattern of this set of patterns.
          * @param Index of pattern to be returned
          * @return The operation
          */
-        virtual const IOperation& getOperation(unsigned int) const = 0;
-        virtual const IOperation& operator[](const unsigned int) const = 0;
+        virtual const IOperation* getOperation(unsigned int) const = 0;
+        virtual const IOperation* operator[](const unsigned int) const = 0;
         
         /**
          * Returns how many operations this pattern contains.

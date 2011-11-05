@@ -10,6 +10,7 @@ namespace rVex
     using PBIW::Operand;
     
     Syllable::OperandVector returnVector;
+    ReadRegVector::const_iterator it;
     
     switch( getLayoutType() )
     {
@@ -20,12 +21,15 @@ namespace rVex
             OperandType::GRDestiny
           )
         );
-        returnVector.push_back(
-          std::make_pair(
-            new Operand(this->brSource), 
-            OperandType::GRDestiny
-          )
-        );
+        
+        for(it = readRegisters.begin();
+            it < readRegisters.end();
+            it++)
+        {
+          returnVector.push_back(
+            std::make_pair(new Operand(*it), OperandType::GRSource)
+          );
+        }
         break;
         
       case LayoutType::ISTYPE:
@@ -35,6 +39,16 @@ namespace rVex
               OperandType::GRDestiny
             )
           );
+        
+        for(it = readRegisters.begin();
+            it < readRegisters.end();
+            it++)
+        {
+          returnVector.push_back(
+            std::make_pair(new Operand(*it), OperandType::GRSource)
+          );
+        }
+        
         returnVector.push_back(
           std::make_pair(
             new Operand(this->shortImmediate, Operand::Immediate::NineBits),

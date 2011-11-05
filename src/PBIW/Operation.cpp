@@ -17,8 +17,12 @@ namespace PBIW
   {
     OperandVector returnVector;
     
-    returnVector.push_back(writeOperand);
+    if (writeOperand != NULL)
+      returnVector.push_back(writeOperand);
+    
     returnVector.insert(returnVector.end(), readOperands.begin(), readOperands.end());
+    
+    if (writeBrOperand != NULL)
     returnVector.push_back(writeBrOperand);
 
     return returnVector;
@@ -52,18 +56,19 @@ namespace PBIW
     OperandVector thisOperands = this->getOperands();
     OperandVector otherOperands = this->getOperands();
     
+    if (opcode != other.getOpcode())
+      return false;
+    
     // Optimization? :)
     if (thisOperands.size() != otherOperands.size())
       return false;
     
-    for (it1 = thisOperands.begin(),
-         it2 = otherOperands.begin();
-         it1 < thisOperands.end(),
-         it2 < otherOperands.end();
+    for (it1 = thisOperands.begin(), it2 = otherOperands.begin();
+         it1 < thisOperands.end(), it2 < otherOperands.end();
          it1++, it2++ )
     {
       // If anyone different, quit
-      if (*it1 != *it2)
+      if (**it1 != **it2)
         return false;
     }
     

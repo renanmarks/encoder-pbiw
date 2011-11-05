@@ -31,6 +31,9 @@ namespace PBIW
     virtual rVex96PBIWPattern* getPattern() const
     { return this->pattern; }
     
+    virtual bool containsImmediate() const
+    { return has9BitImm || has12BitImm; }
+    
     virtual bool containsOperand(const IOperand&) const;
     
     virtual void addReadOperand(IOperand* operand);

@@ -50,8 +50,7 @@ namespace PBIW
          it < readOperands.end();
          it++)
     {
-      if ((*it)->getValue() == operand.getValue() &&
-          (*it)->isImmediate() == operand.isImmediate())
+      if ( **it == operand )
         return true;
     }
 
@@ -59,8 +58,7 @@ namespace PBIW
          it < writeOperands.end();
          it++)
     {
-      if ((*it)->getValue() == operand.getValue() &&
-          (*it)->isImmediate() == operand.isImmediate())
+      if ( **it == operand )
         return true;
     }
 
@@ -104,9 +102,9 @@ namespace PBIW
   bool
   rVex64PBIWInstruction::hasWriteOperandSlot() const
   {
-    bool fullWriteSlots=
-      (has12BitImm && writeOperands.size() == 2) ||
-      (has9BitImm && writeOperands.size() == 3) ||
+    bool fullWriteSlots =
+      (has12BitImm && (writeOperands.size() == 2)) ||
+      (has9BitImm && (writeOperands.size() == 3)) ||
       (writeOperands.size() == 4);
 
     return !fullWriteSlots;

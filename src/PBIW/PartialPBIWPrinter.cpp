@@ -20,12 +20,12 @@ namespace PBIW
     
     for (unsigned int i = 0; i < operationCount; i++)
     {
-      printer << "Opcode: " << pattern[i].getOpcode() << std::endl;
+      printer << "Opcode: " << pattern[i]->getOpcode() << " - ";
       
       IOperation::OperandVector::const_iterator it;
-      IOperation::OperandVector operands = pattern[i].getOperands();
+      IOperation::OperandVector operands = pattern[i]->getOperands();
       
-      printer << "Operands pointers: ";
+      printer << "Operands pointers ( " << operands.size() << " total): ";
       
       for (it = operands.begin();
            it < operands.end();

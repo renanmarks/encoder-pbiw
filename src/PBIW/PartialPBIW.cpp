@@ -5,6 +5,8 @@
  * Created on July 20, 2011, 4:13 PM
  */
 
+#include <iostream>
+
 #include "PartialPBIW.h"
 #include "rVex64PBIWInstruction.h"
 #include "Operation.h"
@@ -13,22 +15,27 @@
 namespace PBIW
 {
   using namespace Interfaces;
-
   
-  bool 
-  PartialPBIW::hasPattern(const IPBIWPattern* other) const
+  IPBIWPattern*
+  PartialPBIW::hasPattern(IPBIWPattern* other) const
   {
+    if (codedPatterns.size() == 0)
+      return false;
+    
     PBIWPatternSet::const_iterator it;
     
     for (it = codedPatterns.begin();
          it != codedPatterns.end();
          it++)
     {
-      if ( **it != *other )
-        return false;
+      if ( **it == *other )
+      {
+        delete other;
+        return *it;
+      }
     }
     
-    return true;
+    return NULL;
   }
   
   void
@@ -42,8 +49,8 @@ namespace PBIW
         instructionIt++)
     {
       // Create a new PBIW instruction and PBIW pattern
-      rVex64PBIWInstruction* instruction = new rVex64PBIWInstruction();
-      rVex96PBIWPattern* pattern = new rVex96PBIWPattern();
+      IPBIWInstruction* instruction = new rVex64PBIWInstruction();
+      IPBIWPattern* pattern = new rVex96PBIWPattern();
       
       // For each syllable...
       VexSyllableVector syllables = (*instructionIt)->getSyllables();
@@ -53,10 +60,8 @@ namespace PBIW
            syllableIt < syllables.end();
            syllableIt++)
       {
-        Operation unitaryPattern;
-        unitaryPattern.setOpcode( (*syllableIt)->getOpcode() );
-        
-        // TODO: pattern->addOpcode()
+        Operation* operation = new Operation();
+        operation->setOpcode( (*syllableIt)->getOpcode() );
         
         // For each operand...
         VexSyllableOperandVector::const_iterator operandIt;
@@ -70,10 +75,14 @@ namespace PBIW
           if ( !instruction->containsOperand( *(operandIt->first) ) )
           {
             // TODO: Check the read AND write slots separately!
-            if ( !instruction->hasOperandSlot() )
+            if ( !instruction->hasOperandSlot() || instruction->containsImmediate() && operandIt->second == rVex::Syllable::OperandType::Imm)
             {
-              if ( !hasPattern(pattern) )
+              IPBIWPattern* foundPattern = hasPattern(pattern);
+              
+              if ( foundPattern == NULL )
                 codedPatterns.insert(pattern);
+              else
+                pattern = foundPattern;
               
               instruction->pointToPattern(pattern);
               codedInstructions.push_back(instruction);
@@ -98,16 +107,19 @@ namespace PBIW
             }
           }
           
-          unitaryPattern.addOperand( operandIt->first );
-          
+          operation->addOperand( operandIt->first );
         } // ... end for each operand
         
-        pattern->addOperation(unitaryPattern);
+        pattern->addOperation(operation);
       } // ... end for each syllable
       
       // If the pattern has not already been included, include it
-      if ( !hasPattern(pattern) )
+      IPBIWPattern* foundPattern = hasPattern(pattern);
+              
+      if ( foundPattern == NULL )
         codedPatterns.insert(pattern);
+      else
+        pattern = foundPattern;
       
       // Point to the new pattern and save the instruction
       instruction->pointToPattern(pattern);
@@ -130,6 +142,7 @@ namespace PBIW
          patternIt++)
     {
       printer.printPattern(**patternIt);
+      printer.getOutputStream() << "---" << std::endl;
     }
     
     PBIWInstructionList::const_iterator instructionIt;
@@ -140,7 +153,12 @@ namespace PBIW
          instructionIt != codedInstructions.end();
          instructionIt++)
     {
+      IPBIWPattern* pattern = (*instructionIt)->getPattern();
+      
+      printer.getOutputStream() << "Pattern Addr: " << pattern << " - ";
       printer.printInstruction(**instructionIt);
+      printer.printPattern(*pattern);
+      printer.getOutputStream() << "---" << std::endl;
     }
     
     printer.printFooter();

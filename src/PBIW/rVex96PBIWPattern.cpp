@@ -6,6 +6,7 @@
  */
 
 #include <typeinfo>
+#include <iostream>
 #include "rVex96PBIWPattern.h"
 
 namespace PBIW
@@ -25,11 +26,11 @@ namespace PBIW
   }
 
   void
-  rVex96PBIWPattern::addOperation(IOperation& operation)
+  rVex96PBIWPattern::addOperation(IOperation* operation)
   {
-    Operation& temp=dynamic_cast<Operation&> (operation);
+    Operation* temp = dynamic_cast<Operation*> (operation);
 
-    this->operations.push_back(Operation(temp));
+    this->operations.push_back(temp);
   }
 
   void
@@ -67,13 +68,15 @@ namespace PBIW
   {
     try
     {
-      rVex96PBIWPattern& otherTemp = dynamic_cast<rVex96PBIWPattern&>(const_cast<IPBIWPattern&>(other));
-
-      for (unsigned int i = 0;
-           i < otherTemp.getOperationCount();
-           i++)
+      rVex96PBIWPattern& otherTemp = static_cast<rVex96PBIWPattern&>(const_cast<IPBIWPattern&>(other));
+      unsigned int count = otherTemp.getOperationCount();
+      
+      if (operations.size() != count)
+        return false;
+      
+      for (unsigned int i = 0; i < count; i++)
       {
-        if ( operations[i] != otherTemp.getOperation(i))
+        if ( *(operations[i]) != *(otherTemp.getOperation(i)) )
           return false;
       }
 

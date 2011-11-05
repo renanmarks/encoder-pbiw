@@ -26,12 +26,12 @@ namespace PBIW
     rVex96PBIWPattern(const rVex96PBIWPattern& orig);
     virtual ~rVex96PBIWPattern();
 
-    virtual void addOperation(IOperation&);
+    virtual void addOperation(IOperation*);
     
-    virtual const Operation& getOperation(unsigned int index) const
+    virtual const Operation* getOperation(unsigned int index) const
     { return operations[index]; }
     
-    virtual const Operation& operator[](const unsigned int index) const
+    virtual const Operation* operator[](const unsigned int index) const
     { return getOperation(index); }
     
     virtual unsigned int getOperationCount() const
@@ -48,7 +48,7 @@ namespace PBIW
     virtual bool operator!=(const IPBIWPattern&) const;
 
   private:
-    typedef std::vector<Operation> OperationVector;
+    typedef std::vector<Operation*> OperationVector;
     OperationVector operations; // Max 4
     
   };

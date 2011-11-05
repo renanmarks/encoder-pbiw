@@ -100,7 +100,7 @@ namespace PBIW
       
       bool isEqual = 
         (this->value == otherOperand.value) &&
-        (this->index == otherOperand.index) &&
+        //(this->index == otherOperand.index) &&
         (this->isImmediate12Bits() == otherOperand.isImmediate12Bits()) &&
         (this->isImmediate9Bits() == otherOperand.isImmediate9Bits());
       
