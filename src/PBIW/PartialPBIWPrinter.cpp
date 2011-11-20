@@ -22,16 +22,16 @@ namespace PBIW
     {
       printer << "Opcode: " << pattern[i]->getOpcode() << " - ";
       
-      IOperation::OperandVector::const_iterator it;
-      IOperation::OperandVector operands = pattern[i]->getOperands();
+      IOperation::OperandIndexVector::const_iterator it;
+      IOperation::OperandIndexVector operands = pattern[i]->getOperandsIndexes();
       
-      printer << "Operands pointers ( " << operands.size() << " total): ";
+      printer << "Operands indexes (" << operands.size() << " total): ";
       
       for (it = operands.begin();
            it < operands.end();
            it++)
       {
-        printer << (*it)->getValue() << ", ";
+        printer << *it << ", ";
       }
       
       printer << std::endl;
@@ -50,14 +50,12 @@ namespace PBIW
          it < operands.end();
          it++)
     {
-      printer << (*it)->getValue() << "(Imm? ";
+      printer << "Index[" << it->getIndex() <<  "] = "<< it->getValue();
       
-      if ( (*it)->isImmediate() )
-        printer << "Yes";
-      else
-        printer << "No";
+      if ( it->isImmediate() )
+        printer << "(Imm)";
       
-      printer << "), ";
+      printer << ", ";
     }
     
     printer << std::endl;

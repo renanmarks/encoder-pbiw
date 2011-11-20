@@ -26,7 +26,7 @@ namespace PBIW
   {
   public:
     Operation()
-    :opcode(0), writeBrOperand(NULL), writeOperand(NULL)
+    :opcode(0), writeOperand(-1), writeBrOperand(-1)
     {}
     
     virtual void setOpcode(unsigned short opcode)
@@ -35,15 +35,15 @@ namespace PBIW
     virtual unsigned short getOpcode() const
     { return this->opcode; }
     
-    virtual void addOperand(IOperand* operand);
+    virtual void addOperand(const IOperand& operand);
     
-    virtual OperandVector getOperands() const;
+    virtual OperandIndexVector getOperandsIndexes() const;
     
     virtual void pointToWriteOperand(IOperand* operand)
-    { this->writeOperand = operand; }
+    { this->writeOperand = operand->getIndex(); }
     
     virtual void pointToWriteBrOperand(IOperand* operand)
-    { this->writeBrOperand = operand; }
+    { this->writeBrOperand = operand->getIndex(); }
     
     virtual bool operator==(const IOperation&) const;
     virtual bool operator!=(const IOperation&) const;
@@ -57,17 +57,17 @@ namespace PBIW
     /**
      * Pointer to the write GR operand
      */
-    IOperand* writeOperand; // 4b
+    int writeOperand; // 4b
     
     /**
      * Vector of pointers to read operands
      */
-    OperandVector readOperands; // 2 x 4b
+    OperandIndexVector readOperands; // 2 x 4b
     
     /**
      * Pointer to the write BR operand
      */
-    IOperand* writeBrOperand; // 3b
+    int writeBrOperand; // 3b
   };
 }
 

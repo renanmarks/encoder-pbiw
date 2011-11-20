@@ -29,8 +29,9 @@
           <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" factorial_32gr.s</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" fatorial.s</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" Fatorial.s</runcommandpicklistitem>
         </runcommandpicklist>
-        <runcommand>"${OUTPUT_PATH}" fatorial.s</runcommand>
+        <runcommand>"${OUTPUT_PATH}" Fatorial.s</runcommand>
         <rundir></rundir>
         <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>

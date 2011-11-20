@@ -16,26 +16,23 @@ namespace PBIW
 {
   using namespace Interfaces;
   
-  IPBIWPattern*
-  PartialPBIW::hasPattern(IPBIWPattern* other) const
+  const IPBIWPattern&
+  PartialPBIW::hasPattern(const IPBIWPattern& other) const
   {
     if (codedPatterns.size() == 0)
-      return false;
+      return other;
     
-    PBIWPatternSet::const_iterator it;
+    PBIWPatternList::const_iterator it;
     
     for (it = codedPatterns.begin();
          it != codedPatterns.end();
          it++)
     {
-      if ( **it == *other )
-      {
-        delete other;
-        return *it;
-      }
+      if ( **it == other )
+        return **it;
     }
     
-    return NULL;
+    return other;
   }
   
   void
@@ -50,7 +47,7 @@ namespace PBIW
     {
       // Create a new PBIW instruction and PBIW pattern
       IPBIWInstruction* instruction = new rVex64PBIWInstruction();
-      IPBIWPattern* pattern = new rVex96PBIWPattern();
+      IPBIWPattern* newPattern = new rVex96PBIWPattern();
       
       // For each syllable...
       VexSyllableVector syllables = (*instructionIt)->getSyllables();
@@ -60,7 +57,7 @@ namespace PBIW
            syllableIt < syllables.end();
            syllableIt++)
       {
-        Operation* operation = new Operation();
+        IOperation* operation = new Operation();
         operation->setOpcode( (*syllableIt)->getOpcode() );
         
         // For each operand...
@@ -71,60 +68,115 @@ namespace PBIW
              operandIt < operands.end();
              operandIt++)
         {
-          // Search for the operand (its value and type(imm, for instance))
-          if ( !instruction->containsOperand( *(operandIt->first) ) )
+          // Search for the operand (only its value and type(imm, for example))
+          const IOperand& foundOperand = instruction->containsOperand( *(operandIt->first) );
+          
+          // If not found in the instruction (the operand returned is the same searched)...
+          if ( &foundOperand == operandIt->first )
           {
             // TODO: Check the read AND write slots separately!
-            if ( !instruction->hasOperandSlot() || instruction->containsImmediate() && operandIt->second == rVex::Syllable::OperandType::Imm)
+            if ( !instruction->hasOperandSlot( *operandIt ) )
             {
-              IPBIWPattern* foundPattern = hasPattern(pattern);
+              const IPBIWPattern& foundPattern = hasPattern(*newPattern);
               
-              if ( foundPattern == NULL )
-                codedPatterns.insert(pattern);
+              // If not found in the patterns set
+              if ( &foundPattern == newPattern )
+                codedPatterns.push_back(newPattern); // If the pattern has not already been included, include it
               else
-                pattern = foundPattern;
+                delete newPattern; // if found, we are not using the newPattern, so free the memory allocated
               
-              instruction->pointToPattern(pattern);
+              instruction->pointToPattern(foundPattern);
               codedInstructions.push_back(instruction);
               
               instruction = new rVex64PBIWInstruction();
-              pattern = new rVex96PBIWPattern();
+              newPattern = new rVex96PBIWPattern();
             }
+            
+            IOperand& operand = *(operandIt->first);
             
             // TODO: Check the read AND write slots separately!
             switch ( operandIt->second )
             {
               case rVex::Syllable::OperandType::BRDestiny :
               case rVex::Syllable::OperandType::GRDestiny :
+                if (operand.getValue() == 0)
+                  break;
+                
               case rVex::Syllable::OperandType::Imm :
-                instruction->addWriteOperand(operandIt->first);
+                instruction->addWriteOperand(operand);
                 break;
                 
               case rVex::Syllable::OperandType::BRSource :
               case rVex::Syllable::OperandType::GRSource :
-                instruction->addReadOperand(operandIt->first);
+                instruction->addReadOperand(operand);
                 break;
+            }
+            
+          }
+          else // if found...
+          {
+            /* TODO:
+             * Fix the bug when the read operands reference an write operand in
+             * a PBIW instruction.
+             * What fixes: simply check this condition and, if true, "copy"
+             * the operand in the write section to a field in the read section
+             * and uses this new index as a reference.
+             **/
+            
+            if (foundOperand.getIndex() > 7)
+            {
+              if ( !instruction->hasReadOperandSlot() )
+              {
+                const IPBIWPattern& foundPattern = hasPattern(*newPattern);
+
+                // If not found in the patterns set
+                if ( &foundPattern == newPattern )
+                  codedPatterns.push_back(newPattern); // If the pattern has not already been included, include it
+                else
+                  delete newPattern; // if found, we are not using the newPattern, so free the memory allocated
+
+                instruction->pointToPattern(foundPattern);
+                codedInstructions.push_back(instruction);
+
+                instruction = new rVex64PBIWInstruction();
+                newPattern = new rVex96PBIWPattern();
+              }
+
+              IOperand& operand = *(operandIt->first);
+              
+              // TODO: Check the read AND write slots separately!
+              switch ( operandIt->second )
+              {
+                case rVex::Syllable::OperandType::BRSource :
+                case rVex::Syllable::OperandType::GRSource :
+                  instruction->addReadOperand(operand);
+                  
+                  operation->addOperand(operand);
+                  delete operandIt->first; // Free memory
+                  continue;
+              }
             }
           }
           
-          operation->addOperand( operandIt->first );
+          // or if contains operand, so... USE IT!
+          operation->addOperand( foundOperand );
+          delete operandIt->first; // Free memory
         } // ... end for each operand
         
-        pattern->addOperation(operation);
+        newPattern->addOperation(operation);
       } // ... end for each syllable
       
-      // If the pattern has not already been included, include it
-      IPBIWPattern* foundPattern = hasPattern(pattern);
+      const IPBIWPattern& foundPattern = hasPattern(*newPattern);
               
-      if ( foundPattern == NULL )
-        codedPatterns.insert(pattern);
+      // If not found in the patterns set
+      if ( &foundPattern == newPattern )
+        codedPatterns.push_back(newPattern); // If the pattern has not already been included, include it
       else
-        pattern = foundPattern;
-      
+        delete newPattern;  // if found, we are not using the newPattern, so free the memory allocated
+
       // Point to the new pattern and save the instruction
-      instruction->pointToPattern(pattern);
+      instruction->pointToPattern(foundPattern);
       codedInstructions.push_back(instruction);
-    
     } // ... end for each instruction
   }
 
@@ -133,7 +185,7 @@ namespace PBIW
   {
     printer.printHeader();
     
-    PBIWPatternSet::const_iterator patternIt;
+    PBIWPatternList::const_iterator patternIt;
     
     printer.getOutputStream() << "Patterns: " << codedPatterns.size() << std::endl;
     
@@ -153,9 +205,9 @@ namespace PBIW
          instructionIt != codedInstructions.end();
          instructionIt++)
     {
-      IPBIWPattern* pattern = (*instructionIt)->getPattern();
+      const IPBIWPattern* pattern = (*instructionIt)->getPattern();
       
-      printer.getOutputStream() << "Pattern Addr: " << pattern << " - ";
+      printer.getOutputStream() << "Pattern Addr: " << pattern << " - " << std::endl;
       printer.printInstruction(**instructionIt);
       printer.printPattern(*pattern);
       printer.getOutputStream() << "---" << std::endl;

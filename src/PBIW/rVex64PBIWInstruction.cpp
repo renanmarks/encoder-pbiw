@@ -5,7 +5,9 @@
  * Created on July 21, 2011, 3:18 PM
  */
 
+#include <iostream>
 #include <algorithm>
+#include <typeinfo>
 #include "rVex64PBIWInstruction.h"
 #include "Interfaces/IOperand.h"
 
@@ -17,27 +19,34 @@ namespace PBIW
   rVex64PBIWInstruction::getOperands() const
   {
     rVex64PBIWInstruction::OperandVector returnVector(readOperands.begin(), readOperands.end());
-    returnVector.insert(returnVector.end(), writeOperands.begin(), writeOperands.end());
+    
+    if (writeOperands.size() > 0)
+      returnVector.insert(returnVector.end(), writeOperands.front());
+    
+    if (immediate.isImmediate())
+      returnVector.insert(returnVector.end(), immediate);
+    
+    if (writeOperands.size() > 1)
+      returnVector.insert(returnVector.end(), writeOperands.begin() + 1, writeOperands.end());
     
     return returnVector;
   }
 
   void
-  rVex64PBIWInstruction::print(IPBIWPrinter&) const
+  rVex64PBIWInstruction::print(IPBIWPrinter& printer) const
   {
 
   }
 
   void
-  rVex64PBIWInstruction::pointToPattern(IPBIWPattern* pattern)
+  rVex64PBIWInstruction::pointToPattern(const IPBIWPattern& pattern)
   {
-    rVex96PBIWPattern* temp=dynamic_cast<rVex96PBIWPattern*> (pattern);
+    const rVex96PBIWPattern& temp = dynamic_cast<const rVex96PBIWPattern&> (pattern);
 
-    if (temp != NULL)
-      this->pattern=temp;
+    this->pattern = &temp;
   }
 
-  bool
+  const IOperand&
   rVex64PBIWInstruction::containsOperand(const IOperand& operand) const
   {
     //    bool foundInReadOperands = std::find(readOperands.begin(), readOperands.end(), operand);
@@ -46,51 +55,126 @@ namespace PBIW
 
     OperandVector::const_iterator it;
 
-    for (it=readOperands.begin();
+    for (it = readOperands.begin();
          it < readOperands.end();
          it++)
     {
-      if ( **it == operand )
-        return true;
+      if ( *it == operand )
+        return *it;
     }
 
-    for (it=writeOperands.begin();
+    for (it = writeOperands.begin();
          it < writeOperands.end();
          it++)
     {
-      if ( **it == operand )
-        return true;
+      if ( *it == operand )
+        return *it;
     }
 
-    return false;
+    return operand;
   }
 
   void
-  rVex64PBIWInstruction::addReadOperand(IOperand* operand)
+  rVex64PBIWInstruction::addReadOperand(IOperand& operand)
   {
-    this->readOperands.push_back(operand);
-
-    unsigned int index=this->readOperands.size();
-    operand->setIndex(index);
+    unsigned int index = this->readOperands.size();
+    operand.setIndex(index);
+    this->readOperands.push_back(dynamic_cast<Operand&>(operand));
   }
 
   void
-  rVex64PBIWInstruction::addWriteOperand(IOperand* operand)
+  rVex64PBIWInstruction::addWriteOperand(IOperand& operand)
   {
-    if (operand->isImmediate9Bits())
-      has9BitImm=true;
-    else if (operand->isImmediate12Bits())
-      has12BitImm=true;
-
-    this->writeOperands.push_back(operand);
-    unsigned int index=this->writeOperands.size() - 1;
-    operand->setIndex(index);
+    if (operand.isImmediate())
+    {
+      if (operand.isImmediate9Bits())
+        operand.setIndex(10);
+      else if (operand.isImmediate12Bits())
+        operand.setIndex(11);
+      
+      immediate = dynamic_cast<Operand&>(operand);
+      
+      return;
+    }
+    
+    // If we not have the immediate yet, do the normal indexing
+    unsigned int index;// = 8 + this->writeOperands.size();
+    
+    if (immediate.isImmediate())
+    {
+      // If we have immediate, do the absolute indexing
+      if (immediate.isImmediate9Bits())
+      {
+        switch (writeOperands.size())
+        {
+          case 0:
+            index = 8; // before the 9 and 10 positions occupied by the imm
+            break;
+          case 1:
+            index = 11; // after the 9 and 10 positions occupied by the imm
+            break;
+          default: // more than 2
+            index = 666; // error!
+            break;
+        }
+      }
+      else if (immediate.isImmediate12Bits())
+      {
+        switch (writeOperands.size())
+        {
+          case 0:
+            index = 8; // before the 9, 10 and 11 positions occupied by the imm
+            break;
+          default: // more than 1
+            index = 666; // error!
+            break;
+        }
+      }
+    }
+    else
+    {
+      index = 8 + this->writeOperands.size();
+    }
+    
+    operand.setIndex(index);
+    this->writeOperands.push_back(dynamic_cast<Operand&>(operand));
   }
 
   bool
-  rVex64PBIWInstruction::hasOperandSlot() const
+  rVex64PBIWInstruction::hasOperandSlot(const rVex::Syllable::OperandItem& operand)
   {
-    return hasWriteOperandSlot() || hasReadOperandSlot();
+    switch(operand.second)
+    {
+      case rVex::Syllable::OperandType::BRDestiny :
+      case rVex::Syllable::OperandType::GRDestiny :
+        return this->hasWriteOperandSlot();
+        break;
+        
+      case rVex::Syllable::OperandType::Imm :
+        if ( this->containsImmediate() )
+          return false;
+
+        if (operand.first->isImmediate9Bits() && writeOperands.size() == 2)
+        {
+          writeOperands.back().setIndex(11);
+          return false;
+        }
+        
+        if ( operand.first->isImmediate9Bits() && writeOperands.size() > 2 )
+          return false;
+
+        if ( operand.first->isImmediate12Bits() && writeOperands.size() > 1 )
+          return false;
+        break;
+
+      case rVex::Syllable::OperandType::BRSource :
+      case rVex::Syllable::OperandType::GRSource :
+        return this->hasReadOperandSlot();
+        break;
+    }
+    
+    return true;
+//    return hasReadOperandSlot() || hasWriteOperandSlot();
   }
 
   bool
@@ -102,11 +186,11 @@ namespace PBIW
   bool
   rVex64PBIWInstruction::hasWriteOperandSlot() const
   {
-    bool fullWriteSlots =
-      (has12BitImm && (writeOperands.size() == 2)) ||
-      (has9BitImm && (writeOperands.size() == 3)) ||
-      (writeOperands.size() == 4);
+    bool hasWriteSlots =
+      (immediate.isImmediate12Bits() && (writeOperands.size() < 1)) ||
+      (immediate.isImmediate9Bits() && (writeOperands.size() < 2)) ||
+      (!immediate.isImmediate12Bits() && !immediate.isImmediate9Bits() && writeOperands.size() < 4);
 
-    return !fullWriteSlots;
+    return hasWriteSlots;
   }
 }

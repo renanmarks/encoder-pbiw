@@ -28,10 +28,10 @@ namespace PBIW
 
     virtual void addOperation(IOperation*);
     
-    virtual const Operation* getOperation(unsigned int index) const
+    virtual IOperation* getOperation(unsigned int index) const
     { return operations[index]; }
     
-    virtual const Operation* operator[](const unsigned int index) const
+    virtual IOperation* operator[](const unsigned int index) const
     { return getOperation(index); }
     
     virtual unsigned int getOperationCount() const
@@ -48,7 +48,6 @@ namespace PBIW
     virtual bool operator!=(const IPBIWPattern&) const;
 
   private:
-    typedef std::vector<Operation*> OperationVector;
     OperationVector operations; // Max 4
     
   };

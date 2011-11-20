@@ -16,59 +16,43 @@ namespace rVex
     {
       case LayoutType::RTYPE:
         returnVector.push_back(
-          std::make_pair(
-            new Operand(this->grDestiny),
-            OperandType::GRDestiny
-          )
-        );
+          std::make_pair( new Operand(this->grDestiny), OperandType::GRDestiny ) );
         
         for(it = readRegisters.begin();
             it < readRegisters.end();
             it++)
         {
-          returnVector.push_back(
-            std::make_pair(new Operand(*it), OperandType::GRSource)
-          );
+          returnVector.push_back( std::make_pair(new Operand(*it), OperandType::GRSource) );
         }
         break;
         
       case LayoutType::ISTYPE:
-        returnVector.push_back(
-            std::make_pair(
-              new Operand(this->grDestiny), 
-              OperandType::GRDestiny
-            )
-          );
+        returnVector.push_back( std::make_pair( new Operand(this->grDestiny), OperandType::GRDestiny ) );
         
         for(it = readRegisters.begin();
             it < readRegisters.end();
             it++)
         {
-          returnVector.push_back(
-            std::make_pair(new Operand(*it), OperandType::GRSource)
-          );
+          returnVector.push_back( std::make_pair(new Operand(*it), OperandType::GRSource) );
         }
         
-        returnVector.push_back(
-          std::make_pair(
-            new Operand(this->shortImmediate, Operand::Immediate::NineBits),
-            OperandType::Imm
-          )
-        );
+        returnVector.push_back( std::make_pair( new Operand(this->shortImmediate, Operand::Immediate::NineBits), OperandType::Imm ) );
         break;
-        
-      case LayoutType::BRANCH:
-        break;
-        
-      case LayoutType::RTYPE_BS:
-        break;
-        
-      case LayoutType::MEMTYPE:
-        break;
-      
-      case LayoutType::ILTYPE:
-      default:
-        break;
+
+//      Must implement in each specific opcode
+//        
+//      case LayoutType::BRANCH:
+//        break;
+//        
+//      case LayoutType::RTYPE_BS:
+//        break;
+//        
+//      case LayoutType::MEMTYPE:
+//        break;
+//      
+//      case LayoutType::ILTYPE:
+//      default:
+//        break;
     }
     
     return returnVector;
@@ -347,6 +331,8 @@ namespace rVex
     VexParser::Expression::ParseInfo origin2 = sourceArgs[1]->getParsedValue();
     VexParser::Expression::ParseInfo origin3 = sourceArgs[2]->getParsedValue();
 
+    this->setLayoutType(rVex::Syllable::LayoutType::RTYPE_BS);
+    
     this->setGrDestiny    (static_cast<unsigned char>(destiny1.value));
     this->setBrDestiny    (static_cast<unsigned char>(destiny2.value));
     this->setBrSource     (static_cast<unsigned char>(origin1.value));
@@ -360,6 +346,8 @@ namespace rVex
     VexParser::Expression::ParseInfo destiny = arguments->getDestinyArguments()->getArguments()[0]->getParsedValue();
     VexParser::Expression::ParseInfo origin = arguments->getSourceArguments()->getArguments()[0]->getParsedValue();
 
+    this->setLayoutType(rVex::Syllable::LayoutType::RTYPE);
+    
     this->setBrDestiny    (static_cast<unsigned char>(destiny.value));
     this->addReadRegister (static_cast<unsigned int>(origin.value));
   }
@@ -393,6 +381,7 @@ namespace rVex
     VexParser::Expression::ParseInfo destiny = arguments->getDestinyArguments()->getArguments()[0]->getParsedValue();
     VexParser::Expression::ParseInfo origin = arguments->getSourceArguments()->getArguments()[0]->getParsedValue();
 
+    this->setLayoutType(rVex::Syllable::LayoutType::RTYPE);
     
     this->setLayoutType(Syllable::LayoutType::RTYPE);
     this->setGrDestiny    (static_cast<unsigned char>(destiny.value));
@@ -405,6 +394,8 @@ namespace rVex
     VexParser::Expression::ParseInfo source = arguments->getSourceArguments()->getArguments()[0]->getParsedValue();
     std::string address = arguments->getSourceArguments()->getArguments()[1]->getString();
 
+    this->setLayoutType(rVex::Syllable::LayoutType::BRANCH);
+    
     this->setBrSource (static_cast<unsigned char>(source.value));
     this->setLabel    (address);
   }
@@ -426,6 +417,8 @@ namespace rVex
     VexParser::Expression::ParseInfo offset = arguments->getSourceArguments()->getArguments()[0]->getParsedValue();
     VexParser::Expression::ParseInfo source = arguments->getSourceArguments()->getArguments()[1]->getParsedValue();
 
+    this->setLayoutType(rVex::Syllable::LayoutType::ISTYPE);
+    
     this->setGrDestiny(static_cast<unsigned char>(destiny.value));
     this->setShortImmediate(static_cast<unsigned short>(offset.value));
     this->addReadRegister (static_cast<unsigned int>(source.value));
@@ -438,6 +431,8 @@ namespace rVex
     VexParser::Expression::ParseInfo destiny = arguments->getDestinyArguments()->getArguments()[1]->getParsedValue();
     VexParser::Expression::ParseInfo source = arguments->getSourceArguments()->getArguments()[0]->getParsedValue();
 
+    this->setLayoutType(rVex::Syllable::LayoutType::ISTYPE);
+    
     this->setShortImmediate(static_cast<unsigned short>(offset.value));
     this->setGrDestiny(static_cast<unsigned char>(destiny.value));
     this->addReadRegister (static_cast<unsigned int>(source.value));
@@ -449,6 +444,8 @@ namespace rVex
     VexParser::Expression::ParseInfo offset = arguments->getDestinyArguments()->getArguments()[0]->getParsedValue();
     VexParser::Expression::ParseInfo source = arguments->getSourceArguments()->getArguments()[0]->getParsedValue();
 
+    this->setLayoutType(rVex::Syllable::LayoutType::ISTYPE);
+    
     this->setShortImmediate(static_cast<unsigned short>(offset.value));
     this->addReadRegister (static_cast<unsigned int>(source.value));
   }
@@ -466,7 +463,11 @@ namespace rVex
 
   // Only opcode
   void 
-  Syllable::fillTypeXIV(VexParser::SyllableArguments* arguments) { }
+  Syllable::fillTypeXIV(VexParser::SyllableArguments* arguments) 
+  {
+    this->setLayoutType(rVex::Syllable::LayoutType::RTYPE);
+    this->addReadRegister(static_cast<unsigned int>(0));
+  }
   
   void 
   Syllable::fillTypeXV(VexParser::SyllableArguments* arguments) 

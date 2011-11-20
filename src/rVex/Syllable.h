@@ -173,7 +173,7 @@ namespace rVex
       typedef std::pair<PBIW::Interfaces::IOperand*, OperandType::Type> OperandItem;
       typedef std::vector<OperandItem> OperandVector;
       
-      OperandVector getOperandVector() const;
+      virtual OperandVector getOperandVector() const;
       
       // ---
       

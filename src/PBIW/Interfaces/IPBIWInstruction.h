@@ -8,9 +8,11 @@
 #ifndef IPBIWINSTRUCTION_H
 #define	IPBIWINSTRUCTION_H
 
+#include <set>
 #include "IOperand.h"
 #include "IPBIWPattern.h"
 #include "IPBIWPrinter.h"
+#include "src/rVex/Syllable.h"
 
 namespace PBIW
 {
@@ -28,38 +30,53 @@ namespace PBIW
          * Points this instruction to its pattern.
          * @param The pattern referenced by this instruction
          */
-        virtual void pointToPattern(IPBIWPattern*) = 0;
+        virtual void pointToPattern(const IPBIWPattern&) = 0;
         
         /**
          * Return the pattern that this instruction points to.
          * @return The pattern pointed by this instruction
          */
-        virtual IPBIWPattern* getPattern() const = 0;
+        virtual const IPBIWPattern* getPattern() const = 0;
         
         /**
          * Check if this instruction has the informed Operand.
          * Only compares the values, not the object itself.
          * @param The Operand
+         * @return If found, the operand inside this instruction; otherwise, the
+         * parameter passed.
          */
-        virtual bool containsOperand(const IOperand&) const = 0;
+        virtual const IOperand& containsOperand(const IOperand&) const = 0;
         
         /**
          * Adds a read operand to this instruction.
          * @param The Operand to be added.
          */
-        virtual void addReadOperand(IOperand*) = 0;
+        virtual void addReadOperand(IOperand&) = 0;
         
         /**
          * Adds a write operand to this instruction.
          * @param The Operand to be added.
          */
-        virtual void addWriteOperand(IOperand*) = 0;
+        virtual void addWriteOperand(IOperand&) = 0;
         
         /**
          * Check if this instruction has a free operand slot (either read or
          * write operand).
          */
-        virtual bool hasOperandSlot() const = 0;
+        virtual bool hasOperandSlot(const rVex::Syllable::OperandItem&) = 0;
+        
+        virtual bool hasReadOperandSlot() const = 0;
+        virtual bool hasWriteOperandSlot() const = 0;
+        
+        /**
+         * Return the quantity of read operands.
+         */
+        virtual int readOperandQuantity() const = 0;
+        
+        /**
+         * Return the quantity of write operands.
+         */
+        virtual int writeOperandQuantity() const = 0;
         
         /**
          * Print this instruction using the specified printer.
@@ -67,8 +84,16 @@ namespace PBIW
          */
         virtual void print(IPBIWPrinter&) const = 0;
         
+        /**
+         * Comparer or ordering the Operands in the Set implementation.
+         */
+        struct OperandComparer {
+          bool operator() (const Operand& lhs, const Operand& rhs) const
+          { return lhs < rhs; }
+        };
         
-        typedef std::vector<IOperand*> OperandVector;
+        typedef std::set<Operand, OperandComparer> OperandSet;
+        typedef std::vector<Operand> OperandVector;
         
         /**
          * Return a vector of all operands in this instruction.
@@ -86,4 +111,3 @@ namespace PBIW
 }
 
 #endif	/* IPBIWINSTRUCTION_H */
-

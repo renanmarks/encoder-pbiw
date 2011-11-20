@@ -27,6 +27,7 @@ namespace PBIW
       } Type;
     } Immediate;
     
+    explicit Operand();
     explicit Operand(unsigned char);
     explicit Operand(unsigned char, Immediate::Type);
     Operand(const Operand&);
@@ -39,10 +40,10 @@ namespace PBIW
     { return this->index; }
     
     virtual bool isImmediate9Bits() const
-    { return immType == Immediate::NineBits; }
+    { return this->immType == Immediate::NineBits; }
     
     virtual bool isImmediate12Bits() const
-    { return immType == Immediate::TwelveBits; }
+    { return this->immType == Immediate::TwelveBits; }
     
     virtual bool isImmediate() const
     { return isImmediate12Bits() || isImmediate9Bits(); }

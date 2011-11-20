@@ -15,6 +15,8 @@ namespace PBIW
 {
   namespace Interfaces
   {
+    class IPBIWInstruction;
+    
     class IOperation
     {
     public:
@@ -22,10 +24,10 @@ namespace PBIW
     
       virtual unsigned short getOpcode() const = 0;
 
-      virtual void addOperand(IOperand* operand) = 0;
+      virtual void addOperand(const IOperand& operand) = 0;
 
-      typedef std::vector<IOperand*> OperandVector;
-      virtual OperandVector getOperands() const = 0;
+      typedef std::vector<int> OperandIndexVector;
+      virtual OperandIndexVector getOperandsIndexes() const = 0;
       
       virtual bool operator==(const IOperation&) const = 0;
       virtual bool operator!=(const IOperation&) const = 0;

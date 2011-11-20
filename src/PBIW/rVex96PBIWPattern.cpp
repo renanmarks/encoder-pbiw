@@ -66,26 +66,20 @@ namespace PBIW
   bool
   rVex96PBIWPattern::operator==(const IPBIWPattern& other) const
   {
-    try
-    {
-      rVex96PBIWPattern& otherTemp = static_cast<rVex96PBIWPattern&>(const_cast<IPBIWPattern&>(other));
-      unsigned int count = otherTemp.getOperationCount();
-      
-      if (operations.size() != count)
-        return false;
-      
-      for (unsigned int i = 0; i < count; i++)
-      {
-        if ( *(operations[i]) != *(otherTemp.getOperation(i)) )
-          return false;
-      }
+    const rVex96PBIWPattern& otherTemp = dynamic_cast<const rVex96PBIWPattern&>(other);
 
-      return true;
-    }
-    catch (std::bad_cast ex)
-    {
+    unsigned int count = otherTemp.getOperationCount();
+
+    if (operations.size() != count)
       return false;
+
+    for (unsigned int i = 0; i < count; i++)
+    {
+      if ( *(operations[i]) != *(otherTemp.getOperation(i)) )
+        return false;
     }
+
+    return true;
   }
 
   bool

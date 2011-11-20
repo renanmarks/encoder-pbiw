@@ -11,13 +11,18 @@
 
 namespace PBIW
 {
+  Operand::Operand()
+  : value(0), immType(Immediate::None), index(0)
+  {
+  }
+  
   Operand::Operand(unsigned char value)
-  : value(value), immType(Immediate::None)
+  : value(value), immType(Immediate::None), index(0)
   {
   }
   
   Operand::Operand(unsigned char value, Immediate::Type immediateType)
-  : value(value), immType(immediateType)
+  : value(value), immType(immediateType), index(0)
   {
   }
   
@@ -34,7 +39,7 @@ namespace PBIW
       IOperand& tempOperand = const_cast<IOperand&>(operand);
       Operand& otherOperand = dynamic_cast<Operand&>(tempOperand);
       
-      return (this->value < otherOperand.value);
+      return (this->index < otherOperand.index);
     }
     catch (std::bad_cast ex)
     {
@@ -50,7 +55,7 @@ namespace PBIW
       IOperand& tempOperand = const_cast<IOperand&>(operand);
       Operand& otherOperand = dynamic_cast<Operand&>(tempOperand);
       
-      return (this->value > otherOperand.value);
+      return (this->index > otherOperand.index);
     }
     catch (std::bad_cast ex)
     {
@@ -61,33 +66,13 @@ namespace PBIW
   bool 
   Operand::operator<=(const IOperand& operand) const
   {
-    try
-    {
-      IOperand& tempOperand = const_cast<IOperand&>(operand);
-      Operand& otherOperand = dynamic_cast<Operand&>(tempOperand);
-      
-      return (this->value <= otherOperand.value);
-    }
-    catch (std::bad_cast ex)
-    {
-      return false;
-    }
+    return !(*this > operand);
   }
   
   bool 
   Operand::operator>=(const IOperand& operand) const
   {
-    try
-    {
-      IOperand& tempOperand = const_cast<IOperand&>(operand);
-      Operand& otherOperand = dynamic_cast<Operand&>(tempOperand);
-      
-      return (this->value >= otherOperand.value);
-    }
-    catch (std::bad_cast ex)
-    {
-      return false;
-    }
+    return !(*this < operand);
   }
   
   bool 
@@ -96,7 +81,7 @@ namespace PBIW
     try
     {
       IOperand& tempOperand = const_cast<IOperand&>(operand);
-      Operand& otherOperand = dynamic_cast<Operand&>(tempOperand);
+      Operand& otherOperand = static_cast<Operand&>(tempOperand);
       
       bool isEqual = 
         (this->value == otherOperand.value) &&

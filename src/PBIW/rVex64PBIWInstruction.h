@@ -24,25 +24,36 @@ namespace PBIW
   class rVex64PBIWInstruction : public IPBIWInstruction
   {
   public:
+    rVex64PBIWInstruction() //: readOperands(0, Operand(0)), writeOperands()
+    {
+      Operand operand(0);
+      operand.setIndex(0);
+      readOperands.push_back(operand);
+    }
+    
     virtual ~rVex64PBIWInstruction() { }
     
-    virtual void pointToPattern(IPBIWPattern* pattern);
+    virtual void pointToPattern(const IPBIWPattern& pattern);
     
-    virtual rVex96PBIWPattern* getPattern() const
+    virtual const rVex96PBIWPattern* getPattern() const
     { return this->pattern; }
     
     virtual bool containsImmediate() const
-    { return has9BitImm || has12BitImm; }
+    { return immediate.isImmediate9Bits() || immediate.isImmediate12Bits(); }
     
-    virtual bool containsOperand(const IOperand&) const;
+    virtual const IOperand& containsOperand(const IOperand&) const;
     
-    virtual void addReadOperand(IOperand* operand);
+    virtual void addReadOperand(IOperand& operand);
+    virtual void addWriteOperand(IOperand& operand);
     
-    virtual void addWriteOperand(IOperand* operand);
-    
-    virtual bool hasOperandSlot() const;
+    virtual bool hasOperandSlot(const rVex::Syllable::OperandItem&);
     virtual bool hasReadOperandSlot() const;
     virtual bool hasWriteOperandSlot() const;
+    
+    virtual int readOperandQuantity() const
+    { return readOperands.size(); }
+    virtual int writeOperandQuantity() const
+    { return writeOperands.size(); }
     
     virtual void print(IPBIWPrinter&) const;
     
@@ -50,7 +61,7 @@ namespace PBIW
     
   private:
 
-    rVex96PBIWPattern* pattern;
+    const rVex96PBIWPattern* pattern;
 
     /* The readRegs organization is as follows:
          
@@ -72,9 +83,9 @@ namespace PBIW
              '----9b imm---'
              '-------12b imm------'
      */
-    OperandVector writeOperands; // Max 4 (9 and 12 bit immediates inclusive)
-    bool has9BitImm;
-    bool has12BitImm;
+    OperandVector writeOperands; // Max 4
+    
+    Operand immediate; // (9 or 12 bit immediates)
     
     /**
      * Keeps track of what syllables were packed in this instruction

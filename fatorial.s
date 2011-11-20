@@ -69,7 +69,7 @@ L1?3:
 ;;								## 1
 .return ret($r0.3:s32)
 	c0    add $r0.3 = $r0.2, $r0.4   ## bblock 9, line 0,  t21,  t56,  t57
-	c0    return $r0.1 = $r0.1, (LABEL + 0xf + 0x1), $l0.0   ## bblock 9, line 13,  t8,  ?2.1?2auto_size(I32),  t7
+	c0    return $r0.1 = $r0.1, (0x0), $l0.0   ## bblock 9, line 13,  t8,  ?2.1?2auto_size(I32),  t7
 ;;								## 2
 .endp
 .section .bss

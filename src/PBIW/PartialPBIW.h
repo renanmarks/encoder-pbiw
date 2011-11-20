@@ -55,9 +55,12 @@ namespace PBIW
     PBIWInstructionList codedInstructions;
     
     typedef std::set<IPBIWPattern*> PBIWPatternSet;
-    PBIWPatternSet codedPatterns;
+//    PBIWPatternSet codedPatterns;
     
-    IPBIWPattern* hasPattern(IPBIWPattern*) const;
+    typedef std::list<IPBIWPattern*> PBIWPatternList;
+    PBIWPatternList codedPatterns;
+    
+    const IPBIWPattern& hasPattern(const IPBIWPattern&) const;
 
     /**
      * Functor used to find a label.

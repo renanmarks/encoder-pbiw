@@ -21,6 +21,8 @@ namespace PBIW
     class IPBIWPattern
     {
       public:
+        typedef std::vector<IOperation*> OperationVector;
+        
         virtual ~IPBIWPattern() {}
         
         /**
@@ -34,8 +36,8 @@ namespace PBIW
          * @param Index of pattern to be returned
          * @return The operation
          */
-        virtual const IOperation* getOperation(unsigned int) const = 0;
-        virtual const IOperation* operator[](const unsigned int) const = 0;
+        virtual IOperation* getOperation(unsigned int) const = 0;
+        virtual IOperation* operator[](const unsigned int) const = 0;
         
         /**
          * Returns how many operations this pattern contains.

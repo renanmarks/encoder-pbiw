@@ -6,55 +6,53 @@
  */
 
 #include <cstddef>
+#include <iostream>
 #include "Operation.h"
+#include "Interfaces/IPBIWInstruction.h"
 
 namespace PBIW
 {
   using namespace Interfaces;
   
-  Operation::OperandVector
-  Operation::getOperands() const
+  Operation::OperandIndexVector
+  Operation::getOperandsIndexes() const
   {
-    OperandVector returnVector;
+    OperandIndexVector returnVector;
     
-    if (writeOperand != NULL)
-      returnVector.push_back(writeOperand);
-    
+    returnVector.push_back(writeOperand);
     returnVector.insert(returnVector.end(), readOperands.begin(), readOperands.end());
-    
-    if (writeBrOperand != NULL)
     returnVector.push_back(writeBrOperand);
 
     return returnVector;
   }
-
+  
   void
-  Operation::addOperand(IOperand* operand)
+  Operation::addOperand(const IOperand& operand)
   {
-    if (this->writeOperand == NULL)
+    if (this->writeOperand == -1)
     {
-      this->writeOperand=operand;
+      this->writeOperand = operand.getIndex();
       return;
     }
 
-    if (this->readOperands.size() <= 2)
+    if (this->readOperands.size() < 2)
     {
-      this->readOperands.push_back(operand);
+      this->readOperands.push_back(operand.getIndex());
       return;
     }
 
-    if (this->writeBrOperand == NULL)
+    if (this->writeBrOperand == -1)
     {
-      this->writeBrOperand=operand;
+      this->writeBrOperand = operand.getIndex();
       return;
     }
   }
   
   bool Operation::operator==(const IOperation& other) const
   {
-    OperandVector::const_iterator it1, it2;
-    OperandVector thisOperands = this->getOperands();
-    OperandVector otherOperands = this->getOperands();
+    OperandIndexVector::const_iterator it1, it2;
+    OperandIndexVector thisOperands = this->getOperandsIndexes();
+    OperandIndexVector otherOperands = this->getOperandsIndexes();
     
     if (opcode != other.getOpcode())
       return false;
@@ -68,7 +66,7 @@ namespace PBIW
          it1++, it2++ )
     {
       // If anyone different, quit
-      if (**it1 != **it2)
+      if (*it1 != *it2)
         return false;
     }
     
