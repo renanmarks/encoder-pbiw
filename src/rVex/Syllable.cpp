@@ -96,7 +96,7 @@ namespace rVex
     final |= Syllable::ImmediateSwitch::SHORT_IMM;
     final <<= 6;
     
-    final |= grDestiny;
+    final |= (grDestiny != 0)? grDestiny:brDestiny;
 
     ReadRegVector::const_iterator it;
 
