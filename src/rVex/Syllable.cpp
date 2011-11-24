@@ -107,8 +107,8 @@ namespace rVex
     }
 
     final <<= 9;
-    final |= this->shortImmediate;
-
+    final |= (this->shortImmediate & 0x1FF);
+    
     final <<= 2;
 
     return final;
@@ -134,7 +134,7 @@ namespace rVex
     final |= grDestiny;
 
     final <<= 12;
-    final |= this->shortImmediate;
+    final |= (this->shortImmediate & 0xFFF);
     
     final <<= 3;
     final |= this->brDestiny;
