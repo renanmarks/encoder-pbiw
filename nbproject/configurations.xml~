@@ -5,123 +5,144 @@
                    displayName="Header Files"
                    projectFiles="true">
       <logicalFolder name="f2" displayName="PBIW" projectFiles="true">
-        <logicalFolder name="f2" displayName="Concrete" projectFiles="true">
-          <itemPath>PBIW/PBIW.h</itemPath>
-          <itemPath>PBIW/rVex64PBIWInstruction.h</itemPath>
-          <itemPath>PBIW/rVex96PBIWPattern.h</itemPath>
-        </logicalFolder>
         <logicalFolder name="f1" displayName="Interfaces" projectFiles="true">
-          <itemPath>IPBIW.h</itemPath>
-          <itemPath>IPBIWInstruction.h</itemPath>
-          <itemPath>IPBIWPattern.h</itemPath>
+          <itemPath>src/PBIW/Interfaces/IOperand.h</itemPath>
+          <itemPath>src/PBIW/Interfaces/IOperation.h</itemPath>
+          <itemPath>src/PBIW/Interfaces/IPBIW.h</itemPath>
+          <itemPath>src/PBIW/Interfaces/IPBIWInstruction.h</itemPath>
+          <itemPath>src/PBIW/Interfaces/IPBIWPattern.h</itemPath>
+          <itemPath>src/PBIW/Interfaces/IPBIWPrinter.h</itemPath>
         </logicalFolder>
+        <itemPath>src/PBIW/Label.h</itemPath>
+        <itemPath>src/PBIW/Operand.h</itemPath>
+        <itemPath>src/PBIW/Operation.h</itemPath>
+        <itemPath>src/PBIW/PartialPBIW.h</itemPath>
+        <itemPath>src/PBIW/PartialPBIWPrinter.h</itemPath>
+        <itemPath>src/PBIW/rVex64PBIWInstruction.h</itemPath>
+        <itemPath>src/PBIW/rVex96PBIWPattern.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="rVex" projectFiles="true">
-        <logicalFolder name="Operands" displayName="Operands" projectFiles="true">
-          <itemPath>rVex/Operands/Cluster.h</itemPath>
-          <itemPath>rVex/Operands/Expression.h</itemPath>
-          <itemPath>rVex/Operands/Number.h</itemPath>
-          <itemPath>rVex/Operands/Opcode.h</itemPath>
-          <itemPath>rVex/Operands/Register.h</itemPath>
-        </logicalFolder>
         <logicalFolder name="f1" displayName="Operations" projectFiles="true">
           <logicalFolder name="ALU" displayName="ALU" projectFiles="true">
-            <itemPath>rVex/Operations/ALU/ADD.h</itemPath>
-            <itemPath>rVex/Operations/ALU/ADDCG.h</itemPath>
-            <itemPath>rVex/Operations/ALU/AND.h</itemPath>
-            <itemPath>rVex/Operations/ALU/ANDC.h</itemPath>
-            <itemPath>rVex/Operations/ALU/ANDL.h</itemPath>
-            <itemPath>rVex/Operations/ALU/CMPEQ.h</itemPath>
-            <itemPath>rVex/Operations/ALU/CMPGE.h</itemPath>
-            <itemPath>rVex/Operations/ALU/CMPGEU.h</itemPath>
-            <itemPath>rVex/Operations/ALU/CMPGT.h</itemPath>
-            <itemPath>rVex/Operations/ALU/CMPGTU.h</itemPath>
-            <itemPath>rVex/Operations/ALU/CMPLE.h</itemPath>
-            <itemPath>rVex/Operations/ALU/CMPLEU.h</itemPath>
-            <itemPath>rVex/Operations/ALU/CMPLT.h</itemPath>
-            <itemPath>rVex/Operations/ALU/CMPLTU.h</itemPath>
-            <itemPath>rVex/Operations/ALU/CMPNE.h</itemPath>
-            <itemPath>rVex/Operations/ALU/DIVS.h</itemPath>
-            <itemPath>rVex/Operations/ALU/MAX.h</itemPath>
-            <itemPath>rVex/Operations/ALU/MAXU.h</itemPath>
-            <itemPath>rVex/Operations/ALU/MIN.h</itemPath>
-            <itemPath>rVex/Operations/ALU/MINU.h</itemPath>
-            <itemPath>rVex/Operations/ALU/MOV.h</itemPath>
-            <itemPath>rVex/Operations/ALU/MTB.h</itemPath>
-            <itemPath>rVex/Operations/ALU/NANDL.h</itemPath>
-            <itemPath>rVex/Operations/ALU/NORL.h</itemPath>
-            <itemPath>rVex/Operations/ALU/OR.h</itemPath>
-            <itemPath>rVex/Operations/ALU/ORC.h</itemPath>
-            <itemPath>rVex/Operations/ALU/ORL.h</itemPath>
-            <itemPath>rVex/Operations/ALU/SH1ADD.h</itemPath>
-            <itemPath>rVex/Operations/ALU/SH2ADD.h</itemPath>
-            <itemPath>rVex/Operations/ALU/SH3ADD.h</itemPath>
-            <itemPath>rVex/Operations/ALU/SH4ADD.h</itemPath>
-            <itemPath>rVex/Operations/ALU/SHL.h</itemPath>
-            <itemPath>rVex/Operations/ALU/SHR.h</itemPath>
-            <itemPath>rVex/Operations/ALU/SHRU.h</itemPath>
-            <itemPath>rVex/Operations/ALU/SLCT.h</itemPath>
-            <itemPath>rVex/Operations/ALU/SLCTF.h</itemPath>
-            <itemPath>rVex/Operations/ALU/SUB.h</itemPath>
-            <itemPath>rVex/Operations/ALU/SXTB.h</itemPath>
-            <itemPath>rVex/Operations/ALU/SXTH.h</itemPath>
-            <itemPath>rVex/Operations/ALU/XOR.h</itemPath>
-            <itemPath>rVex/Operations/ALU/ZXTB.h</itemPath>
-            <itemPath>rVex/Operations/ALU/ZXTH.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/ADD.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/ADDCG.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/AND.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/ANDC.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/ANDL.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/CMPEQ.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/CMPGE.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/CMPGEU.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/CMPGT.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/CMPGTU.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/CMPLE.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/CMPLEU.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/CMPLT.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/CMPLTU.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/CMPNE.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/DIVS.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/MAX.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/MAXU.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/MIN.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/MINU.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/MOV.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/MTB.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/NANDL.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/NORL.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/OR.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/ORC.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/ORL.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/SH1ADD.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/SH2ADD.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/SH3ADD.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/SH4ADD.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/SHL.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/SHR.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/SHRU.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/SLCT.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/SLCTF.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/SUB.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/SXTB.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/SXTH.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/XOR.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/ZXTB.h</itemPath>
+            <itemPath>src/rVex/Operations/ALU/ZXTH.h</itemPath>
           </logicalFolder>
           <logicalFolder name="CTRL" displayName="CTRL" projectFiles="true">
-            <itemPath>rVex/Operations/CTRL/BR.h</itemPath>
-            <itemPath>rVex/Operations/CTRL/BRF.h</itemPath>
-            <itemPath>rVex/Operations/CTRL/CALL.h</itemPath>
-            <itemPath>rVex/Operations/CTRL/GOTO.h</itemPath>
-            <itemPath>rVex/Operations/CTRL/ICALL.h</itemPath>
-            <itemPath>rVex/Operations/CTRL/IGOTO.h</itemPath>
-            <itemPath>rVex/Operations/CTRL/RETURN.h</itemPath>
-            <itemPath>rVex/Operations/CTRL/RFI.h</itemPath>
-            <itemPath>rVex/Operations/CTRL/XNOP.h</itemPath>
+            <itemPath>src/rVex/Operations/CTRL/BR.h</itemPath>
+            <itemPath>src/rVex/Operations/CTRL/BRF.h</itemPath>
+            <itemPath>src/rVex/Operations/CTRL/CALL.h</itemPath>
+            <itemPath>src/rVex/Operations/CTRL/GOTO.h</itemPath>
+            <itemPath>src/rVex/Operations/CTRL/ICALL.h</itemPath>
+            <itemPath>src/rVex/Operations/CTRL/IGOTO.h</itemPath>
+            <itemPath>src/rVex/Operations/CTRL/RETURN.h</itemPath>
+            <itemPath>src/rVex/Operations/CTRL/RFI.h</itemPath>
+            <itemPath>src/rVex/Operations/CTRL/XNOP.h</itemPath>
           </logicalFolder>
           <logicalFolder name="MEM" displayName="MEM" projectFiles="true">
-            <itemPath>rVex/Operations/MEM/LDB.h</itemPath>
-            <itemPath>rVex/Operations/MEM/LDBU.h</itemPath>
-            <itemPath>rVex/Operations/MEM/LDH.h</itemPath>
-            <itemPath>rVex/Operations/MEM/LDHU.h</itemPath>
-            <itemPath>rVex/Operations/MEM/LDW.h</itemPath>
-            <itemPath>rVex/Operations/MEM/PFT.h</itemPath>
-            <itemPath>rVex/Operations/MEM/STB.h</itemPath>
-            <itemPath>rVex/Operations/MEM/STH.h</itemPath>
-            <itemPath>rVex/Operations/MEM/STW.h</itemPath>
+            <itemPath>src/rVex/Operations/MEM/LDB.h</itemPath>
+            <itemPath>src/rVex/Operations/MEM/LDBU.h</itemPath>
+            <itemPath>src/rVex/Operations/MEM/LDH.h</itemPath>
+            <itemPath>src/rVex/Operations/MEM/LDHU.h</itemPath>
+            <itemPath>src/rVex/Operations/MEM/LDW.h</itemPath>
+            <itemPath>src/rVex/Operations/MEM/PFT.h</itemPath>
+            <itemPath>src/rVex/Operations/MEM/STB.h</itemPath>
+            <itemPath>src/rVex/Operations/MEM/STH.h</itemPath>
+            <itemPath>src/rVex/Operations/MEM/STW.h</itemPath>
           </logicalFolder>
           <logicalFolder name="MISC" displayName="MISC" projectFiles="true">
-            <itemPath>rVex/Operations/MISC/NOP.h</itemPath>
-            <itemPath>rVex/Operations/MISC/RECV.h</itemPath>
-            <itemPath>rVex/Operations/MISC/SEND.h</itemPath>
-            <itemPath>rVex/Operations/MISC/STOP.h</itemPath>
+            <itemPath>src/rVex/Operations/MISC/NOP.h</itemPath>
+            <itemPath>src/rVex/Operations/MISC/RECV.h</itemPath>
+            <itemPath>src/rVex/Operations/MISC/SEND.h</itemPath>
+            <itemPath>src/rVex/Operations/MISC/STOP.h</itemPath>
           </logicalFolder>
           <logicalFolder name="MUL" displayName="MUL" projectFiles="true">
-            <itemPath>rVex/Operations/MUL/MPYH.h</itemPath>
-            <itemPath>rVex/Operations/MUL/MPYHH.h</itemPath>
-            <itemPath>rVex/Operations/MUL/MPYHHU.h</itemPath>
-            <itemPath>rVex/Operations/MUL/MPYHS.h</itemPath>
-            <itemPath>rVex/Operations/MUL/MPYHU.h</itemPath>
-            <itemPath>rVex/Operations/MUL/MPYL.h</itemPath>
-            <itemPath>rVex/Operations/MUL/MPYLH.h</itemPath>
-            <itemPath>rVex/Operations/MUL/MPYLHU.h</itemPath>
-            <itemPath>rVex/Operations/MUL/MPYLL.h</itemPath>
-            <itemPath>rVex/Operations/MUL/MPYLLU.h</itemPath>
-            <itemPath>rVex/Operations/MUL/MPYLU.h</itemPath>
+            <itemPath>src/rVex/Operations/MUL/MPYH.h</itemPath>
+            <itemPath>src/rVex/Operations/MUL/MPYHH.h</itemPath>
+            <itemPath>src/rVex/Operations/MUL/MPYHHU.h</itemPath>
+            <itemPath>src/rVex/Operations/MUL/MPYHS.h</itemPath>
+            <itemPath>src/rVex/Operations/MUL/MPYHU.h</itemPath>
+            <itemPath>src/rVex/Operations/MUL/MPYL.h</itemPath>
+            <itemPath>src/rVex/Operations/MUL/MPYLH.h</itemPath>
+            <itemPath>src/rVex/Operations/MUL/MPYLHU.h</itemPath>
+            <itemPath>src/rVex/Operations/MUL/MPYLL.h</itemPath>
+            <itemPath>src/rVex/Operations/MUL/MPYLLU.h</itemPath>
+            <itemPath>src/rVex/Operations/MUL/MPYLU.h</itemPath>
           </logicalFolder>
-          <itemPath>rVex/Operations/Operations.h</itemPath>
+          <itemPath>src/rVex/Operations/Operations.h</itemPath>
         </logicalFolder>
-        <itemPath>rVex/Instruction.h</itemPath>
-        <itemPath>rVex/Syllable.h</itemPath>
-        <itemPath>rVex/SyllableALU.h</itemPath>
-        <itemPath>rVex/SyllableCTRL.h</itemPath>
-        <itemPath>rVex/SyllableMEM.h</itemPath>
-        <itemPath>rVex/SyllableMISC.h</itemPath>
-        <itemPath>rVex/SyllableMUL.h</itemPath>
-        <itemPath>rVex/rVex.h</itemPath>
+        <logicalFolder name="Printers" displayName="Printers" projectFiles="true">
+          <itemPath>src/rVex/Printers/IPrinter.h</itemPath>
+          <itemPath>src/rVex/Printers/VHDLPrinter.h</itemPath>
+          <itemPath>src/rVex/Printers/rVexPrinter.h</itemPath>
+        </logicalFolder>
+        <itemPath>src/rVex/Instruction.h</itemPath>
+        <itemPath>src/rVex/Syllable.h</itemPath>
+        <itemPath>src/rVex/SyllableALU.h</itemPath>
+        <itemPath>src/rVex/SyllableCTRL.h</itemPath>
+        <itemPath>src/rVex/SyllableMEM.h</itemPath>
+        <itemPath>src/rVex/SyllableMISC.h</itemPath>
+        <itemPath>src/rVex/SyllableMUL.h</itemPath>
+        <itemPath>src/rVex/rVex.h</itemPath>
       </logicalFolder>
-      <itemPath>pbiw_encoder.h</itemPath>
+      <logicalFolder name="f3" displayName="VexParser" projectFiles="true">
+        <itemPath>src/VexParser/Expressions/Arguments.h</itemPath>
+        <itemPath>src/VexParser/Expressions/Expression.h</itemPath>
+        <itemPath>src/VexParser/FlexLexer.h</itemPath>
+        <itemPath>src/VexParser/Expressions/SyllableArguments.h</itemPath>
+        <itemPath>src/VexParser/VexContext.h</itemPath>
+        <itemPath>src/VexParser/VexOpcodes.h</itemPath>
+        <itemPath>src/VexParser/VexTypes.h</itemPath>
+        <itemPath>src/VexParser/driver.h</itemPath>
+        <itemPath>src/VexParser/location.hh</itemPath>
+        <itemPath>src/VexParser/parser.tab.hh</itemPath>
+        <itemPath>src/VexParser/parser.yy</itemPath>
+        <itemPath>src/VexParser/position.hh</itemPath>
+        <itemPath>src/VexParser/scanner.h</itemPath>
+        <itemPath>src/VexParser/scanner.ll</itemPath>
+        <itemPath>src/VexParser/stack.hh</itemPath>
+        <itemPath>src/VexParser/y.tab.h</itemPath>
+      </logicalFolder>
+      <itemPath>src/pbiw_encoder.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -131,58 +152,59 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="f1" displayName="PBIW" projectFiles="true">
-        <logicalFolder name="f1" displayName="Concrete" projectFiles="true">
-          <itemPath>PBIW/PBIW.cpp</itemPath>
-          <itemPath>PBIW/rVex64PBIWInstruction.cpp</itemPath>
-          <itemPath>PBIW/rVex96PBIWPattern.cpp</itemPath>
-        </logicalFolder>
+        <itemPath>src/PBIW/Operand.cpp</itemPath>
+        <itemPath>src/PBIW/Operation.cpp</itemPath>
+        <itemPath>src/PBIW/PartialPBIW.cpp</itemPath>
+        <itemPath>src/PBIW/PartialPBIWPrinter.cpp</itemPath>
+        <itemPath>src/PBIW/rVex64PBIWInstruction.cpp</itemPath>
+        <itemPath>src/PBIW/rVex96PBIWPattern.cpp</itemPath>
       </logicalFolder>
       <logicalFolder name="f2" displayName="rVex" projectFiles="true">
-        <logicalFolder name="Operands" displayName="Operands" projectFiles="true">
-          <itemPath>rVex/Operands/Expression.cpp</itemPath>
+        <logicalFolder name="f1" displayName="Operations" projectFiles="true">
+          <logicalFolder name="f1" displayName="CTRL" projectFiles="true">
+            <itemPath>src/rVex/Operations/CTRL/BR.cpp</itemPath>
+            <itemPath>src/rVex/Operations/CTRL/BRF.cpp</itemPath>
+            <itemPath>src/rVex/Operations/CTRL/CALL.cpp</itemPath>
+            <itemPath>src/rVex/Operations/CTRL/GOTO.cpp</itemPath>
+            <itemPath>src/rVex/Operations/CTRL/ICALL.cpp</itemPath>
+            <itemPath>src/rVex/Operations/CTRL/IGOTO.cpp</itemPath>
+            <itemPath>src/rVex/Operations/CTRL/RETURN.cpp</itemPath>
+            <itemPath>src/rVex/Operations/CTRL/RFI.cpp</itemPath>
+          </logicalFolder>
         </logicalFolder>
-        <itemPath>rVex/Instruction.cpp</itemPath>
-        <itemPath>rVex/Syllable.cpp</itemPath>
-        <itemPath>rVex/SyllableALU.cpp</itemPath>
-        <itemPath>rVex/SyllableMUL.cpp</itemPath>
+        <logicalFolder name="Printers" displayName="Printers" projectFiles="true">
+          <itemPath>src/rVex/Printers/VHDLPrinter.cpp</itemPath>
+          <itemPath>src/rVex/Printers/rVexPrinter.cpp</itemPath>
+        </logicalFolder>
+        <itemPath>src/rVex/Instruction.cpp</itemPath>
+        <itemPath>src/rVex/Syllable.cpp</itemPath>
+        <itemPath>src/rVex/SyllableALU.cpp</itemPath>
+        <itemPath>src/rVex/SyllableCTRL.cpp</itemPath>
+        <itemPath>src/rVex/SyllableMEM.cpp</itemPath>
+        <itemPath>src/rVex/SyllableMISC.cpp</itemPath>
+        <itemPath>src/rVex/SyllableMUL.cpp</itemPath>
       </logicalFolder>
-      <itemPath>pbiw_encoder.cpp</itemPath>
-    </logicalFolder>
-    <logicalFolder name="VexParser" displayName="VexParser" projectFiles="true">
-      <logicalFolder name="Expressions" displayName="Expressions" projectFiles="true">
-        <itemPath>VexParser/Expressions/Expression.cpp</itemPath>
-        <itemPath>VexParser/Expressions/Expression.h</itemPath>
+      <logicalFolder name="f3" displayName="VexParser" projectFiles="true">
+        <itemPath>src/VexParser/Expressions/Arguments.cpp</itemPath>
+        <itemPath>src/VexParser/Expressions/Expression.cpp</itemPath>
+        <itemPath>src/VexParser/VexContext.cpp</itemPath>
+        <itemPath>src/VexParser/driver.cc</itemPath>
+        <itemPath>src/VexParser/parser.tab.cc</itemPath>
+        <itemPath>src/VexParser/scanner.cc</itemPath>
       </logicalFolder>
-      <itemPath>VexParser/FlexLexer.h</itemPath>
-      <itemPath>VexParser/VexContext.cpp</itemPath>
-      <itemPath>VexParser/VexContext.h</itemPath>
-      <itemPath>VexParser/driver.cc</itemPath>
-      <itemPath>VexParser/driver.h</itemPath>
-      <itemPath>VexParser/location.hh</itemPath>
-      <itemPath>VexParser/parser.tab.cc</itemPath>
-      <itemPath>VexParser/parser.tab.hh</itemPath>
-      <itemPath>VexParser/parser.yy</itemPath>
-      <itemPath>VexParser/position.hh</itemPath>
-      <itemPath>VexParser/scanner.cc</itemPath>
-      <itemPath>VexParser/scanner.h</itemPath>
-      <itemPath>VexParser/scanner.ll</itemPath>
-      <itemPath>VexParser/stack.hh</itemPath>
-      <itemPath>VexParser/vexopc.h</itemPath>
-      <itemPath>VexParser/vextypes.h</itemPath>
-      <itemPath>VexParser/y.tab.h</itemPath>
+      <itemPath>src/pbiw_encoder.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
                    projectFiles="false"
                    kind="TEST_LOGICAL_FOLDER">
       <logicalFolder name="f2" displayName="Parser" projectFiles="true" kind="TEST">
-        <itemPath>tests/Parser/VexContextTest.cpp</itemPath>
+        <itemPath>src/Tests/Parser/ExpressionTest.cpp</itemPath>
+        <itemPath>src/Tests/Parser/VexContextTest.cpp</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="rVex" projectFiles="true" kind="TEST">
-        <itemPath>tests/rVex/rVexInstrucionMulTest.cpp</itemPath>
-        <itemPath>tests/rVex/rVexInstructionTest.cpp</itemPath>
-        <itemPath>tests/rVex/rVexSyllableMulTest.cpp</itemPath>
-        <itemPath>tests/rVex/rVexSyllableTest.cpp</itemPath>
+        <itemPath>src/Tests/rVex/rVexInstructionTest.cpp</itemPath>
+        <itemPath>src/Tests/rVex/rVexSyllableTest.cpp</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -193,11 +215,12 @@
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
-    <Elem>/home/helix/NetBeansProjects/pbiw_encoder/grammar</Elem>
-    <Elem>/home/helix/NetBeansProjects/pbiw_encoder/new_grammar</Elem>
-    <Elem>/home/helix/NetBeansProjects/pbiw_encoder/rVex/Operands</Elem>
-    <Elem>/home/helix/NetBeansProjects/pbiw_encoder/rVex/Operations</Elem>
-    <Elem>/home/helix/NetBeansProjects/pbiw_encoder/VexParser</Elem>
+    <Elem>grammar</Elem>
+    <Elem>new_grammar</Elem>
+    <Elem>rVex/Operands</Elem>
+    <Elem>rVex/Operations</Elem>
+    <Elem>VexParser</Elem>
+    <Elem>src/rVex/Printers</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -227,6 +250,13 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <folder path="TestFiles">
+        <ccTool>
+          <incDir>
+            <pElem>src</pElem>
+          </incDir>
+        </ccTool>
+      </folder>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -235,6 +265,31 @@
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
         </ccTool>
@@ -246,10 +301,60 @@
         <cTool>
           <incDir>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
         </ccTool>
@@ -273,8 +378,9 @@
           </incDir>
         </cTool>
         <ccTool>
-          <developmentMode>5</developmentMode>
+          <developmentMode>6</developmentMode>
           <stripSymbols>true</stripSymbols>
+          <commandlineTool>g++</commandlineTool>
           <incDir>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -291,7 +397,8 @@
       <folder path="TestFiles">
         <linkerTool>
           <linkerLibItems>
-            <linkerLibLibItem>gtest</linkerLibLibItem>
+            <linkerLibFileItem>/usr/local/lib/gtest/libgtest.so</linkerLibFileItem>
+            <linkerLibFileItem>/usr/local/lib/gtest/libgtest_main.so</linkerLibFileItem>
           </linkerLibItems>
         </linkerTool>
       </folder>
@@ -301,10 +408,60 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -318,10 +475,60 @@
         <cTool>
           <incDir>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
         </ccTool>

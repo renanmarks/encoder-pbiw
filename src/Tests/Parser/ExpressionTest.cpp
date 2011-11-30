@@ -25,7 +25,7 @@ namespace ExpressionTest
     ASSERT_FALSE(parseInfo.isLabel);
     ASSERT_FALSE(parseInfo.isImmediate);
     ASSERT_FALSE(parseInfo.isBranchRegister);
-    ASSERT_EQ(25, parseInfo.value); // FIXME
+    ASSERT_EQ(31, parseInfo.value); // FIXME
   }
 
   TEST( ExpressionTest, getParsedValueBR )
