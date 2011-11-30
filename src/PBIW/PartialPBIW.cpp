@@ -71,7 +71,7 @@ namespace PBIW
           // Search for the operand (only its value and type(imm, for example))
           const IOperand& foundOperand = instruction->containsOperand( *(operandIt->first) );
           
-          // If not found in the instruction (the operand returned is the same searched)...
+          // If not found in the instruction (i.e. the operand returned is the same searched)...
           if ( &foundOperand == operandIt->first )
           {
             // TODO: Check the read AND write slots separately!
@@ -101,11 +101,11 @@ namespace PBIW
               case rVex::Syllable::OperandType::GRDestiny :
                 if (operand.getValue() == 0)
                   break;
-                
+
               case rVex::Syllable::OperandType::Imm :
                 instruction->addWriteOperand(operand);
                 break;
-                
+
               case rVex::Syllable::OperandType::BRSource :
               case rVex::Syllable::OperandType::GRSource :
                 instruction->addReadOperand(operand);
@@ -115,10 +115,9 @@ namespace PBIW
           }
           else // if found...
           {
-            /* TODO:
-             * Fix the bug when the read operands reference an write operand in
+            /* Fix the bug when the read operands reference an write operand in
              * a PBIW instruction.
-             * What fixes: simply check this condition and, if true, "copy"
+             * Simply check this condition and, if true, "copy"
              * the operand in the write section to a field in the read section
              * and uses this new index as a reference.
              **/

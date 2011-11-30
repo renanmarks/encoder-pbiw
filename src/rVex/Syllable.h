@@ -283,6 +283,14 @@ namespace rVex
        */
       virtual void fillSyllable(VexParser::SyllableArguments*) = 0;
       
+      unsigned int printRTYPE() const;
+      unsigned int printISTYPE() const;
+      unsigned int printILTYPE() const;
+      unsigned int printBRANCH() const;
+      unsigned int printRTYPE_BS() const;
+      unsigned int printMEMLOADTYPE() const;
+      unsigned int printMEMSTORETYPE() const;
+      
       /**
        * Exception throwed when the syllable layout is not supported by the
        * syllable.
@@ -316,14 +324,6 @@ namespace rVex
       Syllable* labelDestiny;
       
       std::string path;
-      
-      unsigned int printRTYPE() const;
-      unsigned int printISTYPE() const;
-      unsigned int printILTYPE() const;
-      unsigned int printBRANCH() const;
-      unsigned int printRTYPE_BS() const;
-      unsigned int printMEMLOADTYPE() const;
-      unsigned int printMEMSTORETYPE() const;
       
       virtual void fillTypeI(VexParser::SyllableArguments*);
       virtual void fillTypeII(VexParser::SyllableArguments*);
