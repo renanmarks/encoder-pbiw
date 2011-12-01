@@ -45,8 +45,10 @@ namespace PBIW
         instructionIt < originalInstructions.end();
         instructionIt++)
     {
+      rVex64PBIWInstruction tempInstruction;
+      
       // Create a new PBIW instruction and PBIW pattern
-      IPBIWInstruction* instruction = new rVex64PBIWInstruction();
+      IPBIWInstruction* finalInstruction = new rVex64PBIWInstruction();
       IPBIWPattern* newPattern = new rVex96PBIWPattern();
       
       // For each syllable...
@@ -57,8 +59,10 @@ namespace PBIW
            syllableIt < syllables.end();
            syllableIt++)
       {
-        IOperation* operation = new Operation();
-        operation->setOpcode( (*syllableIt)->getOpcode() );
+        Operation tempOperation;
+        IOperation* finalOperation = new Operation();
+        
+        tempOperation.setOpcode( (*syllableIt)->getOpcode() );
         
         // For each operand...
         VexSyllableOperandVector::const_iterator operandIt;
@@ -69,13 +73,13 @@ namespace PBIW
              operandIt++)
         {
           // Search for the operand (only its value and type(imm, for example))
-          const IOperand& foundOperand = instruction->containsOperand( *(operandIt->first) );
+          const IOperand& foundOperand = tempInstruction.containsOperand( *(operandIt->first) );
           
           // If not found in the instruction (i.e. the operand returned is the same searched)...
           if ( &foundOperand == operandIt->first )
           {
             // TODO: Check the read AND write slots separately!
-            if ( !instruction->hasOperandSlot( *operandIt ) )
+            if ( !tempInstruction.hasOperandSlot( *operandIt ) )
             {
               const IPBIWPattern& foundPattern = hasPattern(*newPattern);
               
@@ -85,10 +89,12 @@ namespace PBIW
               else
                 delete newPattern; // if found, we are not using the newPattern, so free the memory allocated
               
-              instruction->pointToPattern(foundPattern);
-              codedInstructions.push_back(instruction);
+              tempInstruction.pointToPattern(foundPattern);
               
-              instruction = new rVex64PBIWInstruction();
+              *finalInstruction = tempInstruction;
+              codedInstructions.push_back(finalInstruction);
+              
+              finalInstruction = new rVex64PBIWInstruction();
               newPattern = new rVex96PBIWPattern();
             }
             
@@ -103,12 +109,12 @@ namespace PBIW
                   break;
 
               case rVex::Syllable::OperandType::Imm :
-                instruction->addWriteOperand(operand);
+                tempInstruction.addWriteOperand(operand);
                 break;
 
               case rVex::Syllable::OperandType::BRSource :
               case rVex::Syllable::OperandType::GRSource :
-                instruction->addReadOperand(operand);
+                tempInstruction.addReadOperand(operand);
                 break;
             }
             
@@ -124,7 +130,7 @@ namespace PBIW
             
             if (foundOperand.getIndex() > 7)
             {
-              if ( !instruction->hasReadOperandSlot() )
+              if ( !tempInstruction.hasReadOperandSlot() )
               {
                 const IPBIWPattern& foundPattern = hasPattern(*newPattern);
 
@@ -134,10 +140,12 @@ namespace PBIW
                 else
                   delete newPattern; // if found, we are not using the newPattern, so free the memory allocated
 
-                instruction->pointToPattern(foundPattern);
-                codedInstructions.push_back(instruction);
+                tempInstruction.pointToPattern(foundPattern);
+                
+                *finalInstruction = tempInstruction;
+                codedInstructions.push_back(finalInstruction);
 
-                instruction = new rVex64PBIWInstruction();
+                finalInstruction = new rVex64PBIWInstruction();
                 newPattern = new rVex96PBIWPattern();
               }
 
@@ -148,9 +156,9 @@ namespace PBIW
               {
                 case rVex::Syllable::OperandType::BRSource :
                 case rVex::Syllable::OperandType::GRSource :
-                  instruction->addReadOperand(operand);
+                  tempInstruction.addReadOperand(operand);
                   
-                  operation->addOperand(operand);
+                  tempOperation.addOperand(operand);
                   delete operandIt->first; // Free memory
                   continue;
               }
@@ -158,11 +166,13 @@ namespace PBIW
           }
           
           // or if contains operand, so... USE IT!
-          operation->addOperand( foundOperand );
+          tempOperation.addOperand( foundOperand );
           delete operandIt->first; // Free memory
         } // ... end for each operand
         
-        newPattern->addOperation(operation);
+        *finalOperation = tempOperation;
+        
+        newPattern->addOperation(finalOperation);
       } // ... end for each syllable
       
       const IPBIWPattern& foundPattern = hasPattern(*newPattern);
@@ -174,8 +184,8 @@ namespace PBIW
         delete newPattern;  // if found, we are not using the newPattern, so free the memory allocated
 
       // Point to the new pattern and save the instruction
-      instruction->pointToPattern(foundPattern);
-      codedInstructions.push_back(instruction);
+      finalInstruction->pointToPattern(foundPattern);
+      codedInstructions.push_back(finalInstruction);
     } // ... end for each instruction
   }
 
