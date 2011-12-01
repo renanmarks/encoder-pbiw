@@ -44,18 +44,37 @@ namespace PBIW
     IPBIWInstruction::OperandVector operands = instruction.getOperands();
     IPBIWInstruction::OperandVector::const_iterator it;
     
-    printer << "Operands: ";
+    printer << "Read : ";
     
     for (it = operands.begin();
-         it < operands.end();
+         it < operands.end() && it->getIndex() < 8;
          it++)
     {
-      printer << "Index[" << it->getIndex() <<  "] = "<< it->getValue();
+      printer << "[" << it->getIndex() <<  "] = "<< it->getValue();
       
       if ( it->isImmediate() )
         printer << "(Imm)";
       
       printer << ", ";
+    }
+    
+    printer << std::endl;
+    
+    printer << "Write: ";
+    
+    for (it = operands.begin();
+         it < operands.end() ;
+         it++)
+    {
+      if (it->getIndex() >= 8)
+      {
+        printer << "[" << it->getIndex() <<  "] = "<< it->getValue();
+
+        if ( it->isImmediate() )
+          printer << "(Imm)";
+
+        printer << ", ";
+      }
     }
     
     printer << std::endl;
