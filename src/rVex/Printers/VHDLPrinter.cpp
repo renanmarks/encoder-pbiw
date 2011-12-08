@@ -20,14 +20,13 @@ namespace rVex
     VHDLPrinter::VHDLPrinter( std::ostream& output ) 
       : output(output) 
     { 
-      size_t i;
       struct tm tim;
       time_t now;
       char buffer [255];
 
       now = std::time(NULL);
       tim = *(std::localtime(&now));
-      i = strftime(buffer, 30, "%b %d, %Y @ %H:%M:%S\n", &tim);
+      strftime(buffer, 30, "%b %d, %Y @ %H:%M:%S\n", &tim);
       
       this->date = buffer;
     }

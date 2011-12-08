@@ -53,6 +53,8 @@ namespace rVex
 //      case LayoutType::ILTYPE:
 //      default:
 //        break;
+      default:
+        break;
     }
     
     return returnVector;
@@ -117,7 +119,7 @@ namespace rVex
   unsigned int 
   Syllable::printILTYPE() const
   {
-    // TODO
+    return 0xFFFFFFFF;
   }
   
   unsigned int 

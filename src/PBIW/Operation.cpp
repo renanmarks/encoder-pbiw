@@ -50,25 +50,17 @@ namespace PBIW
   
   bool Operation::operator==(const IOperation& other) const
   {
-    OperandIndexVector::const_iterator it1, it2;
     OperandIndexVector thisOperands = this->getOperandsIndexes();
-    OperandIndexVector otherOperands = this->getOperandsIndexes();
+    OperandIndexVector otherOperands = other.getOperandsIndexes();
     
     if (opcode != other.getOpcode())
       return false;
     
-    // Optimization? :)
     if (thisOperands.size() != otherOperands.size())
       return false;
     
-    for (it1 = thisOperands.begin(), it2 = otherOperands.begin();
-         it1 < thisOperands.end(), it2 < otherOperands.end();
-         it1++, it2++ )
-    {
-      // If anyone different, quit
-      if (*it1 != *it2)
-        return false;
-    }
+    if (thisOperands != otherOperands)
+      return false;
     
     return true;
   }

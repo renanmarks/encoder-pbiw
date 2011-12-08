@@ -61,6 +61,9 @@ namespace PBIW
     PBIWPatternList codedPatterns;
     
     const IPBIWPattern& hasPattern(const IPBIWPattern&) const;
+    
+    void createNewPBIWElements(IPBIWInstruction*& finalInstruction, IPBIWPattern*& newPattern);
+    void printValues(const IOperand& operandIt, const IOperand& foundOperand);
 
     /**
      * Functor used to find a label.

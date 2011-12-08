@@ -12,22 +12,22 @@
 namespace PBIW
 {
   Operand::Operand()
-  : value(0), immType(Immediate::None), index(0)
+  : index(0), immType(Immediate::None), value(0)
   {
   }
   
   Operand::Operand(unsigned char value)
-  : value(value), immType(Immediate::None), index(0)
+  : index(0), immType(Immediate::None), value(value)
   {
   }
   
   Operand::Operand(unsigned char value, Immediate::Type immediateType)
-  : value(value), immType(immediateType), index(0)
+  : index(0), immType(immediateType), value(value)
   {
   }
   
   Operand::Operand(const Operand& other)
-  : value(other.getValue()), immType(other.getImmediateType()), index(other.getIndex())
+  : index(other.getIndex()), immType(other.getImmediateType()), value(other.getValue())
   {
   }
   
@@ -78,8 +78,8 @@ namespace PBIW
   bool 
   Operand::operator==(const IOperand& operand) const
   {
-    try
-    {
+//    try
+//    {
       IOperand& tempOperand = const_cast<IOperand&>(operand);
       Operand& otherOperand = static_cast<Operand&>(tempOperand);
       
@@ -90,11 +90,11 @@ namespace PBIW
         (this->isImmediate9Bits() == otherOperand.isImmediate9Bits());
       
       return isEqual;
-    }
-    catch (std::bad_cast ex)
-    {
-      return false;
-    }
+//    }
+//    catch (std::bad_cast ex)
+//    {
+//      return false;
+//    }
   }
   
   bool 
