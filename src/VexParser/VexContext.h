@@ -102,10 +102,10 @@ namespace VexParser
      */
     VexContext(rVex::Printers::IPrinter& printer) : 
       debugEnabled(false), 
-      syllableCounter(0), 
-      instructionCounter(0),
+      printer(printer),
       hasLabel(false),
-      printer(printer)
+      syllableCounter(0), 
+      instructionCounter(0)
     { }
     
     virtual ~VexContext( );

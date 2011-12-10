@@ -75,7 +75,10 @@ namespace PBIW
 
     for (unsigned int i = 0; i < count; i++)
     {
-      if ( *(operations[i]) != *(otherTemp.getOperation(i)) )
+      const IOperation& thisOperation = *(operations[i]);
+      const IOperation& otherOperation = *(otherTemp.getOperation(i));
+      
+      if ( thisOperation != otherOperation )
         return false;
     }
 

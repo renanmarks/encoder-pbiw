@@ -24,7 +24,7 @@ namespace VexParser
     : source(source), destiny(NULL) { }
     
     ~SyllableArguments() 
-    { delete source, destiny; }
+    { delete source; delete destiny; }
     
     Arguments*
     getSourceArguments() const 
