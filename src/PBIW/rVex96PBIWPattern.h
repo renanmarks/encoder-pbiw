@@ -37,6 +37,14 @@ namespace PBIW
     virtual unsigned int getOperationCount() const
     { return operations.size(); }
     
+    virtual void incrementUsageCounter()
+    { usageCounter++; }
+    
+    virtual int getUsageCounter() const
+    { return usageCounter; }
+    
+    virtual void reorganize();
+    
     virtual void print(IPBIWPrinter&) const;
     
     virtual bool operator<(const IPBIWPattern&) const;
@@ -49,6 +57,7 @@ namespace PBIW
 
   private:
     OperationVector operations; // Max 4
+    int usageCounter;
     
   };
 }
