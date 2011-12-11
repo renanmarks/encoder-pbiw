@@ -41,19 +41,20 @@ namespace PBIW
   
   void PartialPBIW::createNewPBIWElements(IPBIWInstruction*& finalInstruction, IPBIWPattern*& newPattern)
   {
+    newPattern->reorganize();
+    
     const IPBIWPattern& foundPattern = hasPattern(*newPattern);
-      
+    IPBIWPattern& notConstFoundPattern = const_cast<IPBIWPattern&>(foundPattern);
+    
     // If not found in the patterns set
-    if ( &foundPattern == newPattern )
+    if ( &notConstFoundPattern == newPattern )
       codedPatterns.push_back(newPattern); // If the pattern has not already been included, include it
     else
       delete newPattern; // if found, we are not using the newPattern, so free the memory allocated
 
-    finalInstruction->pointToPattern(foundPattern);
+    finalInstruction->pointToPattern(notConstFoundPattern);
     codedInstructions.push_back(finalInstruction);
-
-//    finalInstruction = new rVex64PBIWInstruction();
-//    newPattern = new rVex96PBIWPattern();
+    notConstFoundPattern.incrementUsageCounter();
   }
   
   void
@@ -81,6 +82,7 @@ namespace PBIW
         IOperation* finalOperation = new Operation();
         
         finalOperation->setOpcode( (*syllableIt)->getOpcode() );
+        finalOperation->setType( (*syllableIt)->getSyllableType() );
         
         // For each operand...
         VexSyllableOperandVector::const_iterator operandIt;

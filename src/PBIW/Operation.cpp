@@ -59,8 +59,16 @@ namespace PBIW
     if (thisOperands.size() != otherOperands.size())
       return false;
     
-    if (thisOperands != otherOperands)
-      return false;
+    OperandIndexVector::const_iterator thisIt;
+    OperandIndexVector::const_iterator otherIt;
+    
+    for(thisIt = thisOperands.begin(), otherIt = otherOperands.begin();
+        thisIt < thisOperands.end() && otherIt < otherOperands.end();
+        thisIt++, otherIt++)
+    {
+      if (*thisIt != *otherIt)
+        return false;
+    }
     
     return true;
   }

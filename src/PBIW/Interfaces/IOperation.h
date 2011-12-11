@@ -10,6 +10,7 @@
 
 #include <vector>
 #include "IOperand.h"
+#include "src/rVex/Syllable.h"
 
 namespace PBIW
 {
@@ -28,6 +29,9 @@ namespace PBIW
 
       typedef std::vector<int> OperandIndexVector;
       virtual OperandIndexVector getOperandsIndexes() const = 0;
+      
+      virtual void setType(rVex::Syllable::SyllableType::Type type) = 0;
+      virtual rVex::Syllable::SyllableType::Type getType() const = 0 ;
       
       virtual bool operator==(const IOperation&) const = 0;
       virtual bool operator!=(const IOperation&) const = 0;

@@ -48,7 +48,17 @@ namespace PBIW
     virtual bool operator==(const IOperation&) const;
     virtual bool operator!=(const IOperation&) const;
     
+    virtual void
+    setType(rVex::Syllable::SyllableType::Type type)
+    { this->type=type; }
+
+    virtual rVex::Syllable::SyllableType::Type
+    getType() const
+    { return type; }
+    
   private:
+    rVex::Syllable::SyllableType::Type type;
+    
     /**
      * Syllable opcode
      */ 
