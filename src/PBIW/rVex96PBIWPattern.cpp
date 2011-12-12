@@ -46,6 +46,7 @@ namespace PBIW
   rVex96PBIWPattern::reorganize()
   {
     Operand zero;
+    int start, finish, i, j;
     
     // Generate NOPS if we have less than 4 operations in the pattern
     while ( operations.size() < 4)
@@ -83,7 +84,7 @@ namespace PBIW
             operations.at(counterIt) = operation;
 
             counterIt--;
-            it--;
+            it--; 
         }
         else if(
                  ((*it)->getType() == rVex::Syllable::SyllableType::MEM) && 
@@ -107,10 +108,13 @@ namespace PBIW
           int index;                  
 
           // set up the index that will receive the MUL syllable
-          if (operations.at(1)->getType() != rVex::Syllable::SyllableType::MUL)
-            index = 1;
-          else
-            index = 2;
+          if (operations.at(1)->getType() != rVex::Syllable::SyllableType::MUL){
+              index = 1;
+          }            
+          else {
+              index = 2;
+          }          
+          
 
           // exchange the indexes
           operation = operations.at(index);
@@ -119,11 +123,102 @@ namespace PBIW
 
           counterIt--;
           it--;
-        }             
+        }     
+         
       }
       counterIt++;             
-    }
-  }
+    }    
+  
+    // Sorting of operation vector by 
+    // {{ADD | CRTL} && {ADD | MUL} && {ADD | MUL} && {ADD | MEM}}
+      
+    // If syllable 1 and syllable 2 are MUL type
+      if(
+         (operations.at(2)->getType() == rVex::Syllable::SyllableType::MUL)
+      )
+      {
+          // Sorting syllable 1 and syllable 2
+          if(operations.at(1)->getOpcode() > operations.at(2)->getOpcode()){
+              operation = operations.at(1);
+              operations.at(1) = operations.at(2);
+              operations.at(2) = operation;
+          }
+
+          // Sorting syllable 0 and syllable 3, if ADD type
+          if( 
+              (operations.at(0)->getType() != rVex::Syllable::SyllableType::CTRL) && 
+              (operations.at(3)->getType() != rVex::Syllable::SyllableType::MEM)
+            )
+          {
+              if((operations.at(0)->getOpcode() > operations.at(3)->getOpcode()))// &
+                //(operations.at(0)->getOpcode() & operations.at(3)->getOpcode()))
+              {
+                  operation = operations.at(0);
+                  operations.at(0) = operations.at(3);
+                  operations.at(3) = operation;              
+              }
+          }
+      }
+
+      else {           
+          if(
+              (operations.at(0)->getType() == rVex::Syllable::SyllableType::CTRL) &&
+              (operations.at(3)->getType() != rVex::Syllable::SyllableType::MEM) 
+          )
+          {
+              start = 1;
+              finish = 3;
+          }
+          else if(
+              (operations.at(0)->getType() != rVex::Syllable::SyllableType::CTRL) &&
+              (operations.at(3)->getType() == rVex::Syllable::SyllableType::MEM) 
+          )
+          {
+              start = 0;
+              finish = 2;
+          }
+          else if(
+              (operations.at(0)->getType() == rVex::Syllable::SyllableType::CTRL) &&
+              (operations.at(3)->getType() == rVex::Syllable::SyllableType::MEM) 
+          )
+          {
+              start = 1;
+              finish = 2;
+          }
+          else if(
+              (operations.at(0)->getType() != rVex::Syllable::SyllableType::CTRL) &&
+              (operations.at(3)->getType() != rVex::Syllable::SyllableType::MEM) 
+          )
+          {
+              start = 0;
+              finish = 3;
+          }
+
+          // Sorting of syllables based in the start and finish variables
+          for(i = start;i <= finish; i++){
+              // If NOP, go to next iteration
+              //if(!operations.at(i)->getOpcode())
+                //  continue;
+              
+              for(j = i+1;j <= finish; j++){
+                  // If operation MUL type or NOP, go to next iteration
+                  if(((operations.at(i)->getType() | operations.at(j)->getType()) ==
+                      rVex::Syllable::SyllableType::MUL)) // |
+                      //(!(operations.at(i)->getOpcode() & operations.at(j)->getOpcode())))
+                      continue;
+                  
+                  // interchange between syllables
+                  operation = operations.at(i);
+                  operations.at(i) = operations.at(j);
+                  operations.at(j) = operation;                          
+              } 
+          }
+      }
+
+}
+    
+    
+  
   
   bool
   rVex96PBIWPattern::operator<(const IPBIWPattern& other) const
