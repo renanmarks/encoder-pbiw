@@ -233,12 +233,14 @@ namespace PBIW
     } // ... end for each instruction
   }
 
-  void
-  PartialPBIW::printValues(const IOperand& operandIt, const IOperand& foundOperand)
+  void PartialPBIW::registerOptimizer(const IPBIWOptimizer& optimizer)
   {
-//    std::cout << "   It Index: " << operandIt.getIndex() << " " << operandIt.getValue() << std::endl;
-//    std::cout << "Found Index: " << foundOperand.getIndex() << " " << foundOperand.getValue() << std::endl;
-//    std::cout << "---" << std::endl;
+    return;
+  }
+  
+  void PartialPBIW::runOptimizers()
+  {
+    return;
   }
   
   void

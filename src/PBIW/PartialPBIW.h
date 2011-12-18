@@ -63,7 +63,6 @@ namespace PBIW
     const IPBIWPattern& hasPattern(const IPBIWPattern&) const;
     
     void createNewPBIWElements(IPBIWInstruction*& finalInstruction, IPBIWPattern*& newPattern);
-    void printValues(const IOperand& operandIt, const IOperand& foundOperand);
 
     /**
      * Functor used to find a label.
@@ -85,6 +84,9 @@ namespace PBIW
 
     virtual void encode(const std::vector<rVex::Instruction*>&);
     virtual void decode(const std::vector<IPBIWInstruction*>&, const std::vector<IPBIWPattern*>&);
+    
+    virtual void registerOptimizer(const IPBIWOptimizer& optimizer);
+    virtual void runOptimizers();
     
     virtual void print(IPBIWPrinter& printer);
 

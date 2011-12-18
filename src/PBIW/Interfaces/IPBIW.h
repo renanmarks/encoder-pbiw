@@ -14,6 +14,7 @@
 #include "IPBIWInstruction.h"
 #include "IPBIWPattern.h"
 #include "IPBIWPrinter.h"
+#include "IPBIWOptimizer.h"
 
 namespace PBIW
 {
@@ -25,9 +26,13 @@ namespace PBIW
     class IPBIW
     {
       public:
-        virtual ~IPBIW() {};
+        virtual ~IPBIW() {}
+        
         virtual void encode(const std::vector<rVex::Instruction*>&) = 0;
         virtual void decode(const std::vector<IPBIWInstruction*>&, const std::vector<IPBIWPattern*>&) = 0;
+        
+        virtual void registerOptimizer(const IPBIWOptimizer& optimizer) = 0;
+        virtual void runOptimizers() = 0;
         
         virtual void print(IPBIWPrinter& printer) = 0;
 
