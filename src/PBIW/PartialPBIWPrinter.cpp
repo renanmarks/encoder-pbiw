@@ -18,8 +18,6 @@ namespace PBIW
   {
     unsigned int operationCount = pattern.getOperationCount();
     
-    printer << "Usage count: " << pattern.getUsageCounter() << std::endl;
-    
     for (unsigned int i = 0; i < operationCount; i++)
     {
       printer << "Opcode: " << pattern[i]->getOpcode() << " - ";

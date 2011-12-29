@@ -13,6 +13,7 @@
 #include "IPBIWPattern.h"
 #include "IPBIWPrinter.h"
 #include "src/rVex/Syllable.h"
+#include "src/PBIW/Utils/OperandItem.h"
 
 namespace PBIW
 {
@@ -63,7 +64,7 @@ namespace PBIW
          * Check if this instruction has a free operand slot (either read or
          * write operand).
          */
-        virtual bool hasOperandSlot(const rVex::Syllable::OperandItem&) = 0;
+        virtual bool hasOperandSlot(const Utils::OperandItem&) = 0;
         
         virtual bool hasReadOperandSlot() const = 0;
         virtual bool hasWriteOperandSlot() const = 0;

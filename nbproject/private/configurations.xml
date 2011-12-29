@@ -32,8 +32,12 @@
           <runcommandpicklistitem>"${OUTPUT_PATH}" factorial_32gr.s</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" fatorial.s</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" Fatorial.s</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -d Fatorial.s</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -p Fatorial.s</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -p mergesort.s</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" mergesort.s</runcommandpicklistitem>
         </runcommandpicklist>
-        <runcommand>"${OUTPUT_PATH}" Fatorial.s</runcommand>
+        <runcommand>"${OUTPUT_PATH}" mergesort.s</runcommand>
         <rundir></rundir>
         <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>

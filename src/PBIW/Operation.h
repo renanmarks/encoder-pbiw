@@ -29,6 +29,9 @@ namespace PBIW
     :opcode(0), writeOperand(-1), writeBrOperand(-1)
     {}
     
+    ~Operation()
+    { readOperands.clear(); }
+    
     virtual void setOpcode(unsigned short opcode)
     { this->opcode = opcode; }
     
@@ -55,7 +58,7 @@ namespace PBIW
     virtual rVex::Syllable::SyllableType::Type
     getType() const
     { return type; }
-    
+            
   private:
     rVex::Syllable::SyllableType::Type type;
     
@@ -78,6 +81,7 @@ namespace PBIW
      * Pointer to the write BR operand
      */
     int writeBrOperand; // 3b
+        
   };
 }
 

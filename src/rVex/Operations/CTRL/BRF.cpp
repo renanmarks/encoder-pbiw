@@ -7,18 +7,14 @@ namespace rVex
   {
     namespace CTRL
     {
-      Syllable::OperandVector
-      BRF::getOperandVector() const
+      void
+      BRF::exportOperandVector(Utils::OperandVectorBuilder& builder) const
       {
         using PBIW::Operand;
-
-        Syllable::OperandVector returnVector;
-        ReadRegVector::const_iterator it;
-
-        returnVector.push_back( std::make_pair( new Operand(this->brSource), OperandType::GRDestiny ) );
-        returnVector.push_back( std::make_pair( new Operand(this->shortImmediate, Operand::Immediate::TwelveBits), OperandType::Imm ) );
-
-        return returnVector;
+        using PBIW::Utils::OperandItem;
+        
+        builder.insertRegister(this->brSource, OperandItem::GRSource);
+        builder.insertImmediate(this->shortImmediate, Operand::Immediate::TwelveBits);
       }
       
       void 

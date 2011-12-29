@@ -27,7 +27,7 @@ namespace rVex
           
           virtual void print(rVex::Printers::IPrinter&, bool, bool) const;
           
-          virtual OperandVector getOperandVector() const;
+          virtual void exportOperandVector(Utils::OperandVectorBuilder&) const;
       };
     }
   }

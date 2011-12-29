@@ -10,9 +10,15 @@
           <itemPath>src/PBIW/Interfaces/IOperation.h</itemPath>
           <itemPath>src/PBIW/Interfaces/IPBIW.h</itemPath>
           <itemPath>src/PBIW/Interfaces/IPBIWInstruction.h</itemPath>
+          <itemPath>src/PBIW/Interfaces/IPBIWOptimizer.h</itemPath>
           <itemPath>src/PBIW/Interfaces/IPBIWPattern.h</itemPath>
           <itemPath>src/PBIW/Interfaces/IPBIWPrinter.h</itemPath>
         </logicalFolder>
+        <logicalFolder name="f2" displayName="Utils" projectFiles="true">
+          <itemPath>src/PBIW/Utils/OperandItem.h</itemPath>
+          <itemPath>src/PBIW/Utils/OperandVector.h</itemPath>
+        </logicalFolder>
+        <itemPath>src/PBIW/BaseOptimizer.h</itemPath>
         <itemPath>src/PBIW/Label.h</itemPath>
         <itemPath>src/PBIW/Operand.h</itemPath>
         <itemPath>src/PBIW/Operation.h</itemPath>
@@ -115,6 +121,9 @@
           <itemPath>src/rVex/Printers/VHDLPrinter.h</itemPath>
           <itemPath>src/rVex/Printers/rVexPrinter.h</itemPath>
         </logicalFolder>
+        <logicalFolder name="f2" displayName="Utils" projectFiles="true">
+          <itemPath>src/rVex/Utils/OperandVectorBuilder.h</itemPath>
+        </logicalFolder>
         <itemPath>src/rVex/Instruction.h</itemPath>
         <itemPath>src/rVex/Syllable.h</itemPath>
         <itemPath>src/rVex/SyllableALU.h</itemPath>
@@ -152,6 +161,10 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="f1" displayName="PBIW" projectFiles="true">
+        <logicalFolder name="f1" displayName="Utils" projectFiles="true">
+          <itemPath>src/PBIW/Utils/OperandVector.cpp</itemPath>
+        </logicalFolder>
+        <itemPath>src/PBIW/BaseOptimizer.cpp</itemPath>
         <itemPath>src/PBIW/Operand.cpp</itemPath>
         <itemPath>src/PBIW/Operation.cpp</itemPath>
         <itemPath>src/PBIW/PartialPBIW.cpp</itemPath>
@@ -175,6 +188,9 @@
         <logicalFolder name="Printers" displayName="Printers" projectFiles="true">
           <itemPath>src/rVex/Printers/VHDLPrinter.cpp</itemPath>
           <itemPath>src/rVex/Printers/rVexPrinter.cpp</itemPath>
+        </logicalFolder>
+        <logicalFolder name="f2" displayName="Utils" projectFiles="true">
+          <itemPath>src/rVex/Utils/OperandVectorBuilder.cpp</itemPath>
         </logicalFolder>
         <itemPath>src/rVex/Instruction.cpp</itemPath>
         <itemPath>src/rVex/Syllable.cpp</itemPath>
@@ -271,10 +287,18 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -304,10 +328,18 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -373,10 +405,18 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -406,10 +446,18 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>

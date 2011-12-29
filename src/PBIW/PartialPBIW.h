@@ -14,6 +14,7 @@
 
 #include "Interfaces/IPBIW.h"
 #include "Label.h"
+#include "Utils/OperandVector.h"
 
 namespace PBIW
 {
@@ -39,7 +40,7 @@ namespace PBIW
     /**
      * Type definitions to references rVex structures
      */
-    typedef rVex::Syllable::OperandVector VexSyllableOperandVector; 
+    typedef Utils::OperandVector VexSyllableOperandVector; 
     typedef rVex::Instruction::SyllableVector VexSyllableVector;
 //    
 //    typedef std::vector<rVex::Instruction*> VexInstructionVector;
@@ -80,7 +81,7 @@ namespace PBIW
     };
     
   public:
-    virtual ~PartialPBIW() { }
+    virtual ~PartialPBIW();
 
     virtual void encode(const std::vector<rVex::Instruction*>&);
     virtual void decode(const std::vector<IPBIWInstruction*>&, const std::vector<IPBIWPattern*>&);
