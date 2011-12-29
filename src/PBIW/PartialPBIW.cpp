@@ -18,6 +18,26 @@ namespace PBIW
 {
   using namespace Interfaces;
   
+  PartialPBIW::~PartialPBIW() 
+  { 
+    PBIWPatternList::iterator patternIt;
+    PBIWInstructionList::iterator instructionIt;
+    
+    for (instructionIt = codedInstructions.begin();
+         instructionIt != codedInstructions.end();
+         instructionIt++)
+    {
+      delete *instructionIt;
+    }
+    
+    for (patternIt = codedPatterns.begin();
+         patternIt != codedPatterns.end();
+         patternIt++)
+    {
+      delete *patternIt;
+    }
+  }
+  
   const IPBIWPattern&
   PartialPBIW::hasPattern(const IPBIWPattern& other) const
   {
@@ -85,23 +105,27 @@ namespace PBIW
         finalOperation->setType( (*syllableIt)->getSyllableType() );
         
         // For each operand...
-        VexSyllableOperandVector::const_iterator operandIt;
-        VexSyllableOperandVector operands = (*syllableIt)->getOperandVector();
+        rVex::Utils::OperandVectorBuilder operandVectorBuilder;
+        (*syllableIt)->exportOperandVector(operandVectorBuilder);
+        
+        VexSyllableOperandVector::Collection::const_iterator operandIt;
+        VexSyllableOperandVector operands = operandVectorBuilder.getOperandVector();
         
         for (operandIt = operands.begin();
              operandIt < operands.end();
              operandIt++)
         {
           const IPBIWInstruction* firstInstruction = finalInstruction;
+          IOperand* operand = (*operandIt)->getOperand();
           
           // Search for the operand (only its value and type(imm, for example))
-          const IOperand& foundOperand = finalInstruction->containsOperand( *(operandIt->first) );
+          const IOperand& foundOperand = finalInstruction->containsOperand( *operand );
           
           // If not found in the instruction (i.e. the operand returned is the same searched)...
-          if ( &foundOperand == operandIt->first )
+          if ( &foundOperand == operand )
           {
             // TODO: Check the read AND write slots separately!
-            if ( !finalInstruction->hasOperandSlot( *operandIt ) )
+            if ( !finalInstruction->hasOperandSlot( **operandIt ) )
             {
               createNewPBIWElements(finalInstruction, newPattern);
               
@@ -113,25 +137,25 @@ namespace PBIW
               finalOperation = new Operation();
               finalOperation->setOpcode( (*syllableIt)->getOpcode() );
             }
-            
-            IOperand& operand = *(operandIt->first);
+          
+            operand = (*operandIt)->getOperand();
             
             // TODO: Check the read AND write slots separately!
-            switch ( operandIt->second )
+            switch ( (*operandIt)->getType() )
             {
-              case rVex::Syllable::OperandType::BRDestiny :
-              case rVex::Syllable::OperandType::GRDestiny :
-                if (operand.getValue() == 0)
+              case Utils::OperandItem::BRDestiny :
+              case Utils::OperandItem::GRDestiny :
+                if (operand->getValue() == 0)
                   break;
 
-              case rVex::Syllable::OperandType::Imm :
-                finalInstruction->addWriteOperand(operand);
+              case Utils::OperandItem::Imm :
+                finalInstruction->addWriteOperand(*operand);
                 break;
 
-              case rVex::Syllable::OperandType::BRSource :
-              case rVex::Syllable::OperandType::GRSource :
-                if (operand.getValue() != 0)
-                  finalInstruction->addReadOperand(operand);
+              case Utils::OperandItem::BRSource :
+              case Utils::OperandItem::GRSource :
+                if (operand->getValue() != 0)
+                  finalInstruction->addReadOperand(*operand);
                 
                 break;
             }
@@ -162,15 +186,15 @@ namespace PBIW
                 finalOperation->setOpcode( (*syllableIt)->getOpcode() );
               }
 
-              IOperand& operand = *(operandIt->first);
+              operand = (*operandIt)->getOperand();
               
               // TODO: Check the read AND write slots separately!
-              switch ( operandIt->second )
+              switch ( (*operandIt)->getType() )
               {
-                case rVex::Syllable::OperandType::BRSource :
-                case rVex::Syllable::OperandType::GRSource :
-                  finalInstruction->addReadOperand(operand);
-                  finalOperation->addOperand(operand);
+                case Utils::OperandItem::BRSource :
+                case Utils::OperandItem::GRSource :
+                  finalInstruction->addReadOperand(*operand);
+                  finalOperation->addOperand(*operand);
                   //delete operandIt->first; // Free memory
                   continue;
                 default:
@@ -194,15 +218,15 @@ namespace PBIW
                   finalOperation->setOpcode( (*syllableIt)->getOpcode() );
                 }
 
-                IOperand& operand = *(operandIt->first);
+                operand = (*operandIt)->getOperand();
                 
                 // TODO: Check the read AND write slots separately!
-                switch ( operandIt->second )
+                switch ( (*operandIt)->getType() )
                 {
-                  case rVex::Syllable::OperandType::BRDestiny :
-                  case rVex::Syllable::OperandType::GRDestiny :
-                    finalInstruction->addWriteOperand(operand);
-                    finalOperation->addOperand(operand);
+                  case Utils::OperandItem::BRDestiny :
+                  case Utils::OperandItem::GRDestiny :
+                    finalInstruction->addWriteOperand(*operand);
+                    finalOperation->addOperand(*operand);
                     //delete operandIt->first; // Free memory
                     continue;
                   default:
@@ -215,13 +239,13 @@ namespace PBIW
           // or if contains operand, so... USE IT!
           if (firstInstruction != finalInstruction)
           {
-            const IOperand& foundOperand = finalInstruction->containsOperand( *(operandIt->first) );
+            IOperand* tempOperand = (*operandIt)->getOperand();
+            const IOperand& foundOperand = finalInstruction->containsOperand( *tempOperand );
             finalOperation->addOperand( foundOperand );
           }
           else
           {
             finalOperation->addOperand( foundOperand );
-            //delete operandIt->first; // Free memory
           }
          
         } // ... end for each operand
@@ -254,6 +278,7 @@ namespace PBIW
          patternIt != codedPatterns.end();
          patternIt++)
     {
+      printer.getOutputStream() << "Usage count: " << (*patternIt)->getUsageCounter() << std::endl;
       printer.printPattern(**patternIt);
       printer.getOutputStream() << "---" << std::endl;
     }

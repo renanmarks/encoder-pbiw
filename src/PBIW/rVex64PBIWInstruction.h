@@ -31,7 +31,7 @@ namespace PBIW
       readOperands.push_back(operand);
     }
     
-    virtual ~rVex64PBIWInstruction() { }
+    virtual ~rVex64PBIWInstruction();
     
     virtual void pointToPattern(const IPBIWPattern& pattern);
     
@@ -46,7 +46,7 @@ namespace PBIW
     virtual void addReadOperand(IOperand& operand);
     virtual void addWriteOperand(IOperand& operand);
     
-    virtual bool hasOperandSlot(const rVex::Syllable::OperandItem&);
+    virtual bool hasOperandSlot(const Utils::OperandItem&);
     virtual bool hasReadOperandSlot() const;
     virtual bool hasWriteOperandSlot() const;
     

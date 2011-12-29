@@ -37,7 +37,7 @@ namespace VexParser
     
     /* Register or number */
     explicit Expression( int );
-
+    
     virtual
     ~Expression( ) {}
 

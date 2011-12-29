@@ -11,8 +11,8 @@
 #include <utility>
 #include <string>
 #include "Label.h"
+#include "Utils/OperandVectorBuilder.h"
 
-#include "src/PBIW/Operand.h"
 #include "../VexParser/Expressions/SyllableArguments.h"
 #include "src/rVex/Printers/IPrinter.h"
 
@@ -160,20 +160,8 @@ namespace rVex
       
       // ---
       
-      /**
-       * Used by the PBIW Algorithm. Provides an vector
-       * with all the operands (destiny, source and immediate) inside.
-       */
-      typedef struct {
-        typedef enum {
-          GRSource, GRDestiny, BRSource, BRDestiny, Imm
-        } Type;
-      } OperandType;
-      
-      typedef std::pair<PBIW::Interfaces::IOperand*, OperandType::Type> OperandItem;
-      typedef std::vector<OperandItem> OperandVector;
-      
-      virtual OperandVector getOperandVector() const;
+      //virtual OperandVector getOperandVector(const IOperandVectorBuilder&) const;
+      virtual void exportOperandVector(Utils::OperandVectorBuilder&) const;
       
       // ---
       
@@ -196,6 +184,14 @@ namespace rVex
       virtual void setLayoutType(Syllable::LayoutType::Type layoutType) 
       { this->layoutType=layoutType; }
       
+      /**
+       * Get the structure/layout type of a syllable.
+       * The structure type is how a syllable is built.
+       * More info at: 
+       * http://code.google.com/p/r-vex/source/browse/trunk/doc/syllable_layout.txt
+       * 
+       * @return the structure type of a syllable
+       */ 
       virtual LayoutType::Type getLayoutType() const
       { return layoutType; }
 
@@ -257,17 +253,7 @@ namespace rVex
        */
       virtual SyllableType::Type getSyllableType() const = 0;
       
-      /**
-       * Get the structure/layout type of a syllable.
-       * The structure type is how a syllable is built.
-       * More info at: 
-       * http://code.google.com/p/r-vex/source/browse/trunk/doc/syllable_layout.txt
-       * 
-       * @return the structure type of a syllable
-       */
-//      virtual LayoutType getLayoutType() const = 0;
-      
-      /**
+     /**
        * Prints the binary representation of the syllable in string format.
        * @param True if the syllable is the first in the instruction.
        * @param True if the syllable is the last in the instruction.

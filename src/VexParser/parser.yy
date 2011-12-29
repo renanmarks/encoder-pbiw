@@ -206,8 +206,8 @@ asm_file        :       asm_section
 asm_section     :       _SECTION data_section
                 |       _SECTION bss_section
                 |       _SECTION text_section
-                |       _COMMENT QUOTE_STRING // comment
-                |       _SVERSION name
+                |       _COMMENT QUOTE_STRING  { delete $2; }// comment
+                |       _SVERSION name { delete $2; }
                 |       _RTA NUMBER
                 ;
 
@@ -230,7 +230,7 @@ data_dir_list   :       data_dir
 
 data_dir        :       _ALIGN NUMBER                   { } // data align
                 |       _SKIP NUMBER                    { } // data skip
-                |       name scope                      { } // data item
+                |       name scope                      { delete $1; } // data item
                         init_list %prec INIT            { }
                 |       equ_dir                         { }
                 |       common_dir                      { }
@@ -242,9 +242,9 @@ init_list       :       init_dir
                 |       init_list init_dir
                 ;
 
-init_dir        :       data_size data_val .dup { } // init: size: INT dup INT
+init_dir        :       data_size data_val .dup { delete $2; } // init: size: INT dup INT
                 |       _SKIP NUMBER { } // init skip
-                |       _ASCII QUOTE_STRING { } // init string
+                |       _ASCII QUOTE_STRING { delete $2; } // init string
                 ;
 
 data_val        :       expr               { $$ = $1; }
@@ -262,7 +262,7 @@ data_size       :       _DATA1          { $$ = 1; }
                 ;
 
 
-data_global_dir :       _IMPORT name    { } // data import
+data_global_dir :       _IMPORT name    { delete $2; } // data import
                 ;
 
         /*------------------------------------------------------*/
@@ -287,10 +287,10 @@ bss_dir         :       bss_label_decl
                 |       _SKIP NUMBER { } // bss skip
                 ;
 
-bss_label_decl  :       name scope { } // bss item
+bss_label_decl  :       name scope { delete $1; } // bss item
                 ;
 
-common_dir      :       _COMMON name __COMMA NUMBER __COMMA NUMBER 
+common_dir      :       _COMMON name __COMMA NUMBER __COMMA NUMBER  { delete $2; }
                 ;
 
         /*------------------------------------------------------*/
@@ -316,9 +316,9 @@ text_inst       :       proc_inst
                 |       _ALIGN NUMBER { }
                 ;
 
-proc_inst       :       proc entry_dir  { } // begin of function
+proc_inst       :       proc entry_dir  //{ } // begin of function
                         code_list _ENDP { } // end of function
-                |       proc name scope _ENDP { } // empty function
+                |       proc name scope _ENDP { delete $2; } // empty function
                 |       proc _ENDP
                 ;
 
@@ -341,12 +341,17 @@ trace_dir       :       _TRACE NUMBER
                 |       _TRACE NUMBER __COMMA NUMBER 
                 ;
 
-label_decl      :       name scope  { driver.context.setLabel(*$1, $2); }
+label_decl      :       name scope  { driver.context.setLabel(*$1, $2); delete $1; }
                 ;
 
-call_jmp_dir    :       _CALL_JMP call_jmp_tgt __COMMA callc __COMMA { }
-                        arg __LPAREN .arg_list __RPAREN __COMMA            { }
-                        ret __LPAREN .arg_list __RPAREN                { }
+call_jmp_dir    :       _CALL_JMP call_jmp_tgt __COMMA callc __COMMA //{  }
+                        arg __LPAREN .arg_list __RPAREN __COMMA      //{ delete $1; }
+                        ret __LPAREN .arg_list __RPAREN { 
+                            //delete $1; 
+                            delete $2; 
+                            delete $6; 
+                            delete $11; 
+                        }
                 ;
 
 call_jmp_tgt    :       name          { $$ = $1; }
@@ -356,16 +361,19 @@ call_jmp_tgt    :       name          { $$ = $1; }
 
 entry_dir       :       _ENTRY callc __COMMA regloclist __COMMA arg __LPAREN .arg_list __RPAREN name scope { 
                             driver.context.setLabel(*$10, $11);
+                            delete $6;
+                            delete $10;
                         }
                 |       name scope  {
                             driver.context.setLabel(*$1, $2);
+                            delete $1;
                         }
                 ;
 
-callc           :       NAME  { }
+callc           :       NAME  { delete $1; }
                 ;
 
-return_dir      :       _RETURN  ret __LPAREN .arg_list __RPAREN  { }
+return_dir      :       _RETURN  ret __LPAREN .arg_list __RPAREN  { delete $2; }
                 ;
 
 arg             :       NAME  { $$ = $1; }
@@ -374,17 +382,17 @@ arg             :       NAME  { $$ = $1; }
 ret             :       NAME  { $$ = $1; }
                 ;
 
-text_global_dir :       _IMPORT name  { }
+text_global_dir :       _IMPORT name  { delete $2; }
                 ;
 
-equ_dir         :       _EQU name __COMMA expr { }
+equ_dir         :       _EQU name __COMMA expr { delete $2; delete $4; }
                 ;
 
 scope           :       __COLON          { $$ = rVex::Label::LOCAL; }
                 |       __COLON __COLON       { $$ = rVex::Label::GLOBAL; }
                 ;
 
-type_dir        :       _TYPE name __COMMA __AT NAME
+type_dir        :       _TYPE name __COMMA __AT NAME { delete $2; delete $5; }
                 ;
 
 /**********************************************************************************
@@ -396,19 +404,19 @@ type_dir        :       _TYPE name __COMMA __AT NAME
                 |       stackexp arg_list 
                 ;
 
-stackexp        :       expr __COMMA NUMBER __SEMICOLON  { }
+stackexp        :       expr __COMMA NUMBER __SEMICOLON  { delete $1; }
                 ;
 
 arg_list        :       arg_desc              
                 |       arg_list __COMMA arg_desc 
                 ;
 
-arg_desc        :       expr __COLON arg_type               { }
-                |       expr __COLON expr __COLON arg_type      { }
-                |       __COLON expr __COLON arg_type           { }
+arg_desc        :       expr __COLON arg_type               { delete $1; }
+                |       expr __COLON expr __COLON arg_type      { delete $1; delete $3; }
+                |       __COLON expr __COLON arg_type           { delete $2; }
                 ;
 
-arg_type        :       name            { }
+arg_type        :       name            { delete $1; }
                 |       __LBRACKET NUMBER __RBRACKET  { }
                 ;
 
@@ -416,7 +424,7 @@ regloclist      :       regloc
                 |       regloclist __COMMA regloc 
                 ;
 
-regloc          :       NAME __EQUAL expr  { }
+regloc          :       NAME __EQUAL expr  { delete $1; delete $3; }
                 ;
 
 /**********************************************************************************
@@ -463,6 +471,10 @@ normal_mop      :       CLUST OPCODE .mop_arglist
                             $3->getSourceArguments()->print(std::cout);
                             std::cout << std::endl;
                           }
+                          
+                          delete $1;
+                          //delete $2;
+                          delete $3;
                         }
                 ;
 
@@ -473,12 +485,15 @@ xnop_mop        :       XNOP NUMBER
                           driver.context.packSyllable( $1->syllableConstructor->create(), argument ); 
                           
                           if (driver.context.isDebuggingEnabled())
-                          std::cout << " " << $1->as_op << " " << $2 << std::endl;
+                            std::cout << " " << $1->as_op << " " << $2 << std::endl;
+                          
+                          delete $1;
+                          delete argument;
                         }
                 ;
 
-asm_mop         :       CLUST OPCODE __COMMA NUMBER { }
-                        .mop_arglist { }
+asm_mop         :       CLUST OPCODE __COMMA NUMBER //{ delete $1; delete $2; }
+                        .mop_arglist { delete $1; delete $2; delete $5; }
                 ;
 
 /**********************************************************************************
@@ -497,8 +512,8 @@ mop_arglist     :       mop_arg                               { $$ = new Argumen
                 ;
 
 mop_arg         :       expr                                  { $$ = $1; }
-                |       __LBRACKET REGNAME __RBRACKET         { $$ = new Expression(*$2); }
-                |       expr __LBRACKET REGNAME __RBRACKET    { $$ = new Expression(*$1, *$3); }
+                |       __LBRACKET REGNAME __RBRACKET         { $$ = new Expression(*$2); delete $2;}
+                |       expr __LBRACKET REGNAME __RBRACKET    { $$ = new Expression(*$1, *$3); delete $1; delete $3;}
                 ;
 
 /**********************************************************************************
@@ -506,13 +521,13 @@ mop_arg         :       expr                                  { $$ = $1; }
  **********************************************************************************/
 
 expr            :       __LPAREN expr __RPAREN    { $$ = $2; }
-                |       expr __PLUS expr          { $$ = new Expression('+', *$1, *$3); } // $$ = build_binexp('+', $1, $3);
-                |       expr __MINUS expr         { $$ = new Expression('-', *$1, *$3); } // $$ = build_binexp('-', $1, $3);
-                |       __MINUS expr %prec USIGN  { $$ = new Expression('-', *$2); } // $$ = build_unexp('-', $2);
-                |       __PLUS expr %prec USIGN   { $$ = new Expression('+', *$2); } // $$ = build_unexp('+', $2);
-                |       __NOT expr %prec USIGN    { $$ = new Expression('~', *$2); } // $$ = build_unexp('~', $2);
-                |       name                      { $$ = new Expression(*$1); } // $$ = build_strexp($1);
-                |       REGNAME                   { $$ = new Expression(*$1); } // $$ = build_strexp($1);
+                |       expr __PLUS expr          { $$ = new Expression('+', *$1, *$3); delete $1; delete $3; } // $$ = build_binexp('+', $1, $3);
+                |       expr __MINUS expr         { $$ = new Expression('-', *$1, *$3); delete $1; delete $3;} // $$ = build_binexp('-', $1, $3);
+                |       __MINUS expr %prec USIGN  { $$ = new Expression('-', *$2); delete $2;} // $$ = build_unexp('-', $2);
+                |       __PLUS expr %prec USIGN   { $$ = new Expression('+', *$2); delete $2;} // $$ = build_unexp('+', $2);
+                |       __NOT expr %prec USIGN    { $$ = new Expression('~', *$2); delete $2;} // $$ = build_unexp('~', $2);
+                |       name                      { $$ = new Expression(*$1); delete $1;} // $$ = build_strexp($1);
+                |       REGNAME                   { $$ = new Expression(*$1); delete $1;} // $$ = build_strexp($1);
                 |       NUMBER                    { $$ = new Expression($1); } // $$ = build_numexp($1);
                 ;
 
@@ -520,7 +535,7 @@ expr            :       __LPAREN expr __RPAREN    { $$ = $2; }
  **     Generic name (could be NAME or OPCODE)
  **********************************************************************************/
 name            :       NAME                  { $$ = $1; }
-                |       OPCODE                { $$ = new std::string($1->as_op); }
+                |       OPCODE                { $$ = new std::string($1->as_op); delete $1;}
                 |       CLUST                 { $$ = $1; }
                 ;
 /**********************************************************************************/

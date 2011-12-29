@@ -16,12 +16,12 @@ namespace PBIW
   {
   }
   
-  Operand::Operand(unsigned char value)
+  Operand::Operand(int value)
   : index(0), immType(Immediate::None), value(value)
   {
   }
   
-  Operand::Operand(unsigned char value, Immediate::Type immediateType)
+  Operand::Operand(int value, Immediate::Type immediateType)
   : index(0), immType(immediateType), value(value)
   {
   }
@@ -39,7 +39,7 @@ namespace PBIW
       IOperand& tempOperand = const_cast<IOperand&>(operand);
       Operand& otherOperand = dynamic_cast<Operand&>(tempOperand);
       
-      return (this->index < otherOperand.index);
+      return (this->index < otherOperand.getIndex());
     }
     catch (std::bad_cast ex)
     {
@@ -55,7 +55,7 @@ namespace PBIW
       IOperand& tempOperand = const_cast<IOperand&>(operand);
       Operand& otherOperand = dynamic_cast<Operand&>(tempOperand);
       
-      return (this->index > otherOperand.index);
+      return (this->index > otherOperand.getIndex());
     }
     catch (std::bad_cast ex)
     {
@@ -84,7 +84,7 @@ namespace PBIW
       Operand& otherOperand = static_cast<Operand&>(tempOperand);
       
       bool isEqual = 
-        (this->value == otherOperand.value) &&
+        (this->value == otherOperand.getValue()) &&
         //(this->index == otherOperand.index) &&
         (this->isImmediate12Bits() == otherOperand.isImmediate12Bits()) &&
         (this->isImmediate9Bits() == otherOperand.isImmediate9Bits());

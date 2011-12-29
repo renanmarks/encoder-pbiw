@@ -6,24 +6,22 @@
  */
 
 #include "Arguments.h"
+#include <exception>
 
 namespace VexParser
 {
   Arguments::Arguments( Expression* ex )
-  {
-    if (ex->isMemoryReference())
-    {
-      addArgument(new Expression(ex->getValue()));  // offset
-      addArgument(new Expression(ex->getString())); // register
-      return;
-    }
-    
+  { 
     addArgument(ex);
   }
 
-  Arguments::Arguments( Arguments& arguments, Expression* ex )
+  Arguments::Arguments( Arguments& args, Expression* ex )
   {
-    this->arguments = arguments.getArguments();
+    ArgumentVector::const_iterator it;
+
+    for (it=args.getArguments().begin(); it < args.getArguments().end(); it++)
+      addArgument( new Expression(**it) );
+    
     addArgument(ex);
   }
   
@@ -35,11 +33,20 @@ namespace VexParser
   void
   Arguments::addArgument( Expression* ex )
   {
+    if (ex->isMemoryReference())
+    {
+      arguments.push_back(new Expression(ex->getValue()));  // offset
+      arguments.push_back(new Expression(ex->getString())); // register
+      delete ex;
+      
+      return;
+    }
+    
     arguments.push_back(ex);
   }
 
-  std::vector<Expression*>
-  Arguments::getArguments( ) const
+  std::vector<Expression*>&
+  Arguments::getArguments( )
   {
     return arguments;
   }

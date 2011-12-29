@@ -26,6 +26,16 @@ namespace PBIW
 
   rVex96PBIWPattern::~rVex96PBIWPattern()
   {
+    OperationVector::iterator it;
+
+    for(it = operations.begin(); 
+        it < operations.end(); 
+        it++)
+    {
+      delete *it;
+    }
+    
+    operations.clear();
   }
 
   void

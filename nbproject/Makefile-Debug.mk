@@ -44,6 +44,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/PBIW/Operation.o \
 	${OBJECTDIR}/src/rVex/SyllableALU.o \
 	${OBJECTDIR}/src/rVex/SyllableMISC.o \
+	${OBJECTDIR}/src/rVex/Utils/OperandVectorBuilder.o \
+	${OBJECTDIR}/src/PBIW/Utils/OperandVector.o \
 	${OBJECTDIR}/src/VexParser/VexContext.o \
 	${OBJECTDIR}/src/PBIW/Operand.o \
 	${OBJECTDIR}/src/rVex/Operations/CTRL/CALL.o \
@@ -63,7 +65,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/VexParser/parser.tab.o \
 	${OBJECTDIR}/src/rVex/Instruction.o \
 	${OBJECTDIR}/src/rVex/Operations/CTRL/IGOTO.o \
-	${OBJECTDIR}/src/PBIW/PartialPBIWPrinter.o
+	${OBJECTDIR}/src/PBIW/PartialPBIWPrinter.o \
+	${OBJECTDIR}/src/PBIW/BaseOptimizer.o
 
 # Test Directory
 TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
@@ -146,6 +149,16 @@ ${OBJECTDIR}/src/rVex/SyllableMISC.o: src/rVex/SyllableMISC.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/rVex
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/SyllableMISC.o src/rVex/SyllableMISC.cpp
+
+${OBJECTDIR}/src/rVex/Utils/OperandVectorBuilder.o: src/rVex/Utils/OperandVectorBuilder.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/rVex/Utils
+	${RM} $@.d
+	$(COMPILE.cc) -g -Wall -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Utils/OperandVectorBuilder.o src/rVex/Utils/OperandVectorBuilder.cpp
+
+${OBJECTDIR}/src/PBIW/Utils/OperandVector.o: src/PBIW/Utils/OperandVector.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Utils
+	${RM} $@.d
+	$(COMPILE.cc) -g -Wall -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/Utils/OperandVector.o src/PBIW/Utils/OperandVector.cpp
 
 ${OBJECTDIR}/src/VexParser/VexContext.o: src/VexParser/VexContext.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/VexParser
@@ -247,6 +260,11 @@ ${OBJECTDIR}/src/PBIW/PartialPBIWPrinter.o: src/PBIW/PartialPBIWPrinter.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/PartialPBIWPrinter.o src/PBIW/PartialPBIWPrinter.cpp
 
+${OBJECTDIR}/src/PBIW/BaseOptimizer.o: src/PBIW/BaseOptimizer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/PBIW
+	${RM} $@.d
+	$(COMPILE.cc) -g -Wall -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/BaseOptimizer.o src/PBIW/BaseOptimizer.cpp
+
 # Subprojects
 .build-subprojects:
 
@@ -264,25 +282,25 @@ ${TESTDIR}/TestFiles/f1: ${TESTDIR}/src/Tests/rVex/rVexInstructionTest.o ${TESTD
 ${TESTDIR}/src/Tests/Parser/ExpressionTest.o: src/Tests/Parser/ExpressionTest.cpp 
 	${MKDIR} -p ${TESTDIR}/src/Tests/Parser
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -Isrc -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/Parser/ExpressionTest.o src/Tests/Parser/ExpressionTest.cpp
+	$(COMPILE.cc) -g -Wall -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -Isrc -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/Parser/ExpressionTest.o src/Tests/Parser/ExpressionTest.cpp
 
 
 ${TESTDIR}/src/Tests/Parser/VexContextTest.o: src/Tests/Parser/VexContextTest.cpp 
 	${MKDIR} -p ${TESTDIR}/src/Tests/Parser
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -Isrc -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/Parser/VexContextTest.o src/Tests/Parser/VexContextTest.cpp
+	$(COMPILE.cc) -g -Wall -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -Isrc -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/Parser/VexContextTest.o src/Tests/Parser/VexContextTest.cpp
 
 
 ${TESTDIR}/src/Tests/rVex/rVexInstructionTest.o: src/Tests/rVex/rVexInstructionTest.cpp 
 	${MKDIR} -p ${TESTDIR}/src/Tests/rVex
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -Isrc -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/rVex/rVexInstructionTest.o src/Tests/rVex/rVexInstructionTest.cpp
+	$(COMPILE.cc) -g -Wall -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -Isrc -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/rVex/rVexInstructionTest.o src/Tests/rVex/rVexInstructionTest.cpp
 
 
 ${TESTDIR}/src/Tests/rVex/rVexSyllableTest.o: src/Tests/rVex/rVexSyllableTest.cpp 
 	${MKDIR} -p ${TESTDIR}/src/Tests/rVex
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -Isrc -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/rVex/rVexSyllableTest.o src/Tests/rVex/rVexSyllableTest.cpp
+	$(COMPILE.cc) -g -Wall -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -Isrc -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/rVex/rVexSyllableTest.o src/Tests/rVex/rVexSyllableTest.cpp
 
 
 ${OBJECTDIR}/src/rVex/Operations/CTRL/GOTO_nomain.o: ${OBJECTDIR}/src/rVex/Operations/CTRL/GOTO.o src/rVex/Operations/CTRL/GOTO.cpp 
@@ -413,6 +431,32 @@ ${OBJECTDIR}/src/rVex/SyllableMISC_nomain.o: ${OBJECTDIR}/src/rVex/SyllableMISC.
 	    $(COMPILE.cc) -g -Wall -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/SyllableMISC_nomain.o src/rVex/SyllableMISC.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/rVex/SyllableMISC.o ${OBJECTDIR}/src/rVex/SyllableMISC_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/rVex/Utils/OperandVectorBuilder_nomain.o: ${OBJECTDIR}/src/rVex/Utils/OperandVectorBuilder.o src/rVex/Utils/OperandVectorBuilder.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/rVex/Utils
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/rVex/Utils/OperandVectorBuilder.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -g -Wall -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Utils/OperandVectorBuilder_nomain.o src/rVex/Utils/OperandVectorBuilder.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/rVex/Utils/OperandVectorBuilder.o ${OBJECTDIR}/src/rVex/Utils/OperandVectorBuilder_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/PBIW/Utils/OperandVector_nomain.o: ${OBJECTDIR}/src/PBIW/Utils/OperandVector.o src/PBIW/Utils/OperandVector.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Utils
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/PBIW/Utils/OperandVector.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -g -Wall -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/Utils/OperandVector_nomain.o src/PBIW/Utils/OperandVector.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/PBIW/Utils/OperandVector.o ${OBJECTDIR}/src/PBIW/Utils/OperandVector_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/VexParser/VexContext_nomain.o: ${OBJECTDIR}/src/VexParser/VexContext.o src/VexParser/VexContext.cpp 
@@ -673,6 +717,19 @@ ${OBJECTDIR}/src/PBIW/PartialPBIWPrinter_nomain.o: ${OBJECTDIR}/src/PBIW/Partial
 	    $(COMPILE.cc) -g -Wall -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/PartialPBIWPrinter_nomain.o src/PBIW/PartialPBIWPrinter.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/PBIW/PartialPBIWPrinter.o ${OBJECTDIR}/src/PBIW/PartialPBIWPrinter_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/PBIW/BaseOptimizer_nomain.o: ${OBJECTDIR}/src/PBIW/BaseOptimizer.o src/PBIW/BaseOptimizer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/PBIW
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/PBIW/BaseOptimizer.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -g -Wall -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/BaseOptimizer_nomain.o src/PBIW/BaseOptimizer.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/PBIW/BaseOptimizer.o ${OBJECTDIR}/src/PBIW/BaseOptimizer_nomain.o;\
 	fi
 
 # Run Test Targets

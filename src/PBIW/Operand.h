@@ -28,8 +28,8 @@ namespace PBIW
     } Immediate;
     
     explicit Operand();
-    explicit Operand(unsigned char);
-    explicit Operand(unsigned char, Immediate::Type);
+    explicit Operand(int);
+    explicit Operand(int, Immediate::Type);
     Operand(const Operand&);
     virtual ~Operand() { }
   

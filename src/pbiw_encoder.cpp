@@ -16,6 +16,7 @@ using namespace std;
 #include "rVex/Printers/VHDLPrinter.h"
 #include "PBIW/PartialPBIW.h"
 #include "PBIW/PartialPBIWPrinter.h"
+#include "VexParser/VexTypes.h"
 
 int
 main( int argc, char** argv )
@@ -82,6 +83,17 @@ main( int argc, char** argv )
       
       context.encodePBIW(pbiw, pbiwPrinter);
     }
+  }
+
+  // Clean the memory
+  std::vector<VexParser::VexOpcode>::iterator it;
+  
+  for(it = operationTable.begin();
+      it < operationTable.end();
+      it++)
+  {
+    if (it->syllableConstructor != NULL)
+      delete it->syllableConstructor;
   }
   
   return result ? 0 : 1;

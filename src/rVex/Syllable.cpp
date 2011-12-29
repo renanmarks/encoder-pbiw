@@ -1,42 +1,27 @@
 #include <utility>
 #include <iostream>
 #include "Syllable.h"
+#include "Utils/OperandVectorBuilder.h"
 
 namespace rVex
 {
-  Syllable::OperandVector 
-  Syllable::getOperandVector() const
+  void
+  Syllable::exportOperandVector(Utils::OperandVectorBuilder& builder) const
   {
     using PBIW::Operand;
-    
-    Syllable::OperandVector returnVector;
-    ReadRegVector::const_iterator it;
+    using PBIW::Utils::OperandItem;
     
     switch( getLayoutType() )
     {
       case LayoutType::RTYPE:
-        returnVector.push_back(
-          std::make_pair( new Operand(this->grDestiny), OperandType::GRDestiny ) );
-        
-        for(it = readRegisters.begin();
-            it < readRegisters.end();
-            it++)
-        {
-          returnVector.push_back( std::make_pair(new Operand(*it), OperandType::GRSource) );
-        }
+        builder.insertRegister(this->grDestiny, OperandItem::GRDestiny);
+        builder.insertRegisters(readRegisters, OperandItem::GRSource);
         break;
         
       case LayoutType::ISTYPE:
-        returnVector.push_back( std::make_pair( new Operand(this->grDestiny), OperandType::GRDestiny ) );
-        
-        for(it = readRegisters.begin();
-            it < readRegisters.end();
-            it++)
-        {
-          returnVector.push_back( std::make_pair(new Operand(*it), OperandType::GRSource) );
-        }
-        
-        returnVector.push_back( std::make_pair( new Operand(this->shortImmediate, Operand::Immediate::NineBits), OperandType::Imm ) );
+        builder.insertRegister(this->grDestiny, OperandItem::GRDestiny);
+        builder.insertRegisters(readRegisters, OperandItem::GRSource);
+        builder.insertImmediate(this->shortImmediate, Operand::Immediate::NineBits);
         break;
 
 //      Must implement in each specific opcode
@@ -56,8 +41,6 @@ namespace rVex
       default:
         break;
     }
-    
-    return returnVector;
   }
   
   unsigned int 

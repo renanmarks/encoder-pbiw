@@ -15,6 +15,11 @@ namespace PBIW
 {
   using namespace Interfaces;
 
+  rVex64PBIWInstruction::~rVex64PBIWInstruction()
+  {
+    
+  }
+  
   rVex64PBIWInstruction::OperandVector
   rVex64PBIWInstruction::getOperands() const
   {
@@ -141,34 +146,34 @@ namespace PBIW
   }
 
   bool
-  rVex64PBIWInstruction::hasOperandSlot(const rVex::Syllable::OperandItem& operand)
+  rVex64PBIWInstruction::hasOperandSlot(const Utils::OperandItem& operand)
   {
-    switch(operand.second)
+    switch(operand.getType())
     {
-      case rVex::Syllable::OperandType::BRDestiny :
-      case rVex::Syllable::OperandType::GRDestiny :
+      case Utils::OperandItem::BRDestiny :
+      case Utils::OperandItem::GRDestiny :
         return this->hasWriteOperandSlot();
         break;
         
-      case rVex::Syllable::OperandType::Imm :
+      case Utils::OperandItem::Imm :
         if ( this->containsImmediate() )
           return false;
 
-        if (operand.first->isImmediate9Bits() && writeOperands.size() == 2)
+        if (operand.getOperand()->isImmediate9Bits() && writeOperands.size() == 2)
         {
           writeOperands.back().setIndex(11);
           return false;
         }
         
-        if ( operand.first->isImmediate9Bits() && writeOperands.size() > 2 )
+        if ( operand.getOperand()->isImmediate9Bits() && writeOperands.size() > 2 )
           return false;
 
-        if ( operand.first->isImmediate12Bits() && writeOperands.size() > 1 )
+        if ( operand.getOperand()->isImmediate12Bits() && writeOperands.size() > 1 )
           return false;
         break;
 
-      case rVex::Syllable::OperandType::BRSource :
-      case rVex::Syllable::OperandType::GRSource :
+      case Utils::OperandItem::BRSource :
+      case Utils::OperandItem::GRSource :
         return this->hasReadOperandSlot();
         break;
     }
