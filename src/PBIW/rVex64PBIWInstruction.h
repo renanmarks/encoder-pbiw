@@ -40,7 +40,7 @@ namespace PBIW
     
     virtual bool containsImmediate() const
     { return immediate.isImmediate9Bits() || immediate.isImmediate12Bits(); }
-    
+     
     virtual const IOperand& containsOperand(const IOperand&) const;
     
     virtual void addReadOperand(IOperand& operand);

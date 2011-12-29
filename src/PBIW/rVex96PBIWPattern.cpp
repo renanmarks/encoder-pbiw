@@ -7,13 +7,17 @@
 
 #include <typeinfo>
 #include <iostream>
+#include <stdexcept>
 #include "rVex96PBIWPattern.h"
 #include "Operand.h"
+#include "PartialPBIWPrinter.h"
+#include "Interfaces/IPBIWInstruction.h"
+//#include "Operation.h"
 
 namespace PBIW
 {
   using namespace Interfaces;
-  
+    
   rVex96PBIWPattern::rVex96PBIWPattern()
     : usageCounter(0)
   {
@@ -43,10 +47,9 @@ namespace PBIW
   }
 
   void 
-  rVex96PBIWPattern::reorganize()
+  rVex96PBIWPattern::reorganize(IPBIWInstruction*& instruction)
   {
     Operand zero;
-    int start, finish, i, j;
     
     // Generate NOPS if we have less than 4 operations in the pattern
     while ( operations.size() < 4)
@@ -58,9 +61,12 @@ namespace PBIW
     }
     
     OperationVector::iterator it;
-    
+    IOperation::OperandIndexVector operandsOp1;
+    IOperation::OperandIndexVector operandsOp2;
+     
     int counterIt = 0;
-    IOperation* operation;
+    unsigned int index1;
+    unsigned int index2;  
 
     // Go through all the syllables ordering them by TYPE (TODO: order then by opcode)
     for(it = operations.begin(); 
@@ -77,11 +83,8 @@ namespace PBIW
             ((*it)->getType() == rVex::Syllable::SyllableType::CTRL) && 
             (counterIt != 0)
           )
-        {
-            // exchange the indexes
-            operation = operations.at(0);
-            operations.at(0) = operations.at(counterIt);
-            operations.at(counterIt) = operation;
+        {            
+            this->exchangeOperations(0, counterIt);
 
             counterIt--;
             it--; 
@@ -90,12 +93,9 @@ namespace PBIW
                  ((*it)->getType() == rVex::Syllable::SyllableType::MEM) && 
                  (counterIt != 3)
                )
-        {
-            // exchange the indexes
-            operation = operations.at(3);
-            operations.at(3) = operations.at(counterIt);
-            operations.at(counterIt) = operation;
-
+        {            
+            this->exchangeOperations(3, counterIt);
+            
             counterIt--;
             it--;
         }   
@@ -108,118 +108,138 @@ namespace PBIW
           int index;                  
 
           // set up the index that will receive the MUL syllable
-          if (operations.at(1)->getType() != rVex::Syllable::SyllableType::MUL){
+          if (operations.at(1)->getType() != rVex::Syllable::SyllableType::MUL)
+          {
               index = 1;
           }            
           else {
+              
               index = 2;
-          }          
+              
+              if(operations.at(1)->getOpcode() > operations.at(counterIt)->getOpcode())
+              {
+                  this->exchangeOperations(1, counterIt);
+              }                  
+          }                    
+                    
+          this->exchangeOperations(index, counterIt);
           
-
-          // exchange the indexes
-          operation = operations.at(index);
-          operations.at(index) = operations.at(counterIt);
-          operations.at(counterIt) = operation;
-
           counterIt--;
           it--;
-        }     
-         
+        }        
+        
+        if((operations.at(1)->getType() == rVex::Syllable::SyllableType::MUL) &&
+                (operations.at(2)->getType() == rVex::Syllable::SyllableType::MUL))
+        {
+            if(operations.at(1)->getOpcode() > operations.at(2)->getOpcode())
+            {
+                this->exchangeOperations(1, 2);
+            }
+            else if(operations.at(1)->getOpcode() == operations.at(2)->getOpcode())
+            {
+                  operandsOp1 = operations.at(1)->getOperandsIndexes();
+                  operandsOp2 = operations.at(2)->getOperandsIndexes();
+                  
+                  if(this->getValueByIndex(instruction, operandsOp1.at(0)) >
+                     this->getValueByIndex(instruction, operandsOp2.at(0))
+                    )
+                  { 
+                      this->exchangeOperations(1, 2);
+                  }                  
+            }
+        }
+          
       }
       counterIt++;             
+    }
+    
+    // Ordering of the ALU operations by opcode, when this operations have differents
+    // opcodes. Otherwise (equals opcode) the ALU operations are ordering by 
+    // write operand, or first read operand or second read operand/immediate.
+    for(index2 = 0;
+        index2 < operations.size();
+        index2 ++)
+    {    
+        for(index1 = 0;
+            index1 < operations.size();
+            index1 ++)
+        {   
+            if((operations.at(index1)->getType() == rVex::Syllable::SyllableType::ALU) &&
+                (operations.at(index2)->getType() == rVex::Syllable::SyllableType::ALU)
+            )
+            {
+                if(operations.at(index1)->getOpcode() > operations.at(index2)->getOpcode())
+                {
+                    this->exchangeOperations(index1, index2);
+                }
+                else if(
+                  (operations.at(index1)->getOpcode() == operations.at(index2)->getOpcode())
+                )
+                {
+                    operandsOp1 = operations.at(index1)->getOperandsIndexes();
+                    operandsOp2 = operations.at(index2)->getOperandsIndexes();
+
+                    if(
+                      (this->getValueByIndex(instruction, operandsOp1.at(0)) > 
+                      this->getValueByIndex(instruction, operandsOp2.at(0)))
+                    )
+                    {
+                        this->exchangeOperations(index1, index2);
+                    }
+                    else if(
+                      (this->getValueByIndex(instruction, operandsOp1.at(0)) ==
+                      this->getValueByIndex(instruction, operandsOp2.at(0)))
+                    )
+                    {
+                        if(this->getValueByIndex(instruction, operandsOp1.at(1)) >
+                           this->getValueByIndex(instruction, operandsOp2.at(1)))
+                        {                            
+                            this->exchangeOperations(index1, index2);
+                        }
+                        else if(this->getValueByIndex(instruction, operandsOp1.at(1)) >
+                                this->getValueByIndex(instruction, operandsOp2.at(1)))
+                        {
+                            this->exchangeOperations(index1, index2);
+                        }
+                    }
+                }
+            }     
+            else if(((operations.at(index1)->getOpcode() == 0) && 
+                    (operations.at(index2)->getType() == rVex::Syllable::SyllableType::ALU))
+                   ) 
+            {
+                this->exchangeOperations(index1, index2);
+            }
+        }
     }    
   
-    // Sorting of operation vector by 
-    // {{ADD | CRTL} && {ADD | MUL} && {ADD | MUL} && {ADD | MEM}}
+  }
+    
+  void
+  rVex96PBIWPattern::exchangeOperations(int index1, int index2)
+  {
+      IOperation* operation;
       
-    // If syllable 1 and syllable 2 are MUL type
-      if(
-         (operations.at(2)->getType() == rVex::Syllable::SyllableType::MUL)
-      )
-      {
-          // Sorting syllable 1 and syllable 2
-          if(operations.at(1)->getOpcode() > operations.at(2)->getOpcode()){
-              operation = operations.at(1);
-              operations.at(1) = operations.at(2);
-              operations.at(2) = operation;
-          }
-
-          // Sorting syllable 0 and syllable 3, if ADD type
-          if( 
-              (operations.at(0)->getType() != rVex::Syllable::SyllableType::CTRL) && 
-              (operations.at(3)->getType() != rVex::Syllable::SyllableType::MEM)
-            )
-          {
-              if((operations.at(0)->getOpcode() > operations.at(3)->getOpcode()))// &
-                //(operations.at(0)->getOpcode() & operations.at(3)->getOpcode()))
-              {
-                  operation = operations.at(0);
-                  operations.at(0) = operations.at(3);
-                  operations.at(3) = operation;              
-              }
-          }
-      }
-
-      else {           
-          if(
-              (operations.at(0)->getType() == rVex::Syllable::SyllableType::CTRL) &&
-              (operations.at(3)->getType() != rVex::Syllable::SyllableType::MEM) 
-          )
-          {
-              start = 1;
-              finish = 3;
-          }
-          else if(
-              (operations.at(0)->getType() != rVex::Syllable::SyllableType::CTRL) &&
-              (operations.at(3)->getType() == rVex::Syllable::SyllableType::MEM) 
-          )
-          {
-              start = 0;
-              finish = 2;
-          }
-          else if(
-              (operations.at(0)->getType() == rVex::Syllable::SyllableType::CTRL) &&
-              (operations.at(3)->getType() == rVex::Syllable::SyllableType::MEM) 
-          )
-          {
-              start = 1;
-              finish = 2;
-          }
-          else if(
-              (operations.at(0)->getType() != rVex::Syllable::SyllableType::CTRL) &&
-              (operations.at(3)->getType() != rVex::Syllable::SyllableType::MEM) 
-          )
-          {
-              start = 0;
-              finish = 3;
-          }
-
-          // Sorting of syllables based in the start and finish variables
-          for(i = start;i <= finish; i++){
-              // If NOP, go to next iteration
-              //if(!operations.at(i)->getOpcode())
-                //  continue;
-              
-              for(j = i+1;j <= finish; j++){
-                  // If operation MUL type or NOP, go to next iteration
-                  if(((operations.at(i)->getType() | operations.at(j)->getType()) ==
-                      rVex::Syllable::SyllableType::MUL)) // |
-                      //(!(operations.at(i)->getOpcode() & operations.at(j)->getOpcode())))
-                      continue;
-                  
-                  // interchange between syllables
-                  operation = operations.at(i);
-                  operations.at(i) = operations.at(j);
-                  operations.at(j) = operation;                          
-              } 
-          }
-      }
-
-}
-    
-    
+      // Exchange the indexes
+      operation = operations.at(index1);
+      operations.at(index1) = operations.at(index2);
+      operations.at(index2) = operation;    
+  }
   
-  
+  unsigned int
+  rVex96PBIWPattern::getValueByIndex(IPBIWInstruction*& instruction, unsigned int index)
+  {
+      IPBIWInstruction::OperandVector operands = instruction->getOperands();
+      IPBIWInstruction::OperandVector::const_iterator it;
+      
+      for(it = operands.begin();it < operands.end(); it ++){
+          if(it->getIndex() == index)
+              return it->getValue();
+      }
+      
+      return -1;
+  }
+    
   bool
   rVex96PBIWPattern::operator<(const IPBIWPattern& other) const
   {
