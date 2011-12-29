@@ -58,7 +58,7 @@ namespace PBIW
     virtual rVex::Syllable::SyllableType::Type
     getType() const
     { return type; }
-    
+            
   private:
     rVex::Syllable::SyllableType::Type type;
     
@@ -81,6 +81,7 @@ namespace PBIW
      * Pointer to the write BR operand
      */
     int writeBrOperand; // 3b
+        
   };
 }
 

@@ -34,7 +34,8 @@ namespace PBIW
       virtual rVex::Syllable::SyllableType::Type getType() const = 0 ;
       
       virtual bool operator==(const IOperation&) const = 0;
-      virtual bool operator!=(const IOperation&) const = 0;
+      virtual bool operator!=(const IOperation&) const = 0;        
+      
     };
   }
 }

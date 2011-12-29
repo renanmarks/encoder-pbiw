@@ -61,7 +61,7 @@ namespace PBIW
   
   void PartialPBIW::createNewPBIWElements(IPBIWInstruction*& finalInstruction, IPBIWPattern*& newPattern)
   {
-    newPattern->reorganize();
+    newPattern->reorganize(finalInstruction);
     
     const IPBIWPattern& foundPattern = hasPattern(*newPattern);
     IPBIWPattern& notConstFoundPattern = const_cast<IPBIWPattern&>(foundPattern);

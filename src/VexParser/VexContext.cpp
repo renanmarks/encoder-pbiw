@@ -72,6 +72,21 @@ namespace VexParser
       arguments->getSourceArguments()->addArgument(new Expression("$r0.0"));
       arguments->getSourceArguments()->addArgument(new Expression(value));
     }
+    // If is a MOV without immediate operand then is a pseudo-instruction...
+    else if ((syllable->getOpcode() == rVex::Syllable::opMOV) &&
+        (!arguments->getSourceArguments()->getArguments()[0]->getParsedValue().isImmediate)
+       )
+    {
+      // Change MOV syllable to ADD syllable
+      rVex::Operations::ALU::ADD add;
+      memcpy(syllable, &add, sizeof(add));
+      
+      // Change from: mov $r0.x = $r0.y
+      // to: add $r0.x = $r0.y, $r0.0
+      int value = arguments->getSourceArguments()->getArguments()[0]->getValue();
+      arguments->getSourceArguments()->addArgument(new Expression("$r0.0"));
+      arguments->getSourceArguments()->addArgument(new Expression("$r0."+value));
+    }
 
     syllable->fillSyllable(arguments);
     syllableBuffer.push_back(syllable);

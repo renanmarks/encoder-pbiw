@@ -47,7 +47,7 @@ namespace rVex
   Syllable::printRTYPE() const 
   {
     unsigned int final = 0;
-
+    
     final |= this->getOpcode();
     final <<= 2;
     final |= Syllable::ImmediateSwitch::NO_IMM;
@@ -55,13 +55,16 @@ namespace rVex
     final |= grDestiny;
 
     ReadRegVector::const_iterator it;
-
+        
     for (it = readRegisters.begin(); it < readRegisters.end(); it++)
     {
       final <<= 6;
       final |= *it;
     }
-
+    
+    if(readRegisters.size() < 2)
+        final <<= 6;
+    
     final <<= 3;
     final |= this->brDestiny;
 
@@ -81,7 +84,7 @@ namespace rVex
     final |= Syllable::ImmediateSwitch::SHORT_IMM;
     final <<= 6;
     
-    final |= grDestiny;
+    final |= (grDestiny != 0)? grDestiny:brDestiny;
 
     ReadRegVector::const_iterator it;
 
