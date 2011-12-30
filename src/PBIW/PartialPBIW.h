@@ -63,7 +63,8 @@ namespace PBIW
     
     const IPBIWPattern& hasPattern(const IPBIWPattern&) const;
     
-    void createNewPBIWElements(IPBIWInstruction*& finalInstruction, IPBIWPattern*& newPattern);
+    void savePBIWElements(IPBIWInstruction*&, IPBIWPattern*&);
+    void saveAndCreateNewPBIWElements(IPBIWInstruction*&, IPBIWPattern*&, IOperation*&, rVex::Syllable* const&);
 
     /**
      * Functor used to find a label.

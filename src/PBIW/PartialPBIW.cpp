@@ -59,7 +59,7 @@ namespace PBIW
     return other;
   }
   
-  void PartialPBIW::createNewPBIWElements(IPBIWInstruction*& finalInstruction, IPBIWPattern*& newPattern)
+  void PartialPBIW::savePBIWElements(IPBIWInstruction*& finalInstruction, IPBIWPattern*& newPattern)
   {
     newPattern->reorganize(finalInstruction);
     
@@ -75,6 +75,19 @@ namespace PBIW
     finalInstruction->pointToPattern(notConstFoundPattern);
     codedInstructions.push_back(finalInstruction);
     notConstFoundPattern.incrementUsageCounter();
+  }
+  
+  void PartialPBIW::saveAndCreateNewPBIWElements(IPBIWInstruction*& finalInstruction, IPBIWPattern*& newPattern, IOperation*& finalOperation, rVex::Syllable* const& syllable)
+  {
+    savePBIWElements(finalInstruction, newPattern);
+
+    finalInstruction = new rVex64PBIWInstruction();
+    newPattern = new rVex96PBIWPattern();
+
+    delete finalOperation;
+    finalOperation = new Operation();
+    finalOperation->setOpcode( syllable->getOpcode() );
+    finalOperation->setType( syllable->getSyllableType() );
   }
   
   void
@@ -124,23 +137,14 @@ namespace PBIW
           // If not found in the instruction (i.e. the operand returned is the same searched)...
           if ( &foundOperand == operand )
           {
-            // TODO: Check the read AND write slots separately!
             if ( !finalInstruction->hasOperandSlot( **operandIt ) )
             {
-              createNewPBIWElements(finalInstruction, newPattern);
-              
-              finalInstruction = new rVex64PBIWInstruction();
-              newPattern = new rVex96PBIWPattern();
-              
+              saveAndCreateNewPBIWElements(finalInstruction, newPattern, finalOperation, *syllableIt);
               operandIt = operands.begin();
-              delete finalOperation;
-              finalOperation = new Operation();
-              finalOperation->setOpcode( (*syllableIt)->getOpcode() );
             }
           
             operand = (*operandIt)->getOperand();
             
-            // TODO: Check the read AND write slots separately!
             switch ( (*operandIt)->getType() )
             {
               case Utils::OperandItem::BRDestiny :
@@ -175,27 +179,18 @@ namespace PBIW
             {
               if ( !finalInstruction->hasReadOperandSlot() )
               {
-                createNewPBIWElements(finalInstruction, newPattern);
-                
-                finalInstruction = new rVex64PBIWInstruction();
-                newPattern = new rVex96PBIWPattern();
-                
+                saveAndCreateNewPBIWElements(finalInstruction, newPattern, finalOperation, *syllableIt);
                 operandIt = operands.begin();
-                delete finalOperation;
-                finalOperation = new Operation();
-                finalOperation->setOpcode( (*syllableIt)->getOpcode() );
               }
 
               operand = (*operandIt)->getOperand();
               
-              // TODO: Check the read AND write slots separately!
               switch ( (*operandIt)->getType() )
               {
                 case Utils::OperandItem::BRSource :
                 case Utils::OperandItem::GRSource :
                   finalInstruction->addReadOperand(*operand);
                   finalOperation->addOperand(*operand);
-                  //delete operandIt->first; // Free memory
                   continue;
                 default:
                   break;
@@ -207,27 +202,18 @@ namespace PBIW
               {
                 if ( !finalInstruction->hasWriteOperandSlot() )
                 {
-                  createNewPBIWElements(finalInstruction, newPattern);
-
-                  finalInstruction = new rVex64PBIWInstruction();
-                  newPattern = new rVex96PBIWPattern();
-                  
+                  saveAndCreateNewPBIWElements(finalInstruction, newPattern, finalOperation, *syllableIt);
                   operandIt = operands.begin();
-                  delete finalOperation;
-                  finalOperation = new Operation();
-                  finalOperation->setOpcode( (*syllableIt)->getOpcode() );
                 }
 
                 operand = (*operandIt)->getOperand();
                 
-                // TODO: Check the read AND write slots separately!
                 switch ( (*operandIt)->getType() )
                 {
                   case Utils::OperandItem::BRDestiny :
                   case Utils::OperandItem::GRDestiny :
                     finalInstruction->addWriteOperand(*operand);
                     finalOperation->addOperand(*operand);
-                    //delete operandIt->first; // Free memory
                     continue;
                   default:
                     break;
@@ -253,7 +239,7 @@ namespace PBIW
         newPattern->addOperation(finalOperation);
       } // ... end for each syllable
       
-      createNewPBIWElements(finalInstruction, newPattern);
+      savePBIWElements(finalInstruction, newPattern);
     } // ... end for each instruction
   }
 
