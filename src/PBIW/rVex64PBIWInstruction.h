@@ -9,6 +9,7 @@
 #define	RVEX64PBIWINSTRUCTION_H
 
 #include <vector>
+#include "Label.h"
 #include "Interfaces/IPBIWInstruction.h"
 #include "Interfaces/IOperand.h"
 #include "rVex96PBIWPattern.h"
@@ -32,6 +33,9 @@ namespace PBIW
     }
     
     virtual ~rVex64PBIWInstruction();
+    
+    virtual void setLabel(const ILabel&);
+    virtual const Label& getLabel() const;
     
     virtual void pointToPattern(const IPBIWPattern& pattern);
     
@@ -60,7 +64,8 @@ namespace PBIW
     virtual OperandVector getOperands() const;
     
   private:
-
+    Label label;
+    
     const rVex96PBIWPattern* pattern;
 
     /* The readRegs organization is as follows:

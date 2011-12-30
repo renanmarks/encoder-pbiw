@@ -14,6 +14,7 @@
 #include "IPBIWPrinter.h"
 #include "src/rVex/Syllable.h"
 #include "src/PBIW/Utils/OperandItem.h"
+#include "ILabel.h"
 
 namespace PBIW
 {
@@ -26,6 +27,16 @@ namespace PBIW
     {
       public:
         virtual ~IPBIWInstruction() {}
+        
+        /**
+         * Set the label of this instruction
+         */
+        virtual void setLabel(const ILabel&) = 0;
+        
+        /**
+         * Get the label of this instruction
+         */
+        virtual const ILabel& getLabel() const = 0;
         
         /**
          * Points this instruction to its pattern.

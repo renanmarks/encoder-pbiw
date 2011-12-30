@@ -57,7 +57,7 @@ namespace PBIW
   }
 
   void 
-  rVex96PBIWPattern::reorganize(IPBIWInstruction*& instruction)
+  rVex96PBIWPattern::reorganize(const IPBIWInstruction* instruction)
   {
     Operand zero;
     
@@ -237,7 +237,7 @@ namespace PBIW
   }
   
   unsigned int
-  rVex96PBIWPattern::getValueByIndex(IPBIWInstruction*& instruction, unsigned int index)
+  rVex96PBIWPattern::getValueByIndex(const IPBIWInstruction*& instruction, unsigned int index) const
   {
       IPBIWInstruction::OperandVector operands = instruction->getOperands();
       IPBIWInstruction::OperandVector::const_iterator it;

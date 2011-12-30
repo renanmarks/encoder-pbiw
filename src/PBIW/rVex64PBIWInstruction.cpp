@@ -43,6 +43,18 @@ namespace PBIW
 
   }
 
+  void rVex64PBIWInstruction::setLabel(const ILabel& label)
+  {
+    const Label& temp = dynamic_cast<const Label&>(label);
+    
+    this->label = temp;
+  }
+  
+  const Label& rVex64PBIWInstruction::getLabel() const
+  {
+    return this->label;
+  }
+  
   void
   rVex64PBIWInstruction::pointToPattern(const IPBIWPattern& pattern)
   {

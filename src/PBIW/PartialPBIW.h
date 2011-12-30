@@ -74,7 +74,7 @@ namespace PBIW
         FindLabel(const std::string label) : label(label) {}
 
         bool operator()(const Label& t) const 
-        { return (t.name == label); }
+        { return (t.getName() == label); }
         
     private:
         const std::string label;

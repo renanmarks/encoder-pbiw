@@ -9,6 +9,7 @@
 #define	BASEOPTIMIZER_H
 
 #include <list>
+#include <set>
 #include "Interfaces/IPBIWOptimizer.h"
 
 namespace PBIW
@@ -26,8 +27,11 @@ namespace PBIW
 
     virtual void print(IPBIWPrinter& printer);
 
-    virtual std::vector<IPBIWPattern*> getPatterns();
-    virtual std::vector<IPBIWInstruction*> getInstructions();
+    virtual std::vector<IPBIWPattern*> getPatterns()
+    { return std::vector<IPBIWPattern*>(patterns.begin(), patterns.end()); }
+    
+    virtual std::vector<IPBIWInstruction*> getInstructions()
+    { return std::vector<IPBIWInstruction*>(instructions.begin(), instructions.end()); }
 
     /**
      * Must be implemented by specific optimizers.
@@ -37,7 +41,12 @@ namespace PBIW
   private:
     typedef std::list<IPBIWInstruction*> PBIWInstructionList;
     typedef std::list<IPBIWPattern*> PBIWPatternList;
+    typedef std::set<IPBIWPattern*> PBIWPatternSet;
     typedef std::list<Label> LabelList;
+    
+    PBIWInstructionList instructions;
+    PBIWPatternList patterns;
+    LabelList labels;
   };
 }
 

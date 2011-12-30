@@ -43,11 +43,11 @@ namespace PBIW
     virtual int getUsageCounter() const
     { return usageCounter; }
     
-    virtual void reorganize(IPBIWInstruction*& instruction);
+    virtual void reorganize(const IPBIWInstruction* instruction);
     
     virtual void print(IPBIWPrinter&) const;
     
-    virtual unsigned int getValueByIndex(IPBIWInstruction*& instruction, unsigned int index);
+    virtual unsigned int getValueByIndex(const IPBIWInstruction*& instruction, unsigned int index) const;
     
     virtual bool operator<(const IPBIWPattern&) const;
     virtual bool operator>(const IPBIWPattern&) const;
@@ -56,12 +56,12 @@ namespace PBIW
 
     virtual bool operator==(const IPBIWPattern&) const;
     virtual bool operator!=(const IPBIWPattern&) const;
-    
-    virtual void exchangeOperations(int index1, int index2);
 
   private:
     OperationVector operations; // Max 4
     int usageCounter;
+    
+    virtual void exchangeOperations(int index1, int index2);
     
   };
 }

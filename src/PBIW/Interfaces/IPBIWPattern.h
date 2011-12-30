@@ -48,8 +48,7 @@ namespace PBIW
         
         virtual void incrementUsageCounter() = 0;
         virtual int getUsageCounter() const = 0;
-        //virtual void reorganize() = 0;
-        virtual void reorganize(IPBIWInstruction*&) = 0;
+        virtual void reorganize(const IPBIWInstruction*) = 0;
         
         /**
          * Print this pattern using the specified printer.

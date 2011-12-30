@@ -9,7 +9,7 @@
 #define	PBIWLABEL_H
 
 #include <string>
-#include "Interfaces/IPBIWInstruction.h"
+#include "Interfaces/ILabel.h"
 
 namespace PBIW
 {
@@ -18,13 +18,53 @@ namespace PBIW
   /**
    * Structure used to save the label definition information.
    */
-  struct Label
+  class Label : public ILabel
   {
-    typedef enum
-    {
-      GLOBAL = 0, LOCAL = 1
-    } LabelScope;
+  public:
+    Label()
+      : name(""), scope(), destiny(NULL), absoluteAddress(0)
+    { }
+    
+    Label(const Label& other)
+      : name(other.name), scope(other.getScope()), destiny(NULL), absoluteAddress(0)
+    { }
+    
+    ~Label() 
+    { }
 
+    void
+    setAbsoluteAddress(unsigned int absoluteAddress)
+    { this->absoluteAddress=absoluteAddress; }
+
+    unsigned int
+    getAbsoluteAddress() const
+    { return absoluteAddress; }
+
+    void
+    setDestiny(IPBIWInstruction* destiny)
+    { this->destiny=destiny; }
+
+    IPBIWInstruction*
+    getDestiny() const
+    { return destiny; }
+
+    void
+    setScope(LabelScope scope)
+    { this->scope=scope; }
+
+    LabelScope
+    getScope() const
+    { return scope; }
+
+    void
+    setName(const std::string& name)
+    { this->name=name; }
+
+    std::string
+    getName() const
+    { return name; }
+    
+  private:
     std::string name;
     LabelScope scope;
     IPBIWInstruction* destiny;

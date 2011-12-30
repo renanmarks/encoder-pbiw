@@ -12,14 +12,17 @@ namespace PBIW
 
   BaseOptimizer::BaseOptimizer()
   {
+    // TODO
   }
 
   BaseOptimizer::BaseOptimizer(const BaseOptimizer& orig)
   {
+    // TODO
   }
 
   BaseOptimizer::~BaseOptimizer()
   {
+    // TODO
   }
 
   void
@@ -27,11 +30,10 @@ namespace PBIW
   {
     std::vector<Label>::const_iterator it;
     
-    for (it = labels.begin();
-         it < labels.end();
-         it++)
+    for (it = labels.begin(); it < labels.end(); it++)
     {
-      
+      this->labels.push_back(*it);
+      // TODO: Melhorar
     }
   }
 
@@ -40,11 +42,10 @@ namespace PBIW
   {
     std::vector<IPBIWInstruction*>::const_iterator it;
     
-    for (it = instructions.begin();
-         it < instructions.end();
-         it++)
+    for (it = instructions.begin(); it < instructions.end(); it++)
     {
-      
+      this->instructions.push_back(*it);
+      // TODO: Melhorar
     }
   }
 
@@ -53,29 +54,16 @@ namespace PBIW
   {
     std::vector<IPBIWPattern*>::const_iterator it;
     
-    for (it = patterns.begin();
-         it < patterns.end();
-         it++)
+    for (it = patterns.begin(); it < patterns.end(); it++)
     {
-      
+      this->patterns.push_back(*it);
+      // TODO: Melhorar
     }
   }
 
   void
   BaseOptimizer::print(IPBIWPrinter& printer)
   {
-
-  }
-
-  std::vector<IPBIWPattern*>
-  BaseOptimizer::getPatterns()
-  {
-
-  }
-
-  std::vector<IPBIWInstruction*>
-  BaseOptimizer::getInstructions()
-  {
-
+    // TODO
   }
 }
