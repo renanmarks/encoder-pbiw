@@ -109,6 +109,7 @@ namespace VexParser
     switch(syllable->getOpcode())
     {
       case rVex::Syllable::opXNOP:
+        delete syllable;
         return; // Does not support XNOP yet.
       
       case rVex::Syllable::opCALL:

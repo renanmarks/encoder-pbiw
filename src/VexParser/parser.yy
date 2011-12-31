@@ -474,7 +474,7 @@ normal_mop      :       CLUST OPCODE .mop_arglist
                           
                           delete $1;
                           //delete $2;
-                          delete $3;
+                          if ($3 != NULL) delete $3;
                         }
                 ;
 
@@ -487,13 +487,18 @@ xnop_mop        :       XNOP NUMBER
                           if (driver.context.isDebuggingEnabled())
                             std::cout << " " << $1->as_op << " " << $2 << std::endl;
                           
-                          delete $1;
+                          //delete $1;
                           delete argument;
                         }
                 ;
 
 asm_mop         :       CLUST OPCODE __COMMA NUMBER //{ delete $1; delete $2; }
-                        .mop_arglist { delete $1; delete $2; delete $5; }
+                        .mop_arglist 
+                        { 
+                          delete $1; 
+                          //delete $2;
+                          if ($5 != NULL) delete $5; 
+                        }
                 ;
 
 /**********************************************************************************
@@ -508,7 +513,7 @@ asm_mop         :       CLUST OPCODE __COMMA NUMBER //{ delete $1; delete $2; }
 
 
 mop_arglist     :       mop_arg                               { $$ = new Arguments($1); }
-                |       mop_arglist __COMMA mop_arg           { $$ = new Arguments(*$1, $3); }
+                |       mop_arglist __COMMA mop_arg           { $$ = new Arguments(*$1, $3); delete $1; }
                 ;
 
 mop_arg         :       expr                                  { $$ = $1; }
