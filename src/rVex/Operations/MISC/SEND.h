@@ -21,7 +21,7 @@ namespace rVex
         public:
           SEND() {}
           
-          unsigned int getOpcode() const { return 42; }
+          unsigned int getOpcode() const { return this->opSEND; }
           SyllableType::Type getSyllableType() const { return SyllableType::CTRL; }
       };
     }

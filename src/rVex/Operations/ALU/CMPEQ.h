@@ -19,7 +19,7 @@ namespace rVex
       class CMPEQ : public SyllableALU
       {
         public:
-          unsigned int getOpcode() const { return 89; }
+          unsigned int getOpcode() const { return this->opCMPEQ; }
           SyllableType::Type getSyllableType() const { return SyllableType::ALU; }
           
           virtual void fillSyllable(VexParser::SyllableArguments* arguments)

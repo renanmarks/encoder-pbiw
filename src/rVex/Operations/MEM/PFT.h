@@ -21,7 +21,7 @@ namespace rVex
         public:
           PFT() {}
           
-          unsigned int getOpcode() const { return 25; }
+          unsigned int getOpcode() const { return this->opPFT; }
           SyllableType::Type getSyllableType() const { return SyllableType::MEM; }
           
           void print(rVex::Printers::IPrinter& output, bool first, bool last) const

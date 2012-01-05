@@ -23,7 +23,7 @@ namespace rVex
         public:
           NOP() {}
           
-          unsigned int getOpcode() const { return 0; }
+          unsigned int getOpcode() const { return this->opNOP; }
           SyllableType::Type getSyllableType() const { return SyllableType::CTRL; }
           
           virtual bool operator==(const Syllable& other) const

@@ -19,7 +19,7 @@ namespace rVex
       class RETURN : public SyllableCTRL
       {
         public:
-          unsigned int getOpcode() const { return 39; }
+          unsigned int getOpcode() const { return this->opRETURN; }
           SyllableType::Type getSyllableType() const { return SyllableType::CTRL; }
           
           virtual void fillSyllable(VexParser::SyllableArguments* arguments)

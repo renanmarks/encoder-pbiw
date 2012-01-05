@@ -19,7 +19,7 @@ namespace rVex
       class SHL : public SyllableALU
       {
         public:
-          unsigned int getOpcode() const { return 79; }
+          unsigned int getOpcode() const { return this->opSHL; }
           SyllableType::Type getSyllableType() const { return SyllableType::ALU; }
           
           virtual void fillSyllable(VexParser::SyllableArguments* arguments)

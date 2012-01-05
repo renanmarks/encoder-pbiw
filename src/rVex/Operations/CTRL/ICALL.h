@@ -19,7 +19,7 @@ namespace rVex
       class ICALL : public SyllableCTRL
       {
         public:
-          unsigned int getOpcode() const { return 36; }
+          unsigned int getOpcode() const { return this->opICALL; }
           SyllableType::Type getSyllableType() const { return SyllableType::CTRL; }
           
           virtual void print(rVex::Printers::IPrinter&, bool, bool) const;

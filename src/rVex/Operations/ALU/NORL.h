@@ -19,7 +19,7 @@ namespace rVex
       class NORL : public SyllableALU
       {
         public:
-          unsigned int getOpcode() const { return 100; }
+          unsigned int getOpcode() const { return this->opNORL; }
           SyllableType::Type getSyllableType() const { return SyllableType::ALU; }
           
           virtual void fillSyllable(VexParser::SyllableArguments* arguments)

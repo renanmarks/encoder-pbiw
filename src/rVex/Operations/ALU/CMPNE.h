@@ -19,7 +19,7 @@ namespace rVex
       class CMPNE : public SyllableALU
       {
         public:
-          unsigned int getOpcode() const { return 98; }
+          unsigned int getOpcode() const { return this->opCMPNE; }
           SyllableType::Type getSyllableType() const { return SyllableType::ALU; }
           
           virtual void fillSyllable(VexParser::SyllableArguments* arguments)

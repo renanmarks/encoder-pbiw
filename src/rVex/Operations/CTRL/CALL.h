@@ -19,7 +19,7 @@ namespace rVex
       class CALL : public SyllableCTRL
       {
         public:
-          unsigned int getOpcode() const { return 35; }
+          unsigned int getOpcode() const { return this->opCALL; }
           SyllableType::Type getSyllableType() const { return SyllableType::CTRL; }
           
           virtual void fillSyllable(VexParser::SyllableArguments* arguments)

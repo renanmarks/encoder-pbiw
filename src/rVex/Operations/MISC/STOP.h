@@ -21,7 +21,7 @@ namespace rVex
         public:
           STOP() {}
           
-          unsigned int getOpcode() const { return 31; }
+          unsigned int getOpcode() const { return this->opSTOP; }
           SyllableType::Type getSyllableType() const { return SyllableType::CTRL; }
       };
     }

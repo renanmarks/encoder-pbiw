@@ -21,7 +21,7 @@ namespace rVex
         public:
           RECV() {}
           
-          unsigned int getOpcode() const { return 43; }
+          unsigned int getOpcode() const { return this->opRECV; }
           SyllableType::Type getSyllableType() const { return SyllableType::CTRL; }
       };
     }
