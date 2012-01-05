@@ -12,7 +12,6 @@
 #include "Operand.h"
 #include "PartialPBIWPrinter.h"
 #include "Interfaces/IPBIWInstruction.h"
-//#include "Operation.h"
 
 namespace PBIW
 {
@@ -77,7 +76,7 @@ namespace PBIW
     int counterIt = 0;
     unsigned int index1;
     unsigned int index2;  
-
+    
     // Go through all the syllables ordering them by TYPE (TODO: order then by opcode)
     for(it = operations.begin(); 
         it < operations.end(); 
@@ -214,11 +213,11 @@ namespace PBIW
                     }
                 }
             }     
-            else if(((operations.at(index1)->getOpcode() == 0) && 
-                    (operations.at(index2)->getType() == rVex::Syllable::SyllableType::ALU))
+            else if(((operations.at(index2)->getOpcode() == 0) && 
+                    (operations.at(index1)->getType() == rVex::Syllable::SyllableType::ALU))
                    ) 
             {
-                this->exchangeOperations(index1, index2);
+                this->exchangeOperations(index1, index2);                
             }
         }
     }    
