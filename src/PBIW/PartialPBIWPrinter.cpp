@@ -44,10 +44,20 @@ namespace PBIW
     IPBIWInstruction::OperandVector operands = instruction.getOperands();
     IPBIWInstruction::OperandVector::const_iterator it;
     
+    std::list<rVex::Syllable*>::const_iterator sIt;
+    std::list<rVex::Syllable*> references = instruction.getSyllableReferences();
+    
+    for (sIt = references.begin();
+         sIt != references.end();
+         sIt++)
+    {
+      printer << (*sIt)->getOpcode() << "(" << (*sIt) << ")" << std::endl;
+    }
+    
     printer << "Read : ";
     
     for (it = operands.begin();
-         it < operands.end() && it->getIndex() < 8;
+         it < operands.end()-4; //&& it->getIndex() < 8;
          it++)
     {
       printer << "[" << it->getIndex() <<  "] = "<< it->getValue();
@@ -62,11 +72,11 @@ namespace PBIW
     
     printer << "Write: ";
     
-    for (it = operands.begin();
+    for (it = operands.begin() + 8;
          it < operands.end() ;
          it++)
     {
-      if (it->getIndex() >= 8)
+//      if (it->getIndex() >= 8)
       {
         printer << "[" << it->getIndex() <<  "] = "<< it->getValue();
 

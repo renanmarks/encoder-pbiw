@@ -34,10 +34,11 @@
           <runcommandpicklistitem>"${OUTPUT_PATH}" -d Fatorial.s</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -p Fatorial.s</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -p mergesort.s</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" mergesort2.s</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" mergesort.s</runcommandpicklistitem>
         </runcommandpicklist>
         <runcommand>"${OUTPUT_PATH}" mergesort.s</runcommand>
-        <rundir></rundir>
+        <rundir>/home/helix/NetBeansProjects/pbiw_encoder/dist/Debug/GNU-Linux-x86</rundir>
         <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>
         <remove-instrumentation>0</remove-instrumentation>
@@ -70,9 +71,10 @@
       <runprofile version="9">
         <runcommandpicklist>
           <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" mergesort.s</runcommandpicklistitem>
         </runcommandpicklist>
-        <runcommand>"${OUTPUT_PATH}"</runcommand>
-        <rundir></rundir>
+        <runcommand>"${OUTPUT_PATH}" mergesort.s</runcommand>
+        <rundir>/home/helix/NetBeansProjects/pbiw_encoder/dist/Release/GNU-Linux-x86</rundir>
         <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>
         <remove-instrumentation>0</remove-instrumentation>

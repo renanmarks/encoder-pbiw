@@ -10,6 +10,7 @@
 
 #include <string>
 #include "Interfaces/ILabel.h"
+#include "src/rVex/Label.h"
 
 namespace PBIW
 {
@@ -22,11 +23,15 @@ namespace PBIW
   {
   public:
     Label()
-      : name(""), scope(), destiny(NULL), absoluteAddress(0)
+      : name(""), scope(GLOBAL), destiny(NULL), absoluteAddress(0)
     { }
     
     Label(const Label& other)
-      : name(other.name), scope(other.getScope()), destiny(NULL), absoluteAddress(0)
+      : name(other.name), scope(other.getScope()), destiny(other.getDestiny()), absoluteAddress(other.getAbsoluteAddress())
+    { }
+    
+    Label(const rVex::Label& rVexLabel)
+      : name(rVexLabel.name), scope(static_cast<LabelScope>(rVexLabel.scope)), destiny(NULL), absoluteAddress(0)
     { }
     
     ~Label() 

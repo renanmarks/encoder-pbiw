@@ -20,7 +20,7 @@ namespace rVex
     public:
       typedef std::vector<Syllable*> SyllableVector;
       
-      Instruction() : address(0) {}
+      Instruction() : label(NULL), address(0) {}
       
       bool addSyllable(Syllable&);
       bool removeSyllable(const Syllable&);
@@ -33,6 +33,9 @@ namespace rVex
       
       void setLabel(rVex::Label& label)
       { this->label = &label; }
+      
+      bool haveLabel() const
+      { return this->label != NULL; }
       
       rVex::Label* getLabel() const
       { return this->label; }

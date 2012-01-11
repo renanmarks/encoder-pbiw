@@ -15,6 +15,7 @@
 #include "Interfaces/IPBIW.h"
 #include "Label.h"
 #include "Utils/OperandVector.h"
+#include "src/rVex/Syllable.h"
 
 namespace PBIW
 {
@@ -49,8 +50,14 @@ namespace PBIW
     /**
      * Internal data structures
      */
-    typedef std::list<Label> LabelVector;
+    typedef std::list<PBIW::Label> LabelVector;
     LabelVector labels;
+    
+    /**
+     * Buffer used to know the syllables coded at each iteration
+     */
+    typedef std::list<rVex::Syllable*> SyllableReferenceList;
+    SyllableReferenceList syllablesBuffer;
     
     typedef std::list<IPBIWInstruction*> PBIWInstructionList;
     PBIWInstructionList codedInstructions;
@@ -64,7 +71,8 @@ namespace PBIW
     const IPBIWPattern& hasPattern(const IPBIWPattern&) const;
     
     void savePBIWElements(IPBIWInstruction*&, IPBIWPattern*&);
-    void saveAndCreateNewPBIWElements(IPBIWInstruction*&, IPBIWPattern*&, IOperation*&, rVex::Syllable* const&);
+    void saveAndCreateNewPBIWElements(IPBIWInstruction*&, IPBIWPattern*&);
+    void resetFinalOperation(VexSyllableOperandVector::Collection::const_iterator&, IOperation*&, rVex::Syllable* const&, const VexSyllableOperandVector&);
 
     /**
      * Functor used to find a label.

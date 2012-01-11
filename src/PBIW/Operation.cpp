@@ -18,6 +18,7 @@ namespace PBIW
   Operation::getOperandsIndexes() const
   {
     OperandIndexVector returnVector;
+    returnVector.reserve(readOperands.size() + 2);
     
     returnVector.push_back(writeOperand);
     returnVector.insert(returnVector.end(), readOperands.begin(), readOperands.end());

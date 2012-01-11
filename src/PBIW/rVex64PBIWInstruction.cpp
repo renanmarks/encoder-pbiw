@@ -5,6 +5,7 @@
  * Created on July 21, 2011, 3:18 PM
  */
 
+#include <deque>
 #include <iostream>
 #include <algorithm>
 #include <typeinfo>
@@ -17,22 +18,46 @@ namespace PBIW
 
   rVex64PBIWInstruction::~rVex64PBIWInstruction()
   {
-    
+
   }
-  
+
   rVex64PBIWInstruction::OperandVector
   rVex64PBIWInstruction::getOperands() const
   {
-    rVex64PBIWInstruction::OperandVector returnVector(readOperands.begin(), readOperands.end());
+    std::deque<Operand> temp(readOperands.begin(), readOperands.end());
+    
+    temp.resize(8, Operand(-1));
     
     if (writeOperands.size() > 0)
-      returnVector.insert(returnVector.end(), writeOperands.front());
-    
+      temp.push_back(writeOperands[0]);
+
     if (immediate.isImmediate())
-      returnVector.insert(returnVector.end(), immediate);
+    {
+      temp.push_back(Operand(-1));
+      
+      if (immediate.isImmediate9Bits())
+      {
+        temp.push_back(immediate);
+        
+        if (writeOperands.size() > 1)
+          temp.push_back(writeOperands[1]);
+      }
+      else
+      {
+        temp.push_back(Operand(-1));
+        temp.push_back(immediate);
+      }
+    }
+    else
+    {
+      if (writeOperands.size() > 1)
+        temp.insert(temp.end(), writeOperands.begin() + 1, writeOperands.end());
+    }
     
-    if (writeOperands.size() > 1)
-      returnVector.insert(returnVector.end(), writeOperands.begin() + 1, writeOperands.end());
+    if (temp.size() < 12)
+      temp.resize(12, Operand(-1));
+    
+    rVex64PBIWInstruction::OperandVector returnVector(temp.begin(), temp.end());    
     
     return returnVector;
   }
@@ -43,24 +68,26 @@ namespace PBIW
 
   }
 
-  void rVex64PBIWInstruction::setLabel(const ILabel& label)
+  void
+  rVex64PBIWInstruction::setLabel(const ILabel& label)
   {
-    const Label& temp = dynamic_cast<const Label&>(label);
-    
-    this->label = temp;
+    const Label& temp = dynamic_cast<const Label&> (label);
+
+    this->label = &const_cast<Label&>(temp);
   }
-  
-  const Label& rVex64PBIWInstruction::getLabel() const
+
+  Label*
+  rVex64PBIWInstruction::getLabel() const
   {
-    return this->label;
+    return label;
   }
-  
+
   void
   rVex64PBIWInstruction::pointToPattern(const IPBIWPattern& pattern)
   {
-    const rVex96PBIWPattern& temp = dynamic_cast<const rVex96PBIWPattern&> (pattern);
+    const rVex96PBIWPattern& temp=dynamic_cast<const rVex96PBIWPattern&> (pattern);
 
-    this->pattern = &temp;
+    this->pattern= &temp;
   }
 
   const IOperand&
@@ -72,19 +99,19 @@ namespace PBIW
 
     OperandVector::const_iterator it;
 
-    for (it = readOperands.begin();
+    for (it=readOperands.begin();
          it < readOperands.end();
          it++)
     {
-      if ( *it == operand )
+      if (*it == operand)
         return *it;
     }
 
-    for (it = writeOperands.begin();
+    for (it=writeOperands.begin();
          it < writeOperands.end();
          it++)
     {
-      if ( *it == operand )
+      if (*it == operand)
         return *it;
     }
 
@@ -94,9 +121,9 @@ namespace PBIW
   void
   rVex64PBIWInstruction::addReadOperand(IOperand& operand)
   {
-    unsigned int index = this->readOperands.size();
+    unsigned int index=this->readOperands.size();
     operand.setIndex(index);
-    this->readOperands.push_back(dynamic_cast<Operand&>(operand));
+    this->readOperands.push_back(dynamic_cast<Operand&> (operand));
   }
 
   void
@@ -108,67 +135,62 @@ namespace PBIW
         operand.setIndex(10);
       else if (operand.isImmediate12Bits())
         operand.setIndex(11);
-      
-      immediate = dynamic_cast<Operand&>(operand);
-      
+
+      immediate=dynamic_cast<Operand&> (operand);
+
       return;
     }
-    
+
     // If we not have the immediate yet, do the normal indexing
-    unsigned int index;// = 8 + this->writeOperands.size();
-    
+    unsigned int index; // = 8 + this->writeOperands.size();
+
     if (immediate.isImmediate())
     {
       // If we have immediate, do the absolute indexing
       if (immediate.isImmediate9Bits())
       {
-        switch (writeOperands.size())
-        {
+        switch (writeOperands.size()) {
           case 0:
-            index = 8; // before the 9 and 10 positions occupied by the imm
+            index=8; // before the 9 and 10 positions occupied by the imm
             break;
           case 1:
-            index = 11; // after the 9 and 10 positions occupied by the imm
+            index=11; // after the 9 and 10 positions occupied by the imm
             break;
           default: // more than 2
-            index = 666; // error!
+            index=666; // error!
             break;
         }
-      }
-      else if (immediate.isImmediate12Bits())
+      } else if (immediate.isImmediate12Bits())
       {
-        switch (writeOperands.size())
-        {
+        switch (writeOperands.size()) {
           case 0:
-            index = 8; // before the 9, 10 and 11 positions occupied by the imm
+            index=8; // before the 9, 10 and 11 positions occupied by the imm
             break;
           default: // more than 1
-            index = 666; // error!
+            index=666; // error!
             break;
         }
       }
-    }
-    else
+    } else
     {
-      index = 8 + this->writeOperands.size();
+      index=8 + this->writeOperands.size();
     }
-    
+
     operand.setIndex(index);
-    this->writeOperands.push_back(dynamic_cast<Operand&>(operand));
+    this->writeOperands.push_back(dynamic_cast<Operand&> (operand));
   }
 
   bool
   rVex64PBIWInstruction::hasOperandSlot(const Utils::OperandItem& operand)
   {
-    switch(operand.getType())
-    {
-      case Utils::OperandItem::BRDestiny :
-      case Utils::OperandItem::GRDestiny :
+    switch (operand.getType()) {
+      case Utils::OperandItem::BRDestiny:
+      case Utils::OperandItem::GRDestiny:
         return this->hasWriteOperandSlot();
         break;
-        
-      case Utils::OperandItem::Imm :
-        if ( this->containsImmediate() )
+
+      case Utils::OperandItem::Imm:
+        if (this->containsImmediate())
           return false;
 
         if (operand.getOperand()->isImmediate9Bits() && writeOperands.size() == 2)
@@ -176,22 +198,22 @@ namespace PBIW
           writeOperands.back().setIndex(11);
           return false;
         }
-        
-        if ( operand.getOperand()->isImmediate9Bits() && writeOperands.size() > 2 )
+
+        if (operand.getOperand()->isImmediate9Bits() && writeOperands.size() > 2)
           return false;
 
-        if ( operand.getOperand()->isImmediate12Bits() && writeOperands.size() > 1 )
+        if (operand.getOperand()->isImmediate12Bits() && writeOperands.size() > 1)
           return false;
         break;
 
-      case Utils::OperandItem::BRSource :
-      case Utils::OperandItem::GRSource :
+      case Utils::OperandItem::BRSource:
+      case Utils::OperandItem::GRSource:
         return this->hasReadOperandSlot();
         break;
     }
-    
+
     return true;
-//    return hasReadOperandSlot() || hasWriteOperandSlot();
+    //    return hasReadOperandSlot() || hasWriteOperandSlot();
   }
 
   bool
@@ -203,7 +225,7 @@ namespace PBIW
   bool
   rVex64PBIWInstruction::hasWriteOperandSlot() const
   {
-    bool hasWriteSlots =
+    bool hasWriteSlots=
       (immediate.isImmediate12Bits() && (writeOperands.size() < 1)) ||
       (immediate.isImmediate9Bits() && (writeOperands.size() < 2)) ||
       (!immediate.isImmediate12Bits() && !immediate.isImmediate9Bits() && writeOperands.size() < 4);

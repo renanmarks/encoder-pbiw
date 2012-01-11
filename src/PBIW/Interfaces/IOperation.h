@@ -9,6 +9,7 @@
 #define	IOPERATION_H
 
 #include <vector>
+#include <deque>
 #include "IOperand.h"
 #include "src/rVex/Syllable.h"
 

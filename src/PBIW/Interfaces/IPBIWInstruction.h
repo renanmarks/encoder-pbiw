@@ -9,6 +9,7 @@
 #define	IPBIWINSTRUCTION_H
 
 #include <set>
+#include <list>
 #include "IOperand.h"
 #include "IPBIWPattern.h"
 #include "IPBIWPrinter.h"
@@ -36,7 +37,7 @@ namespace PBIW
         /**
          * Get the label of this instruction
          */
-        virtual const ILabel& getLabel() const = 0;
+        virtual ILabel* getLabel() const = 0;
         
         /**
          * Points this instruction to its pattern.
@@ -117,6 +118,16 @@ namespace PBIW
          * Informs if the PBIW instruction contains immediate operand
          */
         virtual bool containsImmediate() const = 0;
+        
+        /**
+         * Set the syllables that were codified in this instruction.
+         */
+        virtual void setSyllableReferences(const std::list<rVex::Syllable*>&) = 0;
+        
+        /**
+         * Returns the syllables that were codified in this instruction.
+         */
+        virtual std::list<rVex::Syllable*> getSyllableReferences() const = 0;
     };
 
   }

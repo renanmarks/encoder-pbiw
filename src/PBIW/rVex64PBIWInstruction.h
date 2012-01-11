@@ -25,7 +25,7 @@ namespace PBIW
   class rVex64PBIWInstruction : public IPBIWInstruction
   {
   public:
-    rVex64PBIWInstruction() //: readOperands(0, Operand(0)), writeOperands()
+    rVex64PBIWInstruction() : label(NULL) //readOperands(0, Operand(0)), writeOperands()
     {
       Operand operand(0);
       operand.setIndex(0);
@@ -35,7 +35,7 @@ namespace PBIW
     virtual ~rVex64PBIWInstruction();
     
     virtual void setLabel(const ILabel&);
-    virtual const Label& getLabel() const;
+    virtual Label* getLabel() const;
     
     virtual void pointToPattern(const IPBIWPattern& pattern);
     
@@ -63,8 +63,14 @@ namespace PBIW
     
     virtual OperandVector getOperands() const;
     
+    virtual void setSyllableReferences(const std::list<rVex::Syllable*>& list)
+    { syllablesPacked = list; }
+    
+    virtual std::list<rVex::Syllable*> getSyllableReferences() const
+    { return syllablesPacked; }
+    
   private:
-    Label label;
+    Label* label;
     
     const rVex96PBIWPattern* pattern;
 
@@ -95,7 +101,7 @@ namespace PBIW
     /**
      * Keeps track of what syllables were packed in this instruction
      */
-    std::vector<rVex::Syllable*> syllablesPacked;
+    std::list<rVex::Syllable*> syllablesPacked;
   };
 }
 

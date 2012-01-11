@@ -24,6 +24,14 @@ namespace rVex
       GLOBAL = 0, LOCAL = 1
     } LabelScope;
 
+    Label() 
+      : name(""), scope(GLOBAL), destiny(NULL), absoluteAddress(0)
+    { }
+    
+    Label(const Label& other) 
+      : name(other.name), scope(other.scope), destiny(other.destiny), absoluteAddress(other.absoluteAddress)
+    { }
+    
     std::string name;
     LabelScope scope;
     rVex::Syllable* destiny;

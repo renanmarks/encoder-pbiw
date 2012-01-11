@@ -73,17 +73,28 @@ namespace PBIW
       delete newPattern; // if found, we are not using the newPattern, so free the memory allocated
 
     finalInstruction->pointToPattern(notConstFoundPattern);
+    finalInstruction->setSyllableReferences(syllablesBuffer);
+    
+    syllablesBuffer.clear(); // Clear the buffer to get new references
+    
     codedInstructions.push_back(finalInstruction);
     notConstFoundPattern.incrementUsageCounter();
   }
   
-  void PartialPBIW::saveAndCreateNewPBIWElements(IPBIWInstruction*& finalInstruction, IPBIWPattern*& newPattern, IOperation*& finalOperation, rVex::Syllable* const& syllable)
+  void PartialPBIW::saveAndCreateNewPBIWElements(IPBIWInstruction*& finalInstruction, IPBIWPattern*& newPattern)
   {
     savePBIWElements(finalInstruction, newPattern);
 
     finalInstruction = new rVex64PBIWInstruction();
     newPattern = new rVex96PBIWPattern();
-
+  }
+  
+  void PartialPBIW::resetFinalOperation(VexSyllableOperandVector::Collection::const_iterator& operandIt, 
+                                        IOperation*& finalOperation, 
+                                        rVex::Syllable* const& syllable,
+                                        const VexSyllableOperandVector& operands)
+  {
+    operandIt = operands.begin();
     delete finalOperation;
     finalOperation = new Operation();
     finalOperation->setOpcode( syllable->getOpcode() );
@@ -103,6 +114,17 @@ namespace PBIW
       // Create a new PBIW instruction and PBIW pattern
       IPBIWInstruction* finalInstruction = new rVex64PBIWInstruction();
       IPBIWPattern* newPattern = new rVex96PBIWPattern();
+      
+      // Copy the original labels to the data structure used in PBIW
+      if ( (*instructionIt)->haveLabel() )
+      {
+        rVex::Label* instructionLabel = (*instructionIt)->getLabel();
+        PBIW::Label label = *instructionLabel;
+        
+        labels.push_back(label);
+        
+        finalInstruction->setLabel(labels.back());
+      }
       
       // For each syllable...
       VexSyllableVector syllables = (*instructionIt)->getSyllables();
@@ -139,8 +161,8 @@ namespace PBIW
           {
             if ( !finalInstruction->hasOperandSlot( **operandIt ) )
             {
-              saveAndCreateNewPBIWElements(finalInstruction, newPattern, finalOperation, *syllableIt);
-              operandIt = operands.begin();
+              saveAndCreateNewPBIWElements(finalInstruction, newPattern);
+              resetFinalOperation(operandIt, finalOperation, *syllableIt, operands);
             }
           
             operand = (*operandIt)->getOperand();
@@ -179,8 +201,8 @@ namespace PBIW
             {
               if ( !finalInstruction->hasReadOperandSlot() )
               {
-                saveAndCreateNewPBIWElements(finalInstruction, newPattern, finalOperation, *syllableIt);
-                operandIt = operands.begin();
+                saveAndCreateNewPBIWElements(finalInstruction, newPattern);
+                resetFinalOperation(operandIt, finalOperation, *syllableIt, operands);
               }
 
               operand = (*operandIt)->getOperand();
@@ -202,8 +224,8 @@ namespace PBIW
               {
                 if ( !finalInstruction->hasWriteOperandSlot() )
                 {
-                  saveAndCreateNewPBIWElements(finalInstruction, newPattern, finalOperation, *syllableIt);
-                  operandIt = operands.begin();
+                  saveAndCreateNewPBIWElements(finalInstruction, newPattern);
+                  resetFinalOperation(operandIt, finalOperation, *syllableIt, operands);
                 }
 
                 operand = (*operandIt)->getOperand();
@@ -236,6 +258,7 @@ namespace PBIW
          
         } // ... end for each operand
         
+        syllablesBuffer.push_back(*syllableIt);
         newPattern->addOperation(finalOperation);
       } // ... end for each syllable
       
@@ -262,14 +285,14 @@ namespace PBIW
     
     printer.getOutputStream() << "Patterns: " << codedPatterns.size() << std::endl;
     
-    for (patternIt = codedPatterns.begin();
-         patternIt != codedPatterns.end();
-         patternIt++)
-    {
-      printer.getOutputStream() << "Usage count: " << (*patternIt)->getUsageCounter() << std::endl;
-      printer.printPattern(**patternIt);
-      printer.getOutputStream() << "---" << std::endl;
-    }
+//    for (patternIt = codedPatterns.begin();
+//         patternIt != codedPatterns.end();
+//         patternIt++)
+//    {
+//      printer.getOutputStream() << "Usage count: " << (*patternIt)->getUsageCounter() << std::endl;
+//      printer.printPattern(**patternIt);
+//      printer.getOutputStream() << "---" << std::endl;
+//    }
     
     PBIWInstructionList::const_iterator instructionIt;
     
@@ -279,11 +302,11 @@ namespace PBIW
          instructionIt != codedInstructions.end();
          instructionIt++)
     {
-      const IPBIWPattern* pattern = (*instructionIt)->getPattern();
-      
-      printer.getOutputStream() << "Pattern Addr: " << pattern << " - " << std::endl;
+//      const IPBIWPattern* pattern = (*instructionIt)->getPattern();
+//      
+//      printer.getOutputStream() << "Pattern Addr: " << pattern << " - " << std::endl;
       printer.printInstruction(**instructionIt);
-      printer.printPattern(*pattern);
+//      printer.printPattern(*pattern);
       printer.getOutputStream() << "---" << std::endl;
     }
     
