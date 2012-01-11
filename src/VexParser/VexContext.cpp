@@ -8,6 +8,7 @@
 #include <iostream>
 #include <string.h>
 #include <algorithm>
+#include <sstream>
 #include "VexContext.h"
 #include "src/rVex/SyllableALU.h"
 #include "src/rVex/SyllableMISC.h"
@@ -55,37 +56,118 @@ namespace VexParser
   
   void VexContext::packSyllable(rVex::SyllableALU* syllable, SyllableArguments* arguments)
   {
-    // If is a MOV with immediate operand then is a pseudo-instruction...
-    if (
-        (syllable->getOpcode() == rVex::Syllable::opMOV) &&
-        (arguments->getSourceArguments()->getArguments()[0]->getParsedValue().isImmediate)
-       )
+    switch(syllable->getOpcode())
     {
-      // Change MOV syllable to ADD syllable
-      rVex::Operations::ALU::ADD add;
-      memcpy(syllable, &add, sizeof(add));
+      // If is a MOV with immediate operand then is a pseudo-instruction...
+      case rVex::Syllable::opMOV:
+      {
+        // Change MOV syllable to ADD syllable
+        rVex::Operations::ALU::ADD add;
+        memcpy(syllable, &add, sizeof(add));
+
+        int value = arguments->getSourceArguments()->getArguments()[0]->getValue();
+          
+        if (arguments->getSourceArguments()->getArguments()[0]->getParsedValue().isImmediate)
+        {
+          // Change from: mov $r0.x = 12345
+          // to: add $r0.x = $r0.0, 12345
+          arguments->getSourceArguments()->clearArguments();
+          arguments->getSourceArguments()->addArgument(new Expression("$r0.0"));
+          arguments->getSourceArguments()->addArgument(new Expression(value));
+        }
+        else
+        {
+          // Change from: mov $r0.x = $r0.y
+          // to: add $r0.x = $r0.y, $r0.0
+          int value = arguments->getSourceArguments()->getArguments()[0]->getValue();
+          
+          std::stringstream strBuilder;
+          strBuilder << "$r0." << value << std::endl;
+          
+          arguments->getSourceArguments()->addArgument(new Expression("$r0.0"));
+          arguments->getSourceArguments()->addArgument(new Expression(strBuilder.str()));
+        }
+      } 
+      break;
       
-      // Change from: mov $r0.x = 12345
-      // to: add $r0.x = $r0.0, 12345
-      int value = arguments->getSourceArguments()->getArguments()[0]->getValue();
-      arguments->getSourceArguments()->clearArguments();
-      arguments->getSourceArguments()->addArgument(new Expression("$r0.0"));
-      arguments->getSourceArguments()->addArgument(new Expression(value));
-    }
-    // If is a MOV without immediate operand then is a pseudo-instruction...
-    else if ((syllable->getOpcode() == rVex::Syllable::opMOV) &&
-        (!arguments->getSourceArguments()->getArguments()[0]->getParsedValue().isImmediate)
-       )
-    {
-      // Change MOV syllable to ADD syllable
-      rVex::Operations::ALU::ADD add;
-      memcpy(syllable, &add, sizeof(add));
-      
-      // Change from: mov $r0.x = $r0.y
-      // to: add $r0.x = $r0.y, $r0.0
-      int value = arguments->getSourceArguments()->getArguments()[0]->getValue();
-      arguments->getSourceArguments()->addArgument(new Expression("$r0.0"));
-      arguments->getSourceArguments()->addArgument(new Expression("$r0."+value));
+      case rVex::Syllable::opCMPEQ:
+      case rVex::Syllable::opCMPGE:
+      case rVex::Syllable::opCMPGEU:
+      case rVex::Syllable::opCMPGT:
+      case rVex::Syllable::opCMPGTU:
+      case rVex::Syllable::opCMPLE:
+      case rVex::Syllable::opCMPLEU:
+      case rVex::Syllable::opCMPLT:
+      case rVex::Syllable::opCMPLTU:
+      case rVex::Syllable::opCMPNE:
+      case rVex::Syllable::opNANDL:
+      case rVex::Syllable::opNORL:
+      case rVex::Syllable::opORL:
+        // Change from: cmpXX $r0.x = $r0.y, 12345
+        // to: 
+        // add $r0.32 = $r0.0, 12345
+        // cmpXX $r0.x = $r0.y, $r0.32
+        
+        // WARNING: this is only suitable if the PBIW encoding supports indexing
+        // the $r0.32 register
+        if (arguments->getSourceArguments()->getArguments()[1]->getParsedValue().isImmediate)
+        {
+          // If not enought space to fit the add, get a new instruction
+          if (syllableBuffer.size() > 3)
+            endInstruction();
+          
+          // Save cmpXX original values for posterior use
+          bool isBR = arguments->getDestinyArguments()->getArguments()[0]->getParsedValue().isBranchRegister;
+          int destinyReg = arguments->getDestinyArguments()->getArguments()[0]->getValue();
+          int sourceReg = arguments->getSourceArguments()->getArguments()[0]->getValue();
+          int value = arguments->getSourceArguments()->getArguments()[1]->getValue();
+          
+          rVex::SyllableALU* add = new rVex::Operations::ALU::ADD();
+
+          arguments->getDestinyArguments()->clearArguments();
+          arguments->getSourceArguments()->addArgument(new Expression("$r0.32"));
+          
+          arguments->getSourceArguments()->clearArguments();
+          arguments->getSourceArguments()->addArgument(new Expression("$r0.0"));
+          arguments->getSourceArguments()->addArgument(new Expression(value));
+          
+          add->fillSyllable(arguments);
+          syllableBuffer.push_back(add);
+          
+          // Get a new instruction because of the use of the previous 
+          // assigned register $r0.32
+          endInstruction();
+          
+          // Used to construct the register strings
+          std::stringstream strBuilder;
+          
+          strBuilder << "$r0." << destinyReg << std::endl;
+          std::string destinyRegStr = strBuilder.str();
+          
+          if (isBR)
+          {
+            strBuilder.clear();
+            strBuilder << "$b0." << destinyReg << std::endl;
+            destinyRegStr = strBuilder.str();
+          }
+          
+          arguments->getDestinyArguments()->clearArguments();
+          arguments->getSourceArguments()->addArgument(new Expression(destinyRegStr));
+          
+          arguments->getSourceArguments()->clearArguments();
+          
+          strBuilder.clear();
+          strBuilder << "$r0." << sourceReg << std::endl;
+          arguments->getSourceArguments()->addArgument(new Expression(strBuilder.str()));
+          arguments->getSourceArguments()->addArgument(new Expression("$r0.32"));
+          
+          syllable->fillSyllable(arguments);
+          syllableBuffer.push_back(syllable);
+          endInstruction();
+          
+          return;
+        }
+      break;
     }
 
     syllable->fillSyllable(arguments);
@@ -254,7 +336,7 @@ namespace VexParser
       std::string label = (*it)->getLabel();
       LabelVector::iterator labelIt = std::find_if(labels.begin(), labels.end(), FindLabel(label));
       
-      if ( labelIt != (labels.end()+1) )
+      if ( labelIt != labels.end() )
         (*it)->setLabelDestiny(labelIt->destiny);
     
       if (debugEnabled)

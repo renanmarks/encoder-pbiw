@@ -43,7 +43,7 @@ namespace VexParser
     /**
      * Vector of the labels in assembly
      */
-    typedef std::vector<rVex::Label> LabelVector;
+    typedef std::list<rVex::Label> LabelVector;
     LabelVector labels;
     
     bool hasLabel; // Used to know when a label is defined
