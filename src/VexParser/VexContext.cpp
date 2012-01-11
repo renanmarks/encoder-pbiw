@@ -152,12 +152,11 @@ namespace VexParser
           }
           
           arguments->getDestinyArguments()->clearArguments();
-          arguments->getSourceArguments()->addArgument(new Expression(destinyRegStr));
-          
-          arguments->getSourceArguments()->clearArguments();
+          arguments->getDestinyArguments()->addArgument(new Expression(destinyRegStr));
           
           strBuilder.clear();
           strBuilder << "$r0." << sourceReg << std::endl;
+          arguments->getSourceArguments()->clearArguments();
           arguments->getSourceArguments()->addArgument(new Expression(strBuilder.str()));
           arguments->getSourceArguments()->addArgument(new Expression("$r0.32"));
           
