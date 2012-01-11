@@ -47,7 +47,7 @@ namespace PBIW
     
     virtual void print(IPBIWPrinter&) const;
     
-    virtual unsigned int getValueByIndex(const IPBIWInstruction*& instruction, unsigned int index) const;
+    
     
     virtual bool operator<(const IPBIWPattern&) const;
     virtual bool operator>(const IPBIWPattern&) const;
@@ -61,6 +61,7 @@ namespace PBIW
     OperationVector operations; // Max 4
     int usageCounter;
     
+    virtual unsigned int getValueByIndex(const IPBIWInstruction*& instruction, int index) const;
     virtual void exchangeOperations(int index1, int index2);
     
   };

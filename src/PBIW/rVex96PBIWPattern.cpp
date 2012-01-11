@@ -75,8 +75,6 @@ namespace PBIW
     IOperation::OperandIndexVector operandsOp2;
      
     int counterIt = 0;
-    unsigned int index1;
-    unsigned int index2;  
 
     // Go through all the syllables ordering them by TYPE (TODO: order then by opcode)
     for(it = operations.begin(); 
@@ -163,6 +161,9 @@ namespace PBIW
       counterIt++;             
     }
     
+    unsigned int index1;
+    unsigned int index2;
+    
     // Ordering of the ALU operations by opcode, when this operations have differents
     // opcodes. Otherwise (equals opcode) the ALU operations are ordering by 
     // write operand, or first read operand or second read operand/immediate.
@@ -237,17 +238,14 @@ namespace PBIW
   }
   
   unsigned int
-  rVex96PBIWPattern::getValueByIndex(const IPBIWInstruction*& instruction, unsigned int index) const
+  rVex96PBIWPattern::getValueByIndex(const IPBIWInstruction*& instruction, int index) const
   {
-      IPBIWInstruction::OperandVector operands = instruction->getOperands();
-      IPBIWInstruction::OperandVector::const_iterator it;
+    IPBIWInstruction::OperandVector operands = instruction->getOperands();
+
+    if (index != -1)
+      return operands[index].getValue();
       
-      for(it = operands.begin();it < operands.end(); it ++){
-          if(it->getIndex() == index)
-              return it->getValue();
-      }
-      
-      return -1;
+    return index;
   }
     
   bool
