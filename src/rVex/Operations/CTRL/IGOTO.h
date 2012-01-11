@@ -19,7 +19,7 @@ namespace rVex
       class IGOTO : public SyllableCTRL
       {
         public:
-          unsigned int getOpcode() const { return 34; }
+          unsigned int getOpcode() const { return this->opIGOTO; }
           SyllableType::Type getSyllableType() const { return SyllableType::CTRL; }
           
           virtual void print(rVex::Printers::IPrinter&, bool, bool) const;

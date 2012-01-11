@@ -19,7 +19,7 @@ namespace rVex
       class NANDL : public SyllableALU
       {
         public:
-          unsigned int getOpcode() const { return 99; }
+          unsigned int getOpcode() const { return this->opNANDL; }
           SyllableType::Type getSyllableType() const { return SyllableType::ALU; }
           
           virtual void fillSyllable(VexParser::SyllableArguments* arguments)

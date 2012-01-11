@@ -19,7 +19,7 @@ namespace rVex
       class MAX : public SyllableALU
       {
         public:
-          unsigned int getOpcode() const { return 69; }
+          unsigned int getOpcode() const { return this->opMAX; }
           SyllableType::Type getSyllableType() const { return SyllableType::ALU; }
           
           virtual void fillSyllable(VexParser::SyllableArguments* arguments)

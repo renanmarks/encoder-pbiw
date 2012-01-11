@@ -19,7 +19,7 @@ namespace rVex
       class CMPGEU : public SyllableALU
       {
         public:
-          unsigned int getOpcode() const { return 91; }
+          unsigned int getOpcode() const { return this->opCMPGEU; }
           SyllableType::Type getSyllableType() const { return SyllableType::ALU; }
           
           virtual void fillSyllable(VexParser::SyllableArguments* arguments)

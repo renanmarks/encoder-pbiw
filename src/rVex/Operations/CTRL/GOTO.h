@@ -19,7 +19,7 @@ namespace rVex
       class GOTO : public SyllableCTRL
       {
         public:
-          unsigned int getOpcode() const { return 33; }
+          unsigned int getOpcode() const { return this->opGOTO; }
           SyllableType::Type getSyllableType() const { return SyllableType::CTRL; }
           
           virtual void fillSyllable(VexParser::SyllableArguments* arguments)

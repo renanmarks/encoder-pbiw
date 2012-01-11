@@ -19,7 +19,7 @@ namespace rVex
       class ZXTB : public SyllableALU
       {
         public:
-          unsigned int getOpcode() const { return 85; }
+          unsigned int getOpcode() const { return this->opZXTB; }
           SyllableType::Type getSyllableType() const { return SyllableType::ALU; }
           
           virtual void fillSyllable(VexParser::SyllableArguments* arguments)

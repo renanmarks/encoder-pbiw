@@ -19,7 +19,7 @@ namespace rVex
       class AND : public SyllableALU
       {
         public:
-          unsigned int getOpcode() const { return 67; }
+          unsigned int getOpcode() const { return this->opAND; }
           SyllableType::Type getSyllableType() const { return SyllableType::ALU; }
           
           virtual void fillSyllable(VexParser::SyllableArguments* arguments)

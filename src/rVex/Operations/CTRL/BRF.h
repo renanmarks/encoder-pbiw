@@ -19,7 +19,7 @@ namespace rVex
       class BRF : public SyllableCTRL
       {
         public:
-          unsigned int getOpcode() const { return 38; }
+          unsigned int getOpcode() const { return this->opBRF; }
           SyllableType::Type getSyllableType() const { return SyllableType::CTRL; }
           
           virtual void fillSyllable(VexParser::SyllableArguments* arguments)

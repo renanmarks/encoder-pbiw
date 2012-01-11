@@ -19,7 +19,7 @@ namespace rVex
       class MIN : public SyllableALU
       {
         public:
-          unsigned int getOpcode() const { return 71; }
+          unsigned int getOpcode() const { return this->opMIN; }
           SyllableType::Type getSyllableType() const { return SyllableType::ALU; }
           
           virtual void fillSyllable(VexParser::SyllableArguments* arguments)

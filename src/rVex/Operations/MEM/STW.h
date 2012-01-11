@@ -21,7 +21,7 @@ namespace rVex
         public:
           STW() {}
           
-          unsigned int getOpcode() const { return 22; }
+          unsigned int getOpcode() const { return this->opSTW; }
           SyllableType::Type getSyllableType() const { return SyllableType::MEM; }
           
           void print(rVex::Printers::IPrinter& output, bool first, bool last) const

@@ -19,7 +19,7 @@ namespace rVex
       class LDW : public SyllableMEM
       {
         public:
-          unsigned int getOpcode() const { return 17; }
+          unsigned int getOpcode() const { return this->opLDW; }
           SyllableType::Type getSyllableType() const { return SyllableType::MEM; }
           
           void print(rVex::Printers::IPrinter& output, bool first, bool last) const

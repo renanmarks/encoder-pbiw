@@ -19,7 +19,7 @@ namespace rVex
       class MAXU : public SyllableALU
       {
         public:
-          unsigned int getOpcode() const { return 70; }
+          unsigned int getOpcode() const { return this->opMAXU; }
           SyllableType::Type getSyllableType() const { return SyllableType::ALU; }
           
           virtual void fillSyllable(VexParser::SyllableArguments* arguments)

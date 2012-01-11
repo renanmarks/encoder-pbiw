@@ -19,7 +19,7 @@ namespace rVex
       class RFI : public SyllableCTRL
       {
         public:
-          unsigned int getOpcode() const { return 40; }
+          unsigned int getOpcode() const { return this->opRFI; }
           SyllableType::Type getSyllableType() const { return SyllableType::CTRL; }
           
           virtual void fillSyllable(VexParser::SyllableArguments* arguments)

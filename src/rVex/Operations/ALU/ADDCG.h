@@ -19,7 +19,7 @@ namespace rVex
       class ADDCG : public SyllableALU
       {
         public:
-          unsigned int getOpcode() const { return 104; }
+          unsigned int getOpcode() const { return this->opADDCG; }
           SyllableType::Type getSyllableType() const { return SyllableType::ALU; }
           
           virtual void fillSyllable(VexParser::SyllableArguments* arguments)

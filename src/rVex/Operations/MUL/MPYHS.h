@@ -19,7 +19,7 @@ namespace rVex
       class MPYHS : public SyllableMUL
       {
         public:
-          unsigned int getOpcode() const { return 11; }
+          unsigned int getOpcode() const { return this->opMPYHS; }
           SyllableType::Type getSyllableType() const { return SyllableType::MUL; }
           
           virtual void fillSyllable(VexParser::SyllableArguments* arguments)
