@@ -10,19 +10,24 @@
 
 namespace VexParser
 {
-  Arguments::Arguments( Expression* ex )
+  Arguments::Arguments( const Expression& ex )
   { 
     addArgument(ex);
   }
 
-  Arguments::Arguments( Arguments& args, Expression* ex )
+  Arguments::Arguments( Arguments& args, const Expression& ex )
   {
-    ArgumentVector::const_iterator it;
-
-    for (it=args.getArguments().begin(); it < args.getArguments().end(); it++)
-      addArgument( new Expression(**it) );
+    copyExpressions(args.getArguments());
     
     addArgument(ex);
+  }
+  
+  Arguments::Arguments( Arguments& other )
+  {
+    if (this != &other) // protect against invalid self-assignment
+    {
+      copyExpressions(other.getArguments());
+    }
   }
   
   Arguments::~Arguments()
@@ -30,14 +35,21 @@ namespace VexParser
     clearArguments();
   }
 
-  void
-  Arguments::addArgument( Expression* ex )
+  void Arguments::copyExpressions(const ArgumentVector& expressions)
   {
-    if (ex->isMemoryReference())
+    ArgumentVector::const_iterator it;
+
+    for (it=expressions.begin(); it < expressions.end(); it++)
+      addArgument( *it );
+  }
+  
+  void
+  Arguments::addArgument( const Expression& ex )
+  {
+    if (ex.isMemoryReference())
     {
-      arguments.push_back(new Expression(ex->getValue()));  // offset
-      arguments.push_back(new Expression(ex->getString())); // register
-      delete ex;
+      arguments.push_back( Expression(ex.getValue()) );  // offset
+      arguments.push_back( Expression(ex.getString()) ); // register
       
       return;
     }
@@ -45,7 +57,7 @@ namespace VexParser
     arguments.push_back(ex);
   }
 
-  std::vector<Expression*>&
+  Arguments::ArgumentVector&
   Arguments::getArguments( )
   {
     return arguments;
@@ -56,8 +68,8 @@ namespace VexParser
   {
     ArgumentVector::const_iterator it;
 
-    for (it=arguments.begin(); it < arguments.end(); it++)
-      (*it)->print(ostream);
+    for (it = arguments.begin(); it < arguments.end(); it++)
+      it->print(ostream);
   }
   
   void
@@ -65,8 +77,8 @@ namespace VexParser
   {
     ArgumentVector::iterator it;
 
-    for (it=arguments.begin(); it < arguments.end(); it++)
-      delete *it;
+//    for (it=arguments.begin(); it < arguments.end(); it++)
+//      delete *it;
     
     arguments.clear();
   }

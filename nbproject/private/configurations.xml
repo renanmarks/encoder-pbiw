@@ -36,8 +36,9 @@
           <runcommandpicklistitem>"${OUTPUT_PATH}" -p mergesort.s</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" mergesort2.s</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" mergesort.s</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" nested_complex_rVex.s</runcommandpicklistitem>
         </runcommandpicklist>
-        <runcommand>"${OUTPUT_PATH}" mergesort.s</runcommand>
+        <runcommand>"${OUTPUT_PATH}" nested_complex_rVex.s</runcommand>
         <rundir>/home/helix/NetBeansProjects/pbiw_encoder/dist/Debug/GNU-Linux-x86</rundir>
         <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>
@@ -72,8 +73,9 @@
         <runcommandpicklist>
           <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" mergesort.s</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" nested_complex_rVex.s</runcommandpicklistitem>
         </runcommandpicklist>
-        <runcommand>"${OUTPUT_PATH}" mergesort.s</runcommand>
+        <runcommand>"${OUTPUT_PATH}" nested_complex_rVex.s</runcommand>
         <rundir>/home/helix/NetBeansProjects/pbiw_encoder/dist/Release/GNU-Linux-x86</rundir>
         <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>

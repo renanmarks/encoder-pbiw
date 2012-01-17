@@ -46,6 +46,7 @@ namespace PBIW
     
     PBIWPatternList::const_iterator it;
     
+    // O(|codedPatterns|)
     for (it = codedPatterns.begin();
          it != codedPatterns.end();
          it++)
@@ -59,11 +60,12 @@ namespace PBIW
     return other;
   }
   
+  // O(|codedPatterns|) + O(1) = O(|codedPatterns|)
   void PartialPBIW::savePBIWElements(IPBIWInstruction*& finalInstruction, IPBIWPattern*& newPattern)
   {
-    newPattern->reorganize(finalInstruction);
+    newPattern->reorganize(finalInstruction); // O(1)
     
-    const IPBIWPattern& foundPattern = hasPattern(*newPattern);
+    const IPBIWPattern& foundPattern = hasPattern(*newPattern); // O(|codedPatterns|)
     IPBIWPattern& notConstFoundPattern = const_cast<IPBIWPattern&>(foundPattern);
     
     // If not found in the patterns set
@@ -81,9 +83,10 @@ namespace PBIW
     notConstFoundPattern.incrementUsageCounter();
   }
   
+  // O(|codedPatterns|)
   void PartialPBIW::saveAndCreateNewPBIWElements(IPBIWInstruction*& finalInstruction, IPBIWPattern*& newPattern)
   {
-    savePBIWElements(finalInstruction, newPattern);
+    savePBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
 
     finalInstruction = new rVex64PBIWInstruction();
     newPattern = new rVex96PBIWPattern();
@@ -161,7 +164,7 @@ namespace PBIW
           {
             if ( !finalInstruction->hasOperandSlot( **operandIt ) )
             {
-              saveAndCreateNewPBIWElements(finalInstruction, newPattern);
+              saveAndCreateNewPBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
               resetFinalOperation(operandIt, finalOperation, *syllableIt, operands);
             }
           
@@ -201,7 +204,7 @@ namespace PBIW
             {
               if ( !finalInstruction->hasReadOperandSlot() )
               {
-                saveAndCreateNewPBIWElements(finalInstruction, newPattern);
+                saveAndCreateNewPBIWElements(finalInstruction, newPattern);// O(|codedPatterns|)
                 resetFinalOperation(operandIt, finalOperation, *syllableIt, operands);
               }
 
@@ -224,7 +227,7 @@ namespace PBIW
               {
                 if ( !finalInstruction->hasWriteOperandSlot() )
                 {
-                  saveAndCreateNewPBIWElements(finalInstruction, newPattern);
+                  saveAndCreateNewPBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
                   resetFinalOperation(operandIt, finalOperation, *syllableIt, operands);
                 }
 
@@ -248,7 +251,7 @@ namespace PBIW
           if (firstInstruction != finalInstruction)
           {
             IOperand* tempOperand = (*operandIt)->getOperand();
-            const IOperand& foundOperand = finalInstruction->containsOperand( *tempOperand );
+            const IOperand& foundOperand = finalInstruction->containsOperand( *tempOperand ); 
             finalOperation->addOperand( foundOperand );
           }
           else
@@ -262,7 +265,7 @@ namespace PBIW
         newPattern->addOperation(finalOperation);
       } // ... end for each syllable
       
-      savePBIWElements(finalInstruction, newPattern);
+      savePBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
     } // ... end for each instruction
   }
 

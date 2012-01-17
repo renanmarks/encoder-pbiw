@@ -24,7 +24,7 @@ namespace rVex
           
           virtual void print(rVex::Printers::IPrinter&, bool, bool) const;
           
-          virtual void fillSyllable(VexParser::SyllableArguments* arguments)
+          virtual void fillSyllable(VexParser::SyllableArguments& arguments)
           { this->fillTypeXIX(arguments); }
       };
     }

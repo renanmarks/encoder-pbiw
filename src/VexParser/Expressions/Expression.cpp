@@ -95,9 +95,18 @@ namespace VexParser
   {
 
   }
+  
+  /**
+   * Copy
+   */
+  Expression::Expression( const Expression& orig)
+  : value(orig.getValue()), string(orig.getString()), isMemReference(orig.isMemoryReference())
+  {
+    
+  }
 
   void
-  Expression::print( std::ostream& ostream )
+  Expression::print( std::ostream& ostream ) const
   {
     int x=this->getValue();
     std::string s=this->getString();

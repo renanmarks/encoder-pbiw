@@ -250,17 +250,17 @@ namespace rVex
   }
   
   void 
-  Syllable::fillTypeI(VexParser::SyllableArguments* arguments)
+  Syllable::fillTypeI(VexParser::SyllableArguments& arguments)
   {
     this->fillTypeII(arguments);
   }
   
   void 
-  Syllable::fillTypeII(VexParser::SyllableArguments* arguments)
+  Syllable::fillTypeII(VexParser::SyllableArguments& arguments)
   {
-    VexParser::Expression::ParseInfo destiny = arguments->getDestinyArguments()->getArguments()[0]->getParsedValue();
-    VexParser::Expression::ParseInfo origin1 = arguments->getSourceArguments()->getArguments()[0]->getParsedValue();
-    VexParser::Expression::ParseInfo origin2 = arguments->getSourceArguments()->getArguments()[1]->getParsedValue();
+    VexParser::Expression::ParseInfo destiny = arguments.getDestinyArguments().getArguments()[0].getParsedValue();
+    VexParser::Expression::ParseInfo origin1 = arguments.getSourceArguments().getArguments()[0].getParsedValue();
+    VexParser::Expression::ParseInfo origin2 = arguments.getSourceArguments().getArguments()[1].getParsedValue();
 
     this->addReadRegister(static_cast<unsigned int>(origin1.value));
 
@@ -282,13 +282,13 @@ namespace rVex
   }
   
   void 
-  Syllable::fillTypeIII(VexParser::SyllableArguments* arguments)
+  Syllable::fillTypeIII(VexParser::SyllableArguments& arguments)
   {
-    VexParser::Expression::ParseInfo destiny = arguments->getDestinyArguments()->getArguments()[0]->getParsedValue();
-    std::vector<VexParser::Expression*> sourceArgs = arguments->getSourceArguments()->getArguments();
-    VexParser::Expression::ParseInfo origin1 = sourceArgs[0]->getParsedValue();
-    VexParser::Expression::ParseInfo origin2 = sourceArgs[1]->getParsedValue();
-    VexParser::Expression::ParseInfo origin3 = sourceArgs[2]->getParsedValue();
+    VexParser::Expression::ParseInfo destiny = arguments.getDestinyArguments().getArguments()[0].getParsedValue();
+    VexParser::Arguments::ArgumentVector sourceArgs = arguments.getSourceArguments().getArguments();
+    VexParser::Expression::ParseInfo origin1 = sourceArgs[0].getParsedValue();
+    VexParser::Expression::ParseInfo origin2 = sourceArgs[1].getParsedValue();
+    VexParser::Expression::ParseInfo origin3 = sourceArgs[2].getParsedValue();
 
     this->setBrSource(static_cast<unsigned char>(origin1.value));
     this->addReadRegister(static_cast<unsigned int>(origin2.value));
@@ -308,16 +308,16 @@ namespace rVex
   }
   
   void 
-  Syllable::fillTypeIV(VexParser::SyllableArguments* arguments)
+  Syllable::fillTypeIV(VexParser::SyllableArguments& arguments)
   {
-    std::vector<VexParser::Expression*> destinyArgs = arguments->getDestinyArguments()->getArguments();
-    VexParser::Expression::ParseInfo destiny1 = destinyArgs[0]->getParsedValue();
-    VexParser::Expression::ParseInfo destiny2 = destinyArgs[1]->getParsedValue();
+    VexParser::Arguments::ArgumentVector destinyArgs = arguments.getDestinyArguments().getArguments();
+    VexParser::Expression::ParseInfo destiny1 = destinyArgs[0].getParsedValue();
+    VexParser::Expression::ParseInfo destiny2 = destinyArgs[1].getParsedValue();
     
-    std::vector<VexParser::Expression*> sourceArgs = arguments->getSourceArguments()->getArguments();
-    VexParser::Expression::ParseInfo origin1 = sourceArgs[0]->getParsedValue();
-    VexParser::Expression::ParseInfo origin2 = sourceArgs[1]->getParsedValue();
-    VexParser::Expression::ParseInfo origin3 = sourceArgs[2]->getParsedValue();
+    VexParser::Arguments::ArgumentVector sourceArgs = arguments.getSourceArguments().getArguments();
+    VexParser::Expression::ParseInfo origin1 = sourceArgs[0].getParsedValue();
+    VexParser::Expression::ParseInfo origin2 = sourceArgs[1].getParsedValue();
+    VexParser::Expression::ParseInfo origin3 = sourceArgs[2].getParsedValue();
 
     this->setLayoutType(rVex::Syllable::LayoutType::RTYPE_BS);
     
@@ -329,10 +329,10 @@ namespace rVex
   }
   
   void 
-  Syllable::fillTypeV(VexParser::SyllableArguments* arguments)
+  Syllable::fillTypeV(VexParser::SyllableArguments& arguments)
   {
-    VexParser::Expression::ParseInfo destiny = arguments->getDestinyArguments()->getArguments()[0]->getParsedValue();
-    VexParser::Expression::ParseInfo origin = arguments->getSourceArguments()->getArguments()[0]->getParsedValue();
+    VexParser::Expression::ParseInfo destiny = arguments.getDestinyArguments().getArguments()[0].getParsedValue();
+    VexParser::Expression::ParseInfo origin = arguments.getSourceArguments().getArguments()[0].getParsedValue();
 
     this->setLayoutType(rVex::Syllable::LayoutType::RTYPE);
     
@@ -341,11 +341,11 @@ namespace rVex
   }
   
   void 
-  Syllable::fillTypeVI(VexParser::SyllableArguments* arguments)
+  Syllable::fillTypeVI(VexParser::SyllableArguments& arguments)
   {
-    VexParser::Expression::ParseInfo destiny = arguments->getDestinyArguments()->getArguments()[0]->getParsedValue();
-    VexParser::Expression::ParseInfo origin1 = arguments->getSourceArguments()->getArguments()[0]->getParsedValue();
-    VexParser::Expression::ParseInfo origin2 = arguments->getSourceArguments()->getArguments()[1]->getParsedValue();
+    VexParser::Expression::ParseInfo destiny = arguments.getDestinyArguments().getArguments()[0].getParsedValue();
+    VexParser::Expression::ParseInfo origin1 = arguments.getSourceArguments().getArguments()[0].getParsedValue();
+    VexParser::Expression::ParseInfo origin2 = arguments.getSourceArguments().getArguments()[1].getParsedValue();
 
     this->setGrDestiny    (static_cast<unsigned char>(destiny.value));
     
@@ -364,10 +364,10 @@ namespace rVex
   }
   
   void 
-  Syllable::fillTypeVII(VexParser::SyllableArguments* arguments)
+  Syllable::fillTypeVII(VexParser::SyllableArguments& arguments)
   {
-    VexParser::Expression::ParseInfo destiny = arguments->getDestinyArguments()->getArguments()[0]->getParsedValue();
-    VexParser::Expression::ParseInfo origin = arguments->getSourceArguments()->getArguments()[0]->getParsedValue();
+    VexParser::Expression::ParseInfo destiny = arguments.getDestinyArguments().getArguments()[0].getParsedValue();
+    VexParser::Expression::ParseInfo origin = arguments.getSourceArguments().getArguments()[0].getParsedValue();
 
     this->setLayoutType(rVex::Syllable::LayoutType::RTYPE);
     
@@ -377,10 +377,10 @@ namespace rVex
   }
   
   void 
-  Syllable::fillTypeVIII(VexParser::SyllableArguments* arguments) 
+  Syllable::fillTypeVIII(VexParser::SyllableArguments& arguments) 
   { 
-    VexParser::Expression::ParseInfo source = arguments->getSourceArguments()->getArguments()[0]->getParsedValue();
-    std::string address = arguments->getSourceArguments()->getArguments()[1]->getString();
+    VexParser::Expression::ParseInfo source = arguments.getSourceArguments().getArguments()[0].getParsedValue();
+    std::string address = arguments.getSourceArguments().getArguments()[1].getString();
 
     this->setLayoutType(rVex::Syllable::LayoutType::BRANCH);
     
@@ -389,21 +389,21 @@ namespace rVex
   }
   
   void 
-  Syllable::fillTypeIX(VexParser::SyllableArguments* arguments) 
+  Syllable::fillTypeIX(VexParser::SyllableArguments& arguments) 
   { 
-    VexParser::Expression::ParseInfo source = arguments->getSourceArguments()->getArguments()[0]->getParsedValue();
-    std::string path = arguments->getSourceArguments()->getArguments()[1]->getString();
+    VexParser::Expression::ParseInfo source = arguments.getSourceArguments().getArguments()[0].getParsedValue();
+    std::string path = arguments.getSourceArguments().getArguments()[1].getString();
 
     this->addReadRegister (static_cast<unsigned int>(source.value));
     this->setLabel        (path);
   }
   
   void 
-  Syllable::fillTypeX(VexParser::SyllableArguments* arguments) 
+  Syllable::fillTypeX(VexParser::SyllableArguments& arguments) 
   { 
-    VexParser::Expression::ParseInfo destiny = arguments->getDestinyArguments()->getArguments()[0]->getParsedValue();
-    VexParser::Expression::ParseInfo offset = arguments->getSourceArguments()->getArguments()[0]->getParsedValue();
-    VexParser::Expression::ParseInfo source = arguments->getSourceArguments()->getArguments()[1]->getParsedValue();
+    VexParser::Expression::ParseInfo destiny = arguments.getDestinyArguments().getArguments()[0].getParsedValue();
+    VexParser::Expression::ParseInfo offset = arguments.getSourceArguments().getArguments()[0].getParsedValue();
+    VexParser::Expression::ParseInfo source = arguments.getSourceArguments().getArguments()[1].getParsedValue();
 
     this->setLayoutType(rVex::Syllable::LayoutType::ISTYPE);
     
@@ -413,11 +413,11 @@ namespace rVex
   }
   
   void 
-  Syllable::fillTypeXI(VexParser::SyllableArguments* arguments) 
+  Syllable::fillTypeXI(VexParser::SyllableArguments& arguments) 
   { 
-    VexParser::Expression::ParseInfo offset = arguments->getDestinyArguments()->getArguments()[0]->getParsedValue();
-    VexParser::Expression::ParseInfo destiny = arguments->getDestinyArguments()->getArguments()[1]->getParsedValue();
-    VexParser::Expression::ParseInfo source = arguments->getSourceArguments()->getArguments()[0]->getParsedValue();
+    VexParser::Expression::ParseInfo offset = arguments.getDestinyArguments().getArguments()[0].getParsedValue();
+    VexParser::Expression::ParseInfo destiny = arguments.getDestinyArguments().getArguments()[1].getParsedValue();
+    VexParser::Expression::ParseInfo source = arguments.getSourceArguments().getArguments()[0].getParsedValue();
 
     this->setLayoutType(rVex::Syllable::LayoutType::ISTYPE);
     
@@ -427,10 +427,10 @@ namespace rVex
   }
   
   void 
-  Syllable::fillTypeXII(VexParser::SyllableArguments* arguments) 
+  Syllable::fillTypeXII(VexParser::SyllableArguments& arguments) 
   { 
-    VexParser::Expression::ParseInfo offset = arguments->getDestinyArguments()->getArguments()[0]->getParsedValue();
-    VexParser::Expression::ParseInfo source = arguments->getSourceArguments()->getArguments()[0]->getParsedValue();
+    VexParser::Expression::ParseInfo offset = arguments.getDestinyArguments().getArguments()[0].getParsedValue();
+    VexParser::Expression::ParseInfo source = arguments.getSourceArguments().getArguments()[0].getParsedValue();
 
     this->setLayoutType(rVex::Syllable::LayoutType::ISTYPE);
     
@@ -439,9 +439,9 @@ namespace rVex
   }
   
   void 
-  Syllable::fillTypeXIII(VexParser::SyllableArguments* arguments) 
+  Syllable::fillTypeXIII(VexParser::SyllableArguments& arguments) 
   { 
-    VexParser::Expression::ParseInfo source = arguments->getSourceArguments()->getArguments()[0]->getParsedValue();
+    VexParser::Expression::ParseInfo source = arguments.getSourceArguments().getArguments()[0].getParsedValue();
     
     if (source.isLabel)
       this->setLabel(source.label);
@@ -451,25 +451,25 @@ namespace rVex
 
   // Only opcode
   void 
-  Syllable::fillTypeXIV(VexParser::SyllableArguments* arguments) 
+  Syllable::fillTypeXIV(VexParser::SyllableArguments& arguments) 
   {
     this->setLayoutType(rVex::Syllable::LayoutType::RTYPE);
     this->addReadRegister(static_cast<unsigned int>(0));
   }
   
   void 
-  Syllable::fillTypeXV(VexParser::SyllableArguments* arguments) 
+  Syllable::fillTypeXV(VexParser::SyllableArguments& arguments) 
   { 
-    int value = arguments->getSourceArguments()->getArguments()[0]->getValue();
+    int value = arguments.getSourceArguments().getArguments()[0].getValue();
     
     this->setShortImmediate(static_cast<unsigned short>(value));
   }
   
   void 
-  Syllable::fillTypeXVI(VexParser::SyllableArguments* arguments) 
+  Syllable::fillTypeXVI(VexParser::SyllableArguments& arguments) 
   { 
-    VexParser::Expression::ParseInfo destiny = arguments->getDestinyArguments()->getArguments()[0]->getParsedValue();
-    VexParser::Expression::ParseInfo source = arguments->getSourceArguments()->getArguments()[0]->getParsedValue();
+    VexParser::Expression::ParseInfo destiny = arguments.getDestinyArguments().getArguments()[0].getParsedValue();
+    VexParser::Expression::ParseInfo source = arguments.getSourceArguments().getArguments()[0].getParsedValue();
     
     if (source.isLabel)
       this->setLabel(source.label);
@@ -480,12 +480,12 @@ namespace rVex
   }
 
   void 
-  Syllable::fillTypeXVII(VexParser::SyllableArguments* arguments) 
+  Syllable::fillTypeXVII(VexParser::SyllableArguments& arguments) 
   { 
-    VexParser::Expression::ParseInfo destiny = arguments->getDestinyArguments()->getArguments()[0]->getParsedValue();
-    VexParser::Expression::ParseInfo source1 = arguments->getSourceArguments()->getArguments()[0]->getParsedValue();
-    VexParser::Expression::ParseInfo source2 = arguments->getSourceArguments()->getArguments()[1]->getParsedValue();
-    VexParser::Expression::ParseInfo source3 = arguments->getSourceArguments()->getArguments()[2]->getParsedValue();
+    VexParser::Expression::ParseInfo destiny = arguments.getDestinyArguments().getArguments()[0].getParsedValue();
+    VexParser::Expression::ParseInfo source1 = arguments.getSourceArguments().getArguments()[0].getParsedValue();
+    VexParser::Expression::ParseInfo source2 = arguments.getSourceArguments().getArguments()[1].getParsedValue();
+    VexParser::Expression::ParseInfo source3 = arguments.getSourceArguments().getArguments()[2].getParsedValue();
     
     if (source1.isLabel)
       this->setLabel(source1.label);
@@ -496,28 +496,28 @@ namespace rVex
   }
   
   void 
-  Syllable::fillTypeXVIII(VexParser::SyllableArguments* arguments) 
+  Syllable::fillTypeXVIII(VexParser::SyllableArguments& arguments) 
   { 
-    VexParser::Expression::ParseInfo destiny = arguments->getDestinyArguments()->getArguments()[0]->getParsedValue();
-    VexParser::Expression::ParseInfo source = arguments->getSourceArguments()->getArguments()[0]->getParsedValue();
+    VexParser::Expression::ParseInfo destiny = arguments.getDestinyArguments().getArguments()[0].getParsedValue();
+    VexParser::Expression::ParseInfo source = arguments.getSourceArguments().getArguments()[0].getParsedValue();
     
     this->setGrDestiny(destiny.value);
     this->setPath(source.label);
   }
   
   void 
-  Syllable::fillTypeXIX(VexParser::SyllableArguments* arguments) 
+  Syllable::fillTypeXIX(VexParser::SyllableArguments& arguments) 
   { 
-    VexParser::Expression::ParseInfo source = arguments->getSourceArguments()->getArguments()[0]->getParsedValue();
+    VexParser::Expression::ParseInfo source = arguments.getSourceArguments().getArguments()[0].getParsedValue();
     
     this->setGrDestiny(source.value);
   }
   
   void 
-  Syllable::fillTypeXX(VexParser::SyllableArguments* arguments) 
+  Syllable::fillTypeXX(VexParser::SyllableArguments& arguments) 
   { 
-    VexParser::Expression::ParseInfo destiny = arguments->getDestinyArguments()->getArguments()[0]->getParsedValue();
-    VexParser::Expression::ParseInfo source = arguments->getSourceArguments()->getArguments()[0]->getParsedValue();
+    VexParser::Expression::ParseInfo destiny = arguments.getDestinyArguments().getArguments()[0].getParsedValue();
+    VexParser::Expression::ParseInfo source = arguments.getSourceArguments().getArguments()[0].getParsedValue();
     
     this->setGrDestiny(destiny.value);
     this->addReadRegister(source.value);

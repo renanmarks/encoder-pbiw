@@ -135,10 +135,24 @@
         <itemPath>src/rVex/rVex.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f3" displayName="VexParser" projectFiles="true">
-        <itemPath>src/VexParser/Expressions/Arguments.h</itemPath>
-        <itemPath>src/VexParser/Expressions/Expression.h</itemPath>
+        <logicalFolder name="f2" displayName="Expressions" projectFiles="true">
+          <itemPath>src/VexParser/Expressions/Arguments.h</itemPath>
+          <itemPath>src/VexParser/Expressions/Expression.h</itemPath>
+          <itemPath>src/VexParser/Expressions/SyllableArguments.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="f3" displayName="Interfaces" projectFiles="true">
+          <itemPath>src/VexParser/Interfaces/IParserProcessor.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="f4" displayName="Processors" projectFiles="true">
+          <itemPath>src/VexParser/Processors/PseudoSyllableProcessor.h</itemPath>
+          <itemPath>src/VexParser/Processors/SyllablePacker.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="f1" displayName="Structs" projectFiles="true">
+          <itemPath>src/VexParser/Structs/Function.h</itemPath>
+          <itemPath>src/VexParser/Structs/ISection.h</itemPath>
+          <itemPath>src/VexParser/Structs/SyllableBufferItem.h</itemPath>
+        </logicalFolder>
         <itemPath>src/VexParser/FlexLexer.h</itemPath>
-        <itemPath>src/VexParser/Expressions/SyllableArguments.h</itemPath>
         <itemPath>src/VexParser/VexContext.h</itemPath>
         <itemPath>src/VexParser/VexOpcodes.h</itemPath>
         <itemPath>src/VexParser/VexTypes.h</itemPath>
@@ -202,8 +216,19 @@
         <itemPath>src/rVex/SyllableMUL.cpp</itemPath>
       </logicalFolder>
       <logicalFolder name="f3" displayName="VexParser" projectFiles="true">
-        <itemPath>src/VexParser/Expressions/Arguments.cpp</itemPath>
-        <itemPath>src/VexParser/Expressions/Expression.cpp</itemPath>
+        <logicalFolder name="f2" displayName="Expressions" projectFiles="true">
+          <itemPath>src/VexParser/Expressions/Arguments.cpp</itemPath>
+          <itemPath>src/VexParser/Expressions/Expression.cpp</itemPath>
+        </logicalFolder>
+        <logicalFolder name="f3" displayName="Processors" projectFiles="true">
+          <itemPath>src/VexParser/Processors/PseudoSyllableProcessor.cpp</itemPath>
+          <itemPath>src/VexParser/Processors/SyllablePacker.cpp</itemPath>
+        </logicalFolder>
+        <logicalFolder name="f1" displayName="Structs" projectFiles="true">
+          <itemPath>src/VexParser/Structs/Function.cpp</itemPath>
+          <itemPath>src/VexParser/Structs/ISection.cpp</itemPath>
+          <itemPath>src/VexParser/Structs/SyllableBufferItem.cpp</itemPath>
+        </logicalFolder>
         <itemPath>src/VexParser/VexContext.cpp</itemPath>
         <itemPath>src/VexParser/driver.cc</itemPath>
         <itemPath>src/VexParser/parser.tab.cc</itemPath>
@@ -294,10 +319,26 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -339,10 +380,26 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -420,10 +477,26 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -465,10 +538,26 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>

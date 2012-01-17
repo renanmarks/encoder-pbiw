@@ -38,6 +38,9 @@ namespace VexParser
     /* Register or number */
     explicit Expression( int );
     
+    /* Copy constructor */
+    Expression( const Expression& );
+    
     virtual
     ~Expression( ) {}
 
@@ -86,7 +89,7 @@ namespace VexParser
     getParsedValue() const;
 
     virtual void
-    print(std::ostream&);
+    print(std::ostream&) const;
 
   };
 

@@ -15,28 +15,50 @@ namespace VexParser
   class SyllableArguments
   {
   public:
-    explicit 
-    SyllableArguments(Arguments* destiny, Arguments* source) 
-    : source(source), destiny(destiny) { }
+    explicit
+    SyllableArguments()
+    { }
     
     explicit 
-    SyllableArguments(Arguments* source)
-    : source(source), destiny(NULL) { }
+    SyllableArguments(Arguments& destinyRef, Arguments& sourceRef) 
+      : source(sourceRef), 
+        destiny(destinyRef) 
+    { }
     
-    ~SyllableArguments() 
-    { delete source; delete destiny; }
+    explicit 
+    SyllableArguments(Arguments& sourceRef)
+      : source(sourceRef) 
+    { }
     
-    Arguments*
-    getSourceArguments() const 
+//    SyllableArguments(SyllableArguments& orig)
+//      : source( orig.getSourceArguments() ), 
+//      destiny( orig.getDestinyArguments() ) 
+//    { }
+//    
+//    ~SyllableArguments() 
+//    { /*delete source; delete destiny;*/ }
+    
+    bool operator ==(const SyllableArguments& other) const
+    {
+      return source == other.getSourceArguments() && destiny == other.getDestinyArguments();
+    }
+    
+    bool operator !=(const SyllableArguments& other) const
+    {
+      return !(*this == other);
+    }
+    
+    Arguments&
+    getSourceArguments() 
     { return source; }
     
-    Arguments*
-    getDestinyArguments() const
+    Arguments&
+    getDestinyArguments()
     { return destiny; }
     
   private:
-    Arguments* source;
-    Arguments* destiny;
+    Arguments source;
+    Arguments destiny;
   };
 }
 

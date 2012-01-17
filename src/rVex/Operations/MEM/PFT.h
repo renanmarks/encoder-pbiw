@@ -27,7 +27,7 @@ namespace rVex
           void print(rVex::Printers::IPrinter& output, bool first, bool last) const
           { output.printSyllable(this, 0xDEAD0000, first, last); }
           
-          virtual void fillSyllable(VexParser::SyllableArguments* arguments)
+          virtual void fillSyllable(VexParser::SyllableArguments& arguments)
           { this->fillTypeXII(arguments); }
       };
     }
