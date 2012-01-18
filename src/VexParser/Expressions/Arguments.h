@@ -21,17 +21,26 @@ namespace VexParser
   class Arguments
   {
   public:
-    typedef std::vector<Expression> ArgumentVector;
+    typedef std::deque<Expression> ArgumentVector;
     
     explicit Arguments() { }
     
     explicit Arguments(const Expression&);
     explicit Arguments(Arguments&, const Expression&);
+
     Arguments(Arguments&);
+    Arguments(const Arguments&);
+    
     ~Arguments();
+    
+    Arguments& operator =( const Arguments& );
+    
+    bool operator ==(const Arguments&) const;
+    bool operator !=(const Arguments&) const;
     
     void addArgument(const Expression&);
     ArgumentVector& getArguments();
+    Arguments::ArgumentVector getArgumentsCopy( ) const;
     
     void clearArguments();
     
@@ -40,35 +49,10 @@ namespace VexParser
     bool hasArguments()
     { return arguments.size() > 0; }
     
-    bool operator ==(const Arguments& other) const
-    {
-      ArgumentVector::const_iterator it1 = arguments.begin();
-      ArgumentVector::const_iterator it2 = other.getArguments().begin();
-        
-      while (it1 != arguments.end() && it2 != other.getArguments().end())
-      {
-        if (*it1 != *it2)
-          return false;
-        
-        it1++;
-        it2++;
-      }
-      
-      if (it1 == arguments.end() && it2 == other.getArguments().end())
-        return true;
-      
-      return false;
-    }
-    
-    bool operator !=(const Arguments& other) const
-    {
-      return (*this != other);
-    }
-    
   private:
     ArgumentVector arguments;
     
-    void copyExpressions(const ArgumentVector& expressions);
+    Arguments& copyExpressions(const Arguments& other);
   };
 }
 

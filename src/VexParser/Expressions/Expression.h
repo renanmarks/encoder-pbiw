@@ -44,6 +44,9 @@ namespace VexParser
     virtual
     ~Expression( ) {}
 
+    bool operator ==(const Expression&) const;
+    bool operator !=(const Expression&) const;
+    
     virtual bool
     isMemoryReference() const
     { return isMemReference; }

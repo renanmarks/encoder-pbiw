@@ -94,10 +94,10 @@ namespace VexParser
          it < syllableBuffer.end();
          it++)
     {
-      rVex::Syllable* syllable = (*it).getSyllable();
+      rVex::Syllable* syllable = it->getSyllable();
       VexParser::SyllableArguments arguments = it->getArguments();
       
-      switch((*it).getSyllable()->getSyllableType())
+      switch(syllable->getSyllableType())
       {
         case rVex::Syllable::SyllableType::ALU:
           processor.process(dynamic_cast<rVex::SyllableALU*>(syllable), arguments);
@@ -207,8 +207,6 @@ namespace VexParser
     SyllableBuffer::iterator it;
     rVex::Instruction* instruction = new rVex::Instruction();
     
-    std::cout << instructions.size() << "\n" << syllableBuffer.size() << std::endl;
-    
     postProcess(); // post process
     reorder(); // Reorder and put NOPs
     
@@ -285,8 +283,6 @@ namespace VexParser
   {
       int counterIt = 0;
       SyllableBuffer::iterator it;
-      
-      
             
       // Generate NOPS if we have less than 4 syllables in the buffer
       while ( syllableBuffer.size() < 4 )
@@ -311,7 +307,7 @@ namespace VexParser
                 )
               {
                   // exchange the indexes
-                  Structs::SyllableBufferItem& syllableBufferItem = syllableBuffer.at(0);
+                  Structs::SyllableBufferItem syllableBufferItem = syllableBuffer.at(0);
                   syllableBuffer.at(0) = syllableBuffer.at(counterIt);
                   syllableBuffer.at(counterIt) = syllableBufferItem;
                   
@@ -324,7 +320,7 @@ namespace VexParser
                      )
               {
                   // exchange the indexes
-                  Structs::SyllableBufferItem& syllableBufferItem = syllableBuffer.at(3);
+                  Structs::SyllableBufferItem syllableBufferItem = syllableBuffer.at(3);
                   syllableBuffer.at(3) = syllableBuffer.at(counterIt);
                   syllableBuffer.at(counterIt) = syllableBufferItem;
                   
@@ -346,7 +342,7 @@ namespace VexParser
                       index = 2;
                   
                   // exchange the indexes
-                  Structs::SyllableBufferItem& syllableBufferItem = syllableBuffer.at(index);
+                  Structs::SyllableBufferItem syllableBufferItem = syllableBuffer.at(index);
                   syllableBuffer.at(index) = syllableBuffer.at(counterIt);
                   syllableBuffer.at(counterIt) = syllableBufferItem;
                                     

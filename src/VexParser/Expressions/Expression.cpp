@@ -105,6 +105,16 @@ namespace VexParser
     
   }
 
+  bool Expression::operator ==(const Expression& other) const
+  {
+    return value == other.getValue() && string == other.getString() && isMemReference == other.isMemoryReference();
+  }
+  
+  bool Expression::operator !=(const Expression& other) const
+  {
+    return !(*this == other);
+  }
+  
   void
   Expression::print( std::ostream& ostream ) const
   {

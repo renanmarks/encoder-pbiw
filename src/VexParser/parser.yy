@@ -542,7 +542,7 @@ expr            :       __LPAREN expr __RPAREN    { $$ = $2; }
  **     Generic name (could be NAME or OPCODE)
  **********************************************************************************/
 name            :       NAME                  { $$ = $1; }
-                |       OPCODE                { $$ = new std::string($1->as_op); delete $1;}
+                |       OPCODE                { $$ = new std::string($1->as_op); /*delete $1;*/}
                 |       CLUST                 { $$ = $1; }
                 ;
 /**********************************************************************************/

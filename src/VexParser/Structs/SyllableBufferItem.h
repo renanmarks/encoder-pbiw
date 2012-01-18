@@ -29,32 +29,30 @@ namespace VexParser
       SyllableBufferItem(rVex::Syllable* syllableRef, VexParser::SyllableArguments& argumentsRef)
         : syllable(syllableRef),
         arguments(argumentsRef)
-      { 
-        
-      }
+      { }
       
-//      SyllableBufferItem(const SyllableBufferItem& orig)
-//        : syllable(orig.getSyllable()),
-//        arguments(const_cast<SyllableBufferItem&>(orig).getArguments()) 
-//      { }
-//      
-//      SyllableBufferItem& operator=(const SyllableBufferItem& orig)
-//      {
-//        if (this != &orig)
-//        {
-//          syllable = orig.getSyllable();
-//          arguments = const_cast<SyllableBufferItem&>(orig).getArguments();
-//        }
-//        
-//        return *this;
-//      }
+      SyllableBufferItem(const SyllableBufferItem& orig)
+        : syllable(orig.getSyllable()),
+        arguments(orig.getArgumentsCopy()) 
+      { }
       
-      bool SyllableBufferItem::operator ==(const SyllableBufferItem& other) const
+      SyllableBufferItem& operator=(const SyllableBufferItem& orig)
       {
-        return syllable == other.getSyllable() && arguments == other.getArguments();
+        if (this != &orig)
+        {
+          syllable = orig.getSyllable();
+          arguments = orig.getArgumentsCopy();
+        }
+        
+        return *this;
       }
       
-      bool SyllableBufferItem::operator ==(const SyllableBufferItem& other) const
+      bool operator ==(const SyllableBufferItem& other) const
+      {
+        return syllable == other.getSyllable() && arguments == other.getArgumentsCopy();
+      }
+      
+      bool operator !=(const SyllableBufferItem& other) const
       {
         return !(*this == other);
       }
@@ -68,6 +66,10 @@ namespace VexParser
 
       VexParser::SyllableArguments&
       getArguments()
+      { return arguments; }
+      
+      VexParser::SyllableArguments
+      getArgumentsCopy() const 
       { return arguments; }
 
       void

@@ -1209,7 +1209,7 @@ namespace VexParser {
 
 /* Line 690 of lalr1.cc  */
 #line 545 "parser.yy"
-    { (yyval.text) = new std::string((yysemantic_stack_[(1) - (1)].opcode)->as_op); delete (yysemantic_stack_[(1) - (1)].opcode);}
+    { (yyval.text) = new std::string((yysemantic_stack_[(1) - (1)].opcode)->as_op); /*delete $1;*/}
     break;
 
   case 137:

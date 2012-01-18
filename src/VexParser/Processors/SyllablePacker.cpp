@@ -96,7 +96,7 @@ namespace VexParser
             arguments.getSourceArguments().getArguments()[0].getParsedValue();
 
           if (argumentInfo.isLabel)
-            context.getSyllableBuffer().push_back(Structs::SyllableBufferItem(syllable, arguments));
+            context.getControlSyllables().push_back(syllable);
           else
           {
             // If is a register, change CALL syllable to ICALL syllable
@@ -113,7 +113,7 @@ namespace VexParser
             arguments.getSourceArguments().getArguments()[0].getParsedValue();
 
           if (argumentInfo.isLabel)
-            context.getSyllableBuffer().push_back(Structs::SyllableBufferItem(syllable, arguments));
+            context.getControlSyllables().push_back(syllable);
           else
           {
             // If is a register, change GOTO syllable to IGOTO syllable
@@ -130,14 +130,14 @@ namespace VexParser
             arguments.getSourceArguments().getArguments()[1].getParsedValue();
 
           if (argumentInfo.isLabel)
-            context.getSyllableBuffer().push_back(Structs::SyllableBufferItem(syllable, arguments));
+            context.getControlSyllables().push_back(syllable);
 
           break;
         }  
 
         case rVex::Syllable::opBR:
         case rVex::Syllable::opBRF:
-            context.getSyllableBuffer().push_back(Structs::SyllableBufferItem(syllable, arguments));
+            context.getControlSyllables().push_back(syllable);
           break;
 
         default:
