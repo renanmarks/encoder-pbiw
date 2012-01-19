@@ -68,12 +68,21 @@ namespace PBIW
     typedef std::list<IPBIWPattern*> PBIWPatternList;
     PBIWPatternList codedPatterns;
     
+    typedef std::list<IPBIWOptimizer*> PBIWOptimizerList;
+    PBIWOptimizerList optimizers;
+    
     const IPBIWPattern& hasPattern(const IPBIWPattern&) const;
     
     void savePBIWElements(IPBIWInstruction*&, IPBIWPattern*&);
     void saveAndCreateNewPBIWElements(IPBIWInstruction*&, IPBIWPattern*&);
     void resetFinalOperation(VexSyllableOperandVector::Collection::const_iterator&, IOperation*&, rVex::Syllable* const&, const VexSyllableOperandVector&);
 
+    /**
+     * Process the label vector translating the labels to respective instruction
+     * addresses.
+     */
+    void processLabels();
+    
     /**
      * Functor used to find a label.
      */
@@ -95,10 +104,10 @@ namespace PBIW
     virtual void encode(const std::vector<rVex::Instruction*>&);
     virtual void decode(const std::vector<IPBIWInstruction*>&, const std::vector<IPBIWPattern*>&);
     
-    virtual void registerOptimizer(const IPBIWOptimizer& optimizer);
+    virtual void registerOptimizer(IPBIWOptimizer&);
     virtual void runOptimizers();
     
-    virtual void print(IPBIWPrinter& printer);
+    virtual void print(IPBIWPrinter&);
 
     virtual std::vector<IPBIWPattern*> getPatterns();
     virtual std::vector<IPBIWInstruction*> getInstructions();

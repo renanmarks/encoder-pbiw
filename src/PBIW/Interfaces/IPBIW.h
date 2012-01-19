@@ -31,10 +31,10 @@ namespace PBIW
         virtual void encode(const std::vector<rVex::Instruction*>&) = 0;
         virtual void decode(const std::vector<IPBIWInstruction*>&, const std::vector<IPBIWPattern*>&) = 0;
         
-        virtual void registerOptimizer(const IPBIWOptimizer& optimizer) = 0;
+        virtual void registerOptimizer(IPBIWOptimizer&) = 0;
         virtual void runOptimizers() = 0;
         
-        virtual void print(IPBIWPrinter& printer) = 0;
+        virtual void print(IPBIWPrinter&) = 0;
 
         virtual std::vector<IPBIWPattern*> getPatterns() = 0;
         virtual std::vector<IPBIWInstruction*> getInstructions() = 0;

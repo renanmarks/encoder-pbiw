@@ -269,13 +269,36 @@ namespace PBIW
     } // ... end for each instruction
   }
 
-  void PartialPBIW::registerOptimizer(const IPBIWOptimizer& optimizer)
+  void PartialPBIW::processLabels()
   {
+    return;
+  }
+  
+  void PartialPBIW::registerOptimizer(IPBIWOptimizer& optimizer)
+  {
+    optimizers.push_back(&optimizer);
+    
     return;
   }
   
   void PartialPBIW::runOptimizers()
   {
+    PBIWOptimizerList::iterator it;
+    
+    for (it = optimizers.begin();
+         it != optimizers.end();
+         it++)
+    {
+      std::vector<IPBIWInstruction*> codedInstructionsCopy(codedInstructions.begin(), codedInstructions.end());
+      std::vector<IPBIWPattern*> codedPatternsCopy(codedPatterns.begin(), codedPatterns.end());
+      std::vector<PBIW::Label> labelsCopy(labels.begin(), labels.end());
+      
+      (*it)->useInstructions(codedInstructionsCopy);
+      (*it)->usePatterns(codedPatternsCopy);
+      (*it)->useLabels(labelsCopy);
+      (*it)->run();
+    }
+    
     return;
   }
   
@@ -305,11 +328,11 @@ namespace PBIW
          instructionIt != codedInstructions.end();
          instructionIt++)
     {
-//      const IPBIWPattern* pattern = (*instructionIt)->getPattern();
+      const IPBIWPattern* pattern = (*instructionIt)->getPattern();
 //      
 //      printer.getOutputStream() << "Pattern Addr: " << pattern << " - " << std::endl;
       printer.printInstruction(**instructionIt);
-//      printer.printPattern(*pattern);
+      printer.printPattern(*pattern);
       printer.getOutputStream() << "---" << std::endl;
     }
     
