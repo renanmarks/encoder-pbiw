@@ -21,7 +21,7 @@ namespace rVex
      * @param If it is the last syllable
      */
     void 
-    rVexPrinter::printSyllable(const rVex::Syllable* syllable, unsigned int binary, bool first, bool last)
+    rVexPrinter::printSyllable(const rVex::Syllable* syllable, unsigned int binary, bool first, bool last) // O(1)
     {
       std::string resultBinary;
       unsigned int temp = binary;
@@ -51,7 +51,7 @@ namespace rVex
      * Print the instruction.
      */
     void 
-    rVexPrinter::printInstruction(const rVex::Instruction& instruction)
+    rVexPrinter::printInstruction(const rVex::Instruction& instruction) // O(1)
     {
       typedef std::vector<rVex::Syllable*> SyllableVec;
       
@@ -63,24 +63,24 @@ namespace rVex
       try 
       {
       
-        for ( it = syllables.begin(); it < syllables.end(); it++)
+        for ( it = syllables.begin(); it < syllables.end(); it++) // O(1)
         {
           // If the current is the first put 01 in LF...
           if (it == syllables.begin()) 
-            (*it)->print(*this, true, false);
+            (*it)->print(*this, true, false); // O(1)
 
           // ... if the current is the last put 10 in LF ...
           else if (it+1 == syllables.end()) 
-            (*it)->print(*this, false, true);
+            (*it)->print(*this, false, true); // O(1)
 
           else // ... if is in the middle, put 00 in LF bits
-            (*it)->print(*this, false, false);
+            (*it)->print(*this, false, false); // O(1)
         }
       
       }
       catch (rVex::Syllable::LayoutNotSupportedException* e)
       {
-        output << "Error printing: " << e->what() << "Opcode: " << (*it)->getOpcode() << std::endl;
+        output << "Error printing: " << e->what() << "Opcode: " << (*it)->getOpcode() << std::endl; // O(1)
       }
       
       output << std::endl;
@@ -90,7 +90,7 @@ namespace rVex
      * Print the file header.
      */
     void 
-    rVexPrinter::printHeader()
+    rVexPrinter::printHeader() // O(1)
     {
       output << ">>>>>> Begin of Instructions >>>>>>" << std::endl;
     }
@@ -99,7 +99,7 @@ namespace rVex
      * Print the file footer.
      */
      void 
-    rVexPrinter::printFooter()
+    rVexPrinter::printFooter() // O(1)
     {
       output << "<<<<<< End of Instructions <<<<<<" << std::endl;
     }

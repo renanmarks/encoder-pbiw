@@ -54,7 +54,7 @@ namespace VexParser
     syllableBuffer.clear();
   }
   
-  void VexContext::packSyllable(rVex::SyllableALU* syllable, SyllableArguments* arguments)
+  void VexContext::packSyllable(rVex::SyllableALU* syllable, SyllableArguments* arguments) // O(1)
   {
     switch(syllable->getOpcode())
     {
@@ -63,29 +63,29 @@ namespace VexParser
       {
         // Change MOV syllable to ADD syllable
         rVex::Operations::ALU::ADD add;
-        memcpy(syllable, &add, sizeof(add));
+        memcpy(syllable, &add, sizeof(add)); // O(1)
 
-        int value = arguments->getSourceArguments()->getArguments()[0]->getValue();
+        int value = arguments->getSourceArguments()->getArguments()[0]->getValue(); // O(1)
           
-        if (arguments->getSourceArguments()->getArguments()[0]->getParsedValue().isImmediate)
+        if (arguments->getSourceArguments()->getArguments()[0]->getParsedValue().isImmediate) // O(1)
         {
           // Change from: mov $r0.x = 12345
           // to: add $r0.x = $r0.0, 12345
-          arguments->getSourceArguments()->clearArguments();
-          arguments->getSourceArguments()->addArgument(new Expression("$r0.0"));
-          arguments->getSourceArguments()->addArgument(new Expression(value));
+          arguments->getSourceArguments()->clearArguments(); // O(1)
+          arguments->getSourceArguments()->addArgument(new Expression("$r0.0")); // O(1)
+          arguments->getSourceArguments()->addArgument(new Expression(value)); // O(1)
         }
         else
         {
           // Change from: mov $r0.x = $r0.y
           // to: add $r0.x = $r0.y, $r0.0
-          int value = arguments->getSourceArguments()->getArguments()[0]->getValue();
+          int value = arguments->getSourceArguments()->getArguments()[0]->getValue(); // O(1)
           
           std::stringstream strBuilder;
           strBuilder << "$r0." << value << std::endl;
           
-          arguments->getSourceArguments()->addArgument(new Expression("$r0.0"));
-          arguments->getSourceArguments()->addArgument(new Expression(strBuilder.str()));
+          arguments->getSourceArguments()->addArgument(new Expression("$r0.0")); // O(1)
+          arguments->getSourceArguments()->addArgument(new Expression(strBuilder.str())); // O(1)
         }
       } 
       break;
@@ -114,7 +114,7 @@ namespace VexParser
         {
           // If not enought space to fit the add, get a new instruction
           if (syllableBuffer.size() > 3)
-            endInstruction();
+            endInstruction(); // O(1)
           
           // Save cmpXX original values for posterior use
           bool isBR = arguments->getDestinyArguments()->getArguments()[0]->getParsedValue().isBranchRegister;
@@ -131,15 +131,15 @@ namespace VexParser
           arguments->getSourceArguments()->addArgument(new Expression("$r0.0"));
           arguments->getSourceArguments()->addArgument(new Expression(value));
           
-          add->fillSyllable(arguments);
-          syllableBuffer.push_back(add);
+          add->fillSyllable(arguments); // O(1)
+          syllableBuffer.push_back(add); // O(1)
           
           // Get a new instruction because of the use of the previous 
           // assigned register $r0.32
-          endInstruction();
+          endInstruction(); // O(1)
           
           // Used to construct the register strings
-          std::stringstream strBuilder;
+          std::stringstream strBuilder; 
           
           strBuilder << "$r0." << destinyReg << std::endl;
           std::string destinyRegStr = strBuilder.str();
@@ -173,19 +173,19 @@ namespace VexParser
     syllableBuffer.push_back(syllable);
   }
   
-  void VexContext::packSyllable(rVex::SyllableMEM* syllable, SyllableArguments* arguments)
+  void VexContext::packSyllable(rVex::SyllableMEM* syllable, SyllableArguments* arguments) // O(1)
+  {
+    syllable->fillSyllable(arguments); // O(1)
+    syllableBuffer.push_back(syllable);
+  }
+  
+  void VexContext::packSyllable(rVex::SyllableMUL* syllable, SyllableArguments* arguments) // O(1)
   {
     syllable->fillSyllable(arguments);
     syllableBuffer.push_back(syllable);
   }
   
-  void VexContext::packSyllable(rVex::SyllableMUL* syllable, SyllableArguments* arguments)
-  {
-    syllable->fillSyllable(arguments);
-    syllableBuffer.push_back(syllable);
-  }
-  
-  void VexContext::packSyllable(rVex::SyllableCTRL* syllable, SyllableArguments* arguments)
+  void VexContext::packSyllable(rVex::SyllableCTRL* syllable, SyllableArguments* arguments) // O(1)
   {
     switch(syllable->getOpcode())
     {
@@ -204,7 +204,7 @@ namespace VexParser
         {
           // If is a register, change CALL syllable to ICALL syllable
           rVex::Operations::CTRL::ICALL icall;
-          memcpy(syllable, &icall, sizeof(icall));
+          memcpy(syllable, &icall, sizeof(icall)); // O(1)
         }
         
         break;
@@ -247,22 +247,22 @@ namespace VexParser
         break;
     }
     
-    syllable->fillSyllable(arguments);
+    syllable->fillSyllable(arguments); // O(1)
     syllableBuffer.push_back(syllable);
   }
   
-  void VexContext::packSyllable(rVex::SyllableMISC* syllable, SyllableArguments* arguments)
+  void VexContext::packSyllable(rVex::SyllableMISC* syllable, SyllableArguments* arguments) // O(1)
   {
-    syllable->fillSyllable(arguments);
+    syllable->fillSyllable(arguments); // O(1)
     syllableBuffer.push_back(syllable);
   }
     
-  void VexContext::packSyllable(rVex::Syllable* syllable, SyllableArguments* arguments)
+  void VexContext::packSyllable(rVex::Syllable* syllable, SyllableArguments* arguments) // O(1)
   {
-    switch(syllable->getSyllableType())
+    switch(syllable->getSyllableType()) // O(1)
     {
-      case rVex::Syllable::SyllableType::ALU:
-        packSyllable(dynamic_cast<rVex::SyllableALU*>(syllable), arguments);
+      case rVex::Syllable::SyllableType::ALU: // O(1)
+        packSyllable(dynamic_cast<rVex::SyllableALU*>(syllable), arguments); // O(1)
         break;
         
       case rVex::Syllable::SyllableType::MEM:
@@ -283,16 +283,16 @@ namespace VexParser
     }
   }
   
-  void VexContext::processLabels()
+  void VexContext::processLabels()  // O(|labels| + |controlSyllables| + |controlSyllables|) = O(1)
   {
-    std::ostream& stream = printer.getOutputStream();
+    std::ostream& stream = printer.getOutputStream(); // O(1)
     LabelVector::iterator labelIt;
     
     if (debugEnabled)
     {
       stream << "----- Labels.L/G [instr addr](syl addr)" << std::endl;
 
-      for(labelIt = labels.begin();
+      for(labelIt = labels.begin(); // O(|labels|) = O(1)
           labelIt != labels.end();
           labelIt++)
       {
@@ -312,7 +312,7 @@ namespace VexParser
 
       stream << "----- Control instructions ("<< controlSyllables.size() << " Total)" << std::endl;
 
-      for (controlIt = controlSyllables.begin();
+      for (controlIt = controlSyllables.begin(); // O(|controlSyllables|) = O(1)
            controlIt < controlSyllables.end();
            controlIt++)
       {
@@ -328,7 +328,7 @@ namespace VexParser
 
     ControlSyllablesVector::const_iterator it;
     
-    for (it = controlSyllables.begin();
+    for (it = controlSyllables.begin(); // O(|controlSyllables|) = O(1)
          it < controlSyllables.end();
          it++)
     {
@@ -351,7 +351,7 @@ namespace VexParser
     }
   }
   
-  void VexContext::setLabel(std::string name, rVex::Label::LabelScope scope) 
+  void VexContext::setLabel(std::string name, rVex::Label::LabelScope scope)  // O(1)
   { 
     rVex::Label label;
     
@@ -363,34 +363,34 @@ namespace VexParser
     labels.push_back(label);
   }
   
-  void VexContext::endInstruction()
+  void VexContext::endInstruction() // O(1)
   {
     SyllableBuffer::iterator it;
     rVex::Instruction* instruction = new rVex::Instruction();
     
     reorder(syllableBuffer); // Reorder and put NOPs
     
-    for (it = syllableBuffer.begin();
+    for (it = syllableBuffer.begin(); // O(|syllableBuffer|) = O(4) = O(1)
          it < syllableBuffer.end();
          it++)
     {
-      (*it)->setAddress(this->syllableCounter++);
-      (*it)->setBelongedInstruction(instruction);
+      (*it)->setAddress(this->syllableCounter++); // O(1)
+      (*it)->setBelongedInstruction(instruction); // O(1)
       
       syllables.push_back(*it);
-      instruction->addSyllable(**it);
+      instruction->addSyllable(**it); // O(1)
     }
     
-    instruction->setAddress(this->instructionCounter++);
+    instruction->setAddress(this->instructionCounter++); // O(1)
     
     if (hasLabel) // Define the label
     {
-      rVex::Label& label = labels.back();
+      rVex::Label& label = labels.back(); // O(1)
 
-      label.destiny = instruction->getSyllables()[0];
-      label.absoluteAddress = instruction->getAddress();
+      label.destiny = instruction->getSyllables()[0]; // O(1)
+      label.absoluteAddress = instruction->getAddress(); // O(1)
       
-      instruction->setLabel(label);
+      instruction->setLabel(label);  // O(1)
       
       hasLabel = false;
     }
@@ -400,12 +400,12 @@ namespace VexParser
   }
   
   rVex::Instruction*
-  VexContext::getInstruction(unsigned int index)
+  VexContext::getInstruction(unsigned int index) // O(|isntructions|)
   {
     InstructionList::iterator it = instructions.begin();
     unsigned int i = 0;
     
-    while (i++ < index)
+    while (i++ < index) // O(|instructions|)
       it++;
     
     if (it != instructions.end())
@@ -415,31 +415,31 @@ namespace VexParser
   }
   
   void
-  VexContext::print()
+  VexContext::print()  // O(|instructions|)
   {
     InstructionList::const_iterator instructionIt;
     
-    printer.printHeader();
+    printer.printHeader(); // O(1)
     
-    for(instructionIt = instructions.begin();
+    for(instructionIt = instructions.begin();  // O(|instructions|)
         instructionIt != instructions.end();
         instructionIt++)
     {
-        (*instructionIt)->print(printer);
+        (*instructionIt)->print(printer); // O(1)
     }
     
-    printer.printFooter();
+    printer.printFooter(); // O(1)
   }
   
 
   void
-  VexContext::enableDebugging(bool enableSwitch)
+  VexContext::enableDebugging(bool enableSwitch) // O(1)
   {
     debugEnabled = enableSwitch;
   }
 
   void
-  VexContext::reorder(SyllableBuffer& syllableBuffer)
+  VexContext::reorder(SyllableBuffer& syllableBuffer) // O(1)
   {
       int counterIt = 0;
       SyllableBuffer::iterator it;
@@ -447,11 +447,11 @@ namespace VexParser
       rVex::Syllable* syllable;
             
       // Generate NOPS if we have less than 4 syllables in the buffer
-      while ( syllableBuffer.size() < 4 )
+      while ( syllableBuffer.size() < 4 ) // O(1)
         syllableBuffer.push_back(new rVex::Operations::MISC::NOP());
       
       // Go through all the syllables ordering them
-      for(it = syllableBuffer.begin(); 
+      for(it = syllableBuffer.begin(); // O(|syllableBuffer|) = O(4) = O(1)
           it < syllableBuffer.end(); 
           it++)
       {
@@ -515,11 +515,11 @@ namespace VexParser
     }      
       
   void 
-  VexContext::encodePBIW(PBIW::Interfaces::IPBIW& pbiw, PBIW::Interfaces::IPBIWPrinter& pbiwPrinter) const
-  {
+  VexContext::encodePBIW(PBIW::Interfaces::IPBIW& pbiw, PBIW::Interfaces::IPBIWPrinter& pbiwPrinter) const // O(|codedPatterns|^2 + |instructions|) =
+  {                                                                                                        // O(|codedPatterns|^2)
     std::vector<rVex::Instruction*> instructionVector(instructions.begin(), instructions.end());
     
-    pbiw.encode(instructionVector);
-    pbiw.print(pbiwPrinter);
+    pbiw.encode(instructionVector); // O(|codedPatterns|^2)
+    pbiw.print(pbiwPrinter); // O(|instructions|)
   }
 }

@@ -22,11 +22,11 @@ namespace PBIW
   }
 
   rVex64PBIWInstruction::OperandVector
-  rVex64PBIWInstruction::getOperands() const
+  rVex64PBIWInstruction::getOperands() const  // O(1)
   {
-    std::deque<Operand> temp(readOperands.begin(), readOperands.end());
+    std::deque<Operand> temp(readOperands.begin(), readOperands.end()); // O(|readOperands|) = O(8) = O(1)
     
-    temp.resize(8, Operand(-1));
+    temp.resize(8, Operand(-1)); // O(8) = O(1)
     
     if (writeOperands.size() > 0)
       temp.push_back(writeOperands[0]);
@@ -69,7 +69,7 @@ namespace PBIW
   }
 
   void
-  rVex64PBIWInstruction::setLabel(const ILabel& label)
+  rVex64PBIWInstruction::setLabel(const ILabel& label)  // O(1)
   {
     const Label& temp = dynamic_cast<const Label&> (label);
 
@@ -77,13 +77,13 @@ namespace PBIW
   }
 
   Label*
-  rVex64PBIWInstruction::getLabel() const
+  rVex64PBIWInstruction::getLabel() const  // O(1)
   {
     return label;
   }
 
   void
-  rVex64PBIWInstruction::pointToPattern(const IPBIWPattern& pattern)
+  rVex64PBIWInstruction::pointToPattern(const IPBIWPattern& pattern)  // O(1)
   {
     const rVex96PBIWPattern& temp=dynamic_cast<const rVex96PBIWPattern&> (pattern);
 
@@ -91,7 +91,7 @@ namespace PBIW
   }
 
   const IOperand&
-  rVex64PBIWInstruction::containsOperand(const IOperand& operand) const
+  rVex64PBIWInstruction::containsOperand(const IOperand& operand) const  // O(1)
   {
     //    bool foundInReadOperands = std::find(readOperands.begin(), readOperands.end(), operand);
     //    bool foundInWriteOperands = std::find(writeOperands.begin(), writeOperands.end(), operand);
@@ -99,7 +99,7 @@ namespace PBIW
 
     OperandVector::const_iterator it;
 
-    for (it=readOperands.begin();
+    for (it=readOperands.begin();  // O(|readOperands|) = O(8) = O(1)
          it < readOperands.end();
          it++)
     {
@@ -107,7 +107,7 @@ namespace PBIW
         return *it;
     }
 
-    for (it=writeOperands.begin();
+    for (it=writeOperands.begin();  //O(|writeOperands|) = O(4) = O(1)
          it < writeOperands.end();
          it++)
     {
@@ -119,7 +119,7 @@ namespace PBIW
   }
 
   void
-  rVex64PBIWInstruction::addReadOperand(IOperand& operand)
+  rVex64PBIWInstruction::addReadOperand(IOperand& operand)  // O(1)
   {
     unsigned int index=this->readOperands.size();
     operand.setIndex(index);
@@ -127,7 +127,7 @@ namespace PBIW
   }
 
   void
-  rVex64PBIWInstruction::addWriteOperand(IOperand& operand)
+  rVex64PBIWInstruction::addWriteOperand(IOperand& operand)  // O(1)
   {
     if (operand.isImmediate())
     {
@@ -181,7 +181,7 @@ namespace PBIW
   }
 
   bool
-  rVex64PBIWInstruction::hasOperandSlot(const Utils::OperandItem& operand)
+  rVex64PBIWInstruction::hasOperandSlot(const Utils::OperandItem& operand)  // O(1)
   {
     switch (operand.getType()) {
       case Utils::OperandItem::BRDestiny:
@@ -217,13 +217,13 @@ namespace PBIW
   }
 
   bool
-  rVex64PBIWInstruction::hasReadOperandSlot() const
+  rVex64PBIWInstruction::hasReadOperandSlot() const // O(1)
   {
     return readOperands.size() < 8;
   }
 
   bool
-  rVex64PBIWInstruction::hasWriteOperandSlot() const
+  rVex64PBIWInstruction::hasWriteOperandSlot() const  // O(1)
   {
     bool hasWriteSlots=
       (immediate.isImmediate12Bits() && (writeOperands.size() < 1)) ||

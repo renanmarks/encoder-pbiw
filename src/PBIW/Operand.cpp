@@ -32,7 +32,7 @@ namespace PBIW
   }
   
   bool 
-  Operand::operator<(const IOperand& operand) const
+  Operand::operator<(const IOperand& operand) const  // O(1)
   {
     try
     {
@@ -48,7 +48,7 @@ namespace PBIW
   }
   
   bool 
-  Operand::operator>(const IOperand& operand) const
+  Operand::operator>(const IOperand& operand) const // O(1)
   {
     try
     {
@@ -64,19 +64,19 @@ namespace PBIW
   }
   
   bool 
-  Operand::operator<=(const IOperand& operand) const
+  Operand::operator<=(const IOperand& operand) const  // O(1)
   {
     return !(*this > operand);
   }
   
   bool 
-  Operand::operator>=(const IOperand& operand) const
+  Operand::operator>=(const IOperand& operand) const  // O(1)
   {
     return !(*this < operand);
   }
   
   bool 
-  Operand::operator==(const IOperand& operand) const
+  Operand::operator==(const IOperand& operand) const  // O(1)
   {
 //    try
 //    {
@@ -98,7 +98,7 @@ namespace PBIW
   }
   
   bool 
-  Operand::operator!=(const IOperand& operand) const
+  Operand::operator!=(const IOperand& operand) const  // O(1)
   {
     return !(*this == operand);
   }

@@ -11,11 +11,11 @@
 namespace rVex
 {
   bool 
-  Instruction::addSyllable(Syllable& syllable)
+  Instruction::addSyllable(Syllable& syllable) // O(1)
   {
-    if (this->syllables.size() < this->syllables.max_size())
+    if (this->syllables.size() < this->syllables.max_size()) // O(1)
     {
-      this->syllables.push_back(&syllable);
+      this->syllables.push_back(&syllable); // O(1)
       return true;
     }
     
@@ -23,15 +23,15 @@ namespace rVex
   }
   
   bool 
-  Instruction::removeSyllable(const Syllable& syllable)
+  Instruction::removeSyllable(const Syllable& syllable) // O(1)
   {
-    if (this->syllables.size() > 0)
+    if (this->syllables.size() > 0) // O(1)
     {
       SyllableVector::iterator it;
       
       it = std::find(this->syllables.begin(), this->syllables.end(), &syllable);
       
-      if (it != this->syllables.end())
+      if (it != this->syllables.end()) 
       {
         this->syllables.erase(it);
         return true;
@@ -42,7 +42,7 @@ namespace rVex
   }
 
   Instruction::SyllableVector
-  Instruction::getSyllables() const
+  Instruction::getSyllables() const  // O(1)
   {
     return this->syllables;
   }

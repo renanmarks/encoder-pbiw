@@ -28,7 +28,7 @@ namespace PBIW
   {
   }
 
-  rVex96PBIWPattern::~rVex96PBIWPattern()
+  rVex96PBIWPattern::~rVex96PBIWPattern() 
   {
     OperationVector::iterator it;
 
@@ -43,7 +43,7 @@ namespace PBIW
   }
 
   void
-  rVex96PBIWPattern::addOperation(IOperation* operation)
+  rVex96PBIWPattern::addOperation(IOperation* operation) // O(1)
   {
     Operation* temp = dynamic_cast<Operation*> (operation);
 
@@ -57,12 +57,12 @@ namespace PBIW
   }
 
   void 
-  rVex96PBIWPattern::reorganize(const IPBIWInstruction* instruction)
+  rVex96PBIWPattern::reorganize(const IPBIWInstruction* instruction) // O(1)
   {
     Operand zero;
     
     // Generate NOPS if we have less than 4 operations in the pattern
-    while ( operations.size() < 4)
+    while ( operations.size() < 4) // O( |operations| ) = O(4) = O(1)
     {
       Operation* operation = new Operation();
       operation->addOperand(zero);
@@ -77,7 +77,7 @@ namespace PBIW
     int counterIt = 0;
 
     // Go through all the syllables ordering them by TYPE (TODO: order then by opcode)
-    for(it = operations.begin(); 
+    for(it = operations.begin();        // O( |operations| ) = O(4) = O(1)
         it < operations.end(); 
         it++)
     {
@@ -168,11 +168,11 @@ namespace PBIW
     // opcodes. Otherwise (equals opcode) the ALU operations are ordering by 
     // write operand, or first read operand or second read operand/immediate.
     for(index2 = 0;
-        index2 < operations.size();
+        index2 < operations.size();// O(|operations| * |operations|) = O(16) = O(1)
         index2 ++)
     {    
         for(index1 = 0;
-            index1 < operations.size();
+            index1 < operations.size(); // O(|operations|) = O(4) = O(1)
             index1 ++)
         {   
             if((operations.at(index1)->getType() == rVex::Syllable::SyllableType::ALU) &&
@@ -227,7 +227,7 @@ namespace PBIW
   }
     
   void
-  rVex96PBIWPattern::exchangeOperations(int index1, int index2)
+  rVex96PBIWPattern::exchangeOperations(int index1, int index2) // O(1)
   {
       IOperation* operation;
       
@@ -238,42 +238,42 @@ namespace PBIW
   }
   
   unsigned int
-  rVex96PBIWPattern::getValueByIndex(const IPBIWInstruction*& instruction, int index) const
+  rVex96PBIWPattern::getValueByIndex(const IPBIWInstruction*& instruction, int index) const // O(1)
   {
     IPBIWInstruction::OperandVector operands = instruction->getOperands();
 
     if (index != -1)
-      return operands[index].getValue();
+      return operands[index].getValue(); // O(1)
       
     return index;
   }
     
   bool
-  rVex96PBIWPattern::operator<(const IPBIWPattern& other) const
+  rVex96PBIWPattern::operator<(const IPBIWPattern& other) const // O(1)
   {
     return operations.size() < other.getOperationCount();
   }
 
   bool
-  rVex96PBIWPattern::operator>(const IPBIWPattern& other) const
+  rVex96PBIWPattern::operator>(const IPBIWPattern& other) const // O(1)
   {
     return operations.size() > other.getOperationCount();
   }
 
   bool
-  rVex96PBIWPattern::operator<=(const IPBIWPattern& other) const
+  rVex96PBIWPattern::operator<=(const IPBIWPattern& other) const // O(1)
   {
     return (*this < other) || (*this == other);
   }
 
   bool
-  rVex96PBIWPattern::operator>=(const IPBIWPattern& other) const
+  rVex96PBIWPattern::operator>=(const IPBIWPattern& other) const // O(1)
   {
     return (*this > other) || (*this == other);
   }
 
   bool
-  rVex96PBIWPattern::operator==(const IPBIWPattern& other) const
+  rVex96PBIWPattern::operator==(const IPBIWPattern& other) const // O(1)
   {
     const rVex96PBIWPattern& otherTemp = dynamic_cast<const rVex96PBIWPattern&>(other);
 
@@ -295,7 +295,7 @@ namespace PBIW
   }
 
   bool
-  rVex96PBIWPattern::operator!=(const IPBIWPattern& other) const
+  rVex96PBIWPattern::operator!=(const IPBIWPattern& other) const // O(1)
   {
     return !(*this == other);
   }

@@ -17,11 +17,11 @@ namespace PBIW
       
     }
 
-    OperandVector::OperandVector(const OperandVector& orig)
+    OperandVector::OperandVector(const OperandVector& orig) // O(|orig|)
     {
       Collection::const_iterator it;
 
-      for (it = orig.begin(); it < orig.end(); it++)
+      for (it = orig.begin(); it < orig.end(); it++) // O(|orig|)
         operands.push_back(new OperandItem(**it));
     }
 
@@ -36,13 +36,13 @@ namespace PBIW
     }
 
     OperandVector& 
-    OperandVector::operator=(const OperandVector& other)
+    OperandVector::operator=(const OperandVector& other) // O(|operands| + |other|) = O(1)
     {
       if (this != &other)
       {
         Collection::const_iterator it;
 
-        for (it = operands.begin(); it < operands.end(); it++)
+        for (it = operands.begin(); it < operands.end(); it++) 
           delete *it;
         
         operands.clear();

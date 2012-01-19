@@ -10,7 +10,7 @@ using namespace std;
 namespace VexParser
 {
 
-  Expression::Expression( char op, Expression& s1, Expression& s2 )
+  Expression::Expression( char op, Expression& s1, Expression& s2 ) // O(1)
     : isMemReference(false)
   {
     int nval;
@@ -39,7 +39,7 @@ namespace VexParser
     this->setValue(nval);
   }
 
-  Expression::Expression( char op, Expression& s1 )
+  Expression::Expression( char op, Expression& s1 ) // O(1)
     : isMemReference(false)
   {
     int nval;
@@ -72,7 +72,7 @@ namespace VexParser
    * Memory reference. 
    * First parameter is the offset, second parameter is register.
    */
-  Expression::Expression( Expression& s1, std::string s2 )
+  Expression::Expression( Expression& s1, std::string s2 ) // O(1)
   : value(s1.getValue()), string(s2), isMemReference(true)
   {
     
@@ -81,7 +81,7 @@ namespace VexParser
   /**
    * Register reference
    */
-  Expression::Expression( std::string string )
+  Expression::Expression( std::string string )  // O(1)
   : value( 0 ), string(string), isMemReference(false)
   {
     
@@ -90,14 +90,14 @@ namespace VexParser
   /**
    * Integer value
    */
-  Expression::Expression( int value )
+  Expression::Expression( int value ) // O(1)
   : value( value ), string( "" ), isMemReference(false)
   {
 
   }
 
   void
-  Expression::print( std::ostream& ostream )
+  Expression::print( std::ostream& ostream ) // O(1)
   {
     int x=this->getValue();
     std::string s=this->getString();
@@ -120,10 +120,10 @@ namespace VexParser
   }
 
   Expression::ParseInfo
-  Expression::getParsedValue( ) const
+  Expression::getParsedValue( ) const  // O(1)
   {
-    int integerValue=this->getValue();
-    std::string stringValue=this->getString();
+    int integerValue=this->getValue(); // O(1)
+    std::string stringValue=this->getString(); // O(1)
     ParseInfo parsedValue;
     
     parsedValue.isImmediate      = false;
@@ -131,15 +131,15 @@ namespace VexParser
     parsedValue.isLabel          = false;
 
     // verify if string has a register
-    std::size_t registerString = stringValue.find("$r");
-    std::size_t linkRegisterString = stringValue.find("$l");
-    std::size_t branchRegisterString = stringValue.find("$b");
+    std::size_t registerString = stringValue.find("$r"); // O(1)
+    std::size_t linkRegisterString = stringValue.find("$l"); // O(1)
+    std::size_t branchRegisterString = stringValue.find("$b"); // O(1)
 
     if (registerString != string::npos ) // General Register
     {
-      std::size_t number        = stringValue.substr(registerString).find(".");
-      std::string numberString  = stringValue.substr(++number);
-      parsedValue.value         = std::atoi(numberString.c_str());
+      std::size_t number        = stringValue.substr(registerString).find("."); // O(1)
+      std::string numberString  = stringValue.substr(++number); // O(1)
+      parsedValue.value         = std::atoi(numberString.c_str()); // O(1)
     } 
     else if (linkRegisterString != string::npos ) // Link Register
     {
@@ -147,10 +147,10 @@ namespace VexParser
     } 
     else if (branchRegisterString != string::npos ) // Branch Register
     {
-      std::size_t number        = stringValue.substr(branchRegisterString).find(".");
-      std::string numberString  = stringValue.substr(++number);
-      parsedValue.value            = std::atoi(numberString.c_str());
-      parsedValue.isBranchRegister = true;
+      std::size_t number        = stringValue.substr(branchRegisterString).find("."); // O(1)
+      std::string numberString  = stringValue.substr(++number); // O(1)
+      parsedValue.value            = std::atoi(numberString.c_str()); // O(1)
+      parsedValue.isBranchRegister = true; // O(1)
     } 
     else if (stringValue.length() > 0) // Label
     { 

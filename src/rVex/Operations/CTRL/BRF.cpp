@@ -8,18 +8,18 @@ namespace rVex
     namespace CTRL
     {
       void
-      BRF::exportOperandVector(Utils::OperandVectorBuilder& builder) const
+      BRF::exportOperandVector(Utils::OperandVectorBuilder& builder) const // O(1)
       {
         using PBIW::Operand;
         using PBIW::Utils::OperandItem;
         
-        builder.insertRegister(this->brSource, OperandItem::GRSource);
-        builder.insertImmediate(this->shortImmediate, Operand::Immediate::TwelveBits);
+        builder.insertRegister(this->brSource, OperandItem::GRSource); // O(1)
+        builder.insertImmediate(this->shortImmediate, Operand::Immediate::TwelveBits); // O(1)
       }
       
       void 
-      BRF::print(rVex::Printers::IPrinter& output, bool first, bool last) const
-      {
+      BRF::print(rVex::Printers::IPrinter& output, bool first, bool last) const // O(1)
+      { 
         unsigned int final = 0;
 
         final |= this->getOpcode();

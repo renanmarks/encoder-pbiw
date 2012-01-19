@@ -7,7 +7,7 @@ namespace rVex
     namespace CTRL
     {
       void
-      CALL::print(rVex::Printers::IPrinter& output, bool first, bool last) const
+      CALL::print(rVex::Printers::IPrinter& output, bool first, bool last) const // O(1)
       {
         unsigned int final = 0;
 

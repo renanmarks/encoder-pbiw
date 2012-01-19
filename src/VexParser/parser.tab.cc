@@ -438,7 +438,7 @@ namespace VexParser {
   }
 
   void
-  Parser::set_debug_level (debug_level_type l)
+  Parser::set_debug_level (debug_level_type l) // O(1)
   {
     yydebug_ = l;
   }
