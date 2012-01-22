@@ -267,7 +267,7 @@ namespace rVex
       /**
        * Set the arguments and the syllable data with the arguments
        */
-      virtual void fillSyllable(VexParser::SyllableArguments*) = 0;
+      virtual void fillSyllable(VexParser::SyllableArguments&) = 0;
       
       unsigned int printRTYPE() const;
       unsigned int printISTYPE() const;
@@ -311,26 +311,26 @@ namespace rVex
       
       std::string path;
       
-      virtual void fillTypeI(VexParser::SyllableArguments*);
-      virtual void fillTypeII(VexParser::SyllableArguments*);
-      virtual void fillTypeIII(VexParser::SyllableArguments*);
-      virtual void fillTypeIV(VexParser::SyllableArguments*);
-      virtual void fillTypeV(VexParser::SyllableArguments*);
-      virtual void fillTypeVI(VexParser::SyllableArguments*);
-      virtual void fillTypeVII(VexParser::SyllableArguments*);
-      virtual void fillTypeVIII(VexParser::SyllableArguments*);
-      virtual void fillTypeIX(VexParser::SyllableArguments*);
-      virtual void fillTypeX(VexParser::SyllableArguments*);
-      virtual void fillTypeXI(VexParser::SyllableArguments*);
-      virtual void fillTypeXII(VexParser::SyllableArguments*);
-      virtual void fillTypeXIII(VexParser::SyllableArguments*);
-      virtual void fillTypeXIV(VexParser::SyllableArguments*); // Only opcode
-      virtual void fillTypeXV(VexParser::SyllableArguments*);
-      virtual void fillTypeXVI(VexParser::SyllableArguments*);
-      virtual void fillTypeXVII(VexParser::SyllableArguments*);
-      virtual void fillTypeXVIII(VexParser::SyllableArguments*);
-      virtual void fillTypeXIX(VexParser::SyllableArguments*);
-      virtual void fillTypeXX(VexParser::SyllableArguments*);
+      virtual void fillTypeI(VexParser::SyllableArguments&);
+      virtual void fillTypeII(VexParser::SyllableArguments&);
+      virtual void fillTypeIII(VexParser::SyllableArguments&);
+      virtual void fillTypeIV(VexParser::SyllableArguments&);
+      virtual void fillTypeV(VexParser::SyllableArguments&);
+      virtual void fillTypeVI(VexParser::SyllableArguments&);
+      virtual void fillTypeVII(VexParser::SyllableArguments&);
+      virtual void fillTypeVIII(VexParser::SyllableArguments&);
+      virtual void fillTypeIX(VexParser::SyllableArguments&);
+      virtual void fillTypeX(VexParser::SyllableArguments&);
+      virtual void fillTypeXI(VexParser::SyllableArguments&);
+      virtual void fillTypeXII(VexParser::SyllableArguments&);
+      virtual void fillTypeXIII(VexParser::SyllableArguments&);
+      virtual void fillTypeXIV(VexParser::SyllableArguments&); // Only opcode
+      virtual void fillTypeXV(VexParser::SyllableArguments&);
+      virtual void fillTypeXVI(VexParser::SyllableArguments&);
+      virtual void fillTypeXVII(VexParser::SyllableArguments&);
+      virtual void fillTypeXVIII(VexParser::SyllableArguments&);
+      virtual void fillTypeXIX(VexParser::SyllableArguments&);
+      virtual void fillTypeXX(VexParser::SyllableArguments&);
   };
 }
 

@@ -15,28 +15,66 @@ namespace VexParser
   class SyllableArguments
   {
   public:
-    explicit 
-    SyllableArguments(Arguments* destiny, Arguments* source) 
-    : source(source), destiny(destiny) { }
+    explicit
+    SyllableArguments()
+    { }
     
     explicit 
-    SyllableArguments(Arguments* source)
-    : source(source), destiny(NULL) { }
+    SyllableArguments(Arguments& destinyRef, Arguments& sourceRef) 
+      : source(sourceRef), 
+        destiny(destinyRef) 
+    { }
     
-    ~SyllableArguments() 
-    { delete source; delete destiny; }
+    explicit 
+    SyllableArguments(Arguments& sourceRef)
+      : source(sourceRef) 
+    { }
     
-    Arguments*
-    getSourceArguments() const 
+    SyllableArguments(const SyllableArguments& orig)
+      : source( orig.getSourceArgumentsCopy() ), 
+      destiny( orig.getDestinyArgumentsCopy() ) 
+    { }
+//    
+//    ~SyllableArguments() 
+//    { /*delete source; delete destiny;*/ }
+    
+    SyllableArguments& operator =(const SyllableArguments& other)
+    {
+      source = other.getSourceArgumentsCopy();
+      destiny = other.getDestinyArgumentsCopy();
+      
+      return *this;
+    }
+    
+    bool operator ==(const SyllableArguments& other) const
+    {
+      return source == other.getSourceArgumentsCopy() && destiny == other.getDestinyArgumentsCopy();
+    }
+    
+    bool operator !=(const SyllableArguments& other) const
+    {
+      return !(*this == other);
+    }
+    
+    Arguments&
+    getSourceArguments() 
     { return source; }
     
-    Arguments*
-    getDestinyArguments() const
+    Arguments
+    getSourceArgumentsCopy() const
+    { return source; }
+    
+    Arguments&
+    getDestinyArguments()
+    { return destiny; }
+    
+    Arguments
+    getDestinyArgumentsCopy() const
     { return destiny; }
     
   private:
-    Arguments* source;
-    Arguments* destiny;
+    Arguments source;
+    Arguments destiny;
   };
 }
 

@@ -38,9 +38,15 @@ namespace VexParser
     /* Register or number */
     explicit Expression( int );
     
+    /* Copy constructor */
+    Expression( const Expression& );
+    
     virtual
     ~Expression( ) {}
 
+    bool operator ==(const Expression&) const;
+    bool operator !=(const Expression&) const;
+    
     virtual bool
     isMemoryReference() const
     { return isMemReference; }
@@ -86,7 +92,7 @@ namespace VexParser
     getParsedValue() const;
 
     virtual void
-    print(std::ostream&);
+    print(std::ostream&) const;
 
   };
 

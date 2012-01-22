@@ -22,7 +22,7 @@ namespace rVex
           unsigned int getOpcode() const { return this->opRFI; }
           SyllableType::Type getSyllableType() const { return SyllableType::CTRL; }
           
-          virtual void fillSyllable(VexParser::SyllableArguments* arguments)
+          virtual void fillSyllable(VexParser::SyllableArguments& arguments)
           { this->fillTypeXIV(arguments); }
           
           virtual void print(rVex::Printers::IPrinter&, bool, bool) const;

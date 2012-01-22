@@ -76,8 +76,10 @@ namespace PBIW
      
     int counterIt = 0;
 
-    // Go through all the syllables ordering them by TYPE (TODO: order then by opcode)
-    for(it = operations.begin();        // O( |operations| ) = O(4) = O(1)
+    // Go through all the syllables ordering them by TYPE (TODO: order then by opcode
+    
+    // O( |operations| ) = O(4) = 4*O(1) = O(1)
+    for(it = operations.begin(); 
         it < operations.end(); 
         it++)
     {
@@ -167,6 +169,8 @@ namespace PBIW
     // Ordering of the ALU operations by opcode, when this operations have differents
     // opcodes. Otherwise (equals opcode) the ALU operations are ordering by 
     // write operand, or first read operand or second read operand/immediate.
+    
+    // O(|operations|^2) = O(4^2) = O(16) = 16*O(1) = O(1)
     for(index2 = 0;
         index2 < operations.size();// O(|operations| * |operations|) = O(16) = O(1)
         index2 ++)

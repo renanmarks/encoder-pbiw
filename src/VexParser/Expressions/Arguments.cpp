@@ -10,34 +10,84 @@
 
 namespace VexParser
 {
-  Arguments::Arguments( Expression* ex )
+  Arguments::Arguments( const Expression& ex )
   { 
     addArgument(ex);
   }
 
-  Arguments::Arguments( Arguments& args, Expression* ex ) // O(1)
+  Arguments::Arguments( Arguments& args, const Expression& ex )  // O(1)
   {
-    ArgumentVector::const_iterator it;
-
-    for (it=args.getArguments().begin(); it < args.getArguments().end(); it++) // O(1)
-      addArgument( new Expression(**it) );
-    
+    copyExpressions(args);
     addArgument(ex);
+  }
+  
+  Arguments::Arguments( Arguments& other )
+  {
+    copyExpressions(other);
+  }
+  
+  Arguments::Arguments( const Arguments& other )
+  {
+    copyExpressions(other);
   }
   
   Arguments::~Arguments()
   {
     clearArguments();
   }
-
-  void
-  Arguments::addArgument( Expression* ex ) // O(1)
+  
+  Arguments& Arguments::operator =( const Arguments& other )
   {
-    if (ex->isMemoryReference())
+    if (this != &other) // protect against invalid self-assignment
+      copyExpressions(other);
+    
+    return *this;
+  }
+  
+  bool Arguments::operator ==(const Arguments& other) const
+  {
+    ArgumentVector::const_iterator it1 = arguments.begin();
+    ArgumentVector otherVector = other.getArgumentsCopy();
+    ArgumentVector::const_iterator it2 = otherVector.begin();
+
+    while (it1 != arguments.end() && it2 != otherVector.end())
     {
-      arguments.push_back(new Expression(ex->getValue()));  // offset
-      arguments.push_back(new Expression(ex->getString())); // register
-      delete ex;
+      if (*it1 != *it2)
+        return false;
+
+      it1++;
+      it2++;
+    }
+
+    if (it1 == arguments.end() && it2 == otherVector.end())
+      return true;
+
+    return false;
+  }
+
+  bool Arguments::operator !=(const Arguments& other) const
+  {
+    return (*this != other);
+  }
+
+  Arguments& Arguments::copyExpressions(const Arguments& other)
+  {
+    ArgumentVector arguments = other.getArgumentsCopy();
+    ArgumentVector::const_iterator it;
+
+    for (it=arguments.begin(); it < arguments.end(); it++)
+      addArgument( *it );
+    
+    return *this;
+  }
+  
+  void
+  Arguments::addArgument( const Expression& ex ) // O(1)
+  {
+    if (ex.isMemoryReference())
+    {
+      arguments.push_back( Expression(ex.getValue()) );  // offset
+      arguments.push_back( Expression(ex.getString()) ); // register
       
       return;
     }
@@ -45,8 +95,14 @@ namespace VexParser
     arguments.push_back(ex);
   }
 
-  std::vector<Expression*>&
-  Arguments::getArguments( )  // O(1)
+  Arguments::ArgumentVector&
+  Arguments::getArguments( ) // O(1)
+  {
+    return arguments;
+  }
+  
+  Arguments::ArgumentVector
+  Arguments::getArgumentsCopy( ) const
   {
     return arguments;
   }
@@ -56,17 +112,17 @@ namespace VexParser
   {
     ArgumentVector::const_iterator it;
 
-    for (it=arguments.begin(); it < arguments.end(); it++) // O(|arguments|) = O(4) = O(1)
-      (*it)->print(ostream);
+    for (it = arguments.begin(); it < arguments.end(); it++) // O(|arguments|) = O(4) = O(1)
+      it->print(ostream);
   }
   
   void
   Arguments::clearArguments( ) // O(1)
   {
-    ArgumentVector::iterator it;
+//    ArgumentVector::iterator it;
 
-    for (it=arguments.begin(); it < arguments.end(); it++)
-      delete *it;
+//    for (it=arguments.begin(); it < arguments.end(); it++)
+//      delete *it;
     
     arguments.clear();
   }

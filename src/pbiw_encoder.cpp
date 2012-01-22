@@ -22,8 +22,8 @@ using namespace std;
 int
 main( int argc, char** argv )
 {
-  Time::ExecutionTime time;  
-  time.start();
+//  Time::ExecutionTime time;  
+//  time.start();
   
   rVex::Printers::rVexPrinter printer(std::cout);
   //rVex::Printers::VHDLPrinter printer(std::cout);
@@ -100,7 +100,7 @@ main( int argc, char** argv )
       delete it->syllableConstructor;
   }
   
-  time.finish();
+//  time.finish();
   
   return result ? 0 : 1;
   

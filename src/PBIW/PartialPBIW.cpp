@@ -45,8 +45,9 @@ namespace PBIW
       return other;
     
     PBIWPatternList::const_iterator it;
-    
-    for (it = codedPatterns.begin();  // O(|codedPatterns|)
+
+    // O(|codedPatterns|)
+    for (it = codedPatterns.begin();	 
          it != codedPatterns.end();
          it++)
     {
@@ -59,7 +60,8 @@ namespace PBIW
     return other;
   }
   
-  void PartialPBIW::savePBIWElements(IPBIWInstruction*& finalInstruction, IPBIWPattern*& newPattern) // O(|codedPatterns|)
+  // O(|codedPatterns|) + O(1) = O(|codedPatterns|)
+  void PartialPBIW::savePBIWElements(IPBIWInstruction*& finalInstruction, IPBIWPattern*& newPattern)
   {
     newPattern->reorganize(finalInstruction); // O(1)
     
@@ -81,9 +83,10 @@ namespace PBIW
     notConstFoundPattern.incrementUsageCounter();
   }
   
-  void PartialPBIW::saveAndCreateNewPBIWElements(IPBIWInstruction*& finalInstruction, IPBIWPattern*& newPattern)  // O(|codedPatterns|)
+  // O(|codedPatterns|)
+  void PartialPBIW::saveAndCreateNewPBIWElements(IPBIWInstruction*& finalInstruction, IPBIWPattern*& newPattern)
   {
-    savePBIWElements(finalInstruction, newPattern);
+    savePBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
 
     finalInstruction = new rVex64PBIWInstruction();
     newPattern = new rVex96PBIWPattern();
@@ -262,7 +265,7 @@ namespace PBIW
         newPattern->addOperation(finalOperation);
       } // ... end for each syllable
       
-      savePBIWElements(finalInstruction, newPattern); //O(|codedPatterns|)
+      savePBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
     } // ... end for each instruction
   }
 

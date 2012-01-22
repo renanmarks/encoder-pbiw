@@ -19,7 +19,7 @@
 /* Declaration at parser header */
 %code requires 
 {
-#include "../rVex/Label.h"
+#include "src/rVex/Label.h"
 }
 
 /*** yacc/bison Declarations ***/
@@ -458,17 +458,17 @@ mop             :       normal_mop
 
 normal_mop      :       CLUST OPCODE .mop_arglist 
                         { 
-                          driver.context.packSyllable( $2->syllableConstructor->create(), $3 ); 
+                          driver.context.packSyllable( $2->syllableConstructor->create(), *$3 ); 
                           
                           if (driver.context.isDebuggingEnabled())
                           {
                             std::cout << " " << $2->as_op << " ";
-                            if ( $3->getDestinyArguments() )
+                            if ( $3->getDestinyArguments().hasArguments() )
                             {
-                              $3->getDestinyArguments()->print(std::cout);
+                              $3->getDestinyArguments().print(std::cout);
                               std::cout << " = ";
                             }
-                            $3->getSourceArguments()->print(std::cout);
+                            $3->getSourceArguments().print(std::cout);
                             std::cout << std::endl;
                           }
                           
@@ -480,15 +480,17 @@ normal_mop      :       CLUST OPCODE .mop_arglist
 
 xnop_mop        :       XNOP NUMBER 
                         { 
-                          Expression* ex = new Expression($2);
-                          SyllableArguments* argument = new SyllableArguments(new Arguments(ex));
-                          driver.context.packSyllable( $1->syllableConstructor->create(), argument ); 
+                          Expression ex($2);
+                          Arguments arguments(ex);
+                          SyllableArguments syllableArguments(arguments);
+                          
+                          driver.context.packSyllable( $1->syllableConstructor->create(), syllableArguments ); 
                           
                           if (driver.context.isDebuggingEnabled())
                             std::cout << " " << $1->as_op << " " << $2 << std::endl;
                           
                           //delete $1;
-                          delete argument;
+                          //delete argument;
                         }
                 ;
 
@@ -506,14 +508,14 @@ asm_mop         :       CLUST OPCODE __COMMA NUMBER //{ delete $1; delete $2; }
  **********************************************************************************/
 
 .mop_arglist    :       /* empty */   %prec ARGS    { }
-                |       mop_arglist __EQUAL mop_arglist       { $$ = new SyllableArguments($1, $3); }
-                |       mop_arglist __EQUAL %prec ARGS        { $$ = new SyllableArguments($1); }
-                |       mop_arglist                           { $$ = new SyllableArguments($1); }
+                |       mop_arglist __EQUAL mop_arglist       { $$ = new SyllableArguments(*$1, *$3); delete $1; delete $3; }
+                |       mop_arglist __EQUAL %prec ARGS        { $$ = new SyllableArguments(*$1); delete $1; }
+                |       mop_arglist                           { $$ = new SyllableArguments(*$1); delete $1; }
                 ;
 
 
-mop_arglist     :       mop_arg                               { $$ = new Arguments($1); }
-                |       mop_arglist __COMMA mop_arg           { $$ = new Arguments(*$1, $3); delete $1; }
+mop_arglist     :       mop_arg                               { $$ = new Arguments(*$1); delete $1; }
+                |       mop_arglist __COMMA mop_arg           { $$ = new Arguments(*$1, *$3); delete $1; delete $3; }
                 ;
 
 mop_arg         :       expr                                  { $$ = $1; }
@@ -540,7 +542,7 @@ expr            :       __LPAREN expr __RPAREN    { $$ = $2; }
  **     Generic name (could be NAME or OPCODE)
  **********************************************************************************/
 name            :       NAME                  { $$ = $1; }
-                |       OPCODE                { $$ = new std::string($1->as_op); delete $1;}
+                |       OPCODE                { $$ = new std::string($1->as_op); /*delete $1;*/}
                 |       CLUST                 { $$ = $1; }
                 ;
 /**********************************************************************************/

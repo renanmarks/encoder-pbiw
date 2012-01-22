@@ -19,6 +19,8 @@
 #include "src/rVex/Operations/ALU/MOV.h"
 #include "src/rVex/Printers/rVexPrinter.h"
 #include "src/PBIW/Interfaces/IPBIW.h"
+#include "Processors/SyllablePacker.h"
+#include "Processors/PseudoSyllableProcessor.h"
 
 namespace VexParser
 {
@@ -48,242 +50,79 @@ namespace VexParser
       }
     }
   }
-  
+
   void VexContext::newInstruction()
   {
     syllableBuffer.clear();
   }
   
-  void VexContext::packSyllable(rVex::SyllableALU* syllable, SyllableArguments* arguments) // O(1)
+  void VexContext::packSyllable(rVex::Syllable* syllable, SyllableArguments& arguments)  // O(1)
   {
-    switch(syllable->getOpcode())
-    {
-      // If is a MOV with immediate operand then is a pseudo-instruction...
-      case rVex::Syllable::opMOV:
-      {
-        // Change MOV syllable to ADD syllable
-        rVex::Operations::ALU::ADD add;
-        memcpy(syllable, &add, sizeof(add)); // O(1)
-
-        int value = arguments->getSourceArguments()->getArguments()[0]->getValue(); // O(1)
-          
-        if (arguments->getSourceArguments()->getArguments()[0]->getParsedValue().isImmediate) // O(1)
-        {
-          // Change from: mov $r0.x = 12345
-          // to: add $r0.x = $r0.0, 12345
-          arguments->getSourceArguments()->clearArguments(); // O(1)
-          arguments->getSourceArguments()->addArgument(new Expression("$r0.0")); // O(1)
-          arguments->getSourceArguments()->addArgument(new Expression(value)); // O(1)
-        }
-        else
-        {
-          // Change from: mov $r0.x = $r0.y
-          // to: add $r0.x = $r0.y, $r0.0
-          int value = arguments->getSourceArguments()->getArguments()[0]->getValue(); // O(1)
-          
-          std::stringstream strBuilder;
-          strBuilder << "$r0." << value << std::endl;
-          
-          arguments->getSourceArguments()->addArgument(new Expression("$r0.0")); // O(1)
-          arguments->getSourceArguments()->addArgument(new Expression(strBuilder.str())); // O(1)
-        }
-      } 
-      break;
-      
-      case rVex::Syllable::opCMPEQ:
-      case rVex::Syllable::opCMPGE:
-      case rVex::Syllable::opCMPGEU:
-      case rVex::Syllable::opCMPGT:
-      case rVex::Syllable::opCMPGTU:
-      case rVex::Syllable::opCMPLE:
-      case rVex::Syllable::opCMPLEU:
-      case rVex::Syllable::opCMPLT:
-      case rVex::Syllable::opCMPLTU:
-      case rVex::Syllable::opCMPNE:
-      case rVex::Syllable::opNANDL:
-      case rVex::Syllable::opNORL:
-      case rVex::Syllable::opORL:
-        // Change from: cmpXX $r0.x = $r0.y, 12345
-        // to: 
-        // add $r0.32 = $r0.0, 12345
-        // cmpXX $r0.x = $r0.y, $r0.32
-        
-        // WARNING: this is only suitable if the PBIW encoding supports indexing
-        // the $r0.32 register
-        if (arguments->getSourceArguments()->getArguments()[1]->getParsedValue().isImmediate)
-        {
-          // If not enought space to fit the add, get a new instruction
-          if (syllableBuffer.size() > 3)
-            endInstruction(); // O(1)
-          
-          // Save cmpXX original values for posterior use
-          bool isBR = arguments->getDestinyArguments()->getArguments()[0]->getParsedValue().isBranchRegister;
-          int destinyReg = arguments->getDestinyArguments()->getArguments()[0]->getValue();
-          int sourceReg = arguments->getSourceArguments()->getArguments()[0]->getValue();
-          int value = arguments->getSourceArguments()->getArguments()[1]->getValue();
-          
-          rVex::SyllableALU* add = new rVex::Operations::ALU::ADD();
-
-          arguments->getDestinyArguments()->clearArguments();
-          arguments->getSourceArguments()->addArgument(new Expression("$r0.32"));
-          
-          arguments->getSourceArguments()->clearArguments();
-          arguments->getSourceArguments()->addArgument(new Expression("$r0.0"));
-          arguments->getSourceArguments()->addArgument(new Expression(value));
-          
-          add->fillSyllable(arguments); // O(1)
-          syllableBuffer.push_back(add); // O(1)
-          
-          // Get a new instruction because of the use of the previous 
-          // assigned register $r0.32
-          endInstruction(); // O(1)
-          
-          // Used to construct the register strings
-          std::stringstream strBuilder; 
-          
-          strBuilder << "$r0." << destinyReg << std::endl;
-          std::string destinyRegStr = strBuilder.str();
-          
-          if (isBR)
-          {
-            strBuilder.clear();
-            strBuilder << "$b0." << destinyReg << std::endl;
-            destinyRegStr = strBuilder.str();
-          }
-          
-          arguments->getDestinyArguments()->clearArguments();
-          arguments->getDestinyArguments()->addArgument(new Expression(destinyRegStr));
-          
-          strBuilder.clear();
-          strBuilder << "$r0." << sourceReg << std::endl;
-          arguments->getSourceArguments()->clearArguments();
-          arguments->getSourceArguments()->addArgument(new Expression(strBuilder.str()));
-          arguments->getSourceArguments()->addArgument(new Expression("$r0.32"));
-          
-          syllable->fillSyllable(arguments);
-          syllableBuffer.push_back(syllable);
-          endInstruction();
-          
-          return;
-        }
-      break;
-    }
-
-    syllable->fillSyllable(arguments);
-    syllableBuffer.push_back(syllable);
-  }
-  
-  void VexContext::packSyllable(rVex::SyllableMEM* syllable, SyllableArguments* arguments) // O(1)
-  {
-    syllable->fillSyllable(arguments); // O(1)
-    syllableBuffer.push_back(syllable);
-  }
-  
-  void VexContext::packSyllable(rVex::SyllableMUL* syllable, SyllableArguments* arguments) // O(1)
-  {
-    syllable->fillSyllable(arguments);
-    syllableBuffer.push_back(syllable);
-  }
-  
-  void VexContext::packSyllable(rVex::SyllableCTRL* syllable, SyllableArguments* arguments) // O(1)
-  {
-    switch(syllable->getOpcode())
-    {
-      case rVex::Syllable::opXNOP:
-        delete syllable;
-        return; // Does not support XNOP yet.
-      
-      case rVex::Syllable::opCALL:
-      {
-        Expression::ParseInfo argumentInfo = 
-          arguments->getSourceArguments()->getArguments()[0]->getParsedValue();
-        
-        if (argumentInfo.isLabel)
-          controlSyllables.push_back(syllable);
-        else
-        {
-          // If is a register, change CALL syllable to ICALL syllable
-          rVex::Operations::CTRL::ICALL icall;
-          memcpy(syllable, &icall, sizeof(icall)); // O(1)
-        }
-        
-        break;
-      }
-      
-      case rVex::Syllable::opGOTO:
-      {
-        Expression::ParseInfo argumentInfo = 
-          arguments->getSourceArguments()->getArguments()[0]->getParsedValue();
-        
-        if (argumentInfo.isLabel)
-          controlSyllables.push_back(syllable);
-        else
-        {
-          // If is a register, change GOTO syllable to IGOTO syllable
-          rVex::Operations::CTRL::IGOTO igoto;
-          memcpy(syllable, &igoto, sizeof(igoto));
-        }
-        
-        break;
-      }
-      
-      case rVex::Syllable::opRETURN:
-      {
-        Expression::ParseInfo argumentInfo = 
-          arguments->getSourceArguments()->getArguments()[1]->getParsedValue();
-        
-        if (argumentInfo.isLabel)
-          controlSyllables.push_back(syllable);
-        
-        break;
-      }  
-      
-      case rVex::Syllable::opBR:
-      case rVex::Syllable::opBRF:
-          controlSyllables.push_back(syllable);
-        break;
-      
-      default:
-        break;
-    }
+    Processors::SyllablePacker packer(*this);
     
-    syllable->fillSyllable(arguments); // O(1)
-    syllableBuffer.push_back(syllable);
-  }
-  
-  void VexContext::packSyllable(rVex::SyllableMISC* syllable, SyllableArguments* arguments) // O(1)
-  {
-    syllable->fillSyllable(arguments); // O(1)
-    syllableBuffer.push_back(syllable);
-  }
-    
-  void VexContext::packSyllable(rVex::Syllable* syllable, SyllableArguments* arguments) // O(1)
-  {
-    switch(syllable->getSyllableType()) // O(1)
+    switch(syllable->getSyllableType())
     {
-      case rVex::Syllable::SyllableType::ALU: // O(1)
-        packSyllable(dynamic_cast<rVex::SyllableALU*>(syllable), arguments); // O(1)
+      case rVex::Syllable::SyllableType::ALU:
+        packer.process(dynamic_cast<rVex::SyllableALU*>(syllable), arguments);
         break;
         
       case rVex::Syllable::SyllableType::MEM:
-        packSyllable(dynamic_cast<rVex::SyllableMEM*>(syllable), arguments);
+        packer.process(dynamic_cast<rVex::SyllableMEM*>(syllable), arguments);
         break;
         
       case rVex::Syllable::SyllableType::MUL:
-        packSyllable(dynamic_cast<rVex::SyllableMUL*>(syllable), arguments);
+        packer.process(dynamic_cast<rVex::SyllableMUL*>(syllable), arguments);
         break;
         
       case rVex::Syllable::SyllableType::CTRL:
-        packSyllable(dynamic_cast<rVex::SyllableCTRL*>(syllable), arguments);
+        packer.process(dynamic_cast<rVex::SyllableCTRL*>(syllable), arguments);
         break;
         
       default: // MISC
-        packSyllable(dynamic_cast<rVex::SyllableMISC*>(syllable), arguments);
+        packer.process(dynamic_cast<rVex::SyllableMISC*>(syllable), arguments);
         break;
     }
   }
   
-  void VexContext::processLabels()  // O(|labels| + |controlSyllables| + |controlSyllables|) = O(1)
+  void VexContext::postProcess() // O(|labels| + |controlSyllables| + |controlSyllables|) = O(1)
+  {
+    Processors::PseudoSyllableProcessor processor(*this);
+    
+    SyllableBuffer::iterator it;
+    
+    for (it = syllableBuffer.begin();
+         it < syllableBuffer.end();
+         it++)
+    {
+      rVex::Syllable* syllable = it->getSyllable();
+      VexParser::SyllableArguments arguments = it->getArguments();
+      
+      switch(syllable->getSyllableType())
+      {
+        case rVex::Syllable::SyllableType::ALU:
+          processor.process(dynamic_cast<rVex::SyllableALU*>(syllable), arguments);
+          break;
+
+        case rVex::Syllable::SyllableType::MEM:
+          processor.process(dynamic_cast<rVex::SyllableMEM*>(syllable), arguments);
+          break;
+
+        case rVex::Syllable::SyllableType::MUL:
+          processor.process(dynamic_cast<rVex::SyllableMUL*>(syllable), arguments);
+          break;
+
+        case rVex::Syllable::SyllableType::CTRL:
+          processor.process(dynamic_cast<rVex::SyllableCTRL*>(syllable), arguments);
+          break;
+
+        default: // MISC
+          processor.process(dynamic_cast<rVex::SyllableMISC*>(syllable), arguments);
+          break;
+      }
+    }
+  }
+  
+  void VexContext::processLabels()
   {
     std::ostream& stream = printer.getOutputStream(); // O(1)
     LabelVector::iterator labelIt;
@@ -362,23 +201,24 @@ namespace VexParser
     
     labels.push_back(label);
   }
-  
+
   void VexContext::endInstruction() // O(1)
   {
     SyllableBuffer::iterator it;
     rVex::Instruction* instruction = new rVex::Instruction();
     
-    reorder(syllableBuffer); // Reorder and put NOPs
+    postProcess(); // post process
+    reorder(); // Reorder and put NOPs
     
     for (it = syllableBuffer.begin(); // O(|syllableBuffer|) = O(4) = O(1)
          it < syllableBuffer.end();
          it++)
     {
-      (*it)->setAddress(this->syllableCounter++); // O(1)
-      (*it)->setBelongedInstruction(instruction); // O(1)
+      it->getSyllable()->setAddress(this->syllableCounter++); // O(1)
+      it->getSyllable()->setBelongedInstruction(instruction); // O(1)
       
-      syllables.push_back(*it);
-      instruction->addSyllable(**it); // O(1)
+      syllables.push_back( it->getSyllable() );
+      instruction->addSyllable( *it->getSyllable() ); // O(1)
     }
     
     instruction->setAddress(this->instructionCounter++); // O(1)
@@ -439,72 +279,72 @@ namespace VexParser
   }
 
   void
-  VexContext::reorder(SyllableBuffer& syllableBuffer) // O(1)
+  VexContext::reorder() // O(1)
   {
       int counterIt = 0;
       SyllableBuffer::iterator it;
-      
-      rVex::Syllable* syllable;
             
       // Generate NOPS if we have less than 4 syllables in the buffer
       while ( syllableBuffer.size() < 4 ) // O(1)
-        syllableBuffer.push_back(new rVex::Operations::MISC::NOP());
+        syllableBuffer.push_back(Structs::SyllableBufferItem(new rVex::Operations::MISC::NOP()));
       
       // Go through all the syllables ordering them
       for(it = syllableBuffer.begin(); // O(|syllableBuffer|) = O(4) = O(1)
           it < syllableBuffer.end(); 
           it++)
       {
+        rVex::Syllable* syllableIt = it->getSyllable();
+        
           // ALU = 1, MUL = 2, MEM = 3 , CTRL = 4
           if( 
-              (*it)->getOpcode() && 
-              ((*it)->getSyllableType() != rVex::Syllable::SyllableType::ALU) 
+              syllableIt->getOpcode() && 
+              (syllableIt->getSyllableType() != rVex::Syllable::SyllableType::ALU) 
             )
           {
               if(
-                  ((*it)->getSyllableType() == rVex::Syllable::SyllableType::CTRL) && 
+                  (syllableIt->getSyllableType() == rVex::Syllable::SyllableType::CTRL) && 
                   (counterIt != 0)
                 )
               {
                   // exchange the indexes
-                  syllable = syllableBuffer.at(0);
+                  Structs::SyllableBufferItem syllableBufferItem = syllableBuffer.at(0);
                   syllableBuffer.at(0) = syllableBuffer.at(counterIt);
-                  syllableBuffer.at(counterIt) = syllable;
+                  syllableBuffer.at(counterIt) = syllableBufferItem;
                   
                   counterIt--;
                   it--;
               }
               else if(
-                       ((*it)->getSyllableType() == rVex::Syllable::SyllableType::MEM) && 
+                       (syllableIt->getSyllableType() == rVex::Syllable::SyllableType::MEM) && 
                        (counterIt != 3)
                      )
               {
                   // exchange the indexes
-                  syllable = syllableBuffer.at(3);
+                  Structs::SyllableBufferItem syllableBufferItem = syllableBuffer.at(3);
                   syllableBuffer.at(3) = syllableBuffer.at(counterIt);
-                  syllableBuffer.at(counterIt) = syllable;
+                  syllableBuffer.at(counterIt) = syllableBufferItem;
                   
                   counterIt--;
                   it--;
               }   
 
               else if(
-                       ((*it)->getSyllableType() == rVex::Syllable::SyllableType::MUL) && 
+                       (syllableIt->getSyllableType() == rVex::Syllable::SyllableType::MUL) && 
                        ((counterIt != 1) && (counterIt != 2))
                      )
               {
                   int index;                  
                   
                   // set up the index that will receive the MUL syllable
-                  if (syllableBuffer.at(1)->getSyllableType() != rVex::Syllable::SyllableType::MUL)
+                  if (syllableBuffer.at(1).getSyllable()->getSyllableType() != rVex::Syllable::SyllableType::MUL)
                       index = 1;
                   else
                       index = 2;
                   
                   // exchange the indexes
-                  syllable = syllableBuffer.at(index);
+                  Structs::SyllableBufferItem syllableBufferItem = syllableBuffer.at(index);
                   syllableBuffer.at(index) = syllableBuffer.at(counterIt);
-                  syllableBuffer.at(counterIt) = syllable;
+                  syllableBuffer.at(counterIt) = syllableBufferItem;
                                     
                   counterIt--;
                   it--;

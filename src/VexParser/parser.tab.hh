@@ -40,7 +40,7 @@
 /* Line 35 of lalr1.cc  */
 #line 21 "parser.yy"
 
-#include "../rVex/Label.h"
+#include "src/rVex/Label.h"
 
 
 

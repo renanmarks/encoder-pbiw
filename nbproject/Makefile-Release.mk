@@ -42,10 +42,13 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/rVex/Operations/CTRL/BR.o \
 	${OBJECTDIR}/src/rVex/Operations/CTRL/RFI.o \
 	${OBJECTDIR}/src/PBIW/Operation.o \
+	${OBJECTDIR}/src/VexParser/Structs/SyllableBufferItem.o \
+	${OBJECTDIR}/src/VexParser/Processors/SyllablePacker.o \
 	${OBJECTDIR}/src/rVex/SyllableALU.o \
 	${OBJECTDIR}/src/rVex/SyllableMISC.o \
 	${OBJECTDIR}/src/rVex/Utils/OperandVectorBuilder.o \
 	${OBJECTDIR}/src/PBIW/Utils/OperandVector.o \
+	${OBJECTDIR}/src/VexParser/Structs/ISection.o \
 	${OBJECTDIR}/src/VexParser/VexContext.o \
 	${OBJECTDIR}/src/PBIW/Operand.o \
 	${OBJECTDIR}/src/rVex/Operations/CTRL/CALL.o \
@@ -57,6 +60,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/VexParser/driver.o \
 	${OBJECTDIR}/src/PBIW/PartialPBIW.o \
 	${OBJECTDIR}/src/rVex/SyllableMEM.o \
+	${OBJECTDIR}/src/VexParser/Processors/PseudoSyllableProcessor.o \
+	${OBJECTDIR}/src/VexParser/Structs/Function.o \
 	${OBJECTDIR}/src/PBIW/rVex96PBIWPattern.o \
 	${OBJECTDIR}/src/rVex/Printers/VHDLPrinter.o \
 	${OBJECTDIR}/src/VexParser/Expressions/Arguments.o \
@@ -140,6 +145,16 @@ ${OBJECTDIR}/src/PBIW/Operation.o: src/PBIW/Operation.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/Operation.o src/PBIW/Operation.cpp
 
+${OBJECTDIR}/src/VexParser/Structs/SyllableBufferItem.o: src/VexParser/Structs/SyllableBufferItem.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/VexParser/Structs
+	${RM} $@.d
+	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/VexParser/Structs/SyllableBufferItem.o src/VexParser/Structs/SyllableBufferItem.cpp
+
+${OBJECTDIR}/src/VexParser/Processors/SyllablePacker.o: src/VexParser/Processors/SyllablePacker.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/VexParser/Processors
+	${RM} $@.d
+	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/VexParser/Processors/SyllablePacker.o src/VexParser/Processors/SyllablePacker.cpp
+
 ${OBJECTDIR}/src/rVex/SyllableALU.o: src/rVex/SyllableALU.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/rVex
 	${RM} $@.d
@@ -159,6 +174,11 @@ ${OBJECTDIR}/src/PBIW/Utils/OperandVector.o: src/PBIW/Utils/OperandVector.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Utils
 	${RM} $@.d
 	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/Utils/OperandVector.o src/PBIW/Utils/OperandVector.cpp
+
+${OBJECTDIR}/src/VexParser/Structs/ISection.o: src/VexParser/Structs/ISection.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/VexParser/Structs
+	${RM} $@.d
+	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/VexParser/Structs/ISection.o src/VexParser/Structs/ISection.cpp
 
 ${OBJECTDIR}/src/VexParser/VexContext.o: src/VexParser/VexContext.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/VexParser
@@ -214,6 +234,16 @@ ${OBJECTDIR}/src/rVex/SyllableMEM.o: src/rVex/SyllableMEM.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/rVex
 	${RM} $@.d
 	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/SyllableMEM.o src/rVex/SyllableMEM.cpp
+
+${OBJECTDIR}/src/VexParser/Processors/PseudoSyllableProcessor.o: src/VexParser/Processors/PseudoSyllableProcessor.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/VexParser/Processors
+	${RM} $@.d
+	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/VexParser/Processors/PseudoSyllableProcessor.o src/VexParser/Processors/PseudoSyllableProcessor.cpp
+
+${OBJECTDIR}/src/VexParser/Structs/Function.o: src/VexParser/Structs/Function.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/VexParser/Structs
+	${RM} $@.d
+	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/VexParser/Structs/Function.o src/VexParser/Structs/Function.cpp
 
 ${OBJECTDIR}/src/PBIW/rVex96PBIWPattern.o: src/PBIW/rVex96PBIWPattern.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/PBIW
@@ -282,25 +312,25 @@ ${TESTDIR}/TestFiles/f1: ${TESTDIR}/src/Tests/rVex/rVexInstructionTest.o ${TESTD
 ${TESTDIR}/src/Tests/Parser/ExpressionTest.o: src/Tests/Parser/ExpressionTest.cpp 
 	${MKDIR} -p ${TESTDIR}/src/Tests/Parser
 	${RM} $@.d
-	$(COMPILE.cc) -O3 -s -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/Parser/ExpressionTest.o src/Tests/Parser/ExpressionTest.cpp
+	$(COMPILE.cc) -O3 -s -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/Parser/ExpressionTest.o src/Tests/Parser/ExpressionTest.cpp
 
 
 ${TESTDIR}/src/Tests/Parser/VexContextTest.o: src/Tests/Parser/VexContextTest.cpp 
 	${MKDIR} -p ${TESTDIR}/src/Tests/Parser
 	${RM} $@.d
-	$(COMPILE.cc) -O3 -s -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/Parser/VexContextTest.o src/Tests/Parser/VexContextTest.cpp
+	$(COMPILE.cc) -O3 -s -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/Parser/VexContextTest.o src/Tests/Parser/VexContextTest.cpp
 
 
 ${TESTDIR}/src/Tests/rVex/rVexInstructionTest.o: src/Tests/rVex/rVexInstructionTest.cpp 
 	${MKDIR} -p ${TESTDIR}/src/Tests/rVex
 	${RM} $@.d
-	$(COMPILE.cc) -O3 -s -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/rVex/rVexInstructionTest.o src/Tests/rVex/rVexInstructionTest.cpp
+	$(COMPILE.cc) -O3 -s -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/rVex/rVexInstructionTest.o src/Tests/rVex/rVexInstructionTest.cpp
 
 
 ${TESTDIR}/src/Tests/rVex/rVexSyllableTest.o: src/Tests/rVex/rVexSyllableTest.cpp 
 	${MKDIR} -p ${TESTDIR}/src/Tests/rVex
 	${RM} $@.d
-	$(COMPILE.cc) -O3 -s -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/rVex/rVexSyllableTest.o src/Tests/rVex/rVexSyllableTest.cpp
+	$(COMPILE.cc) -O3 -s -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/rVex/rVexSyllableTest.o src/Tests/rVex/rVexSyllableTest.cpp
 
 
 ${OBJECTDIR}/src/rVex/Operations/CTRL/GOTO_nomain.o: ${OBJECTDIR}/src/rVex/Operations/CTRL/GOTO.o src/rVex/Operations/CTRL/GOTO.cpp 
@@ -407,6 +437,32 @@ ${OBJECTDIR}/src/PBIW/Operation_nomain.o: ${OBJECTDIR}/src/PBIW/Operation.o src/
 	    ${CP} ${OBJECTDIR}/src/PBIW/Operation.o ${OBJECTDIR}/src/PBIW/Operation_nomain.o;\
 	fi
 
+${OBJECTDIR}/src/VexParser/Structs/SyllableBufferItem_nomain.o: ${OBJECTDIR}/src/VexParser/Structs/SyllableBufferItem.o src/VexParser/Structs/SyllableBufferItem.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/VexParser/Structs
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/VexParser/Structs/SyllableBufferItem.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/VexParser/Structs/SyllableBufferItem_nomain.o src/VexParser/Structs/SyllableBufferItem.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/VexParser/Structs/SyllableBufferItem.o ${OBJECTDIR}/src/VexParser/Structs/SyllableBufferItem_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/VexParser/Processors/SyllablePacker_nomain.o: ${OBJECTDIR}/src/VexParser/Processors/SyllablePacker.o src/VexParser/Processors/SyllablePacker.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/VexParser/Processors
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/VexParser/Processors/SyllablePacker.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/VexParser/Processors/SyllablePacker_nomain.o src/VexParser/Processors/SyllablePacker.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/VexParser/Processors/SyllablePacker.o ${OBJECTDIR}/src/VexParser/Processors/SyllablePacker_nomain.o;\
+	fi
+
 ${OBJECTDIR}/src/rVex/SyllableALU_nomain.o: ${OBJECTDIR}/src/rVex/SyllableALU.o src/rVex/SyllableALU.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/rVex
 	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/rVex/SyllableALU.o`; \
@@ -457,6 +513,19 @@ ${OBJECTDIR}/src/PBIW/Utils/OperandVector_nomain.o: ${OBJECTDIR}/src/PBIW/Utils/
 	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/Utils/OperandVector_nomain.o src/PBIW/Utils/OperandVector.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/PBIW/Utils/OperandVector.o ${OBJECTDIR}/src/PBIW/Utils/OperandVector_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/VexParser/Structs/ISection_nomain.o: ${OBJECTDIR}/src/VexParser/Structs/ISection.o src/VexParser/Structs/ISection.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/VexParser/Structs
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/VexParser/Structs/ISection.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/VexParser/Structs/ISection_nomain.o src/VexParser/Structs/ISection.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/VexParser/Structs/ISection.o ${OBJECTDIR}/src/VexParser/Structs/ISection_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/VexParser/VexContext_nomain.o: ${OBJECTDIR}/src/VexParser/VexContext.o src/VexParser/VexContext.cpp 
@@ -600,6 +669,32 @@ ${OBJECTDIR}/src/rVex/SyllableMEM_nomain.o: ${OBJECTDIR}/src/rVex/SyllableMEM.o 
 	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/SyllableMEM_nomain.o src/rVex/SyllableMEM.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/rVex/SyllableMEM.o ${OBJECTDIR}/src/rVex/SyllableMEM_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/VexParser/Processors/PseudoSyllableProcessor_nomain.o: ${OBJECTDIR}/src/VexParser/Processors/PseudoSyllableProcessor.o src/VexParser/Processors/PseudoSyllableProcessor.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/VexParser/Processors
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/VexParser/Processors/PseudoSyllableProcessor.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/VexParser/Processors/PseudoSyllableProcessor_nomain.o src/VexParser/Processors/PseudoSyllableProcessor.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/VexParser/Processors/PseudoSyllableProcessor.o ${OBJECTDIR}/src/VexParser/Processors/PseudoSyllableProcessor_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/VexParser/Structs/Function_nomain.o: ${OBJECTDIR}/src/VexParser/Structs/Function.o src/VexParser/Structs/Function.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/VexParser/Structs
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/VexParser/Structs/Function.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/VexParser/Structs/Function_nomain.o src/VexParser/Structs/Function.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/VexParser/Structs/Function.o ${OBJECTDIR}/src/VexParser/Structs/Function_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/PBIW/rVex96PBIWPattern_nomain.o: ${OBJECTDIR}/src/PBIW/rVex96PBIWPattern.o src/PBIW/rVex96PBIWPattern.cpp 

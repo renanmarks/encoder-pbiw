@@ -21,6 +21,7 @@
         <gdb_buildfirst gdb_buildfirst_overriden="false" gdb_buildfirst_old="false"/>
       </dbx_gdbdebugger>
       <gizmo_options version="3">
+        <configurationname>GizmoSimple</configurationname>
       </gizmo_options>
       <nativedebugger version="1">
         <engine>gdb</engine>
@@ -30,14 +31,15 @@
           <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" factorial_32gr.s</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" fatorial.s</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" Fatorial.s</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -d Fatorial.s</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -p Fatorial.s</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -p mergesort.s</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" mergesort2.s</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" mergesort.s</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" nested_complex_rVex.s</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" Fatorial.s</runcommandpicklistitem>
         </runcommandpicklist>
-        <runcommand>"${OUTPUT_PATH}" mergesort.s</runcommand>
+        <runcommand>"${OUTPUT_PATH}" Fatorial.s</runcommand>
         <rundir>/home/helix/NetBeansProjects/pbiw_encoder/dist/Debug/GNU-Linux-x86</rundir>
         <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>
@@ -64,6 +66,7 @@
         <gdb_buildfirst gdb_buildfirst_overriden="false" gdb_buildfirst_old="false"/>
       </dbx_gdbdebugger>
       <gizmo_options version="3">
+        <configurationname>GizmoSimple</configurationname>
       </gizmo_options>
       <nativedebugger version="1">
         <engine>gdb</engine>
@@ -72,8 +75,9 @@
         <runcommandpicklist>
           <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" mergesort.s</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" nested_complex_rVex.s</runcommandpicklistitem>
         </runcommandpicklist>
-        <runcommand>"${OUTPUT_PATH}" mergesort.s</runcommand>
+        <runcommand>"${OUTPUT_PATH}" nested_complex_rVex.s</runcommand>
         <rundir>/home/helix/NetBeansProjects/pbiw_encoder/dist/Release/GNU-Linux-x86</rundir>
         <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>

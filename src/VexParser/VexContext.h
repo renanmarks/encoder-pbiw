@@ -21,6 +21,7 @@
 #include "../rVex/SyllableALU.h"
 #include "src/PBIW/Interfaces/IPBIW.h"
 #include "src/PBIW/Interfaces/IPBIWPrinter.h"
+#include "Structs/SyllableBufferItem.h"
 
 namespace VexParser
 {
@@ -32,71 +33,32 @@ namespace VexParser
    */
   class VexContext
   {
-  private:
-    
-    /**
-     * Status variables.
-     */
-    bool debugEnabled; // Be verbose or not, that's the question!
-    rVex::Printers::IPrinter& printer; // Printer used to output data
-    
-    /**
-     * Vector of the labels in assembly
-     */
-    typedef std::list<rVex::Label> LabelVector;
-    LabelVector labels;
-    
-    bool hasLabel; // Used to know when a label is defined
-    
-    /**
-     * Functor used to find a label.
-     */
-    class FindLabel : public std::unary_function<rVex::Label, bool>
-    {
-    public:
-        FindLabel(const std::string label) : label(label) {}
-
-        bool operator()(const rVex::Label& t) const 
-        { return (t.name == label); }
-        
-    private:
-        const std::string label;
-    };
-    
+  public:
     /**
      * Buffer to hold the syllables processed until an end of instruction
      * is issued.
      */
     typedef std::vector<rVex::SyllableCTRL*> ControlSyllablesVector;
-    ControlSyllablesVector controlSyllables;
     
     /**
      * Buffer to hold the syllables processed until an end of instruction
      * is issued.
      */
-    typedef std::vector<rVex::Syllable*> SyllableBuffer;
-    SyllableBuffer syllableBuffer;
-    
-    /**
-     * Syllable and Instruction counter.
-     * Used to address the syllables and instructions being saved in the
-     * respective lists.
-     */
-    unsigned int syllableCounter;
-    unsigned int instructionCounter;
+    typedef std::deque<Structs::SyllableBufferItem> SyllableBuffer;
     
     /**
      * The two main lists which holds the instructions and its respective
      * syllables parsed.
      */
     typedef std::list<rVex::Syllable*> SyllableList;
-    SyllableList syllables;
-    SyllableList::iterator startSyllable;
-    
     typedef std::list<rVex::Instruction*> InstructionList;
-    InstructionList instructions;
     
-  public:
+    /**
+     * Vector of the labels in assembly
+     */
+    typedef std::list<rVex::Label> LabelVector;
+    
+    
     /**
      * All the memory allocated by the syllables are freed.
      */
@@ -114,12 +76,12 @@ namespace VexParser
      * Used to select, make a pre-process an pack the parsed syllable
      * in the syllable buffer.
      */
-    void packSyllable(rVex::Syllable*, SyllableArguments*);
-    void packSyllable(rVex::SyllableALU*, SyllableArguments*);
-    void packSyllable(rVex::SyllableMEM*, SyllableArguments*);
-    void packSyllable(rVex::SyllableMUL*, SyllableArguments*);
-    void packSyllable(rVex::SyllableCTRL*, SyllableArguments*);
-    void packSyllable(rVex::SyllableMISC*, SyllableArguments*);
+    void packSyllable(rVex::Syllable*, SyllableArguments&);
+//    void packSyllable(rVex::SyllableALU*, SyllableArguments&);
+//    void packSyllable(rVex::SyllableMEM*, SyllableArguments&);
+//    void packSyllable(rVex::SyllableMUL*, SyllableArguments&);
+//    void packSyllable(rVex::SyllableCTRL*, SyllableArguments&);
+//    void packSyllable(rVex::SyllableMISC*, SyllableArguments&);
     
     /**
      * Clears the syllable buffer to hold new parsed syllables.
@@ -152,7 +114,13 @@ namespace VexParser
     /**
      * Reorder the syllables in the buffer to store them in correct order.
      */
-    void reorder(SyllableBuffer&);
+    void reorder();
+    
+    /**
+     * Post process the buffer to substitute pseudo-instructions and to other
+     * post-processing stuff.
+     */
+    void postProcess();
     
     /**
      * Prints the data to the specified output.
@@ -173,6 +141,94 @@ namespace VexParser
     void enableDebugging(bool enableSwitch);
     bool isDebuggingEnabled() const
     { return this->debugEnabled; }
+
+    
+    /* Getters and setters */
+    void
+    setInstructions(const InstructionList& instructions)
+    { this->instructions = instructions; }
+
+    const InstructionList&
+    getInstructions() const
+    { return instructions; }
+
+    void
+    setSyllables(const SyllableList& syllables)
+    { this->syllables = syllables; }
+
+    const SyllableList&
+    getSyllables() const
+    { return syllables; }
+
+    void
+    setSyllableBuffer(const SyllableBuffer& syllableBuffer)
+    { this->syllableBuffer = syllableBuffer; }
+
+    SyllableBuffer&
+    getSyllableBuffer()
+    { return syllableBuffer; }
+
+    void
+    setControlSyllables(const ControlSyllablesVector& controlSyllables)
+    { this->controlSyllables = controlSyllables; }
+
+    ControlSyllablesVector&
+    getControlSyllables()
+    { return controlSyllables; }
+
+    void
+    setLabels(const LabelVector& labels)
+    { this->labels = labels; }
+
+    LabelVector
+    getLabels() const
+    { return labels; }
+
+    bool
+    isDebugEnabled() const
+    { return debugEnabled; }
+    
+  private:
+    
+    /**
+     * Status variables.
+     */
+    bool debugEnabled; // Be verbose or not, that's the question!
+    rVex::Printers::IPrinter& printer; // Printer used to output data
+    
+    LabelVector labels;
+    bool hasLabel; // Used to know when a label is defined
+    
+    ControlSyllablesVector controlSyllables;
+    SyllableBuffer syllableBuffer;
+    
+    SyllableList syllables;
+    SyllableList::iterator startSyllable;
+    
+    InstructionList instructions;
+    
+    /*
+     * Syllable and Instruction counter.
+     * Used to address the syllables and instructions being saved in the
+     * respective lists.
+     */
+    unsigned int syllableCounter;
+    unsigned int instructionCounter;
+    
+    /**
+     * Functor used to find a label.
+     */
+    class FindLabel : public std::unary_function<rVex::Label, bool>
+    {
+    public:
+        FindLabel(const std::string label) : label(label) {}
+
+        bool operator()(const rVex::Label& t) const 
+        { return (t.name == label); }
+        
+    private:
+        const std::string label;
+    };
     
   };
 }
