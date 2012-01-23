@@ -30,7 +30,7 @@ namespace rVex
 //    }
 
     void
-    OperandVectorBuilder::insertRegister(int value, OperandItem::Type type)
+    OperandVectorBuilder::insertRegister(int value, OperandItem::Type type) // O(1)
     {
       Operand* operand = new Operand(value);
       OperandItem* item = new OperandItem(operand, type);
@@ -39,7 +39,7 @@ namespace rVex
     }
 
     void
-    OperandVectorBuilder::insertImmediate(int value, Operand::Immediate::Type immType)
+    OperandVectorBuilder::insertImmediate(int value, Operand::Immediate::Type immType) // O(1)
     {
       Operand* operand = new Operand(value, immType);
       OperandItem* item = new OperandItem(operand, OperandItem::Imm);
@@ -48,11 +48,11 @@ namespace rVex
     }
 
     void
-    OperandVectorBuilder::insertRegisters(const std::vector<unsigned int>& values, OperandItem::Type type)
+    OperandVectorBuilder::insertRegisters(const std::vector<unsigned int>& values, OperandItem::Type type) // O(1)
     {
       std::vector<unsigned int>::const_iterator it;
 
-      for (it=values.begin(); it < values.end(); it++)
+      for (it=values.begin(); it < values.end(); it++) // O(1)
       {
         Operand* operand = new Operand(*it);
         OperandItem* item = new OperandItem(operand, type);

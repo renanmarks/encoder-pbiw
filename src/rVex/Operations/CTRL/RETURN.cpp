@@ -19,7 +19,7 @@ namespace rVex
       }
       
       void 
-      RETURN::print(rVex::Printers::IPrinter& output, bool first, bool last) const
+      RETURN::print(rVex::Printers::IPrinter& output, bool first, bool last) const // O(1)
       {
         unsigned int final = 0;
 

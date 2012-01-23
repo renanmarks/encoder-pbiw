@@ -1995,7 +1995,7 @@ namespace VexParser {
   {
   }
 
-  void Scanner::set_debug(bool b)
+  void Scanner::set_debug(bool b) // O(1)
   {
       yy_flex_debug = b;
   }

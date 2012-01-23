@@ -10,7 +10,7 @@ namespace rVex
     {
       
       void
-      BR::exportOperandVector(Utils::OperandVectorBuilder& builder) const
+      BR::exportOperandVector(Utils::OperandVectorBuilder& builder) const  // O(1)
       {
         using PBIW::Operand;
         using PBIW::Utils::OperandItem;
@@ -20,7 +20,7 @@ namespace rVex
       }
       
       void 
-      BR::print(rVex::Printers::IPrinter& output, bool first, bool last) const
+      BR::print(rVex::Printers::IPrinter& output, bool first, bool last) const // O(1)
       {
         unsigned int final = 0;
 

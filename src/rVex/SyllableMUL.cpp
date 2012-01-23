@@ -12,15 +12,15 @@
 namespace rVex
 {
   void
-  SyllableMUL::print(rVex::Printers::IPrinter& output, bool first, bool last) const
+  SyllableMUL::print(rVex::Printers::IPrinter& output, bool first, bool last) const // O(1)
   {
     switch (this->layoutType)
     {
       case LayoutType::RTYPE:
-        output.printSyllable(this, printRTYPE(), first, last);
+        output.printSyllable(this, printRTYPE(), first, last); // O(1)
         break;
       case LayoutType::ISTYPE:
-        output.printSyllable(this, printISTYPE(), first, last);
+        output.printSyllable(this, printISTYPE(), first, last); // O(1)
         break;
       default:
         throw new LayoutNotSupportedException("This instruction only supports R or IS layouts.");

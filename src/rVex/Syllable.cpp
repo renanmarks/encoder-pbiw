@@ -6,7 +6,7 @@
 namespace rVex
 {
   void
-  Syllable::exportOperandVector(Utils::OperandVectorBuilder& builder) const
+  Syllable::exportOperandVector(Utils::OperandVectorBuilder& builder) const // O(1)
   {
     using PBIW::Operand;
     using PBIW::Utils::OperandItem;
@@ -44,7 +44,7 @@ namespace rVex
   }
   
   unsigned int 
-  Syllable::printRTYPE() const 
+  Syllable::printRTYPE() const  // O(1)
   {
     unsigned int final = 0;
     
@@ -56,7 +56,7 @@ namespace rVex
 
     ReadRegVector::const_iterator it;
         
-    for (it = readRegisters.begin(); it < readRegisters.end(); it++)
+    for (it = readRegisters.begin(); it < readRegisters.end(); it++) // O(1)
     {
       final <<= 6;
       final |= *it;
@@ -74,7 +74,7 @@ namespace rVex
   }
   
   unsigned int 
-  Syllable::printISTYPE() const 
+  Syllable::printISTYPE() const  // O(1)
   {
     unsigned int final = 0;
 
@@ -88,7 +88,7 @@ namespace rVex
 
     ReadRegVector::const_iterator it;
 
-    for (it = readRegisters.begin(); it < readRegisters.end(); it++)
+    for (it = readRegisters.begin(); it < readRegisters.end(); it++) // O(1)
     {
       final <<= 6;
       final |= *it;
@@ -103,13 +103,13 @@ namespace rVex
   }
   
   unsigned int 
-  Syllable::printILTYPE() const
+  Syllable::printILTYPE() const // O(1)
   {
     return 0xFFFFFFFF;
   }
   
   unsigned int 
-  Syllable::printBRANCH() const
+  Syllable::printBRANCH() const // O(1)
   {
     unsigned int final = 0;
 
@@ -133,7 +133,7 @@ namespace rVex
   }
   
   unsigned int 
-  Syllable::printRTYPE_BS() const
+  Syllable::printRTYPE_BS() const // O(1)
   {
     unsigned int final = 0;
 
@@ -148,7 +148,7 @@ namespace rVex
     
     ReadRegVector::const_iterator it;
 
-    for (it = readRegisters.begin(); it < readRegisters.end(); it++)
+    for (it = readRegisters.begin(); it < readRegisters.end(); it++) // O(1)
     {
       final <<= 6;
       final |= *it;
@@ -163,7 +163,7 @@ namespace rVex
   }
   
   unsigned int 
-  Syllable::printMEMLOADTYPE() const
+  Syllable::printMEMLOADTYPE() const // O(1)
   {
     unsigned int final = 0;
 
@@ -177,7 +177,7 @@ namespace rVex
     
     ReadRegVector::const_iterator it;
 
-    for (it = readRegisters.begin(); it < readRegisters.end(); it++)
+    for (it = readRegisters.begin(); it < readRegisters.end(); it++) // O(1)
     {
       final <<= 6;
       final |= *it;
@@ -192,7 +192,7 @@ namespace rVex
   }
   
   unsigned int 
-  Syllable::printMEMSTORETYPE() const
+  Syllable::printMEMSTORETYPE() const // O(1)
   {
     unsigned int final = 0;
 
@@ -206,7 +206,7 @@ namespace rVex
     
     ReadRegVector::const_iterator it;
 
-    for (it = readRegisters.begin(); it < readRegisters.end(); it++)
+    for (it = readRegisters.begin(); it < readRegisters.end(); it++) // O(1)
     {
       final <<= 6;
       final |= *it;
@@ -221,7 +221,7 @@ namespace rVex
   }
   
   bool 
-  Syllable::operator==(const Syllable& other) const 
+  Syllable::operator==(const Syllable& other) const // O(1)
   { 
     if (this->getOpcode() == other.getOpcode())
     {
@@ -235,13 +235,13 @@ namespace rVex
   }
 
   bool 
-  Syllable::operator!=(const Syllable& other) const 
+  Syllable::operator!=(const Syllable& other) const  // O(1)
   { 
     return !(*this == other); 
   }
   
   void
-  Syllable::addReadRegister( unsigned int readRegister )
+  Syllable::addReadRegister( unsigned int readRegister ) // O(1)
   {
     if ( this->readRegisters.size() > 2 )
       return;
@@ -250,19 +250,19 @@ namespace rVex
   }
   
   void 
-  Syllable::fillTypeI(VexParser::SyllableArguments& arguments)
+  Syllable::fillTypeI(VexParser::SyllableArguments& arguments) // O(1)
   {
     this->fillTypeII(arguments);
   }
   
   void 
-  Syllable::fillTypeII(VexParser::SyllableArguments& arguments)
+  Syllable::fillTypeII(VexParser::SyllableArguments& arguments) // O(1)
   {
-    VexParser::Expression::ParseInfo destiny = arguments.getDestinyArguments().getArguments()[0].getParsedValue();
+    VexParser::Expression::ParseInfo destiny = arguments.getDestinyArguments().getArguments()[0].getParsedValue(); // O(1)
     VexParser::Expression::ParseInfo origin1 = arguments.getSourceArguments().getArguments()[0].getParsedValue();
     VexParser::Expression::ParseInfo origin2 = arguments.getSourceArguments().getArguments()[1].getParsedValue();
 
-    this->addReadRegister(static_cast<unsigned int>(origin1.value));
+    this->addReadRegister(static_cast<unsigned int>(origin1.value)); // O(1)
 
     if (origin2.isImmediate)
     {
@@ -281,8 +281,8 @@ namespace rVex
       this->setGrDestiny(static_cast<unsigned char>(destiny.value));
   }
   
-  void 
-  Syllable::fillTypeIII(VexParser::SyllableArguments& arguments)
+  void
+  Syllable::fillTypeIII(VexParser::SyllableArguments& arguments) // O(1)
   {
     VexParser::Expression::ParseInfo destiny = arguments.getDestinyArguments().getArguments()[0].getParsedValue();
     VexParser::Arguments::ArgumentVector sourceArgs = arguments.getSourceArguments().getArguments();
@@ -307,8 +307,8 @@ namespace rVex
     this->setGrDestiny(static_cast<unsigned char>(destiny.value));
   }
   
-  void 
-  Syllable::fillTypeIV(VexParser::SyllableArguments& arguments)
+  void
+  Syllable::fillTypeIV(VexParser::SyllableArguments& arguments) // O(1)
   {
     VexParser::Arguments::ArgumentVector destinyArgs = arguments.getDestinyArguments().getArguments();
     VexParser::Expression::ParseInfo destiny1 = destinyArgs[0].getParsedValue();
@@ -329,7 +329,7 @@ namespace rVex
   }
   
   void 
-  Syllable::fillTypeV(VexParser::SyllableArguments& arguments)
+  Syllable::fillTypeV(VexParser::SyllableArguments& arguments) // O(1)
   {
     VexParser::Expression::ParseInfo destiny = arguments.getDestinyArguments().getArguments()[0].getParsedValue();
     VexParser::Expression::ParseInfo origin = arguments.getSourceArguments().getArguments()[0].getParsedValue();
@@ -341,7 +341,7 @@ namespace rVex
   }
   
   void 
-  Syllable::fillTypeVI(VexParser::SyllableArguments& arguments)
+  Syllable::fillTypeVI(VexParser::SyllableArguments& arguments) // O(1)
   {
     VexParser::Expression::ParseInfo destiny = arguments.getDestinyArguments().getArguments()[0].getParsedValue();
     VexParser::Expression::ParseInfo origin1 = arguments.getSourceArguments().getArguments()[0].getParsedValue();
@@ -364,7 +364,7 @@ namespace rVex
   }
   
   void 
-  Syllable::fillTypeVII(VexParser::SyllableArguments& arguments)
+  Syllable::fillTypeVII(VexParser::SyllableArguments& arguments) // O(1)
   {
     VexParser::Expression::ParseInfo destiny = arguments.getDestinyArguments().getArguments()[0].getParsedValue();
     VexParser::Expression::ParseInfo origin = arguments.getSourceArguments().getArguments()[0].getParsedValue();
@@ -377,7 +377,7 @@ namespace rVex
   }
   
   void 
-  Syllable::fillTypeVIII(VexParser::SyllableArguments& arguments) 
+  Syllable::fillTypeVIII(VexParser::SyllableArguments& arguments) // O(1) 
   { 
     VexParser::Expression::ParseInfo source = arguments.getSourceArguments().getArguments()[0].getParsedValue();
     std::string address = arguments.getSourceArguments().getArguments()[1].getString();
@@ -389,7 +389,7 @@ namespace rVex
   }
   
   void 
-  Syllable::fillTypeIX(VexParser::SyllableArguments& arguments) 
+  Syllable::fillTypeIX(VexParser::SyllableArguments& arguments)  // O(1)
   { 
     VexParser::Expression::ParseInfo source = arguments.getSourceArguments().getArguments()[0].getParsedValue();
     std::string path = arguments.getSourceArguments().getArguments()[1].getString();
@@ -399,7 +399,7 @@ namespace rVex
   }
   
   void 
-  Syllable::fillTypeX(VexParser::SyllableArguments& arguments) 
+  Syllable::fillTypeX(VexParser::SyllableArguments& arguments)  // O(1)
   { 
     VexParser::Expression::ParseInfo destiny = arguments.getDestinyArguments().getArguments()[0].getParsedValue();
     VexParser::Expression::ParseInfo offset = arguments.getSourceArguments().getArguments()[0].getParsedValue();
@@ -413,7 +413,7 @@ namespace rVex
   }
   
   void 
-  Syllable::fillTypeXI(VexParser::SyllableArguments& arguments) 
+  Syllable::fillTypeXI(VexParser::SyllableArguments& arguments)  // O(1)
   { 
     VexParser::Expression::ParseInfo offset = arguments.getDestinyArguments().getArguments()[0].getParsedValue();
     VexParser::Expression::ParseInfo destiny = arguments.getDestinyArguments().getArguments()[1].getParsedValue();
@@ -427,7 +427,7 @@ namespace rVex
   }
   
   void 
-  Syllable::fillTypeXII(VexParser::SyllableArguments& arguments) 
+  Syllable::fillTypeXII(VexParser::SyllableArguments& arguments)  // O(1)
   { 
     VexParser::Expression::ParseInfo offset = arguments.getDestinyArguments().getArguments()[0].getParsedValue();
     VexParser::Expression::ParseInfo source = arguments.getSourceArguments().getArguments()[0].getParsedValue();
@@ -439,7 +439,7 @@ namespace rVex
   }
   
   void 
-  Syllable::fillTypeXIII(VexParser::SyllableArguments& arguments) 
+  Syllable::fillTypeXIII(VexParser::SyllableArguments& arguments)  // O(1)
   { 
     VexParser::Expression::ParseInfo source = arguments.getSourceArguments().getArguments()[0].getParsedValue();
     
@@ -451,14 +451,14 @@ namespace rVex
 
   // Only opcode
   void 
-  Syllable::fillTypeXIV(VexParser::SyllableArguments& arguments) 
+  Syllable::fillTypeXIV(VexParser::SyllableArguments& arguments)  // O(1)
   {
     this->setLayoutType(rVex::Syllable::LayoutType::RTYPE);
     this->addReadRegister(static_cast<unsigned int>(0));
   }
   
   void 
-  Syllable::fillTypeXV(VexParser::SyllableArguments& arguments) 
+  Syllable::fillTypeXV(VexParser::SyllableArguments& arguments)  // O(1)
   { 
     int value = arguments.getSourceArguments().getArguments()[0].getValue();
     
@@ -466,7 +466,7 @@ namespace rVex
   }
   
   void 
-  Syllable::fillTypeXVI(VexParser::SyllableArguments& arguments) 
+  Syllable::fillTypeXVI(VexParser::SyllableArguments& arguments)  // O(1)
   { 
     VexParser::Expression::ParseInfo destiny = arguments.getDestinyArguments().getArguments()[0].getParsedValue();
     VexParser::Expression::ParseInfo source = arguments.getSourceArguments().getArguments()[0].getParsedValue();
@@ -480,7 +480,7 @@ namespace rVex
   }
 
   void 
-  Syllable::fillTypeXVII(VexParser::SyllableArguments& arguments) 
+  Syllable::fillTypeXVII(VexParser::SyllableArguments& arguments)  // O(1)
   { 
     VexParser::Expression::ParseInfo destiny = arguments.getDestinyArguments().getArguments()[0].getParsedValue();
     VexParser::Expression::ParseInfo source1 = arguments.getSourceArguments().getArguments()[0].getParsedValue();
@@ -494,7 +494,7 @@ namespace rVex
   }
   
   void 
-  Syllable::fillTypeXVIII(VexParser::SyllableArguments& arguments) 
+  Syllable::fillTypeXVIII(VexParser::SyllableArguments& arguments) // O(1)
   { 
     VexParser::Expression::ParseInfo destiny = arguments.getDestinyArguments().getArguments()[0].getParsedValue();
     VexParser::Expression::ParseInfo source = arguments.getSourceArguments().getArguments()[0].getParsedValue();
@@ -504,7 +504,7 @@ namespace rVex
   }
   
   void 
-  Syllable::fillTypeXIX(VexParser::SyllableArguments& arguments) 
+  Syllable::fillTypeXIX(VexParser::SyllableArguments& arguments) // O(1)
   { 
     VexParser::Expression::ParseInfo source = arguments.getSourceArguments().getArguments()[0].getParsedValue();
     
@@ -512,7 +512,7 @@ namespace rVex
   }
   
   void 
-  Syllable::fillTypeXX(VexParser::SyllableArguments& arguments) 
+  Syllable::fillTypeXX(VexParser::SyllableArguments& arguments) // O(1)
   { 
     VexParser::Expression::ParseInfo destiny = arguments.getDestinyArguments().getArguments()[0].getParsedValue();
     VexParser::Expression::ParseInfo source = arguments.getSourceArguments().getArguments()[0].getParsedValue();

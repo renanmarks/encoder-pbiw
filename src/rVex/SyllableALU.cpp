@@ -13,7 +13,7 @@
 namespace rVex
 {
   void
-  SyllableALU::print(rVex::Printers::IPrinter& output, bool first, bool last) const
+  SyllableALU::print(rVex::Printers::IPrinter& output, bool first, bool last) const // O(1)
   {
     switch (this->layoutType)
     {

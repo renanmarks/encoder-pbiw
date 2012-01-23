@@ -39,15 +39,15 @@ namespace PBIW
   }
   
   const IPBIWPattern&
-  PartialPBIW::hasPattern(const IPBIWPattern& other) const
+  PartialPBIW::hasPattern(const IPBIWPattern& other) const  // O(|codedPatterns|)
   {
     if (codedPatterns.size() == 0)
       return other;
     
     PBIWPatternList::const_iterator it;
-    
+
     // O(|codedPatterns|)
-    for (it = codedPatterns.begin();
+    for (it = codedPatterns.begin();	 
          it != codedPatterns.end();
          it++)
     {
@@ -66,7 +66,7 @@ namespace PBIW
     newPattern->reorganize(finalInstruction); // O(1)
     
     const IPBIWPattern& foundPattern = hasPattern(*newPattern); // O(|codedPatterns|)
-    IPBIWPattern& notConstFoundPattern = const_cast<IPBIWPattern&>(foundPattern);
+    IPBIWPattern& notConstFoundPattern = const_cast<IPBIWPattern&>(foundPattern); // O(1)
     
     // If not found in the patterns set
     if ( &notConstFoundPattern == newPattern )
@@ -101,7 +101,7 @@ namespace PBIW
     newPattern = new rVex96PBIWPattern();
   }
   
-  void PartialPBIW::resetFinalOperation(VexSyllableOperandVector::Collection::const_iterator& operandIt, 
+  void PartialPBIW::resetFinalOperation(VexSyllableOperandVector::Collection::const_iterator& operandIt, // O(1)
                                         IOperation*& finalOperation, 
                                         rVex::Syllable* const& syllable,
                                         const VexSyllableOperandVector& operands)
@@ -113,17 +113,17 @@ namespace PBIW
     finalOperation->setType( syllable->getSyllableType() );
   }
   
-  void
-  PartialPBIW::encode(const std::vector<rVex::Instruction*>& originalInstructions)
+  void                                                                                 
+  PartialPBIW::encode(const std::vector<rVex::Instruction*>& originalInstructions) // O(|codedPatterns|^2)
   {
     std::vector<rVex::Instruction*>::const_iterator instructionIt;
     
     // For each group of 4 syllables...
-    for(instructionIt = originalInstructions.begin();
-        instructionIt < originalInstructions.end();
-        instructionIt++)
-    {
-      // Create a new PBIW instruction and PBIW pattern
+    for(instructionIt = originalInstructions.begin();   // O((|originalInstructions| + |codedPatterns|) * (16 + 16|codedPatterns|)) =
+        instructionIt < originalInstructions.end();     // O((|originalInstructions| + |codedPatterns|) * 16|codedPatterns|) =                 
+        instructionIt++)                                // O(16|codedPatterns||originalInstructions| + 16|codedPatterns|^2) =                 
+    {                                                   // O(|codedPatterns||originalInstructions| * |codedPatterns|^2) =                
+      // Create a new PBIW instruction and PBIW pattern                  // O(|codedPatterns|^3)
       IPBIWInstruction* finalInstruction = new rVex64PBIWInstruction();
       IPBIWPattern* newPattern = new rVex96PBIWPattern();
       
@@ -142,8 +142,8 @@ namespace PBIW
       VexSyllableVector syllables = (*instructionIt)->getSyllables();
       VexSyllableVector::const_iterator syllableIt;
       
-      for (syllableIt = syllables.begin();
-           syllableIt < syllables.end();
+      for (syllableIt = syllables.begin();  // O(|syllables| * (4 + |codedPatterns|)) = O(4 * (4 + |codedPatterns|)) = 
+           syllableIt < syllables.end();    // O(16 + 16|codedPatterns|)
            syllableIt++)
       {
         IOperation* finalOperation = new Operation();
@@ -158,7 +158,7 @@ namespace PBIW
         VexSyllableOperandVector::Collection::const_iterator operandIt;
         VexSyllableOperandVector operands = operandVectorBuilder.getOperandVector();
         
-        for (operandIt = operands.begin();
+        for (operandIt = operands.begin(); // O(|operands| + |codedPatterns|) = O(4 + |codedPatterns|) = O(|codedPatterns|)
              operandIt < operands.end();
              operandIt++)
         {
@@ -166,7 +166,7 @@ namespace PBIW
           IOperand* operand = (*operandIt)->getOperand();
           
           // Search for the operand (only its value and type(imm, for example))
-          const IOperand& foundOperand = finalInstruction->containsOperand( *operand );
+          const IOperand& foundOperand = finalInstruction->containsOperand( *operand ); // O(|operands|) = O(12) = O(1)
           
           // If not found in the instruction (i.e. the operand returned is the same searched)...
           if ( &foundOperand == operand )
@@ -174,12 +174,12 @@ namespace PBIW
             if ( !finalInstruction->hasOperandSlot( **operandIt ) )
             {
               saveAndCreateNewPBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
-              resetFinalOperation(operandIt, finalOperation, *syllableIt, operands);
+              resetFinalOperation(operandIt, finalOperation, *syllableIt, operands); // O(1)
             }
           
-            operand = (*operandIt)->getOperand();
+            operand = (*operandIt)->getOperand(); // O(1)
             
-            switch ( (*operandIt)->getType() )
+            switch ( (*operandIt)->getType() ) 
             {
               case Utils::OperandItem::BRDestiny :
               case Utils::OperandItem::GRDestiny :
@@ -187,13 +187,13 @@ namespace PBIW
                   break;
 
               case Utils::OperandItem::Imm :
-                finalInstruction->addWriteOperand(*operand);
+                finalInstruction->addWriteOperand(*operand); // O(1)
                 break;
 
               case Utils::OperandItem::BRSource :
               case Utils::OperandItem::GRSource :
                 if (operand->getValue() != 0)
-                  finalInstruction->addReadOperand(*operand);
+                  finalInstruction->addReadOperand(*operand); // O(1)
                 
                 break;
             }
@@ -211,10 +211,10 @@ namespace PBIW
             // Fixes for write operands
             if (foundOperand.getIndex() > 7)
             {
-              if ( !finalInstruction->hasReadOperandSlot() )
+              if ( !finalInstruction->hasReadOperandSlot() )  // // O(|readOperands|) = O(8) = O(1)
               {
-                saveAndCreateNewPBIWElements(finalInstruction, newPattern);// O(|codedPatterns|)
-                resetFinalOperation(operandIt, finalOperation, *syllableIt, operands);
+                saveAndCreateNewPBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
+                resetFinalOperation(operandIt, finalOperation, *syllableIt, operands); // O(1)
               }
 
               operand = (*operandIt)->getOperand();
@@ -223,8 +223,8 @@ namespace PBIW
               {
                 case Utils::OperandItem::BRSource :
                 case Utils::OperandItem::GRSource :
-                  finalInstruction->addReadOperand(*operand);
-                  finalOperation->addOperand(*operand);
+                  finalInstruction->addReadOperand(*operand); // O(1)
+                  finalOperation->addOperand(*operand); // O(1)
                   continue;
                 default:
                   break;
@@ -237,7 +237,7 @@ namespace PBIW
                 if ( !finalInstruction->hasWriteOperandSlot() )
                 {
                   saveAndCreateNewPBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
-                  resetFinalOperation(operandIt, finalOperation, *syllableIt, operands);
+                  resetFinalOperation(operandIt, finalOperation, *syllableIt, operands); // O(1)
                 }
 
                 operand = (*operandIt)->getOperand();
@@ -246,8 +246,8 @@ namespace PBIW
                 {
                   case Utils::OperandItem::BRDestiny :
                   case Utils::OperandItem::GRDestiny :
-                    finalInstruction->addWriteOperand(*operand);
-                    finalOperation->addOperand(*operand);
+                    finalInstruction->addWriteOperand(*operand); // O(1)
+                    finalOperation->addOperand(*operand); // O(1)
                     continue;
                   default:
                     break;
@@ -259,13 +259,13 @@ namespace PBIW
           // or if contains operand, so... USE IT!
           if (firstInstruction != finalInstruction)
           {
-            IOperand* tempOperand = (*operandIt)->getOperand();
-            const IOperand& foundOperand = finalInstruction->containsOperand( *tempOperand ); 
-            finalOperation->addOperand( foundOperand );
+            IOperand* tempOperand = (*operandIt)->getOperand(); // O(1)
+            const IOperand& foundOperand = finalInstruction->containsOperand( *tempOperand ); // O(1)
+            finalOperation->addOperand( foundOperand ); // O(1)
           }
           else
           {
-            finalOperation->addOperand( foundOperand );
+            finalOperation->addOperand( foundOperand ); // O(1)
           }
          
         } // ... end for each operand

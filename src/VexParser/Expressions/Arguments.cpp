@@ -15,7 +15,7 @@ namespace VexParser
     addArgument(ex);
   }
 
-  Arguments::Arguments( Arguments& args, const Expression& ex )
+  Arguments::Arguments( Arguments& args, const Expression& ex )  // O(1)
   {
     copyExpressions(args);
     addArgument(ex);
@@ -82,7 +82,7 @@ namespace VexParser
   }
   
   void
-  Arguments::addArgument( const Expression& ex )
+  Arguments::addArgument( const Expression& ex ) // O(1)
   {
     if (ex.isMemoryReference())
     {
@@ -96,7 +96,7 @@ namespace VexParser
   }
 
   Arguments::ArgumentVector&
-  Arguments::getArguments( )
+  Arguments::getArguments( ) // O(1)
   {
     return arguments;
   }
@@ -108,16 +108,16 @@ namespace VexParser
   }
 
   void
-  Arguments::print( std::ostream& ostream ) const
+  Arguments::print( std::ostream& ostream ) const // O(1)
   {
     ArgumentVector::const_iterator it;
 
-    for (it = arguments.begin(); it < arguments.end(); it++)
+    for (it = arguments.begin(); it < arguments.end(); it++) // O(|arguments|) = O(4) = O(1)
       it->print(ostream);
   }
   
   void
-  Arguments::clearArguments( )
+  Arguments::clearArguments( ) // O(1)
   {
 //    ArgumentVector::iterator it;
 

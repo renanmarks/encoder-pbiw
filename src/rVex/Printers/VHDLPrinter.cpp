@@ -17,7 +17,7 @@ namespace rVex
   namespace Printers
   {
     
-    VHDLPrinter::VHDLPrinter( std::ostream& output ) 
+    VHDLPrinter::VHDLPrinter( std::ostream& output )  // O(1)
       : output(output) 
     { 
       struct tm tim;
@@ -39,7 +39,7 @@ namespace rVex
      * @return A std::string containing binary digits
      */
     void 
-    VHDLPrinter::printSyllable(const rVex::Syllable* syllable, unsigned int binary, bool first, bool last)
+    VHDLPrinter::printSyllable(const rVex::Syllable* syllable, unsigned int binary, bool first, bool last) // O(1)
     {
       std::string resultBinary;
       unsigned int temp = binary;
@@ -75,16 +75,16 @@ namespace rVex
     {
       typedef std::vector<rVex::Syllable*> SyllableVec;
       
-      SyllableVec syllables = instruction.getSyllables();
+      SyllableVec syllables = instruction.getSyllables(); // O(1)
       SyllableVec::const_reverse_iterator it;
       
       try 
       {
         output << "\t\t\t\twhen x\"" 
-          << std::setw(2) << std::setfill('0') << std::hex << std::uppercase
+          << std::setw(2) << std::setfill('0') << std::hex << std::uppercase 
           << instruction.getAddress() << "\" => instr <= ";
         
-        for ( it = syllables.rbegin(); it < syllables.rend(); it++)
+        for ( it = syllables.rbegin(); it < syllables.rend(); it++)  // O(|syllables|) = O(4) = O(1)
         {
           // If the current is the LAST put 10 in LF...
           if (it == syllables.rbegin())
@@ -117,7 +117,7 @@ namespace rVex
      * Print the file header.
      */
     void 
-    VHDLPrinter::printHeader()
+    VHDLPrinter::printHeader() // O(1)
     {
       output << "\
 --------------------------------------------------------------------------------\n\
@@ -177,7 +177,7 @@ begin\n\
      * Print the file footer.
      */
      void 
-    VHDLPrinter::printFooter()
+    VHDLPrinter::printFooter() // O(1)
     {
       output << "\
 \t\t\t\twhen others => instr <= \"00000000000000000000000000000010\"& -- nop\n\

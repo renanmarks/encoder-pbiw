@@ -7,7 +7,7 @@ namespace rVex
     namespace CTRL
     {
       void
-      IGOTO::print(rVex::Printers::IPrinter& output, bool first, bool last) const
+      IGOTO::print(rVex::Printers::IPrinter& output, bool first, bool last) const // O(1)
       {
         unsigned int final = 0;
 

@@ -56,7 +56,7 @@ namespace VexParser
     syllableBuffer.clear();
   }
   
-  void VexContext::packSyllable(rVex::Syllable* syllable, SyllableArguments& arguments)
+  void VexContext::packSyllable(rVex::Syllable* syllable, SyllableArguments& arguments)  // O(1)
   {
     Processors::SyllablePacker packer(*this);
     
@@ -84,7 +84,7 @@ namespace VexParser
     }
   }
   
-  void VexContext::postProcess()
+  void VexContext::postProcess() // O(|labels| + |controlSyllables| + |controlSyllables|) = O(1)
   {
     Processors::PseudoSyllableProcessor processor(*this);
     
@@ -124,14 +124,14 @@ namespace VexParser
   
   void VexContext::processLabels()
   {
-    std::ostream& stream = printer.getOutputStream();
+    std::ostream& stream = printer.getOutputStream(); // O(1)
     LabelVector::iterator labelIt;
     
     if (debugEnabled)
     {
       stream << "----- Labels.L/G [instr addr](syl addr)" << std::endl;
 
-      for(labelIt = labels.begin();
+      for(labelIt = labels.begin(); // O(|labels|) = O(1)
           labelIt != labels.end();
           labelIt++)
       {
@@ -151,7 +151,7 @@ namespace VexParser
 
       stream << "----- Control instructions ("<< controlSyllables.size() << " Total)" << std::endl;
 
-      for (controlIt = controlSyllables.begin();
+      for (controlIt = controlSyllables.begin(); // O(|controlSyllables|) = O(1)
            controlIt < controlSyllables.end();
            controlIt++)
       {
@@ -167,7 +167,7 @@ namespace VexParser
 
     ControlSyllablesVector::const_iterator it;
     
-    for (it = controlSyllables.begin();
+    for (it = controlSyllables.begin(); // O(|controlSyllables|) = O(1)
          it < controlSyllables.end();
          it++)
     {
@@ -190,7 +190,7 @@ namespace VexParser
     }
   }
   
-  void VexContext::setLabel(std::string name, rVex::Label::LabelScope scope) 
+  void VexContext::setLabel(std::string name, rVex::Label::LabelScope scope)  // O(1)
   { 
     rVex::Label label;
     
@@ -202,7 +202,7 @@ namespace VexParser
     labels.push_back(label);
   }
 
-  void VexContext::endInstruction()
+  void VexContext::endInstruction() // O(1)
   {
     SyllableBuffer::iterator it;
     rVex::Instruction* instruction = new rVex::Instruction();
@@ -210,27 +210,27 @@ namespace VexParser
     postProcess(); // post process
     reorder(); // Reorder and put NOPs
     
-    for (it = syllableBuffer.begin();
+    for (it = syllableBuffer.begin(); // O(|syllableBuffer|) = O(4) = O(1)
          it < syllableBuffer.end();
          it++)
     {
-      it->getSyllable()->setAddress(this->syllableCounter++);
-      it->getSyllable()->setBelongedInstruction(instruction);
+      it->getSyllable()->setAddress(this->syllableCounter++); // O(1)
+      it->getSyllable()->setBelongedInstruction(instruction); // O(1)
       
       syllables.push_back( it->getSyllable() );
-      instruction->addSyllable( *it->getSyllable() );
+      instruction->addSyllable( *it->getSyllable() ); // O(1)
     }
     
-    instruction->setAddress(this->instructionCounter++);
+    instruction->setAddress(this->instructionCounter++); // O(1)
     
     if (hasLabel) // Define the label
     {
-      rVex::Label& label = labels.back();
+      rVex::Label& label = labels.back(); // O(1)
 
-      label.destiny = instruction->getSyllables()[0];
-      label.absoluteAddress = instruction->getAddress();
+      label.destiny = instruction->getSyllables()[0]; // O(1)
+      label.absoluteAddress = instruction->getAddress(); // O(1)
       
-      instruction->setLabel(label);
+      instruction->setLabel(label);  // O(1)
       
       hasLabel = false;
     }
@@ -240,12 +240,12 @@ namespace VexParser
   }
   
   rVex::Instruction*
-  VexContext::getInstruction(unsigned int index)
+  VexContext::getInstruction(unsigned int index) // O(|isntructions|)
   {
     InstructionList::iterator it = instructions.begin();
     unsigned int i = 0;
     
-    while (i++ < index)
+    while (i++ < index) // O(|instructions|)
       it++;
     
     if (it != instructions.end())
@@ -255,41 +255,41 @@ namespace VexParser
   }
   
   void
-  VexContext::print()
+  VexContext::print()  // O(|instructions|)
   {
     InstructionList::const_iterator instructionIt;
     
-    printer.printHeader();
+    printer.printHeader(); // O(1)
     
-    for(instructionIt = instructions.begin();
+    for(instructionIt = instructions.begin();  // O(|instructions|)
         instructionIt != instructions.end();
         instructionIt++)
     {
-        (*instructionIt)->print(printer);
+        (*instructionIt)->print(printer); // O(1)
     }
     
-    printer.printFooter();
+    printer.printFooter(); // O(1)
   }
   
 
   void
-  VexContext::enableDebugging(bool enableSwitch)
+  VexContext::enableDebugging(bool enableSwitch) // O(1)
   {
     debugEnabled = enableSwitch;
   }
 
   void
-  VexContext::reorder()
+  VexContext::reorder() // O(1)
   {
       int counterIt = 0;
       SyllableBuffer::iterator it;
             
       // Generate NOPS if we have less than 4 syllables in the buffer
-      while ( syllableBuffer.size() < 4 )
+      while ( syllableBuffer.size() < 4 ) // O(1)
         syllableBuffer.push_back(Structs::SyllableBufferItem(new rVex::Operations::MISC::NOP()));
       
       // Go through all the syllables ordering them
-      for(it = syllableBuffer.begin(); 
+      for(it = syllableBuffer.begin(); // O(|syllableBuffer|) = O(4) = O(1)
           it < syllableBuffer.end(); 
           it++)
       {
@@ -355,11 +355,11 @@ namespace VexParser
     }      
       
   void 
-  VexContext::encodePBIW(PBIW::Interfaces::IPBIW& pbiw, PBIW::Interfaces::IPBIWPrinter& pbiwPrinter) const
-  {
+  VexContext::encodePBIW(PBIW::Interfaces::IPBIW& pbiw, PBIW::Interfaces::IPBIWPrinter& pbiwPrinter) const // O(|codedPatterns|^2 + |instructions|) =
+  {                                                                                                        // O(|codedPatterns|^2)
     std::vector<rVex::Instruction*> instructionVector(instructions.begin(), instructions.end());
     
-    pbiw.encode(instructionVector);
-    pbiw.print(pbiwPrinter);
+    pbiw.encode(instructionVector); // O(|codedPatterns|^2)
+    pbiw.print(pbiwPrinter); // O(|instructions|)
   }
 }

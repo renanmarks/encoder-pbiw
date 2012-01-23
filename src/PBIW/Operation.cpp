@@ -15,7 +15,7 @@ namespace PBIW
   using namespace Interfaces;
   
   Operation::OperandIndexVector
-  Operation::getOperandsIndexes() const
+  Operation::getOperandsIndexes() const  // O(1)
   {
     OperandIndexVector returnVector;
     returnVector.reserve(readOperands.size() + 2);
@@ -28,7 +28,7 @@ namespace PBIW
   }
   
   void
-  Operation::addOperand(const IOperand& operand)
+  Operation::addOperand(const IOperand& operand)  // O(1)
   {
     if (this->writeOperand == -1)
     {
@@ -49,7 +49,7 @@ namespace PBIW
     }
   }
   
-  bool Operation::operator==(const IOperation& other) const
+  bool Operation::operator==(const IOperation& other) const  // O(1)
   {
     OperandIndexVector thisOperands = this->getOperandsIndexes();
     OperandIndexVector otherOperands = other.getOperandsIndexes();
@@ -63,7 +63,7 @@ namespace PBIW
     OperandIndexVector::const_iterator thisIt;
     OperandIndexVector::const_iterator otherIt;
     
-    for(thisIt = thisOperands.begin(), otherIt = otherOperands.begin();
+    for(thisIt = thisOperands.begin(), otherIt = otherOperands.begin(); // O(|thisOperands|) =  O(4) = O(1)
         thisIt < thisOperands.end() && otherIt < otherOperands.end();
         thisIt++, otherIt++)
     {
@@ -74,7 +74,7 @@ namespace PBIW
     return true;
   }
   
-  bool Operation::operator!=(const IOperation& other) const
+  bool Operation::operator!=(const IOperation& other) const  // O(1)
   {
     return !(*this == other);
   }

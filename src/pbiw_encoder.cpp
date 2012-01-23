@@ -17,10 +17,14 @@ using namespace std;
 #include "PBIW/PartialPBIW.h"
 #include "PBIW/PartialPBIWPrinter.h"
 #include "VexParser/VexTypes.h"
+#include "Time/ExecutionTime.h"
 
 int
 main( int argc, char** argv )
 {
+//  Time::ExecutionTime time;  
+//  time.start();
+  
   rVex::Printers::rVexPrinter printer(std::cout);
   //rVex::Printers::VHDLPrinter printer(std::cout);
   VexParser::VexContext context(printer);
@@ -28,7 +32,7 @@ main( int argc, char** argv )
   std::string flags;
   bool result = false;
   
-  for (int ai=1; ai < argc; ++ai)
+  for (int ai=1; ai < argc; ++ai)  // O(|argc|)
   {
     if (argv[ai] == std::string("-h") || argv[ai] == std::string("--help"))
     {
@@ -73,15 +77,15 @@ main( int argc, char** argv )
         return 0;
       }
 
-      result = driver.parse_stream(infile, argv[ai]);
+      result = driver.parse_stream(infile, argv[ai]); // O(1)
       
-      context.processLabels();
-      context.print();
+      context.processLabels(); // O(1)
+      context.print(); // O(|instructions|)
       
       PBIW::PartialPBIW pbiw;
       PBIW::PartialPBIWPrinter pbiwPrinter(std::cout);
       
-      context.encodePBIW(pbiw, pbiwPrinter);
+      context.encodePBIW(pbiw, pbiwPrinter); // O(|codedPatterns|^2)
     }
   }
 
@@ -96,5 +100,9 @@ main( int argc, char** argv )
       delete it->syllableConstructor;
   }
   
+//  time.finish();
+  
   return result ? 0 : 1;
+  
+  
 }
