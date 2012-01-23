@@ -61,6 +61,7 @@ namespace PBIW
     
     typedef std::list<IPBIWInstruction*> PBIWInstructionList;
     PBIWInstructionList codedInstructions;
+    PBIWInstructionList branchingInstructions;
     
     typedef std::set<IPBIWPattern*> PBIWPatternSet;
 //    PBIWPatternSet codedPatterns;
@@ -99,6 +100,9 @@ namespace PBIW
     };
     
   public:
+    PartialPBIW()
+    {}
+    
     virtual ~PartialPBIW();
 
     virtual void encode(const std::vector<rVex::Instruction*>&);

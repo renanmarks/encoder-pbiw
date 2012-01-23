@@ -18,6 +18,8 @@ namespace PBIW
   {
     unsigned int operationCount = pattern.getOperationCount();
     
+    printer << "Pattern Addr: " << pattern.getAddress() << std::endl;
+    
     for (unsigned int i = 0; i < operationCount; i++)
     {
       printer << "Opcode: " << pattern[i]->getOpcode() << " - ";
@@ -46,6 +48,10 @@ namespace PBIW
     
     std::list<rVex::Syllable*>::const_iterator sIt;
     std::list<rVex::Syllable*> references = instruction.getSyllableReferences();
+    
+    printer << "Instruction Addr: " << instruction.getAddress() << std::endl;
+    
+    printer << "References : " << std::endl;
     
     for (sIt = references.begin();
          sIt != references.end();

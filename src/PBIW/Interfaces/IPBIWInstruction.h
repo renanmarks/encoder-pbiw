@@ -30,6 +30,16 @@ namespace PBIW
         virtual ~IPBIWInstruction() {}
         
         /**
+         * Set instruction's absolute memory address.
+         */
+        virtual void setAddress(unsigned int) = 0;
+        
+        /**
+         * Get instruction's absolute memory address.
+         */
+        virtual unsigned int getAddress() const = 0;
+        
+        /**
          * Set the label of this instruction
          */
         virtual void setLabel(const ILabel&) = 0;
@@ -80,6 +90,16 @@ namespace PBIW
         
         virtual bool hasReadOperandSlot() const = 0;
         virtual bool hasWriteOperandSlot() const = 0;
+        
+        /**
+         * Checks if this pattern contains a Control Operation (branch, etc)
+         */
+        virtual bool hasControlOperationWithLabelDestiny() const = 0;
+        
+        /**
+         * Defines the immediate field.
+         */
+        virtual void setImmediateValue(int) = 0;
         
         /**
          * Return the quantity of read operands.

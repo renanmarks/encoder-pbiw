@@ -26,13 +26,24 @@ namespace PBIW
     rVex96PBIWPattern(const rVex96PBIWPattern& orig);
     virtual ~rVex96PBIWPattern();
 
+    virtual void setAddress(unsigned int addr)
+    { address = addr; }
+        
+    virtual unsigned int getAddress() const
+    { return address; }
+    
     virtual void addOperation(IOperation*);
+    
+    virtual OperationVector getOperations() const
+    { return operations; }
     
     virtual IOperation* getOperation(unsigned int index) const
     { return operations[index]; }
     
     virtual IOperation* operator[](const unsigned int index) const
     { return getOperation(index); }
+    
+    virtual bool hasControlOperation() const;
     
     virtual unsigned int getOperationCount() const
     { return operations.size(); }
@@ -58,6 +69,8 @@ namespace PBIW
     virtual bool operator!=(const IPBIWPattern&) const;
 
   private:
+    unsigned int address;
+    
     OperationVector operations; // Max 4
     int usageCounter;
     

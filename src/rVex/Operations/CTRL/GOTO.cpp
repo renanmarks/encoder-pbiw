@@ -7,6 +7,18 @@ namespace rVex
   {
     namespace CTRL
     {
+      void
+      GOTO::exportOperandVector(Utils::OperandVectorBuilder& builder) const
+      {
+        using PBIW::Operand;
+        using PBIW::Utils::OperandItem;
+        
+        if (this->labelDestiny != NULL)
+          builder.insertImmediate(this->shortImmediate, Operand::Immediate::TwelveBits);
+        else
+          builder.insertRegister(this->grDestiny, OperandItem::GRDestiny);
+      }
+      
       void 
       GOTO::print(rVex::Printers::IPrinter& output, bool first, bool last) const
       {

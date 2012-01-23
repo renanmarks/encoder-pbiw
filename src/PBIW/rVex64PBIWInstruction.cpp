@@ -25,40 +25,38 @@ namespace PBIW
   rVex64PBIWInstruction::getOperands() const
   {
     std::deque<Operand> temp(readOperands.begin(), readOperands.end());
-    
+
     temp.resize(8, Operand(-1));
-    
+
     if (writeOperands.size() > 0)
       temp.push_back(writeOperands[0]);
 
     if (immediate.isImmediate())
     {
       temp.push_back(Operand(-1));
-      
+
       if (immediate.isImmediate9Bits())
       {
         temp.push_back(immediate);
-        
+
         if (writeOperands.size() > 1)
           temp.push_back(writeOperands[1]);
-      }
-      else
+      } else
       {
         temp.push_back(Operand(-1));
         temp.push_back(immediate);
       }
-    }
-    else
+    } else
     {
       if (writeOperands.size() > 1)
         temp.insert(temp.end(), writeOperands.begin() + 1, writeOperands.end());
     }
-    
+
     if (temp.size() < 12)
       temp.resize(12, Operand(-1));
-    
-    rVex64PBIWInstruction::OperandVector returnVector(temp.begin(), temp.end());    
-    
+
+    rVex64PBIWInstruction::OperandVector returnVector(temp.begin(), temp.end());
+
     return returnVector;
   }
 
@@ -71,15 +69,51 @@ namespace PBIW
   void
   rVex64PBIWInstruction::setLabel(const ILabel& label)
   {
-    const Label& temp = dynamic_cast<const Label&> (label);
+    const Label& temp=dynamic_cast<const Label&> (label);
 
-    this->label = &const_cast<Label&>(temp);
+    this->label= &const_cast<Label&> (temp);
   }
 
   Label*
   rVex64PBIWInstruction::getLabel() const
   {
     return label;
+  }
+
+  bool
+  rVex64PBIWInstruction::hasControlOperationWithLabelDestiny() const
+  {
+    using rVex::Syllable;
+    SyllableList::const_iterator it;
+    bool hasLabelDestiny = false;
+    
+    for(it = syllablesPacked.begin();
+        it != syllablesPacked.end();
+        it++)
+    {
+      if( (*it)->getOpcode() == Syllable::opBR || 
+         (*it)->getOpcode() == Syllable::opBRF ||
+         (*it)->getOpcode() == Syllable::opCALL ||
+         (*it)->getOpcode() == Syllable::opGOTO ||
+         (*it)->getOpcode() == Syllable::opRETURN )
+      {
+        if ((*it)->getLabelDestiny() != NULL )
+        {
+          hasLabelDestiny = true;
+          break;
+        }
+      }
+    }
+    
+    if (hasLabelDestiny)
+    {
+      if (!pattern->hasControlOperation())
+        throw new CodingMismatchException("Mismatch: pattern does not have a control syllable referenced by PBIW instruction.");
+      
+      return true;
+    }
+    
+    return false;
   }
 
   void

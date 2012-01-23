@@ -25,7 +25,7 @@ namespace PBIW
   class rVex64PBIWInstruction : public IPBIWInstruction
   {
   public:
-    rVex64PBIWInstruction() : label(NULL) //readOperands(0, Operand(0)), writeOperands()
+    rVex64PBIWInstruction() : address(0), label(NULL) //readOperands(0, Operand(0)), writeOperands()
     {
       Operand operand(0);
       operand.setIndex(0);
@@ -33,6 +33,12 @@ namespace PBIW
     }
     
     virtual ~rVex64PBIWInstruction();
+    
+    virtual void setAddress(unsigned int addr)
+    { address = addr; }
+        
+    virtual unsigned int getAddress() const
+    { return address; }
     
     virtual void setLabel(const ILabel&);
     virtual Label* getLabel() const;
@@ -54,6 +60,10 @@ namespace PBIW
     virtual bool hasReadOperandSlot() const;
     virtual bool hasWriteOperandSlot() const;
     
+    virtual bool hasControlOperationWithLabelDestiny() const;
+    virtual void setImmediateValue(int value)
+    { immediate.setValue(value); }
+        
     virtual int readOperandQuantity() const
     { return readOperands.size(); }
     virtual int writeOperandQuantity() const
@@ -69,7 +79,33 @@ namespace PBIW
     virtual std::list<rVex::Syllable*> getSyllableReferences() const
     { return syllablesPacked; }
     
+    /**
+   * Exception thrown when the an encoding mismatch exception occurs;
+   */
+    class CodingMismatchException : public std::exception
+    {
+    public:
+      CodingMismatchException( );
+
+      explicit
+      CodingMismatchException( std::string reason ) throw () : reason( reason )
+      { }
+
+      virtual
+      ~CodingMismatchException( ) throw ()
+      { };
+
+      virtual const char*
+      what( ) const throw ()
+      { return reason.c_str(); }
+
+    private:
+      std::string reason;
+    };
+    
   private:
+    unsigned int address;
+    
     Label* label;
     
     const rVex96PBIWPattern* pattern;
@@ -101,7 +137,8 @@ namespace PBIW
     /**
      * Keeps track of what syllables were packed in this instruction
      */
-    std::list<rVex::Syllable*> syllablesPacked;
+    typedef std::list<rVex::Syllable*> SyllableList;
+    SyllableList syllablesPacked;
   };
 }
 

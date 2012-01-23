@@ -487,12 +487,10 @@ namespace rVex
     VexParser::Expression::ParseInfo source2 = arguments.getSourceArguments().getArguments()[1].getParsedValue();
     VexParser::Expression::ParseInfo source3 = arguments.getSourceArguments().getArguments()[2].getParsedValue();
     
-    if (source1.isLabel)
-      this->setLabel(source1.label);
-    else
-      this->addReadRegister(static_cast<unsigned int>(source1.value));
-    
     this->setGrDestiny(static_cast<unsigned char>(destiny.value));
+    this->addReadRegister(static_cast<unsigned int>(source1.value));
+    this->setLabel(source2.label);
+    this->addReadRegister(static_cast<unsigned int>(source3.value));
   }
   
   void 

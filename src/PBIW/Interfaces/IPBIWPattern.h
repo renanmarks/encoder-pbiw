@@ -26,6 +26,16 @@ namespace PBIW
         virtual ~IPBIWPattern() {}
         
         /**
+         * Set pattern's absolute memory address.
+         */
+        virtual void setAddress(unsigned int) = 0;
+        
+        /**
+         * Get pattern's absolute memory address.
+         */
+        virtual unsigned int getAddress() const = 0;
+        
+        /**
          * Add a single pattern to this sets of patterns.
          * @param Pattern to be added
          */
@@ -38,6 +48,11 @@ namespace PBIW
          */
         virtual IOperation* getOperation(unsigned int) const = 0;
         virtual IOperation* operator[](const unsigned int) const = 0;
+        
+        /**
+         * Checks if this pattern contains a Control Operation (branch, etc)
+         */
+        virtual bool hasControlOperation() const = 0;
         
         /**
          * Returns how many operations this pattern contains.

@@ -6,6 +6,18 @@ namespace rVex
   {
     namespace CTRL
     {
+      void
+      RETURN::exportOperandVector(Utils::OperandVectorBuilder& builder) const
+      {
+        using PBIW::Operand;
+        using PBIW::Utils::OperandItem;
+        
+//        builder.insertRegister(this->grDestiny, OperandItem::GRDestiny);
+//        builder.insertRegister(this->readRegisters.at(0), OperandItem::GRSource);
+        builder.insertRegister(this->readRegisters.at(1), OperandItem::GRSource);
+        builder.insertImmediate(this->shortImmediate, Operand::Immediate::TwelveBits);
+      }
+      
       void 
       RETURN::print(rVex::Printers::IPrinter& output, bool first, bool last) const
       {

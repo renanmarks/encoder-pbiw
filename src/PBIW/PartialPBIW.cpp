@@ -70,17 +70,26 @@ namespace PBIW
     
     // If not found in the patterns set
     if ( &notConstFoundPattern == newPattern )
+    {
+      newPattern->setAddress(codedPatterns.size()); // Set the pattern address
       codedPatterns.push_back(newPattern); // If the pattern has not already been included, include it
+    }
     else
+    {
       delete newPattern; // if found, we are not using the newPattern, so free the memory allocated
+    }
 
     finalInstruction->pointToPattern(notConstFoundPattern);
     finalInstruction->setSyllableReferences(syllablesBuffer);
     
     syllablesBuffer.clear(); // Clear the buffer to get new references
     
+    finalInstruction->setAddress(codedInstructions.size()); // Set the instruction address
     codedInstructions.push_back(finalInstruction);
     notConstFoundPattern.incrementUsageCounter();
+    
+    if (finalInstruction->hasControlOperationWithLabelDestiny())
+      branchingInstructions.push_back(finalInstruction);
   }
   
   // O(|codedPatterns|)
@@ -267,10 +276,41 @@ namespace PBIW
       
       savePBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
     } // ... end for each instruction
+    
+    processLabels();
   }
 
   void PartialPBIW::processLabels()
   {
+    std::cout << "Translating to PBIW labels" << std::endl;
+    std::cout << branchingInstructions.size() << " branching instructions" << std::endl;
+    
+//    LabelVector::iterator labelIt;
+//
+//    ControlSyllablesVector::const_iterator it;
+//    
+//    for (it = controlSyllables.begin();
+//         it < controlSyllables.end();
+//         it++)
+//    {
+//      std::string label = (*it)->getLabel();
+//      LabelVector::iterator labelIt = std::find_if(labels.begin(), labels.end(), FindLabel(label));
+//      
+//      if ( labelIt != labels.end() )
+//        (*it)->setLabelDestiny(labelIt->destiny);
+//    
+//      if (debugEnabled)
+//      {
+//        stream << "Syllable " << "(opcode: " << (*it)->getOpcode() << ") addr:"
+//          << "[" << (*it)->getBelongedInstruction()->getAddress() << "]"
+//          << "(" << (*it)->getAddress() << ")"
+//          << " now points to " << (*it)->getLabel()
+//          << "[" << (*it)->getLabelDestiny()->getBelongedInstruction()->getAddress() << "]"
+//          << "("  << (*it)->getLabelDestiny()->getAddress() << ")" 
+//          << std::endl;
+//      }
+//    }
+    
     return;
   }
   

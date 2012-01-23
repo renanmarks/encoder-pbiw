@@ -26,6 +26,8 @@ namespace rVex
           { this->fillTypeXVI(arguments); }
           
           virtual void print(rVex::Printers::IPrinter&, bool, bool) const;
+          
+          virtual void exportOperandVector(Utils::OperandVectorBuilder&) const;
       };
     }
   }

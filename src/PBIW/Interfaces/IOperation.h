@@ -25,13 +25,13 @@ namespace PBIW
     
       virtual unsigned short getOpcode() const = 0;
 
-      virtual void addOperand(const IOperand& operand) = 0;
+      virtual void addOperand(const IOperand&) = 0;
 
       typedef std::vector<int> OperandIndexVector;
       virtual OperandIndexVector getOperandsIndexes() const = 0;
       
-      virtual void setType(rVex::Syllable::SyllableType::Type type) = 0;
-      virtual rVex::Syllable::SyllableType::Type getType() const = 0 ;
+      virtual void setType(rVex::Syllable::SyllableType::Type) = 0;
+      virtual rVex::Syllable::SyllableType::Type getType() const = 0;
       
       virtual bool operator==(const IOperation&) const = 0;
       virtual bool operator!=(const IOperation&) const = 0;        
