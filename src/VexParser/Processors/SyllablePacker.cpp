@@ -35,35 +35,21 @@ namespace VexParser
       {
         // If is a MOV with immediate operand then is a pseudo-instruction...
         case rVex::Syllable::opMOV:
-        {
-          // Change MOV syllable to ADD syllable
-          rVex::Operations::ALU::ADD add;
-          memcpy(syllable, &add, sizeof(add));
-
-          int value = arguments.getSourceArguments().getArguments()[0].getValue();
-
           if (arguments.getSourceArguments().getArguments()[0].getParsedValue().isImmediate)
           {
             // Change from: mov $r0.x = 12345
             // to: add $r0.x = $r0.0, 12345
+            // Change MOV syllable to ADD syllable
+            rVex::Operations::ALU::ADD add;
+            memcpy(syllable, &add, sizeof(add));
+
+            int value = arguments.getSourceArguments().getArguments()[0].getValue();
+            
             arguments.getSourceArguments().clearArguments();
             arguments.getSourceArguments().addArgument(Expression("$r0.0"));
             arguments.getSourceArguments().addArgument(Expression(value));
           }
-          else
-          {
-            // Change from: mov $r0.x = $r0.y
-            // to: add $r0.x = $r0.y, $r0.0
-            int value = arguments.getSourceArguments().getArguments()[0].getValue();
-
-            std::stringstream strBuilder;
-            strBuilder << "$r0." << value << std::endl;
-
-            arguments.getSourceArguments().addArgument(Expression("$r0.0"));
-            arguments.getSourceArguments().addArgument(Expression(strBuilder.str()));
-          }
-        } 
-        break;
+          break;
       }
 
       syllable->fillSyllable(arguments);

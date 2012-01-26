@@ -22,43 +22,43 @@ namespace PBIW
   }
 
   rVex64PBIWInstruction::OperandVector
-  rVex64PBIWInstruction::getOperands() const  // O(1)
+  rVex64PBIWInstruction::getOperands() const // O(1)
   {
     std::deque<Operand> temp(readOperands.begin(), readOperands.end()); // O(|readOperands|) = O(8) = O(1)
-    
+
     temp.resize(8, Operand(-1)); // O(8) = O(1)
-    
+
     if (writeOperands.size() > 0)
       temp.push_back(writeOperands[0]);
-
+    else
+      temp.push_back(Operand(-1));
+    
     if (immediate.isImmediate())
     {
       temp.push_back(Operand(-1));
-      
+
       if (immediate.isImmediate9Bits())
       {
         temp.push_back(immediate);
-        
+
         if (writeOperands.size() > 1)
           temp.push_back(writeOperands[1]);
-      }
-      else
+      } else
       {
         temp.push_back(Operand(-1));
         temp.push_back(immediate);
       }
-    }
-    else
+    } else
     {
       if (writeOperands.size() > 1)
         temp.insert(temp.end(), writeOperands.begin() + 1, writeOperands.end());
     }
-    
+
     if (temp.size() < 12)
       temp.resize(12, Operand(-1));
-    
-    rVex64PBIWInstruction::OperandVector returnVector(temp.begin(), temp.end());    
-    
+
+    rVex64PBIWInstruction::OperandVector returnVector(temp.begin(), temp.end());
+
     return returnVector;
   }
 
@@ -69,57 +69,61 @@ namespace PBIW
   }
 
   void
-  rVex64PBIWInstruction::setLabel(const ILabel& label)  // O(1)
+  rVex64PBIWInstruction::setLabel(const ILabel& label) // O(1)
   {
     const Label& temp = dynamic_cast<const Label&> (label);
 
-    this->label = &const_cast<Label&>(temp);
+    this->label= &const_cast<Label&> (temp);
   }
 
-  Label*
-  rVex64PBIWInstruction::getLabel() const  // O(1)
+  void
+  rVex64PBIWInstruction::setBranchDestiny(const IPBIWInstruction& branchDestiny)
   {
-    return label;
+    const rVex64PBIWInstruction& temp = dynamic_cast<const rVex64PBIWInstruction&> (branchDestiny);
+
+    this->branchDestiny = &const_cast<rVex64PBIWInstruction&> (temp);
   }
 
   bool
-  rVex64PBIWInstruction::hasControlOperationWithLabelDestiny() const
+  rVex64PBIWInstruction::hasControlOperationWithLabelDestiny()
   {
     using rVex::Syllable;
     SyllableList::const_iterator it;
-    bool hasLabelDestiny = false;
-    
-    for(it = syllablesPacked.begin();
-        it != syllablesPacked.end();
-        it++)
+
+    for (it=syllablesPacked.begin();
+         it != syllablesPacked.end();
+         it++)
     {
-      if( (*it)->getOpcode() == Syllable::opBR || 
-         (*it)->getOpcode() == Syllable::opBRF ||
-         (*it)->getOpcode() == Syllable::opCALL ||
-         (*it)->getOpcode() == Syllable::opGOTO ||
-         (*it)->getOpcode() == Syllable::opRETURN )
+      if ((*it)->getOpcode() == Syllable::opBR ||
+          (*it)->getOpcode() == Syllable::opBRF ||
+          (*it)->getOpcode() == Syllable::opCALL ||
+          (*it)->getOpcode() == Syllable::opGOTO ||
+          (*it)->getOpcode() == Syllable::opRETURN)
       {
-        if ((*it)->getLabelDestiny() != NULL )
+        if ((*it)->getBranchDestiny() != NULL)
         {
-          hasLabelDestiny = true;
+          destinyLabel = (*it)->getLabelDestiny();
           break;
         }
       }
     }
-    
-    if (hasLabelDestiny)
+
+    if (!destinyLabel.empty())
     {
       if (!pattern->hasControlOperation())
+      {
+        //this->branchDestiny = NULL;
         throw new CodingMismatchException("Mismatch: pattern does not have a control syllable referenced by PBIW instruction.");
-      
+      }
+
       return true;
     }
-    
+
     return false;
   }
 
   void
-  rVex64PBIWInstruction::pointToPattern(const IPBIWPattern& pattern)  // O(1)
+  rVex64PBIWInstruction::pointToPattern(const IPBIWPattern& pattern) // O(1)
   {
     const rVex96PBIWPattern& temp=dynamic_cast<const rVex96PBIWPattern&> (pattern);
 
@@ -127,7 +131,7 @@ namespace PBIW
   }
 
   const IOperand&
-  rVex64PBIWInstruction::containsOperand(const IOperand& operand) const  // O(1)
+  rVex64PBIWInstruction::containsOperand(const IOperand& operand) const // O(1)
   {
     //    bool foundInReadOperands = std::find(readOperands.begin(), readOperands.end(), operand);
     //    bool foundInWriteOperands = std::find(writeOperands.begin(), writeOperands.end(), operand);
@@ -135,7 +139,7 @@ namespace PBIW
 
     OperandVector::const_iterator it;
 
-    for (it=readOperands.begin();  // O(|readOperands|) = O(8) = O(1)
+    for (it=readOperands.begin(); // O(|readOperands|) = O(8) = O(1)
          it < readOperands.end();
          it++)
     {
@@ -143,7 +147,7 @@ namespace PBIW
         return *it;
     }
 
-    for (it=writeOperands.begin();  //O(|writeOperands|) = O(4) = O(1)
+    for (it=writeOperands.begin(); //O(|writeOperands|) = O(4) = O(1)
          it < writeOperands.end();
          it++)
     {
@@ -155,7 +159,7 @@ namespace PBIW
   }
 
   void
-  rVex64PBIWInstruction::addReadOperand(IOperand& operand)  // O(1)
+  rVex64PBIWInstruction::addReadOperand(IOperand& operand) // O(1)
   {
     unsigned int index=this->readOperands.size();
     operand.setIndex(index);
@@ -163,7 +167,7 @@ namespace PBIW
   }
 
   void
-  rVex64PBIWInstruction::addWriteOperand(IOperand& operand)  // O(1)
+  rVex64PBIWInstruction::addWriteOperand(IOperand& operand) // O(1)
   {
     if (operand.isImmediate())
     {
@@ -217,7 +221,7 @@ namespace PBIW
   }
 
   bool
-  rVex64PBIWInstruction::hasOperandSlot(const Utils::OperandItem& operand)  // O(1)
+  rVex64PBIWInstruction::hasOperandSlot(const Utils::OperandItem& operand) // O(1)
   {
     switch (operand.getType()) {
       case Utils::OperandItem::BRDestiny:
@@ -259,7 +263,7 @@ namespace PBIW
   }
 
   bool
-  rVex64PBIWInstruction::hasWriteOperandSlot() const  // O(1)
+  rVex64PBIWInstruction::hasWriteOperandSlot() const // O(1)
   {
     bool hasWriteSlots=
       (immediate.isImmediate12Bits() && (writeOperands.size() < 1)) ||

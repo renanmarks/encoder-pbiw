@@ -385,7 +385,7 @@ namespace rVex
     this->setLayoutType(rVex::Syllable::LayoutType::BRANCH);
     
     this->setBrSource (static_cast<unsigned char>(source.value));
-    this->setLabel    (address);
+    this->setLabelDestiny    (address);
   }
   
   void 
@@ -395,7 +395,7 @@ namespace rVex
     std::string path = arguments.getSourceArguments().getArguments()[1].getString();
 
     this->addReadRegister (static_cast<unsigned int>(source.value));
-    this->setLabel        (path);
+    this->setLabelDestiny        (path);
   }
   
   void 
@@ -444,7 +444,7 @@ namespace rVex
     VexParser::Expression::ParseInfo source = arguments.getSourceArguments().getArguments()[0].getParsedValue();
     
     if (source.isLabel)
-      this->setLabel(source.label);
+      this->setLabelDestiny(source.label);
     
     this->addReadRegister(static_cast<unsigned int>(source.value));
   }
@@ -472,7 +472,7 @@ namespace rVex
     VexParser::Expression::ParseInfo source = arguments.getSourceArguments().getArguments()[0].getParsedValue();
     
     if (source.isLabel)
-      this->setLabel(source.label);
+      this->setLabelDestiny(source.label);
     else
       this->addReadRegister(static_cast<unsigned int>(source.value));
     
@@ -489,7 +489,7 @@ namespace rVex
     
     this->setGrDestiny(static_cast<unsigned char>(destiny.value));
     this->addReadRegister(static_cast<unsigned int>(source1.value));
-    this->setLabel(source2.label);
+    this->setLabelDestiny(source2.label);
     this->addReadRegister(static_cast<unsigned int>(source3.value));
   }
   

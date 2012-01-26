@@ -30,7 +30,7 @@ namespace rVex
         final |= Syllable::ImmediateSwitch::BRANCH_IMM;
         
         final <<= 18;
-        final |= (this->labelDestiny->getBelongedInstruction()->getAddress() & 0x00000FFF);
+        final |= (this->branchDestiny->getBelongedInstruction()->getAddress() & 0x00000FFF);
 
         final <<= 3;
         final |= this->brSource;

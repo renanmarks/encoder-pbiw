@@ -25,7 +25,7 @@ namespace PBIW
   class rVex64PBIWInstruction : public IPBIWInstruction
   {
   public:
-    rVex64PBIWInstruction() : address(0), label(NULL) //readOperands(0, Operand(0)), writeOperands()
+    rVex64PBIWInstruction() : address(0), label(NULL), branchDestiny(NULL)//readOperands(0, Operand(0)), writeOperands()
     {
       Operand operand(0);
       operand.setIndex(0);
@@ -41,7 +41,8 @@ namespace PBIW
     { return address; }
     
     virtual void setLabel(const ILabel&);
-    virtual Label* getLabel() const;
+    virtual ILabel* getLabel() const
+    { return label; }
     
     virtual void pointToPattern(const IPBIWPattern& pattern);
     
@@ -60,7 +61,14 @@ namespace PBIW
     virtual bool hasReadOperandSlot() const;
     virtual bool hasWriteOperandSlot() const;
     
-    virtual bool hasControlOperationWithLabelDestiny() const;
+    virtual bool hasControlOperationWithLabelDestiny();
+    
+    virtual std::string getLabelDestiny() const
+    { return destinyLabel; }
+        
+    virtual void setLabelDestiny(std::string label)
+    { this->destinyLabel = label; }
+    
     virtual void setImmediateValue(int value)
     { immediate.setValue(value); }
         
@@ -78,6 +86,11 @@ namespace PBIW
     
     virtual std::list<rVex::Syllable*> getSyllableReferences() const
     { return syllablesPacked; }
+
+    virtual void setBranchDestiny(const IPBIWInstruction& branchDestiny);
+
+    virtual rVex64PBIWInstruction* getBranchDestiny() const
+    { return branchDestiny; }
     
     /**
    * Exception thrown when the an encoding mismatch exception occurs;
@@ -106,7 +119,9 @@ namespace PBIW
   private:
     unsigned int address;
     
-    Label* label;
+    ILabel* label;
+    std::string destinyLabel;
+    rVex64PBIWInstruction* branchDestiny;
     
     const rVex96PBIWPattern* pattern;
 

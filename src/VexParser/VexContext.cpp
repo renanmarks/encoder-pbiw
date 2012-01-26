@@ -171,20 +171,20 @@ namespace VexParser
          it < controlSyllables.end();
          it++)
     {
-      std::string label = (*it)->getLabel();
+      std::string label = (*it)->getLabelDestiny();
       LabelVector::iterator labelIt = std::find_if(labels.begin(), labels.end(), FindLabel(label));
       
       if ( labelIt != labels.end() )
-        (*it)->setLabelDestiny(labelIt->destiny);
+        (*it)->setBranchDestiny(labelIt->destiny);
     
       if (debugEnabled)
       {
         stream << "Syllable " << "(opcode: " << (*it)->getOpcode() << ") addr:"
           << "[" << (*it)->getBelongedInstruction()->getAddress() << "]"
           << "(" << (*it)->getAddress() << ")"
-          << " now points to " << (*it)->getLabel()
-          << "[" << (*it)->getLabelDestiny()->getBelongedInstruction()->getAddress() << "]"
-          << "("  << (*it)->getLabelDestiny()->getAddress() << ")" 
+          << " now points to " << (*it)->getLabelDestiny()
+          << "[" << (*it)->getBranchDestiny()->getBelongedInstruction()->getAddress() << "]"
+          << "("  << (*it)->getBranchDestiny()->getAddress() << ")" 
           << std::endl;
       }
     }

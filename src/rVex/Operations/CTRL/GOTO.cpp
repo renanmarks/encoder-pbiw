@@ -13,10 +13,10 @@ namespace rVex
         using PBIW::Operand;
         using PBIW::Utils::OperandItem;
         
-        if (this->labelDestiny != NULL)
+        if (this->branchDestiny != NULL)
           builder.insertImmediate(this->shortImmediate, Operand::Immediate::TwelveBits);
         else
-          builder.insertRegister(this->grDestiny, OperandItem::GRDestiny);
+          builder.insertRegisters(this->readRegisters, OperandItem::GRSource);
       }
       
       void 
@@ -30,7 +30,7 @@ namespace rVex
         final |= Syllable::ImmediateSwitch::BRANCH_IMM;
         
         final <<= 18;
-        final |= (this->labelDestiny->getBelongedInstruction()->getAddress() & 0x00000FFF);
+        final |= (this->branchDestiny->getBelongedInstruction()->getAddress() & 0x00000FFF);
 
         final <<= 5;
         

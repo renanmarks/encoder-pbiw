@@ -34,7 +34,7 @@ namespace rVex
       brDestiny(),
       brSource(),
       shortImmediate(),
-      labelDestiny(NULL)
+      branchDestiny(NULL)
       {}
       
       virtual ~Syllable() { }
@@ -223,17 +223,17 @@ namespace rVex
       virtual unsigned char getGrDestiny() const 
       { return grDestiny; }
       
-      virtual void setLabel(std::string label)
-      { this->labelStringDestiny = label; }
+      virtual void setLabelDestiny(std::string label)
+      { this->labelDestiny = label; }
       
-      virtual std::string getLabel() const
-      { return this->labelStringDestiny; }
-      
-      virtual void setLabelDestiny(Syllable* syllableDestiny)
-      { this->labelDestiny = syllableDestiny; }
-      
-      virtual Syllable* getLabelDestiny() const
+      virtual std::string getLabelDestiny() const
       { return this->labelDestiny; }
+      
+      virtual void setBranchDestiny(Syllable* syllableDestiny)
+      { this->branchDestiny = syllableDestiny; }
+      
+      virtual Syllable* getBranchDestiny() const
+      { return this->branchDestiny; }
       
       virtual void setPath(std::string path)
       { this->path = path; }
@@ -306,8 +306,8 @@ namespace rVex
       unsigned char brSource;
       unsigned short shortImmediate;
       
-      std::string labelStringDestiny;
-      Syllable* labelDestiny;
+      std::string labelDestiny;
+      Syllable* branchDestiny;
       
       std::string path;
       

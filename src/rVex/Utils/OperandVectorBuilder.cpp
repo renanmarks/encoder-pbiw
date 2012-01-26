@@ -59,5 +59,10 @@ namespace rVex
         items.push_back(item);
       }
     }
+    
+    const OperandVector& OperandVectorBuilder::getOperandVector()
+    { 
+      return items; 
+    }
   }
 }

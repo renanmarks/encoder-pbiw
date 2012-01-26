@@ -87,12 +87,12 @@ namespace PBIW
     /**
      * Functor used to find a label.
      */
-    class FindLabel : public std::unary_function<Label, bool>
+    class FindLabel : public std::unary_function<ILabel, bool>
     {
     public:
         FindLabel(const std::string label) : label(label) {}
 
-        bool operator()(const Label& t) const 
+        bool operator()(const ILabel& t) const 
         { return (t.getName() == label); }
         
     private:

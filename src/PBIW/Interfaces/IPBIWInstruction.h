@@ -93,8 +93,31 @@ namespace PBIW
         
         /**
          * Checks if this pattern contains a Control Operation (branch, etc)
+         * and sets if it does.
          */
-        virtual bool hasControlOperationWithLabelDestiny() const = 0;
+        virtual bool hasControlOperationWithLabelDestiny() = 0;
+        
+        /**
+         * Gets the label of the branch destiny
+         */
+        virtual std::string getLabelDestiny() const = 0;
+        
+        /**
+         * Sets the label of the branch destiny
+         */
+        virtual void setLabelDestiny(std::string) = 0;
+        
+        /**
+         * Sets the PBIW instruction that contains the same label destiny
+         * referenced by this instruction.
+         */
+        virtual void setBranchDestiny(const IPBIWInstruction& branchDestiny) = 0;
+
+        /**
+         * Gets the PBIW instruction that contains the same label destiny
+         * referenced by this instruction.
+         */
+        virtual IPBIWInstruction* getBranchDestiny() const = 0;
         
         /**
          * Defines the immediate field.

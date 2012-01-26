@@ -30,8 +30,7 @@ namespace rVex
       void insertRegisters(const std::vector<unsigned int>& values, OperandItem::Type type);
       void insertImmediate(int value, Operand::Immediate::Type);
       
-      const OperandVector& getOperandVector() const
-      { return items; }
+      const OperandVector& getOperandVector();
       
     private:
       OperandVector items;

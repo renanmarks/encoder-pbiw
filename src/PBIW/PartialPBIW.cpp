@@ -132,6 +132,7 @@ namespace PBIW
       {
         rVex::Label* instructionLabel = (*instructionIt)->getLabel();
         PBIW::Label label = *instructionLabel;
+        label.setDestiny(finalInstruction);
         
         labels.push_back(label);
         
@@ -284,6 +285,27 @@ namespace PBIW
   {
     std::cout << "Translating to PBIW labels" << std::endl;
     std::cout << branchingInstructions.size() << " branching instructions" << std::endl;
+    
+    PBIWInstructionList::iterator it;
+    
+    for (it = branchingInstructions.begin();
+         it != branchingInstructions.end();
+         it++)
+    {
+      std::string label = (*it)->getLabelDestiny();
+      LabelVector::iterator labelIt = std::find_if(labels.begin(), labels.end(), FindLabel(label));
+      
+      if (labelIt != labels.end())
+      {
+        (*it)->setBranchDestiny(*labelIt->getDestiny());
+        (*it)->setImmediateValue(labelIt->getDestiny()->getAddress());
+      }
+      
+      std::cout << "PBIW Instr" << " addr[" << (*it)->getAddress() << "]"
+        << " branching label " << (*it)->getLabelDestiny()
+        << " now points to addr[" << (*it)->getBranchDestiny()->getAddress() << "]"
+        << std::endl;      
+    }
     
 //    LabelVector::iterator labelIt;
 //

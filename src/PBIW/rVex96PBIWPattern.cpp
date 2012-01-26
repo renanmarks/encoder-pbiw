@@ -237,8 +237,8 @@ namespace PBIW
                     }
                 }
             }     
-            else if(((operations.at(index1)->getOpcode() == 0) && 
-                    (operations.at(index2)->getType() == rVex::Syllable::SyllableType::ALU))
+            else if(((operations.at(index2)->getOpcode() == 0) && 
+                    (operations.at(index1)->getType() == rVex::Syllable::SyllableType::ALU))
                    ) 
             {
                 this->exchangeOperations(index1, index2);
