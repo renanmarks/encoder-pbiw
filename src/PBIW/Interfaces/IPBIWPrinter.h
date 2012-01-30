@@ -9,6 +9,8 @@
 #define	IPBIWPRINTER_H
 
 #include <ostream>
+#include <list>
+#include <vector>
 
 namespace PBIW
 {
@@ -21,25 +23,38 @@ namespace PBIW
     {
     public:
       virtual ~IPBIWPrinter() { }
+      
       /**
-       * Print the pattern.
+       * Print the instruction file header.
        */
-      virtual void printPattern(const IPBIWPattern&) = 0;
+      virtual void printInstructionsHeader() = 0;
       
       /**
        * Print the instruction.
        */
-      virtual void printInstruction(const IPBIWInstruction&) = 0;
+      virtual void printInstruction(const IPBIWInstruction&, const std::vector<unsigned int>&) = 0;
       
       /**
-       * Print the file header.
+       * Print the instruction file footer.
        */
-      virtual void printHeader() = 0;
+      virtual void printInstructionsFooter() = 0;
+      
       
       /**
-       * Print the file footer.
+       * Print the Pattern file header.
        */
-      virtual void printFooter() = 0;
+      virtual void printPatternsHeader() = 0;
+      
+      /**
+       * Print the pattern.
+       */
+      virtual void printPattern(const IPBIWPattern&, const std::vector<unsigned int>&) = 0;
+      
+      /**
+       * Print the Pattern file footer.
+       */
+      virtual void printPatternsFooter() = 0;
+      
       
       virtual std::ostream& getOutputStream() = 0;
     };

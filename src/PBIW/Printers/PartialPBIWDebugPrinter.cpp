@@ -5,20 +5,20 @@
  * Created on October 30, 2011, 4:28 PM
  */
 
-#include "PartialPBIWPrinter.h"
-#include "Interfaces/IPBIWPattern.h"
-#include "Interfaces/IPBIWInstruction.h"
+#include "PartialPBIWDebugPrinter.h"
+#include "src/PBIW/Interfaces/IPBIWPattern.h"
+#include "src/PBIW/Interfaces/IPBIWInstruction.h"
 
 namespace PBIW
 {
   using namespace Interfaces;
   
   void
-  PartialPBIWPrinter::printPattern(const IPBIWPattern& pattern) // O(|operationCount|)
+  PartialPBIWDebugPrinter::printPattern(const IPBIWPattern& pattern, const std::vector<unsigned int>& binary) // O(|operationCount|)
   {
     unsigned int operationCount = pattern.getOperationCount(); // O(1)
     
-    printer << "Pattern Addr: " << pattern.getAddress() << std::endl;
+    printer << "----\nPattern Addr: " << pattern.getAddress() << std::endl;
 
     for (unsigned int i = 0; i < operationCount; i++) // O(|operationCount|)
     {
@@ -41,7 +41,7 @@ namespace PBIW
   }
 
   void
-  PartialPBIWPrinter::printInstruction(const IPBIWInstruction& instruction)  // O(1)
+  PartialPBIWDebugPrinter::printInstruction(const IPBIWInstruction& instruction, const std::vector<unsigned int>& binary)  // O(1)
   {
     IPBIWInstruction::OperandVector operands = instruction.getOperands(); // O(1)
     IPBIWInstruction::OperandVector::const_iterator it;
@@ -49,7 +49,8 @@ namespace PBIW
     std::list<rVex::Syllable*>::const_iterator sIt;
     std::list<rVex::Syllable*> references = instruction.getSyllableReferences(); // O(1)
     
-    printer << "Instruction Addr: " << instruction.getAddress() << std::endl;
+    printer << "----\nInstruction Addr: " << instruction.getAddress() << std::endl;
+    printer << "Points to pattern at addr: " << instruction.getPattern()->getAddress() << std::endl;
     
     printer << "References : " << std::endl;
     
@@ -97,20 +98,27 @@ namespace PBIW
   }
 
   void
-  PartialPBIWPrinter::printHeader()  // O(1)
+  PartialPBIWDebugPrinter::printInstructionsHeader()  // O(1)
   {
-    printer << "--- Start of PBIW Debug Printing --- " << std::endl;
+    printer << "--- Start of PBIW Instructions Debug Printing --- " << std::endl;
   }
 
   void
-  PartialPBIWPrinter::printFooter() // O(1)
+  PartialPBIWDebugPrinter::printInstructionsFooter() // O(1)
   {
-    printer << "--- End of PBIW Debug Printing --- " << std::endl;
+    printer << "--- End of PBIW Instructions Debug Printing --- " << std::endl;
+  }
+  
+  void
+  PartialPBIWDebugPrinter::printPatternsHeader()  // O(1)
+  {
+    printer << "--- Start of PBIW Patterns Debug Printing --- " << std::endl;
   }
 
-  std::ostream&
-  PartialPBIWPrinter::getOutputStream() // O(1)
+  void
+  PartialPBIWDebugPrinter::printPatternsFooter() // O(1)
   {
-    return printer;
+    printer << "--- End of PBIW Patterns Debug Printing --- " << std::endl;
   }
+
 }

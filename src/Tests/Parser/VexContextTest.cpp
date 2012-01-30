@@ -25,15 +25,15 @@ namespace VexContextTest
     // Otherwise, this can be skipped.
     virtual void SetUp() 
     {
-      sourceRegs = new Arguments(new Expression("$r0.1"));
-      sourceRegs->addArgument(new Expression("$r0.2"));
-      destinyRegs = new Arguments(new Expression("$r0.3"));
-      
-      sourceImm = new Arguments(new Expression("8"));
-      sourceImm->addArgument(new Expression("$r0.2"));
-      
-      destinyImm = new Arguments(new Expression("16"));
-      destinyImm->addArgument(new Expression("$r0.3"));
+//      sourceRegs = new Arguments(new Expression("$r0.1"));
+//      sourceRegs->addArgument(new Expression("$r0.2"));
+//      destinyRegs = new Arguments(new Expression("$r0.3"));
+//      
+//      sourceImm = new Arguments(new Expression("8"));
+//      sourceImm->addArgument(new Expression("$r0.2"));
+//      
+//      destinyImm = new Arguments(new Expression("16"));
+//      destinyImm->addArgument(new Expression("$r0.3"));
     }
 
     // virtual void TearDown() will be called after each test is run.
@@ -57,14 +57,14 @@ namespace VexContextTest
   
   TEST_F(VexContextTest, OneInstruction)
   {
-    std::string compareStr;
-    
-    rVex::Syllable* ADD = new rVex::Operations::ALU::ADD();
-    rVex::Syllable* AND = new rVex::Operations::ALU::AND();
-    
-    context.newInstruction();
-    context.packSyllable(ADD, new SyllableArguments(sourceRegs, destinyRegs) );
-    context.endInstruction();
+//    std::string compareStr;
+//    
+//    rVex::Syllable* ADD = new rVex::Operations::ALU::ADD();
+//    rVex::Syllable* AND = new rVex::Operations::ALU::AND();
+//    
+//    context.newInstruction();
+//    context.packSyllable(ADD, new SyllableArguments(sourceRegs, destinyRegs) );
+//    context.endInstruction();
     
 //    compareStr.append(ADD->print(true, false));
 //    

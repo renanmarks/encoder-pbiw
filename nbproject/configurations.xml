@@ -24,7 +24,8 @@
         <itemPath>src/PBIW/Operand.h</itemPath>
         <itemPath>src/PBIW/Operation.h</itemPath>
         <itemPath>src/PBIW/PartialPBIW.h</itemPath>
-        <itemPath>src/PBIW/PartialPBIWPrinter.h</itemPath>
+        <itemPath>src/PBIW/Printers/PartialPBIWDebugPrinter.h</itemPath>
+        <itemPath>src/PBIW/Printers/PartialPBIWPrinter.h</itemPath>
         <itemPath>src/PBIW/rVex64PBIWInstruction.h</itemPath>
         <itemPath>src/PBIW/rVex96PBIWPattern.h</itemPath>
       </logicalFolder>
@@ -183,7 +184,8 @@
         <itemPath>src/PBIW/Operand.cpp</itemPath>
         <itemPath>src/PBIW/Operation.cpp</itemPath>
         <itemPath>src/PBIW/PartialPBIW.cpp</itemPath>
-        <itemPath>src/PBIW/PartialPBIWPrinter.cpp</itemPath>
+        <itemPath>src/PBIW/Printers/PartialPBIWDebugPrinter.cpp</itemPath>
+        <itemPath>src/PBIW/Printers/PartialPBIWPrinter.cpp</itemPath>
         <itemPath>src/PBIW/rVex64PBIWInstruction.cpp</itemPath>
         <itemPath>src/PBIW/rVex96PBIWPattern.cpp</itemPath>
       </logicalFolder>
@@ -329,10 +331,20 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -394,10 +406,20 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -495,10 +517,20 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -560,10 +592,20 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>

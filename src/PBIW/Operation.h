@@ -26,7 +26,7 @@ namespace PBIW
   {
   public:
     Operation()
-    :opcode(0), writeOperand(-1), readOperands(),  writeBrOperand(-1)
+    :type(rVex::Syllable::SyllableType::ALU), immediateSwitch(rVex::Syllable::ImmediateSwitch::NO_IMM), opcode(0), writeOperand(-1), readOperands(),  writeBrOperand(-1)
     { }
     
     ~Operation()
@@ -37,6 +37,12 @@ namespace PBIW
     
     virtual unsigned short getOpcode() const
     { return this->opcode; }
+    
+    virtual void setImmediateSwitch(rVex::Syllable::ImmediateSwitch::Type type)
+    { immediateSwitch = type; }
+    
+    virtual rVex::Syllable::ImmediateSwitch::Type getImmediateSwitch() const
+    { return immediateSwitch; }
     
     virtual void addOperand(const IOperand& operand);
     
@@ -61,6 +67,8 @@ namespace PBIW
             
   private:
     rVex::Syllable::SyllableType::Type type;
+    
+    rVex::Syllable::ImmediateSwitch::Type immediateSwitch;
     
     /**
      * Syllable opcode

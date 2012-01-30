@@ -133,7 +133,7 @@ namespace VexParser
      * @param The PBIW algorithm used to encode
      * @param The PBIW printer used to print the result
      */
-    void encodePBIW(PBIW::Interfaces::IPBIW&, PBIW::Interfaces::IPBIWPrinter&) const;
+    void encodePBIW(PBIW::Interfaces::IPBIW&) const;
     
     /**
      * Used to check and switch the debug mode (i.e. verbose output)
@@ -184,10 +184,6 @@ namespace VexParser
     getLabels() const
     { return labels; }
 
-    bool
-    isDebugEnabled() const
-    { return debugEnabled; }
-    
   private:
     
     /**

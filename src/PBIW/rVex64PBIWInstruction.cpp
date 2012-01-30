@@ -65,7 +65,71 @@ namespace PBIW
   void
   rVex64PBIWInstruction::print(IPBIWPrinter& printer) const
   {
-
+    OperandVector operands = getOperands(); // O(1)
+    OperandVector::iterator it;
+    
+    union OutputBinary{
+      unsigned int word[2];
+      unsigned long long int longWord;
+    };
+    
+    OutputBinary output;
+    output.longWord = 0;
+    
+    output.longWord |= pattern->getAddress();
+    
+    // Get rid of the -1 values
+    for (it = operands.begin();
+         it < operands.end(); 
+         it++)
+    {
+      if (( it->getValue() < 0 ) && ( !it->isImmediate() ))
+        it->setValue(0);
+    }
+    
+    // Read operands
+    for (it = operands.begin(); // O(|operands|) = O(8) = O(1)
+         it < operands.end()-4; //&& it->getIndex() < 8;
+         it++)
+    {
+      output.longWord <<= 5;
+      output.longWord |= it->getValue();
+    }
+    
+    // write operands
+    for (it = operands.begin() + 8; // O(|operands|) = O(4) = O(1)
+         it < operands.end() ;
+         it++)
+    {
+      int value = it->getValue();
+      
+      if ( it->isImmediate9Bits() )
+      {
+        output.longWord <<= 9;
+        output.longWord |= (0x000001FF & value);
+      }
+      else if ( it->isImmediate12Bits() )
+      {
+        output.longWord <<= 12;
+        output.longWord |= (0x00000FFF & value);
+      }
+      else if ( it == operands.end()-1 ) // is last element
+      {
+        output.longWord <<= 3;
+        output.longWord |= value;
+      }
+      else
+      {
+        output.longWord <<= 5;
+        output.longWord |= value;
+      }
+    }
+    
+    std::vector<unsigned int> binary;
+    binary.push_back(output.word[1]);
+    binary.push_back(output.word[0]);
+    
+    printer.printInstruction(*this, binary);
   }
 
   void

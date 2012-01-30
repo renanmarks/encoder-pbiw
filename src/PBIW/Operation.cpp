@@ -23,6 +23,7 @@ namespace PBIW
     returnVector.push_back(writeOperand);
     returnVector.insert(returnVector.end(), readOperands.begin(), readOperands.end());
     returnVector.push_back(writeBrOperand);
+    returnVector.resize(4, -1);
 
     return returnVector;
   }
@@ -55,6 +56,9 @@ namespace PBIW
     OperandIndexVector otherOperands = other.getOperandsIndexes();
     
     if (opcode != other.getOpcode())
+      return false;
+    
+    if ( immediateSwitch != other.getImmediateSwitch() )
       return false;
     
     if (thisOperands.size() != otherOperands.size())

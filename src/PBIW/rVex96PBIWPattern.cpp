@@ -10,7 +10,7 @@
 #include <stdexcept>
 #include "rVex96PBIWPattern.h"
 #include "Operand.h"
-#include "PartialPBIWPrinter.h"
+#include "src/PBIW/Printers/PartialPBIWPrinter.h"
 #include "Interfaces/IPBIWInstruction.h"
 //#include "Operation.h"
 
@@ -71,7 +71,49 @@ namespace PBIW
   void
   rVex96PBIWPattern::print(IPBIWPrinter& printer) const
   {
-    printer.printPattern(*this);
+    OperationVector::const_iterator it;
+    
+    unsigned int binary[4] = { 0, 0, 0, 0 };
+    
+    unsigned int i = 0;
+    
+    for (it = operations.begin(); 
+         it < operations.end();
+         it++, i++) // O(|operationCount|)
+    {
+      binary[i] |= (*it)->getOpcode();
+      binary[i] <<= 2;
+      binary[i] |= static_cast<unsigned int>( (*it)->getImmediateSwitch() );
+      
+      IOperation::OperandIndexVector::const_iterator itOperand;
+      IOperation::OperandIndexVector operands = (*it)->getOperandsIndexes(); // O(1)
+      
+      for (itOperand = operands.begin(); // O(|operands|) = O(4) = O(1)
+           itOperand < operands.end();
+           itOperand++)
+      {
+        int value = *itOperand;
+        
+        if (value < 0)
+          value = 0;
+        
+        if (itOperand == operands.end()-1) // if last
+          binary[i] <<= 3;
+        else
+          binary[i] <<= 4;
+          
+        binary[i] |= value;
+      }
+    }
+    
+    std::vector<unsigned int> binaryVector;
+    
+    binaryVector.push_back(binary[3]);
+    binaryVector.push_back(binary[2]);
+    binaryVector.push_back(binary[1]);
+    binaryVector.push_back(binary[0]);
+    
+    printer.printPattern(*this, binaryVector);
   }
 
   void 

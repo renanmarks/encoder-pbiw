@@ -355,11 +355,10 @@ namespace VexParser
     }      
       
   void 
-  VexContext::encodePBIW(PBIW::Interfaces::IPBIW& pbiw, PBIW::Interfaces::IPBIWPrinter& pbiwPrinter) const // O(|codedPatterns|^2 + |instructions|) =
+  VexContext::encodePBIW(PBIW::Interfaces::IPBIW& pbiw) const // O(|codedPatterns|^2 + |instructions|) =
   {                                                                                                        // O(|codedPatterns|^2)
     std::vector<rVex::Instruction*> instructionVector(instructions.begin(), instructions.end());
     
     pbiw.encode(instructionVector); // O(|codedPatterns|^2)
-    pbiw.print(pbiwPrinter); // O(|instructions|)
   }
 }

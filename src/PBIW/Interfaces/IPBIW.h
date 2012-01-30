@@ -34,7 +34,8 @@ namespace PBIW
         virtual void registerOptimizer(IPBIWOptimizer&) = 0;
         virtual void runOptimizers() = 0;
         
-        virtual void print(IPBIWPrinter&) = 0;
+        virtual void printInstructions(IPBIWPrinter&) = 0;
+        virtual void printPatterns(IPBIWPrinter&) = 0;
 
         virtual std::vector<IPBIWPattern*> getPatterns() = 0;
         virtual std::vector<IPBIWInstruction*> getInstructions() = 0;

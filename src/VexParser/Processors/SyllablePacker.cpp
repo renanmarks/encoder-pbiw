@@ -42,7 +42,7 @@ namespace VexParser
             // Change MOV syllable to ADD syllable
             rVex::Operations::ALU::ADD add;
             memcpy(syllable, &add, sizeof(add));
-
+            
             int value = arguments.getSourceArguments().getArguments()[0].getValue();
             
             arguments.getSourceArguments().clearArguments();

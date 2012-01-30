@@ -195,6 +195,8 @@ namespace rVex
       virtual LayoutType::Type getLayoutType() const
       { return layoutType; }
 
+      virtual ImmediateSwitch::Type getImmediateSwitch() const;
+      
       virtual void addReadRegister(unsigned int);
       virtual ReadRegVector getReadRegisters() const 
       { return this->readRegisters; }

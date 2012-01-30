@@ -51,10 +51,10 @@ namespace rVex
       virtual std::ostream& getOutputStream()
       { return output; }
       
-      void setFileName(std::string& filename)
+      void setFileName(const std::string& filename)
       { this->filename = filename; }
       
-      void setAssemblerFlags(std::string& flags)
+      void setAssemblerFlags(const std::string& flags)
       { this->flags = flags; }
       
     private:

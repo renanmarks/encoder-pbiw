@@ -12,7 +12,7 @@
 #include "rVex64PBIWInstruction.h"
 #include "Operation.h"
 #include "Operand.h"
-#include "PartialPBIWPrinter.h"
+#include "Printers/PartialPBIWPrinter.h"
 
 namespace PBIW
 {
@@ -110,6 +110,7 @@ namespace PBIW
     delete finalOperation;
     finalOperation = new Operation();
     finalOperation->setOpcode( syllable->getOpcode() );
+    finalOperation->setImmediateSwitch( syllable->getImmediateSwitch() );
     finalOperation->setType( syllable->getSyllableType() );
   }
   
@@ -150,6 +151,7 @@ namespace PBIW
         IOperation* finalOperation = new Operation();
         
         finalOperation->setOpcode( (*syllableIt)->getOpcode() );
+        finalOperation->setImmediateSwitch( (*syllableIt)->getImmediateSwitch() );
         finalOperation->setType( (*syllableIt)->getSyllableType() );
         
         // For each operand...
@@ -365,40 +367,37 @@ namespace PBIW
   }
   
   void
-  PartialPBIW::print(IPBIWPrinter& printer)
+  PartialPBIW::printInstructions(IPBIWPrinter& printer)
   {
-    printer.printHeader();
-    
-    PBIWPatternList::const_iterator patternIt;
-    
-    printer.getOutputStream() << "Patterns: " << codedPatterns.size() << std::endl;
-    
-//    for (patternIt = codedPatterns.begin();
-//         patternIt != codedPatterns.end();
-//         patternIt++)
-//    {
-//      printer.getOutputStream() << "Usage count: " << (*patternIt)->getUsageCounter() << std::endl;
-//      printer.printPattern(**patternIt);
-//      printer.getOutputStream() << "---" << std::endl;
-//    }
-    
     PBIWInstructionList::const_iterator instructionIt;
     
-    printer.getOutputStream() << "Instructions: " << codedInstructions.size() << std::endl;
+    printer.printInstructionsHeader();
     
     for (instructionIt = codedInstructions.begin();
          instructionIt != codedInstructions.end();
          instructionIt++)
     {
-      const IPBIWPattern* pattern = (*instructionIt)->getPattern();
-//      
-//      printer.getOutputStream() << "Pattern Addr: " << pattern << " - " << std::endl;
-      printer.printInstruction(**instructionIt);
-      printer.printPattern(*pattern);
-      printer.getOutputStream() << "---" << std::endl;
+      (*instructionIt)->print(printer);
     }
     
-    printer.printFooter();
+    printer.printInstructionsFooter();
+  }
+  
+  void
+  PartialPBIW::printPatterns(IPBIWPrinter& printer)
+  {
+    PBIWPatternList::const_iterator patternIt;
+    
+    printer.printPatternsHeader();
+    
+    for (patternIt = codedPatterns.begin();
+         patternIt != codedPatterns.end();
+         patternIt++)
+    {
+      (*patternIt)->print(printer);
+    }
+    
+    printer.printPatternsFooter();
   }
   
   void

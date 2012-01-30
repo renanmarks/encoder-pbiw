@@ -24,6 +24,9 @@ namespace PBIW
       virtual void setOpcode(unsigned short opcode) = 0;
     
       virtual unsigned short getOpcode() const = 0;
+      
+      virtual void setImmediateSwitch(rVex::Syllable::ImmediateSwitch::Type) = 0;
+      virtual rVex::Syllable::ImmediateSwitch::Type getImmediateSwitch() const = 0;
 
       virtual void addOperand(const IOperand&) = 0;
 

@@ -8,7 +8,7 @@
 #ifndef PARTIALPBIWPRINTER_H
 #define	PARTIALPBIWPRINTER_H
 
-#include "Interfaces/IPBIWPrinter.h"
+#include "src/PBIW/Interfaces/IPBIWPrinter.h"
 
 namespace PBIW
 {
@@ -28,15 +28,16 @@ namespace PBIW
     virtual ~PartialPBIWPrinter()
     { }
 
-    virtual void printPattern(const IPBIWPattern&);
+    virtual void printPatternsHeader();
+    virtual void printPattern(const IPBIWPattern&, const std::vector<unsigned int>&);
+    virtual void printPatternsFooter();
 
-    virtual void printInstruction(const IPBIWInstruction&);
-
-    virtual void printHeader();
-
-    virtual void printFooter();
-
-    virtual std::ostream& getOutputStream();
+    virtual void printInstructionsHeader();
+    virtual void printInstruction(const IPBIWInstruction&, const std::vector<unsigned int>&);
+    virtual void printInstructionsFooter();
+    
+    virtual std::ostream& getOutputStream()
+    { return printer; }
 
   private:
     std::ostream& printer;
