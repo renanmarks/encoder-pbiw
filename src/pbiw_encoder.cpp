@@ -18,7 +18,7 @@ using namespace std;
 #include "PBIW/Printers/PartialPBIWPrinter.h"
 #include "PBIW/Printers/PartialPBIWDebugPrinter.h"
 #include "VexParser/VexTypes.h"
-#include "Time/ExecutionTime.h"
+//#include "Time/ExecutionTime.h"
 
 
 bool execute(const std::string&, const std::string&, bool, bool, bool);
@@ -152,7 +152,8 @@ execute(const std::string& filename, const std::string& flags, bool debugEnabled
 
     pbiw.printInstructions(pbiwDebugPrinter);
     pbiw.printPatterns(pbiwDebugPrinter);
-  } else
+  } 
+  else
   {
     std::string imemFilename=filename;
     imemFilename+=".pbiw.vhd";

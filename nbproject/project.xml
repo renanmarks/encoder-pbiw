@@ -26,6 +26,14 @@
                     <name>Release</name>
                     <type>1</type>
                 </confElem>
+                <confElem>
+                    <name>ReleaseW32</name>
+                    <type>1</type>
+                </confElem>
+                <confElem>
+                    <name>ReleaseW64</name>
+                    <type>1</type>
+                </confElem>
             </confList>
         </data>
     </configuration>

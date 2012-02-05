@@ -287,7 +287,8 @@ namespace PBIW
   bool
   rVex64PBIWInstruction::hasOperandSlot(const Utils::OperandItem& operand) // O(1)
   {
-    switch (operand.getType()) {
+    switch (operand.getType()) 
+    {
       case Utils::OperandItem::BRDestiny:
       case Utils::OperandItem::GRDestiny:
         return this->hasWriteOperandSlot();
@@ -312,12 +313,14 @@ namespace PBIW
 
       case Utils::OperandItem::BRSource:
       case Utils::OperandItem::GRSource:
-        return this->hasReadOperandSlot();
+        if (operand.getOperand()->getValue() != 0)
+          return this->hasReadOperandSlot();
+        
+        std::cout << "Encontrei um zero" << operand.getOperand()->getValue() << std::endl;
         break;
     }
 
     return true;
-    //    return hasReadOperandSlot() || hasWriteOperandSlot();
   }
 
   bool

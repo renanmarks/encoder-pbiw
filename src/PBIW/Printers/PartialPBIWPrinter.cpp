@@ -33,7 +33,7 @@ end entity pcache1;\n\
 \n\
 architecture teste of pcache1 is\n\
 \ttype PatternLine is array (natural range <>) of std_logic_vector ( pcache_linesize-1 downto 0);\n\
-\tconstant PatternCache : PatternLine(0 to index_pcache-1) := (" << std::endl;
+\tconstant PatternCache : PatternLine(0 to 63) := (" << std::endl;
   }
   
   void
@@ -65,8 +65,11 @@ architecture teste of pcache1 is\n\
   }
 
   void
-  PartialPBIWPrinter::printPatternsFooter() // O(1)
+  PartialPBIWPrinter::printPatternsFooter(unsigned int patternsCount) // O(1)
   {
+    if (patternsCount >= 63)
+      printer << "--- WARNING: More than 64 patterns generated.\nCheck your VHDL entity to accomplish the new address size." << std::endl;
+    
     printer << "\t\tothers=>(others=>'0')\n\
 \t);\n\
 \n\
@@ -134,9 +137,12 @@ architecture Behav of i_mem is\n\
   }
   
   void
-  PartialPBIWPrinter::printInstructionsFooter() // O(1)
+  PartialPBIWPrinter::printInstructionsFooter(unsigned int instructionsCount) // O(1)
   {
-    printer << "\t\tOTHERS => b\"0001110000000000000000000000000000000000000000000000000000000000\" -- NOP|NOP|NOP|STOP\n\
+    if (instructionsCount >= 63)
+      printer << "--- WARNING: More than 64 instructions generated.\nCheck your VHDL entity to accomplish the new address size." << std::endl;
+    
+    printer << "\t\tOTHERS => b\"0000000000000000000000000000000000000000000000000000000000000000\"\n\
 \t);\n\
 \n\
 begin\n\

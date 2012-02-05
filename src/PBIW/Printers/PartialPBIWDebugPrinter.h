@@ -30,11 +30,11 @@ namespace PBIW
 
     virtual void printPatternsHeader();
     virtual void printPattern(const IPBIWPattern&, const std::vector<unsigned int>&);
-    virtual void printPatternsFooter();
+    virtual void printPatternsFooter(unsigned int);
 
     virtual void printInstructionsHeader();
     virtual void printInstruction(const IPBIWInstruction&, const std::vector<unsigned int>&);
-    virtual void printInstructionsFooter();
+    virtual void printInstructionsFooter(unsigned int);
     
     virtual std::ostream& getOutputStream()
     { return printer; }

@@ -37,7 +37,7 @@ namespace PBIW
       /**
        * Print the instruction file footer.
        */
-      virtual void printInstructionsFooter() = 0;
+      virtual void printInstructionsFooter(unsigned int) = 0;
       
       
       /**
@@ -53,7 +53,7 @@ namespace PBIW
       /**
        * Print the Pattern file footer.
        */
-      virtual void printPatternsFooter() = 0;
+      virtual void printPatternsFooter(unsigned int) = 0;
       
       
       virtual std::ostream& getOutputStream() = 0;

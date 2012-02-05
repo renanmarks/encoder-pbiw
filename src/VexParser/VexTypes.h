@@ -179,7 +179,7 @@ namespace VexParser
    */
   struct VexFunction 
   {
-      std::string *str;
+      std::string str;
       int scope;
   };
 }

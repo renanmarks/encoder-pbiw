@@ -104,8 +104,11 @@ namespace PBIW
   }
 
   void
-  PartialPBIWDebugPrinter::printInstructionsFooter() // O(1)
+  PartialPBIWDebugPrinter::printInstructionsFooter(unsigned int instructionsCount) // O(1)
   {
+    if (instructionsCount >= 255)
+      printer << "### WARNING: More than 256 instructions generated.\nCheck your VHDL entity to accomplish the new address size." << std::endl;
+    
     printer << "--- End of PBIW Instructions Debug Printing --- " << std::endl;
   }
   
@@ -116,8 +119,11 @@ namespace PBIW
   }
 
   void
-  PartialPBIWDebugPrinter::printPatternsFooter() // O(1)
+  PartialPBIWDebugPrinter::printPatternsFooter(unsigned int patternsCount) // O(1)
   {
+    if (patternsCount >= 63)
+      printer << "### WARNING: More than 64 patterns generated.\nCheck your VHDL entity to accomplish the new address size." << std::endl;
+    
     printer << "--- End of PBIW Patterns Debug Printing --- " << std::endl;
   }
 

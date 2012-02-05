@@ -15,8 +15,6 @@
 #include "src/rVex/Syllable.h"
 
 #include "Expressions/SyllableArguments.h"
-#include "src/rVex/Operations/ALU/ADD.h"
-#include "src/rVex/Operations/ALU/MOV.h"
 #include "src/rVex/Printers/rVexPrinter.h"
 #include "src/PBIW/Interfaces/IPBIW.h"
 #include "Processors/SyllablePacker.h"
@@ -288,6 +286,8 @@ namespace VexParser
       while ( syllableBuffer.size() < 4 ) // O(1)
         syllableBuffer.push_back(Structs::SyllableBufferItem(new rVex::Operations::MISC::NOP()));
       
+      //return;
+      
       // Go through all the syllables ordering them
       for(it = syllableBuffer.begin(); // O(|syllableBuffer|) = O(4) = O(1)
           it < syllableBuffer.end(); 
@@ -352,6 +352,12 @@ namespace VexParser
           }
           counterIt++;             
       }
+      
+      // Invert the ordering to MEM, ALU, ALU, CTRL, because of incorrect
+      // encoding in the PBIW phase.
+      
+      SyllableBuffer tempSyllableBuffer(syllableBuffer.rbegin(), syllableBuffer.rend());
+      syllableBuffer = tempSyllableBuffer;
     }      
       
   void 

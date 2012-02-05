@@ -5,3 +5,5 @@
 #
 # Debug configuration
 # Release configuration
+# ReleaseW32 configuration
+# ReleaseW64 configuration

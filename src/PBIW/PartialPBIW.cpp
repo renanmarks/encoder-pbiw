@@ -179,10 +179,10 @@ namespace PBIW
               saveAndCreateNewPBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
               resetFinalOperation(operandIt, finalOperation, *syllableIt, operands); // O(1)
             }
-          
+
             operand = (*operandIt)->getOperand(); // O(1)
-            
-            switch ( (*operandIt)->getType() ) 
+
+            switch ( (*operandIt)->getType() )
             {
               case Utils::OperandItem::BRDestiny :
               case Utils::OperandItem::GRDestiny :
@@ -197,12 +197,11 @@ namespace PBIW
               case Utils::OperandItem::GRSource :
                 if (operand->getValue() != 0)
                   finalInstruction->addReadOperand(*operand); // O(1)
-                
+
                 break;
             }
-            
           }
-          else // if found...
+          else // if not found...
           {
             /* Fix the bug when the read operands reference an write operand in
              * a PBIW instruction.
@@ -211,8 +210,11 @@ namespace PBIW
              * and uses this new index as a reference.
              **/
             
-            // Fixes for write operands
-            if (foundOperand.getIndex() > 7)
+            bool isZeroReadRegister = foundOperand.getIndex() == 0 && foundOperand.getValue() == 0 && 
+                 (  (*operandIt)->getType() == Utils::OperandItem::GRSource || 
+                    (*operandIt)->getType() == Utils::OperandItem::BRSource  );
+            
+            if (!isZeroReadRegister && foundOperand.getIndex() > 7) // Fixes for write operands
             {
               if ( !finalInstruction->hasReadOperandSlot() )  // // O(|readOperands|) = O(8) = O(1)
               {
@@ -233,7 +235,7 @@ namespace PBIW
                   break;
               }
             }
-            else if (foundOperand.getIndex() < 8)// Fixes for read operands
+            else if (!isZeroReadRegister && foundOperand.getIndex() < 8)// Fixes for read operands
             {
               if ( (*syllableIt)->getOpcode() != rVex::Syllable::opNOP )
               {
@@ -257,9 +259,10 @@ namespace PBIW
                 }
               }
             }
+            
           } // end if (not) found operands
           
-          // or if contains operand, so... USE IT!
+          // If the PBIW instruction has been splitted
           if (firstInstruction != finalInstruction)
           {
             IOperand* tempOperand = (*operandIt)->getOperand(); // O(1)
@@ -380,7 +383,7 @@ namespace PBIW
       (*instructionIt)->print(printer);
     }
     
-    printer.printInstructionsFooter();
+    printer.printInstructionsFooter(codedInstructions.size());
   }
   
   void
@@ -397,7 +400,7 @@ namespace PBIW
       (*patternIt)->print(printer);
     }
     
-    printer.printPatternsFooter();
+    printer.printPatternsFooter(codedPatterns.size());
   }
   
   void
