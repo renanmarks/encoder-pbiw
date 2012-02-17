@@ -10,6 +10,7 @@
 
 #include <set>
 #include <list>
+#include <deque>
 #include "IOperand.h"
 #include "IPBIWPattern.h"
 #include "IPBIWPrinter.h"
@@ -150,6 +151,7 @@ namespace PBIW
         
         typedef std::set<Operand, OperandComparer> OperandSet;
         typedef std::vector<Operand> OperandVector;
+        typedef std::deque<Operand> OperandDeque;
         
         /**
          * Return a vector of all operands in this instruction.

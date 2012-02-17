@@ -21,6 +21,7 @@ namespace PBIW
     |        |  0-15 | 0-15 | 0-15 | 0-7  |
     ---------------------------------------
     ' Opcode ' Write ' Read ' Read '  wBr '
+                            (or imm)
  */
   class Operation : public IOperation
   {

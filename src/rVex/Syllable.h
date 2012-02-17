@@ -44,7 +44,7 @@ namespace rVex
        */
       typedef enum {
         opNOP    = 0x00000000,
-        opSTOP   = 53,
+        
 
         /* ALU opcodes */
         opADD    = 65,
@@ -105,6 +105,9 @@ namespace rVex
         opMPYHU  = 10,
         opMPYHS  = 11,
 
+        /* r-Vex exclusive operation */
+        opSTOP   = 31,
+          
         /* Control opcodes */
         opGOTO   = 33,
         opIGOTO  = 34,

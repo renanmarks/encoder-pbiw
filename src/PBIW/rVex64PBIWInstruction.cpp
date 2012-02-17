@@ -32,7 +32,7 @@ namespace PBIW
       temp.push_back(writeOperands[0]);
     else
       temp.push_back(Operand(-1));
-    
+
     if (immediate.isImmediate())
     {
       temp.push_back(Operand(-1));
@@ -65,77 +65,91 @@ namespace PBIW
   void
   rVex64PBIWInstruction::print(IPBIWPrinter& printer) const
   {
-    OperandVector operands = getOperands(); // O(1)
+    OperandVector operands=getOperands(); // O(1)
     OperandVector::iterator it;
-    
-    union OutputBinary{
+
+    union OutputBinary
+    {
       unsigned int word[2];
       unsigned long long int longWord;
     };
-    
+
     OutputBinary output;
-    output.longWord = 0;
-    
-    output.longWord |= pattern->getAddress();
-    
+    output.longWord=0;
+
+    output.longWord|=pattern->getAddress();
+
     // Get rid of the -1 values
-    for (it = operands.begin();
-         it < operands.end(); 
+    for (it=operands.begin();
+         it < operands.end();
          it++)
     {
-      if (( it->getValue() < 0 ) && ( !it->isImmediate() ))
+      if ((it->getValue() < 0) && (!it->isImmediate()))
         it->setValue(0);
     }
-    
+
     // Read operands
-    for (it = operands.begin(); // O(|operands|) = O(8) = O(1)
-         it < operands.end()-4; //&& it->getIndex() < 8;
+    for (it=operands.begin(); // O(|operands|) = O(8) = O(1)
+         it < operands.end() - 4; //&& it->getIndex() < 8;
          it++)
     {
-      output.longWord <<= 5;
-      output.longWord |= it->getValue();
+      output.longWord<<=5;
+      output.longWord|=it->getValue();
     }
-    
-    // write operands
-    for (it = operands.begin() + 8; // O(|operands|) = O(4) = O(1)
-         it < operands.end() ;
-         it++)
+
+    bool hasImm9Bits=operands[10].isImmediate9Bits();
+    bool hasImm12Bits=operands[11].isImmediate12Bits();
+    bool hasImmediate=hasImm9Bits || hasImm12Bits;
+
+    if (!hasImmediate)
     {
-      int value = it->getValue();
-      
-      if ( it->isImmediate9Bits() )
+      // write operands
+      for (it=operands.begin() + 8; // O(|operands|) = O(4) = O(1)
+           it < operands.end();
+           it++)
       {
-        output.longWord <<= 9;
-        output.longWord |= (0x000001FF & value);
+        if (it == (operands.end() - 1))
+        {
+          output.longWord<<=3;
+          output.longWord|=it->getValue();
+          continue;
+        }
+
+        output.longWord<<=5;
+        output.longWord|=it->getValue();
       }
-      else if ( it->isImmediate12Bits() )
+    } else
+    {
+      output.longWord<<=5;
+      output.longWord|=operands[8].getValue();
+
+      if (hasImm9Bits)
       {
-        output.longWord <<= 12;
-        output.longWord |= (0x00000FFF & value);
+        output.longWord<<=10;
+        output.longWord|=(0x000001FF & operands[10].getValue());
+
+        output.longWord<<=3;
+        output.longWord|=operands[11].getValue();
       }
-      else if ( it == operands.end()-1 ) // is last element
+
+      if (hasImm12Bits)
       {
-        output.longWord <<= 3;
-        output.longWord |= value;
-      }
-      else
-      {
-        output.longWord <<= 5;
-        output.longWord |= value;
+        output.longWord<<=13;
+        output.longWord|=(0x00000FFF & operands[11].getValue());
       }
     }
-    
+
     std::vector<unsigned int> binary;
     binary.push_back(output.word[1]);
     binary.push_back(output.word[0]);
-    
+
     printer.printInstruction(*this, binary);
   }
 
   void
   rVex64PBIWInstruction::setLabel(const ILabel& label) // O(1)
   {
-    const Label& temp = dynamic_cast<const Label&> (label);
+    const Label& temp=dynamic_cast<const Label&> (label);
 
     this->label= &const_cast<Label&> (temp);
   }
@@ -143,9 +157,9 @@ namespace PBIW
   void
   rVex64PBIWInstruction::setBranchDestiny(const IPBIWInstruction& branchDestiny)
   {
-    const rVex64PBIWInstruction& temp = dynamic_cast<const rVex64PBIWInstruction&> (branchDestiny);
+    const rVex64PBIWInstruction& temp=dynamic_cast<const rVex64PBIWInstruction&> (branchDestiny);
 
-    this->branchDestiny = &const_cast<rVex64PBIWInstruction&> (temp);
+    this->branchDestiny= &const_cast<rVex64PBIWInstruction&> (temp);
   }
 
   bool
@@ -166,7 +180,7 @@ namespace PBIW
       {
         if ((*it)->getBranchDestiny() != NULL)
         {
-          destinyLabel = (*it)->getLabelDestiny();
+          destinyLabel=(*it)->getLabelDestiny();
           break;
         }
       }
@@ -287,11 +301,28 @@ namespace PBIW
   bool
   rVex64PBIWInstruction::hasOperandSlot(const Utils::OperandItem& operand) // O(1)
   {
-    switch (operand.getType()) 
-    {
+    switch (operand.getType()) {
       case Utils::OperandItem::BRDestiny:
       case Utils::OperandItem::GRDestiny:
-        return this->hasWriteOperandSlot();
+      {
+        bool hasWriteSlot = this->hasWriteOperandSlot();
+        
+        bool onlyLastWriteField = 
+          (immediate.isImmediate9Bits() && (writeOperands.size() == 1)) ||
+          (!immediate.isImmediate12Bits() && !immediate.isImmediate9Bits() && (writeOperands.size() == 3));
+        
+        bool operandFit = (operand.getOperand()->getValue() < 8);
+        
+        if (onlyLastWriteField)
+        {
+          if (operandFit)
+            return true;
+          
+          return false;
+        }
+        else
+          return hasWriteSlot;
+      }
         break;
 
       case Utils::OperandItem::Imm:
@@ -315,7 +346,7 @@ namespace PBIW
       case Utils::OperandItem::GRSource:
         if (operand.getOperand()->getValue() != 0)
           return this->hasReadOperandSlot();
-        
+
         std::cout << "Encontrei um zero" << operand.getOperand()->getValue() << std::endl;
         break;
     }

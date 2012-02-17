@@ -468,8 +468,8 @@ namespace rVex
     
     if (source.isLabel)
       this->setLabelDestiny(source.label);
-
-    this->addReadRegister(static_cast<unsigned int> (source.value));
+    else
+      this->addReadRegister(static_cast<unsigned int> (source.value));
   }
 
   // Only opcode

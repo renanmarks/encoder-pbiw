@@ -9,6 +9,7 @@
 #include <iostream>
 #include "Operation.h"
 #include "Interfaces/IPBIWInstruction.h"
+#include "src/rVex/Syllable.h"
 
 namespace PBIW
 {
@@ -31,6 +32,35 @@ namespace PBIW
   void
   Operation::addOperand(const IOperand& operand)  // O(1)
   {
+    switch(this->getOpcode())
+    {
+      case rVex::Syllable::opGOTO:
+      case rVex::Syllable::opIGOTO:
+        if (writeOperand == -1)
+        {
+          writeOperand = 0;
+          
+          if (operand.isImmediate())
+            readOperands.push_back(0);
+        }
+        break;
+      
+      case rVex::Syllable::opCALL:
+        if (operand.isImmediate())
+          readOperands.push_back(0);
+        break;
+        
+      case rVex::Syllable::opBR:
+      case rVex::Syllable::opBRF:
+        if (writeOperand == -1)
+          writeOperand = 0;
+        break;
+      
+      case rVex::Syllable::opRETURN: // TODO
+      case rVex::Syllable::opRFI:
+          break;
+    }
+    
     if (this->writeOperand == -1)
     {
       this->writeOperand = operand.getIndex();
