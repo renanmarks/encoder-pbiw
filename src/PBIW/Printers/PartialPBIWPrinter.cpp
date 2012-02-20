@@ -5,6 +5,7 @@
  * Created on October 30, 2011, 4:28 PM
  */
 
+#include <list>
 #include "PartialPBIWPrinter.h"
 #include "src/PBIW/Interfaces/IPBIWPattern.h"
 #include "src/PBIW/Interfaces/IPBIWInstruction.h"
@@ -68,7 +69,7 @@ architecture teste of pcache1 is\n\
   PartialPBIWPrinter::printPatternsFooter(unsigned int patternsCount) // O(1)
   {
     if (patternsCount >= 63)
-      printer << "--- WARNING: More than 64 patterns generated.\nCheck your VHDL entity to accomplish the new address size." << std::endl;
+      printer << "--- WARNING: More than 64 patterns generated.\nCheck your VHDL entity to accomplish the new address range." << std::endl;
     
     printer << "\t\tothers=>(others=>'0')\n\
 \t);\n\
@@ -112,6 +113,9 @@ architecture Behav of i_mem is\n\
   void
   PartialPBIWPrinter::printInstruction(const IPBIWInstruction& instruction, const std::vector<unsigned int>& binary) // O(1)
   {
+    if (instruction.getLabel() != NULL)
+      printer << "\t\t-- " << instruction.getLabel()->getName() << ": " << std::endl;
+    
     printer << "\t\t" <<instruction.getAddress() << " => b\"";
     
     std::vector<unsigned int>::const_iterator it;
@@ -132,15 +136,26 @@ architecture Behav of i_mem is\n\
         word <<= 1;
       }
     }
-
-    printer << "\",\n";
+    
+    printer << "\", -- ";
+      
+    std::list<rVex::Syllable*> syllablesPacked = instruction.getSyllableReferences();
+    std::list<rVex::Syllable*>::const_iterator itSyllable;
+    
+    for (itSyllable = syllablesPacked.begin(); itSyllable != syllablesPacked.end(); itSyllable++)
+    {
+      if ( !(*itSyllable)->getTextRepresentation().empty() )
+        printer << (*itSyllable)->getTextRepresentation() << "; ";
+    }
+    
+    printer << "\n";
   }
   
   void
   PartialPBIWPrinter::printInstructionsFooter(unsigned int instructionsCount) // O(1)
   {
     if (instructionsCount >= 63)
-      printer << "--- WARNING: More than 64 instructions generated.\nCheck your VHDL entity to accomplish the new address size." << std::endl;
+      printer << "--- WARNING: More than 64 instructions generated.\nCheck your VHDL entity to accomplish the new address range." << std::endl;
     
     printer << "\t\tOTHERS => b\"0000000000000000000000000000000000000000000000000000000000000000\"\n\
 \t);\n\

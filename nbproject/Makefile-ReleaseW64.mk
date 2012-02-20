@@ -39,8 +39,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/rVex/Operations/CTRL/RETURN.o \
 	${OBJECTDIR}/src/rVex/Operations/CTRL/ICALL.o \
 	${OBJECTDIR}/src/rVex/Operations/ALU/CMPEQ.o \
-	${OBJECTDIR}/src/rVex/Operations/ALU/DIVS.o \
 	${OBJECTDIR}/src/rVex/SyllableMUL.o \
+	${OBJECTDIR}/src/rVex/Operations/ALU/DIVS.o \
 	${OBJECTDIR}/src/VexParser/scanner.o \
 	${OBJECTDIR}/src/rVex/Operations/ALU/CMPLEU.o \
 	${OBJECTDIR}/src/rVex/Operations/CTRL/BR.o \
@@ -143,15 +143,15 @@ ${OBJECTDIR}/src/rVex/Operations/ALU/CMPEQ.o: src/rVex/Operations/ALU/CMPEQ.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/ALU/CMPEQ.o src/rVex/Operations/ALU/CMPEQ.cpp
 
-${OBJECTDIR}/src/rVex/Operations/ALU/DIVS.o: src/rVex/Operations/ALU/DIVS.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/rVex/Operations/ALU
-	${RM} $@.d
-	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/ALU/DIVS.o src/rVex/Operations/ALU/DIVS.cpp
-
 ${OBJECTDIR}/src/rVex/SyllableMUL.o: src/rVex/SyllableMUL.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/rVex
 	${RM} $@.d
 	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/SyllableMUL.o src/rVex/SyllableMUL.cpp
+
+${OBJECTDIR}/src/rVex/Operations/ALU/DIVS.o: src/rVex/Operations/ALU/DIVS.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/rVex/Operations/ALU
+	${RM} $@.d
+	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/ALU/DIVS.o src/rVex/Operations/ALU/DIVS.cpp
 
 ${OBJECTDIR}/src/VexParser/scanner.o: src/VexParser/scanner.cc 
 	${MKDIR} -p ${OBJECTDIR}/src/VexParser
@@ -390,25 +390,25 @@ ${TESTDIR}/TestFiles/f1: ${TESTDIR}/src/Tests/rVex/rVexInstructionTest.o ${TESTD
 ${TESTDIR}/src/Tests/Parser/ExpressionTest.o: src/Tests/Parser/ExpressionTest.cpp 
 	${MKDIR} -p ${TESTDIR}/src/Tests/Parser
 	${RM} $@.d
-	$(COMPILE.cc) -O3 -s -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/Parser/ExpressionTest.o src/Tests/Parser/ExpressionTest.cpp
+	$(COMPILE.cc) -O3 -s -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/Parser/ExpressionTest.o src/Tests/Parser/ExpressionTest.cpp
 
 
 ${TESTDIR}/src/Tests/Parser/VexContextTest.o: src/Tests/Parser/VexContextTest.cpp 
 	${MKDIR} -p ${TESTDIR}/src/Tests/Parser
 	${RM} $@.d
-	$(COMPILE.cc) -O3 -s -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/Parser/VexContextTest.o src/Tests/Parser/VexContextTest.cpp
+	$(COMPILE.cc) -O3 -s -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/Parser/VexContextTest.o src/Tests/Parser/VexContextTest.cpp
 
 
 ${TESTDIR}/src/Tests/rVex/rVexInstructionTest.o: src/Tests/rVex/rVexInstructionTest.cpp 
 	${MKDIR} -p ${TESTDIR}/src/Tests/rVex
 	${RM} $@.d
-	$(COMPILE.cc) -O3 -s -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/rVex/rVexInstructionTest.o src/Tests/rVex/rVexInstructionTest.cpp
+	$(COMPILE.cc) -O3 -s -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/rVex/rVexInstructionTest.o src/Tests/rVex/rVexInstructionTest.cpp
 
 
 ${TESTDIR}/src/Tests/rVex/rVexSyllableTest.o: src/Tests/rVex/rVexSyllableTest.cpp 
 	${MKDIR} -p ${TESTDIR}/src/Tests/rVex
 	${RM} $@.d
-	$(COMPILE.cc) -O3 -s -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/rVex/rVexSyllableTest.o src/Tests/rVex/rVexSyllableTest.cpp
+	$(COMPILE.cc) -O3 -s -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/rVex/rVexSyllableTest.o src/Tests/rVex/rVexSyllableTest.cpp
 
 
 ${OBJECTDIR}/src/rVex/Operations/CTRL/GOTO_nomain.o: ${OBJECTDIR}/src/rVex/Operations/CTRL/GOTO.o src/rVex/Operations/CTRL/GOTO.cpp 
@@ -476,19 +476,6 @@ ${OBJECTDIR}/src/rVex/Operations/ALU/CMPEQ_nomain.o: ${OBJECTDIR}/src/rVex/Opera
 	    ${CP} ${OBJECTDIR}/src/rVex/Operations/ALU/CMPEQ.o ${OBJECTDIR}/src/rVex/Operations/ALU/CMPEQ_nomain.o;\
 	fi
 
-${OBJECTDIR}/src/rVex/Operations/ALU/DIVS_nomain.o: ${OBJECTDIR}/src/rVex/Operations/ALU/DIVS.o src/rVex/Operations/ALU/DIVS.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/rVex/Operations/ALU
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/rVex/Operations/ALU/DIVS.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} $@.d;\
-	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/ALU/DIVS_nomain.o src/rVex/Operations/ALU/DIVS.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/src/rVex/Operations/ALU/DIVS.o ${OBJECTDIR}/src/rVex/Operations/ALU/DIVS_nomain.o;\
-	fi
-
 ${OBJECTDIR}/src/rVex/SyllableMUL_nomain.o: ${OBJECTDIR}/src/rVex/SyllableMUL.o src/rVex/SyllableMUL.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/rVex
 	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/rVex/SyllableMUL.o`; \
@@ -500,6 +487,19 @@ ${OBJECTDIR}/src/rVex/SyllableMUL_nomain.o: ${OBJECTDIR}/src/rVex/SyllableMUL.o 
 	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/SyllableMUL_nomain.o src/rVex/SyllableMUL.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/rVex/SyllableMUL.o ${OBJECTDIR}/src/rVex/SyllableMUL_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/rVex/Operations/ALU/DIVS_nomain.o: ${OBJECTDIR}/src/rVex/Operations/ALU/DIVS.o src/rVex/Operations/ALU/DIVS.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/rVex/Operations/ALU
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/rVex/Operations/ALU/DIVS.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/ALU/DIVS_nomain.o src/rVex/Operations/ALU/DIVS.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/rVex/Operations/ALU/DIVS.o ${OBJECTDIR}/src/rVex/Operations/ALU/DIVS_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/VexParser/scanner_nomain.o: ${OBJECTDIR}/src/VexParser/scanner.o src/VexParser/scanner.cc 

@@ -6,6 +6,7 @@
   
 //#include <stdio.h>
 #include <iostream>
+#include <sstream>
 #include <string>
 #include <vector>
 
@@ -199,8 +200,8 @@
  **     File structure
  ********************************************************************************/
 
-asm_file        :       asm_section
-                |       asm_file asm_section 
+asm_file        :       asm_section 
+                |       asm_file asm_section
                 ;
 
 asm_section     :       _SECTION data_section
@@ -458,19 +459,25 @@ mop             :       normal_mop
 
 normal_mop      :       CLUST OPCODE .mop_arglist 
                         { 
-                          driver.context.packSyllable( $2->syllableConstructor->create(), *$3 ); 
+                          std::stringstream stringRepresentation;
+                          
+                          stringRepresentation << " " << $2->as_op << " ";
+                          if ( $3->getDestinyArguments().hasArguments() )
+                          {
+                            $3->getDestinyArguments().print(stringRepresentation);
+                            stringRepresentation << " = ";
+                          }
+                          $3->getSourceArguments().print(stringRepresentation);
+                          
+                          //stringRepresentation << std::endl;
                           
                           if (driver.context.isDebuggingEnabled())
-                          {
-                            std::cout << " " << $2->as_op << " ";
-                            if ( $3->getDestinyArguments().hasArguments() )
-                            {
-                              $3->getDestinyArguments().print(std::cout);
-                              std::cout << " = ";
-                            }
-                            $3->getSourceArguments().print(std::cout);
-                            std::cout << std::endl;
-                          }
+                            std::cout << stringRepresentation.str() << std::endl;
+                          
+                          rVex::Syllable* syllable = $2->syllableConstructor->create();
+                          syllable->setTextRepresentation(stringRepresentation.str());
+                          
+                          driver.context.packSyllable(syllable , *$3 ); 
                           
                           delete $1;
                           //delete $2;
@@ -484,10 +491,16 @@ xnop_mop        :       XNOP NUMBER
                           Arguments arguments(ex);
                           SyllableArguments syllableArguments(arguments);
                           
-                          driver.context.packSyllable( $1->syllableConstructor->create(), syllableArguments ); 
+                          std::stringstream stringRepresentation;
+                          stringRepresentation << $1->as_op << " " << $2;
                           
                           if (driver.context.isDebuggingEnabled())
-                            std::cout << " " << $1->as_op << " " << $2 << std::endl;
+                            std::cout << stringRepresentation.str() << std::endl;
+                          
+                          rVex::Syllable* syllable = $1->syllableConstructor->create();
+                          syllable->setTextRepresentation(stringRepresentation.str());
+                          
+                          driver.context.packSyllable(syllable, syllableArguments); 
                           
                           //delete $1;
                           //delete argument;

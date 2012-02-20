@@ -35,13 +35,22 @@ main(int argc, char** argv)
   bool traceScanning=false;
   bool debugEnabled=false;
 
+  std::cout << "rVex Assembler and PBIW encoder\n" << std::endl;
+  
+  if (argc == 1)
+    std::cout << "Please specify an Vex assembly file to process." << std::endl;
+  
   for (int ai=1; ai < argc; ++ai) // O(|argc|)
   {
     if (argv[ai] == std::string("-h") || argv[ai] == std::string("--help"))
     {
-      std::cout << "rVex Assembler" << std::endl
-        << "--------------" << std::endl
-        << "Options:" << std::endl
+      std::cout << "\n\tUsage: " << argv[0] << " [options] input.s\n" << std::endl
+        << "This will generate 3 files:" << std::endl
+        << "- input.s.vhd: Contains the binary VHDL assembly to run in rVex;" << std::endl
+        << "- input.s.pbiw.vhd: Contains the PBIW instructions binary VHDL assembly to run in rVex;" << std::endl
+        << "- input.s.pcache.vhd: Contains the PBIW patterns binary VHDL assembly to run in rVex;\n" << std::endl;
+      
+      std::cout << "Options:" << std::endl
         << "-p\tTrace parsing" << std::endl
         << "-s\tTrace scanning" << std::endl
         << "-d\tEnable verbose debug" << std::endl
@@ -63,6 +72,8 @@ main(int argc, char** argv)
       flags.append("-d ");
       // Lets be verbose! :)
       debugEnabled=true;
+      
+      std::cout << "Debugging information: " << std::endl;
     } else
     {
       std::string filename=argv[ai];
@@ -138,6 +149,7 @@ execute(const std::string& filename, const std::string& flags, bool debugEnabled
 
   // Do the parsing
   bool result=driver.parse_stream(infile, filename); // O(1)
+  driver.context.endParsing();
 
   context.processLabels(); // O(1)
   context.print(); // O(|instructions|)

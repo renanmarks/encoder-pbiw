@@ -263,7 +263,14 @@ namespace VexParser
         instructionIt != instructions.end();
         instructionIt++)
     {
-        (*instructionIt)->print(printer); // O(1)
+      InstructionList::const_iterator next = instructionIt;
+      next++;
+      
+      // Do not print to "nop/nop/nop/stop" instructions
+      if (next == instructions.end())
+        break;
+      
+      (*instructionIt)->print(printer); // O(1)
     }
     
     printer.printFooter(); // O(1)
@@ -359,7 +366,20 @@ namespace VexParser
       SyllableBuffer tempSyllableBuffer(syllableBuffer.rbegin(), syllableBuffer.rend());
       syllableBuffer = tempSyllableBuffer;
     }      
-      
+  
+  void 
+  VexContext::endParsing()
+  {
+    SyllableArguments dummyArguments;
+    
+//    this->packSyllable(new rVex::Operations::MISC::NOP(), dummyArguments);
+//    this->packSyllable(new rVex::Operations::MISC::NOP(), dummyArguments);
+//    this->packSyllable(new rVex::Operations::MISC::NOP(), dummyArguments);
+    this->newInstruction();
+    this->packSyllable(new rVex::Operations::MISC::STOP(), dummyArguments);
+    this->endInstruction();
+  }
+  
   void 
   VexContext::encodePBIW(PBIW::Interfaces::IPBIW& pbiw) const // O(|codedPatterns|^2 + |instructions|) =
   {                                                                                                        // O(|codedPatterns|^2)

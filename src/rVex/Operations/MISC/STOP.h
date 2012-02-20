@@ -8,7 +8,7 @@
 #ifndef STOP_H
 #define	STOP_H
 
-#include "../../SyllableMISC.h"
+#include "../../SyllableCTRL.h"
 
 namespace rVex
 {
@@ -16,13 +16,19 @@ namespace rVex
   {
     namespace MISC
     {
-      class STOP : public Syllable
+      class STOP : public SyllableCTRL
       {
         public:
-          STOP() {}
+          STOP() { setTextRepresentation("stop"); }
           
           unsigned int getOpcode() const { return this->opSTOP; }
           SyllableType::Type getSyllableType() const { return SyllableType::CTRL; }
+          
+          virtual void print(rVex::Printers::IPrinter& output, bool first, bool last) const
+          { output.printSyllable(this, this->getOpcode() << 25, first, last); }
+          
+          virtual void fillSyllable(VexParser::SyllableArguments& arguments)
+          { return; }
       };
     }
   }

@@ -64,7 +64,9 @@ namespace rVex
       else
         resultBinary.append("0\"&");
       
-      output << resultBinary << std::endl;
+      output << resultBinary 
+        << " -- " << syllable->getTextRepresentation()
+        << std::endl;
     }
 
     /**
@@ -76,23 +78,26 @@ namespace rVex
       typedef std::vector<rVex::Syllable*> SyllableVec;
       
       SyllableVec syllables = instruction.getSyllables(); // O(1)
-      SyllableVec::const_reverse_iterator it;
+      SyllableVec::const_iterator it;
       
       try 
       {
+        if (instruction.haveLabel())
+          output << "\t\t\t\t-- " << instruction.getLabel()->name << ": " << std::endl;
+        
         output << "\t\t\t\twhen x\"" 
           << std::setw(2) << std::setfill('0') << std::hex << std::uppercase 
           << instruction.getAddress() << "\" => instr <= ";
         
-        for ( it = syllables.rbegin(); it < syllables.rend(); it++)  // O(|syllables|) = O(4) = O(1)
+        for ( it = syllables.begin(); it < syllables.end(); it++)  // O(|syllables|) = O(4) = O(1)
         {
           // If the current is the LAST put 10 in LF...
-          if (it == syllables.rbegin())
+          if (it == syllables.begin())
           {
             (*it)->print(*this, false, true);
           }
           // ... if the current is the FIRST put 01 in LF ...
-          else if (it+1 == syllables.rend()) 
+          else if (it+1 == syllables.end()) 
           {
             output << "\t\t\t\t\t\t\t";
             (*it)->print(*this, true, false);
@@ -180,9 +185,9 @@ begin\n\
     VHDLPrinter::printFooter() // O(1)
     {
       output << "\
-\t\t\t\twhen others => instr <= \"00000000000000000000000000000010\"& -- nop\n\
-\t\t\t\t                        \"00000000000000000000000000000000\"& -- nop\n\
-\t\t\t\t                        \"00000000000000000000000000000000\"& -- nop\n\
+\t\t\t\twhen others => instr <= \"00000000000000000000000000000010\"& -- \n\
+\t\t\t\t                        \"00000000000000000000000000000000\"& -- \n\
+\t\t\t\t                        \"00000000000000000000000000000000\"& -- \n\
 \t\t\t\t                        \"00111110000000000000000000000001\"; -- stop\n\
 \t\t\tend case;\n\
 \t\tend if;\n\

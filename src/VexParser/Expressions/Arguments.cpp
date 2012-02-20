@@ -113,7 +113,12 @@ namespace VexParser
     ArgumentVector::const_iterator it;
 
     for (it = arguments.begin(); it < arguments.end(); it++) // O(|arguments|) = O(4) = O(1)
+    {
       it->print(ostream);
+      
+      if (it != arguments.end()-1)
+        ostream << ", ";
+    }
   }
   
   void

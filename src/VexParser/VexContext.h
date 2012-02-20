@@ -77,11 +77,6 @@ namespace VexParser
      * in the syllable buffer.
      */
     void packSyllable(rVex::Syllable*, SyllableArguments&);
-//    void packSyllable(rVex::SyllableALU*, SyllableArguments&);
-//    void packSyllable(rVex::SyllableMEM*, SyllableArguments&);
-//    void packSyllable(rVex::SyllableMUL*, SyllableArguments&);
-//    void packSyllable(rVex::SyllableCTRL*, SyllableArguments&);
-//    void packSyllable(rVex::SyllableMISC*, SyllableArguments&);
     
     /**
      * Clears the syllable buffer to hold new parsed syllables.
@@ -184,6 +179,8 @@ namespace VexParser
     getLabels() const
     { return labels; }
 
+    void
+    endParsing();
   private:
     
     /**

@@ -281,6 +281,12 @@ namespace rVex
       virtual std::string getPath() const
       { return this->path; }
       
+      virtual void setTextRepresentation(std::string textRepresentation)
+      { this->textRepresentation = textRepresentation; }
+      
+      virtual std::string getTextRepresentation() const
+      { return this->textRepresentation; }
+      
       /**
        * Get the syllable Opcode.
        * In the ADDCG, DIVS, SCLT and SCLTF syllables, this includes the
@@ -361,6 +367,7 @@ namespace rVex
       Syllable* branchDestiny;
       
       std::string path;
+      std::string textRepresentation;
       
       virtual void fillTypeI(VexParser::SyllableArguments&);
       virtual void fillTypeII(VexParser::SyllableArguments&);
