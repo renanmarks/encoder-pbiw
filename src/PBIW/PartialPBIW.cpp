@@ -154,6 +154,8 @@ namespace PBIW
         finalOperation->setImmediateSwitch( (*syllableIt)->getImmediateSwitch() );
         finalOperation->setType( (*syllableIt)->getSyllableType() );
         
+        bool syllableHasBrDestiny = (*syllableIt)->hasBrDestiny();
+        
         // For each operand...
         rVex::Utils::OperandVectorBuilder operandVectorBuilder;
         (*syllableIt)->exportOperandVector(operandVectorBuilder);
@@ -184,7 +186,6 @@ namespace PBIW
 
             switch ( (*operandIt)->getType() )
             {
-              case Utils::OperandItem::BRDestiny :
               case Utils::OperandItem::GRDestiny :
                 if (operand->getValue() == 0)
                   break;
@@ -194,6 +195,13 @@ namespace PBIW
                 break;
 
               case Utils::OperandItem::BRSource :
+                finalInstruction->setBranchSourceOperand(*operand); // O(1)
+                break;
+              
+              case Utils::OperandItem::BRDestiny :
+                finalInstruction->addReadOperand(*operand); // O(1)
+                break;
+                
               case Utils::OperandItem::GRSource :
                 if (operand->getValue() != 0)
                   finalInstruction->addReadOperand(*operand); // O(1)
@@ -201,7 +209,7 @@ namespace PBIW
                 break;
             }
           }
-          else // if not found...
+          else // if found...
           {
             /* Fix the bug when the read operands reference an write operand in
              * a PBIW instruction.
@@ -211,9 +219,23 @@ namespace PBIW
              **/
             
             bool isZeroReadRegister = foundOperand.getIndex() == 0 && foundOperand.getValue() == 0 && 
-                 (  (*operandIt)->getType() == Utils::OperandItem::GRSource || 
-                    (*operandIt)->getType() == Utils::OperandItem::BRSource  );
+                 (  (*operandIt)->getType() == Utils::OperandItem::GRSource 
+                    /*|| (*operandIt)->getType() == Utils::OperandItem::BRSource*/ );
             
+            if (syllableHasBrDestiny)
+            {
+              if ((*operandIt)->getType() == Utils::OperandItem::GRDestiny && (*operandIt)->getOperand()->getValue() == 0 )
+              {
+                // If it's a syllable that uses an Branch register as destiny (The General Register destiny and it has value zero (must!))
+                // we don't do any copy or "error recovery" strategy.
+              }
+              else if ( (*operandIt)->getType() == Utils::OperandItem::BRDestiny )
+              {
+                // If it's a syllable that uses an Branch register as destiny
+                // we don't do any copy or "error recovery" strategy.
+              }
+            }
+            else
             if (!isZeroReadRegister && foundOperand.getIndex() > 7) // Fixes for write operands
             {
               if ( !finalInstruction->hasReadOperandSlot() )  // // O(|readOperands|) = O(8) = O(1)
@@ -227,6 +249,10 @@ namespace PBIW
               switch ( (*operandIt)->getType() )
               {
                 case Utils::OperandItem::BRSource :
+                  finalInstruction->setBranchSourceOperand(*operand); // O(1)
+                  continue;
+                  break;
+                  
                 case Utils::OperandItem::GRSource :
                   finalInstruction->addReadOperand(*operand); // O(1)
                   finalOperation->addOperand(*operand); // O(1)
@@ -239,6 +265,9 @@ namespace PBIW
             {
               if ( (*syllableIt)->getOpcode() != rVex::Syllable::opNOP )
               {
+//                if (syllableHasBrDestiny && (*operandIt)->getType() == Utils::OperandItem::BRDestiny && (*operandIt)->getOperand()->getValue() == 0)
+//                  continue;
+                
                 if ( !finalInstruction->hasWriteOperandSlot() )
                 {
                   saveAndCreateNewPBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
@@ -250,6 +279,7 @@ namespace PBIW
                 switch ( (*operandIt)->getType() )
                 {
                   case Utils::OperandItem::BRDestiny :
+                    break;
                   case Utils::OperandItem::GRDestiny :
                     finalInstruction->addWriteOperand(*operand); // O(1)
                     finalOperation->addOperand(*operand); // O(1)
@@ -259,7 +289,6 @@ namespace PBIW
                 }
               }
             }
-            
           } // end if (not) found operands
           
           // If the PBIW instruction has been splitted

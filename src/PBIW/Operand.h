@@ -56,6 +56,12 @@ namespace PBIW
     
     virtual int getValue() const
     { return value; }
+    
+    virtual bool isBRSource() const
+    { return isBRSourceOperand; }
+    
+    virtual void setBRSource(const bool value)
+    { isBRSourceOperand = value; }
 
     virtual bool operator<(const IOperand&) const;
     virtual bool operator>(const IOperand&) const;
@@ -71,6 +77,9 @@ namespace PBIW
     
     // This is an immediate operand?
     Immediate::Type immType;
+    
+    // Type of this operand
+    bool isBRSourceOperand;
     
     // The value of this operand (register number or immediate number)
     int value;

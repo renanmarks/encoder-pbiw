@@ -30,6 +30,9 @@ namespace PBIW
       
       virtual void setValue(int) = 0;
       virtual int getValue() const = 0;
+      
+      virtual bool isBRSource() const = 0;
+      virtual void setBRSource(const bool) = 0;
 
       virtual bool operator<(const IOperand&) const = 0;
       virtual bool operator>(const IOperand&) const = 0;

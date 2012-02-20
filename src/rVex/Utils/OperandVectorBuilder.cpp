@@ -11,28 +11,12 @@ namespace rVex
 {
   namespace Utils
   {
-
-    //    OperandVectorBuilder::OperandVectorBuilder()
-    //    {
-    //      
-    //    }
-    //
-    //    OperandVectorBuilder::OperandVectorBuilder(const OperandVectorBuilder& orig)
-    //    {
-    //      
-    //    }
-//    OperandVectorBuilder::~OperandVectorBuilder()
-//    {
-//      OperandVector::Collection::iterator it;
-//
-//      for (it=items.begin(); it < items.end(); it++)
-//        delete *it;
-//    }
-
     void
     OperandVectorBuilder::insertRegister(int value, OperandItem::Type type) // O(1)
     {
       Operand* operand = new Operand(value);
+      operand->setBRSource(type == OperandItem::BRSource);
+      
       OperandItem* item = new OperandItem(operand, type);
       
       items.push_back(item);
@@ -53,11 +37,7 @@ namespace rVex
       std::vector<unsigned int>::const_iterator it;
 
       for (it=values.begin(); it < values.end(); it++) // O(1)
-      {
-        Operand* operand = new Operand(*it);
-        OperandItem* item = new OperandItem(operand, type);
-        items.push_back(item);
-      }
+        insertRegister(*it, type);
     }
     
     const OperandVector& OperandVectorBuilder::getOperandVector()

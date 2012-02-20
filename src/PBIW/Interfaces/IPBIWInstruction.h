@@ -78,6 +78,16 @@ namespace PBIW
         virtual void addReadOperand(IOperand&) = 0;
         
         /**
+         * Defines the Branch Source Operand in the instruction
+         */
+        virtual void setBranchSourceOperand(IOperand&) = 0;
+        
+        /**
+         * Returns if there is an Branch Source Operand in the instruction
+         */
+        virtual bool hasBranchSourceOperand() const = 0;
+        
+        /**
          * Adds a write operand to this instruction.
          * @param The Operand to be added.
          */

@@ -19,11 +19,13 @@ namespace rVex
       class DIVS : public SyllableALU
       {
         public:
-          unsigned int getOpcode() const { return this->opDIVS; }
+          unsigned int getOpcode() const { return this->opDIVS | this->brSource; }
           SyllableType::Type getSyllableType() const { return SyllableType::ALU; }
           
           virtual void fillSyllable(VexParser::SyllableArguments& arguments)
           { this->fillTypeIV(arguments); }
+          
+          virtual void exportOperandVector(Utils::OperandVectorBuilder&) const;
       };
     }
   }

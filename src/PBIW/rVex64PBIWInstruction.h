@@ -25,11 +25,12 @@ namespace PBIW
   class rVex64PBIWInstruction : public IPBIWInstruction
   {
   public:
-    rVex64PBIWInstruction() : address(0), label(NULL), branchDestiny(NULL)//readOperands(0, Operand(0)), writeOperands()
+    rVex64PBIWInstruction() : address(0), label(NULL), branchDestiny(NULL), pattern(NULL), hasBRSrc(false)//readOperands(0, Operand(0)), writeOperands()
     {
       Operand operand(0);
       operand.setIndex(0);
-      readOperands.push_back(operand);
+      readOperands.push_back(operand); // Zero register
+      readOperands.push_back(operand); // Space for (possible) future BRSRC
     }
     
     virtual ~rVex64PBIWInstruction();
@@ -55,6 +56,10 @@ namespace PBIW
     virtual const IOperand& containsOperand(const IOperand&) const;
     
     virtual void addReadOperand(IOperand& operand);
+    
+    virtual void setBranchSourceOperand(IOperand&);
+    virtual bool hasBranchSourceOperand() const;
+    
     virtual void addWriteOperand(IOperand& operand);
     
     virtual bool hasOperandSlot(const Utils::OperandItem&);
@@ -135,6 +140,7 @@ namespace PBIW
               Br src
      */
     OperandVector readOperands; // Max 8
+    bool hasBRSrc;
 
     /* The writeRegs/imm organization is as follows:
          

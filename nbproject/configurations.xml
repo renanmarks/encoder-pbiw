@@ -191,6 +191,20 @@
       </logicalFolder>
       <logicalFolder name="f2" displayName="rVex" projectFiles="true">
         <logicalFolder name="f1" displayName="Operations" projectFiles="true">
+          <logicalFolder name="f2" displayName="ALU" projectFiles="true">
+            <itemPath>src/rVex/Operations/ALU/ADDCG.cpp</itemPath>
+            <itemPath>src/rVex/Operations/ALU/CMPEQ.cpp</itemPath>
+            <itemPath>src/rVex/Operations/ALU/CMPGE.cpp</itemPath>
+            <itemPath>src/rVex/Operations/ALU/CMPGEU.cpp</itemPath>
+            <itemPath>src/rVex/Operations/ALU/CMPGT.cpp</itemPath>
+            <itemPath>src/rVex/Operations/ALU/CMPGTU.cpp</itemPath>
+            <itemPath>src/rVex/Operations/ALU/CMPLE.cpp</itemPath>
+            <itemPath>src/rVex/Operations/ALU/CMPLEU.cpp</itemPath>
+            <itemPath>src/rVex/Operations/ALU/CMPLT.cpp</itemPath>
+            <itemPath>src/rVex/Operations/ALU/CMPLTU.cpp</itemPath>
+            <itemPath>src/rVex/Operations/ALU/CMPNE.cpp</itemPath>
+            <itemPath>src/rVex/Operations/ALU/DIVS.cpp</itemPath>
+          </logicalFolder>
           <logicalFolder name="f1" displayName="CTRL" projectFiles="true">
             <itemPath>src/rVex/Operations/CTRL/BR.cpp</itemPath>
             <itemPath>src/rVex/Operations/CTRL/BRF.cpp</itemPath>
@@ -342,10 +356,16 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -427,10 +447,16 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -477,7 +503,7 @@
     <conf name="Release" type="1">
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
-        <compilerSet>MINGW32|GNU</compilerSet>
+        <compilerSet>default</compilerSet>
       </toolsSet>
       <compileType>
         <cTool>
@@ -489,7 +515,6 @@
         <ccTool>
           <developmentMode>6</developmentMode>
           <stripSymbols>true</stripSymbols>
-          <commandlineTool>i686-w64-mingw32-g++</commandlineTool>
           <incDir>
             <pElem>.</pElem>
           </incDir>
@@ -548,10 +573,16 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -633,10 +664,16 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -766,10 +803,16 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -851,10 +894,16 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -977,10 +1026,16 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -1062,10 +1117,16 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>

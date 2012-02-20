@@ -28,12 +28,13 @@ namespace rVex
   {
     public:
       Syllable() : 
-      address(-1),
+      address(0),
       layoutType(),
-      grDestiny(),
-      brDestiny(),
-      brSource(),
-      shortImmediate(),
+      grDestiny(0),
+      brDestiny(0),
+      haveBRDestiny(false),
+      brSource(0),
+      shortImmediate(0),
       branchDestiny(NULL)
       {}
       
@@ -87,10 +88,41 @@ namespace rVex
         opMTB    = 103,
         opANDL   = 104,
 
-        opADDCG  = 120,
+        opADDCG  = 120, 
+//          opADDCG  = 121, 
+//          opADDCG  = 122, 
+//          opADDCG  = 123, 
+//          opADDCG  = 124, 
+//          opADDCG  = 125, 
+//          opADDCG  = 126, 
+//          opADDCG  = 127, 
+          
         opDIVS   = 112,
+//          opDIVS   = 113,
+//          opDIVS   = 114,
+//          opDIVS   = 115,
+//          opDIVS   = 116,
+//          opDIVS   = 117,
+//          opDIVS   = 118,
+//          opDIVS   = 119,
+          
         opSLCT   = 56,
+//          opSLCT   = 57,
+//          opSLCT   = 58,
+//          opSLCT   = 59,
+//          opSLCT   = 60,
+//          opSLCT   = 61,
+//          opSLCT   = 62,
+//          opSLCT   = 63,
+          
         opSLCTF  = 48,
+//          opSLCTF  = 49,
+//          opSLCTF  = 50,
+//          opSLCTF  = 51,
+//          opSLCTF  = 52,
+//          opSLCTF  = 53,
+//          opSLCTF  = 54,
+//          opSLCTF  = 55,
 
         /* MUL opcodes */
         opMPYLL  =  1,
@@ -210,8 +242,11 @@ namespace rVex
       virtual unsigned short getShortImmediate() const 
       { return shortImmediate; }
 
+      virtual bool hasBrDestiny() const
+      { return haveBRDestiny; }
+      
       virtual void setBrDestiny(unsigned char brDestiny) 
-      { this->brDestiny=brDestiny; }
+      { haveBRDestiny = true; this->brDestiny=brDestiny; }
       
       virtual unsigned char getBrDestiny() const 
       { return brDestiny; }
@@ -248,9 +283,19 @@ namespace rVex
       
       /**
        * Get the syllable Opcode.
+       * In the ADDCG, DIVS, SCLT and SCLTF syllables, this includes the
+       * BRSrc field.
        * @return The syllable Opcode
        */
       virtual unsigned int getOpcode() const = 0;
+      
+      /**
+       * Returns true if the opcode is the same asked.
+       * This method is useful when trying to know
+       * if the syllable is one of ADDCG, DIVS, SCLT or SCLTF syllables.
+       */
+      virtual bool isOpcode(SyllableOpcode opcode) const
+      { return (getOpcode() & opcode) == opcode; }
       
       /**
        * Get the type of syllable: ALU, MUL, MEM or CTRL.
@@ -306,6 +351,7 @@ namespace rVex
       Syllable::LayoutType::Type layoutType;
       unsigned char grDestiny;
       unsigned char brDestiny;
+      bool haveBRDestiny;
       
       ReadRegVector readRegisters;
       unsigned char brSource;

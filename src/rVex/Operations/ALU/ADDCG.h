@@ -19,11 +19,13 @@ namespace rVex
       class ADDCG : public SyllableALU
       {
         public:
-          unsigned int getOpcode() const { return this->opADDCG; }
+          unsigned int getOpcode() const { return this->opADDCG | this->brSource; }
           SyllableType::Type getSyllableType() const { return SyllableType::ALU; }
           
           virtual void fillSyllable(VexParser::SyllableArguments& arguments)
           { this->fillTypeIV(arguments); }
+          
+          virtual void exportOperandVector(Utils::OperandVectorBuilder&) const;
       };
     }
   }

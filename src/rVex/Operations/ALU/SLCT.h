@@ -19,7 +19,7 @@ namespace rVex
       class SLCT : public SyllableALU
       {
         public:
-          unsigned int getOpcode() const { return this->opSLCT; }
+          unsigned int getOpcode() const { return this->opSLCT | this->brSource; }
           SyllableType::Type getSyllableType() const { return SyllableType::ALU; }
           
           virtual void fillSyllable(VexParser::SyllableArguments& arguments)

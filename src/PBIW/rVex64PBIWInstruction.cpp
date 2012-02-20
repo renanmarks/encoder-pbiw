@@ -239,9 +239,43 @@ namespace PBIW
   void
   rVex64PBIWInstruction::addReadOperand(IOperand& operand) // O(1)
   {
+    if (operand.isBRSource())
+    {
+      setBranchSourceOperand(operand);
+      return;
+    }
+    
     unsigned int index=this->readOperands.size();
     operand.setIndex(index);
     this->readOperands.push_back(dynamic_cast<Operand&> (operand));
+  }
+
+  void
+  rVex64PBIWInstruction::setBranchSourceOperand(IOperand& operand)
+  {
+    operand.setIndex(1);
+    
+    if (!hasBranchSourceOperand())
+    {
+      if (readOperands.size() == 1) // 1 element (zero)
+        readOperands.push_back(dynamic_cast<Operand&> (operand));
+      else // 1 element (zero) and/or more element(s) after
+        readOperands[1] = dynamic_cast<Operand&> (operand);
+      
+      hasBRSrc = true;
+    }
+    else
+    {
+      readOperands[1] = dynamic_cast<Operand&> (operand);
+    }
+    
+    return;
+  }
+
+  bool
+  rVex64PBIWInstruction::hasBranchSourceOperand() const
+  {
+    return hasBRSrc;
   }
 
   void
@@ -301,8 +335,8 @@ namespace PBIW
   bool
   rVex64PBIWInstruction::hasOperandSlot(const Utils::OperandItem& operand) // O(1)
   {
-    switch (operand.getType()) {
-      case Utils::OperandItem::BRDestiny:
+    switch (operand.getType()) 
+    {
       case Utils::OperandItem::GRDestiny:
       {
         bool hasWriteSlot = this->hasWriteOperandSlot();
@@ -343,6 +377,10 @@ namespace PBIW
         break;
 
       case Utils::OperandItem::BRSource:
+        return !this->hasBranchSourceOperand();
+        break;
+      
+      case Utils::OperandItem::BRDestiny:
       case Utils::OperandItem::GRSource:
         if (operand.getOperand()->getValue() != 0)
           return this->hasReadOperandSlot();

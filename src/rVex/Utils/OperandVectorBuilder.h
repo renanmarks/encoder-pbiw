@@ -22,10 +22,6 @@ namespace rVex
     class OperandVectorBuilder
     {
     public:
-//      OperandVectorBuilder();
-//      OperandVectorBuilder(const OperandVectorBuilder& orig);
-//      virtual ~OperandVectorBuilder();
-      
       void insertRegister(int value, OperandItem::Type type);
       void insertRegisters(const std::vector<unsigned int>& values, OperandItem::Type type);
       void insertImmediate(int value, Operand::Immediate::Type);

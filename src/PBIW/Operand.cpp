@@ -12,22 +12,22 @@
 namespace PBIW
 {
   Operand::Operand()
-  : index(0), immType(Immediate::None), value(0)
+  : index(0), immType(Immediate::None), isBRSourceOperand(false), value(0)
   {
   }
   
   Operand::Operand(int value)
-  : index(0), immType(Immediate::None), value(value)
+  : index(0), immType(Immediate::None), isBRSourceOperand(false), value(value)
   {
   }
   
   Operand::Operand(int value, Immediate::Type immediateType)
-  : index(0), immType(immediateType), value(value)
+  : index(0), immType(immediateType), isBRSourceOperand(false), value(value)
   {
   }
   
   Operand::Operand(const Operand& other)
-  : index(other.getIndex()), immType(other.getImmediateType()), value(other.getValue())
+  : index(other.getIndex()), immType(other.getImmediateType()), isBRSourceOperand(other.isBRSource()), value(other.getValue())
   {
   }
   
@@ -85,7 +85,8 @@ namespace PBIW
       (this->value == otherOperand.getValue()) &&
       //(this->index == otherOperand.index) &&
       (this->isImmediate12Bits() == otherOperand.isImmediate12Bits()) &&
-      (this->isImmediate9Bits() == otherOperand.isImmediate9Bits());
+      (this->isImmediate9Bits() == otherOperand.isImmediate9Bits()) &&
+      (this->isBRSource() == otherOperand.isBRSource());
 
     return isEqual;
   }
