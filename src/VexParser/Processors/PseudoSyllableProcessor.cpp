@@ -6,6 +6,7 @@
  */
 
 #include <sstream>
+#include <iostream>
 #include "src/VexParser/VexContext.h"
 #include "PseudoSyllableProcessor.h"
 #include "src/VexParser/VexContext.h"
@@ -83,11 +84,10 @@ namespace VexParser
             std::string assemblerRegister = "$r0.31";
 
             // Save cmpXX original values for posterior use
-            bool isBR=arguments.getDestinyArguments().getArguments()[0].getParsedValue().isBranchRegister;
-            int destinyReg=arguments.getDestinyArguments().getArguments()[0].getValue();
-            int sourceReg=arguments.getSourceArguments().getArguments()[0].getValue();
+            std::string destinyReg=arguments.getDestinyArguments().getArguments()[0].getString();
+            std::string sourceReg=arguments.getSourceArguments().getArguments()[0].getString();
             int value=arguments.getSourceArguments().getArguments()[1].getValue();
-
+            
             rVex::SyllableALU* add = new rVex::Operations::ALU::ADD();
             add->setTextRepresentation(textRepresentation);
             
@@ -105,26 +105,11 @@ namespace VexParser
             // assigned register $r0.31
             context.endInstruction();
 
-            // Used to construct the register strings
-            std::stringstream strBuilder;
-
-            strBuilder << "$r0." << destinyReg << std::endl;
-            std::string destinyRegStr=strBuilder.str();
-
-            if (isBR)
-            {
-              strBuilder.clear();
-              strBuilder << "$b0." << destinyReg << std::endl;
-              destinyRegStr=strBuilder.str();
-            }
-
             arguments.getDestinyArguments().clearArguments();
-            arguments.getDestinyArguments().addArgument(Expression(destinyRegStr));
+            arguments.getDestinyArguments().addArgument(Expression(destinyReg));
 
-            strBuilder.clear();
-            strBuilder << "$r0." << sourceReg << std::endl;
             arguments.getSourceArguments().clearArguments();
-            arguments.getSourceArguments().addArgument(Expression(strBuilder.str()));
+            arguments.getSourceArguments().addArgument(Expression(sourceReg));
             arguments.getSourceArguments().addArgument(Expression(assemblerRegister));
 
             syllable->setTextRepresentation(textRepresentation);
