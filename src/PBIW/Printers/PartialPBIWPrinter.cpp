@@ -69,7 +69,7 @@ architecture teste of pcache1 is\n\
   PartialPBIWPrinter::printPatternsFooter(unsigned int patternsCount) // O(1)
   {
     if (patternsCount >= 63)
-      printer << "--- WARNING: More than 64 patterns generated.\nCheck your VHDL entity to accomplish the new address range." << std::endl;
+      printer << "--- WARNING: More than 64 patterns generated. Check your VHDL entity to accomplish the new address range." << std::endl;
     
     printer << "\t\tothers=>(others=>'0')\n\
 \t);\n\
@@ -155,7 +155,7 @@ architecture Behav of i_mem is\n\
   PartialPBIWPrinter::printInstructionsFooter(unsigned int instructionsCount) // O(1)
   {
     if (instructionsCount >= 63)
-      printer << "--- WARNING: More than 64 instructions generated.\nCheck your VHDL entity to accomplish the new address range." << std::endl;
+      printer << "--- WARNING: More than 64 instructions generated. Check your VHDL entity to accomplish the new address range." << std::endl;
     
     printer << "\t\tOTHERS => b\"0000000000000000000000000000000000000000000000000000000000000000\"\n\
 \t);\n\

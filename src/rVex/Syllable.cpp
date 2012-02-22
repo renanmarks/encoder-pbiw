@@ -426,7 +426,7 @@ namespace rVex
     VexParser::Expression::ParseInfo offset=arguments.getSourceArguments().getArguments()[0].getParsedValue();
     VexParser::Expression::ParseInfo source=arguments.getSourceArguments().getArguments()[1].getParsedValue();
 
-    this->setLayoutType(rVex::Syllable::LayoutType::ISTYPE);
+    this->setLayoutType(rVex::Syllable::LayoutType::MEMTYPE);
 
     this->setGrDestiny(static_cast<unsigned char> (destiny.value));
     this->addReadRegister(static_cast<unsigned int> (source.value));
@@ -440,7 +440,7 @@ namespace rVex
     VexParser::Expression::ParseInfo baseRegister=arguments.getDestinyArguments().getArguments()[1].getParsedValue();
     VexParser::Expression::ParseInfo source=arguments.getSourceArguments().getArguments()[0].getParsedValue();
 
-    this->setLayoutType(rVex::Syllable::LayoutType::ISTYPE);
+    this->setLayoutType(rVex::Syllable::LayoutType::MEMTYPE);
 
     this->setGrDestiny(static_cast<unsigned int> (source.value));
     this->addReadRegister(static_cast<unsigned char> (baseRegister.value));

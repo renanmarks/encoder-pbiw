@@ -46,6 +46,10 @@ namespace VexParser
     void
     PseudoSyllableProcessor::process(rVex::SyllableALU* syllable, SyllableArguments& arguments)
     {
+      std::string textRepresentation = "(from ";
+      textRepresentation.append(syllable->getTextRepresentation());
+      textRepresentation.append(")");
+      
       switch (syllable->getOpcode()) 
       {
         case rVex::Syllable::opCMPEQ:
@@ -63,8 +67,8 @@ namespace VexParser
         case rVex::Syllable::opORL:
           // Change from: cmpXX $r0.x = $r0.y, 12345
           // to: 
-          // add $r0.32 = $r0.0, 12345
-          // cmpXX $r0.x = $r0.y, $r0.32
+          // add $r0.31 = $r0.0, 12345
+          // cmpXX $r0.x = $r0.y, $r0.31
 
           // WARNING: this is only suitable if the PBIW encoding supports indexing
           // the $r0.32 register
@@ -75,6 +79,8 @@ namespace VexParser
 //              context.endInstruction();
             
             int position = getSyllableBufferItemPosition(syllable);
+            
+            std::string assemblerRegister = "$r0.31";
 
             // Save cmpXX original values for posterior use
             bool isBR=arguments.getDestinyArguments().getArguments()[0].getParsedValue().isBranchRegister;
@@ -83,9 +89,10 @@ namespace VexParser
             int value=arguments.getSourceArguments().getArguments()[1].getValue();
 
             rVex::SyllableALU* add = new rVex::Operations::ALU::ADD();
-
+            add->setTextRepresentation(textRepresentation);
+            
             arguments.getDestinyArguments().clearArguments();
-            arguments.getSourceArguments().addArgument(Expression("$r0.32"));
+            arguments.getDestinyArguments().addArgument(Expression(assemblerRegister));
 
             arguments.getSourceArguments().clearArguments();
             arguments.getSourceArguments().addArgument(Expression("$r0.0"));
@@ -95,7 +102,7 @@ namespace VexParser
             context.getSyllableBuffer().at(position) = Structs::SyllableBufferItem(add, arguments);
 
             // Get a new instruction because of the use of the previous 
-            // assigned register $r0.32
+            // assigned register $r0.31
             context.endInstruction();
 
             // Used to construct the register strings
@@ -118,8 +125,9 @@ namespace VexParser
             strBuilder << "$r0." << sourceReg << std::endl;
             arguments.getSourceArguments().clearArguments();
             arguments.getSourceArguments().addArgument(Expression(strBuilder.str()));
-            arguments.getSourceArguments().addArgument(Expression("$r0.32"));
+            arguments.getSourceArguments().addArgument(Expression(assemblerRegister));
 
+            syllable->setTextRepresentation(textRepresentation);
             syllable->fillSyllable(arguments);
             context.getSyllableBuffer().push_back(Structs::SyllableBufferItem(syllable, arguments));
             context.endInstruction();

@@ -156,7 +156,8 @@ execute(const std::string& filename, const std::string& flags, bool debugEnabled
 
   // Instantiate the PBIW encoder
   PBIW::PartialPBIW pbiw;
-
+  pbiw.setDebug(context.isDebuggingEnabled());
+  
   if (context.isDebuggingEnabled())
   {
     PBIW::PartialPBIWDebugPrinter pbiwDebugPrinter(std::cout);

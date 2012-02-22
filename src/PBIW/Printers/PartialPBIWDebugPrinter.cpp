@@ -58,7 +58,7 @@ namespace PBIW
          sIt != references.end();
          sIt++)
     {
-      printer << (*sIt)->getOpcode() << "(" << (*sIt) << ")" << std::endl;
+      printer << (*sIt)->getOpcode() << " - " << (*sIt)->getTextRepresentation() << std::endl;
     }
     
     printer << "Read : ";

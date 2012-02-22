@@ -162,7 +162,7 @@ namespace VexParser
     } 
     else if (linkRegisterString != string::npos ) // Link Register
     {
-      parsedValue.value         = 31;
+      parsedValue.value         = 30;
     } 
     else if (branchRegisterString != string::npos ) // Branch Register
     {

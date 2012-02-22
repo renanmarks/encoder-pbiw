@@ -38,6 +38,8 @@ namespace PBIW
   {
   private:
     
+    bool debug;
+    
     /**
      * Type definitions to references rVex structures
      */
@@ -100,7 +102,7 @@ namespace PBIW
     };
     
   public:
-    PartialPBIW()
+    PartialPBIW() : debug(false)
     {}
     
     virtual ~PartialPBIW();
@@ -116,6 +118,14 @@ namespace PBIW
 
     virtual std::vector<IPBIWPattern*> getPatterns();
     virtual std::vector<IPBIWInstruction*> getInstructions();
+
+    void
+    setDebug(bool debug)
+    { this->debug=debug; }
+
+    bool
+    isDebug() const
+    { return debug; }
   };
 }
 

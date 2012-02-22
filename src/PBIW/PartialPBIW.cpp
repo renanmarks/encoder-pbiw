@@ -317,8 +317,11 @@ namespace PBIW
 
   void PartialPBIW::processLabels()
   {
-    std::cout << "Translating to PBIW labels" << std::endl;
-    std::cout << branchingInstructions.size() << " branching instructions" << std::endl;
+    if (debug)
+    {
+      std::cout << "Translating to PBIW labels" << std::endl;
+      std::cout << branchingInstructions.size() << " branching instructions" << std::endl;
+    }
     
     PBIWInstructionList::iterator it;
     
@@ -335,37 +338,14 @@ namespace PBIW
         (*it)->setImmediateValue(labelIt->getDestiny()->getAddress());
       }
       
-      std::cout << "PBIW Instr" << " addr[" << (*it)->getAddress() << "]"
-        << " branching label " << (*it)->getLabelDestiny()
-        << " now points to addr[" << (*it)->getBranchDestiny()->getAddress() << "]"
-        << std::endl;      
+      if (debug)
+      {
+        std::cout << "PBIW Instr" << " addr[" << (*it)->getAddress() << "]"
+          << " branching label " << (*it)->getLabelDestiny()
+          << " now points to addr[" << (*it)->getBranchDestiny()->getAddress() << "]"
+          << std::endl;      
+      }
     }
-    
-//    LabelVector::iterator labelIt;
-//
-//    ControlSyllablesVector::const_iterator it;
-//    
-//    for (it = controlSyllables.begin();
-//         it < controlSyllables.end();
-//         it++)
-//    {
-//      std::string label = (*it)->getLabel();
-//      LabelVector::iterator labelIt = std::find_if(labels.begin(), labels.end(), FindLabel(label));
-//      
-//      if ( labelIt != labels.end() )
-//        (*it)->setLabelDestiny(labelIt->destiny);
-//    
-//      if (debugEnabled)
-//      {
-//        stream << "Syllable " << "(opcode: " << (*it)->getOpcode() << ") addr:"
-//          << "[" << (*it)->getBelongedInstruction()->getAddress() << "]"
-//          << "(" << (*it)->getAddress() << ")"
-//          << " now points to " << (*it)->getLabel()
-//          << "[" << (*it)->getLabelDestiny()->getBelongedInstruction()->getAddress() << "]"
-//          << "("  << (*it)->getLabelDestiny()->getAddress() << ")" 
-//          << std::endl;
-//      }
-//    }
     
     return;
   }
