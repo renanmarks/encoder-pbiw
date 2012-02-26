@@ -77,7 +77,7 @@ namespace rVex
     {
       typedef std::vector<rVex::Syllable*> SyllableVec;
       
-      SyllableVec syllables = instruction.getSyllables(); // O(1)
+      SyllableVec syllables = instruction.getOrderedSyllables();// O(1)
       SyllableVec::const_iterator it;
       
       try 

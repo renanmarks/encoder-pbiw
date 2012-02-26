@@ -107,11 +107,6 @@ namespace VexParser
     void processLabels();
     
     /**
-     * Reorder the syllables in the buffer to store them in correct order.
-     */
-    void reorder();
-    
-    /**
      * Post process the buffer to substitute pseudo-instructions and to other
      * post-processing stuff.
      */

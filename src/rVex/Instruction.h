@@ -44,10 +44,13 @@ namespace rVex
       
       SyllableVector getSyllables() const;
     
+      SyllableVector getOrderedSyllables() const;
     private:
       rVex::Label* label;
       SyllableVector syllables;
       unsigned int address;
+      
+      
   };
 }
 

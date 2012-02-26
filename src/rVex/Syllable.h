@@ -195,7 +195,6 @@ namespace rVex
       
       // ---
       
-      //virtual OperandVector getOperandVector(const IOperandVectorBuilder&) const;
       virtual void exportOperandVector(Utils::OperandVectorBuilder&) const;
       
       // ---

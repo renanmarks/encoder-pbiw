@@ -55,7 +55,7 @@ namespace rVex
     {
       typedef std::vector<rVex::Syllable*> SyllableVec;
       
-      SyllableVec syllables = instruction.getSyllables();
+      SyllableVec syllables = instruction.getOrderedSyllables();
       SyllableVec::const_iterator it;
       
       output << "[I: " << instruction.getAddress() << "]";
