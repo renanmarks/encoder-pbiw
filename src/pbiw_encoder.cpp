@@ -95,7 +95,7 @@ main(int argc, char** argv)
 
   //  time.finish();
 
-  return result ? 0 : 1;
+  return 0;
 }
 
 /**
