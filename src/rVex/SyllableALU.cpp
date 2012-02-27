@@ -23,8 +23,11 @@ namespace rVex
       case LayoutType::ISTYPE:
         output.printSyllable(this, printISTYPE(), first, last);
         break;
+      case LayoutType::RTYPE_BS:
+        output.printSyllable(this, printRTYPE_BS(), first, last);
+        break;
       default:
-        throw new LayoutNotSupportedException("This syllable only supports R or IS layouts.");
+        throw LayoutNotSupportedException("This syllable only supports R or IS layouts.");
     }
   }
   

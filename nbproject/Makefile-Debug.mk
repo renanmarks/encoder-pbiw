@@ -36,6 +36,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/src/rVex/Operations/CTRL/GOTO.o \
 	${OBJECTDIR}/src/rVex/Operations/ALU/CMPNE.o \
+	${OBJECTDIR}/src/rVex/Operations/ALU/MTB.o \
 	${OBJECTDIR}/src/rVex/Operations/CTRL/RETURN.o \
 	${OBJECTDIR}/src/rVex/Operations/CTRL/ICALL.o \
 	${OBJECTDIR}/src/rVex/Operations/ALU/CMPEQ.o \
@@ -127,6 +128,11 @@ ${OBJECTDIR}/src/rVex/Operations/ALU/CMPNE.o: src/rVex/Operations/ALU/CMPNE.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/rVex/Operations/ALU
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/ALU/CMPNE.o src/rVex/Operations/ALU/CMPNE.cpp
+
+${OBJECTDIR}/src/rVex/Operations/ALU/MTB.o: src/rVex/Operations/ALU/MTB.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/rVex/Operations/ALU
+	${RM} $@.d
+	$(COMPILE.cc) -g -Wall -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/ALU/MTB.o src/rVex/Operations/ALU/MTB.cpp
 
 ${OBJECTDIR}/src/rVex/Operations/CTRL/RETURN.o: src/rVex/Operations/CTRL/RETURN.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/rVex/Operations/CTRL
@@ -435,6 +441,19 @@ ${OBJECTDIR}/src/rVex/Operations/ALU/CMPNE_nomain.o: ${OBJECTDIR}/src/rVex/Opera
 	    $(COMPILE.cc) -g -Wall -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/ALU/CMPNE_nomain.o src/rVex/Operations/ALU/CMPNE.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/rVex/Operations/ALU/CMPNE.o ${OBJECTDIR}/src/rVex/Operations/ALU/CMPNE_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/rVex/Operations/ALU/MTB_nomain.o: ${OBJECTDIR}/src/rVex/Operations/ALU/MTB.o src/rVex/Operations/ALU/MTB.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/rVex/Operations/ALU
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/rVex/Operations/ALU/MTB.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -g -Wall -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/ALU/MTB_nomain.o src/rVex/Operations/ALU/MTB.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/rVex/Operations/ALU/MTB.o ${OBJECTDIR}/src/rVex/Operations/ALU/MTB_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/rVex/Operations/CTRL/RETURN_nomain.o: ${OBJECTDIR}/src/rVex/Operations/CTRL/RETURN.o src/rVex/Operations/CTRL/RETURN.cpp 

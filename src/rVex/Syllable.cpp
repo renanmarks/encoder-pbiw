@@ -161,7 +161,9 @@ namespace rVex
     unsigned int final=0;
 
     final|=this->getOpcode();
-    final|=this->brSource;
+    
+    // Already comes merged with opcode
+    // final|=this->brSource;
 
     final<<=2;
     final|=Syllable::ImmediateSwitch::NO_IMM;
@@ -350,9 +352,9 @@ namespace rVex
 
     this->setGrDestiny(static_cast<unsigned char> (destiny1.value));
     this->setBrDestiny(static_cast<unsigned char> (destiny2.value));
-    this->setBrSource(static_cast<unsigned char> (origin1.value));
+    this->addReadRegister(static_cast<unsigned char> (origin1.value));
     this->addReadRegister(static_cast<unsigned int> (origin2.value));
-    this->addReadRegister(static_cast<unsigned int> (origin3.value));
+    this->setBrSource(static_cast<unsigned int> (origin3.value));
   }
 
   void

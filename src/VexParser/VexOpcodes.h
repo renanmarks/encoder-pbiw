@@ -158,7 +158,7 @@ const VexOpcode _optab[] = {
    {"mfl",	  token::OPCODE,    NONE,         opMFL        , new SyllableConstructor<MISC::NOP>()  },
    {"mtl",	  token::OPCODE,    NONE,         opMTL        , new SyllableConstructor<MISC::NOP>()  },
    {"mfb",	  token::OPCODE,    NONE,         opMFB        , new SyllableConstructor<MISC::NOP>()  },
-   {"mtb",	  token::OPCODE,    NONE,         opMTB        , new SyllableConstructor<MISC::NOP>()  },
+   {"mtb",	  token::OPCODE,    NONE,         opMTB        , new SyllableConstructor<ALU::MTB>()  },
    {"mtbf",	  token::OPCODE,    NONE,         opMTBINV     , new SyllableConstructor<MISC::NOP>()  },
 
 /* BRANCH */
