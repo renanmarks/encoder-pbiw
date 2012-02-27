@@ -105,7 +105,7 @@ end i_mem;\n\
 \
 architecture Behav of i_mem is\n\
 \n\
-\ttype ROM_Array_0 is array (8 downto 0) of std_logic_vector(pbiw-1 downto 0);\n\
+\ttype ROM_Array_0 is array 63 downto 0) of std_logic_vector(pbiw-1 downto 0);\n\
 \n\
 \tconstant Content_0: ROM_Array_0 := (" << std::endl;
   }
