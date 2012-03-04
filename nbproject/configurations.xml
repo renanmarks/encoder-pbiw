@@ -216,6 +216,16 @@
             <itemPath>src/rVex/Operations/CTRL/RETURN.cpp</itemPath>
             <itemPath>src/rVex/Operations/CTRL/RFI.cpp</itemPath>
           </logicalFolder>
+          <logicalFolder name="f3" displayName="MEM" projectFiles="true">
+            <itemPath>src/rVex/Operations/MEM/LDB.cpp</itemPath>
+            <itemPath>src/rVex/Operations/MEM/LDBU.cpp</itemPath>
+            <itemPath>src/rVex/Operations/MEM/LDH.cpp</itemPath>
+            <itemPath>src/rVex/Operations/MEM/LDHU.cpp</itemPath>
+            <itemPath>src/rVex/Operations/MEM/LDW.cpp</itemPath>
+            <itemPath>src/rVex/Operations/MEM/STB.cpp</itemPath>
+            <itemPath>src/rVex/Operations/MEM/STH.cpp</itemPath>
+            <itemPath>src/rVex/Operations/MEM/STW.cpp</itemPath>
+          </logicalFolder>
         </logicalFolder>
         <logicalFolder name="Printers" displayName="Printers" projectFiles="true">
           <itemPath>src/rVex/Printers/VHDLPrinter.cpp</itemPath>
@@ -363,10 +373,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -460,10 +472,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -592,10 +606,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -689,10 +705,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -831,10 +849,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -928,10 +948,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -1066,10 +1088,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -1163,10 +1187,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
