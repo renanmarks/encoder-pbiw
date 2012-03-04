@@ -44,7 +44,7 @@ namespace rVex
       std::string resultBinary;
       unsigned int temp = binary;
       
-      output << "\"";
+      output << "b\"";
       
       for (unsigned char counter=0; counter < 30; temp <<= 1, counter++)
       {
@@ -60,7 +60,7 @@ namespace rVex
         resultBinary.append("0");
 
       if (first)
-        resultBinary.append("1\";");
+        resultBinary.append("1\",");
       else
         resultBinary.append("0\"&");
       
@@ -83,11 +83,9 @@ namespace rVex
       try 
       {
         if (instruction.haveLabel())
-          output << "\t\t\t\t-- " << instruction.getLabel()->name << ": " << std::endl;
+          output << "\t\t-- " << instruction.getLabel()->name << ": " << std::endl;
         
-        output << "\t\t\t\twhen x\"" 
-          << std::setw(2) << std::setfill('0') << std::hex << std::uppercase 
-          << instruction.getAddress() << "\" => instr <= ";
+        output << "\t\t" << instruction.getAddress() << " =>\t";
         
         for ( it = syllables.begin(); it < syllables.end(); it++)  // O(|syllables|) = O(4) = O(1)
         {
@@ -99,12 +97,12 @@ namespace rVex
           // ... if the current is the FIRST put 01 in LF ...
           else if (it+1 == syllables.end()) 
           {
-            output << "\t\t\t\t\t\t\t";
+            output << "\t\t\t";
             (*it)->print(*this, true, false);
           }
           else // ... if is in the middle, put 00 in LF bits
           {
-            output << "\t\t\t\t\t\t\t";
+            output << "\t\t\t";
             (*it)->print(*this, false, false);
           }
         }
@@ -139,7 +137,7 @@ namespace rVex
 -- r-VEX is\n\
 -- Copyright (c) 2008, Thijs van As <t.vanas@gmail.com>\n\
 -- \n\
--- PBIWAssembler is free hardware: you can redistribute it and/or modify\n\
+-- PBIWAssembler is free software: you can redistribute it and/or modify\n\
 -- it under the terms of the GNU General Public License as published by\n\
 -- the Free Software Foundation, either version 3 of the License, or\n\
 -- (at your option) any later version.\n\
@@ -158,23 +156,26 @@ namespace rVex
 \n\
 library ieee;\n\
 use ieee.std_logic_1164.all;\n\
+use ieee.std_logic_arith.all;\n\
+use ieee.std_logic_unsigned.all;\n\
 \n\
 entity i_mem is\n\
-\tport ( reset   : in std_logic;                        -- system reset\n\
-\t       address : in std_logic_vector(7 downto 0);     -- address of instruction to be read\n\
+port(	clk   : in std_logic;\n\
+\treset	: in std_logic;\n\
+\tenable	: in std_logic;\n\
+\tread	: in std_logic;\n\
+\taddress	: in std_logic_vector(7 downto 0);\n\
+\tinstr: out std_logic_vector(127 downto 0)\n\
+);\n\
+end i_mem;\n\
 \n\
-\t       instr   : out std_logic_vector(127 downto 0)); -- instruction (4 syllables)\n\
-end entity i_mem;\n\
+--------------------------------------------------------------\n\
 \n\
+architecture Behav of i_mem is\n\
+\ttype ROM_Array_0 is array (63 downto 0)\n\
+\tof std_logic_vector(127 downto 0);\n\
 \n\
-architecture behavioural of i_mem is\n\
-begin\n\
-\tmemory : process(address, reset)\n\
-\tbegin\n\
-\t\tif (reset = '1') then\n\
-\t\t\tinstr <= x\"00000000000000000000000000000000\";\n\
-\t\telse\n\
-\t\t\tcase address is\n"
+\tconstant Content_0: ROM_Array_0 := (\n"
         << std::endl;
     }
 
@@ -184,15 +185,27 @@ begin\n\
      void 
     VHDLPrinter::printFooter() // O(1)
     {
-      output << "\
-\t\t\t\twhen others => instr <= \"00000000000000000000000000000010\"& -- \n\
-\t\t\t\t                        \"00000000000000000000000000000000\"& -- \n\
-\t\t\t\t                        \"00000000000000000000000000000000\"& -- \n\
-\t\t\t\t                        \"00111110000000000000000000000001\"; -- stop\n\
-\t\t\tend case;\n\
+      output << 
+"\t\tOTHERS => b\"00000000000000000000000000000010\"& -- \n\
+\t\t\tb\"00000000000000000000000000000000\"& -- \n\
+\t\t\tb\"00000000000000000000000000000000\"& -- \n\
+\t\t\tb\"00111110000000000000000000000001\" -- stop\n\
+);\n\
+\n\
+begin\n\
+\tprocess(clk, reset, read, address)\n\
+\tbegin\n\
+\t\tif( reset = '1' ) then\n\
+\t\t\tinstr <= \"ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ\";\n\
+\t\telsif( clk'event and clk = '1' ) then\n\
+\t\t\tif( read = '1' and enable = '1'  ) then\n\
+\t\t\t\tinstr <= Content_0(conv_integer(address));\n\
+\t\t\telse\n\
+\t\t\t\tinstr <= \"ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ\";\n\
+\t\t\tend if;\n\
 \t\tend if;\n\
-\tend process memory;\n\
-end architecture behavioural;\n\n" 
+\tend process;\n\
+end Behav;" 
         << std::endl;
     }
   }

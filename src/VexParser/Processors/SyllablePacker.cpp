@@ -123,15 +123,16 @@ namespace VexParser
         }
 
         case rVex::Syllable::opRETURN:
-        {
-          Expression::ParseInfo argumentInfo = 
-            arguments.getSourceArguments().getArguments()[1].getParsedValue();
-
-          if (argumentInfo.isLabel)
-            context.getControlSyllables().push_back(syllable);
-
-          break;
-        }  
+          return;
+//        {
+//          Expression::ParseInfo argumentInfo = 
+//            arguments.getSourceArguments().getArguments()[1].getParsedValue();
+//
+//          if (argumentInfo.isLabel)
+//            context.getControlSyllables().push_back(syllable);
+//
+//          break;
+//        }  
 
         case rVex::Syllable::opBR:
         case rVex::Syllable::opBRF:

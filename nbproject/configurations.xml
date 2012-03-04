@@ -362,10 +362,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -457,10 +459,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -587,10 +591,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -682,10 +688,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -743,21 +751,19 @@
         <cTool>
           <developmentMode>5</developmentMode>
           <architecture>1</architecture>
-          <commandlineTool>i686-w64-mingw32-gcc</commandlineTool>
+          <commandlineTool>i586-mingw32msvc-gcc</commandlineTool>
           <incDir>
             <pElem>.</pElem>
           </incDir>
-          <commandLine>-static-libgcc -static-libstdc++</commandLine>
         </cTool>
         <ccTool>
           <developmentMode>6</developmentMode>
           <stripSymbols>true</stripSymbols>
           <architecture>1</architecture>
-          <commandlineTool>i686-w64-mingw32-g++</commandlineTool>
+          <commandlineTool>i586-mingw32msvc-g++</commandlineTool>
           <incDir>
             <pElem>.</pElem>
           </incDir>
-          <commandLine>-static-libgcc -static-libstdc++</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -765,12 +771,11 @@
         <asmTool>
           <developmentMode>5</developmentMode>
           <architecture>1</architecture>
-          <commandlineTool>i686-w64-mingw32-as</commandlineTool>
+          <commandlineTool>i586-mingw32msvc-as</commandlineTool>
         </asmTool>
         <linkerTool>
           <stripSymbols>true</stripSymbols>
-          <commandlineTool>i686-w64-mingw32-g++</commandlineTool>
-          <commandLine>-static-libgcc -static-libstdc++</commandLine>
+          <commandlineTool>i586-mingw32msvc-g++</commandlineTool>
         </linkerTool>
       </compileType>
       <folder path="TestFiles">
@@ -825,10 +830,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -920,10 +927,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -1056,10 +1065,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -1151,10 +1162,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>

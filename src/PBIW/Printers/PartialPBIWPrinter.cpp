@@ -97,7 +97,6 @@ port\n\
 \treset\t\t: in std_logic;\n\
 \tenable\t\t: in std_logic;\n\
 \tread\t\t: in std_logic;\n\
-\tselect_program\t: in std_logic;\n\
 \taddress\t\t: in std_logic_vector(7 downto 0);\n\
 \tinstr\t\t: out std_logic_vector(pbiw-1 downto 0)\n\
 );\n\
@@ -105,7 +104,7 @@ end i_mem;\n\
 \
 architecture Behav of i_mem is\n\
 \n\
-\ttype ROM_Array_0 is array 63 downto 0) of std_logic_vector(pbiw-1 downto 0);\n\
+\ttype ROM_Array_0 is array (63 downto 0) of std_logic_vector(pbiw-1 downto 0);\n\
 \n\
 \tconstant Content_0: ROM_Array_0 := (" << std::endl;
   }
@@ -168,9 +167,9 @@ begin\n\
 \t\telsif ( clk'event and clk = '1' ) then\n\
 \t\t\tif ( enable = '1' and read = '1' ) then\n\
 \t\t\t\tinstr <= Content_0(conv_integer(address));\n\
+\t\t\telse\n\
+\t\t\t\tinstr <= \"ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ\";\n\
 \t\t\tend if;\n\
-\t\telse\n\
-\t\t\tinstr <= \"ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ\";\n\
 \t\tend if;\n\
 \tend process;\n\
 end Behav;\n" << std::endl;
