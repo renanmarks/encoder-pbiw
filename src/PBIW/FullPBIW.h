@@ -1,12 +1,12 @@
 /* 
- * File:   PBIW.h
+ * File:   FullPBIW.h
  * Author: helix
  *
  * Created on July 20, 2011, 4:13 PM
  */
 
-#ifndef PARTIALPBIW_H
-#define	PARTIALPBIW_H
+#ifndef FULLPBIW_H
+#define	FULLPBIW_H
 
 #include <set>
 #include <vector>
@@ -34,7 +34,7 @@ namespace PBIW
    * The flexibility of this class is in the fact that it operates only
    * using the interfaces to the data structures used.
    */
-  class PartialPBIW : public IPBIW
+  class FullPBIW : public IPBIW
   {
   private:
     
@@ -102,10 +102,10 @@ namespace PBIW
     };
     
   public:
-    PartialPBIW() : debug(false)
+    FullPBIW() : debug(false)
     {}
     
-    virtual ~PartialPBIW();
+    virtual ~FullPBIW();
 
     virtual void encode(const std::vector<rVex::Instruction*>&);
     virtual void decode(const std::vector<IPBIWInstruction*>&, const std::vector<IPBIWPattern*>&);

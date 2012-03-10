@@ -14,7 +14,7 @@ using namespace std;
 #include "pbiw_encoder.h"
 #include "rVex/Printers/rVexPrinter.h"
 #include "rVex/Printers/VHDLPrinter.h"
-#include "PBIW/PartialPBIW.h"
+#include "PBIW/FullPBIW.h"
 #include "PBIW/Printers/PartialPBIWPrinter.h"
 #include "PBIW/Printers/PartialPBIWDebugPrinter.h"
 #include "VexParser/VexTypes.h"
@@ -155,7 +155,7 @@ execute(const std::string& filename, const std::string& flags, bool debugEnabled
   context.print(); // O(|instructions|)
 
   // Instantiate the PBIW encoder
-  PBIW::PartialPBIW pbiw;
+  PBIW::FullPBIW pbiw;
   pbiw.setDebug(context.isDebuggingEnabled());
   
   if (context.isDebuggingEnabled())

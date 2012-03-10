@@ -1,5 +1,5 @@
 /* 
- * File:   PBIW.cpp
+ * File:   FullPBIW.cpp
  * Author: helix
  * 
  * Created on July 20, 2011, 4:13 PM
@@ -8,7 +8,7 @@
 #include <iostream>
 #include <stdexcept>
 
-#include "PartialPBIW.h"
+#include "FullPBIW.h"
 #include "rVex64PBIWInstruction.h"
 #include "Operation.h"
 #include "Operand.h"
@@ -18,7 +18,7 @@ namespace PBIW
 {
   using namespace Interfaces;
   
-  PartialPBIW::~PartialPBIW() 
+  FullPBIW::~FullPBIW() 
   { 
     PBIWPatternList::iterator patternIt;
     PBIWInstructionList::iterator instructionIt;
@@ -39,7 +39,7 @@ namespace PBIW
   }
   
   const IPBIWPattern&
-  PartialPBIW::hasPattern(const IPBIWPattern& other) const  // O(|codedPatterns|)
+  FullPBIW::hasPattern(const IPBIWPattern& other) const  // O(|codedPatterns|)
   {
     if (codedPatterns.size() == 0)
       return other;
@@ -61,7 +61,7 @@ namespace PBIW
   }
   
   // O(|codedPatterns|) + O(1) = O(|codedPatterns|)
-  void PartialPBIW::savePBIWElements(IPBIWInstruction*& finalInstruction, IPBIWPattern*& newPattern)
+  void FullPBIW::savePBIWElements(IPBIWInstruction*& finalInstruction, IPBIWPattern*& newPattern)
   {
     newPattern->reorganize(finalInstruction); // O(1)
     
@@ -93,7 +93,7 @@ namespace PBIW
   }
   
   // O(|codedPatterns|)
-  void PartialPBIW::saveAndCreateNewPBIWElements(IPBIWInstruction*& finalInstruction, IPBIWPattern*& newPattern)
+  void FullPBIW::saveAndCreateNewPBIWElements(IPBIWInstruction*& finalInstruction, IPBIWPattern*& newPattern)
   {
     savePBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
 
@@ -101,7 +101,7 @@ namespace PBIW
     newPattern = new rVex96PBIWPattern();
   }
   
-  void PartialPBIW::resetFinalOperation(VexSyllableOperandVector::Collection::const_iterator& operandIt, // O(1)
+  void FullPBIW::resetFinalOperation(VexSyllableOperandVector::Collection::const_iterator& operandIt, // O(1)
                                         IOperation*& finalOperation, 
                                         rVex::Syllable* const& syllable,
                                         const VexSyllableOperandVector& operands)
@@ -115,7 +115,7 @@ namespace PBIW
   }
   
   void                                                                                 
-  PartialPBIW::encode(const std::vector<rVex::Instruction*>& originalInstructions) // O(|codedPatterns|^2)
+  FullPBIW::encode(const std::vector<rVex::Instruction*>& originalInstructions) // O(|codedPatterns|^2)
   {
     std::vector<rVex::Instruction*>::const_iterator instructionIt;
     
@@ -315,7 +315,7 @@ namespace PBIW
     processLabels();
   }
 
-  void PartialPBIW::processLabels()
+  void FullPBIW::processLabels()
   {
     if (debug)
     {
@@ -350,14 +350,14 @@ namespace PBIW
     return;
   }
   
-  void PartialPBIW::registerOptimizer(IPBIWOptimizer& optimizer)
+  void FullPBIW::registerOptimizer(IPBIWOptimizer& optimizer)
   {
     optimizers.push_back(&optimizer);
     
     return;
   }
   
-  void PartialPBIW::runOptimizers()
+  void FullPBIW::runOptimizers()
   {
     PBIWOptimizerList::iterator it;
     
@@ -379,7 +379,7 @@ namespace PBIW
   }
   
   void
-  PartialPBIW::printInstructions(IPBIWPrinter& printer)
+  FullPBIW::printInstructions(IPBIWPrinter& printer)
   {
     PBIWInstructionList::const_iterator instructionIt;
     
@@ -396,7 +396,7 @@ namespace PBIW
   }
   
   void
-  PartialPBIW::printPatterns(IPBIWPrinter& printer)
+  FullPBIW::printPatterns(IPBIWPrinter& printer)
   {
     PBIWPatternList::const_iterator patternIt;
     
@@ -413,20 +413,20 @@ namespace PBIW
   }
   
   void
-  PartialPBIW::decode(const std::vector<IPBIWInstruction*>& codedInstructions, 
+  FullPBIW::decode(const std::vector<IPBIWInstruction*>& codedInstructions, 
                const std::vector<IPBIWPattern*>& codedPatterns)
   {
 
   }
 
   std::vector<IPBIWInstruction*>
-  PartialPBIW::getInstructions()
+  FullPBIW::getInstructions()
   {
     return std::vector<IPBIWInstruction*>(codedInstructions.begin(), codedInstructions.end());
   }
 
   std::vector<IPBIWPattern*>
-  PartialPBIW::getPatterns()
+  FullPBIW::getPatterns()
   {
     return std::vector<IPBIWPattern*>(codedPatterns.begin(), codedPatterns.end());
   }
