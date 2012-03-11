@@ -67,7 +67,8 @@ namespace VexParser
       printer(printer),
       hasLabel(false),
       syllableCounter(0), 
-      instructionCounter(0)
+      instructionCounter(0),
+      lastWordAddress(0)
     { }
     
     virtual ~VexContext( );
@@ -89,7 +90,6 @@ namespace VexParser
      * new parsed syllables.
      */
     void endInstruction();
-    
     /**
      * Given a address, returns the instruction.
      */
@@ -176,6 +176,7 @@ namespace VexParser
 
     void
     endParsing();
+
   private:
     
     /**
@@ -202,6 +203,12 @@ namespace VexParser
      */
     unsigned int syllableCounter;
     unsigned int instructionCounter;
+    
+    /* 
+     * Helps generate the same address scheme used in the Vex cache simulator
+     * and correlate rVex and Vex schemes to get the same execution trace.
+     */
+    unsigned int lastWordAddress;
     
     /**
      * Functor used to find a label.

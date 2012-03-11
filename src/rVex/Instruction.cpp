@@ -10,6 +10,26 @@
 
 namespace rVex
 {
+  unsigned int
+  Instruction::getQuantityNotNopOperations() const
+  {
+    SyllableVector::const_iterator it;
+    
+    unsigned int quantity = 0;
+    
+    for (it = syllables.begin(); it < syllables.end(); it++)
+    {
+      if ((*it)->getOpcode() != rVex::Syllable::opNOP)
+        quantity++;
+    }
+    
+    // All nops
+    if (quantity == 0)
+      return 1;
+
+    return quantity;
+  }
+  
   bool 
   Instruction::addSyllable(Syllable& syllable) // O(1)
   {

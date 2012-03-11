@@ -45,12 +45,22 @@ namespace rVex
       SyllableVector getSyllables() const;
     
       SyllableVector getOrderedSyllables() const;
+
+      unsigned int
+      getQuantityNotNopOperations() const;
+
+      void
+      setWordAddress(unsigned int wordAddress)
+      { this->wordAddress=wordAddress; }
+
+      unsigned int
+      getWordAddress() const
+      { return wordAddress; }
     private:
       rVex::Label* label;
       SyllableVector syllables;
-      unsigned int address;
-      
-      
+      unsigned int address; // instruction address, aligned by 16 bytes
+      unsigned int wordAddress; // word address, aligned by 4 bytes
   };
 }
 

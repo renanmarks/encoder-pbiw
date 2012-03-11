@@ -228,6 +228,8 @@ namespace VexParser
     }
     
     instruction->setAddress(this->instructionCounter++); // O(1)
+    instruction->setWordAddress(this->lastWordAddress);
+    this->lastWordAddress += instruction->getQuantityNotNopOperations();
     
     if (hasLabel) // Define the label
     {

@@ -58,7 +58,7 @@ namespace rVex
       SyllableVec syllables = instruction.getOrderedSyllables();
       SyllableVec::const_iterator it;
       
-      output << "[I: " << instruction.getAddress() << "]";
+      output << "[I: " << instruction.getAddress() << "] ["<< instruction.getWordAddress() << "]";
       
       try 
       {
