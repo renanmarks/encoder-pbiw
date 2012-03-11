@@ -12,6 +12,7 @@
 #include "Operand.h"
 #include "src/PBIW/Printers/PartialPBIWPrinter.h"
 #include "Interfaces/IPBIWInstruction.h"
+#include "src/rVex/rVex.h"
 //#include "Operation.h"
 
 namespace PBIW
@@ -82,6 +83,17 @@ namespace PBIW
          it++, i++) // O(|operationCount|)
     {
       binary[i] |= (*it)->getOpcode();
+      
+      switch((*it)->getOpcode())
+      {
+        case rVex::Syllable::opADDCG:
+        case rVex::Syllable::opDIVS:
+        case rVex::Syllable::opSLCT:
+        case rVex::Syllable::opSLCTF:
+          binary[i] |= (*it)->getBrReadOperand();
+          break;
+      }
+      
       binary[i] <<= 2;
       binary[i] |= static_cast<unsigned int>( (*it)->getImmediateSwitch() );
       
@@ -247,9 +259,7 @@ namespace PBIW
                 {
                     this->exchangeOperations(index1, index2);
                 }
-                else if(
-                  (operations.at(index1)->getOpcode() == operations.at(index2)->getOpcode())
-                )
+                else if( (operations.at(index1)->getOpcode() == operations.at(index2)->getOpcode()) )
                 {
                     operandsOp1 = operations.at(index1)->getOperandsIndexes();
                     operandsOp2 = operations.at(index2)->getOperandsIndexes();
@@ -306,6 +316,9 @@ namespace PBIW
   {
     IPBIWInstruction::OperandVector operands = instruction->getOperands();
 
+    if (index == 15)
+      return 0;
+    
     if (index != -1)
       return operands[index].getValue(); // O(1)
       

@@ -27,17 +27,35 @@ namespace PBIW
   {
   public:
     Operation()
-    :type(rVex::Syllable::SyllableType::ALU), immediateSwitch(rVex::Syllable::ImmediateSwitch::NO_IMM), opcode(0), writeOperand(-1), readOperands(),  writeBrOperand(-1)
+    :type(rVex::Syllable::SyllableType::ALU), 
+      immediateSwitch(rVex::Syllable::ImmediateSwitch::NO_IMM), 
+      opcode(0),
+      originalOpcode(0),
+      readBrOperand(-1),
+      writeOperand(-1), 
+      readOperands(),  
+      writeBrOperand(-1)
     { }
     
     ~Operation()
     { }
     
-    virtual void setOpcode(unsigned short opcode)
-    { this->opcode = opcode; }
+    virtual void setOpcode(unsigned short opcode);
     
     virtual unsigned short getOpcode() const
     { return this->opcode; }
+    
+    virtual void setOriginalOpcode(unsigned short opcode)
+    { this->originalOpcode = opcode; }
+    
+    virtual unsigned short getOriginalOpcode() const
+    { return originalOpcode; }
+    
+    virtual void setBrReadOperand(short opcode)
+    { this->readBrOperand = opcode; }
+    
+    virtual short getBrReadOperand() const
+    { return readBrOperand; }
     
     virtual void setImmediateSwitch(rVex::Syllable::ImmediateSwitch::Type type)
     { immediateSwitch = type; }
@@ -75,6 +93,9 @@ namespace PBIW
      * Syllable opcode
      */ 
     unsigned short opcode; // 9b
+    unsigned short originalOpcode; // 9b
+    
+    short readBrOperand; // 9b , used only in ADDCG, DIVS, SLCT and SLCTF
     
     /**
      * Pointer to the write GR operand

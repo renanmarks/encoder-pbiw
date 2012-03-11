@@ -40,6 +40,8 @@ namespace PBIW
     
     bool debug;
     
+    unsigned int originalInstructionsCount;
+    
     /**
      * Type definitions to references rVex structures
      */
@@ -102,7 +104,7 @@ namespace PBIW
     };
     
   public:
-    FullPBIW() : debug(false)
+    FullPBIW() : debug(false), originalInstructionsCount(0)
     {}
     
     virtual ~FullPBIW();
@@ -113,6 +115,7 @@ namespace PBIW
     virtual void registerOptimizer(IPBIWOptimizer&);
     virtual void runOptimizers();
     
+    virtual void printStatistics(IPBIWPrinter&);
     virtual void printInstructions(IPBIWPrinter&);
     virtual void printPatterns(IPBIWPrinter&);
 

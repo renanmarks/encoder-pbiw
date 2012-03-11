@@ -65,6 +65,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/PBIW/Operand.o \
 	${OBJECTDIR}/src/rVex/Operations/ALU/CMPGT.o \
 	${OBJECTDIR}/src/rVex/Operations/CTRL/CALL.o \
+	${OBJECTDIR}/src/rVex/Operations/ALU/SLCTF.o \
 	${OBJECTDIR}/src/pbiw_encoder.o \
 	${OBJECTDIR}/src/PBIW/rVex64PBIWInstruction.o \
 	${OBJECTDIR}/src/VexParser/Expressions/Expression.o \
@@ -78,6 +79,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/rVex/SyllableMEM.o \
 	${OBJECTDIR}/src/rVex/Operations/ALU/CMPGE.o \
 	${OBJECTDIR}/src/PBIW/FullPBIW.o \
+	${OBJECTDIR}/src/rVex/Operations/ALU/SLCT.o \
 	${OBJECTDIR}/src/VexParser/Processors/PseudoSyllableProcessor.o \
 	${OBJECTDIR}/src/VexParser/Structs/Function.o \
 	${OBJECTDIR}/src/PBIW/rVex96PBIWPattern.o \
@@ -282,6 +284,11 @@ ${OBJECTDIR}/src/rVex/Operations/CTRL/CALL.o: src/rVex/Operations/CTRL/CALL.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/CTRL/CALL.o src/rVex/Operations/CTRL/CALL.cpp
 
+${OBJECTDIR}/src/rVex/Operations/ALU/SLCTF.o: src/rVex/Operations/ALU/SLCTF.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/rVex/Operations/ALU
+	${RM} $@.d
+	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/ALU/SLCTF.o src/rVex/Operations/ALU/SLCTF.cpp
+
 ${OBJECTDIR}/src/pbiw_encoder.o: src/pbiw_encoder.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
@@ -346,6 +353,11 @@ ${OBJECTDIR}/src/PBIW/FullPBIW.o: src/PBIW/FullPBIW.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/PBIW
 	${RM} $@.d
 	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/FullPBIW.o src/PBIW/FullPBIW.cpp
+
+${OBJECTDIR}/src/rVex/Operations/ALU/SLCT.o: src/rVex/Operations/ALU/SLCT.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/rVex/Operations/ALU
+	${RM} $@.d
+	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/ALU/SLCT.o src/rVex/Operations/ALU/SLCT.cpp
 
 ${OBJECTDIR}/src/VexParser/Processors/PseudoSyllableProcessor.o: src/VexParser/Processors/PseudoSyllableProcessor.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/VexParser/Processors
@@ -868,6 +880,19 @@ ${OBJECTDIR}/src/rVex/Operations/CTRL/CALL_nomain.o: ${OBJECTDIR}/src/rVex/Opera
 	    ${CP} ${OBJECTDIR}/src/rVex/Operations/CTRL/CALL.o ${OBJECTDIR}/src/rVex/Operations/CTRL/CALL_nomain.o;\
 	fi
 
+${OBJECTDIR}/src/rVex/Operations/ALU/SLCTF_nomain.o: ${OBJECTDIR}/src/rVex/Operations/ALU/SLCTF.o src/rVex/Operations/ALU/SLCTF.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/rVex/Operations/ALU
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/rVex/Operations/ALU/SLCTF.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/ALU/SLCTF_nomain.o src/rVex/Operations/ALU/SLCTF.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/rVex/Operations/ALU/SLCTF.o ${OBJECTDIR}/src/rVex/Operations/ALU/SLCTF_nomain.o;\
+	fi
+
 ${OBJECTDIR}/src/pbiw_encoder_nomain.o: ${OBJECTDIR}/src/pbiw_encoder.o src/pbiw_encoder.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/pbiw_encoder.o`; \
@@ -1035,6 +1060,19 @@ ${OBJECTDIR}/src/PBIW/FullPBIW_nomain.o: ${OBJECTDIR}/src/PBIW/FullPBIW.o src/PB
 	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/FullPBIW_nomain.o src/PBIW/FullPBIW.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/PBIW/FullPBIW.o ${OBJECTDIR}/src/PBIW/FullPBIW_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/rVex/Operations/ALU/SLCT_nomain.o: ${OBJECTDIR}/src/rVex/Operations/ALU/SLCT.o src/rVex/Operations/ALU/SLCT.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/rVex/Operations/ALU
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/rVex/Operations/ALU/SLCT.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/ALU/SLCT_nomain.o src/rVex/Operations/ALU/SLCT.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/rVex/Operations/ALU/SLCT.o ${OBJECTDIR}/src/rVex/Operations/ALU/SLCT_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/VexParser/Processors/PseudoSyllableProcessor_nomain.o: ${OBJECTDIR}/src/VexParser/Processors/PseudoSyllableProcessor.o src/VexParser/Processors/PseudoSyllableProcessor.cpp 

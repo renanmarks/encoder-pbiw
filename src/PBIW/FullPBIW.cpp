@@ -119,6 +119,8 @@ namespace PBIW
   {
     std::vector<rVex::Instruction*>::const_iterator instructionIt;
     
+    originalInstructionsCount = originalInstructions.size();
+    
     // For each group of 4 syllables...
     for(instructionIt = originalInstructions.begin();   // O((|originalInstructions| + |codedPatterns|) * (16 + 16|codedPatterns|)) =
         instructionIt < originalInstructions.end();     // O((|originalInstructions| + |codedPatterns|) * 16|codedPatterns|) =                 
@@ -154,8 +156,6 @@ namespace PBIW
         finalOperation->setImmediateSwitch( (*syllableIt)->getImmediateSwitch() );
         finalOperation->setType( (*syllableIt)->getSyllableType() );
         
-        bool syllableHasBrDestiny = (*syllableIt)->hasBrDestiny();
-        
         // For each operand...
         rVex::Utils::OperandVectorBuilder operandVectorBuilder;
         (*syllableIt)->exportOperandVector(operandVectorBuilder);
@@ -186,110 +186,17 @@ namespace PBIW
 
             switch ( (*operandIt)->getType() )
             {
-              case Utils::OperandItem::GRDestiny :
-                if (operand->getValue() == 0)
-                  break;
-
-              case Utils::OperandItem::Imm :
-                finalInstruction->addWriteOperand(*operand); // O(1)
-                break;
-
               case Utils::OperandItem::BRSource :
-                finalInstruction->setBranchSourceOperand(*operand); // O(1)
+                finalInstruction->addBranchSourceOperand(*operand); // O(1)
                 break;
-              
               case Utils::OperandItem::BRDestiny :
-                finalInstruction->addReadOperand(*operand); // O(1)
-                break;
-                
               case Utils::OperandItem::GRSource :
-                if (operand->getValue() != 0)
-                  finalInstruction->addReadOperand(*operand); // O(1)
-
+              case Utils::OperandItem::GRDestiny :
+              case Utils::OperandItem::Imm :
+                finalInstruction->addReadOperand(*operand); // O(1)
                 break;
             }
           }
-          else // if found...
-          {
-            /* Fix the bug when the read operands reference an write operand in
-             * a PBIW instruction.
-             * Simply check this condition and, if true, "copy"
-             * the operand in the write section to a field in the read section
-             * and uses this new index as a reference.
-             **/
-            
-            bool isZeroReadRegister = foundOperand.getIndex() == 0 && foundOperand.getValue() == 0 && 
-                 (  (*operandIt)->getType() == Utils::OperandItem::GRSource 
-                    /*|| (*operandIt)->getType() == Utils::OperandItem::BRSource*/ );
-            
-            if (syllableHasBrDestiny)
-            {
-              if ((*operandIt)->getType() == Utils::OperandItem::GRDestiny && (*operandIt)->getOperand()->getValue() == 0 )
-              {
-                // If it's a syllable that uses an Branch register as destiny (The General Register destiny and it has value zero (must!))
-                // we don't do any copy or "error recovery" strategy.
-              }
-              else if ( (*operandIt)->getType() == Utils::OperandItem::BRDestiny )
-              {
-                // If it's a syllable that uses an Branch register as destiny
-                // we don't do any copy or "error recovery" strategy.
-              }
-            }
-            else
-            if (!isZeroReadRegister && foundOperand.getIndex() > 7) // Fixes for write operands
-            {
-              if ( !finalInstruction->hasReadOperandSlot() )  // // O(|readOperands|) = O(8) = O(1)
-              {
-                saveAndCreateNewPBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
-                resetFinalOperation(operandIt, finalOperation, *syllableIt, operands); // O(1)
-              }
-
-              operand = (*operandIt)->getOperand();
-              
-              switch ( (*operandIt)->getType() )
-              {
-                case Utils::OperandItem::BRSource :
-                  finalInstruction->setBranchSourceOperand(*operand); // O(1)
-                  continue;
-                  break;
-                  
-                case Utils::OperandItem::GRSource :
-                  finalInstruction->addReadOperand(*operand); // O(1)
-                  finalOperation->addOperand(*operand); // O(1)
-                  continue;
-                default:
-                  break;
-              }
-            }
-            else if (!isZeroReadRegister && foundOperand.getIndex() < 8)// Fixes for read operands
-            {
-              if ( (*syllableIt)->getOpcode() != rVex::Syllable::opNOP )
-              {
-//                if (syllableHasBrDestiny && (*operandIt)->getType() == Utils::OperandItem::BRDestiny && (*operandIt)->getOperand()->getValue() == 0)
-//                  continue;
-                
-                if ( !finalInstruction->hasWriteOperandSlot() )
-                {
-                  saveAndCreateNewPBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
-                  resetFinalOperation(operandIt, finalOperation, *syllableIt, operands); // O(1)
-                }
-
-                operand = (*operandIt)->getOperand();
-                
-                switch ( (*operandIt)->getType() )
-                {
-                  case Utils::OperandItem::BRDestiny :
-                    break;
-                  case Utils::OperandItem::GRDestiny :
-                    finalInstruction->addWriteOperand(*operand); // O(1)
-                    finalOperation->addOperand(*operand); // O(1)
-                    continue;
-                  default:
-                    break;
-                }
-              }
-            }
-          } // end if (not) found operands
           
           // If the PBIW instruction has been splitted
           if (firstInstruction != finalInstruction)
@@ -378,38 +285,57 @@ namespace PBIW
     return;
   }
   
+  void 
+  FullPBIW::printStatistics(IPBIWPrinter& printer)
+  {
+    unsigned int instructionsBytes = codedInstructions.size() * 8;
+    unsigned int patternsBytes = codedPatterns.size() * 12;
+    unsigned int originalInstructionsBytes = originalInstructionsCount * 16;
+    
+    printer.getOutputStream()
+      << "Summary: \n\n"
+      << "Instruction count = " << codedInstructions.size() 
+      << " ( " << instructionsBytes <<" bytes )" << std::endl
+      
+      << "Pattern count = " << codedPatterns.size()
+      << " ( " << patternsBytes <<" bytes )" << std::endl
+      
+      << "Reuse ratio = " 
+      << (codedInstructions.size() / (double)codedPatterns.size())  << std::endl
+      
+      << "Total = " 
+      << patternsBytes + instructionsBytes <<" bytes" << std::endl
+      
+      << "----" << std::endl
+      
+      << "Original Instructions count = " << originalInstructionsCount
+      << " ( " << originalInstructionsBytes <<" bytes )" << std::endl
+      
+      << "Compression ratio = " 
+      << ((instructionsBytes + patternsBytes) / (double)originalInstructionsBytes) * 100.0 << " %" << std::endl;
+  }
+  
   void
   FullPBIW::printInstructions(IPBIWPrinter& printer)
   {
     PBIWInstructionList::const_iterator instructionIt;
     
-    printer.printInstructionsHeader();
-    
     for (instructionIt = codedInstructions.begin();
          instructionIt != codedInstructions.end();
          instructionIt++)
     {
+      printer.getOutputStream() << "[\n";
       (*instructionIt)->print(printer);
+      printer.getOutputStream() << "\n";
+      (*instructionIt)->getPattern()->print(printer);
+      printer.getOutputStream() << "]\n";
     }
-    
-    printer.printInstructionsFooter(codedInstructions.size());
   }
   
   void
   FullPBIW::printPatterns(IPBIWPrinter& printer)
   {
-    PBIWPatternList::const_iterator patternIt;
-    
-    printer.printPatternsHeader();
-    
-    for (patternIt = codedPatterns.begin();
-         patternIt != codedPatterns.end();
-         patternIt++)
-    {
-      (*patternIt)->print(printer);
-    }
-    
-    printer.printPatternsFooter(codedPatterns.size());
+    return;
   }
   
   void

@@ -29,13 +29,15 @@ main(int argc, char** argv)
   //  Time::ExecutionTime time;  
   //  time.start();
   std::string flags;
+  std::string version = "2.0";
 
   bool result=false;
   bool traceParsing=false;
   bool traceScanning=false;
   bool debugEnabled=false;
 
-  std::cout << "rVex Assembler and PBIW encoder\n" << std::endl;
+  std::cout << "rVex Assembler and PBIW encoder - Version "<< version << std::endl;
+  std::cout << "---\n" << std::endl;
   
   if (argc == 1)
     std::cout << "Please specify an Vex assembly file to process." << std::endl;
@@ -128,11 +130,14 @@ execute(const std::string& filename, const std::string& flags, bool debugEnabled
   if (debugEnabled)
   {
     printer= &debugPrinter;
-  } else
+  } 
+  else
   {
     std::string outputFilename=filename;
     outputFilename+=".vhd";
 
+    std::cout << "Assembled file: " << outputFilename << std::endl;
+    
     assembledFile.open(outputFilename.c_str());
 
     vhdlPrinter.setFileName(filename);
@@ -154,6 +159,8 @@ execute(const std::string& filename, const std::string& flags, bool debugEnabled
   context.processLabels(); // O(1)
   context.print(); // O(|instructions|)
 
+  
+  
   // Instantiate the PBIW encoder
   PBIW::FullPBIW pbiw;
   pbiw.setDebug(context.isDebuggingEnabled());
@@ -165,6 +172,7 @@ execute(const std::string& filename, const std::string& flags, bool debugEnabled
 
     pbiw.printInstructions(pbiwDebugPrinter);
     pbiw.printPatterns(pbiwDebugPrinter);
+    pbiw.printStatistics(pbiwDebugPrinter);
   } 
   else
   {
@@ -177,11 +185,18 @@ execute(const std::string& filename, const std::string& flags, bool debugEnabled
     std::ofstream imemFile(imemFilename.c_str());
     std::ofstream pcacheFile(pcacheFilename.c_str());
 
+    std::cout 
+      << "PBIW instructions file: " << imemFilename << std::endl
+      << "PBIW patterns file: " << pcacheFilename << std::endl
+      << std::endl;
+    
+    PBIW::PartialPBIWPrinter statisticsPBIWPrinter(std::cout);
     PBIW::PartialPBIWPrinter imemPBIWPrinter(imemFile);
     PBIW::PartialPBIWPrinter pachePBIWPrinter(pcacheFile);
 
     context.encodePBIW(pbiw); // O(|codedPatterns|^2)
-
+    
+    pbiw.printStatistics(statisticsPBIWPrinter);
     pbiw.printInstructions(imemPBIWPrinter);
     pbiw.printPatterns(pachePBIWPrinter);
   }

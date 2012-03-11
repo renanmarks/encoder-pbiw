@@ -34,6 +34,7 @@ namespace PBIW
         virtual void registerOptimizer(IPBIWOptimizer&) = 0;
         virtual void runOptimizers() = 0;
         
+        virtual void printStatistics(IPBIWPrinter&) = 0;
         virtual void printInstructions(IPBIWPrinter&) = 0;
         virtual void printPatterns(IPBIWPrinter&) = 0;
 

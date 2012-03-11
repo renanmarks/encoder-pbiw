@@ -80,7 +80,7 @@ namespace PBIW
         /**
          * Defines the Branch Source Operand in the instruction
          */
-        virtual void setBranchSourceOperand(IOperand&) = 0;
+        virtual void addBranchSourceOperand(IOperand&) = 0;
         
         /**
          * Returns if there is an Branch Source Operand in the instruction

@@ -18,16 +18,28 @@ namespace PBIW
   {
     unsigned int operationCount = pattern.getOperationCount(); // O(1)
     
-    printer << "----\nPattern Addr: " << pattern.getAddress() << std::endl;
+    printer << "\tPattern Addr: " << pattern.getAddress() << std::endl;
+    printer << "\tReuse count: " << pattern.getUsageCounter() << std::endl;
 
     for (unsigned int i = 0; i < operationCount; i++) // O(|operationCount|)
     {
-      printer << "Opcode: " << pattern[i]->getOpcode() << " - ";
+      unsigned short opcode = pattern[i]->getOpcode();
+      short brSrc = pattern[i]->getBrReadOperand();
+      
+      printer << "\tOpcode: " << opcode << " ";
+      
+      if (brSrc != -1)
+        printer << "(old: " << pattern[i]->getOriginalOpcode() << ")";
+      
+      printer << " - ";
       
       IOperation::OperandIndexVector::const_iterator it;
       IOperation::OperandIndexVector operands = pattern[i]->getOperandsIndexes(); // O(1)
       
       printer << "Operands indexes (" << operands.size() << " total): ";
+      
+      if (brSrc != -1)
+        printer << brSrc << " (BRSrc), ";
       
       for (it = operands.begin(); // O(|operands|) = O(4) = O(1)
            it < operands.end();
@@ -49,22 +61,22 @@ namespace PBIW
     std::list<rVex::Syllable*>::const_iterator sIt;
     std::list<rVex::Syllable*> references = instruction.getSyllableReferences(); // O(1)
     
-    printer << "----\nInstruction Addr: " << instruction.getAddress() << std::endl;
-    printer << "Points to pattern at addr: " << instruction.getPattern()->getAddress() << std::endl;
+    printer << "\tInstruction Addr: " << instruction.getAddress() << std::endl;
+    printer << "\tPoints to pattern at addr: " << instruction.getPattern()->getAddress() << std::endl;
     
-    printer << "References : " << std::endl;
+    printer << "\tReferences : " << std::endl;
     
     for (sIt = references.begin(); // O(|references|) = O(12) = O(1)
          sIt != references.end();
          sIt++)
     {
-      printer << (*sIt)->getOpcode() << " - " << (*sIt)->getTextRepresentation() << std::endl;
+      printer << "\t" <<(*sIt)->getOpcode() << " - " << (*sIt)->getTextRepresentation() << std::endl;
     }
     
-    printer << "Read : ";
+    printer << "\tOperands : ";
     
     for (it = operands.begin(); // O(|operands|) = O(8) = O(1)
-         it < operands.end()-4; //&& it->getIndex() < 8;
+         it < operands.end(); //&& it->getIndex() < 8;
          it++)
     {
       printer << "[" << it->getIndex() <<  "] = "<< it->getValue();
@@ -73,25 +85,6 @@ namespace PBIW
         printer << "(Imm)";
       
       printer << ", ";
-    }
-    
-    printer << std::endl;
-    
-    printer << "Write: ";
-    
-    for (it = operands.begin() + 8; // O(|operands|) = O(4) = O(1)
-         it < operands.end() ;
-         it++)
-    {
-//      if (it->getIndex() >= 8)
-      {
-        printer << "[" << it->getIndex() <<  "] = "<< it->getValue();
-
-        if ( it->isImmediate() )
-          printer << "(Imm)";
-
-        printer << ", ";
-      }
     }
     
     printer << std::endl;
@@ -109,6 +102,8 @@ namespace PBIW
     if (instructionsCount >= 255)
       printer << "### WARNING: More than 256 instructions generated.\nCheck your VHDL entity to accomplish the new address size." << std::endl;
     
+    printer << "Instruction count = " << instructionsCount << std::endl;
+    
     printer << "--- End of PBIW Instructions Debug Printing --- " << std::endl;
   }
   
@@ -123,6 +118,8 @@ namespace PBIW
   {
     if (patternsCount >= 63)
       printer << "### WARNING: More than 64 patterns generated.\nCheck your VHDL entity to accomplish the new address size." << std::endl;
+    
+    printer << "Pattern count = " << patternsCount << std::endl;
     
     printer << "--- End of PBIW Patterns Debug Printing --- " << std::endl;
   }

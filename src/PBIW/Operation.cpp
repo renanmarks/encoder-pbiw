@@ -15,6 +15,28 @@ namespace PBIW
 {
   using namespace Interfaces;
   
+  void 
+  Operation::setOpcode(unsigned short opcode)
+  { 
+    unsigned short realOpcode = opcode & 0xFFF8;
+    
+    setOriginalOpcode(opcode);
+    
+    switch(realOpcode) // Get the 4 most significant bits from op
+    {
+      case rVex::Syllable::opADDCG:
+      case rVex::Syllable::opDIVS:
+      case rVex::Syllable::opSLCT:
+      case rVex::Syllable::opSLCTF:
+        this->opcode = realOpcode;
+        break;
+        
+      default:
+        this->opcode = opcode;
+        break;
+    }
+  }
+  
   Operation::OperandIndexVector
   Operation::getOperandsIndexes() const  // O(1)
   {
@@ -59,6 +81,17 @@ namespace PBIW
       case rVex::Syllable::opRETURN: // TODO
       case rVex::Syllable::opRFI:
           break;
+          
+      case rVex::Syllable::opADDCG:
+      case rVex::Syllable::opDIVS:
+      case rVex::Syllable::opSLCT:
+      case rVex::Syllable::opSLCTF:
+        if (readBrOperand == -1 && operand.isBRSource())
+        {
+          this->readBrOperand = operand.getIndex();
+            return;
+        }
+        break;
     }
     
     if (this->writeOperand == -1)

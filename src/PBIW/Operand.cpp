@@ -85,8 +85,7 @@ namespace PBIW
       (this->value == otherOperand.getValue()) &&
       //(this->index == otherOperand.index) &&
       (this->isImmediate12Bits() == otherOperand.isImmediate12Bits()) &&
-      (this->isImmediate9Bits() == otherOperand.isImmediate9Bits()) &&
-      (this->isBRSource() == otherOperand.isBRSource());
+      (this->isImmediate9Bits() == otherOperand.isImmediate9Bits());
 
     return isEqual;
   }
