@@ -320,22 +320,33 @@ namespace PBIW
   {
     PBIWInstructionList::const_iterator instructionIt;
     
+    printer.printInstructionsHeader();
+    
     for (instructionIt = codedInstructions.begin();
          instructionIt != codedInstructions.end();
          instructionIt++)
     {
-      printer.getOutputStream() << "[\n";
       (*instructionIt)->print(printer);
-      printer.getOutputStream() << "\n";
-      (*instructionIt)->getPattern()->print(printer);
-      printer.getOutputStream() << "]\n";
     }
+    
+    printer.printInstructionsFooter(codedInstructions.size());
   }
   
   void
   FullPBIW::printPatterns(IPBIWPrinter& printer)
   {
-    return;
+    PBIWPatternList::const_iterator patternIt;
+    
+    printer.printPatternsHeader();
+    
+    for (patternIt = codedPatterns.begin();
+         patternIt != codedPatterns.end();
+         patternIt++)
+    {
+      (*patternIt)->print(printer);
+    }
+    
+    printer.printPatternsFooter(codedPatterns.size());
   }
   
   void
