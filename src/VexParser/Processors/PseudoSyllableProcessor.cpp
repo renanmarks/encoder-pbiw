@@ -75,10 +75,6 @@ namespace VexParser
           // the $r0.32 register
           if (arguments.getSourceArguments().getArguments()[1].getParsedValue().isImmediate)
           {
-            // If not enough space to fit the add, get a new instruction
-//            if (context.getSyllableBuffer().size() > 3)
-//              context.endInstruction();
-            
             int position = getSyllableBufferItemPosition(syllable);
             
             std::string assemblerRegister = "$r0.31";
@@ -115,8 +111,7 @@ namespace VexParser
             syllable->setTextRepresentation(textRepresentation);
             syllable->fillSyllable(arguments);
             context.getSyllableBuffer().push_back(Structs::SyllableBufferItem(syllable, arguments));
-            context.endInstruction();
-
+            
             return;
           }
           break;

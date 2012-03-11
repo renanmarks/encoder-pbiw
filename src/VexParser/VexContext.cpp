@@ -87,13 +87,18 @@ namespace VexParser
     Processors::PseudoSyllableProcessor processor(*this);
     
     SyllableBuffer::iterator it;
+    SyllableBuffer newBuffer = syllableBuffer;
     
-    for (it = syllableBuffer.begin();
-         it < syllableBuffer.end();
+    syllableBuffer.clear();
+    
+    for (it = newBuffer.begin();
+         it < newBuffer.end();
          it++)
     {
       rVex::Syllable* syllable = it->getSyllable();
       VexParser::SyllableArguments arguments = it->getArguments();
+      
+      syllableBuffer.push_back(*it);
       
       switch(syllable->getSyllableType())
       {
