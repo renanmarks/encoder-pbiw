@@ -121,6 +121,17 @@ namespace PBIW
     if (opcode != other.getOpcode())
       return false;
     
+    switch(opcode)
+    {
+      case rVex::Syllable::opADDCG:
+      case rVex::Syllable::opDIVS:
+      case rVex::Syllable::opSLCT:
+      case rVex::Syllable::opSLCTF:
+        if ((this->readBrOperand > 0 && other.getBrReadOperand() > 0) &&
+            (this->readBrOperand != other.getBrReadOperand()))
+          return false;
+    }
+    
     if ( immediateSwitch != other.getImmediateSwitch() )
       return false;
     
