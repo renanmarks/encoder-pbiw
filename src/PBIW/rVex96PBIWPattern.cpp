@@ -106,8 +106,9 @@ namespace PBIW
       {
         int value = *itOperand;
         
+        // Get rid of the negative values
         if (value < 0)
-          value = 0;
+          value = 15;
         
         if (itOperand == operands.end()-1) // if last
           binary[i] <<= 3;

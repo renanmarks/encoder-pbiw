@@ -187,9 +187,9 @@ namespace PBIW
             switch ( (*operandIt)->getType() )
             {
               case Utils::OperandItem::BRSource :
-                finalInstruction->addBranchSourceOperand(*operand); // O(1)
-                break;
               case Utils::OperandItem::BRDestiny :
+                finalInstruction->addBranchOperand(*operand); // O(1)
+                break;
               case Utils::OperandItem::GRSource :
               case Utils::OperandItem::GRDestiny :
               case Utils::OperandItem::Imm :

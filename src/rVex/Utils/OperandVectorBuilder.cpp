@@ -16,6 +16,7 @@ namespace rVex
     {
       Operand* operand = new Operand(value);
       operand->setBRSource(type == OperandItem::BRSource);
+      operand->setBRDestiny(type == OperandItem::BRDestiny);
       
       OperandItem* item = new OperandItem(operand, type);
       

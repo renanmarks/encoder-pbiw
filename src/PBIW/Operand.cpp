@@ -12,22 +12,22 @@
 namespace PBIW
 {
   Operand::Operand()
-  : index(0), immType(Immediate::None), isBRSourceOperand(false), value(0)
+  : index(0), immType(Immediate::None), branchType(Branch::None), value(0)
   {
   }
   
   Operand::Operand(int value)
-  : index(0), immType(Immediate::None), isBRSourceOperand(false), value(value)
+  : index(0), immType(Immediate::None), branchType(Branch::None), value(value)
   {
   }
   
   Operand::Operand(int value, Immediate::Type immediateType)
-  : index(0), immType(immediateType), isBRSourceOperand(false), value(value)
+  : index(0), immType(immediateType), branchType(Branch::None), value(value)
   {
   }
   
   Operand::Operand(const Operand& other)
-  : index(other.getIndex()), immType(other.getImmediateType()), isBRSourceOperand(other.isBRSource()), value(other.getValue())
+  : index(other.getIndex()), immType(other.getImmediateType()), branchType(other.getBanchType()), value(other.getValue())
   {
   }
   

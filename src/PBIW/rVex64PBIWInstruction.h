@@ -25,7 +25,15 @@ namespace PBIW
     class rVex64PBIWInstruction : public IPBIWInstruction
     {
     public:
-      rVex64PBIWInstruction() : address(0), label(NULL), branchDestiny(NULL), pattern(NULL), zeroOperand(0) //readOperands(0, Operand(0)), writeOperands()
+      rVex64PBIWInstruction() : 
+        address(0), 
+        label(NULL), 
+        branchDestiny(NULL), 
+        pattern(NULL), 
+        opBRslot(-1),
+        opBRFslot(-1),
+        immediate(),
+        zeroOperand(0)
       {
         zeroOperand.setIndex(15);
       }
@@ -54,7 +62,7 @@ namespace PBIW
 
       virtual void addReadOperand(IOperand& operand);
 
-      virtual void addBranchSourceOperand(IOperand&);
+      virtual void addBranchOperand(IOperand&);
       
       virtual bool hasBranchSourceOperand() const;
 
@@ -135,9 +143,11 @@ namespace PBIW
         | 0-31 | 0-31 | 0-31 | 0-31 | 0-31 | 0-31 | 0-31 | 0-31 | 0-31 | 0-31 | 0-31 | 0-7 |
         ------------------------------------------------------------------------------------
         '------------------------- Br src ----------------------'      '----9b imm---'
-                                                                       '-------12b imm-----'
+                                                  '  BR  '  BRF '      '-------12b imm-----'
        */
       OperandVector operands; // Max 12
+      Operand opBRslot;
+      Operand opBRFslot;
       
       virtual int giveEmptyBranchSourceSlot();
 

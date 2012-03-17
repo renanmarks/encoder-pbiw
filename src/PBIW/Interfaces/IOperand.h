@@ -33,6 +33,9 @@ namespace PBIW
       
       virtual bool isBRSource() const = 0;
       virtual void setBRSource(const bool) = 0;
+      
+      virtual bool isBRDestiny() const = 0;
+      virtual void setBRDestiny(const bool) = 0;
 
       virtual bool operator<(const IOperand&) const = 0;
       virtual bool operator>(const IOperand&) const = 0;

@@ -24,12 +24,15 @@ namespace PBIW
     rVex64PBIWInstruction::OperandVector
     rVex64PBIWInstruction::getOperands() const // O(1)
     {
-      std::deque<Operand> temp(operands.begin(), operands.end()); // O(|operands|) = O(8) = O(1)
+      std::deque<Operand> temp;
 
       if (immediate.isImmediate9Bits())
       {
         if (operands.size() < 10)
+        {
+          temp.insert(temp.begin(), operands.begin(), operands.end());
           temp.resize(10, Operand(-1));
+        }
 
         temp.push_back(immediate);
         temp.push_back(Operand(-1));
@@ -37,17 +40,22 @@ namespace PBIW
       else if (immediate.isImmediate12Bits())
       {
         if (operands.size() < 11)
+        {
+          temp.insert(temp.begin(), operands.begin(), operands.end());
           temp.resize(11, Operand(-1));
+        }
 
         temp.push_back(immediate);
       }
+      else
+      {
+        temp.insert(temp.begin(), operands.begin(), operands.end());
+        
+        if (temp.size() < 12)
+          temp.resize(12, Operand(-1));
+      }
 
-      if (temp.size() < 12)
-        temp.resize(12, Operand(-1));
-
-      rVex64PBIWInstruction::OperandVector returnVector(temp.begin(), temp.end());
-
-      return returnVector;
+      return rVex64PBIWInstruction::OperandVector(temp.begin(), temp.end());
     }
 
     void
@@ -73,16 +81,7 @@ namespace PBIW
            it++)
       {
         if ((it->getValue() < 0) && (!it->isImmediate()))
-          it->setValue(0);
-      }
-
-      // Read operands
-      for (it=operands.begin(); // O(|operands|) = O(8) = O(1)
-           it < operands.end() - 4; //&& it->getIndex() < 8;
-           it++)
-      {
-        output.longWord<<=5;
-        output.longWord|=it->getValue();
+          it->setValue(zeroOperand.getValue());
       }
 
       bool hasImm9Bits=operands[10].isImmediate9Bits();
@@ -91,8 +90,8 @@ namespace PBIW
 
       if (!hasImmediate)
       {
-        // write operands
-        for (it=operands.begin() + 8; // O(|operands|) = O(4) = O(1)
+        // operands
+        for (it=operands.begin(); // O(|operands|) = O(4) = O(1)
              it < operands.end();
              it++)
         {
@@ -106,11 +105,17 @@ namespace PBIW
           output.longWord<<=5;
           output.longWord|=it->getValue();
         }
-      } else
+      } 
+      else
       {
-        output.longWord<<=5;
-        output.longWord|=operands[8].getValue();
-
+        for (it=operands.begin(); // O(|operands|) = O(4) = O(1)
+             it < operands.end()-3;
+             it++)
+        {
+          output.longWord<<=5;
+          output.longWord|=it->getValue();
+        }
+        
         if (hasImm9Bits)
         {
           output.longWord<<=10;
@@ -199,7 +204,7 @@ namespace PBIW
     const IOperand&
     rVex64PBIWInstruction::containsOperand(const IOperand& operand) const // O(1)
     {
-      if (operand.getValue() == 0 && !operand.isBRSource())
+      if (operand.getValue() == 0 && !operand.isBRSource() && !operand.isImmediate())
         return zeroOperand;
       
       OperandVector::const_iterator it;
@@ -235,7 +240,7 @@ namespace PBIW
 
         return;
       }
-
+      
       if (operand.getValue() == 0 && !operand.isBRSource())
       {
         operand.setIndex(15);
@@ -271,7 +276,7 @@ namespace PBIW
     }
 
     void
-    rVex64PBIWInstruction::addBranchSourceOperand(IOperand& operand)
+    rVex64PBIWInstruction::addBranchOperand(IOperand& operand)
     {
       int emptySlotIndex = giveEmptyBranchSourceSlot();
       
@@ -373,6 +378,7 @@ namespace PBIW
           else // If we cant do any of above, desist: there is no free space left.
             return false;
 
+          break;
         default:
           // Default empty slot checking
           return hasReadOperandSlot();
@@ -391,8 +397,8 @@ namespace PBIW
     rVex64PBIWInstruction::hasWriteOperandSlot() const // O(1)
     {
       bool hasWriteSlots=
-        (immediate.isImmediate12Bits() && (operands.size() < 10)) ||
-        (immediate.isImmediate9Bits() && (operands.size() < 11)) ||
+        (immediate.isImmediate12Bits() && (operands.size() < 9)) ||
+        (immediate.isImmediate9Bits() && (operands.size() < 10)) ||
         (!immediate.isImmediate12Bits() && !immediate.isImmediate9Bits() && operands.size() < 12);
 
       return hasWriteSlots;

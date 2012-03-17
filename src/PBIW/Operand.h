@@ -27,6 +27,12 @@ namespace PBIW
       } Type;
     } Immediate;
     
+    typedef struct {
+      typedef enum {
+        None, Source, Destiny
+      } Type;
+    } Branch;
+    
     explicit Operand();
     explicit Operand(int);
     explicit Operand(int, Immediate::Type);
@@ -57,11 +63,20 @@ namespace PBIW
     virtual int getValue() const
     { return value; }
     
+    virtual Branch::Type getBanchType() const
+    { return branchType; }
+    
     virtual bool isBRSource() const
-    { return isBRSourceOperand; }
+    { return branchType == Branch::Source; }
     
     virtual void setBRSource(const bool value)
-    { isBRSourceOperand = value; }
+    { if (value) branchType = Branch::Source; }
+    
+    virtual bool isBRDestiny() const
+    { return branchType == Branch::Destiny; }
+    
+    virtual void setBRDestiny(const bool value)
+    { if (value) branchType = Branch::Destiny; }
 
     virtual bool operator<(const IOperand&) const;
     virtual bool operator>(const IOperand&) const;
@@ -79,7 +94,7 @@ namespace PBIW
     Immediate::Type immType;
     
     // Type of this operand
-    bool isBRSourceOperand;
+    Branch::Type branchType;
     
     // The value of this operand (register number or immediate number)
     int value;
