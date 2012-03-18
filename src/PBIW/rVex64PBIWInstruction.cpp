@@ -24,35 +24,38 @@ namespace PBIW
     rVex64PBIWInstruction::OperandVector
     rVex64PBIWInstruction::getOperands() const // O(1)
     {
-      std::deque<Operand> temp;
-
-      if (immediate.isImmediate9Bits())
+      std::set<Operand> temp(operands.begin(), operands.end());
+      
+      if (opBRslot.getValue() > -1)
+        temp.insert(opBRslot);
+      
+      if (opBRFslot.getValue() > -1)
+        temp.insert(opBRFslot);
+      
+      if (immediate.isImmediate())
+        temp.insert(immediate);
+      
+      // Setup the non present indexes set
+      std::set<int> allIndexes;
+      
+      for(int i=0; i<12; i++)
+        allIndexes.insert(i);
+      
+      // Let remain only the indexes not presents in the temp set
+      std::set<Operand>::iterator it;
+      
+      for(it=temp.begin(); it!=temp.end(); it++)
+        allIndexes.erase(it->getIndex());
+      
+      // Insert the remaining positions
+      std::set<int>::iterator indexIt;
+      
+      for(indexIt=allIndexes.begin(); indexIt!=allIndexes.end(); indexIt++)
       {
-        if (operands.size() < 10)
-        {
-          temp.insert(temp.begin(), operands.begin(), operands.end());
-          temp.resize(10, Operand(-1));
-        }
-
-        temp.push_back(immediate);
-        temp.push_back(Operand(-1));
-      }
-      else if (immediate.isImmediate12Bits())
-      {
-        if (operands.size() < 11)
-        {
-          temp.insert(temp.begin(), operands.begin(), operands.end());
-          temp.resize(11, Operand(-1));
-        }
-
-        temp.push_back(immediate);
-      }
-      else
-      {
-        temp.insert(temp.begin(), operands.begin(), operands.end());
+        Operand emptyOperand(-1);
+        emptyOperand.setIndex(*indexIt);
         
-        if (temp.size() < 12)
-          temp.resize(12, Operand(-1));
+        temp.insert(temp.end(), emptyOperand);
       }
 
       return rVex64PBIWInstruction::OperandVector(temp.begin(), temp.end());

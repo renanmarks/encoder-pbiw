@@ -316,12 +316,12 @@ namespace PBIW
   rVex96PBIWPattern::getValueByIndex(const IPBIWInstruction*& instruction, int index) const // O(1)
   {
     IPBIWInstruction::OperandVector operands = instruction->getOperands();
-
+    
     if (index == 15)
       return 0;
     
     if (index != -1)
-      return operands[index].getValue(); // O(1)
+      return operands.at(index).getValue(); // O(1)
       
     return index;
   }
