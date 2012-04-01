@@ -111,11 +111,15 @@ namespace PBIW
           value = 15;
         
         if (itOperand == operands.end()-1) // if last
+        {
           binary[i] <<= 3;
+          binary[i] |= (value & 0x7);
+        }
         else
+        {
           binary[i] <<= 4;
-          
-        binary[i] |= value;
+          binary[i] |= value;
+        }
       }
     }
     
