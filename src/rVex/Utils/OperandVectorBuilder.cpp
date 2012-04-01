@@ -12,33 +12,33 @@ namespace rVex
   namespace Utils
   {
     void
-    OperandVectorBuilder::insertRegister(int value, OperandItem::Type type) // O(1)
+    OperandVectorBuilder::insertRegister(int value, OperandItem::Type type, const rVex::Syllable* syllable) // O(1)
     {
       Operand* operand = new Operand(value);
       operand->setBRSource(type == OperandItem::BRSource);
       operand->setBRDestiny(type == OperandItem::BRDestiny);
       
-      OperandItem* item = new OperandItem(operand, type);
+      OperandItem* item = new OperandItem(operand, type, syllable);
       
       items.push_back(item);
     }
 
     void
-    OperandVectorBuilder::insertImmediate(int value, Operand::Immediate::Type immType) // O(1)
+    OperandVectorBuilder::insertImmediate(int value, Operand::Immediate::Type immType, const rVex::Syllable* syllable) // O(1)
     {
       Operand* operand = new Operand(value, immType);
-      OperandItem* item = new OperandItem(operand, OperandItem::Imm);
+      OperandItem* item = new OperandItem(operand, OperandItem::Imm, syllable);
       
       items.push_back(item);
     }
 
     void
-    OperandVectorBuilder::insertRegisters(const std::vector<unsigned int>& values, OperandItem::Type type) // O(1)
+    OperandVectorBuilder::insertRegisters(const std::vector<unsigned int>& values, OperandItem::Type type, const rVex::Syllable* syllable) // O(1)
     {
       std::vector<unsigned int>::const_iterator it;
 
       for (it=values.begin(); it < values.end(); it++) // O(1)
-        insertRegister(*it, type);
+        insertRegister(*it, type, syllable);
     }
     
     const OperandVector& OperandVectorBuilder::getOperandVector()

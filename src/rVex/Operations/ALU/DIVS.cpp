@@ -15,10 +15,10 @@ namespace rVex
         using PBIW::Operand;
         using PBIW::Utils::OperandItem;
         
-        builder.insertRegister(this->brSource, OperandItem::BRSource);
-        builder.insertRegister(this->grDestiny, OperandItem::GRDestiny);
-        builder.insertRegister(this->brDestiny, OperandItem::BRDestiny);
-        builder.insertRegisters(readRegisters, OperandItem::GRSource);
+        builder.insertRegister(this->brSource, OperandItem::BRSource, this);
+        builder.insertRegister(this->grDestiny, OperandItem::GRDestiny, this);
+        builder.insertRegister(this->brDestiny, OperandItem::BRDestiny, this);
+        builder.insertRegisters(readRegisters, OperandItem::GRSource, this);
       }
     }
   }

@@ -13,6 +13,7 @@
 #include "Operation.h"
 #include "Operand.h"
 #include "Printers/PartialPBIWPrinter.h"
+#include "Printers/PartialPBIWDebugPrinter.h"
 
 namespace PBIW
 {
@@ -61,7 +62,7 @@ namespace PBIW
   }
   
   // O(|codedPatterns|) + O(1) = O(|codedPatterns|)
-  void FullPBIW::savePBIWElements(IPBIWInstruction*& finalInstruction, IPBIWPattern*& newPattern)
+  void FullPBIW::savePBIWElements(rVex64PBIWInstruction*& finalInstruction, rVex96PBIWPattern*& newPattern)
   {
     newPattern->reorganize(finalInstruction); // O(1)
     
@@ -93,12 +94,18 @@ namespace PBIW
   }
   
   // O(|codedPatterns|)
-  void FullPBIW::saveAndCreateNewPBIWElements(IPBIWInstruction*& finalInstruction, IPBIWPattern*& newPattern)
+  void FullPBIW::saveAndCreateNewPBIWElements(rVex64PBIWInstruction*& finalInstruction, rVex96PBIWPattern*& newPattern)
   {
     savePBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
-
+    createNewPBIWElements(finalInstruction, newPattern);
+  }
+  
+  void FullPBIW::createNewPBIWElements(rVex64PBIWInstruction*& finalInstruction, rVex96PBIWPattern*& newPattern)
+  {
     finalInstruction = new rVex64PBIWInstruction();
     newPattern = new rVex96PBIWPattern();
+    
+    finalInstruction->pointToPattern(*newPattern);
   }
   
   void FullPBIW::resetFinalOperation(VexSyllableOperandVector::Collection::const_iterator& operandIt, // O(1)
@@ -127,8 +134,10 @@ namespace PBIW
         instructionIt++)                                // O(16|codedPatterns||originalInstructions| + 16|codedPatterns|^2) =                 
     {                                                   // O(|codedPatterns||originalInstructions| * |codedPatterns|^2) =                
       // Create a new PBIW instruction and PBIW pattern                  // O(|codedPatterns|^3)
-      IPBIWInstruction* finalInstruction = new rVex64PBIWInstruction();
-      IPBIWPattern* newPattern = new rVex96PBIWPattern();
+      rVex64PBIWInstruction* finalInstruction;
+      rVex96PBIWPattern* newPattern;
+      
+      createNewPBIWElements(finalInstruction, newPattern);
       
       // Copy the original labels to the data structure used in PBIW
       if ( (*instructionIt)->haveLabel() )
@@ -187,6 +196,17 @@ namespace PBIW
             switch ( (*operandIt)->getType() )
             {
               case Utils::OperandItem::BRSource :
+                if (finalOperation->getOpcode() == rVex::Syllable::opBR)
+                {
+                  finalInstruction->setOpBRslot(*operand); // O(1)
+                  break;
+                }
+                else if (finalOperation->getOpcode() == rVex::Syllable::opBRF)
+                {
+                  finalInstruction->setOpBRFslot(*operand); // O(1)
+                  break;
+                }
+                
               case Utils::OperandItem::BRDestiny :
                 finalInstruction->addBranchOperand(*operand); // O(1)
                 break;

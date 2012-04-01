@@ -13,8 +13,8 @@ namespace rVex
         using PBIW::Operand;
         using PBIW::Utils::OperandItem;
         
-        builder.insertRegister(this->brSource, OperandItem::BRSource); // O(1)
-        builder.insertImmediate(this->shortImmediate, Operand::Immediate::TwelveBits); // O(1)
+        builder.insertRegister(this->brSource, OperandItem::BRSource, this); // O(1)
+        builder.insertImmediate(this->shortImmediate, Operand::Immediate::TwelveBits, this); // O(1)
       }
       
       void 

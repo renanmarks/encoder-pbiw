@@ -130,6 +130,17 @@ namespace PBIW
   }
 
   void 
+  rVex96PBIWPattern::updateIndexes(int oldIndex, int newIndex)
+  {
+    OperationVector::iterator it;
+    
+    for(it = operations.begin(); it < operations.end(); it++)
+    {
+      (*it)->updateIndexes(oldIndex, newIndex);
+    }
+  }
+  
+  void 
   rVex96PBIWPattern::reorganize(const IPBIWInstruction* instruction) // O(1)
   {
     Operand zero;

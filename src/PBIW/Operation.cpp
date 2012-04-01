@@ -51,6 +51,29 @@ namespace PBIW
     return returnVector;
   }
   
+  void 
+  Operation::updateIndexes(int oldIndex, int newIndex)
+  {
+    if (this->writeOperand == oldIndex)
+      this->writeOperand = newIndex;
+
+    if (this->writeBrOperand == oldIndex)
+      this->writeBrOperand = newIndex;
+    
+    if (this->readBrOperand == oldIndex)
+      this->readBrOperand = newIndex;
+    
+    OperandIndexVector::iterator it;
+    
+    for(it = readOperands.begin(); 
+        it < readOperands.end(); 
+        it++)
+    {
+      if (*it == oldIndex)
+        *it = newIndex;
+    }
+  }
+  
   void
   Operation::addOperand(const IOperand& operand)  // O(1)
   {
@@ -60,22 +83,22 @@ namespace PBIW
       case rVex::Syllable::opIGOTO:
         if (writeOperand == -1)
         {
-          writeOperand = 0;
+          writeOperand = 15;
           
           if (operand.isImmediate())
-            readOperands.push_back(0);
+            readOperands.push_back(15);
         }
         break;
       
       case rVex::Syllable::opCALL:
         if (operand.isImmediate())
-          readOperands.push_back(0);
+          readOperands.push_back(15);
         break;
         
       case rVex::Syllable::opBR:
       case rVex::Syllable::opBRF:
         if (writeOperand == -1)
-          writeOperand = 0;
+          writeOperand = 15;
         break;
       
       case rVex::Syllable::opRETURN: // TODO

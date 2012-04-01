@@ -50,9 +50,9 @@ namespace PBIW
       virtual ILabel* getLabel() const
       { return label; }
 
-      virtual void pointToPattern(const IPBIWPattern& pattern);
+      virtual void pointToPattern(IPBIWPattern& pattern);
 
-      virtual const rVex96PBIWPattern* getPattern() const
+      virtual rVex96PBIWPattern* getPattern() const
       { return this->pattern; }
 
       virtual bool containsImmediate() const
@@ -103,6 +103,10 @@ namespace PBIW
       virtual rVex64PBIWInstruction* getBranchDestiny() const
       { return branchDestiny; }
 
+      void setOpBRFslot(IOperand&);
+
+      void setOpBRslot(IOperand&);
+
       /**
      * Exception thrown when the an encoding mismatch exception occurs;
      */
@@ -134,7 +138,7 @@ namespace PBIW
       std::string destinyLabel;
       rVex64PBIWInstruction* branchDestiny;
 
-      const rVex96PBIWPattern* pattern;
+      rVex96PBIWPattern* pattern;
 
       /* The readRegs organization is as follows:
 

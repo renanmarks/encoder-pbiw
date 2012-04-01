@@ -14,8 +14,8 @@ namespace rVex
         
 //        builder.insertRegister(this->grDestiny, OperandItem::GRDestiny);
 //        builder.insertRegister(this->readRegisters.at(0), OperandItem::GRSource);
-        builder.insertRegister(this->readRegisters.at(1), OperandItem::GRSource);
-        builder.insertImmediate(this->shortImmediate, Operand::Immediate::TwelveBits);
+        builder.insertRegister(this->readRegisters.at(1), OperandItem::GRSource, this);
+        builder.insertImmediate(this->shortImmediate, Operand::Immediate::TwelveBits, this);
       }
       
       void 

@@ -14,14 +14,14 @@ namespace rVex
 
     switch (getLayoutType()) {
       case LayoutType::RTYPE:
-        builder.insertRegister(this->grDestiny, OperandItem::GRDestiny);
-        builder.insertRegisters(readRegisters, OperandItem::GRSource);
+        builder.insertRegister(this->grDestiny, OperandItem::GRDestiny, this);
+        builder.insertRegisters(readRegisters, OperandItem::GRSource, this);
         break;
 
       case LayoutType::ISTYPE:
-        builder.insertRegister(this->grDestiny, OperandItem::GRDestiny);
-        builder.insertRegisters(readRegisters, OperandItem::GRSource);
-        builder.insertImmediate(this->shortImmediate, Operand::Immediate::NineBits);
+        builder.insertRegister(this->grDestiny, OperandItem::GRDestiny, this);
+        builder.insertRegisters(readRegisters, OperandItem::GRSource, this);
+        builder.insertImmediate(this->shortImmediate, Operand::Immediate::NineBits, this);
         break;
 
         //      Must implement in each specific opcode

@@ -14,9 +14,9 @@ namespace rVex
         using PBIW::Utils::OperandItem;
         
         if (this->branchDestiny != NULL)
-          builder.insertImmediate(this->shortImmediate, Operand::Immediate::TwelveBits);
+          builder.insertImmediate(this->shortImmediate, Operand::Immediate::TwelveBits, this);
         else
-          builder.insertRegisters(this->readRegisters, OperandItem::GRSource);
+          builder.insertRegisters(this->readRegisters, OperandItem::GRSource, this);
       }
       
       void 

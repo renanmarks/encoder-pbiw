@@ -60,6 +60,10 @@ namespace PBIW
          */
         virtual unsigned int getOperationCount() const = 0;
         
+        /**
+         * Updates the old indexes in the operations to the new one informed.
+         */
+        virtual void updateIndexes(int oldIndex, int newIndex) = 0;
         
         virtual void incrementUsageCounter() = 0;
         virtual int getUsageCounter() const = 0;

@@ -27,7 +27,10 @@ namespace PBIW
   }
   
   Operand::Operand(const Operand& other)
-  : index(other.getIndex()), immType(other.getImmediateType()), branchType(other.getBanchType()), value(other.getValue())
+  : index(other.getIndex()), 
+    immType(other.getImmediateType()), 
+    branchType(other.getBanchType()), 
+    value(other.getValue())
   {
   }
   

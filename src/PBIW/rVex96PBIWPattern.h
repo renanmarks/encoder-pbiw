@@ -58,7 +58,7 @@ namespace PBIW
     
     virtual void print(IPBIWPrinter&) const;
     
-    
+    virtual void updateIndexes(int oldIndex, int newIndex);
     
     virtual bool operator<(const IPBIWPattern&) const;
     virtual bool operator>(const IPBIWPattern&) const;

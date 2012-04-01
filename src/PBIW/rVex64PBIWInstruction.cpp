@@ -9,6 +9,7 @@
 #include <iostream>
 #include <algorithm>
 #include <typeinfo>
+#include <stdexcept>
 #include "rVex64PBIWInstruction.h"
 #include "Interfaces/IOperand.h"
 
@@ -197,9 +198,9 @@ namespace PBIW
     }
 
     void
-    rVex64PBIWInstruction::pointToPattern(const IPBIWPattern& pattern) // O(1)
+    rVex64PBIWInstruction::pointToPattern(IPBIWPattern& pattern) // O(1)
     {
-      const rVex96PBIWPattern& temp=dynamic_cast<const rVex96PBIWPattern&> (pattern);
+      rVex96PBIWPattern& temp=dynamic_cast<rVex96PBIWPattern&> (pattern);
 
       this->pattern= &temp;
     }
@@ -207,7 +208,7 @@ namespace PBIW
     const IOperand&
     rVex64PBIWInstruction::containsOperand(const IOperand& operand) const // O(1)
     {
-      if (operand.getValue() == 0 && !operand.isBRSource() && !operand.isImmediate())
+      if (operand.getValue() == 0 && !operand.isBRSource() && !operand.isBRDestiny() && !operand.isImmediate())
         return zeroOperand;
       
       OperandVector::const_iterator it;
@@ -223,6 +224,109 @@ namespace PBIW
       return operand;
     }
 
+    void rVex64PBIWInstruction::setOpBRFslot(IOperand& operand)
+    { 
+      Operand& operandReference = dynamic_cast<Operand&>(operand);
+      operandReference.setIndex(6);
+      
+      // The slot at index 5 is occupied
+      if (operands.size() >= 7)
+      {
+        // If we're lucky...!
+        if (operands.at(6) == operandReference)
+        {
+          operands.erase(operands.begin()+6);
+          this->opBRslot = operandReference;
+          return;
+        }
+        
+        // ... if not so lucky, lets see if we have a empty slot to move someone
+        if (hasReadOperandSlot())
+        {
+          if (!operands.at(6).isBRSource())
+          {
+            Operand operandAt6 = operands.at(6);
+
+            unsigned int oldIndex = operandAt6.getIndex();
+            addReadOperand(operandAt6);
+            unsigned int newIndex = operandAt6.getIndex();
+
+            pattern->updateIndexes(oldIndex, newIndex);
+            
+            operands.erase(operands.begin()+6);
+          }
+          else
+          {
+            int freeSlotIndex = giveEmptyBranchSourceSlot();
+            
+            if (freeSlotIndex > -1)
+            {
+              operands.at(freeSlotIndex) = operands.at(6);
+              operands.erase(operands.begin()+6);
+            }
+          }
+        }
+        else
+        {
+          throw std::range_error("Not found free slot to move operation.");
+        }
+      }
+      
+      this->opBRslot = operandReference; 
+    }
+
+    void rVex64PBIWInstruction::setOpBRslot(IOperand& operand)
+    { 
+      Operand& operandReference = dynamic_cast<Operand&>(operand);
+      
+      operandReference.setIndex(5);
+      
+      // The slot at index 5 is occupied
+      if (operands.size() >= 6)
+      {
+        // If we're lucky...!
+        if (operands.at(5) == operandReference)
+        {
+          operands.erase(operands.begin()+5);
+          this->opBRslot = operandReference;
+          return;
+        }
+        
+        // ... if not so lucky, lets see if we have a empty slot to move someone
+        if (hasReadOperandSlot())
+        {
+          if (!operands.at(5).isBRSource())
+          {
+            Operand operandAt5 = operands.at(5);
+
+            unsigned int oldIndex = operandAt5.getIndex();
+            addReadOperand(operandAt5);
+            unsigned int newIndex = operandAt5.getIndex();
+
+            pattern->updateIndexes(oldIndex, newIndex);
+            
+            operands.erase(operands.begin()+5);
+          }
+          else
+          {
+            int freeSlotIndex = giveEmptyBranchSourceSlot();
+            
+            if (freeSlotIndex > -1)
+            {
+              operands.at(freeSlotIndex) = operands.at(5);
+              operands.erase(operands.begin()+5);
+            }
+          }
+        }
+        else
+        {
+          throw std::range_error("Not found free slot to move operation.");
+        }
+      }
+      
+      this->opBRslot = operandReference; 
+    }
+    
     void
     rVex64PBIWInstruction::addWriteOperand(IOperand& operand) // O(1)
     {
@@ -244,7 +348,7 @@ namespace PBIW
         return;
       }
       
-      if (operand.getValue() == 0 && !operand.isBRSource())
+      if (operand.getValue() == 0 && !operand.isBRSource() && !operand.isBRDestiny())
       {
         operand.setIndex(15);
         return;
@@ -253,6 +357,18 @@ namespace PBIW
       // If we not have the immediate yet, do the normal indexing
       unsigned int index = operands.size();
 
+      if (opBRslot.getValue() > -1)
+      {
+        if (index >= opBRslot.getIndex())
+          index++;
+      }
+      
+      if (opBRFslot.getValue() > -1)
+      {
+        if (index >= opBRFslot.getIndex())
+          index++;
+      }
+      
       if (immediate.isImmediate())
       {
         // If we have immediate, do the absolute indexing
@@ -272,10 +388,6 @@ namespace PBIW
       
       operand.setIndex(index);
       operands.push_back(dynamic_cast<Operand&> (operand));
-      
-//      unsigned int index=this->operands.size();
-//      operand.setIndex(index);
-//      this->operands.push_back(dynamic_cast<Operand&> (operand));
     }
 
     void
@@ -287,11 +399,18 @@ namespace PBIW
       {
         operand.setIndex(emptySlotIndex);
         
-        if (emptySlotIndex == 0)
+        // if the empty slot is at the end, well, put it at the end :P
+        if (emptySlotIndex == static_cast<int>(operands.size()))
           operands.push_back(dynamic_cast<Operand&> (operand));
         else
           operands.at(emptySlotIndex) = dynamic_cast<Operand&> (operand);
       }
+      
+      if (emptySlotIndex == -2)
+        operands.push_back(dynamic_cast<Operand&> (operand));
+      
+      if (emptySlotIndex == -1)
+        throw std::range_error("Fail allocating empty slot for BRsrc operand.");
       
       return;
     }
@@ -303,9 +422,9 @@ namespace PBIW
       if (operands.size() < 8)
       {
         if (operands.size() == 0)
-          return 0;
+          return -2;
         
-        return operands.size() - 1;
+        return operands.size();
       }
       // If not, check if we can "move" some operands to open space so
       // we can put the BRsrc registers in them;
@@ -319,7 +438,14 @@ namespace PBIW
           // Change the operand position and inform the new space opened
           if (!it->isBRSource())
           {
-            addReadOperand(*it);
+            Operand operandIt = *it;
+            
+            unsigned int oldIndex = operandIt.getIndex();
+            addReadOperand(operandIt);
+            unsigned int newIndex = operandIt.getIndex();
+            
+            pattern->updateIndexes(oldIndex, newIndex);
+            
             return index;
           }
         }
@@ -367,6 +493,12 @@ namespace PBIW
           break;
 
         case Utils::OperandItem::BRSource:
+          if (operand.getSyllableBelonged()->isOpcode(rVex::Syllable::opBR))
+            return (opBRslot.getValue() == -1);
+                                                      
+          if (operand.getSyllableBelonged()->isOpcode(rVex::Syllable::opBRF))
+            return (opBRFslot.getValue() == -1);
+          
           // Check if there is space in the 0-7 slot range;
           if (operands.size() < 8)
           {
@@ -399,11 +531,54 @@ namespace PBIW
     bool
     rVex64PBIWInstruction::hasWriteOperandSlot() const // O(1)
     {
-      bool hasWriteSlots=
-        (immediate.isImmediate12Bits() && (operands.size() < 9)) ||
-        (immediate.isImmediate9Bits() && (operands.size() < 10)) ||
-        (!immediate.isImmediate12Bits() && !immediate.isImmediate9Bits() && operands.size() < 12);
-
-      return hasWriteSlots;
+      int operandsSize = operands.size();
+      
+      if (immediate.isImmediate9Bits())
+      {
+        if (opBRslot.getValue() > -1)
+        {
+          if (opBRFslot.getValue() > -1)
+            return (operandsSize < 8);
+          
+          return (operandsSize < 9);
+        }
+        
+        return (operandsSize < 10);
+      }
+      else if (immediate.isImmediate12Bits())
+      {
+        if (opBRslot.getValue() > -1)
+        {
+          if (opBRFslot.getValue() > -1)
+            return (operandsSize < 7);
+          
+          return (operandsSize < 8);
+        }
+        
+        return (operandsSize < 9);
+      }
+      
+      return (operandsSize < 12);
+      
+//      bool withImmSlot = 
+//        (immediate.isImmediate9Bits() && (operandsSize < 10)) ||
+//        (immediate.isImmediate12Bits() && (operandsSize < 9)) ||
+//        (!immediate.isImmediate12Bits() && !immediate.isImmediate9Bits() && operandsSize < 12);
+//      
+//      bool withBRSlot = 
+//        (opBRslot.getValue() > -1) && (operandsSize < 9) && (immediate.isImmediate9Bits()) ||
+//        (opBRslot.getValue() > -1) && (operandsSize < 11) && (!immediate.isImmediate9Bits()) ||
+//      
+//        (opBRslot.getValue() > -1) && (operandsSize < 8) && (immediate.isImmediate12Bits()) ||
+//        (opBRslot.getValue() > -1) && (operandsSize < 11) && (!immediate.isImmediate12Bits());
+//      
+//      bool withBRFSlot = 
+//        (opBRFslot.getValue() > -1) && (operandsSize < 9) && (immediate.isImmediate9Bits()) ||
+//        (opBRFslot.getValue() > -1) && (operandsSize < 11) && (!immediate.isImmediate9Bits()) ||
+//      
+//        (opBRFslot.getValue() > -1) && (operandsSize < 8) && (immediate.isImmediate12Bits()) ||
+//        (opBRFslot.getValue() > -1) && (operandsSize < 11) && (!immediate.isImmediate12Bits());
+//      
+//      return withImmSlot || withBRFSlot || withBRSlot;
     }
 }

@@ -38,6 +38,8 @@ namespace PBIW
       typedef std::vector<int> OperandIndexVector;
       virtual OperandIndexVector getOperandsIndexes() const = 0;
       
+      virtual void updateIndexes(int oldIndex, int newIndex) = 0;
+      
       virtual void setType(rVex::Syllable::SyllableType::Type) = 0;
       virtual rVex::Syllable::SyllableType::Type getType() const = 0;
       

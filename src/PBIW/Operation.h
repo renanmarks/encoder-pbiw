@@ -73,6 +73,8 @@ namespace PBIW
     virtual void pointToWriteBrOperand(IOperand* operand)
     { this->writeBrOperand = operand->getIndex(); }
     
+    virtual void updateIndexes(int oldIndex, int newIndex);
+    
     virtual bool operator==(const IOperation&) const;
     virtual bool operator!=(const IOperation&) const;
     

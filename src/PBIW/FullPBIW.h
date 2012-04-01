@@ -16,6 +16,8 @@
 #include "Label.h"
 #include "Utils/OperandVector.h"
 #include "src/rVex/Syllable.h"
+#include "rVex64PBIWInstruction.h"
+#include "rVex96PBIWPattern.h"
 
 namespace PBIW
 {
@@ -78,8 +80,9 @@ namespace PBIW
     
     const IPBIWPattern& hasPattern(const IPBIWPattern&) const;
     
-    void savePBIWElements(IPBIWInstruction*&, IPBIWPattern*&);
-    void saveAndCreateNewPBIWElements(IPBIWInstruction*&, IPBIWPattern*&);
+    void savePBIWElements(rVex64PBIWInstruction*&, rVex96PBIWPattern*&);
+    void createNewPBIWElements(rVex64PBIWInstruction*&, rVex96PBIWPattern*&);
+    void saveAndCreateNewPBIWElements(rVex64PBIWInstruction*&, rVex96PBIWPattern*&);
     void resetFinalOperation(VexSyllableOperandVector::Collection::const_iterator&, IOperation*&, rVex::Syllable* const&, const VexSyllableOperandVector&);
 
     /**

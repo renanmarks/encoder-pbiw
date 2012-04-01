@@ -15,12 +15,12 @@ namespace rVex
         using PBIW::Operand;
         using PBIW::Utils::OperandItem;
         
-        builder.insertRegister(this->brSource, OperandItem::BRSource);
-        builder.insertRegister(this->grDestiny, OperandItem::GRDestiny);
-        builder.insertRegisters(readRegisters, OperandItem::GRSource);
+        builder.insertRegister(this->brSource, OperandItem::BRSource, this);
+        builder.insertRegister(this->grDestiny, OperandItem::GRDestiny, this);
+        builder.insertRegisters(readRegisters, OperandItem::GRSource, this);
 
         if (getLayoutType() == LayoutType::ISTYPE)
-          builder.insertImmediate(this->shortImmediate, Operand::Immediate::NineBits);
+          builder.insertImmediate(this->shortImmediate, Operand::Immediate::NineBits, this);
       }
     }
   }

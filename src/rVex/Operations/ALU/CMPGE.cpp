@@ -16,17 +16,17 @@ namespace rVex
         using PBIW::Utils::OperandItem;
         
         if (this->haveBRDestiny)
-          builder.insertRegister(0, OperandItem::GRDestiny);
+          builder.insertRegister(0, OperandItem::GRDestiny, this);
         else
-          builder.insertRegister(this->grDestiny, OperandItem::GRDestiny);
+          builder.insertRegister(this->grDestiny, OperandItem::GRDestiny, this);
         
-        builder.insertRegisters(readRegisters, OperandItem::GRSource);
+        builder.insertRegisters(readRegisters, OperandItem::GRSource, this);
         
         if (getLayoutType() == LayoutType::ISTYPE)
-          builder.insertImmediate(this->shortImmediate, Operand::Immediate::NineBits);
+          builder.insertImmediate(this->shortImmediate, Operand::Immediate::NineBits, this);
         
         if (this->haveBRDestiny)
-          builder.insertRegister(this->brDestiny, OperandItem::BRDestiny);
+          builder.insertRegister(this->brDestiny, OperandItem::BRDestiny, this);
       }
     }
   }

@@ -54,7 +54,7 @@ namespace PBIW
          * Points this instruction to its pattern.
          * @param The pattern referenced by this instruction
          */
-        virtual void pointToPattern(const IPBIWPattern&) = 0;
+        virtual void pointToPattern(IPBIWPattern&) = 0;
         
         /**
          * Return the pattern that this instruction points to.

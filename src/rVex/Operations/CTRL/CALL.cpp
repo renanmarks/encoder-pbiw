@@ -12,12 +12,12 @@ namespace rVex
         using PBIW::Operand;
         using PBIW::Utils::OperandItem;
         
-        builder.insertRegister(this->grDestiny, OperandItem::GRSource);
+        builder.insertRegister(this->grDestiny, OperandItem::GRSource, this);
         
         if (readRegisters.size() == 0)
-          builder.insertImmediate(this->shortImmediate, Operand::Immediate::TwelveBits);
+          builder.insertImmediate(this->shortImmediate, Operand::Immediate::TwelveBits, this);
         else
-          builder.insertRegister(this->readRegisters[0], OperandItem::GRSource);
+          builder.insertRegister(this->readRegisters[0], OperandItem::GRSource, this);
       }
       
       void
