@@ -53,7 +53,12 @@ namespace rVex
           printer.getOutputStream() << (*dependencyIt)->getAddress() << ", ";
         }
         
-        printer.getOutputStream() << ")" << std::endl;
+        printer.getOutputStream() << ")";
+        
+        if (it->second.canSplit)
+          printer.getOutputStream() << " Can split here!" << std::endl;
+        else
+          printer.getOutputStream() << " Can NOT split here!" << std::endl;
       }
     }
     
@@ -61,11 +66,23 @@ namespace rVex
     DependencyChains::buildDependenciesChains(const rVex::Instruction& instruction)
     {
       rVex::Instruction::SyllableVector syllables = instruction.getSyllables();
-      rVex::Instruction::SyllableVector::iterator it;
+      rVex::Instruction::SyllableVector::iterator syllableIt;
       
       // Fills all the inter-syllable dependencies
-      for(it = syllables.begin(); it < syllables.end(); it++)
-        dependencies[*it] = getDependencies(it, syllables);
+      for(syllableIt = syllables.begin(); syllableIt < syllables.end(); syllableIt++)
+        dependencies[*syllableIt] = getDependencies(syllableIt, syllables);
+      
+      DependencyDictionary::iterator it;
+      
+      for(it = dependencies.begin(); it != dependencies.end(); it++)
+      {
+        bool hasTrueDependency = it->second.depends.size() > 0;
+        
+        if ( hasTrueDependency )
+          it->second.canSplit = false;
+        else
+          it->second.canSplit = true;
+      }
     }
     
     DependencyChains::Dependency 

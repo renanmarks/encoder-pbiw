@@ -23,21 +23,15 @@ namespace rVex
     class DependencyChains
     {
     public:
-//      DependencyChains();
-//      DependencyChains(const DependencyChains& orig);
-//      virtual ~DependencyChains();
-      
       void buildDependenciesChains(const rVex::Instruction&);
-      
       void print(rVex::Printers::IPrinter&) const;
       
     private:
       struct Dependency
       {
-        Dependency() : possibleSplit(false) {};
+        Dependency() : canSplit(false) {};
         
-        bool possibleSplit;
-        
+        bool canSplit;
         
         typedef std::deque<rVex::Syllable*> SyllableList;
         SyllableList antiDepends;
