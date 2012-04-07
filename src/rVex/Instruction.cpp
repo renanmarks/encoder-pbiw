@@ -151,4 +151,10 @@ namespace rVex
   {
     printer.printInstruction(*this);
   }
+  
+  void 
+  Instruction::printSyllableDependencies(rVex::Printers::IPrinter& printer) const
+  {
+    dependencies.print(printer);
+  }
 }

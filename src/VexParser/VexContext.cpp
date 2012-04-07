@@ -243,6 +243,8 @@ namespace VexParser
       hasLabel = false;
     }
     
+    instruction->buildSyllableDependencies();
+    
     syllableBuffer.clear();
     instructions.push_back(instruction);
   }

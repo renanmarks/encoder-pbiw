@@ -12,6 +12,7 @@
 #include <vector>
 #include <algorithm>
 #include "Syllable.h"
+#include "Utils/DependencyChains.h"
 
 namespace rVex
 {
@@ -41,6 +42,7 @@ namespace rVex
       { return this->label; }
       
       void print(rVex::Printers::IPrinter&) const;
+      void printSyllableDependencies(rVex::Printers::IPrinter&) const;
       
       SyllableVector getSyllables() const;
     
@@ -56,9 +58,16 @@ namespace rVex
       unsigned int
       getWordAddress() const
       { return wordAddress; }
+      
+      void buildSyllableDependencies()
+      { dependencies.buildDependenciesChains(*this); }
+      
     private:
       rVex::Label* label;
       SyllableVector syllables;
+      
+      Utils::DependencyChains dependencies;
+      
       unsigned int address; // instruction address, aligned by 16 bytes
       unsigned int wordAddress; // word address, aligned by 4 bytes
   };

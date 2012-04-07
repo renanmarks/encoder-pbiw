@@ -31,9 +31,11 @@ namespace rVex
       address(0),
       layoutType(),
       grDestiny(0),
+      haveGRDestiny(false),
       brDestiny(0),
       haveBRDestiny(false),
       brSource(0),
+      haveBRSource(false),
       shortImmediate(0),
       branchDestiny(NULL)
       {}
@@ -241,6 +243,9 @@ namespace rVex
       virtual unsigned short getShortImmediate() const 
       { return shortImmediate; }
 
+      virtual bool hasBrSource() const
+      { return haveBRSource; }
+      
       virtual bool hasBrDestiny() const
       { return haveBRDestiny; }
       
@@ -251,13 +256,16 @@ namespace rVex
       { return brDestiny; }
       
       virtual void setBrSource(unsigned char brSource) 
-      { this->brSource=brSource; }
+      { haveBRSource = true; this->brSource=brSource; }
       
       virtual unsigned char getBrSource() const 
       { return brSource; }
 
+      virtual bool hasGrDestiny() const
+      { return haveGRDestiny; }
+      
       virtual void setGrDestiny(unsigned char grDestiny) 
-      { this->grDestiny=grDestiny; }
+      { haveGRDestiny = true; this->grDestiny=grDestiny; }
       
       virtual unsigned char getGrDestiny() const 
       { return grDestiny; }
@@ -355,11 +363,13 @@ namespace rVex
       
       Syllable::LayoutType::Type layoutType;
       unsigned char grDestiny;
+      bool haveGRDestiny;
       unsigned char brDestiny;
       bool haveBRDestiny;
       
       ReadRegVector readRegisters;
       unsigned char brSource;
+      bool haveBRSource;
       unsigned short shortImmediate;
       
       std::string labelDestiny;

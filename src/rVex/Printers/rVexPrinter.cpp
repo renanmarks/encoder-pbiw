@@ -44,7 +44,7 @@ namespace rVex
       else
         resultBinary.append("0");
 
-      output << "\t(S: " << syllable->getAddress() << ") " << resultBinary << std::endl;
+      output << "\t(S: " << syllable->getAddress() << ") " << resultBinary;
     }
 
     /**
@@ -55,10 +55,10 @@ namespace rVex
     {
       typedef std::vector<rVex::Syllable*> SyllableVec;
       
-      SyllableVec syllables = instruction.getOrderedSyllables();
+      SyllableVec syllables = instruction.getSyllables();
       SyllableVec::const_iterator it;
       
-      output << "[I: " << instruction.getAddress() << "] ["<< instruction.getWordAddress() << "]";
+      output << "[I: " << instruction.getAddress() << "] ["<< instruction.getWordAddress() << "]" << std::endl;
       
       try 
       {
@@ -75,8 +75,11 @@ namespace rVex
 
           else // ... if is in the middle, put 00 in LF bits
             (*it)->print(*this, false, false); // O(1)
+          
+          output << " -- " << (*it)->getTextRepresentation() << std::endl;
         }
       
+        instruction.printSyllableDependencies(*this);
       }
       catch (rVex::Syllable::LayoutNotSupportedException* e)
       {
