@@ -220,111 +220,112 @@ namespace PBIW
         if (*it == operand)
           return *it;
       }
+      
+      if (opBRslot == operand)
+        return opBRslot;
 
+      if (opBRFslot == operand)
+        return opBRFslot;
+      
       return operand;
     }
 
+    void rVex64PBIWInstruction::setBranchSlot(const Operand& operand, Operand& field)
+    {
+      unsigned int index = operand.getIndex();
+      unsigned int size = index+1;
+      
+      std::list<Operand> operandsTemp(operands.begin(), operands.end());
+      std::list<Operand>::iterator operandIt = std::find(operandsTemp.begin(), operandsTemp.end(), operand);
+      
+      // If found the operand, lets remove it and use it at the specified slot
+      if (operandIt != operandsTemp.end())
+      {
+        // Save the old index, so we can update the pattern at next
+        unsigned int oldIndex = operandIt->getIndex();
+        operandsTemp.erase(operandIt);
+        
+        // Update the indexes
+        pattern->updateIndexes(oldIndex, index);
+        
+        // Re-index all the operands as consequence of the move!
+        int newIndex = 0;
+        for(operandIt = operandsTemp.begin(); operandIt != operandsTemp.end(); operandIt++, newIndex++)
+        {
+          if (newIndex == 5 && this->opBRslot.getValue() > -1)
+            newIndex++;
+          
+          if (newIndex == 6 && this->opBRFslot.getValue() > -1)
+            newIndex++;
+          
+          operandIt->setIndex(newIndex);
+        }
+        
+        // Sort them and apply to the original vector
+        operandsTemp.sort();
+        operands.assign(operandsTemp.begin(), operandsTemp.end());
+      }
+      
+      // The slot at index 5 is occupied
+      if (operands.size() >= size)
+      {
+        // If we're lucky...!
+        if (operands.at(index) == operand)
+        {
+          operands.erase(operands.begin()+index);
+          field = operand;
+          return;
+        }
+        
+        // ... if not so lucky, lets see if we have a empty slot to move someone
+        if (hasReadOperandSlot())
+        {
+          if (!operands.at(index).isBRSource())
+          {
+            Operand operandAtIndex = operands.at(index);
+
+            unsigned int oldIndex = operandAtIndex.getIndex();
+            addReadOperand(operandAtIndex);
+            unsigned int newIndex = operandAtIndex.getIndex();
+
+            pattern->updateIndexes(oldIndex, newIndex);
+            
+            operands.erase(operands.begin()+index);
+          }
+          else
+          {
+            int freeSlotIndex = giveEmptyBranchSourceSlot();
+            
+            if (freeSlotIndex > -1)
+            {
+              operands.at(freeSlotIndex) = operands.at(index);
+              operands.erase(operands.begin()+index);
+            }
+          }
+        }
+        else
+        {
+          throw std::range_error("Not found free slot to move operation.");
+        }
+      }
+      
+      field = operand; 
+    }
+    
     void rVex64PBIWInstruction::setOpBRFslot(IOperand& operand)
     { 
       Operand& operandReference = dynamic_cast<Operand&>(operand);
       operandReference.setIndex(6);
       
-      // The slot at index 5 is occupied
-      if (operands.size() >= 7)
-      {
-        // If we're lucky...!
-        if (operands.at(6) == operandReference)
-        {
-          operands.erase(operands.begin()+6);
-          this->opBRslot = operandReference;
-          return;
-        }
-        
-        // ... if not so lucky, lets see if we have a empty slot to move someone
-        if (hasReadOperandSlot())
-        {
-          if (!operands.at(6).isBRSource())
-          {
-            Operand operandAt6 = operands.at(6);
-
-            unsigned int oldIndex = operandAt6.getIndex();
-            addReadOperand(operandAt6);
-            unsigned int newIndex = operandAt6.getIndex();
-
-            pattern->updateIndexes(oldIndex, newIndex);
-            
-            operands.erase(operands.begin()+6);
-          }
-          else
-          {
-            int freeSlotIndex = giveEmptyBranchSourceSlot();
-            
-            if (freeSlotIndex > -1)
-            {
-              operands.at(freeSlotIndex) = operands.at(6);
-              operands.erase(operands.begin()+6);
-            }
-          }
-        }
-        else
-        {
-          throw std::range_error("Not found free slot to move operation.");
-        }
-      }
-      
-      this->opBRslot = operandReference; 
+      setBranchSlot(operandReference, this->opBRFslot);
     }
 
     void rVex64PBIWInstruction::setOpBRslot(IOperand& operand)
     { 
       Operand& operandReference = dynamic_cast<Operand&>(operand);
-      
       operandReference.setIndex(5);
       
-      // The slot at index 5 is occupied
-      if (operands.size() >= 6)
-      {
-        // If we're lucky...!
-        if (operands.at(5) == operandReference)
-        {
-          operands.erase(operands.begin()+5);
-          this->opBRslot = operandReference;
-          return;
-        }
-        
-        // ... if not so lucky, lets see if we have a empty slot to move someone
-        if (hasReadOperandSlot())
-        {
-          if (!operands.at(5).isBRSource())
-          {
-            Operand operandAt5 = operands.at(5);
-
-            unsigned int oldIndex = operandAt5.getIndex();
-            addReadOperand(operandAt5);
-            unsigned int newIndex = operandAt5.getIndex();
-
-            pattern->updateIndexes(oldIndex, newIndex);
-            
-            operands.erase(operands.begin()+5);
-          }
-          else
-          {
-            int freeSlotIndex = giveEmptyBranchSourceSlot();
-            
-            if (freeSlotIndex > -1)
-            {
-              operands.at(freeSlotIndex) = operands.at(5);
-              operands.erase(operands.begin()+5);
-            }
-          }
-        }
-        else
-        {
-          throw std::range_error("Not found free slot to move operation.");
-        }
-      }
-      
-      this->opBRslot = operandReference; 
+      setBranchSlot(operandReference, this->opBRFslot);
     }
     
     void

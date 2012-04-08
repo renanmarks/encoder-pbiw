@@ -154,6 +154,7 @@ namespace PBIW
       Operand opBRFslot;
       
       virtual int giveEmptyBranchSourceSlot();
+      void setBranchSlot(const Operand&, Operand&);
 
       Operand immediate; // (9 or 12 bit immediates)
       Operand zeroOperand;

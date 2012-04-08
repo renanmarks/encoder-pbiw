@@ -30,6 +30,9 @@ namespace PBIW
        * Wrapper methods to internal vector.
        */
       
+      void
+      clear();
+      
       Collection::iterator
       begin()
       { return operands.begin(); }

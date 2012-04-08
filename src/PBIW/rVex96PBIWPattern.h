@@ -34,6 +34,9 @@ namespace PBIW
     
     virtual void addOperation(IOperation*);
     
+    virtual void removeLastAddedOperation()
+    { operations.pop_back(); }
+    
     virtual OperationVector getOperations() const
     { return operations; }
     

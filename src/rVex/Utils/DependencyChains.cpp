@@ -5,6 +5,8 @@
  * Created on April 5, 2012, 3:55 PM
  */
 
+#include <iostream>
+#include <functional>
 #include "DependencyChains.h"
 #include "src/rVex/rVex.h"
 
@@ -62,6 +64,8 @@ namespace rVex
       }
     }
     
+    
+    
     void 
     DependencyChains::buildDependenciesChains(const rVex::Instruction& instruction)
     {
@@ -79,9 +83,41 @@ namespace rVex
         bool hasTrueDependency = it->second.depends.size() > 0;
         
         if ( hasTrueDependency )
-          it->second.canSplit = false;
-        else
+        {
+          Dependency::SyllableList::iterator syllableIt;
+          
+          for (syllableIt = it->second.depends.begin();
+               syllableIt < it->second.depends.end();
+               syllableIt++)
+          {
+            markSplits(*syllableIt, it->first);
+          }
+        }
+        else if (it->second.isRealDependency == false)
           it->second.canSplit = true;
+      }
+    }
+    
+    bool 
+    DependencyChains::SearchSyllable::operator ()(DepMapItem item)
+    {
+      return item.first->getAddress() == address;
+    }
+    
+    void 
+    DependencyChains::markSplits(rVex::Syllable* first, 
+                                 rVex::Syllable* last)
+    {
+      // Starting with the next element
+      DependencyDictionary::iterator it = std::find_if(dependencies.begin(), dependencies.end(), SearchSyllable(first->getAddress()+1));
+      DependencyDictionary::iterator endIt = std::find_if(dependencies.begin(), dependencies.end(), SearchSyllable(last->getAddress()));
+      
+      while(it != endIt)
+      {
+        it->second.canSplit = false;
+        it->second.isRealDependency = true;
+        
+        it = std::find_if(dependencies.begin(), dependencies.end(), SearchSyllable(it->first->getAddress()+1));
       }
     }
     
@@ -99,7 +135,9 @@ namespace rVex
         if ( ((*otherSyllableIt)->getAddress() == (*it)->getAddress()) || ((*otherSyllableIt)->getGrDestiny() == 0 && !(*it)->hasBrSource()) )
           continue;
         
-        bool writesInMyGrReadRegister = (*otherSyllableIt)->hasGrDestiny() && (std::find(readRegs.begin(), readRegs.end(), (*otherSyllableIt)->getGrDestiny()) != readRegs.end());
+        bool writesInMyGrReadRegister = 
+          (*otherSyllableIt)->hasGrDestiny() 
+          && (std::find(readRegs.begin(), readRegs.end(), (*otherSyllableIt)->getGrDestiny()) != readRegs.end());
         
         bool writesInMyBrReadRegister = 
           (*otherSyllableIt)->hasBrDestiny() 

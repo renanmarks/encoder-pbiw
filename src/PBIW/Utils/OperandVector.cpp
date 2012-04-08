@@ -27,6 +27,11 @@ namespace PBIW
 
     OperandVector::~OperandVector()
     {
+      clear();
+    }
+
+    void OperandVector::clear()
+    {
       Collection::iterator it;
 
       for (it = operands.begin(); it < operands.end(); it++)
@@ -34,21 +39,18 @@ namespace PBIW
       
       operands.clear();
     }
-
+    
     OperandVector& 
     OperandVector::operator=(const OperandVector& other) // O(|operands| + |other|) = O(1)
     {
       if (this != &other)
       {
-        Collection::const_iterator it;
-
-        for (it = operands.begin(); it < operands.end(); it++) 
-          delete *it;
+        clear();
         
-        operands.clear();
+        Collection::const_iterator otherIt;
         
-        for (it = other.begin(); it < other.end(); it++)
-          operands.push_back(new OperandItem(**it));
+        for (otherIt = other.begin(); otherIt < other.end(); otherIt++)
+          operands.push_back(new OperandItem(**otherIt));
       }
       
       return *this;

@@ -26,17 +26,36 @@ namespace rVex
       void buildDependenciesChains(const rVex::Instruction&);
       void print(rVex::Printers::IPrinter&) const;
       
+      bool canSplitSyllable(rVex::Syllable* syllable) const
+      { return dependencies.find(syllable)->second.canSplit; }
+      
     private:
       struct Dependency
       {
-        Dependency() : canSplit(false) {};
+        Dependency() : canSplit(false), isRealDependency(false) {};
         
         bool canSplit;
+        bool isRealDependency;
         
         typedef std::deque<rVex::Syllable*> SyllableList;
         SyllableList antiDepends;
         SyllableList depends;
       };
+      
+      typedef std::pair<rVex::Syllable* const, rVex::Utils::DependencyChains::Dependency> DepMapItem;
+      
+      class SearchSyllable : public std::unary_function<DepMapItem,bool> 
+      {
+        unsigned int address;
+
+      public:
+        SearchSyllable(unsigned int _address) : address(_address)
+        { }
+
+        bool operator() (DepMapItem vish);
+      };
+      
+      void markSplits(rVex::Syllable*, rVex::Syllable*);
       
       Dependency getDependencies(const std::vector<Syllable*>::iterator&, 
            const std::vector<Syllable*>&);

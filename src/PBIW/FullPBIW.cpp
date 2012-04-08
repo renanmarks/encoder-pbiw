@@ -187,8 +187,30 @@ namespace PBIW
           {
             if ( !finalInstruction->hasOperandSlot( **operandIt ) )
             {
-              saveAndCreateNewPBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
-              resetFinalOperation(operandIt, finalOperation, *syllableIt, operands); // O(1)
+              if ( (*instructionIt)->canSplitSyllable(*syllableIt) )
+              {
+                saveAndCreateNewPBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
+                resetFinalOperation(operandIt, finalOperation, *syllableIt, operands); // O(1)
+              }
+              else
+              {
+                while ( !(*instructionIt)->canSplitSyllable(*syllableIt) )
+                {
+                  syllablesBuffer.remove(*syllableIt);
+                  syllableIt--; // go back
+                  newPattern->removeLastAddedOperation();
+                } 
+                
+                syllablesBuffer.remove(*syllableIt);
+                
+                saveAndCreateNewPBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
+                
+                operandVectorBuilder.clearOperandVector();
+                (*syllableIt)->exportOperandVector(operandVectorBuilder);
+                operands = operandVectorBuilder.getOperandVector();
+                
+                resetFinalOperation(operandIt, finalOperation, *syllableIt, operands); // O(1)
+              }
             }
 
             operand = (*operandIt)->getOperand(); // O(1)
@@ -214,6 +236,29 @@ namespace PBIW
               case Utils::OperandItem::GRDestiny :
               case Utils::OperandItem::Imm :
                 finalInstruction->addReadOperand(*operand); // O(1)
+                break;
+            }
+          }
+          else 
+          {
+            // If found, check if it is some operand of a BR/BRF syllable
+            // and put it in its position
+            switch ( (*operandIt)->getType() )
+            {
+              case Utils::OperandItem::BRSource :
+                if (finalOperation->getOpcode() == rVex::Syllable::opBR)
+                {
+                  finalInstruction->setOpBRslot(*operand); // O(1)
+                  finalOperation->addOperand( *operand ); // O(1)
+                  continue;
+                }
+                else if (finalOperation->getOpcode() == rVex::Syllable::opBRF)
+                {
+                  finalInstruction->setOpBRFslot(*operand); // O(1)
+                  finalOperation->addOperand( *operand ); // O(1)
+                  continue;
+                }
+              default:
                 break;
             }
           }

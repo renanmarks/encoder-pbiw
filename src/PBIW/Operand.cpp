@@ -89,7 +89,7 @@ namespace PBIW
       //(this->index == otherOperand.index) &&
       (this->isImmediate12Bits() == otherOperand.isImmediate12Bits()) &&
       (this->isImmediate9Bits() == otherOperand.isImmediate9Bits());
-
+    
     return isEqual;
   }
   

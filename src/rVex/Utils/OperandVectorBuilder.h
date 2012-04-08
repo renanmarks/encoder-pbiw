@@ -26,6 +26,9 @@ namespace rVex
       void insertRegisters(const std::vector<unsigned int>& values, OperandItem::Type type, const rVex::Syllable*);
       void insertImmediate(int value, Operand::Immediate::Type, const rVex::Syllable*);
       
+      void clearOperandVector()
+      { items.clear(); }
+      
       const OperandVector& getOperandVector();
       
     private:

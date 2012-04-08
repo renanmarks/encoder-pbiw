@@ -62,6 +62,9 @@ namespace rVex
       void buildSyllableDependencies()
       { dependencies.buildDependenciesChains(*this); }
       
+      bool canSplitSyllable(Syllable* syllable) const
+      { return dependencies.canSplitSyllable(syllable); }
+      
     private:
       rVex::Label* label;
       SyllableVector syllables;
