@@ -113,7 +113,7 @@ namespace VexParser
           else
           {
             // If is a register, change GOTO syllable to IGOTO syllable
-            textRepresentation.append("(To ICALL)");
+            textRepresentation.append("(To IGOTO)");
             
             rVex::Operations::CTRL::IGOTO igoto;
             memcpy(syllable, &igoto, sizeof(igoto));

@@ -227,6 +227,9 @@ namespace PBIW
       if (opBRFslot == operand)
         return opBRFslot;
       
+      if (operand.isImmediate() && immediate == operand)
+        return immediate;
+      
       return operand;
     }
 
