@@ -57,7 +57,7 @@ namespace PBIW
     virtual int getUsageCounter() const
     { return usageCounter; }
     
-    virtual void reorganize(const IPBIWInstruction* instruction);
+    virtual void reorganize(IPBIWInstruction* instruction);
     
     virtual void print(IPBIWPrinter&) const;
     
@@ -77,8 +77,22 @@ namespace PBIW
     OperationVector operations; // Max 4
     int usageCounter;
     
-    virtual unsigned int getValueByIndex(const IPBIWInstruction*& instruction, int index) const;
+    virtual unsigned int getValueByIndex(const IPBIWInstruction* instruction, int index) const;
+    
+    /**
+     * Used to exchange operations of patterns referents to the instructions without annulation bits
+     * @param index1
+     * @param index2
+     */
     virtual void exchangeOperations(int index1, int index2);
+    
+    /**
+     * Used to exchange operations of patterns referents to the instructions withou annulation bits
+     * @param index1
+     * @param index2
+     * @param instruction
+     */
+    virtual void exchangeOperations(int index1, int index2, IPBIWInstruction* instruction);
     
   };
 }

@@ -13,6 +13,13 @@
 #include "rVex64PBIWInstruction.h"
 #include "Interfaces/IOperand.h"
 
+#define ZEROINDEX 14   // 15
+#define IMM9BITS 9    // 10
+#define IMM12BITS 10   // 11
+#define ALLFIELDS 11   // 12
+#define READFIELDS 7   // 8
+#define WRITEFIELDS 3  // 4
+
 namespace PBIW
 {
     using namespace Interfaces;
@@ -39,7 +46,7 @@ namespace PBIW
       // Setup the non present indexes set
       std::set<int> allIndexes;
       
-      for(int i=0; i<12; i++)
+      for(int i=0; i<ALLFIELDS; i++)
         allIndexes.insert(i);
       
       // Let remain only the indexes not presents in the temp set
@@ -61,6 +68,9 @@ namespace PBIW
 
       return rVex64PBIWInstruction::OperandVector(temp.begin(), temp.end());
     }
+    
+    
+    
 
     void
     rVex64PBIWInstruction::print(IPBIWPrinter& printer) const
@@ -78,7 +88,18 @@ namespace PBIW
       output.longWord=0;
 
       output.longWord|=pattern->getAddress();
-
+      
+      // Extra bit
+      output.longWord<<=1;
+            
+      for(unsigned int i = 0;
+              i < annulBits.size();
+              i++) 
+      {
+          output.longWord<<=1;
+          output.longWord|= annulBits[i];          
+      }
+      
       // Get rid of the -1 values
       for (it=operands.begin();
            it < operands.end();
@@ -88,8 +109,8 @@ namespace PBIW
           it->setValue(zeroOperand.getValue());
       }
 
-      bool hasImm9Bits=operands[10].isImmediate9Bits();
-      bool hasImm12Bits=operands[11].isImmediate12Bits();
+      bool hasImm9Bits=operands[IMM9BITS].isImmediate9Bits();
+      bool hasImm12Bits=operands[IMM12BITS].isImmediate12Bits();
       bool hasImmediate=hasImm9Bits || hasImm12Bits;
 
       if (!hasImmediate)
@@ -123,16 +144,16 @@ namespace PBIW
         if (hasImm9Bits)
         {
           output.longWord<<=10;
-          output.longWord|=(0x000001FF & operands[10].getValue());
+          output.longWord|=(0x000001FF & operands[IMM9BITS].getValue());
 
           output.longWord<<=3;
-          output.longWord|=operands[11].getValue();
+          output.longWord|=operands[IMM12BITS].getValue();
         }
 
         if (hasImm12Bits)
         {
           output.longWord<<=13;
-          output.longWord|=(0x00000FFF & operands[11].getValue());
+          output.longWord|=(0x00000FFF & operands[IMM12BITS].getValue());
         }
       }
 
@@ -141,6 +162,16 @@ namespace PBIW
       binary.push_back(output.word[0]);
 
       printer.printInstruction(*this, binary);
+    }
+    
+    void
+    rVex64PBIWInstruction::updateAnnulBits(int index1, int index2)
+    {
+        bool tempBit;
+       
+        tempBit = this->annulBits[index1];
+        this->setAnnulBit(index1, this->annulBits[index2]);
+        this->setAnnulBit(index2, tempBit);
     }
 
     void
@@ -340,9 +371,9 @@ namespace PBIW
       if (operand.isImmediate())
       {
         if (operand.isImmediate9Bits())
-          operand.setIndex(10);
+          operand.setIndex(IMM9BITS);
         else if (operand.isImmediate12Bits())
-          operand.setIndex(11);
+          operand.setIndex(IMM12BITS);
 
         immediate=dynamic_cast<Operand&> (operand);
 
@@ -351,7 +382,7 @@ namespace PBIW
       
       if (operand.getValue() == 0 && !operand.isBRSource() && !operand.isBRDestiny())
       {
-        operand.setIndex(15);
+        operand.setIndex(ZEROINDEX);
         return;
       }
       
@@ -375,14 +406,14 @@ namespace PBIW
         // If we have immediate, do the absolute indexing
         if (immediate.isImmediate9Bits())
         {
-          if (operands.size() == 9)
-            index = 11;
-          else if (operands.size() < 9)
+          if (operands.size() == 8) // 9
+            index = 10;
+          else if (operands.size() < 8)
             index = operands.size();
         }
         else if (immediate.isImmediate12Bits())
         {
-          if (operands.size() < 9)
+          if (operands.size() < 8)
             index = operands.size();
         }
       }
@@ -420,7 +451,7 @@ namespace PBIW
     rVex64PBIWInstruction::giveEmptyBranchSourceSlot()
     {
       // Check if there is space in the 0-7 slot range;
-      if (operands.size() < 8)
+      if (operands.size() < READFIELDS)
       {
         if (operands.size() == 0)
           return -2;
@@ -434,7 +465,7 @@ namespace PBIW
         OperandVector::iterator it;
         int index = 0;
         
-        for(it = operands.begin(); it < operands.begin()+8; it++, index++)
+        for(it = operands.begin(); it < operands.begin()+READFIELDS; it++, index++)
         {
           // Change the operand position and inform the new space opened
           if (!it->isBRSource())
@@ -475,21 +506,21 @@ namespace PBIW
           if (this->containsImmediate())
             return false;
 
-          if (operand.getOperand()->isImmediate9Bits() && operands.size() == 10)
+          if (operand.getOperand()->isImmediate9Bits() && operands.size() == 9)
           {
-            if (operands.back().getValue() < 8)
+            if (operands.back().getValue() < READFIELDS)
             {
-              operands.back().setIndex(11);
+              operands.back().setIndex(IMM12BITS);
               return true;
             }
 
             return false;
           }
 
-          if (operand.getOperand()->isImmediate9Bits() && operands.size() > 10)
+          if (operand.getOperand()->isImmediate9Bits() && operands.size() > 9)
             return false;
 
-          if (operand.getOperand()->isImmediate12Bits() && operands.size() > 10)
+          if (operand.getOperand()->isImmediate12Bits() && operands.size() > 9)
             return false;
           break;
 
@@ -501,7 +532,7 @@ namespace PBIW
             return (opBRFslot.getValue() == -1);
           
           // Check if there is space in the 0-7 slot range;
-          if (operands.size() < 8)
+          if (operands.size() < READFIELDS)
           {
             return true;
           }
@@ -539,47 +570,26 @@ namespace PBIW
         if (opBRslot.getValue() > -1)
         {
           if (opBRFslot.getValue() > -1)
-            return (operandsSize < 8);
-          
-          return (operandsSize < 9);
-        }
-        
-        return (operandsSize < 10);
-      }
-      else if (immediate.isImmediate12Bits())
-      {
-        if (opBRslot.getValue() > -1)
-        {
-          if (opBRFslot.getValue() > -1)
-            return (operandsSize < 7);
+            return (operandsSize < READFIELDS);
           
           return (operandsSize < 8);
         }
         
         return (operandsSize < 9);
       }
+      else if (immediate.isImmediate12Bits())
+      {
+        if (opBRslot.getValue() > -1)
+        {
+          if (opBRFslot.getValue() > -1)
+            return (operandsSize < 6);
+          
+          return (operandsSize < READFIELDS);
+        }
+        
+        return (operandsSize < 8);
+      }
       
-      return (operandsSize < 12);
-      
-//      bool withImmSlot = 
-//        (immediate.isImmediate9Bits() && (operandsSize < 10)) ||
-//        (immediate.isImmediate12Bits() && (operandsSize < 9)) ||
-//        (!immediate.isImmediate12Bits() && !immediate.isImmediate9Bits() && operandsSize < 12);
-//      
-//      bool withBRSlot = 
-//        (opBRslot.getValue() > -1) && (operandsSize < 9) && (immediate.isImmediate9Bits()) ||
-//        (opBRslot.getValue() > -1) && (operandsSize < 11) && (!immediate.isImmediate9Bits()) ||
-//      
-//        (opBRslot.getValue() > -1) && (operandsSize < 8) && (immediate.isImmediate12Bits()) ||
-//        (opBRslot.getValue() > -1) && (operandsSize < 11) && (!immediate.isImmediate12Bits());
-//      
-//      bool withBRFSlot = 
-//        (opBRFslot.getValue() > -1) && (operandsSize < 9) && (immediate.isImmediate9Bits()) ||
-//        (opBRFslot.getValue() > -1) && (operandsSize < 11) && (!immediate.isImmediate9Bits()) ||
-//      
-//        (opBRFslot.getValue() > -1) && (operandsSize < 8) && (immediate.isImmediate12Bits()) ||
-//        (opBRFslot.getValue() > -1) && (operandsSize < 11) && (!immediate.isImmediate12Bits());
-//      
-//      return withImmSlot || withBRFSlot || withBRSlot;
+      return (operandsSize < ALLFIELDS);
     }
 }

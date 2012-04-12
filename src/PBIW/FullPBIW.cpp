@@ -279,6 +279,14 @@ namespace PBIW
         
         syllablesBuffer.push_back(*syllableIt);
         newPattern->addOperation(finalOperation);
+        
+        // Set annul bit referent this operation is used by the pattern (pointed by the instruction)
+        unsigned int index = newPattern->getOperations().size();
+        
+        if(newPattern->getOperation(index-1)->getOpcode() != 0)
+        {
+          finalInstruction->setAnnulBit(index-1,true);          
+        }
       } // ... end for each syllable
       
       savePBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)

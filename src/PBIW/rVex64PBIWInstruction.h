@@ -33,11 +33,12 @@ namespace PBIW
         opBRslot(-1),
         opBRFslot(-1),
         immediate(),
-        zeroOperand(0)
+        zeroOperand(0),
+        annulBits(4,false)
       {
-        zeroOperand.setIndex(15);
+        zeroOperand.setIndex(14);
       }
-
+                
       virtual ~rVex64PBIWInstruction();
 
       virtual void setAddress(unsigned int addr)
@@ -106,7 +107,15 @@ namespace PBIW
       void setOpBRFslot(IOperand&);
 
       void setOpBRslot(IOperand&);
-
+            
+      virtual AnnulationBits getAnnulBits() const
+      {     return this->annulBits;    }
+      
+      virtual void setAnnulBit(int index, bool value)
+      {     annulBits[index] = value;   }
+      
+      virtual void updateAnnulBits(int index1, int index2);
+      
       /**
      * Exception thrown when the an encoding mismatch exception occurs;
      */
@@ -164,6 +173,8 @@ namespace PBIW
        */
       typedef std::list<rVex::Syllable*> SyllableList;
       SyllableList syllablesPacked;
+      
+      AnnulationBits annulBits;
     };
 }
 

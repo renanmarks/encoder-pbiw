@@ -11,6 +11,7 @@
 #include <set>
 #include <list>
 #include <deque>
+#include <vector>
 #include "IOperand.h"
 #include "IPBIWPattern.h"
 #include "IPBIWPrinter.h"
@@ -183,6 +184,14 @@ namespace PBIW
          * Returns the syllables that were codified in this instruction.
          */
         virtual std::list<rVex::Syllable*> getSyllableReferences() const = 0;
+       
+        typedef std::vector<bool> AnnulationBits;
+        virtual AnnulationBits getAnnulBits() const = 0;
+        
+        virtual void setAnnulBit(int, bool) = 0;
+        
+        virtual void updateAnnulBits(int index1, int index2) = 0;
+        
     };
 
   }

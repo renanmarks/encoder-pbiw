@@ -145,7 +145,7 @@ namespace PBIW
   }
   
   void 
-  rVex96PBIWPattern::reorganize(const IPBIWInstruction* instruction) // O(1)
+  rVex96PBIWPattern::reorganize(IPBIWInstruction* instruction) // O(1)
   {
     Operand zero;
     
@@ -182,7 +182,7 @@ namespace PBIW
             (counterIt != 0)
           )
         {            
-            this->exchangeOperations(0, counterIt);
+            this->exchangeOperations(0, counterIt, instruction);
 
             counterIt--;
             it--; 
@@ -192,7 +192,7 @@ namespace PBIW
                  (counterIt != 3)
                )
         {            
-            this->exchangeOperations(3, counterIt);
+            this->exchangeOperations(3, counterIt, instruction);
             
             counterIt--;
             it--;
@@ -216,11 +216,11 @@ namespace PBIW
               
               if(operations.at(1)->getOpcode() > operations.at(counterIt)->getOpcode())
               {
-                  this->exchangeOperations(1, counterIt);
+                  this->exchangeOperations(1, counterIt, instruction);
               }                  
           }                    
                     
-          this->exchangeOperations(index, counterIt);
+          this->exchangeOperations(index, counterIt, instruction);
           
           counterIt--;
           it--;
@@ -231,7 +231,7 @@ namespace PBIW
         {
             if(operations.at(1)->getOpcode() > operations.at(2)->getOpcode())
             {
-                this->exchangeOperations(1, 2);
+                this->exchangeOperations(1, 2, instruction);
             }
             else if(operations.at(1)->getOpcode() == operations.at(2)->getOpcode())
             {
@@ -242,7 +242,7 @@ namespace PBIW
                      this->getValueByIndex(instruction, operandsOp2.at(0))
                     )
                   { 
-                      this->exchangeOperations(1, 2);
+                      this->exchangeOperations(1, 2, instruction);
                   }                  
             }
         }
@@ -273,7 +273,7 @@ namespace PBIW
             {
                 if(operations.at(index1)->getOpcode() > operations.at(index2)->getOpcode())
                 {
-                    this->exchangeOperations(index1, index2);
+                    this->exchangeOperations(index1, index2, instruction);
                 }
                 else if( (operations.at(index1)->getOpcode() == operations.at(index2)->getOpcode()) )
                 {
@@ -285,7 +285,7 @@ namespace PBIW
                       this->getValueByIndex(instruction, operandsOp2.at(0)))
                     )
                     {
-                        this->exchangeOperations(index1, index2);
+                        this->exchangeOperations(index1, index2, instruction);
                     }
                     else if(
                       (this->getValueByIndex(instruction, operandsOp1.at(0)) ==
@@ -295,12 +295,12 @@ namespace PBIW
                         if(this->getValueByIndex(instruction, operandsOp1.at(1)) >
                            this->getValueByIndex(instruction, operandsOp2.at(1)))
                         {                            
-                            this->exchangeOperations(index1, index2);
+                            this->exchangeOperations(index1, index2, instruction);
                         }
                         else if(this->getValueByIndex(instruction, operandsOp1.at(1)) >
                                 this->getValueByIndex(instruction, operandsOp2.at(1)))
                         {
-                            this->exchangeOperations(index1, index2);
+                            this->exchangeOperations(index1, index2, instruction);
                         }
                     }
                 }
@@ -309,10 +309,10 @@ namespace PBIW
                     (operations.at(index1)->getType() == rVex::Syllable::SyllableType::ALU))
                    ) 
             {
-                this->exchangeOperations(index1, index2);
+                this->exchangeOperations(index1, index2, instruction);
             }
         }
-    }    
+    } 
   
   }
     
@@ -326,9 +326,16 @@ namespace PBIW
       operations.at(index1) = operations.at(index2);
       operations.at(index2) = operation;    
   }
+   
+  void
+  rVex96PBIWPattern::exchangeOperations(int index1, int index2, IPBIWInstruction* instruction) // O(1)
+  {
+      this->exchangeOperations(index1, index2);
+      instruction->updateAnnulBits(index1, index2);
+  }
   
   unsigned int
-  rVex96PBIWPattern::getValueByIndex(const IPBIWInstruction*& instruction, int index) const // O(1)
+  rVex96PBIWPattern::getValueByIndex(const IPBIWInstruction* instruction, int index) const// O(1)
   {
     IPBIWInstruction::OperandVector operands = instruction->getOperands();
     
