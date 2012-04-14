@@ -8,6 +8,7 @@
 #ifndef RVEX96PBIWPATTERN_H
 #define	RVEX96PBIWPATTERN_H
 
+#include <deque>
 #include <vector>
 #include "Interfaces/IPBIWPattern.h"
 #include "Operation.h"
@@ -51,11 +52,13 @@ namespace PBIW
     virtual unsigned int getOperationCount() const
     { return operations.size(); }
     
-    virtual void incrementUsageCounter()
-    { usageCounter++; }
+    virtual void pointToInstructionThatUseIt(IPBIWInstruction* instructionPointed);
+    
+    virtual std::deque<IPBIWInstruction*> getInstructionsThatUseIt() const
+    {   return instructionsThatUseIt;   }
     
     virtual int getUsageCounter() const
-    { return usageCounter; }
+    { return instructionsThatUseIt.size(); }
     
     virtual void reorganize(IPBIWInstruction* instruction);
     
@@ -76,6 +79,9 @@ namespace PBIW
     
     OperationVector operations; // Max 4
     int usageCounter;
+    
+    typedef std::deque<IPBIWInstruction*> InstructionsThatUseIt;
+    InstructionsThatUseIt instructionsThatUseIt;
     
     virtual unsigned int getValueByIndex(const IPBIWInstruction* instruction, int index) const;
     

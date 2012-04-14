@@ -13,6 +13,7 @@
 #include "src/PBIW/Printers/PartialPBIWPrinter.h"
 #include "Interfaces/IPBIWInstruction.h"
 #include "src/rVex/rVex.h"
+#include "rVex64PBIWInstruction.h"
 //#include "Operation.h"
 
 namespace PBIW
@@ -142,6 +143,12 @@ namespace PBIW
     {
       (*it)->updateIndexes(oldIndex, newIndex);
     }
+  }
+  
+  void
+  rVex96PBIWPattern::pointToInstructionThatUseIt(IPBIWInstruction* instructionPointed)
+  {
+      this->instructionsThatUseIt.push_back(instructionPointed);
   }
   
   void 
@@ -339,7 +346,7 @@ namespace PBIW
   {
     IPBIWInstruction::OperandVector operands = instruction->getOperands();
     
-    if (index == 15)
+    if (index == 14)
       return 0;
     
     if (index != -1)

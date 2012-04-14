@@ -65,7 +65,10 @@ namespace PBIW
          */
         virtual void updateIndexes(int oldIndex, int newIndex) = 0;
         
-        virtual void incrementUsageCounter() = 0;
+        virtual void pointToInstructionThatUseIt(IPBIWInstruction*) = 0;
+        
+        virtual std::deque<IPBIWInstruction*> getInstructionsThatUseIt() const = 0;
+        
         virtual int getUsageCounter() const = 0;
         virtual void reorganize(IPBIWInstruction*) = 0;
         
