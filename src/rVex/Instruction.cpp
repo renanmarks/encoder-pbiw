@@ -7,9 +7,22 @@
 
 #include "Instruction.h"
 #include "src/rVex/Printers/IPrinter.h"
+#include "src/PBIW/Interfaces/IPBIWInstruction.h"
 
 namespace rVex
 {
+  void 
+  Instruction::addReferencePBIWInstruction(const PBIW::Interfaces::IPBIWInstruction& instruction)
+  {
+    this->pbiwInstructions.insert(&instruction);
+  }
+    
+  Instruction::PBIWInstructionSet 
+  Instruction::getPBIWInstructions() const
+  {
+    return this->pbiwInstructions;
+  }
+  
   bool 
   Instruction::addSyllable(Syllable& syllable) // O(1)
   {

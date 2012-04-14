@@ -10,8 +10,10 @@
 
 #include <memory>
 #include <vector>
+#include <set>
 #include <algorithm>
 #include "Syllable.h"
+#include "src/PBIW/Interfaces/IPBIWInstruction.h"
 
 namespace rVex
 {
@@ -19,8 +21,12 @@ namespace rVex
   {
     public:
       typedef std::vector<Syllable*> SyllableVector;
+      typedef std::set<const PBIW::Interfaces::IPBIWInstruction*> PBIWInstructionSet;
       
       Instruction() : label(NULL), address(0) {}
+      
+      void addReferencePBIWInstruction(const PBIW::Interfaces::IPBIWInstruction&);
+      PBIWInstructionSet getPBIWInstructions() const;
       
       bool addSyllable(Syllable&);
       bool removeSyllable(const Syllable&);
@@ -48,6 +54,7 @@ namespace rVex
     private:
       rVex::Label* label;
       SyllableVector syllables;
+      PBIWInstructionSet pbiwInstructions;
       unsigned int address;
       
       

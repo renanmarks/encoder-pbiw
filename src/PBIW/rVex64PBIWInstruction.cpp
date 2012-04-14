@@ -11,11 +11,22 @@
 #include <typeinfo>
 #include "rVex64PBIWInstruction.h"
 #include "Interfaces/IOperand.h"
+#include "src/rVex/Instruction.h"
 
 namespace PBIW
 {
   using namespace Interfaces;
 
+  void 
+  rVex64PBIWInstruction::setSyllableReferences(const std::list<rVex::Syllable*>& list)
+  { 
+    syllablesPacked = list; 
+    std::list<rVex::Syllable*>::const_iterator it;
+    
+    for(it = list.begin(); it != list.end(); it++)
+      (*it)->getBelongedInstruction()->addReferencePBIWInstruction(*this);
+  }
+  
   rVex64PBIWInstruction::~rVex64PBIWInstruction()
   {
 
