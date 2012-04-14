@@ -36,6 +36,7 @@ namespace PBIW
         
         virtual void printInstructions(IPBIWPrinter&) = 0;
         virtual void printPatterns(IPBIWPrinter&) = 0;
+        virtual void printStatistics(IPBIWPrinter& printer) = 0;
 
         virtual std::vector<IPBIWPattern*> getPatterns() = 0;
         virtual std::vector<IPBIWInstruction*> getInstructions() = 0;

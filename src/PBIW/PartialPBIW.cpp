@@ -119,6 +119,8 @@ namespace PBIW
   {
     std::vector<rVex::Instruction*>::const_iterator instructionIt;
     
+    originalInstructionsCount = originalInstructions.size();
+    
     // For each group of 4 syllables...
     for(instructionIt = originalInstructions.begin();   // O((|originalInstructions| + |codedPatterns|) * (16 + 16|codedPatterns|)) =
         instructionIt < originalInstructions.end();     // O((|originalInstructions| + |codedPatterns|) * 16|codedPatterns|) =                 
@@ -429,5 +431,35 @@ namespace PBIW
   PartialPBIW::getPatterns()
   {
     return std::vector<IPBIWPattern*>(codedPatterns.begin(), codedPatterns.end());
+  }
+  
+  void 
+  PartialPBIW::printStatistics(IPBIWPrinter& printer)
+  {
+    unsigned int instructionsBytes = codedInstructions.size() * 8;
+    unsigned int patternsBytes = codedPatterns.size() * 12;
+    unsigned int originalInstructionsBytes = originalInstructionsCount * 16;
+    
+    printer.getOutputStream()
+      << "Summary: \n\n"
+      << "Instruction count = " << codedInstructions.size() 
+      << " ( " << instructionsBytes <<" bytes )" << std::endl
+      
+      << "Pattern count = " << codedPatterns.size()
+      << " ( " << patternsBytes <<" bytes )" << std::endl
+      
+      << "Reuse ratio = " 
+      << (codedInstructions.size() / (double)codedPatterns.size())  << std::endl
+      
+      << "Total = " 
+      << patternsBytes + instructionsBytes <<" bytes" << std::endl
+      
+      << "----" << std::endl
+      
+      << "Original Instructions count = " << originalInstructionsCount
+      << " ( " << originalInstructionsBytes <<" bytes )" << std::endl
+      
+      << "Compression ratio = " 
+      << ((instructionsBytes + patternsBytes) / (double)originalInstructionsBytes) * 100.0 << " %" << std::endl;
   }
 }

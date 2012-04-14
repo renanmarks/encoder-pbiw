@@ -8,6 +8,7 @@
 #include <vector>
 #include <ostream>
 #include "rVexPrinter.h"
+#include "src/PBIW/Printers/PartialPBIWDebugPrinter.h"
 
 namespace rVex
 {
@@ -84,6 +85,17 @@ namespace rVex
       }
       
       output << std::endl;
+      
+      rVex::Instruction::PBIWInstructionSet pbiwReferences = instruction.getPBIWInstructions();
+      rVex::Instruction::PBIWInstructionSet::const_iterator pbiwIt;
+      PBIW::PartialPBIWDebugPrinter debugPrinter(output);
+      
+      output << "Generated following PBIW instructions:" << std::endl;
+      
+      for (pbiwIt = pbiwReferences.begin(); pbiwIt != pbiwReferences.end(); pbiwIt++)
+        (*pbiwIt)->print(debugPrinter);
+      
+      output << "------------" << std::endl;
     }
 
     /**

@@ -152,7 +152,7 @@ execute(const std::string& filename, const std::string& flags, bool debugEnabled
   driver.context.endParsing();
 
   context.processLabels(); // O(1)
-  context.print(); // O(|instructions|)
+  //context.print(); // O(|instructions|)
 
   // Instantiate the PBIW encoder
   PBIW::PartialPBIW pbiw;
@@ -177,14 +177,18 @@ execute(const std::string& filename, const std::string& flags, bool debugEnabled
     std::ofstream imemFile(imemFilename.c_str());
     std::ofstream pcacheFile(pcacheFilename.c_str());
 
+    PBIW::PartialPBIWPrinter statisticsPrinter(std::cout);
     PBIW::PartialPBIWPrinter imemPBIWPrinter(imemFile);
     PBIW::PartialPBIWPrinter pachePBIWPrinter(pcacheFile);
 
     context.encodePBIW(pbiw); // O(|codedPatterns|^2)
-
+    
     pbiw.printInstructions(imemPBIWPrinter);
     pbiw.printPatterns(pachePBIWPrinter);
+    pbiw.printStatistics(statisticsPrinter);
   }
+  
+  context.print(); // O(|instructions|)
 
   return result;
 }

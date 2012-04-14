@@ -55,6 +55,8 @@ namespace PBIW
     typedef std::list<PBIW::Label> LabelVector;
     LabelVector labels;
     
+    unsigned int originalInstructionsCount;
+    
     /**
      * Buffer used to know the syllables coded at each iteration
      */
@@ -115,6 +117,7 @@ namespace PBIW
     
     virtual void printInstructions(IPBIWPrinter&);
     virtual void printPatterns(IPBIWPrinter&);
+    virtual void printStatistics(IPBIWPrinter& printer);
 
     virtual std::vector<IPBIWPattern*> getPatterns();
     virtual std::vector<IPBIWInstruction*> getInstructions();
