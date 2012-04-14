@@ -73,12 +73,10 @@ namespace PBIW
     if ( &notConstFoundPattern == newPattern )
     {
       newPattern->setAddress(codedPatterns.size()); // Set the pattern address
-      newPattern->pointToInstructionThatUseIt(finalInstruction); // Ser the instruction that use it
       codedPatterns.push_back(newPattern); // If the pattern has not already been included, include it
     }
     else
     {
-      notConstFoundPattern.pointToInstructionThatUseIt(finalInstruction);
       delete newPattern; // if found, we are not using the newPattern, so free the memory allocated
     }
 

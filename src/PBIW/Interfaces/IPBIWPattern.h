@@ -65,7 +65,7 @@ namespace PBIW
          */
         virtual void updateIndexes(int oldIndex, int newIndex) = 0;
         
-        virtual void pointToInstructionThatUseIt(IPBIWInstruction*) = 0;
+        virtual void referencedByInstruction(IPBIWInstruction*) = 0;
         
         virtual std::deque<IPBIWInstruction*> getInstructionsThatUseIt() const = 0;
         

@@ -146,7 +146,7 @@ namespace PBIW
   }
   
   void
-  rVex96PBIWPattern::pointToInstructionThatUseIt(IPBIWInstruction* instructionPointed)
+  rVex96PBIWPattern::referencedByInstruction(IPBIWInstruction* instructionPointed)
   {
       this->instructionsThatUseIt.push_back(instructionPointed);
   }

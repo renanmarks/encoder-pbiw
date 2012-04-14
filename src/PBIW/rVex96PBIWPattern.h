@@ -52,7 +52,7 @@ namespace PBIW
     virtual unsigned int getOperationCount() const
     { return operations.size(); }
     
-    virtual void pointToInstructionThatUseIt(IPBIWInstruction* instructionPointed);
+    virtual void referencedByInstruction(IPBIWInstruction* instructionPointed);
     
     virtual std::deque<IPBIWInstruction*> getInstructionsThatUseIt() const
     {   return instructionsThatUseIt;   }

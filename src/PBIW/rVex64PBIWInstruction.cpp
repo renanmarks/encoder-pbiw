@@ -233,7 +233,8 @@ namespace PBIW
     {
       rVex96PBIWPattern& temp=dynamic_cast<rVex96PBIWPattern&> (pattern);
 
-      this->pattern= &temp;
+      this->pattern = &temp;
+      this->pattern->referencedByInstruction(this);
     }
 
     const IOperand&
