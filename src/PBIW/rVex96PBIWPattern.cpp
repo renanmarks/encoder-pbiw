@@ -148,7 +148,7 @@ namespace PBIW
   void
   rVex96PBIWPattern::referencedByInstruction(IPBIWInstruction* instructionPointed)
   {
-      this->instructionsThatUseIt.push_back(instructionPointed);
+      this->instructionsThatUseIt.insert(instructionPointed);
   }
   
   void 

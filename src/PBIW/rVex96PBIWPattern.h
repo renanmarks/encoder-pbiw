@@ -10,6 +10,7 @@
 
 #include <deque>
 #include <vector>
+#include <set>
 #include "Interfaces/IPBIWPattern.h"
 #include "Operation.h"
 
@@ -55,7 +56,7 @@ namespace PBIW
     virtual void referencedByInstruction(IPBIWInstruction* instructionPointed);
     
     virtual std::deque<IPBIWInstruction*> getInstructionsThatUseIt() const
-    {   return instructionsThatUseIt;   }
+    {   return std::deque<IPBIWInstruction*>(instructionsThatUseIt.begin(), instructionsThatUseIt.end());   }
     
     virtual int getUsageCounter() const
     { return instructionsThatUseIt.size(); }
@@ -80,7 +81,7 @@ namespace PBIW
     OperationVector operations; // Max 4
     int usageCounter;
     
-    typedef std::deque<IPBIWInstruction*> InstructionsThatUseIt;
+    typedef std::set<IPBIWInstruction*> InstructionsThatUseIt;
     InstructionsThatUseIt instructionsThatUseIt;
     
     virtual unsigned int getValueByIndex(const IPBIWInstruction* instruction, int index) const;
