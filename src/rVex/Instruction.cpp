@@ -7,9 +7,11 @@
 
 #include "Instruction.h"
 #include "src/rVex/Printers/IPrinter.h"
+#include "src/PBIW/Interfaces/IPBIWInstruction.h"
 
 namespace rVex
 {
+
   unsigned int
   Instruction::getQuantityNotNopOperations() const
   {
@@ -28,6 +30,18 @@ namespace rVex
       return 1;
 
     return quantity;
+  }
+
+  void 
+  Instruction::addReferencePBIWInstruction(const PBIW::Interfaces::IPBIWInstruction& instruction)
+  {
+    this->pbiwInstructions.insert(&instruction);
+  }
+    
+  Instruction::PBIWInstructionSet 
+  Instruction::getPBIWInstructions() const
+  {
+    return this->pbiwInstructions;
   }
   
   bool 

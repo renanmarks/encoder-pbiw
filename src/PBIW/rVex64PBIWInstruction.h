@@ -17,7 +17,7 @@
 
 namespace PBIW
 {
-    using namespace Interfaces;
+  using namespace Interfaces;
 
     /**
      * r-VEX 64 bits length instruction 
@@ -93,8 +93,7 @@ namespace PBIW
 
       virtual OperandVector getOperands() const;
 
-      virtual void setSyllableReferences(const std::list<rVex::Syllable*>& list)
-      { syllablesPacked = list; }
+      virtual void setSyllableReferences(const std::list<rVex::Syllable*>& list);
 
       virtual std::list<rVex::Syllable*> getSyllableReferences() const
       { return syllablesPacked; }

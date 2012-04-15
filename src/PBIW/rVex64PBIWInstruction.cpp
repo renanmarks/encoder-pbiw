@@ -12,6 +12,7 @@
 #include <stdexcept>
 #include "rVex64PBIWInstruction.h"
 #include "Interfaces/IOperand.h"
+#include "src/rVex/Instruction.h"
 
 #define ZEROINDEX 14   // 15
 #define IMM9BITS 9    // 10
@@ -24,10 +25,20 @@ namespace PBIW
 {
     using namespace Interfaces;
 
-    rVex64PBIWInstruction::~rVex64PBIWInstruction()
-    {
+  void 
+  rVex64PBIWInstruction::setSyllableReferences(const std::list<rVex::Syllable*>& list)
+  { 
+    syllablesPacked = list; 
+    std::list<rVex::Syllable*>::const_iterator it;
+    
+    for(it = list.begin(); it != list.end(); it++)
+      (*it)->getBelongedInstruction()->addReferencePBIWInstruction(*this);
+  }
+  
+  rVex64PBIWInstruction::~rVex64PBIWInstruction()
+  {
 
-    }
+  }
 
     rVex64PBIWInstruction::OperandVector
     rVex64PBIWInstruction::getOperands() const // O(1)
@@ -258,6 +269,9 @@ namespace PBIW
 
       if (opBRFslot == operand)
         return opBRFslot;
+      
+      if (operand.isImmediate() && immediate == operand)
+        return immediate;
       
       return operand;
     }

@@ -144,6 +144,16 @@ namespace rVex
           && (*it)->hasBrSource() 
           && ((*otherSyllableIt)->getBrDestiny() == (*it)->getBrSource());
         
+        switch ((*otherSyllableIt)->getOpcode())
+        {
+          case rVex::Syllable::opSTW:
+          case rVex::Syllable::opSTH:
+          case rVex::Syllable::opSTB:
+            writesInMyGrReadRegister = false;
+            writesInMyBrReadRegister = false;
+            break;
+        }
+        
         bool isAfterMe = (*otherSyllableIt)->getAddress() > (*it)->getAddress();
         
         if (writesInMyGrReadRegister || writesInMyBrReadRegister)
