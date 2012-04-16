@@ -272,6 +272,7 @@ namespace PBIW
           if (newIndex == 6 && this->opBRFslot.getValue() > -1)
             newIndex++;
           
+          pattern->updateIndexes(operandIt->getIndex(), newIndex);
           operandIt->setIndex(newIndex);
         }
         
@@ -280,7 +281,7 @@ namespace PBIW
         operands.assign(operandsTemp.begin(), operandsTemp.end());
       }
       
-      // The slot at index 5 is occupied
+      // The slot is occupied
       if (operands.size() >= size)
       {
         // If we're lucky...!
