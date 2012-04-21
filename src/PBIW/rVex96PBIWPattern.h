@@ -22,10 +22,15 @@ namespace PBIW
   class rVex96PBIWPattern : public IPBIWPattern
   {
   public:
-    rVex96PBIWPattern();
-    rVex96PBIWPattern(const rVex96PBIWPattern& orig);
+    rVex96PBIWPattern() : usageCounter(0)
+    {}
+    
+    rVex96PBIWPattern(const rVex96PBIWPattern&);
+    
     virtual ~rVex96PBIWPattern();
 
+    virtual IPBIWPattern* clone() const;
+    
     virtual void setAddress(unsigned int addr)
     { address = addr; }
         
@@ -56,6 +61,9 @@ namespace PBIW
     
     virtual int getUsageCounter() const
     { return usageCounter; }
+    
+    virtual void resetUsageCounter()
+    { usageCounter = 0; }
     
     virtual void reorganize(const IPBIWInstruction* instruction);
     

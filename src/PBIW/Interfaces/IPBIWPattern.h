@@ -26,6 +26,11 @@ namespace PBIW
         virtual ~IPBIWPattern() {}
         
         /**
+         * Deep copy this instruction.
+         */
+        virtual IPBIWPattern* clone() const = 0;
+        
+        /**
          * Set pattern's absolute memory address.
          */
         virtual void setAddress(unsigned int) = 0;
@@ -67,6 +72,8 @@ namespace PBIW
         
         virtual void incrementUsageCounter() = 0;
         virtual int getUsageCounter() const = 0;
+        virtual void resetUsageCounter() = 0;
+        
         virtual void reorganize(const IPBIWInstruction*) = 0;
         
         /**

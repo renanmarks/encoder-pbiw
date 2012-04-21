@@ -37,8 +37,22 @@ namespace PBIW
       writeBrOperand(-1)
     { }
     
+    Operation(const Operation& other)
+    :type(other.type), 
+      immediateSwitch(other.immediateSwitch), 
+      opcode(other.opcode),
+      originalOpcode(other.originalOpcode),
+      readBrOperand(other.readBrOperand),
+      writeOperand(other.writeOperand), 
+      readOperands(other.readOperands),  
+      writeBrOperand(other.writeBrOperand)
+    { }
+    
     ~Operation()
     { }
+    
+    virtual IOperation* clone() const
+    { return new Operation(*this); }
     
     virtual void setOpcode(unsigned short opcode);
     

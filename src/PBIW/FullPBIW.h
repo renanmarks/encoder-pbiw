@@ -124,7 +124,8 @@ namespace PBIW
 
     virtual std::vector<IPBIWPattern*> getPatterns();
     virtual std::vector<IPBIWInstruction*> getInstructions();
-
+    virtual std::vector<ILabel*> getLabels();
+    
     void
     setDebug(bool debug)
     { this->debug=debug; }

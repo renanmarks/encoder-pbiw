@@ -21,6 +21,13 @@ namespace PBIW
     class IOperation
     {
     public:
+      virtual ~IOperation() {}
+      
+      /**
+       * Deep copy this operation.
+       */
+      virtual IOperation* clone() const = 0;
+      
       virtual void setOpcode(unsigned short opcode) = 0;
       virtual unsigned short getOpcode() const = 0;
       

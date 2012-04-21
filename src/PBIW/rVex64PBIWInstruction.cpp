@@ -16,8 +16,14 @@
 
 namespace PBIW
 {
-    using namespace Interfaces;
+  using namespace Interfaces;
 
+  IPBIWInstruction* 
+  rVex64PBIWInstruction::clone() const
+  {
+    return new rVex64PBIWInstruction(*this);
+  }
+    
   void 
   rVex64PBIWInstruction::setSyllableReferences(const std::list<rVex::Syllable*>& list)
   { 

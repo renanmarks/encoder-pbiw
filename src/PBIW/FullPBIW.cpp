@@ -344,6 +344,7 @@ namespace PBIW
       (*it)->useInstructions(codedInstructionsCopy);
       (*it)->usePatterns(codedPatternsCopy);
       (*it)->useLabels(labelsCopy);
+      (*it)->setupOptimizer();
       (*it)->run();
     }
     
@@ -431,5 +432,17 @@ namespace PBIW
   FullPBIW::getPatterns()
   {
     return std::vector<IPBIWPattern*>(codedPatterns.begin(), codedPatterns.end());
+  }
+  
+  std::vector<ILabel*> 
+  FullPBIW::getLabels()
+  {
+    std::deque<ILabel*> temp;
+    LabelVector::iterator it;
+    
+    for(it = labels.begin(); it != labels.end(); it++)
+      temp.push_back(&(*it));
+    
+    return std::vector<ILabel*>(temp.begin(), temp.end());
   }
 }

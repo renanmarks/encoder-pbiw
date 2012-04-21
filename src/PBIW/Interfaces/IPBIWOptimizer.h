@@ -30,6 +30,8 @@ namespace PBIW
       virtual std::vector<IPBIWPattern*> getPatterns() = 0;
       virtual std::vector<IPBIWInstruction*> getInstructions() = 0;
       
+      virtual void setupOptimizer() = 0;
+      
       virtual void run() = 0;
     };
   }

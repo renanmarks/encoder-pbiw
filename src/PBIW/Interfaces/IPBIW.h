@@ -40,6 +40,7 @@ namespace PBIW
 
         virtual std::vector<IPBIWPattern*> getPatterns() = 0;
         virtual std::vector<IPBIWInstruction*> getInstructions() = 0;
+        virtual std::vector<ILabel*> getLabels() = 0;
     };
   }
 }
