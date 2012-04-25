@@ -32,6 +32,11 @@ namespace PBIW
         virtual ~IPBIWInstruction() {}
         
         /**
+         * Deep copy this instruction.
+         */
+        virtual IPBIWInstruction* clone() const = 0;
+        
+        /**
          * Set instruction's absolute memory address.
          */
         virtual void setAddress(unsigned int) = 0;

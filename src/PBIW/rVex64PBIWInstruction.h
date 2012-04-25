@@ -38,9 +38,27 @@ namespace PBIW
       {
         zeroOperand.setIndex(14);
       }
-                
+
+      rVex64PBIWInstruction(const rVex64PBIWInstruction& other) : 
+        address(other.address), 
+        label(other.label),
+        destinyLabel(other.destinyLabel),
+        branchDestiny(other.branchDestiny), 
+        pattern(other.pattern), 
+        operands(other.operands),
+        opBRslot(other.opBRslot),
+        opBRFslot(other.opBRFslot),
+        immediate(other.immediate),
+        zeroOperand(other.zeroOperand),
+        syllablesPacked(other.syllablesPacked)
+      {
+        zeroOperand.setIndex(15);
+      }
+
       virtual ~rVex64PBIWInstruction();
 
+      virtual IPBIWInstruction* clone() const;
+      
       virtual void setAddress(unsigned int addr)
       { address = addr; }
 

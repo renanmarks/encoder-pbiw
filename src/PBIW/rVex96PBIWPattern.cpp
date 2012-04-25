@@ -21,16 +21,20 @@ namespace PBIW
 {
   using namespace Interfaces;
     
-  rVex96PBIWPattern::rVex96PBIWPattern()
-    : usageCounter(0)
-  {
-  }
-
   rVex96PBIWPattern::rVex96PBIWPattern(const rVex96PBIWPattern& orig)
-    : usageCounter(orig.getUsageCounter())
+    : address(orig.address), 
+      usageCounter(orig.usageCounter)
   {
-  }
+    OperationVector::const_iterator it;
 
+    for(it = orig.operations.begin(); 
+        it < orig.operations.end(); 
+        it++)
+    {
+      operations.push_back( (*it)->clone() );
+    }
+  }
+  
   rVex96PBIWPattern::~rVex96PBIWPattern() 
   {
     OperationVector::iterator it;
@@ -58,6 +62,12 @@ namespace PBIW
   
   }
 
+  IPBIWPattern* 
+  rVex96PBIWPattern::clone() const
+  {
+    return new rVex96PBIWPattern(*this);
+  }
+  
   bool
   rVex96PBIWPattern::hasControlOperation() const
   {

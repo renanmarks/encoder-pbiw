@@ -23,8 +23,14 @@
 
 namespace PBIW
 {
-    using namespace Interfaces;
+  using namespace Interfaces;
 
+  IPBIWInstruction* 
+  rVex64PBIWInstruction::clone() const
+  {
+    return new rVex64PBIWInstruction(*this);
+  }
+    
   void 
   rVex64PBIWInstruction::setSyllableReferences(const std::list<rVex::Syllable*>& list)
   { 
@@ -304,6 +310,7 @@ namespace PBIW
           if (newIndex == 6 && this->opBRFslot.getValue() > -1)
             newIndex++;
           
+          pattern->updateIndexes(operandIt->getIndex(), newIndex);
           operandIt->setIndex(newIndex);
         }
         
@@ -312,7 +319,7 @@ namespace PBIW
         operands.assign(operandsTemp.begin(), operandsTemp.end());
       }
       
-      // The slot at index 5 is occupied
+      // The slot is occupied
       if (operands.size() >= size)
       {
         // If we're lucky...!

@@ -11,9 +11,14 @@
 #include <list>
 #include <set>
 #include "Interfaces/IPBIWOptimizer.h"
+#include "Interfaces/ILabel.h"
 
 namespace PBIW
 {
+  using PBIW::Interfaces::ILabel;
+  using PBIW::Interfaces::IPBIWInstruction;
+  using PBIW::Interfaces::IPBIWPattern;
+  
   class BaseOptimizer : public IPBIWOptimizer
   {
   public:
@@ -33,6 +38,38 @@ namespace PBIW
     virtual std::vector<IPBIWInstruction*> getInstructions()
     { return std::vector<IPBIWInstruction*>(instructions.begin(), instructions.end()); }
 
+    virtual void setupOptimizer();
+    
+    /**
+     * Functor used to find a label.
+     */
+    class FindLabel : public std::unary_function<ILabel, bool>
+    {
+    public:
+        FindLabel(const std::string label) : label(label) {}
+
+        bool operator()(const ILabel& t) const 
+        { return (t.getName() == label); }
+        
+    private:
+        const std::string label;
+    };
+    
+    /**
+     * Functor used to find a pattern.
+     */
+    class FindPattern : public std::unary_function<IPBIWPattern*, bool>
+    {
+    public:
+        FindPattern(const IPBIWPattern* pattern) : _pattern(pattern) {}
+
+        bool operator()(IPBIWPattern* const& t) const 
+        { return (t->getAddress() == _pattern->getAddress()); }
+        
+    private:
+        const IPBIWPattern* _pattern;
+    };
+    
     /**
      * Must be implemented by specific optimizers.
      */
@@ -45,6 +82,7 @@ namespace PBIW
     typedef std::list<Label> LabelList;
     
     PBIWInstructionList instructions;
+    PBIWInstructionList branchingInstructions;
     PBIWPatternList patterns;
     LabelList labels;
   };
