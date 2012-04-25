@@ -21,12 +21,12 @@ namespace PBIW
     {
     public:
         
-        typedef struct annulBit{
-            bool modified;
-            bool original[4];
-            bool current[4];
-            int addressPattern;
-        } AnnulBit;
+//        typedef struct annulBit{
+//            bool modified;
+//            bool original[4];
+//            bool current[4];
+//            int addressPattern;
+//        } AnnulBit;
         
         // To control patterns with one and/or three operations
         enum {
@@ -52,6 +52,10 @@ namespace PBIW
         
         virtual void joiningPatterns(IPBIWPattern* pattern1, IPBIWPattern* pattern2);
         
+        virtual void updateAnnulBits(IPBIWPattern* pattern, int index, bool bit);
+        
+        virtual void updateAddressInstruction(IPBIWPattern* pattern1, IPBIWPattern* pattern2);
+        
         virtual void getPatternsToJoin(int index1, int index2);
         
         virtual void getPatternsToJoinOneTwo(int index);
@@ -69,7 +73,7 @@ namespace PBIW
         typedef std::deque<std::deque<int> > BaseDeque;
         typedef std::deque<int> InnerDeque;        
         typedef std::deque<bool> AnnulationBits;
-        typedef std::deque<AnnulBit> AnnulationBits2;
+//        typedef std::deque<AnnulBit> AnnulationBits2;
                 
         
     private:
@@ -77,7 +81,7 @@ namespace PBIW
         std::deque<std::deque<int> > twoOperation;
         std::deque<std::deque<int> > threeOperation;
         AllOperations tempOps;
-        AnnulationBits2 annulBits;
+//        AnnulationBits2 annulBits;
         
         virtual int countTrueBits(AnnulationBits index);
         

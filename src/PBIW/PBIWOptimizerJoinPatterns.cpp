@@ -62,7 +62,7 @@ namespace PBIW
         twoOperation.resize(8);
         threeOperation.resize(SIZE);
         
-        AnnulBit annulBit;
+//        AnnulBit annulBit;
         
         int count2[3] = {0, 0, 0};
         
@@ -101,20 +101,20 @@ namespace PBIW
                     }
                     count++;
                     
-                    annulBit.original[i] = true;
-                    annulBit.current[i] = true;
+//                    annulBit.original[i] = true;
+//                    annulBit.current[i] = true;
                 }
-                else
-                {
-                    annulBit.original[i] = false;
-                    annulBit.current[i] = false;
-                }               
+//                else
+//                {
+//                    annulBit.original[i] = false;
+//                    annulBit.current[i] = false;
+//                }               
             }
             
-            annulBit.addressPattern = (*it)->getAddress();
-            annulBit.modified = false;
-            annulBits.push_back(annulBit);
-            //std::cout << "COUNT " << count << std::endl;
+//            annulBit.addressPattern = (*it)->getAddress();
+//            annulBit.modified = false;
+//            annulBits.push_back(annulBit);
+//            //std::cout << "COUNT " << count << std::endl;
             if(count == 4)
                 count2[1]++;
             else if(count > 0 && count < 4)
@@ -516,7 +516,8 @@ namespace PBIW
                 {
                     if(tempPattern1->getOperation(j)->getType() != syllableType[j])
                     {
-                        if((!oneOperation.at(types[j]).empty()) && (tempPattern1->getOperation(j)->getOpcode() == 0))
+                        if((!oneOperation.at(types[j]).empty()) && ((syllableType[j] == j) ||
+                            (tempPattern1->getOperation(j)->getOpcode() == 0)))
                         {
                             joinPatterns(tempPattern1, patterns.at(oneOperation.at(types[j]).front()));
                             oneOperation.at(types[j]).erase(oneOperation.at(types[j]).begin());
@@ -526,7 +527,7 @@ namespace PBIW
                             joinPatterns(tempPattern1, patterns.at(oneOperation.at(types[4]).front()));
                             oneOperation.at(types[4]).erase(oneOperation.at(types[4]).begin());
                         }
-                    }                    
+                    }
                 }
             }
             i++;
@@ -550,7 +551,8 @@ namespace PBIW
                 {
                     if(tempPattern1->getOperation(j)->getType() != syllableType[j])
                     {
-                        if((!oneOperation.at(types[j]).empty()) && (tempPattern1->getOperation(j)->getOpcode() == 0))
+                        if((!oneOperation.at(types[j]).empty()) && ((syllableType[j]) ||
+                            (tempPattern1->getOperation(j)->getOpcode() == 0)))
                         {
                             joinPatterns(tempPattern1, patterns.at(oneOperation.at(types[j]).front()));
                             oneOperation.at(types[j]).erase(oneOperation.at(types[j]).begin());
@@ -560,286 +562,11 @@ namespace PBIW
                             joinPatterns(tempPattern1, patterns.at(oneOperation.at(types[4]).front()));
                             oneOperation.at(types[4]).erase(oneOperation.at(types[4]).begin());
                         }
-                    }                    
+                    }
                 }
             }
             i++;
-        }        
-        
-//        int k = 0;
-//        int countOp = 0;
-//        // MUL_MUL = 0, CTRL_MUL, MEM_MUL, CTRL_MEM, CTRL_ALU, MEM_ALU, MUL_ALU, ALU_ALU
-//        for(itBase1 = twoOperation.begin();
-//            itBase1 < twoOperation.end();
-//            itBase1++)
-//        {
-//            if(!(*itBase1).empty())
-//            {
-//                for(itInner1 = (*itBase1).begin();
-//                    itInner1 < (*itBase1).end();
-//                    itInner1++)
-//                {
-//                    getPatternsToJoinOneTwo(k);
-//                }
-//            }
-//            
-//            k++;
-                
-//            if(!(*itBase1).empty())
-//            {                
-//                switch(i)
-//                {
-//                    case MUL_MUL:
-//                        if(!oneOperation.at(CTRL).empty())
-//                        {
-//                            getPatternsToJoin(MUL_MUL, CTRL);
-//                            countOp++;
-//                        }                                
-//                        
-//                        if(!oneOperation.at(MEM).empty() && countOp <= 2)
-//                        {
-//                            getPatternsToJoin(MUL_MUL, MEM);
-//                            countOp++;
-//                        }
-//                        
-//                        if(!oneOperation.at(ALU).empty() && countOp <= 2)
-//                        {
-//                            getPatternsToJoin(MUL_MUL, ALU);
-//                            countOp++;
-//                        }
-//                        
-//                        if(!oneOperation.at(ALU).empty() && countOp <= 2)
-//                        {
-//                            getPatternsToJoin(MUL_MUL, ALU);
-//                            countOp++;
-//                        }
-//                        
-//                        break;
-//                        
-//                    case CTRL_MUL: 
-//                        if(!oneOperation.at(MEM).empty())
-//                        {
-//                            getPatternsToJoin(CTRL_MUL, MEM);
-//                            countOp++;
-//                        }
-//                        
-//                        if(!oneOperation.at(MUL).empty() && countOp <= 2)
-//                        {
-//                            getPatternsToJoin(CTRL_MUL, MUL);
-//                            countOp++;
-//                        }
-//                        
-//                        if(!oneOperation.at(ALU).empty() && countOp <= 2)
-//                        {
-//                            getPatternsToJoin(CTRL_MUL, ALU);
-//                            countOp++;
-//                        }
-//                        
-//                        if(!oneOperation.at(ALU).empty() && countOp <= 2)
-//                        {
-//                            getPatternsToJoin(CTRL_MUL, ALU);
-//                            countOp++;
-//                        }
-//                        
-//                        break;
-//                        
-//                    case MEM_MUL: 
-//                        if(!oneOperation.at(CTRL).empty())
-//                        {
-//                            getPatternsToJoin(MEM_MUL, CTRL);
-//                            countOp++;
-//                        }
-//                         
-//                        if(!oneOperation.at(MUL).empty() && countOp <= 2)
-//                        {
-//                            getPatternsToJoin(MEM_MUL, MUL);
-//                            countOp++;
-//                        }
-//                        
-//                        if(!oneOperation.at(ALU).empty() && countOp <= 2)
-//                        {
-//                            getPatternsToJoin(MEM_MUL, ALU);
-//                            countOp++;
-//                        }
-//                        
-//                        if(!oneOperation.at(ALU).empty() && countOp <= 2)
-//                        {
-//                            getPatternsToJoin(MEM_MUL, ALU);
-//                            countOp++;
-//                        }
-//                        
-//                        break;
-//                        
-//                    case CTRL_MEM: 
-//                        if(!oneOperation.at(MUL).empty())
-//                        {
-//                            getPatternsToJoin(CTRL_MEM, MUL);
-//                            countOp++;
-//                        }
-//                        
-//                        if(!oneOperation.at(MUL).empty() && countOp <= 2)
-//                        {
-//                            getPatternsToJoin(CTRL_MEM, MUL);
-//                            countOp++;
-//                        }
-//                        
-//                        if(!oneOperation.at(ALU).empty() && countOp <= 2)
-//                        {
-//                            getPatternsToJoin(CTRL_MEM, ALU);
-//                            countOp++;
-//                        }
-//                        
-//                        if(!oneOperation.at(ALU).empty() && countOp <= 2)
-//                        {
-//                            getPatternsToJoin(CTRL_MEM, ALU);
-//                            countOp++;
-//                        }
-//                        
-//                        break;
-//                    
-//                    case CTRL_ALU: 
-//                        if(!oneOperation.at(MEM).empty())
-//                        {
-//                            getPatternsToJoin(CTRL_ALU, MEM);
-//                            countOp++;
-//                        }
-//                        
-//                        if(!oneOperation.at(MUL).empty() && countOp <= 2)
-//                        {
-//                            getPatternsToJoin(CTRL_ALU, MUL);
-//                            countOp++;
-//                        }
-//                        
-//                        if(!oneOperation.at(MUL).empty() && countOp <= 2)
-//                        {
-//                            getPatternsToJoin(CTRL_ALU, MUL);
-//                            countOp++;
-//                        }
-//                        
-//                        if(!oneOperation.at(ALU).empty() && countOp <= 2)
-//                        {
-//                            getPatternsToJoin(CTRL_ALU, ALU);
-//                            countOp++;
-//                        }
-//                        
-//                        if(!oneOperation.at(ALU).empty() && countOp <= 2)
-//                        {
-//                            getPatternsToJoin(CTRL_ALU, ALU);
-//                            countOp++;
-//                        }
-//                        
-//                        break;
-//                    
-//                    case MEM_ALU: 
-//                        if(!oneOperation.at(CTRL).empty() && countOp <= 2)
-//                        {
-//                            getPatternsToJoin(MEM_ALU, CTRL);
-//                            countOp++;
-//                        }
-//                        
-//                        if(!oneOperation.at(MUL).empty() && countOp <= 2)
-//                        {
-//                            getPatternsToJoin(MEM_ALU, MUL);
-//                            countOp++;
-//                        }
-//                        
-//                        if(!oneOperation.at(MUL).empty() && countOp <= 2)
-//                        {
-//                            getPatternsToJoin(MEM_ALU, MUL);
-//                            countOp++;
-//                        }
-//                        
-//                        if(!oneOperation.at(ALU).empty() && countOp <= 2)
-//                        {
-//                            getPatternsToJoin(MEM_ALU, ALU);
-//                            countOp++;
-//                        }
-//                        
-//                        if(!oneOperation.at(ALU).empty() && countOp <= 2)
-//                        {
-//                            getPatternsToJoin(MEM_ALU, ALU);
-//                            countOp++;
-//                        }
-//                        
-//                        break;
-//                        
-//                    case MUL_ALU: 
-//                        if(!oneOperation.at(CTRL).empty() && countOp <= 2)
-//                        {
-//                            getPatternsToJoin(MUL_ALU, CTRL);
-//                            countOp++;
-//                        }
-//                         
-//                        if(!oneOperation.at(MEM).empty() && countOp <= 2)
-//                        {
-//                            getPatternsToJoin(MUL_ALU, MEM);
-//                            countOp++;
-//                        }
-//                        
-//                        if(!oneOperation.at(MUL).empty() && countOp <= 2)
-//                        {
-//                            getPatternsToJoin(MUL_ALU, MUL);
-//                            countOp++;
-//                        }
-//                        
-//                        if(!oneOperation.at(ALU).empty() && countOp <= 2)
-//                        {
-//                            getPatternsToJoin(MUL_ALU, ALU);
-//                            countOp++;
-//                        }
-//                        
-//                        if(!oneOperation.at(ALU).empty() && countOp <= 2)
-//                        {
-//                            getPatternsToJoin(MUL_ALU, ALU);
-//                            countOp++;
-//                        }
-//                        
-//                        break;
-//                    
-//                    case ALU_ALU: 
-//                        if(!oneOperation.at(CTRL).empty() && countOp <= 2)
-//                        {
-//                            getPatternsToJoin(ALU_ALU, CTRL);
-//                            countOp++;
-//                        }
-//                        
-//                        if(!oneOperation.at(MEM).empty() && countOp <= 2)
-//                        {
-//                            getPatternsToJoin(ALU_ALU, MEM);
-//                            countOp++;
-//                        }
-//                        
-//                        if(!oneOperation.at(MUL).empty() && countOp <= 2)
-//                        {
-//                            getPatternsToJoin(ALU_ALU, MUL);
-//                            countOp++;
-//                        }
-//                        
-//                        if(!oneOperation.at(MUL).empty() && countOp <= 2)
-//                        {
-//                            getPatternsToJoin(ALU_ALU, MUL);
-//                            countOp++;
-//                        }
-//                        
-//                        if(!oneOperation.at(ALU).empty() && countOp <= 2)
-//                        {
-//                            getPatternsToJoin(ALU_ALU, ALU);
-//                            countOp++;
-//                        }
-//                        
-//                        if(!oneOperation.at(ALU).empty() && countOp <= 2)
-//                        {
-//                            getPatternsToJoin(ALU_ALU, ALU);
-//                            countOp++;
-//                        }
-//                        
-//                        break;
-//                }        
-//            }
-            
-//            i++;
-//        }
-                
+        }                                
     }
     
     void
@@ -868,8 +595,8 @@ namespace PBIW
         AnnulationBits annulBitsOps2;
         annulBitsOps1.resize(4);
         annulBitsOps2.resize(4);
-        int index1 = pattern1->getAddress();
-        int index2 = pattern2->getAddress();
+//        int index1 = pattern1->getAddress();
+//        int index2 = pattern2->getAddress();
       
         int syllableType[4] = {4, 2, 2, 3}; // Based on the rVex syllables types: ALU = 1, MUL, MEM, CTRL
         std::cout << "ADDR : " << pattern1->getAddress() << std::endl;
@@ -893,21 +620,25 @@ namespace PBIW
                         {
                             addTempOperation(pattern2->getOperation(i));
                             annulBitsOps2[i] = 0;
-                            annulBits.at(index2).current[i] = 0;
+//                            annulBits.at(index2).current[i] = 0;
+//                            
+//                            if(!annulBits.at(index2).modified)
+//                                annulBits.at(index2).original[i] = 0;
                             
-                            if(!annulBits.at(index2).modified)
-                                annulBits.at(index2).original[i] = 0;
+                            updateAnnulBits(pattern2, i, 0);
                         }
                         else
                         {
                             addTempOperation(pattern1->getOperation(i));
                             pattern1->setOperation(*pattern2->getOperation(i), i);
                             annulBitsOps1[i] = 0;
-                            
-                            annulBits.at(index1).current[i] = 0;
-                            
-                            if(!annulBits.at(index1).modified)
-                                annulBits.at(index1).original[i] = 0;
+//                            
+//                            annulBits.at(index1).current[i] = 0;
+//                            
+//                            if(!annulBits.at(index1).modified)
+//                                annulBits.at(index1).original[i] = 0;
+//                            
+                            updateAnnulBits(pattern1, i, 0);
                         }
                     }
                 }
@@ -918,11 +649,13 @@ namespace PBIW
                         addTempOperation(pattern2->getOperation(i));
                         annulBitsOps1[i] = 1;
                         annulBitsOps2[i] = 0;                  
+//                        
+//                        annulBits.at(index2).current[i] = 0;
+//                            
+//                        if(!annulBits.at(index2).modified)
+//                            annulBits.at(index2).original[i] = 0;
                         
-                        annulBits.at(index2).current[i] = 0;
-                            
-                        if(!annulBits.at(index2).modified)
-                            annulBits.at(index2).original[i] = 0;
+                        updateAnnulBits(pattern2, i, 0);
                     }                    
                 }
             }
@@ -931,18 +664,21 @@ namespace PBIW
                 if(pattern2->getOperation(i)->getOpcode() != 0)
                 {
                     pattern1->setOperation(*pattern2->getOperation(i), i);
-                    annulBitsOps1[i] = 1;
-                    annulBitsOps2[i] = 0;
+                    //annulBitsOps1[i] = 1;
+                    //annulBitsOps2[i] = 0;
+//                    
+//                    annulBits.at(index1).current[i] = 1;
+//                            
+//                    if(!annulBits.at(index1).modified)
+//                        annulBits.at(index1).original[i] = 1;
+//                    
+//                    annulBits.at(index2).current[i] = 0;
+//                            
+//                    if(!annulBits.at(index2).modified)
+//                        annulBits.at(index2).original[i] = 0;
                     
-                    annulBits.at(index1).current[i] = 1;
-                            
-                    if(!annulBits.at(index1).modified)
-                        annulBits.at(index1).original[i] = 1;
-                    
-                    annulBits.at(index2).current[i] = 0;
-                            
-                    if(!annulBits.at(index2).modified)
-                        annulBits.at(index2).original[i] = 0;
+//                    updateAnnulBits(pattern1, i, 1);
+//                    updateAnnulBits(pattern2, i, 0);
                 }
                 if((pattern2->getOperation(i)->getOpcode() == 0) || (!(annulBitsOps1[0] || annulBitsOps2[0])))
                 {
@@ -952,21 +688,25 @@ namespace PBIW
                         {
                             pattern1->setOperation(*tempOps.front(), 0); // assign one operation to the pattern
                             annulBitsOps1[0] = 1;
+//                            
+//                            annulBits.at(index1).current[0] = 1;
+//                            
+//                            if(!annulBits.at(index1).modified)
+//                                annulBits.at(index1).original[0] = 1;
                             
-                            annulBits.at(index1).current[0] = 1;
-                            
-                            if(!annulBits.at(index1).modified)
-                                annulBits.at(index1).original[0] = 1;
+                            updateAnnulBits(pattern1, 0, 1);
                         }                            
                         else
                         {
                             pattern1->setOperation(*tempOps.front(), i); // assign one operation to the pattern
                             annulBitsOps1[i] = 1;
+//                            
+//                            annulBits.at(index1).current[i] = 1;
+//                            
+//                            if(!annulBits.at(index1).modified)
+//                                annulBits.at(index1).original[i] = 1;
                             
-                            annulBits.at(index1).current[i] = 1;
-                            
-                            if(!annulBits.at(index1).modified)
-                                annulBits.at(index1).original[i] = 1;
+                            updateAnnulBits(pattern1, i, 1);
                         }
                             
                         tempOps.erase(tempOps.begin()); // Erase the operation after assign to the pattern                                                 
@@ -984,13 +724,22 @@ namespace PBIW
                         if(!annulBitsOps1[j])
                         {
                             pattern1->setOperation(*tempOps.front(), 0); // assign one operation to the pattern
-                            annulBitsOps1[j] = 1;
+                            
+                            if(j != 3)
+                            {
+                                annulBitsOps1[j] = 1;
+                                updateAnnulBits(pattern1, j, 1);
+                            } 
+                            else
+                                updateAnnulBits(pattern1, 0, 1);
+//
+//                            annulBits.at(index1).current[j] = 1;
+//
+//                            if(!annulBits.at(index1).modified)
+//                                annulBits.at(index1).original[j] = 1;
 
-                            annulBits.at(index1).current[j] = 1;
-
-                            if(!annulBits.at(index1).modified)
-                                annulBits.at(index1).original[j] = 1;
-
+                            
+                            
                             tempOps.erase(tempOps.begin()); // Erase the operation after assign to the pattern
                             j = -1;
                         }
@@ -1006,12 +755,14 @@ namespace PBIW
                         {
                             pattern1->setOperation(*tempOps.front(), j); // assign one operation to the pattern
                             annulBitsOps2[j] = 1;
+//
+//                            annulBits.at(index2).current[j] = 1;
+//
+//                            if(!annulBits.at(index2).modified)
+//                                annulBits.at(index2).original[j] = 1;
 
-                            annulBits.at(index2).current[j] = 1;
-
-                            if(!annulBits.at(index2).modified)
-                                annulBits.at(index2).original[j] = 1;
-
+                            updateAnnulBits(pattern2, j, 1);
+                            
                             tempOps.erase(tempOps.begin()); // Erase the operation after assign to the pattern
                             j = -1;
                         }                  
@@ -1021,11 +772,45 @@ namespace PBIW
             }
         }
         
-        annulBits.at(index1).modified = true;
-        annulBits.at(index2).modified = true;                    
+//        annulBits.at(index1).modified = true;
+//        annulBits.at(index2).modified = true;                    
         
-        updateInstructions(pattern1, pattern2, &annulBitsOps1, &annulBitsOps2);
+        updateAddressInstruction(pattern1, pattern2);
+        
+//        updateInstructions(pattern1, pattern2, &annulBitsOps1, &annulBitsOps2);
 //        updateInstructions(pattern1, pattern2, &annulBits.at(index1), &annulBits.at(index));
+    }
+    
+    void
+    PBIWOptimizerJoinPatterns::updateAnnulBits(IPBIWPattern* pattern, int index, bool bit)
+    {
+        AllInstructions instructions = pattern->getInstructionsThatUseIt2();
+        AllInstructions::iterator it;
+        
+        for(it = instructions.begin();
+            it < instructions.end();
+            it++)
+        {
+            (*it)->setAnnulBit(index, bit);
+        }        
+    }
+    
+    void
+    PBIWOptimizerJoinPatterns::updateAddressInstruction(IPBIWPattern* pattern1, IPBIWPattern* pattern2)
+    {
+        AllInstructions instructions = pattern2->getInstructionsThatUseIt2();
+        AllInstructions::iterator it;
+        
+        for(it = instructions.begin();
+            it < instructions.end();
+            it++)
+        {
+//            (*it)->setAddress(pattern1->getAddress());
+            (*it)->pointToPattern(*pattern1);
+            pattern1->getInstructionsThatUseIt2().push_back(*it);
+        }
+        
+        patterns.remove(pattern2);                
     }
     
     void
@@ -1121,6 +906,7 @@ namespace PBIW
             
             (*it)->pointToPattern(*pattern1);
             pattern1->getInstructionsThatUseIt2().push_back((*it));
+            
             patterns.remove(pattern2);
         }        
     }
