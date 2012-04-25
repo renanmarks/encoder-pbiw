@@ -18,6 +18,8 @@ using namespace std;
 #include "PBIW/Printers/PartialPBIWPrinter.h"
 #include "PBIW/Printers/PartialPBIWDebugPrinter.h"
 #include "VexParser/VexTypes.h"
+#include "PBIW/BaseOptimizer.h"
+#include "PBIW/PBIWOptimizerJoinPatterns.h"
 //#include "Time/ExecutionTime.h"
 
 
@@ -159,8 +161,8 @@ execute(const std::string& filename, const std::string& flags, bool debugEnabled
   context.processLabels(); // O(1)
   context.print(); // O(|instructions|)
 
-  
-  
+  PBIW::PBIWOptimizerJoinPatterns optmizer;
+    
   // Instantiate the PBIW encoder
   PBIW::FullPBIW pbiw;
   pbiw.setDebug(context.isDebuggingEnabled());
@@ -169,11 +171,19 @@ execute(const std::string& filename, const std::string& flags, bool debugEnabled
   {
     PBIW::PartialPBIWDebugPrinter pbiwDebugPrinter(std::cout);
     context.encodePBIW(pbiw); // O(|codedPatterns|^2)
-
+    
+    pbiw.registerOptimizer(optmizer);
+    pbiw.runOptimizers();
+    
     pbiw.printInstructions(pbiwDebugPrinter);
     pbiw.printPatterns(pbiwDebugPrinter);
     pbiw.printStatistics(pbiwDebugPrinter);
+    
+    std::cout << " --- Begin post optimizer data ---" << std::endl;
+    
+    optmizer.print(pbiwDebugPrinter);
   } 
+
   else
   {
     std::string imemFilename=filename;
@@ -195,6 +205,9 @@ execute(const std::string& filename, const std::string& flags, bool debugEnabled
     PBIW::PartialPBIWPrinter pachePBIWPrinter(pcacheFile);
 
     context.encodePBIW(pbiw); // O(|codedPatterns|^2)
+    
+    pbiw.registerOptimizer(optmizer);
+    pbiw.runOptimizers();
     
     pbiw.printStatistics(statisticsPBIWPrinter);
     pbiw.printInstructions(imemPBIWPrinter);

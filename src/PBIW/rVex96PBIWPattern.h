@@ -45,6 +45,9 @@ namespace PBIW
     virtual IOperation* getOperation(unsigned int index) const
     { return operations[index]; }
     
+    virtual void setOperation(IOperation& operation, int index);
+//    {   this->operations[index] = operation;  }
+    
     virtual IOperation* operator[](const unsigned int index) const
     { return getOperation(index); }
     
@@ -56,6 +59,9 @@ namespace PBIW
     virtual void referencedByInstruction(IPBIWInstruction* instructionPointed);
     
     virtual std::deque<IPBIWInstruction*> getInstructionsThatUseIt() const
+    {   return std::deque<IPBIWInstruction*>(instructionsThatUseIt.begin(), instructionsThatUseIt.end());   }
+    
+    virtual std::deque<IPBIWInstruction*> getInstructionsThatUseIt2()
     {   return std::deque<IPBIWInstruction*>(instructionsThatUseIt.begin(), instructionsThatUseIt.end());   }
     
     virtual int getUsageCounter() const

@@ -46,7 +46,9 @@ namespace PBIW
          * @param Index of pattern to be returned
          * @return The operation
          */
+        virtual OperationVector getOperations() const = 0;
         virtual IOperation* getOperation(unsigned int) const = 0;
+        virtual void setOperation(IOperation&, int) = 0;
         virtual IOperation* operator[](const unsigned int) const = 0;
         
         /**
@@ -68,6 +70,8 @@ namespace PBIW
         virtual void referencedByInstruction(IPBIWInstruction*) = 0;
         
         virtual std::deque<IPBIWInstruction*> getInstructionsThatUseIt() const = 0;
+        
+        virtual std::deque<IPBIWInstruction*> getInstructionsThatUseIt2() = 0;
         
         virtual int getUsageCounter() const = 0;
         virtual void reorganize(IPBIWInstruction*) = 0;

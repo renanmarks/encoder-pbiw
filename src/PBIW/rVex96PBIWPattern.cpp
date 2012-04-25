@@ -14,6 +14,7 @@
 #include "Interfaces/IPBIWInstruction.h"
 #include "src/rVex/rVex.h"
 #include "rVex64PBIWInstruction.h"
+#include "Interfaces/IPBIW.h"
 //#include "Operation.h"
 
 namespace PBIW
@@ -42,6 +43,19 @@ namespace PBIW
     }
     
     operations.clear();
+  }
+  
+  void
+  rVex96PBIWPattern::setOperation(IOperation& operation, int index)
+  {   
+      IOperation* op;
+      
+      IOperation& temp = const_cast<IOperation&>(operation);
+              
+      op = this->operations[index];
+      this->operations[index] = &temp;
+      temp = *op;
+  
   }
 
   bool
