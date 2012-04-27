@@ -75,9 +75,9 @@ namespace PBIW
      */
     virtual void run() = 0;
   
-  private:
-    typedef std::list<IPBIWInstruction*> PBIWInstructionList;
-    typedef std::list<IPBIWPattern*> PBIWPatternList;
+  protected:
+    typedef std::deque<IPBIWInstruction*> PBIWInstructionList;
+    typedef std::deque<IPBIWPattern*> PBIWPatternList;
     typedef std::set<IPBIWPattern*> PBIWPatternSet;
     typedef std::list<Label> LabelList;
     

@@ -36,7 +36,7 @@ namespace PBIW
         zeroOperand(0),
         annulBits(4,false)
       {
-        zeroOperand.setIndex(14);
+        zeroOperand.setIndex(14);        
       }
 
       rVex64PBIWInstruction(const rVex64PBIWInstruction& other) : 
@@ -50,7 +50,8 @@ namespace PBIW
         opBRFslot(other.opBRFslot),
         immediate(other.immediate),
         zeroOperand(other.zeroOperand),
-        syllablesPacked(other.syllablesPacked)
+        syllablesPacked(other.syllablesPacked),
+        annulBits(other.annulBits)
       {
         zeroOperand.setIndex(15);
       }
@@ -125,7 +126,7 @@ namespace PBIW
 
       void setOpBRslot(IOperand&);
             
-      virtual AnnulationBits getAnnulBits() const
+      virtual AnnulationBits getAnnulBits()
       {     return this->annulBits;    }
       
       virtual void setAnnulBit(int index, bool value)

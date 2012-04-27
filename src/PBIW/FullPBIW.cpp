@@ -284,7 +284,7 @@ namespace PBIW
         
         if(newPattern->getOperation(index-1)->getOpcode() != 0)
         {
-          finalInstruction->setAnnulBit(index-1,true);          
+//          finalInstruction->setAnnulBit(index-1,true);          
         }
       } // ... end for each syllable
       

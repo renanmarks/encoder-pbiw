@@ -21,12 +21,17 @@ namespace PBIW
     {
     public:
         
-//        typedef struct annulBit{
-//            bool modified;
-//            bool original[4];
-//            bool current[4];
-//            int addressPattern;
-//        } AnnulBit;
+        struct Sample{
+            Sample()
+            {
+                annulBits.resize(4, false);
+            }
+            
+            int addressPattern;
+            std::vector<bool> annulBits;
+            std::deque<IOperation*> operations;
+            std::deque<IPBIWInstruction*> instructionsThatUseIt;
+        };
         
         // To control patterns with one and/or three operations
         enum {
@@ -42,7 +47,7 @@ namespace PBIW
         PBIWOptimizerJoinPatterns(const PBIWOptimizerJoinPatterns& orig);
         virtual ~PBIWOptimizerJoinPatterns();
         
-        virtual void printDeque(std::deque<std::deque<int> >* opDeque);
+        virtual void printDeque(std::deque<std::deque<IPBIWPattern*> >* opDeque);
         
         virtual void preprocessPatterns();
         
@@ -51,6 +56,8 @@ namespace PBIW
         virtual void joinPatterns(IPBIWPattern* pattern1, IPBIWPattern* pattern2);
         
         virtual void joiningPatterns(IPBIWPattern* pattern1, IPBIWPattern* pattern2);
+        
+        virtual Sample addSample(IPBIWPattern& );
         
         virtual void updateAnnulBits(IPBIWPattern* pattern, int index, bool bit);
         
@@ -70,20 +77,21 @@ namespace PBIW
         typedef std::vector<IPBIWPattern*> AllPatterns;
         typedef std::deque<IPBIWInstruction*> AllInstructions;
         typedef std::vector<IOperation*> AllOperations;
-        typedef std::deque<std::deque<int> > BaseDeque;
-        typedef std::deque<int> InnerDeque;        
-        typedef std::deque<bool> AnnulationBits;
-//        typedef std::deque<AnnulBit> AnnulationBits2;
+        typedef std::deque<std::deque<IPBIWPattern*> > BaseDeque;
+        typedef std::deque<IPBIWPattern*> InnerDeque;        
+        typedef std::deque<bool> AnnulationBit;
+        typedef std::deque<Sample> AllSamples;
                 
         
     private:
-        std::deque<std::deque<int> > oneOperation;
-        std::deque<std::deque<int> > twoOperation;
-        std::deque<std::deque<int> > threeOperation;
+        std::deque<std::deque<IPBIWPattern*> > oneOperation;
+        std::deque<std::deque<IPBIWPattern*> > twoOperation;
+        std::deque<std::deque<IPBIWPattern*> > threeOperation;
         AllOperations tempOps;
+        AllSamples samples;
 //        AnnulationBits2 annulBits;
         
-        virtual int countTrueBits(AnnulationBits index);
+        virtual int countTrueBits(AnnulationBit index);
         
 //        AllPatterns patterns;
 //        AllInstructions instructions;
