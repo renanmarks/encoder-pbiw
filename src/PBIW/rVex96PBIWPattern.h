@@ -51,7 +51,10 @@ namespace PBIW
     { return operations[index]; }
     
     virtual void setOperation(IOperation& operation, int index)
-    {   this->operations[index] = operation.clone();  }
+    {  
+      delete this->operations[index];
+      this->operations[index] = operation.clone();
+    }
     
     virtual IOperation* operator[](const unsigned int index) const
     { return getOperation(index); }
