@@ -6,8 +6,6 @@
  */
 
 #include <iostream>
-#include <stdlib.h>
-#include <signal.h>
 #include <algorithm>
 #include "PBIWOptimizerJoinPatterns.h"
 //#include "Interfaces/IPBIWOptimizer.h"
@@ -18,35 +16,24 @@ namespace PBIW
 {
     using namespace Interfaces;
     
-    const int SIZE = 4;
-    
-    PBIWOptimizerJoinPatterns::PBIWOptimizerJoinPatterns()
-    : BaseOptimizer()
-    {
-    }
-
-    PBIWOptimizerJoinPatterns::PBIWOptimizerJoinPatterns(const PBIWOptimizerJoinPatterns& orig) {
-    }
-
-    PBIWOptimizerJoinPatterns::~PBIWOptimizerJoinPatterns() {
-    }
+    static const int SIZE = 4;
     
     void
-    PBIWOptimizerJoinPatterns::printDeque(std::deque<std::deque<IPBIWPattern*> >* opDeque)
+    PBIWOptimizerJoinPatterns::printDeque(std::deque<std::deque<IPBIWPattern*> >& opDeque)
     {
         std::string type1[SIZE] = {"CTRL", "MEM", "MUL", "ALU"};
         std::string type2[8] = {"MUL_MUL", "CTRL_MUL", "MEM_MUL", "CTRL_MEM", "CTRL_ALU", "MEM_ALU", "MUL_ALU", "ALU_ALU"};
         
-        for(unsigned int i = 0; i < opDeque->size(); i++)
+        for(unsigned int i = 0; i < opDeque.size(); i++)
         {
-            if(opDeque->size() <= 4)
+            if(opDeque.size() <= 4)
                 std::cout << "Addr at " << type1[i] << ": ";
             else
                 std::cout << "Addr at " << type2[i] << ": ";
             
-            for(unsigned int j = 0; j < opDeque->at(i).size(); j++)
+            for(unsigned int j = 0; j < opDeque.at(i).size(); j++)
             {
-                std::cout << opDeque->at(i).at(j)->getAddress() << " ";
+                std::cout << opDeque.at(i).at(j)->getAddress() << " ";
             }
             std::cout << std::endl;
         }
@@ -56,8 +43,7 @@ namespace PBIW
     void
     PBIWOptimizerJoinPatterns::preprocessPatterns()
     {
-        AllPatterns patterns = this->getPatterns();
-        AllPatterns::iterator it;
+        PBIWOptimizerJoinPatterns::PBIWPatternList::iterator it;
         
         oneOperation.resize(SIZE);
         twoOperation.resize(8);
@@ -252,9 +238,9 @@ namespace PBIW
             
         }
         
-        printDeque(&oneOperation);
-        printDeque(&twoOperation);
-        printDeque(&threeOperation);    
+        printDeque(oneOperation);
+        printDeque(twoOperation);
+        printDeque(threeOperation);    
         
         std::cout << "COUNT 1..3 ops: " << count2[0] << std::endl;
         std::cout << "COUNT 4 ops: " << count2[1] << std::endl;
@@ -811,10 +797,7 @@ namespace PBIW
         
         samplePattern.addressPattern = pattern.getAddress();
         samplePattern.instructionsThatUseIt = pattern.getInstructionsThatUseIt2();
-        
-        std::vector<bool> bits = pattern.getInstructionsThatUseIt2().at(0)->getAnnulBits();
-        
-        samplePattern.annulBits = bits;
+        samplePattern.annulBits = pattern.getInstructionsThatUseIt2().at(0)->getAnnulBits();
         
 //        std::cout << "BITBITBIT " << samplePattern.annulBits.at(0) << std::endl;
         
@@ -863,7 +846,6 @@ namespace PBIW
     void
     PBIWOptimizerJoinPatterns::getPatternsToJoin(int index1, int index2)
     {
-        AllPatterns patterns = getPatterns();
         BaseDeque::iterator itBase1;
         InnerDeque::iterator itInner1, itInner2;
         
@@ -884,7 +866,6 @@ namespace PBIW
     void
     PBIWOptimizerJoinPatterns::getPatternsToJoinOneTwo(int index)
     {
-        AllPatterns patterns = getPatterns();
         BaseDeque::iterator itBase1;
         InnerDeque::iterator itInner1, itInner2;
         
@@ -964,9 +945,7 @@ namespace PBIW
   void
   PBIWOptimizerJoinPatterns::addTempOperation(IOperation* operation)
   {
-    Operation* temp = dynamic_cast<Operation*> (operation);
-
-    tempOps.push_back(temp);
+    tempOps.push_back(operation);
   }
     
     int

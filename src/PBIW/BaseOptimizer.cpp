@@ -7,7 +7,7 @@
 
 #include "BaseOptimizer.h"
 #include "Interfaces/IPBIWInstruction.h"
-#include "algorithm"
+#include <algorithm>
 
 namespace PBIW
 {
