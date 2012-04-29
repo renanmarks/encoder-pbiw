@@ -261,14 +261,17 @@ namespace PBIW
       // If found the operand, lets remove it and use it at the specified slot
       if (operandIt != operandsTemp.end())
       {
+        // Spill index (to prevent cyclic dependencies at swap)
+        const unsigned int spillIndex = 99;
+        
         // Save the old index, so we can update the pattern at next
         unsigned int oldIndex = operandIt->getIndex();
         operandsTemp.erase(operandIt);
         
-        // Update the indexes
-        pattern->updateIndexes(oldIndex, index);
+        // First, update the indexes with the spill index...
+        pattern->updateIndexes(oldIndex, spillIndex);
         
-        // Re-index all the operands as consequence of the move!
+        // ... then re-index all the operands as consequence of the move!
         int newIndex = 0;
         for(operandIt = operandsTemp.begin(); operandIt != operandsTemp.end(); operandIt++, newIndex++)
         {
@@ -282,8 +285,12 @@ namespace PBIW
           operandIt->setIndex(newIndex);
         }
         
+        // next change the spill indexes back to the new index!
+        pattern->updateIndexes(spillIndex, index);
+        
         // Sort them and apply to the original vector
         operandsTemp.sort();
+        operands.clear();
         operands.assign(operandsTemp.begin(), operandsTemp.end());
       }
       
@@ -320,6 +327,7 @@ namespace PBIW
             if (freeSlotIndex > -1)
             {
               operands.at(freeSlotIndex) = operands.at(index);
+              pattern->updateIndexes(index, freeSlotIndex);
               operands.erase(operands.begin()+index);
             }
           }
@@ -346,7 +354,7 @@ namespace PBIW
       Operand& operandReference = dynamic_cast<Operand&>(operand);
       operandReference.setIndex(5);
       
-      setBranchSlot(operandReference, this->opBRFslot);
+      setBranchSlot(operandReference, this->opBRslot);
     }
     
     void
@@ -581,26 +589,5 @@ namespace PBIW
       }
       
       return (operandsSize < 12);
-      
-//      bool withImmSlot = 
-//        (immediate.isImmediate9Bits() && (operandsSize < 10)) ||
-//        (immediate.isImmediate12Bits() && (operandsSize < 9)) ||
-//        (!immediate.isImmediate12Bits() && !immediate.isImmediate9Bits() && operandsSize < 12);
-//      
-//      bool withBRSlot = 
-//        (opBRslot.getValue() > -1) && (operandsSize < 9) && (immediate.isImmediate9Bits()) ||
-//        (opBRslot.getValue() > -1) && (operandsSize < 11) && (!immediate.isImmediate9Bits()) ||
-//      
-//        (opBRslot.getValue() > -1) && (operandsSize < 8) && (immediate.isImmediate12Bits()) ||
-//        (opBRslot.getValue() > -1) && (operandsSize < 11) && (!immediate.isImmediate12Bits());
-//      
-//      bool withBRFSlot = 
-//        (opBRFslot.getValue() > -1) && (operandsSize < 9) && (immediate.isImmediate9Bits()) ||
-//        (opBRFslot.getValue() > -1) && (operandsSize < 11) && (!immediate.isImmediate9Bits()) ||
-//      
-//        (opBRFslot.getValue() > -1) && (operandsSize < 8) && (immediate.isImmediate12Bits()) ||
-//        (opBRFslot.getValue() > -1) && (operandsSize < 11) && (!immediate.isImmediate12Bits());
-//      
-//      return withImmSlot || withBRFSlot || withBRSlot;
     }
 }

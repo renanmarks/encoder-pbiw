@@ -17,8 +17,8 @@ namespace rVex
         
         builder.insertRegister(this->brSource, OperandItem::BRSource, this);
         builder.insertRegister(this->grDestiny, OperandItem::GRDestiny, this);
-        builder.insertRegister(this->brDestiny, OperandItem::BRDestiny, this);
         builder.insertRegisters(readRegisters, OperandItem::GRSource, this);
+        builder.insertRegister(this->brDestiny, OperandItem::BRDestiny, this);
       }
     }
   }
