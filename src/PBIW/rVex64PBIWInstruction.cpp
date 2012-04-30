@@ -86,9 +86,6 @@ namespace PBIW
       return rVex64PBIWInstruction::OperandVector(temp.begin(), temp.end());
     }
     
-    
-    
-
     void
     rVex64PBIWInstruction::print(IPBIWPrinter& printer) const
     {
@@ -230,7 +227,7 @@ namespace PBIW
           }
         }
       }
-
+      
       if (!destinyLabel.empty())
       {
         if (!pattern->hasControlOperation())
@@ -281,7 +278,7 @@ namespace PBIW
       
       return operand;
     }
-
+    
     void rVex64PBIWInstruction::setBranchSlot(const Operand& operand, Operand& field)
     {
       unsigned int index = operand.getIndex();

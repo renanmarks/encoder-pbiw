@@ -113,12 +113,15 @@ namespace PBIW
     for (it = instructions.begin();
          it != instructions.end();
          it++)
-    {    
+    { 
+        std::deque<IPBIWInstruction*> deq = patterns.at(0)->getInstructionsThatUseIt2();
       const IPBIWPattern* pattern = (*it)->getPattern();
       PBIWPatternList::iterator patternIt = std::find_if(patterns.begin(), patterns.end(), FindPattern(pattern));
       
       if (patternIt != patterns.end())
-        (*it)->pointToPattern(**patternIt);
+//        (*it)->pointToPattern(**patternIt);
+      
+      deq = patterns.at(0)->getInstructionsThatUseIt2();
     }
   }
   

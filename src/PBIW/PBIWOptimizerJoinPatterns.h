@@ -63,11 +63,6 @@ namespace PBIW
         
         virtual void getPatternsToJoin(int index1, int index2);
         
-        virtual void getPatternsToJoinOneTwo(int index);
-        
-        virtual void updateInstructions(IPBIWPattern* pattern1, IPBIWPattern* pattern2,
-                                        std::deque<bool>* annulBitsOps1, std::deque<bool>* annulBitsOps2);
-        
         virtual void addTempOperation(IOperation* operation);
         
         virtual void run();
@@ -87,12 +82,6 @@ namespace PBIW
         std::deque<std::deque<IPBIWPattern*> > threeOperation;
         AllOperations tempOps;
         AllSamples samples;
-//        AnnulationBits2 annulBits;
-        
-        virtual int countTrueBits(AnnulationBit index);
-        
-//        AllPatterns patterns;
-//        AllInstructions instructions;
     };
 
 }
