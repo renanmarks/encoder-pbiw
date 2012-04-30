@@ -23,12 +23,13 @@ namespace PBIW
     
   rVex96PBIWPattern::rVex96PBIWPattern(const rVex96PBIWPattern& orig)
     : address(orig.address), 
-      usageCounter(orig.usageCounter)
+      usageCounter(orig.usageCounter),
+      instructionsThatUseIt(orig.instructionsThatUseIt)
   {
     OperationVector::const_iterator it;
 
     for(it = orig.operations.begin(); 
-        it < orig.operations.end(); 
+        it != orig.operations.end(); 
         it++)
     {
       operations.push_back( (*it)->clone() );
@@ -49,19 +50,6 @@ namespace PBIW
     operations.clear();
   }
   
-  void
-  rVex96PBIWPattern::setOperation(IOperation& operation, int index)
-  {   
-      IOperation* op;
-      
-      IOperation& temp = const_cast<IOperation&>(operation);
-              
-      op = this->operations[index];
-      this->operations[index] = &temp;
-      temp = *op;
-  
-  }
-
   IPBIWPattern* 
   rVex96PBIWPattern::clone() const
   {

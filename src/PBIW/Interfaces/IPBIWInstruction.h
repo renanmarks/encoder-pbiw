@@ -195,6 +195,8 @@ namespace PBIW
         
         virtual void setAnnulBit(int, bool) = 0;
         
+        virtual void setAnnulBits(AnnulationBits vectorBits) = 0;
+        
 //        virtual void setAnnulBits(std::deque<bool>* annulatioBits) = 0;
         
         virtual void updateAnnulBits(int index1, int index2) = 0;

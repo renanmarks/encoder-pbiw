@@ -11,6 +11,7 @@
 //#include "Interfaces/IPBIWOptimizer.h"
 #include "BaseOptimizer.h"
 #include "Operation.h"
+#include "src/rVex/Operations/MISC/NOP.h"
 
 namespace PBIW
 {
@@ -606,12 +607,17 @@ namespace PBIW
 //        std::cout << "SAMPLE : " << samples.at(1).annulBits.at(1) << std::endl;
 //        std::cout << "SAMPLE : " << samples.at(1).annulBits.at(2) << std::endl;
 //        std::cout << "SAMPLE : " << samples.at(1).annulBits.at(3) << std::endl;
+        
+//         std::cout << "\nSAMPLE : " << pattern1->getInstructionsThatUseIt2().at(0)->getAnnulBits().at(3) << std::endl;
+//        std::cout << "SAMPLE : " << samples.at(1).annulBits.at(1) << std::endl;
+//        std::cout << "SAMPLE : " << samples.at(1).annulBits.at(2) << std::endl;
+//        std::cout << "SAMPLE : " << samples.at(1).annulBits.at(3) << std::endl;
 //        
 //        std::cout << "\n\nSAMPLE : " << samples.at(0).annulBits.at(0) << std::endl;
 //        std::cout << "SAMPLE : " << samples.at(0).annulBits.at(1) << std::endl;
 //        std::cout << "SAMPLE : " << samples.at(0).annulBits.at(2) << std::endl;
 //        std::cout << "SAMPLE : " << samples.at(0).annulBits.at(3) << std::endl;
-//        
+        
 //        if(samples.size() > 2){
 //            std::cout << "\nSAMPLE : " << samples.at(2).annulBits.at(0) << std::endl;
 //            std::cout << "SAMPLE : " << samples.at(2).annulBits.at(1) << std::endl;
@@ -624,7 +630,7 @@ namespace PBIW
 //        std::cout << "OP : " << sampleP2.annulBits.at(2) << std::endl;
 //        std::cout << "OP : " << sampleP2.annulBits.at(3) << std::endl;
         
-        std::cout << "TTamamnho " << samples.size() << std::endl;
+//        std::cout << "TTamamnho " << samples.size() << std::endl;
         
         int syllableType[4] = {4, 2, 2, 3}; // Based on the rVex syllables types: ALU = 1, MUL, MEM, CTRL
         std::cout << "ADDR : " << sampleP1.addressPattern << std::endl;
@@ -658,21 +664,23 @@ namespace PBIW
                         }
                         else
                         {
-                            if(!sampleP1.annulBits.at(i))
-                            {
-                                for(it = samples.begin(); it < samples.end(); it++)
-                                {
-                                    if(((*it).addressPattern != sampleP1.addressPattern) &&
-                                       ((*it).addressPattern != sampleP2.addressPattern) &&
-                                       (*((*it).operations.at(i)) == *(sampleP1.operations.at(i))))
-                                    {
-//                                       (*it).annulBits.at(i) = 0;
-//                                       (*it).operations.at(i) = sampleP2.operations.at(i);
-                                       std::cout << "Entrou " << std::endl;
-                                    }
-                                }                                
-                            }
-                            else
+//                            if(!sampleP1.annulBits.at(i))
+//                            {
+//                                for(it = samples.begin(); it < samples.end(); it++)
+//                                {
+//                                     std::cout << "IT " << (*it).operations.at(i)->getOpcode() << std::endl;
+//                                    std::cout << "sampleP1 " << sampleP1.operations.at(i)->getOpcode() << std::endl;
+//                                    if(((*it).addressPattern != sampleP1.addressPattern) &&
+//                                       ((*it).addressPattern != sampleP2.addressPattern) &&
+//                                       (*((*it).operations.at(i)) == *(sampleP1.operations.at(i))))
+//                                    {
+////                                       (*it).annulBits.at(i) = 0;
+////                                       (*it).operations.at(i) = sampleP2.operations.at(i);
+//                                       std::cout << "Entrou " << std::endl;
+//                                    }
+//                                }                                
+//                            }
+                            if(sampleP1.annulBits.at(i))
                             {
                                 sampleP1.annulBits.at(i) = 0;                                
                             }
@@ -680,7 +688,7 @@ namespace PBIW
 //                            sampleP1.operations.at(i) = sampleP2.operations.at(i);
                             
                             addTempOperation(pattern1->getOperation(i));
-                            pattern1->setOperation(*pattern2->getOperation(i), i);
+                            
                             annulBitsOps1[i] = 0;
                             
                             
@@ -736,96 +744,107 @@ namespace PBIW
 //                    updateAnnulBits(pattern1, i, 1);
 //                    updateAnnulBits(pattern2, i, 0);
                 }
-                if((pattern2->getOperation(i)->getOpcode() == 0) || (!(annulBitsOps1[0] || annulBitsOps2[0])))
-                {
-                    if(!tempOps.empty())
-                    {
-                        if((!(annulBitsOps1[0] || annulBitsOps2[0])) && (i == 3))
-                        {
-                            pattern1->setOperation(*tempOps.front(), 0); // assign one operation to the pattern
-                            annulBitsOps1[0] = 1;
-                    
-                            if(!sampleP1.annulBits.at(i))
-                            {
-                                for(it = samples.begin(); it < samples.end(); it++)
-                                {
-                                    if(((*it).addressPattern != sampleP1.addressPattern) &&
-                                       ((*it).addressPattern != sampleP2.addressPattern) &&
-                                       (*((*it).operations.at(i)) == *(sampleP1.operations.at(i))))
-                                    {
-                                       (*it).annulBits.at(0) = 1;
-//                                       (*it).operations.at(i) = 0;
-//                                       (*it).operations.at(0) = tempOps.front();
-                                       std::cout << "Entrouuuuuu " << std::endl;
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                sampleP1.annulBits.at(0) = 1;                                
-                            }
-                            
-//                            sampleP1.annulBits.at(0) = 1;
-//                            annulBits.at(index1).current[0] = 1;
+//                if((pattern2->getOperation(i)->getOpcode() == 0) || (!(annulBitsOps1[0] || annulBitsOps2[0])))
+//                {
+//                    if(!tempOps.empty())
+//                    {
+//                        if((!(annulBitsOps1[0] || annulBitsOps2[0])) && (i == 3))
+//                        {
+//                            pattern1->setOperation(*tempOps.front(), 0); // assign one operation to the pattern
+//                            annulBitsOps1[0] = 1;
+//                    
+//                            if(!sampleP1.annulBits.at(i))
+//                            {
+//                                for(it = samples.begin(); it < samples.end(); it++)
+//                                {
+//                                     std::cout << "IT " << (*it).operations.at(i)->getOpcode() << std::endl;
+//                                    std::cout << "sampleP1 " << sampleP1.operations.at(i)->getOpcode() << std::endl;
+//                                    if(((*it).addressPattern != sampleP1.addressPattern) &&
+//                                       ((*it).addressPattern != sampleP2.addressPattern) &&
+//                                       (*((*it).operations.at(i)) == *(sampleP1.operations.at(i))))
+//                                    {
+//                                       (*it).annulBits.at(0) = 1;
+////                                       (*it).operations.at(i) = 0;
+////                                       (*it).operations.at(0) = tempOps.front();
+//                                       std::cout << "Entrouuuuuu " << std::endl;
+//                                    }
+//                                }
+//                            }
+//                            else
+//                            {
+//                                sampleP1.annulBits.at(0) = 1;                                
+//                            }
 //                            
-//                            if(!annulBits.at(index1).modified)
-//                                annulBits.at(index1).original[0] = 1;
-                            
-//                            updateAnnulBits(pattern1, 0, 1);
-                        }                            
-                        else
-                            {
-                            pattern1->setOperation(*tempOps.front(), i); // assign one operation to the pattern
-                            annulBitsOps1[i] = 1;
+////                            sampleP1.annulBits.at(0) = 1;
+////                            annulBits.at(index1).current[0] = 1;
+////                            
+////                            if(!annulBits.at(index1).modified)
+////                                annulBits.at(index1).original[0] = 1;
 //                            
-                            sampleP1.annulBits.at(i) = 1;
-//                            annulBits.at(index1).current[i] = 1;
+////                            updateAnnulBits(pattern1, 0, 1);
+//                        }                            
+//                        else
+//                            {
+//                            pattern1->setOperation(*tempOps.front(), i); // assign one operation to the pattern
+//                            annulBitsOps1[i] = 1;
+////                            
+//                            sampleP1.annulBits.at(i) = 1;
+////                            annulBits.at(index1).current[i] = 1;
+////                            
+////                            if(!annulBits.at(index1).modified)
+////                                annulBits.at(index1).original[i] = 1;
 //                            
-//                            if(!annulBits.at(index1).modified)
-//                                annulBits.at(index1).original[i] = 1;
-                            
-//                            updateAnnulBits(pattern1, i, 1);
-                            }
-                            
-                        tempOps.erase(tempOps.begin()); // Erase the operation after assign to the pattern                                                 
-                    }
-                }
+////                            updateAnnulBits(pattern1, i, 1);
+//                            }
+//                            
+//                        tempOps.erase(tempOps.begin()); // Erase the operation after assign to the pattern                                                 
+//                    }
+//                }
             }
             
-            if(!tempOps.empty())
+            while(!tempOps.empty())
             {
                 if((pattern1->getOperation(i)->getType() == syllableType[i]) && (i == 3))
                 {
                     int j = 3;
                     while(j >= 0)
                     {
-                        if(!annulBitsOps1[j])
-                        {
-                            pattern1->setOperation(*tempOps.front(), 0); // assign one operation to the pattern
+//                        if(!annulBitsOps1[j])
+//                        {
                             
-                            if(!sampleP1.annulBits.at(i))
-                            {
-                                for(it = samples.begin(); it < samples.end(); it++)
-                                {
-                                    if(((*it).addressPattern != sampleP1.addressPattern) &&
-                                       ((*it).addressPattern != sampleP2.addressPattern) &&
-                                       (*((*it).operations.at(i)) == *(sampleP1.operations.at(i))))
-                                    {
-                                       
-                                       (*it).annulBits.at(i) = 0;
-                                       (*it).annulBits.at(0) = 1;
-//                                       (*it).operations.at(i) = 0;
-//                                       (*it).operations.at(0) = tempOps.front();
-                                       std::cout << "Entrouuuuuu " << std::endl;
-                                    }
-                                }                                
-                            }
-                            else
-                            {
-                                sampleP1.annulBits.at(0) = 1;                                
-                            }
-
+                        if(sampleP1.operations.at(j)->getOpcode() == 0)
+                        {
 //                            
+//                            if(!sampleP1.annulBits.at(i))
+//                            {
+//                                for(it = samples.begin(); it < samples.end(); it++)
+//                                {
+//                                    std::cout << "IT " << (*it).operations.at(i)->getOpcode() << std::endl;
+//                                    std::cout << "sampleP1 " << tempOps.front()->getOpcode() << std::endl;
+//                                    if(((*it).addressPattern != sampleP1.addressPattern) &&
+//                                       ((*it).addressPattern != sampleP2.addressPattern) &&
+//                                       (*((*it).operations.at(i)) == *tempOps.front()))
+//                                    {
+//                                       
+//                                       (*it).annulBits.at(i) = 0;
+//                                       (*it).annulBits.at(j) = 1;
+//                                       (*it).operations.at(i) = 0;
+//                                       (*it).operations.at(j) = tempOps.front();
+//                                       std::cout << "Entrouuuuuu " << std::endl;
+//                                    }
+//                                }                                
+//                            }
+//                            else
+//                            {
+//                                sampleP1.annulBits.at(0) = 1;                                
+//                            }
+                          sampleP2.annulBits.at(j) = 1;
+                          sampleP2.operations.at(i) = 0;
+                          sampleP1.operations.at(j) = tempOps.front();
+                          
+                          pattern1->setOperation(*tempOps.front(), j); // assign one operation to the pattern
+                          pattern1->setOperation(*pattern2->getOperation(i), i); 
+                          
 //                            if(j != 3)
 //                            {
 //                                annulBitsOps1[j] = 1;
@@ -845,8 +864,8 @@ namespace PBIW
 
                             
                             
-                            tempOps.erase(tempOps.begin()); // Erase the operation after assign to the pattern
-                            j = -1;
+//                            tempOps.erase(tempOps.begin()); // Erase the operation after assign to the pattern
+//                            j = -1;
                         }
                         j--;
                     }                        
@@ -856,12 +875,43 @@ namespace PBIW
                     int j = 3;
                     while(j >= 0)
                     {
-                        if(!annulBitsOps1[j])
+//                        if(!annulBitsOps1[j])
+//                        {
+                        if(sampleP1.operations.at(j)->getOpcode() == 0)
                         {
-                            pattern1->setOperation(*tempOps.front(), j); // assign one operation to the pattern
+                            
+                            if(!sampleP1.annulBits.at(i))
+                            {
+                                for(it = samples.begin(); it < samples.end(); it++)
+                                {
+                                    std::cout << "IT " << (*it).operations.at(i)->getOpcode() << std::endl;
+                                    std::cout << "sampleP1 " << tempOps.front()->getOpcode() << std::endl;
+                                    if(((*it).addressPattern != sampleP1.addressPattern) &&
+                                       ((*it).addressPattern != sampleP2.addressPattern) &&
+                                       (*((*it).operations.at(i)) == *tempOps.front()))
+                                    {
+                                       
+                                       (*it).annulBits.at(i) = 0;
+                                       (*it).annulBits.at(j) = 1;
+                                       (*it).operations.at(i) = 0;
+                                       (*it).operations.at(j) = tempOps.front();
+                                       std::cout << "Entrouuuuuu " << std::endl;
+                                    }
+                                }                                
+                            }
+                            else
+                            {
+                                sampleP1.annulBits.at(0) = 1;                                
+                            }
+                          
+                          pattern1->setOperation(*tempOps.front(), j); // assign one operation to the pattern
+                          pattern1->setOperation(*pattern2->getOperation(i), i); 
+                            
+                            
+//                            pattern1->setOperation(*tempOps.front(), j); // assign one operation to the pattern
                             annulBitsOps2[j] = 1;
                             
-                            sampleP2.annulBits.at(j) = 1;
+//                            sampleP2.annulBits.at(j) = 1;
 //
 //                            annulBits.at(index2).current[j] = 1;
 //
@@ -883,9 +933,24 @@ namespace PBIW
 //        annulBits.at(index2).modified = true;                    
         
         updateAddressInstruction(pattern1, pattern2);
-
+        updateBits();
 //        updateInstructions(pattern1, pattern2, &annulBitsOps1, &annulBitsOps2);
 //        updateInstructions(pattern1, pattern2, &annulBits.at(index1), &annulBits.at(index));
+    }
+    
+    void
+    PBIWOptimizerJoinPatterns::updateBits()
+    {
+        AllSamples::iterator it1;
+        AllInstructions::iterator it2;
+        
+        for(it1 = samples.begin(); it1 < samples.end(); it1++)
+        {
+            for(it2 = (*it1).instructionsThatUseIt.begin(); it2 < (*it1).instructionsThatUseIt.end(); it2++)
+            {
+                (*it2)->setAnnulBits((*it1).annulBits);
+            }
+        }
     }
     
     PBIWOptimizerJoinPatterns::Sample
@@ -894,7 +959,6 @@ namespace PBIW
         AllSamples::iterator itSample;
         struct Sample samplePattern;
         bool find = false;
-        
         
         for(itSample = samples.begin(); itSample < samples.end(); itSample++)
         {
@@ -909,12 +973,10 @@ namespace PBIW
         {
             samplePattern.addressPattern = pattern.getAddress();
 
-            
             samplePattern.instructionsThatUseIt = pattern.getInstructionsThatUseIt2();
 
-            std::vector<bool> bits = pattern.getInstructionsThatUseIt2().at(0)->getAnnulBits();
-            samplePattern.annulBits = bits;
-        
+            samplePattern.annulBits = samplePattern.instructionsThatUseIt.at(0)->getAnnulBits();
+            
             std::vector<IOperation*> operation = pattern.getOperations();
             std::copy(operation.begin(),operation.end(),std::back_inserter(samplePattern.operations));
 

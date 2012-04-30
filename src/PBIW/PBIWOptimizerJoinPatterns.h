@@ -43,11 +43,7 @@ namespace PBIW
             MUL_MUL = 0, CTRL_MUL, MEM_MUL, CTRL_MEM, CTRL_ALU, MEM_ALU, MUL_ALU, ALU_ALU
         };
         
-        PBIWOptimizerJoinPatterns();
-        PBIWOptimizerJoinPatterns(const PBIWOptimizerJoinPatterns& orig);
-        virtual ~PBIWOptimizerJoinPatterns();
-        
-        virtual void printDeque(std::deque<std::deque<IPBIWPattern*> >* opDeque);
+        virtual void printDeque(std::deque<std::deque<IPBIWPattern*> >& opDeque);
         
         virtual void preprocessPatterns();
         
@@ -56,6 +52,8 @@ namespace PBIW
         virtual void joinPatterns(IPBIWPattern* pattern1, IPBIWPattern* pattern2);
         
         virtual void joiningPatterns(IPBIWPattern* pattern1, IPBIWPattern* pattern2);
+        
+        virtual void updateBits();
         
         virtual Sample addSample(IPBIWPattern& );
         
