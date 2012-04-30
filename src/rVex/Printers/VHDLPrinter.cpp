@@ -41,6 +41,7 @@ namespace rVex
     void 
     VHDLPrinter::printSyllable(const rVex::Syllable* syllable, unsigned int binary, bool first, bool last) // O(1)
     {
+        /*
       std::string resultBinary;
       unsigned int temp = binary;
       
@@ -63,10 +64,9 @@ namespace rVex
         resultBinary.append("1\",");
       else
         resultBinary.append("0\"&");
-      
-      output << resultBinary 
-        << " -- " << syllable->getTextRepresentation()
-        << std::endl;
+      */
+        if(syllable->getTextRepresentation() != "")
+                output << syllable->getTextRepresentation() << std::endl;
     }
 
     /**
@@ -83,9 +83,9 @@ namespace rVex
       try 
       {
         if (instruction.haveLabel())
-          output << "\t\t-- " << instruction.getLabel()->name << ": " << std::endl;
+          output << "#" << instruction.getLabel()->name << ":" << std::endl << "\n";
         
-        output << "\t\t" << instruction.getAddress() << " =>\t";
+        output << "[I-" << instruction.getAddress() << "]" << "\n";
         
         for ( it = syllables.begin(); it < syllables.end(); it++)  // O(|syllables|) = O(4) = O(1)
         {
@@ -97,12 +97,12 @@ namespace rVex
           // ... if the current is the FIRST put 01 in LF ...
           else if (it+1 == syllables.end()) 
           {
-            output << "\t\t\t";
+            //output << "\t\t\t";
             (*it)->print(*this, true, false);
           }
           else // ... if is in the middle, put 00 in LF bits
           {
-            output << "\t\t\t";
+            //output << "\t\t\t";
             (*it)->print(*this, false, false);
           }
         }

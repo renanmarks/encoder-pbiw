@@ -116,10 +116,12 @@ execute(const std::string& filename, const std::string& flags, bool debugEnabled
     std::cerr << "Could not open file: " << filename << std::endl;
     return 0;
   }
-
+  
+  //std::ofstream teste = std::ofstream("/home/lscad/traceI.lol");
   // Assembler debug printer
   rVex::Printers::rVexPrinter debugPrinter(std::cout);
 
+  
   // Assembler VHDL printer
   std::ofstream assembledFile;
   rVex::Printers::VHDLPrinter vhdlPrinter(assembledFile);
@@ -127,14 +129,14 @@ execute(const std::string& filename, const std::string& flags, bool debugEnabled
   // Pointer to ease changing them
   rVex::Printers::IPrinter* printer= &vhdlPrinter;
 
-  if (debugEnabled)
+  if (0)
   {
     printer= &debugPrinter;
   } 
   else
   {
     std::string outputFilename=filename;
-    outputFilename+=".vhd";
+    outputFilename+=".rvex";
 
     std::cout << "Assembled file: " << outputFilename << std::endl;
     
@@ -146,7 +148,7 @@ execute(const std::string& filename, const std::string& flags, bool debugEnabled
 
   // Create the full parser stack!
   VexParser::VexContext context(*printer);
-  context.enableDebugging(debugEnabled);
+  //context.enableDebugging(debugEnabled);
 
   VexParser::Driver driver(context);
   driver.trace_parsing=traceParsing;
@@ -163,43 +165,43 @@ execute(const std::string& filename, const std::string& flags, bool debugEnabled
   
   // Instantiate the PBIW encoder
   PBIW::FullPBIW pbiw;
-  pbiw.setDebug(context.isDebuggingEnabled());
+  //pbiw.setDebug(context.isDebuggingEnabled());
   
-  if (context.isDebuggingEnabled())
+  if (0)
   {
     PBIW::PartialPBIWDebugPrinter pbiwDebugPrinter(std::cout);
     context.encodePBIW(pbiw); // O(|codedPatterns|^2)
 
-    pbiw.printInstructions(pbiwDebugPrinter);
-    pbiw.printPatterns(pbiwDebugPrinter);
+    //pbiw.printInstructions(pbiwDebugPrinter);
+    //pbiw.printPatterns(pbiwDebugPrinter);
     pbiw.printStatistics(pbiwDebugPrinter);
   } 
   else
   {
     std::string imemFilename=filename;
-    imemFilename+=".pbiw.vhd";
+    imemFilename+=".pbiw";
 
     std::string pcacheFilename=filename;
-    pcacheFilename+=".pcache.vhd";
+    pcacheFilename+=".pcache";
 
     std::ofstream imemFile(imemFilename.c_str());
     std::ofstream pcacheFile(pcacheFilename.c_str());
 
     std::cout 
-      << "PBIW instructions file: " << imemFilename << std::endl
-      << "PBIW patterns file: " << pcacheFilename << std::endl
-      << std::endl;
+     << "PBIW instructions file: " << imemFilename << std::endl
+     << "PBIW patterns file: " << pcacheFilename << std::endl
+     << std::endl;
     
     PBIW::PartialPBIWPrinter statisticsPBIWPrinter(std::cout);
     PBIW::PartialPBIWPrinter imemPBIWPrinter(imemFile);
     PBIW::PartialPBIWPrinter pachePBIWPrinter(pcacheFile);
 
     context.encodePBIW(pbiw); // O(|codedPatterns|^2)
-    
+   
     pbiw.printStatistics(statisticsPBIWPrinter);
     pbiw.printInstructions(imemPBIWPrinter);
     pbiw.printPatterns(pachePBIWPrinter);
   }
-
+  
   return result;
 }

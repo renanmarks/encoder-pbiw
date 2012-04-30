@@ -269,7 +269,7 @@ namespace VexParser
   {
     InstructionList::const_iterator instructionIt;
     
-    printer.printHeader(); // O(1)
+    //printer.printHeader(); // O(1)
     
     for(instructionIt = instructions.begin();  // O(|instructions|)
         instructionIt != instructions.end();
@@ -285,7 +285,7 @@ namespace VexParser
       (*instructionIt)->print(printer); // O(1)
     }
     
-    printer.printFooter(); // O(1)
+    //printer.printFooter(); // O(1)
   }
   
 
