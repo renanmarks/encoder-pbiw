@@ -78,7 +78,7 @@ namespace PBIW
     virtual void reorganize(IPBIWInstruction* instruction);
 
     virtual void resetUsageCounter()
-    { usageCounter = 0; }
+    { instructionsThatUseIt.clear(); }
     
     virtual void print(IPBIWPrinter&) const;
     

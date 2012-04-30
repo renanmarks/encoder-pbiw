@@ -191,11 +191,11 @@ namespace PBIW
         virtual std::list<rVex::Syllable*> getSyllableReferences() const = 0;
        
         typedef std::vector<bool> AnnulationBits;
-        virtual AnnulationBits getAnnulBits() = 0;
+        virtual const AnnulationBits& getAnnulBits() const = 0;
         
         virtual void setAnnulBit(int, bool) = 0;
         
-        virtual void setAnnulBits(AnnulationBits vectorBits) = 0;
+        virtual void setAnnulBits(const AnnulationBits& vectorBits) = 0;
         
 //        virtual void setAnnulBits(std::deque<bool>* annulatioBits) = 0;
         

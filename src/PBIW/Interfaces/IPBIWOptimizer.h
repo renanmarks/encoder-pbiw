@@ -25,7 +25,9 @@ namespace PBIW
       virtual void useInstructions(const std::vector<IPBIWInstruction*>&) = 0;
       virtual void usePatterns(const std::vector<IPBIWPattern*>&) = 0;
       
-      virtual void print(IPBIWPrinter& printer) = 0;
+      virtual void printStatistics(IPBIWPrinter&, int ) = 0;
+      virtual void printInstructions(IPBIWPrinter&) = 0;
+      virtual void printPatterns(IPBIWPrinter&) = 0;
 
       virtual std::vector<IPBIWPattern*> getPatterns() = 0;
       virtual std::vector<IPBIWInstruction*> getInstructions() = 0;

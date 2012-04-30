@@ -104,7 +104,7 @@ namespace PBIW
       output.longWord|=pattern->getAddress();
       
       // Extra bit
-      output.longWord<<=1;
+      //output.longWord<<=1;
             
       for(unsigned int i = 0;
               i < annulBits.size();

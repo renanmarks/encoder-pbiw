@@ -551,8 +551,8 @@ namespace PBIW
         annulBitsOps2.resize(4);
         AllSamples::iterator it;
       
-        Sample sampleP1 = addSample(*pattern1);
-        Sample sampleP2 = addSample(*pattern2);
+        Sample& sampleP1 = addSample(*pattern1);
+        Sample& sampleP2 = addSample(*pattern2);
 
         int syllableType[4] = {4, 2, 2, 3}; // Based on the rVex syllables types: ALU = 1, MUL, MEM, CTRL
         std::cout << "ADDR : " << sampleP1.addressPattern << std::endl;
@@ -716,12 +716,17 @@ namespace PBIW
         {
             for(it2 = (*it1).instructionsThatUseIt.begin(); it2 < (*it1).instructionsThatUseIt.end(); it2++)
             {
-                (*it2)->setAnnulBits((*it1).annulBits);
+                std::cout << "u OP : " << it1->annulBits.at(0) << std::endl;
+                std::cout << "u OP : " << it1->annulBits.at(1) << std::endl;
+                std::cout << "u OP : " << it1->annulBits.at(2) << std::endl;
+                std::cout << "u OP : " << it1->annulBits.at(3) << std::endl;
+                
+                (*it2)->setAnnulBits(it1->annulBits);
             }
         }
     }
     
-    PBIWOptimizerJoinPatterns::Sample
+    PBIWOptimizerJoinPatterns::Sample&
     PBIWOptimizerJoinPatterns::addSample(IPBIWPattern& pattern)
     {
         AllSamples::iterator itSample;
@@ -751,7 +756,7 @@ namespace PBIW
             samples.push_back(samplePattern);
         }
          
-        return samplePattern;
+        return samples.back();
     }
     
     void

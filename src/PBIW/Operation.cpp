@@ -109,7 +109,7 @@ namespace PBIW
       case rVex::Syllable::opDIVS:
       case rVex::Syllable::opSLCT:
       case rVex::Syllable::opSLCTF:
-        if (readBrOperand == -1 && (operand.isBRSource() || operand.isBRDestiny()))
+        if (readBrOperand == -1)
         {
           this->readBrOperand = operand.getIndex();
             return;

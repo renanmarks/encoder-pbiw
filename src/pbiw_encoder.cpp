@@ -181,7 +181,9 @@ execute(const std::string& filename, const std::string& flags, bool debugEnabled
     
     std::cout << " --- Begin post optimizer data ---" << std::endl;
     
-    optmizer.print(pbiwDebugPrinter);
+    optmizer.printInstructions(pbiwDebugPrinter);
+    optmizer.printPatterns(pbiwDebugPrinter); 
+    optmizer.printStatistics(pbiwDebugPrinter, context.getInstructions().size());
   } 
 
   else
@@ -212,6 +214,10 @@ execute(const std::string& filename, const std::string& flags, bool debugEnabled
     pbiw.printStatistics(statisticsPBIWPrinter);
     pbiw.printInstructions(imemPBIWPrinter);
     pbiw.printPatterns(pachePBIWPrinter);
+    
+    optmizer.printStatistics(statisticsPBIWPrinter, context.getInstructions().size());
+//    optmizer.printInstructions(imemPBIWPrinter);
+//    optmizer.printPatterns(pachePBIWPrinter);    
   }
 
   return result;

@@ -27,7 +27,7 @@ namespace PBIW
                 annulBits.resize(4, false);
             }
             
-            int addressPattern;
+            unsigned int addressPattern;
             std::vector<bool> annulBits;
             std::deque<IOperation*> operations;
             std::deque<IPBIWInstruction*> instructionsThatUseIt;
@@ -55,7 +55,7 @@ namespace PBIW
         
         virtual void updateBits();
         
-        virtual Sample addSample(IPBIWPattern& );
+        virtual Sample& addSample(IPBIWPattern& );
         
         virtual void updateAnnulBits(IPBIWPattern* pattern, int index, bool bit);
         

@@ -126,13 +126,13 @@ namespace PBIW
 
       void setOpBRslot(IOperand&);
             
-      virtual AnnulationBits getAnnulBits()
+      virtual const AnnulationBits& getAnnulBits() const
       {     return this->annulBits;    }
       
       virtual void setAnnulBit(int index, bool value)
       {     annulBits[index] = value;   }
       
-      virtual void setAnnulBits(AnnulationBits vectorBits)
+      virtual void setAnnulBits(const AnnulationBits& vectorBits)
       {     annulBits = vectorBits;     }
       
 //      virtual void setAnnulBits(std::deque<bool>*& annulatioBits)

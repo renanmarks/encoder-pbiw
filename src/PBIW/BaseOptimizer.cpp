@@ -114,44 +114,75 @@ namespace PBIW
          it != instructions.end();
          it++)
     { 
-        std::deque<IPBIWInstruction*> deq = patterns.at(0)->getInstructionsThatUseIt2();
-      const IPBIWPattern* pattern = (*it)->getPattern();
-      PBIWPatternList::iterator patternIt = std::find_if(patterns.begin(), patterns.end(), FindPattern(pattern));
+        const IPBIWPattern* pattern = (*it)->getPattern();
+        PBIWPatternList::iterator patternIt = std::find_if(patterns.begin(), patterns.end(), FindPattern(pattern));
       
       if (patternIt != patterns.end())
-//        (*it)->pointToPattern(**patternIt);
-      
-      deq = patterns.at(0)->getInstructionsThatUseIt2();
+        (*it)->pointToPattern(**patternIt);
+        
     }
   }
   
-  void
-  BaseOptimizer::print(IPBIWPrinter& printer)
+  void 
+  BaseOptimizer::printStatistics(IPBIWPrinter& printer, int originalInstructionsCount)
+  {
+    unsigned int instructionsBytes = instructions.size() * 8;
+    unsigned int patternsBytes = patterns.size() * 12;
+    
+    printer.getOutputStream()
+      << "Optimizer Summary: \n\n"
+      << "Instruction count = " << instructions.size() 
+      << " ( " << instructionsBytes <<" bytes )" << std::endl
+      
+      << "Pattern count = " << patterns.size()
+      << " ( " << patternsBytes <<" bytes )" << std::endl
+      
+      << "Reuse ratio = " 
+      << (instructions.size() / (double)patterns.size()) << std::endl
+      
+      << "Total = " 
+      << patternsBytes + instructionsBytes <<" bytes" << std::endl
+      
+      << "----" << std::endl
+      
+      << "Original Instructions count = " << originalInstructionsCount
+      << " ( " << originalInstructionsCount * 16 <<" bytes )" << std::endl
+      
+      << "Compression ratio = " 
+      << ((instructionsBytes + patternsBytes) / (double)(originalInstructionsCount * 16)) * 100.0 << " %" << std::endl;
+  }
+  
+  void 
+  BaseOptimizer::printInstructions(IPBIWPrinter& instructionPrinter)
   {
     PBIWInstructionList::const_iterator instructionIt;
     
-    printer.printInstructionsHeader();
+    instructionPrinter.printInstructionsHeader();
     
     for (instructionIt = instructions.begin();
          instructionIt != instructions.end();
          instructionIt++)
     {
-      (*instructionIt)->print(printer);
+      (*instructionIt)->print(instructionPrinter);
     }
     
-    printer.printInstructionsFooter(instructions.size());
-    
+    instructionPrinter.printInstructionsFooter(instructions.size());
+  }
+  
+  void 
+  BaseOptimizer::printPatterns(IPBIWPrinter& patternPrinter)
+  {
     PBIWPatternList::const_iterator patternIt;
     
-    printer.printPatternsHeader();
+    patternPrinter.printPatternsHeader();
     
     for (patternIt = patterns.begin();
          patternIt != patterns.end();
          patternIt++)
     {
-      (*patternIt)->print(printer);
+      (*patternIt)->print(patternPrinter);
     }
     
-    printer.printPatternsFooter(patterns.size());
+    patternPrinter.printPatternsFooter(patterns.size());
   }
 }
