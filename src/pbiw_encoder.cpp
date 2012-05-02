@@ -212,12 +212,12 @@ execute(const std::string& filename, const std::string& flags, bool debugEnabled
     pbiw.runOptimizers();
     
     pbiw.printStatistics(statisticsPBIWPrinter);
-    pbiw.printInstructions(imemPBIWPrinter);
-    pbiw.printPatterns(pachePBIWPrinter);
+//    pbiw.printInstructions(imemPBIWPrinter);
+//    pbiw.printPatterns(pachePBIWPrinter);
     
     optmizer.printStatistics(statisticsPBIWPrinter, context.getInstructions().size());
-//    optmizer.printInstructions(imemPBIWPrinter);
-//    optmizer.printPatterns(pachePBIWPrinter);    
+    optmizer.printInstructions(imemPBIWPrinter);
+    optmizer.printPatterns(pachePBIWPrinter);    
   }
 
   return result;
