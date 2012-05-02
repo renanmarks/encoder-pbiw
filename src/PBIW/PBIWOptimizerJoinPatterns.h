@@ -80,8 +80,36 @@ namespace PBIW
         std::deque<std::deque<IPBIWPattern*> > oneOperation;
         std::deque<std::deque<IPBIWPattern*> > twoOperation;
         std::deque<std::deque<IPBIWPattern*> > threeOperation;
+        
+        std::deque<IPBIWPattern*> newJoinedPatterns;
         AllOperations tempOps;
         AllSamples samples;
+        
+        class PatternBuilder
+        {
+        public:
+          void addOperation(IOperation&, int, IPBIWPattern*);
+          void setBits(IPBIWInstruction&, IPBIWPattern&);
+          IPBIWPattern* getPattern() const;
+          
+          struct OperationInfo 
+          {
+            OperationInfo()
+            : operation(NULL),
+              pattern(NULL),
+              originalPosition(-1)
+            { }
+            
+            IOperation* operation;
+            IPBIWPattern* pattern;
+            int originalPosition;
+          };
+        private:
+          OperationInfo ctrl;
+          OperationInfo mul1;
+          OperationInfo mul2;
+          OperationInfo mem;
+        };
     };
 
 }

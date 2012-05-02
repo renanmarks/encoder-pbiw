@@ -11,12 +11,130 @@
 #include "PBIWOptimizerJoinPatterns.h"
 #include "BaseOptimizer.h"
 #include "Operation.h"
+#include "Interfaces/IPBIWInstruction.h"
 #include "src/rVex/Operations/MISC/NOP.h"
+#include "rVex96PBIWPattern.h"
 
 namespace PBIW
 {
     using namespace Interfaces;
+  
+    void
+    PBIWOptimizerJoinPatterns::PatternBuilder::addOperation(IOperation& operation, int position, IPBIWPattern* pattern)
+    {
+      switch(operation.getType())
+      {
+        case rVex::Syllable::SyllableType::CTRL:
+          if (ctrl.operation == NULL)
+          {
+            ctrl.operation = &operation;
+            ctrl.originalPosition = position;
+            ctrl.pattern = pattern;
+          }
+          break;
+        
+        case rVex::Syllable::SyllableType::MUL:
+          if (mul1.operation == NULL)
+          {
+            mul1.operation = &operation;
+            mul1.originalPosition = position;
+            mul1.pattern = pattern;
+          }
+          else
+          {
+            mul2.operation = &operation;
+            mul2.originalPosition = position;
+            mul2.pattern = pattern;
+          }
+          break;
+          
+        case rVex::Syllable::SyllableType::MEM:
+          if (mem.operation == NULL)
+          {
+            mem.operation = &operation;
+            mem.originalPosition = position;
+            mem.pattern = pattern;
+          }
+          break;
+          
+        default:
+        case rVex::Syllable::SyllableType::ALU:
+        {
+          if (ctrl.operation == NULL)
+          {
+            ctrl.operation = &operation;
+            ctrl.originalPosition = position;
+            ctrl.pattern = pattern;
+          }
+          else if (mul1.operation == NULL)
+          {
+            mul1.operation = &operation;
+            mul1.originalPosition = position;
+            mul1.pattern = pattern;
+          }
+          else if (mul2.operation == NULL)
+          {
+            mul2.operation = &operation;
+            mul2.originalPosition = position;
+            mul2.pattern = pattern;
+          }
+          else if (mem.operation == NULL)
+          {
+            mem.operation = &operation;
+            mem.originalPosition = position;
+            mem.pattern = pattern;
+          }
+        }
+          break;
+      }
+    }
+
+    void
+    PBIWOptimizerJoinPatterns::PatternBuilder::setBits(IPBIWInstruction& instruction, IPBIWPattern& originalPattern)
+    {
+      std::deque<IPBIWInstruction*>::iterator instructionIt;
+      std::deque<IPBIWInstruction*> instructionsReferenced = originalPattern.getInstructionsThatUseIt();
+      
+      for (instructionIt = instructionsReferenced.begin(); 
+           instructionIt != instructionsReferenced.end();
+           instructionIt++)
+      {
+        IPBIWInstruction::AnnulationBits annulationBits = (*instructionIt)->getAnnulBits();
+      
+        annulationBits[ctrl.originalPosition] = false;
+        annulationBits[mul1.originalPosition] = false;
+        annulationBits[mul2.originalPosition] = false;
+        annulationBits[mem.originalPosition] = false;
+
+        if (ctrl.operation != NULL)
+          annulationBits[0] = true;
+
+        if (mul1.operation != NULL)
+          annulationBits[1] = true;
+
+        if (mul2.operation != NULL)
+          annulationBits[2] = true;
+
+        if (mem.operation != NULL)
+          annulationBits[3] = true;
+
+        (*instructionIt)->setAnnulBits(annulationBits);
+      }
+    }
     
+    IPBIWPattern* 
+    PBIWOptimizerJoinPatterns::PatternBuilder::getPattern() const
+    {
+      IPBIWPattern* returnedPattern = new rVex96PBIWPattern();
+      
+      returnedPattern->addOperation(ctrl.operation->clone());
+      returnedPattern->addOperation(mul1.operation->clone());
+      returnedPattern->addOperation(mul2.operation->clone());
+      returnedPattern->addOperation(mem.operation->clone());
+      
+      return returnedPattern;
+    }
+  
     static const int SIZE = 4;
     
     void
