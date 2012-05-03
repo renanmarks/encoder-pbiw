@@ -15,6 +15,14 @@
           <itemPath>src/PBIW/Interfaces/IPBIWPattern.h</itemPath>
           <itemPath>src/PBIW/Interfaces/IPBIWPrinter.h</itemPath>
         </logicalFolder>
+        <logicalFolder name="f3" displayName="Optimizers" projectFiles="true">
+          <logicalFolder name="f1" displayName="JoinPattern" projectFiles="true">
+            <itemPath>src/PBIW/Optimizers/JoinPattern/OperationInformation.h</itemPath>
+            <itemPath>src/PBIW/Optimizers/JoinPattern/PBIWOptimizerJoinPatterns.h</itemPath>
+            <itemPath>src/PBIW/Optimizers/JoinPattern/PatternBuilder.h</itemPath>
+            <itemPath>src/PBIW/Optimizers/JoinPattern/PatternInformation.h</itemPath>
+          </logicalFolder>
+        </logicalFolder>
         <logicalFolder name="f2" displayName="Utils" projectFiles="true">
           <itemPath>src/PBIW/Utils/OperandItem.h</itemPath>
           <itemPath>src/PBIW/Utils/OperandVector.h</itemPath>
@@ -24,7 +32,6 @@
         <itemPath>src/PBIW/Label.h</itemPath>
         <itemPath>src/PBIW/Operand.h</itemPath>
         <itemPath>src/PBIW/Operation.h</itemPath>
-        <itemPath>src/PBIW/PBIWOptimizerJoinPatterns.h</itemPath>
         <itemPath>src/PBIW/Printers/PartialPBIWDebugPrinter.h</itemPath>
         <itemPath>src/PBIW/Printers/PartialPBIWPrinter.h</itemPath>
         <itemPath>src/PBIW/rVex64PBIWInstruction.h</itemPath>
@@ -179,6 +186,14 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="f1" displayName="PBIW" projectFiles="true">
+        <logicalFolder name="f2" displayName="Optimizers" projectFiles="true">
+          <logicalFolder name="f1" displayName="JoinPattern" projectFiles="true">
+            <itemPath>src/PBIW/Optimizers/JoinPattern/OperationInformation.cpp</itemPath>
+            <itemPath>src/PBIW/Optimizers/JoinPattern/PBIWOptimizerJoinPatterns.cpp</itemPath>
+            <itemPath>src/PBIW/Optimizers/JoinPattern/PatternBuilder.cpp</itemPath>
+            <itemPath>src/PBIW/Optimizers/JoinPattern/PatternInformation.cpp</itemPath>
+          </logicalFolder>
+        </logicalFolder>
         <logicalFolder name="f1" displayName="Utils" projectFiles="true">
           <itemPath>src/PBIW/Utils/OperandVector.cpp</itemPath>
         </logicalFolder>
@@ -186,7 +201,6 @@
         <itemPath>src/PBIW/FullPBIW.cpp</itemPath>
         <itemPath>src/PBIW/Operand.cpp</itemPath>
         <itemPath>src/PBIW/Operation.cpp</itemPath>
-        <itemPath>src/PBIW/PBIWOptimizerJoinPatterns.cpp</itemPath>
         <itemPath>src/PBIW/Printers/PartialPBIWDebugPrinter.cpp</itemPath>
         <itemPath>src/PBIW/Printers/PartialPBIWPrinter.cpp</itemPath>
         <itemPath>src/PBIW/rVex64PBIWInstruction.cpp</itemPath>
