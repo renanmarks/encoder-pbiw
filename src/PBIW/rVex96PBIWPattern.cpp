@@ -164,7 +164,7 @@ namespace PBIW
   }
   
   void 
-  rVex96PBIWPattern::reorganize(IPBIWInstruction* instruction) // O(1)
+  rVex96PBIWPattern::reorganize() // O(1)
   {
     Operand zero;
     
@@ -201,7 +201,7 @@ namespace PBIW
             (counterIt != 0)
           )
         {            
-            this->exchangeOperations(0, counterIt, instruction);
+            this->exchangeOperations(0, counterIt);
 
             counterIt--;
             it--; 
@@ -211,7 +211,7 @@ namespace PBIW
                  (counterIt != 3)
                )
         {            
-            this->exchangeOperations(3, counterIt, instruction);
+            this->exchangeOperations(3, counterIt);
             
             counterIt--;
             it--;
@@ -235,11 +235,11 @@ namespace PBIW
               
               if(operations.at(1)->getOpcode() > operations.at(counterIt)->getOpcode())
               {
-                  this->exchangeOperations(1, counterIt, instruction);
+                  this->exchangeOperations(1, counterIt);
               }                  
           }                    
                     
-          this->exchangeOperations(index, counterIt, instruction);
+          this->exchangeOperations(index, counterIt);
           
           counterIt--;
           it--;
@@ -250,19 +250,29 @@ namespace PBIW
         {
             if(operations.at(1)->getOpcode() > operations.at(2)->getOpcode())
             {
-                this->exchangeOperations(1, 2, instruction);
+                this->exchangeOperations(1, 2);
             }
             else if(operations.at(1)->getOpcode() == operations.at(2)->getOpcode())
             {
-                  operandsOp1 = operations.at(1)->getOperandsIndexes();
-                  operandsOp2 = operations.at(2)->getOperandsIndexes();
-                  
-                  if(this->getValueByIndex(instruction, operandsOp1.at(0)) >
-                     this->getValueByIndex(instruction, operandsOp2.at(0))
-                    )
-                  { 
-                      this->exchangeOperations(1, 2, instruction);
-                  }                  
+                operandsOp1 = operations.at(1)->getOperandsIndexes();
+                operandsOp2 = operations.at(2)->getOperandsIndexes();
+
+                IOperation::OperandIndexVector::const_iterator operandIt1;
+                IOperation::OperandIndexVector::const_iterator operandIt2;
+
+                for(operandIt1 = operandsOp1.begin(), operandIt2 = operandsOp2.begin();
+                    operandIt1 != operandsOp1.end(), operandIt2 != operandsOp2.end();
+                    operandIt1++, operandIt2++)
+                {
+                  if (*operandIt1 == *operandIt2)
+                    continue;
+
+                  if (*operandIt1 > *operandIt2)
+                  {
+                    this->exchangeOperations(1, 2);
+                    break;
+                  }
+                }
             }
         }
           
@@ -292,35 +302,28 @@ namespace PBIW
             {
                 if(operations.at(index1)->getOpcode() > operations.at(index2)->getOpcode())
                 {
-                    this->exchangeOperations(index1, index2, instruction);
+                    this->exchangeOperations(index1, index2);
                 }
                 else if( (operations.at(index1)->getOpcode() == operations.at(index2)->getOpcode()) )
                 {
                     operandsOp1 = operations.at(index1)->getOperandsIndexes();
                     operandsOp2 = operations.at(index2)->getOperandsIndexes();
+                    
+                    IOperation::OperandIndexVector::const_iterator operandIt1;
+                    IOperation::OperandIndexVector::const_iterator operandIt2;
+                    
+                    for(operandIt1 = operandsOp1.begin(), operandIt2 = operandsOp2.begin();
+                      operandIt1 != operandsOp1.end(), operandIt2 != operandsOp2.end();
+                      operandIt1++, operandIt2++)
+                    {
+                      if (*operandIt1 == *operandIt2)
+                        continue;
 
-                    if(
-                      (this->getValueByIndex(instruction, operandsOp1.at(0)) > 
-                      this->getValueByIndex(instruction, operandsOp2.at(0)))
-                    )
-                    {
-                        this->exchangeOperations(index1, index2, instruction);
-                    }
-                    else if(
-                      (this->getValueByIndex(instruction, operandsOp1.at(0)) ==
-                      this->getValueByIndex(instruction, operandsOp2.at(0)))
-                    )
-                    {
-                        if(this->getValueByIndex(instruction, operandsOp1.at(1)) >
-                           this->getValueByIndex(instruction, operandsOp2.at(1)))
-                        {                            
-                            this->exchangeOperations(index1, index2, instruction);
-                        }
-                        else if(this->getValueByIndex(instruction, operandsOp1.at(1)) >
-                                this->getValueByIndex(instruction, operandsOp2.at(1)))
-                        {
-                            this->exchangeOperations(index1, index2, instruction);
-                        }
+                      if (*operandIt1 > *operandIt2)
+                      {
+                        this->exchangeOperations(index1, index2);
+                        break;
+                      }
                     }
                 }
             }     
@@ -328,7 +331,7 @@ namespace PBIW
                     (operations.at(index1)->getType() == rVex::Syllable::SyllableType::ALU))
                    ) 
             {
-                this->exchangeOperations(index1, index2, instruction);
+                this->exchangeOperations(index1, index2);
             }
         }
     } 
@@ -353,20 +356,6 @@ namespace PBIW
       instruction->updateAnnulBits(index1, index2);
   }
   
-  unsigned int
-  rVex96PBIWPattern::getValueByIndex(const IPBIWInstruction* instruction, int index) const// O(1)
-  {
-    IPBIWInstruction::OperandVector operands = instruction->getOperands();
-    
-    if (index == 14)
-      return 0;
-    
-    if (index != -1)
-      return operands.at(index).getValue(); // O(1)
-      
-    return index;
-  }
-    
   bool
   rVex96PBIWPattern::operator<(const IPBIWPattern& other) const // O(1)
   {
