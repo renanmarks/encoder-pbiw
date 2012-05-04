@@ -64,7 +64,7 @@ namespace PBIW
   // O(|codedPatterns|) + O(1) = O(|codedPatterns|)
   void FullPBIW::savePBIWElements(rVex64PBIWInstruction*& finalInstruction, rVex96PBIWPattern*& newPattern)
   {
-    newPattern->reorganize(finalInstruction); // O(1)
+    newPattern->reorganize(); // O(1)
     
     const IPBIWPattern& foundPattern = hasPattern(*newPattern); // O(|codedPatterns|)
     IPBIWPattern& notConstFoundPattern = const_cast<IPBIWPattern&>(foundPattern); // O(1)

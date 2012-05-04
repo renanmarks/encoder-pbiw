@@ -65,7 +65,7 @@ namespace PBIW
     virtual void resetUsageCounter()
     { usageCounter = 0; }
     
-    virtual void reorganize(const IPBIWInstruction* instruction);
+    virtual void reorganize();
     
     virtual void print(IPBIWPrinter&) const;
     
@@ -85,7 +85,6 @@ namespace PBIW
     OperationVector operations; // Max 4
     int usageCounter;
     
-    virtual unsigned int getValueByIndex(const IPBIWInstruction*& instruction, int index) const;
     virtual void exchangeOperations(int index1, int index2);
     
   };

@@ -155,7 +155,7 @@ namespace PBIW
   }
   
   void 
-  rVex96PBIWPattern::reorganize(const IPBIWInstruction* instruction) // O(1)
+  rVex96PBIWPattern::reorganize() // O(1)
   {
     Operand zero;
     
@@ -245,15 +245,25 @@ namespace PBIW
             }
             else if(operations.at(1)->getOpcode() == operations.at(2)->getOpcode())
             {
-                  operandsOp1 = operations.at(1)->getOperandsIndexes();
-                  operandsOp2 = operations.at(2)->getOperandsIndexes();
-                  
-                  if(this->getValueByIndex(instruction, operandsOp1.at(0)) >
-                     this->getValueByIndex(instruction, operandsOp2.at(0))
-                    )
-                  { 
-                      this->exchangeOperations(1, 2);
-                  }                  
+                operandsOp1 = operations.at(1)->getOperandsIndexes();
+                operandsOp2 = operations.at(2)->getOperandsIndexes();
+
+                IOperation::OperandIndexVector::const_iterator operandIt1;
+                IOperation::OperandIndexVector::const_iterator operandIt2;
+
+                for(operandIt1 = operandsOp1.begin(), operandIt2 = operandsOp2.begin();
+                    operandIt1 != operandsOp1.end(), operandIt2 != operandsOp2.end();
+                    operandIt1++, operandIt2++)
+                {
+                  if (*operandIt1 == *operandIt2)
+                    continue;
+
+                  if (*operandIt1 > *operandIt2)
+                  {
+                    this->exchangeOperations(1, 2);
+                    break;
+                  }
+                }
             }
         }
           
@@ -289,29 +299,22 @@ namespace PBIW
                 {
                     operandsOp1 = operations.at(index1)->getOperandsIndexes();
                     operandsOp2 = operations.at(index2)->getOperandsIndexes();
+                    
+                    IOperation::OperandIndexVector::const_iterator operandIt1;
+                    IOperation::OperandIndexVector::const_iterator operandIt2;
+                    
+                    for(operandIt1 = operandsOp1.begin(), operandIt2 = operandsOp2.begin();
+                      operandIt1 != operandsOp1.end(), operandIt2 != operandsOp2.end();
+                      operandIt1++, operandIt2++)
+                    {
+                      if (*operandIt1 == *operandIt2)
+                        continue;
 
-                    if(
-                      (this->getValueByIndex(instruction, operandsOp1.at(0)) > 
-                      this->getValueByIndex(instruction, operandsOp2.at(0)))
-                    )
-                    {
+                      if (*operandIt1 > *operandIt2)
+                      {
                         this->exchangeOperations(index1, index2);
-                    }
-                    else if(
-                      (this->getValueByIndex(instruction, operandsOp1.at(0)) ==
-                      this->getValueByIndex(instruction, operandsOp2.at(0)))
-                    )
-                    {
-                        if(this->getValueByIndex(instruction, operandsOp1.at(1)) >
-                           this->getValueByIndex(instruction, operandsOp2.at(1)))
-                        {                            
-                            this->exchangeOperations(index1, index2);
-                        }
-                        else if(this->getValueByIndex(instruction, operandsOp1.at(1)) >
-                                this->getValueByIndex(instruction, operandsOp2.at(1)))
-                        {
-                            this->exchangeOperations(index1, index2);
-                        }
+                        break;
+                      }
                     }
                 }
             }     
@@ -337,20 +340,6 @@ namespace PBIW
       operations.at(index2) = operation;    
   }
   
-  unsigned int
-  rVex96PBIWPattern::getValueByIndex(const IPBIWInstruction*& instruction, int index) const // O(1)
-  {
-    IPBIWInstruction::OperandVector operands = instruction->getOperands();
-    
-    if (index == 15)
-      return 0;
-    
-    if (index != -1)
-      return operands.at(index).getValue(); // O(1)
-      
-    return index;
-  }
-    
   bool
   rVex96PBIWPattern::operator<(const IPBIWPattern& other) const // O(1)
   {

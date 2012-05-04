@@ -74,7 +74,7 @@ namespace PBIW
         virtual int getUsageCounter() const = 0;
         virtual void resetUsageCounter() = 0;
         
-        virtual void reorganize(const IPBIWInstruction*) = 0;
+        virtual void reorganize() = 0;
         
         /**
          * Print this pattern using the specified printer.
