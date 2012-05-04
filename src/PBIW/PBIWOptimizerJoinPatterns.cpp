@@ -639,7 +639,7 @@ namespace PBIW
                         {
                             
                             addTempOperation(pattern1->getOperation(i));
-                            
+                            sampleP1.annulBits.at(i) = 0;
                             annulBitsOps1[i] = 0;
                         }
                     }
@@ -666,6 +666,47 @@ namespace PBIW
             
             while(!tempOps.empty())
             {
+                if((pattern1->getOperation(i)->getType() == syllableType[2]) &&
+                    (pattern2->getOperation(i)->getType() == syllableType[2]))
+                {
+                    int j = 3;
+                    while(j >= 0)
+                    {
+                        if((sampleP1.operations.at(j)->getType() != syllableType[2]) &&
+                           (sampleP2.operations.at(j)->getType() != syllableType[2]))
+                        {
+                            if(sampleP1.operations.at(2)->getOpcode() != 0)
+                            {
+                                if(sampleP1.operations.at(3)->getOpcode() == 0)
+                                {
+                                    sampleP1.operations.at(3) = sampleP2.operations.at(1);
+                                    sampleP1.annulBits.at(2) = 0;
+                                    sampleP1.annulBits.at(3) = 1;
+                                    pattern1->setOperation(*pattern1->getOperation(2), 3); // assign one operation to the pattern
+                                }
+                                else if(sampleP1.operations.at(0)->getOpcode() == 0)
+                                {
+                                    sampleP1.operations.at(0) = sampleP2.operations.at(1);
+                                    sampleP1.annulBits.at(2) = 0;
+                                    sampleP1.annulBits.at(0) = 1;
+                                    pattern1->setOperation(*pattern1->getOperation(2), 0); // assign one operation to the pattern
+                                }
+                            }                                
+                                
+                            sampleP2.annulBits.at(j) = 0;
+                            sampleP2.annulBits.at(2) = 1;
+                                                        
+                            sampleP1.operations.at(2) = tempOps.front();
+                            sampleP2.operations.at(1) = 0;
+                            sampleP2.operations.at(2) = tempOps.front();
+                            
+                            pattern1->setOperation(*tempOps.front(), 2); // assign one operation to the pattern
+                            
+                            tempOps.pop_front();
+                            j = -1;
+                        }
+                    }
+                }
                 if((pattern1->getOperation(i)->getType() == syllableType[i]))
                 {
                     int j = 3;
@@ -673,17 +714,18 @@ namespace PBIW
                     {
                         if(sampleP1.operations.at(j)->getOpcode() == 0)
                         {
-                            sampleP2.annulBits.at(j) = 1;
+                            
                             sampleP2.operations.at(i) = 0;
                             sampleP1.operations.at(j) = tempOps.front();
+                            sampleP2.annulBits.at(j) = 1;
 
                             pattern1->setOperation(*tempOps.front(), j); // assign one operation to the pattern
-                            pattern1->setOperation(*pattern2->getOperation(i), j); 
+//                            pattern1->setOperation(*pattern2->getOperation(i), i); 
 
                             tempOps.erase(tempOps.begin()); // Erase the operation after assign to the pattern
                             j = -1;
-                        }                       
-                        j--;
+                        }
+                        j--;                        
                     }                        
                 }
                 else if((pattern1->getOperation(i)->getType() != syllableType[i]))
@@ -691,6 +733,7 @@ namespace PBIW
                     int j = 3;
                     while(j >= 0)
                     {
+                        
                         
                         if(sampleP1.operations.at(j)->getOpcode() == 0)
                         {
@@ -724,6 +767,40 @@ namespace PBIW
                                     }
                                     
                                     tempOps.erase(tempOps.begin()); // Erase the operation after assign to the pattern
+                                }
+                            }
+                            else if((j == 2) && (tempOps.front()->getOpcode() == syllableType[2]))
+                            {
+                                if(!sampleP1.annulBits.at(j))
+                                {
+                                    for(it = samples.begin(); ((it < samples.end()) && (!tempOps.empty())); it++)
+                                    {
+                                        if((it->addressPattern != sampleP1.addressPattern) &&
+                                        (it->addressPattern != sampleP2.addressPattern) &&
+                                        (*(it->operations.at(i)) == *tempOps.front()))
+                                        {                                       
+                                            it->annulBits.at(i) = 0;
+                                            it->annulBits.at(j) = 1;
+                                            it->operations.at(i) = 0;
+                                            it->operations.at(j) = tempOps.front();
+
+                                            pattern1->setOperation(*tempOps.front(), j); // assign one operation to the pattern
+                                            pattern1->setOperation(*pattern2->getOperation(i), i);
+                                        }
+                                        
+                                        tempOps.erase(tempOps.begin()); // Erase the operation after assign to the pattern
+                                    }
+                                }
+                                else if(sampleP1.annulBits.at(j)) 
+                                {
+                                    sampleP2.annulBits.at(i) = 0;
+                                    sampleP2.annulBits.at(j) = 1;
+                                    sampleP1.annulBits.at(j) = 0;
+                                    sampleP1.operations.at(j) = tempOps.front();
+                                    sampleP2.operations.at(j) = tempOps.front();
+
+                                    pattern1->setOperation(*tempOps.front(), j); // assign one operation to the pattern
+//                                    pattern1->setOperation(*pattern2->getOperation(i), i);
                                 }
                             }
                             else

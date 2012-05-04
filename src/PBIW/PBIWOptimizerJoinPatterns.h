@@ -69,7 +69,7 @@ namespace PBIW
     
         typedef std::vector<IPBIWPattern*> AllPatterns;
         typedef std::deque<IPBIWInstruction*> AllInstructions;
-        typedef std::vector<IOperation*> AllOperations;
+        typedef std::deque<IOperation*> AllOperations;
         typedef std::deque<std::deque<IPBIWPattern*> > BaseDeque;
         typedef std::deque<IPBIWPattern*> InnerDeque;        
         typedef std::deque<bool> AnnulationBit;
