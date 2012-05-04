@@ -19,28 +19,47 @@ namespace PBIW
       IPBIWPattern* 
       PatternBuilder::buildPattern()
       {
-        reorganizeOperations();
-        
+        // TODO: Make this non-dependent of the croncrete rVex96Pattern
         IPBIWPattern* returnedPattern = new rVex96PBIWPattern();
         
-//        returnedPattern->addOperation(ctrl.operation->clone());
-//        returnedPattern->addOperation(mul1.operation->clone());
-//        returnedPattern->addOperation(mul2.operation->clone());
-//        returnedPattern->addOperation(mem.operation->clone());
+        PatternInformationList::iterator it;
 
+        // Using the information we have, lets build the new pattern...
+        for (it = patternInformations.begin();
+             it != patternInformations.end();
+             it++)
+        {
+          PatternInformation::OperationsCollections::const_iterator opIt;
+          PatternInformation::OperationsCollections operations = it->getSlots();
+          
+          for (opIt = operations.begin();
+               opIt != operations.end();
+               opIt++)
+          {
+            if ( opIt->getOriginalPosition() > -1 )
+              returnedPattern->addOperation( opIt->getOperation()->clone() );
+          }
+        }
+        
+        // ... reorganize it and use itself to update our operations
+        // position information!
+        reorganizeOperations(returnedPattern);
+        
         return returnedPattern;
       }
       
       void 
-      PatternBuilder::reorganizeOperations()
+      PatternBuilder::reorganizeOperations(IPBIWPattern* returnedPattern)
       {
+        returnedPattern->reorganize(NULL); // TODO
+        
         PatternInformationList::iterator it;
         
         for (it = patternInformations.begin();
              it != patternInformations.end();
              it++)
         {
-          
+          it->updateSlots(returnedPattern); // Update our slots!
         }
       }
       
@@ -48,10 +67,9 @@ namespace PBIW
       PatternBuilder::startWithPattern(IPBIWPattern* pattern)
       {
         PatternInformation patternInfo;
-        
         patternInfo.setPattern(pattern);
-        
         clear();
+        
         patternInformations.push_back(patternInfo);
         
         return *this;

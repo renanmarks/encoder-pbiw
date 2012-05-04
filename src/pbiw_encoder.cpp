@@ -19,7 +19,7 @@ using namespace std;
 #include "PBIW/Printers/PartialPBIWDebugPrinter.h"
 #include "VexParser/VexTypes.h"
 #include "PBIW/BaseOptimizer.h"
-#include "PBIW/PBIWOptimizerJoinPatterns.h"
+//#include "PBIW/PBIWOptimizerJoinPatterns.h"
 //#include "Time/ExecutionTime.h"
 
 
@@ -161,7 +161,7 @@ execute(const std::string& filename, const std::string& flags, bool debugEnabled
   context.processLabels(); // O(1)
   context.print(); // O(|instructions|)
 
-  PBIW::PBIWOptimizerJoinPatterns optmizer;
+//  PBIW::PBIWOptimizerJoinPatterns optmizer;
     
   // Instantiate the PBIW encoder
   PBIW::FullPBIW pbiw;
@@ -172,8 +172,8 @@ execute(const std::string& filename, const std::string& flags, bool debugEnabled
     PBIW::PartialPBIWDebugPrinter pbiwDebugPrinter(std::cout);
     context.encodePBIW(pbiw); // O(|codedPatterns|^2)
     
-    pbiw.registerOptimizer(optmizer);
-    pbiw.runOptimizers();
+//    pbiw.registerOptimizer(optmizer);
+//    pbiw.runOptimizers();
     
     pbiw.printInstructions(pbiwDebugPrinter);
     pbiw.printPatterns(pbiwDebugPrinter);
@@ -181,9 +181,9 @@ execute(const std::string& filename, const std::string& flags, bool debugEnabled
     
     std::cout << " --- Begin post optimizer data ---" << std::endl;
     
-    optmizer.printInstructions(pbiwDebugPrinter);
-    optmizer.printPatterns(pbiwDebugPrinter); 
-    optmizer.printStatistics(pbiwDebugPrinter, context.getInstructions().size());
+//    optmizer.printInstructions(pbiwDebugPrinter);
+//    optmizer.printPatterns(pbiwDebugPrinter); 
+//    optmizer.printStatistics(pbiwDebugPrinter, context.getInstructions().size());
   } 
 
   else
@@ -208,16 +208,16 @@ execute(const std::string& filename, const std::string& flags, bool debugEnabled
 
     context.encodePBIW(pbiw); // O(|codedPatterns|^2)
     
-    pbiw.registerOptimizer(optmizer);
-    pbiw.runOptimizers();
+//    pbiw.registerOptimizer(optmizer);
+//    pbiw.runOptimizers();
     
     pbiw.printStatistics(statisticsPBIWPrinter);
 //    pbiw.printInstructions(imemPBIWPrinter);
 //    pbiw.printPatterns(pachePBIWPrinter);
     
-    optmizer.printStatistics(statisticsPBIWPrinter, context.getInstructions().size());
-    optmizer.printInstructions(imemPBIWPrinter);
-    optmizer.printPatterns(pachePBIWPrinter);    
+//    optmizer.printStatistics(statisticsPBIWPrinter, context.getInstructions().size());
+//    optmizer.printInstructions(imemPBIWPrinter);
+//    optmizer.printPatterns(pachePBIWPrinter);    
   }
 
   return result;

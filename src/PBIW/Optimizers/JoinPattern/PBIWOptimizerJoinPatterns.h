@@ -88,14 +88,6 @@ namespace PBIW
           std::deque<IPBIWPattern*> newJoinedPatterns;
           AllOperations tempOps;
           AllSamples samples;
-
-          class PatternBuilder
-          {
-          public:
-            
-          private:
-            
-          };
       };
     }
   }

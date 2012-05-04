@@ -53,6 +53,10 @@ namespace PBIW
         getOperation() const
         { return operation; }
 
+        void
+        reset()
+        { *this = OperationInformation(); }
+        
       private:
         IOperation* operation;
         int originalPosition;

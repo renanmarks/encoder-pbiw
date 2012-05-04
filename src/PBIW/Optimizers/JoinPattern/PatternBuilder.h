@@ -50,7 +50,7 @@ namespace PBIW
         { patternInformations.clear(); }
         
       private:
-        void reorganizeOperations();
+        void reorganizeOperations(IPBIWPattern* returnedPattern);
         
         typedef std::deque<PatternInformation> PatternInformationList;
         PatternInformationList patternInformations;

@@ -30,6 +30,9 @@ namespace PBIW
       class PatternInformation
       {
       public:
+        typedef std::deque<IPBIWInstruction*> InstructionCollection;
+        typedef std::vector<OperationInformation> OperationsCollections;
+        
         PatternInformation()
         : pattern(NULL),
           slots(4, OperationInformation())
@@ -51,19 +54,45 @@ namespace PBIW
         setPattern(IPBIWPattern*);
 
         void
-        setInstructionsAnnulationBits();
+        updateInstructionsAnnulationBits();
         
         IPBIWPattern*
         getPattern() const
         { return pattern; }
+
+        OperationsCollections
+        getSlots() const
+        { return slots; }
         
+        void 
+        updateSlots(IPBIWPattern*);
+      
       private:
+        
+        /**
+         * Functor used to find a operation in the collection
+         */
+        class FindOperation : public std::unary_function<IOperation, bool>
+        {
+        public:
+            FindOperation(const IOperation* operation) 
+              : operation(operation), position(0) 
+            { }
+
+            bool operator()(IOperation* const& t) 
+            { position++; return (*t == *operation); }
+
+            int
+            GetPosition() const
+            { return position; }
+            
+        private:
+            const IOperation* operation;
+            int position;
+        };
+        
         IPBIWPattern* pattern;
-        
-        typedef std::deque<IPBIWInstruction*> InstructionCollection;
         InstructionCollection instructions;
-        
-        typedef std::vector<OperationInformation> OperationsCollections;
         OperationsCollections slots; // ctrl, mul1, mul2, mem
       };
     }
