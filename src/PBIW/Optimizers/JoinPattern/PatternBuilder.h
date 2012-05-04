@@ -36,15 +36,32 @@ namespace PBIW
         virtual ~PatternBuilder()
         { }
         
+        /**
+         * Instantiates a really new Pattern object with all the instructions
+         * from older patterns pointing to it and all the annulation bits
+         * updated to use this new pattern;
+         */
         IPBIWPattern*
         buildPattern();
         
+        /**
+         * Calls the clear() method and initializes this PatternBuilder instance
+         * with the pattern passed as argument, gathering its information.
+         */
         PatternBuilder&
         startWithPattern(IPBIWPattern*);
         
+        /**
+         * Adds a new pattern to the builder to gather information about it.
+         */
         PatternBuilder&
         joinWithPattern(IPBIWPattern*);
         
+        /**
+         * Erases all the information gathered to join two patterns.
+         * Simply clear the PatternInformation from this builder to
+         * start another joining process.
+         */
         void 
         clear()
         { patternInformations.clear(); }

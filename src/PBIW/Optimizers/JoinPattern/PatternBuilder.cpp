@@ -60,6 +60,8 @@ namespace PBIW
              it++)
         {
           it->updateSlots(returnedPattern); // Update our slots!
+          it->updateInstructionsAnnulationBits(); // Update the annulation bits!
+          it->updateInstructionsPointers(returnedPattern); // CHANGE ALL THE POINTERS! \o>
         }
       }
       

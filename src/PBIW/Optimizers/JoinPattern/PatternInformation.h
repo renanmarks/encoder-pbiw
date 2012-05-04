@@ -56,6 +56,9 @@ namespace PBIW
         void
         updateInstructionsAnnulationBits();
         
+        void
+        updateInstructionsPointers(IPBIWPattern*);
+        
         IPBIWPattern*
         getPattern() const
         { return pattern; }
@@ -68,7 +71,6 @@ namespace PBIW
         updateSlots(IPBIWPattern*);
       
       private:
-        
         /**
          * Functor used to find a operation in the collection
          */

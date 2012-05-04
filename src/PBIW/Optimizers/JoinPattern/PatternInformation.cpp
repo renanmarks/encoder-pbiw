@@ -50,9 +50,22 @@ namespace PBIW
       }
       
       void
+      PatternInformation::updateInstructionsPointers(IPBIWPattern* pattern)
+      {
+        InstructionCollection::iterator instructionIt;
+
+        for (instructionIt = instructions.begin(); 
+            instructionIt != instructions.end();
+            instructionIt++)
+        {
+          (*instructionIt)->pointToPattern(*pattern);
+        }
+      }
+      
+      void
       PatternInformation::updateInstructionsAnnulationBits()
       {
-        std::deque<IPBIWInstruction*>::iterator instructionIt;
+        InstructionCollection::iterator instructionIt;
 
         for (instructionIt = instructions.begin(); 
             instructionIt != instructions.end();
