@@ -276,7 +276,7 @@ namespace PBIW
                 
                 (*itBase1).erase((*itBase1).begin());
                 (*itBase2).erase((*itBase2).begin());
-                samples.clear();
+//                samples.clear();
             }            
         }
         
@@ -401,13 +401,17 @@ namespace PBIW
                                     {
                                         getPatternsToJoin(j, ALU_ALU);
                                     }                                    
-//                                    else
-//                                    {
+                                    else if(j == 7)// if alu_alu
+                                    {
 //                                        if((!(*itBase2).empty()) && (!twoOperation.at(ALU_ALU).size() > 1) && (j != 7))
-//                                        {
-//                                            getPatternsToJoin(j, ALU_ALU);
-//                                        }
-//                                    }
+                                        while(itBase2->begin() != itBase2->end())
+                                        {
+//                                            getPatternsToJoin(itBase2->front(), ALU_ALU);
+                                            joinPatterns(itBase2->front(), itBase2->back());
+                                            itBase2->pop_front();
+                                            itBase2->pop_back();
+                                        }
+                                    }
                                 }
                                 j++;
                             }
@@ -418,7 +422,7 @@ namespace PBIW
             }
             
             i++;
-            samples.clear();
+//            samples.clear();
         }
         
         // CTRL = 0, MEM, MUL, ALU
@@ -492,8 +496,8 @@ namespace PBIW
                     if((tempPattern->getOperation(j)->getType() != syllableType[j]) ||
                        (tempPattern->getOperation(j)->getOpcode() == 0))
                     {
-                        if((!oneOperation.at(types[j]).empty()) && ((syllableType[j]) ||
-                            (tempPattern->getOperation(j)->getOpcode() == 0)))
+                        if((!oneOperation.at(types[j]).empty()) &&
+                            (tempPattern->getOperation(j)->getOpcode() == 0))
                         {
                             joinPatterns(tempPattern, *(std::find(patterns.begin(), patterns.end(), oneOperation.at(types[j]).front())));
                             oneOperation.at(types[j]).erase(oneOperation.at(types[j]).begin());
@@ -511,26 +515,27 @@ namespace PBIW
                                     oneOperation.at(types[4]).erase(oneOperation.at(types[4]).begin());                                
                                     count++;
 //                                    j = 4;
-                                    k = 4;
+//                                    k = 4;
 //                                    tempPattern = NULL;
                                 }
                             }
-                            if((!oneOperation.at(types[4]).empty()) != (count < 2))
-                            {
-//                                tempPattern = NULL;
-                                j = 2;
-                            }
-                            else
-                            {
-                                j = 4;
-                            }
+//                            if((!oneOperation.at(types[4]).empty()) != (count < 2))
+//                            {
+////                                tempPattern = NULL;
+//                                j = 2;
+//                            }
+//                            else
+//                            {
+//                                j = 4;
+//                            }
+                            j = 4;
                             
 //                            samples.clear();                            
                         }
                     }
                 }
             }
-            samples.clear();
+//            samples.clear();
             tempPattern = NULL;
             i++;
         }        
@@ -561,7 +566,8 @@ namespace PBIW
                         {
                             joinPatterns(tempPattern1, *(std::find(patterns.begin(), patterns.end(), oneOperation.at(types[j]).front())));
                             oneOperation.at(types[j]).erase(oneOperation.at(types[j]).begin());
-                            samples.clear();
+//                            samples.clear();
+                            j = 4;
                             tempPattern1 = NULL;
                         }
 //                        else if(!oneOperation.at(types[4]).empty())
@@ -586,7 +592,7 @@ namespace PBIW
                                 j = 4;
                             }
                             
-                            samples.clear();                            
+//                            samples.clear();                            
                         }
                     }
                 }
@@ -644,7 +650,7 @@ namespace PBIW
                                 j = 4;
                             }
                             
-                            samples.clear();                            
+//                            samples.clear();                            
                         }
                     }
                 }
@@ -781,7 +787,7 @@ namespace PBIW
                                 sampleP2.annulBits.at(2) = 1;
 
                                 sampleP1.operations.at(2) = tempOps.front();
-                                sampleP2.operations.at(1) = 0;
+//                                sampleP2.operations.at(1) = 0;
                                 sampleP2.operations.at(2) = tempOps.front();
 
                                 pattern1->setOperation(*tempOps.front(), 2); // assign one operation to the pattern
@@ -790,7 +796,7 @@ namespace PBIW
                             {
                                 sampleP2.annulBits.at(2) = 1;
                                 sampleP2.operations.at(2) = sampleP2.operations.at(i);
-                                sampleP2.operations.at(i) = 0;
+//                                sampleP2.operations.at(i) = 0;
                                 pattern1->setOperation(*pattern2->getOperation(i), 2);
                             }
                             
@@ -843,7 +849,7 @@ namespace PBIW
                                         {                                       
                                             it->annulBits.at(i) = 0;
                                             it->annulBits.at(j) = 1;
-                                            it->operations.at(i) = 0;
+//                                            it->operations.at(i) = 0;
                                             it->operations.at(j) = tempOps.front();
 
                                             pattern1->setOperation(*tempOps.front(), j); // assign one operation to the pattern
@@ -873,7 +879,7 @@ namespace PBIW
                                 else
                                 {
                                     sampleP2.annulBits.at(j) = 1;
-                                    sampleP2.operations.at(i) = 0;
+//                                    sampleP2.operations.at(i) = 0;
 //                                       sampleP1.annulBits.at(i) = 0;
 //                                       sampleP1.operations.at(j) = tempOps.front();
                                     sampleP2.operations.at(j) = tempOps.front();
@@ -895,7 +901,7 @@ namespace PBIW
                                         {                                       
                                             it->annulBits.at(i) = 0;
                                             it->annulBits.at(j) = 1;
-                                            it->operations.at(i) = 0;
+//                                            it->operations.at(i) = 0;
                                             it->operations.at(j) = tempOps.front();
 
                                             pattern1->setOperation(*tempOps.front(), j); // assign one operation to the pattern
