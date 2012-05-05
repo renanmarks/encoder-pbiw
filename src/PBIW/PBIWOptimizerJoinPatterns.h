@@ -25,9 +25,11 @@ namespace PBIW
             Sample()
             {
                 annulBits.resize(4, false);
+                newAddress = -1;
             }
             
-            unsigned int addressPattern;
+            unsigned int originalAddress;
+            unsigned int newAddress;
             std::vector<bool> annulBits;
             std::deque<IOperation*> operations;
             std::deque<IPBIWInstruction*> instructionsThatUseIt;
@@ -82,6 +84,7 @@ namespace PBIW
         std::deque<std::deque<IPBIWPattern*> > threeOperation;
         AllOperations tempOps;
         AllSamples samples;
+        AllSamples usedSamples;
     };
 
 }
