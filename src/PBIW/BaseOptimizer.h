@@ -41,6 +41,21 @@ namespace PBIW
     virtual void setupOptimizer();
     
     /**
+     * Functor used to find a instruction.
+     */
+    class FindInstruction : public std::unary_function<IPBIWInstruction, bool>
+    {
+    public:
+        FindInstruction(const IPBIWInstruction* instruction) : instruction(instruction) {}
+
+        bool operator()(IPBIWInstruction* const& t) const 
+        { return (t == instruction); }
+        
+    private:
+        const IPBIWInstruction* instruction;
+    };
+    
+    /**
      * Functor used to find a label.
      */
     class FindLabel : public std::unary_function<ILabel, bool>
@@ -58,7 +73,7 @@ namespace PBIW
     /**
      * Functor used to find a pattern.
      */
-    class FindPattern : public std::unary_function<IPBIWPattern*, bool>
+    class FindPattern : public std::unary_function<IPBIWPattern, bool>
     {
     public:
         FindPattern(const IPBIWPattern* pattern) : _pattern(pattern) {}
