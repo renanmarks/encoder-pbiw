@@ -183,7 +183,7 @@ execute(const std::string& filename, const std::string& flags, bool debugEnabled
     
     optmizer.printInstructions(pbiwDebugPrinter);
     optmizer.printPatterns(pbiwDebugPrinter); 
-    optmizer.printStatistics(pbiwDebugPrinter, context.getInstructions().size());
+    optmizer.printStatistics(pbiwDebugPrinter, context.getInstructions().size(), pbiw.getPatterns().size(), pbiw.getInstructions().size());
   } 
 
   else
@@ -215,7 +215,7 @@ execute(const std::string& filename, const std::string& flags, bool debugEnabled
 //    pbiw.printInstructions(imemPBIWPrinter);
 //    pbiw.printPatterns(pachePBIWPrinter);
     
-    optmizer.printStatistics(statisticsPBIWPrinter, context.getInstructions().size());
+    optmizer.printStatistics(statisticsPBIWPrinter, context.getInstructions().size(), pbiw.getPatterns().size(), pbiw.getInstructions().size());
     optmizer.printInstructions(imemPBIWPrinter);
     optmizer.printPatterns(pachePBIWPrinter);    
   }

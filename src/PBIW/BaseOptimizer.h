@@ -30,7 +30,7 @@ namespace PBIW
     virtual void useInstructions(const std::vector<IPBIWInstruction*>&);
     virtual void usePatterns(const std::vector<IPBIWPattern*>&);
 
-    virtual void printStatistics(IPBIWPrinter&, int );
+    virtual void printStatistics(IPBIWPrinter&, int, int , int );
     virtual void printInstructions(IPBIWPrinter&);
     virtual void printPatterns(IPBIWPrinter&);
     

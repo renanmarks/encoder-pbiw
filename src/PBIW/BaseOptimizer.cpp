@@ -124,7 +124,7 @@ namespace PBIW
   }
   
   void 
-  BaseOptimizer::printStatistics(IPBIWPrinter& printer, int originalInstructionsCount)
+  BaseOptimizer::printStatistics(IPBIWPrinter& printer, int originalInstructionsCount, int encodedPatterns, int encodedInstructions)
   {
     unsigned int instructionsBytes = instructions.size() * 8;
     unsigned int patternsBytes = patterns.size() * 12;
@@ -145,10 +145,15 @@ namespace PBIW
       
       << "----" << std::endl
       
+      << "Original Pattern count = " << encodedPatterns << std::endl
+            
       << "Original Instructions count = " << originalInstructionsCount
       << " ( " << originalInstructionsCount * 16 <<" bytes )" << std::endl
       
-      << "Compression ratio = " 
+      << "Compression ratio (Join/PBIW) = " 
+      << ((instructionsBytes + patternsBytes) / (double)((encodedInstructions * 8) + (encodedPatterns * 12))) * 100.0 << " %" << std::endl
+            
+      << "Compression ratio (Join/rVex) = " 
       << ((instructionsBytes + patternsBytes) / (double)(originalInstructionsCount * 16)) * 100.0 << " %" << std::endl;
   }
   

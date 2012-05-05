@@ -408,7 +408,7 @@ namespace PBIW
                                     else if(j == 7)// if alu_alu
                                     {
 //                                        if((!(*itBase2).empty()) && (!twoOperation.at(ALU_ALU).size() > 1) && (j != 7))
-                                        while(itBase2->begin() != itBase2->end())
+                                        while(itBase2->size() > 1)
                                         {
 //                                            getPatternsToJoin(itBase2->front(), ALU_ALU);
                                             joinPatterns(itBase2->front(), itBase2->back());
