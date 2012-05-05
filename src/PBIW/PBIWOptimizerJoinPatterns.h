@@ -29,7 +29,7 @@ namespace PBIW
             }
             
             unsigned int originalAddress;
-            unsigned int newAddress;
+            int newAddress;
             std::vector<bool> annulBits;
             std::deque<IOperation*> operations;
             std::deque<IPBIWInstruction*> instructionsThatUseIt;
@@ -54,6 +54,8 @@ namespace PBIW
         virtual void joinPatterns(IPBIWPattern* pattern1, IPBIWPattern* pattern2);
         
         virtual void joiningPatterns(IPBIWPattern* pattern1, IPBIWPattern* pattern2);
+        
+        virtual Sample* processSample(Sample& sample, int index);
         
         virtual void updateBits();
         
@@ -83,8 +85,7 @@ namespace PBIW
         std::deque<std::deque<IPBIWPattern*> > twoOperation;
         std::deque<std::deque<IPBIWPattern*> > threeOperation;
         AllOperations tempOps;
-        AllSamples samples;
-        AllSamples usedSamples;
+        AllSamples samples;        
     };
 
 }

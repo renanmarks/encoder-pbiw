@@ -12,6 +12,7 @@
 #include "BaseOptimizer.h"
 #include "Operation.h"
 #include "src/rVex/Operations/MISC/NOP.h"
+#include "src/rVex/Operations/ALU/NANDL.h"
 
 namespace PBIW
 {
@@ -124,10 +125,10 @@ namespace PBIW
                     break;
                     
                 case 2:
-                    if(ops[0] && (countALU == 0)) // if has a CTRL operation
+                    if(ops[0]) // if has a CTRL operation
                         half1 = 0;
                     
-                    if(ops[3] && (countALU == 0))  // if has a MEM operation
+                    if(ops[3])  // if has a MEM operation
                     { 
                         if(half1 == -1) // if is MEM_...
                             half1 = 1;
@@ -135,7 +136,7 @@ namespace PBIW
                             half2 = 1;
                     }
                     
-                    if(ops[1] && (countALU == 0)) // if has MUL operation in the position one
+                    if(ops[1]) // if has MUL operation in the position one
                     {
                         if(half1 == -1) // if is MUL_...
                             half1 = 2;
@@ -143,7 +144,7 @@ namespace PBIW
                             half2 = 2;
                     }
                     
-                    if(ops[2] && (countALU == 0))  // if has MUL operation in the position two
+                    if(ops[2])  // if has MUL operation in the position two
                     {
                         if(half1 == -1) // if is MUL_...
                             half1 = 2;
@@ -221,6 +222,9 @@ namespace PBIW
                         }
                     }
                     break;
+                    
+//                default:
+//                    patterns.erase(it);
             }
             
         }
@@ -247,7 +251,7 @@ namespace PBIW
             oneOperation.clear();
             
         preprocessPatterns();
-        
+//        patterns.erase(patterns.end());
 //        start = threeOperation.size() + twoOperation.size() + oneOperation.size();
         //AllPatterns patterns = this->getPatterns();
             std::cout << "HHHHHH<< " << patterns.at(0)->getOperation(0)->getOpcode() << std::endl;
@@ -620,8 +624,8 @@ namespace PBIW
                 
                 for(int j = 0; j < 4; j++)
                 {
-                    if((tempPattern1->getOperation(j)->getType() != syllableType[j]) ||
-                       (tempPattern1->getOperation(j)->getOpcode() == 0))
+                    if(((tempPattern1->getOperation(j)->getType() != syllableType[j]) ||
+                       (tempPattern1->getOperation(j)->getOpcode() == 0)) && (tempPattern1->getOperation(0)->getOpcode() != 31))
                     {
                         if((!oneOperation.at(types[j]).empty()) && ((syllableType[j]) ||
                             (tempPattern1->getOperation(j)->getOpcode() == 0)))
@@ -686,8 +690,6 @@ namespace PBIW
     void
     PBIWOptimizerJoinPatterns::joiningPatterns(IPBIWPattern* pattern1, IPBIWPattern* pattern2)
     {
-        AnnulationBit annulBitsOps1;
-        AnnulationBit annulBitsOps2;
         AllSamples::iterator it;
       
 //        printDeque(oneOperation);
@@ -697,6 +699,7 @@ namespace PBIW
         std::cout << "SAMPLES " << samples.size() << std::endl;
         Sample& sampleP1 = addSample(*pattern1);
         Sample& sampleP2 = addSample(*pattern2);
+        Sample* sampleAux = NULL;
         sampleP2.newAddress = sampleP1.originalAddress;
         
         std::cout << "SAMPLES " << samples.size() << std::endl;
@@ -732,9 +735,8 @@ namespace PBIW
                         }
                         else
                         {
-                            
                             addTempOperation(pattern1->getOperation(i));
-                            sampleP1.annulBits.at(i) = 0;
+//                            sampleP1.annulBits.at(i) = 0;
                         }
                     }
                 }
@@ -863,15 +865,30 @@ namespace PBIW
 //                                       sampleP2.annulBits.at(i) = 1;
                                     if(!sampleP1.annulBits.at(i))
                                     {
-                                        sampleP2.annulBits.at(j) = 1;                                            
+                                        if((*(sampleP1.operations.at(i)) == *pattern1->getOperation(i)))
+                                        {
+                                            sampleAux = processSample(sampleP1, i);
+                                            if(sampleAux != NULL)
+                                            {
+                                                sampleAux->annulBits.at(i) = 0;
+                                                sampleAux->annulBits.at(j) = 1;
+    //                                            sampleAux->operations.at(j) = tempOps.front();
+                                                sampleP1.operations.at(j) = tempOps.front();
+                                                sampleAux = NULL;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            sampleP1.annulBits.at(i) = 0;
+                                            sampleP2.annulBits.at(j) = 1;                                            
+                                            sampleP2.operations.at(j) = tempOps.front();
+                                        }
                                     }
                                     else
                                     {
                                         sampleP1.annulBits.at(j) = 1;
                                         sampleP1.annulBits.at(i) = 0;
                                     }
-
-                                    sampleP2.operations.at(j) = tempOps.front();
 
                                     pattern1->setOperation(*tempOps.front(), j); // assign one operation to the pattern
                                     pattern1->setOperation(*pattern2->getOperation(i), i);
@@ -948,7 +965,7 @@ namespace PBIW
 //        std::cout << "OP : " << samples.at(1).annulBits.at(1) << std::endl;
 //        std::cout << "OP : " << samples.at(1).annulBits.at(2) << std::endl;
 //        std::cout << "OP : " << samples.at(1).annulBits.at(3) << std::endl;
-//        
+////        
 //        if(samples.size()>2)
 //        {
 //            std::cout << "\nOP : " << samples.at(2).annulBits.at(0) << std::endl;
@@ -960,6 +977,23 @@ namespace PBIW
         updateAddressInstruction(pattern1, pattern2);
         updateBits();
     }
+    
+    PBIWOptimizerJoinPatterns::Sample*
+    PBIWOptimizerJoinPatterns::processSample(Sample& sample, int index)
+    {
+        AllSamples::iterator it;
+        
+        for(it = samples.begin(); it < samples.end(); it++)
+        {
+            if((it->newAddress == sample.originalAddress) && 
+               (*(sample.operations.at(index)) == *(it->operations.at(index))))
+            {
+                return &(*it);
+            }
+        }
+        return NULL;
+    }
+    
     
     void
     PBIWOptimizerJoinPatterns::updateBits()
@@ -999,7 +1033,7 @@ namespace PBIW
         if(!find)
         {
             samplePattern.originalAddress = pattern.getAddress();
-
+            
             samplePattern.instructionsThatUseIt = pattern.getInstructionsThatUseIt2();
 
             samplePattern.annulBits = samplePattern.instructionsThatUseIt.at(0)->getAnnulBits();
