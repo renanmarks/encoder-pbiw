@@ -252,6 +252,8 @@ namespace PBIW
 
     void rVex64PBIWInstruction::setBranchSlot(const Operand& operand, Operand& field)
     {
+      // Spill index (to prevent cyclic dependencies at swap)
+      const unsigned int spillIndex = 99;
       unsigned int index = operand.getIndex();
       unsigned int size = index+1;
       
@@ -261,9 +263,6 @@ namespace PBIW
       // If found the operand, lets remove it and use it at the specified slot
       if (operandIt != operandsTemp.end())
       {
-        // Spill index (to prevent cyclic dependencies at swap)
-        const unsigned int spillIndex = 99;
-        
         // Save the old index, so we can update the pattern at next
         unsigned int oldIndex = operandIt->getIndex();
         operandsTemp.erase(operandIt);
@@ -275,10 +274,10 @@ namespace PBIW
         int newIndex = 0;
         for(operandIt = operandsTemp.begin(); operandIt != operandsTemp.end(); operandIt++, newIndex++)
         {
-          if (newIndex == 5 && this->opBRslot.getValue() > -1)
+          if (newIndex == 5 && (opBRslot.getValue() > -1 || &opBRslot == &field))
             newIndex++;
           
-          if (newIndex == 6 && this->opBRFslot.getValue() > -1)
+          if (newIndex == 6 && (opBRFslot.getValue() > -1 || &opBRFslot == &field))
             newIndex++;
           
           pattern->updateIndexes(operandIt->getIndex(), newIndex);
@@ -308,7 +307,7 @@ namespace PBIW
         // ... if not so lucky, lets see if we have a empty slot to move someone
         if (hasReadOperandSlot())
         {
-          if (!operands.at(index).isBRSource())
+          if (!operands.at(index).isBRSource() && !operands.at(index).isBRDestiny())
           {
             Operand operandAtIndex = operands.at(index);
 
@@ -338,7 +337,7 @@ namespace PBIW
         }
       }
       
-      field = operand; 
+      field = operand;
     }
     
     void rVex64PBIWInstruction::setOpBRFslot(IOperand& operand)
@@ -363,6 +362,43 @@ namespace PBIW
       addReadOperand(operand);
     }
     
+    unsigned int 
+    rVex64PBIWInstruction::giveEmptySlot() const
+    {
+      unsigned int index = operands.size();
+
+      if (opBRslot.getValue() > -1)
+      {
+        if (index >= opBRslot.getIndex())
+          index++;
+      }
+
+      if (opBRFslot.getValue() > -1)
+      {
+        if (index >= opBRFslot.getIndex())
+          index++;
+      }
+
+      if (immediate.isImmediate())
+      {
+        // If we have immediate, do the absolute indexing
+        if (immediate.isImmediate9Bits())
+        {
+          if (operands.size() == 9)
+            index = 11;
+          else if (operands.size() < 9)
+            index = operands.size();
+        }
+        else if (immediate.isImmediate12Bits())
+        {
+          if (operands.size() < 9)
+            index = operands.size();
+        }
+      }
+
+      return index;
+    }
+    
     void
     rVex64PBIWInstruction::addReadOperand(IOperand& operand) // O(1)
     {
@@ -385,39 +421,43 @@ namespace PBIW
       }
       
       // If we not have the immediate yet, do the normal indexing
-      unsigned int index = operands.size();
+      unsigned int index = giveEmptySlot();
+      
+      if (index == 11 && operand.getValue() >= 8)
+      {
+        // Spill index (to prevent cyclic dependencies at swap)
+        const unsigned int spillIndex = 99;
+        std::list<Operand> operandsTemp(operands.begin(), operands.end());
+        std::list<Operand>::iterator operandIt = std::find_if(operandsTemp.begin(), operandsTemp.end(), Find3BitsOperand());
 
-      if (opBRslot.getValue() > -1)
-      {
-        if (index >= opBRslot.getIndex())
-          index++;
-      }
-      
-      if (opBRFslot.getValue() > -1)
-      {
-        if (index >= opBRFslot.getIndex())
-          index++;
-      }
-      
-      if (immediate.isImmediate())
-      {
-        // If we have immediate, do the absolute indexing
-        if (immediate.isImmediate9Bits())
+        // If found the operand, lets remove it and use it at the specified slot
+        if (operandIt != operandsTemp.end())
         {
-          if (operands.size() == 9)
-            index = 11;
-          else if (operands.size() < 9)
-            index = operands.size();
-        }
-        else if (immediate.isImmediate12Bits())
-        {
-          if (operands.size() < 9)
-            index = operands.size();
+          Operand tempOperand = *operandIt;
+          
+          // First, update the indexes with the spill index...
+          pattern->updateIndexes(tempOperand.getIndex(), spillIndex);
+          
+          *(operandIt) = dynamic_cast<const Operand&>(operand); 
+          operandIt->setIndex(tempOperand.getIndex()); // Copy 11th operand to the position
+          
+          tempOperand.setIndex(index);
+          operandsTemp.push_back(tempOperand); // put the 3 bit operand into the last position
+
+          // next change the spill indexes back to the new index!
+          pattern->updateIndexes(spillIndex, index);
+
+          // Sort them and apply to the original vector
+          operandsTemp.sort();
+          operands.clear();
+          operands.assign(operandsTemp.begin(), operandsTemp.end());
         }
       }
-      
-      operand.setIndex(index);
-      operands.push_back(dynamic_cast<Operand&> (operand));
+      else
+      {
+        operand.setIndex(index);
+        operands.push_back(dynamic_cast<Operand&> (operand));
+      }
     }
 
     void
@@ -496,8 +536,6 @@ namespace PBIW
     bool
     rVex64PBIWInstruction::hasOperandSlot(const Utils::OperandItem& operand) // O(1)
     {
-      // TODO
-
       switch (operand.getType()) 
       {
         case Utils::OperandItem::Imm:
@@ -528,7 +566,7 @@ namespace PBIW
                                                       
           if (operand.getSyllableBelonged()->isOpcode(rVex::Syllable::opBRF))
             return (opBRFslot.getValue() == -1);
-          
+        
           // Check if there is space in the 0-7 slot range;
           if (operands.size() < 8)
           {
@@ -545,6 +583,14 @@ namespace PBIW
 
           break;
         default:
+          if (giveEmptySlot() == 11 && operand.getOperand()->getValue() >= 8)
+          {
+            OperandVector::iterator operandIt = std::find_if(operands.begin(), operands.end(), Find3BitsOperand());
+            
+            // If not found operand to change, we cannot add this operand
+            return (operandIt != operands.end());
+          }
+          
           // Default empty slot checking
           return hasReadOperandSlot();
       }

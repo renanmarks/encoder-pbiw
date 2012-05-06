@@ -190,7 +190,6 @@ namespace PBIW
               if ( (*instructionIt)->canSplitSyllable(*syllableIt) )
               {
                 saveAndCreateNewPBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
-                resetFinalOperation(operandIt, finalOperation, *syllableIt, operands); // O(1)
               }
               else
               {
@@ -204,13 +203,13 @@ namespace PBIW
                 syllablesBuffer.remove(*syllableIt);
                 
                 saveAndCreateNewPBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
-                
-                operandVectorBuilder.clearOperandVector();
-                (*syllableIt)->exportOperandVector(operandVectorBuilder);
-                operands = operandVectorBuilder.getOperandVector();
-                
-                resetFinalOperation(operandIt, finalOperation, *syllableIt, operands); // O(1)
               }
+              
+              operandVectorBuilder.clearOperandVector();
+              (*syllableIt)->exportOperandVector(operandVectorBuilder);
+              operands = operandVectorBuilder.getOperandVector();
+
+              resetFinalOperation(operandIt, finalOperation, *syllableIt, operands); // O(1)
             }
 
             operand = (*operandIt)->getOperand(); // O(1)

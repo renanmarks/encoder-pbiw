@@ -181,6 +181,18 @@ namespace PBIW
        */
       typedef std::list<rVex::Syllable*> SyllableList;
       SyllableList syllablesPacked;
+      
+      /**
+     * Functor used to find a operand that has value between 0 and 7.
+     */
+      class Find3BitsOperand : public std::unary_function<Operand, bool>
+      {
+      public:
+          bool operator()(const Operand& t) const 
+          { return (t.getValue() < 8) && (t.getIndex() < 11) && !t.isBRSource() && !t.isBRDestiny(); }
+      };
+      
+      unsigned int giveEmptySlot() const;
     };
 }
 
