@@ -75,11 +75,11 @@ namespace PBIW
     virtual int getUsageCounter() const
     { return instructionsThatUseIt.size(); }
     
-    virtual void reorganize(IPBIWInstruction* instruction);
-
     virtual void resetUsageCounter()
-    { instructionsThatUseIt.clear(); }
+    { usageCounter = 0; }
     
+    virtual void reorganize();
+
     virtual void print(IPBIWPrinter&) const;
     
     virtual void updateIndexes(int oldIndex, int newIndex);
@@ -100,8 +100,6 @@ namespace PBIW
     
     typedef std::set<IPBIWInstruction*> InstructionsThatUseIt;
     InstructionsThatUseIt instructionsThatUseIt;
-    
-    virtual unsigned int getValueByIndex(const IPBIWInstruction* instruction, int index) const;
     
     /**
      * Used to exchange operations of patterns referents to the instructions without annulation bits

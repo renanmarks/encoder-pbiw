@@ -77,49 +77,65 @@ namespace PBIW
   void 
   BaseOptimizer::setupOptimizer()
   {
-    PBIWInstructionList::iterator it;
+    LabelList::iterator labelIt;
+    
+    for (labelIt = labels.begin();
+         labelIt != labels.end();
+         labelIt++)
+    {
+      const IPBIWInstruction* destiny = labelIt->getDestiny();
+      PBIWInstructionList::iterator foundInstructionIt = 
+        std::find_if(instructions.begin(), instructions.end(), FindInstruction(destiny));
+      
+      if (foundInstructionIt != instructions.end())
+      {
+        labelIt->setDestiny(*foundInstructionIt);
+        labelIt->setAbsoluteAddress((*foundInstructionIt)->getAddress());
+      }
+    }
+    
+    PBIWInstructionList::iterator instructionIt;
     
     // First, we setup the labels and instructions
-    for (it = instructions.begin();
-         it != instructions.end();
-         it++)
+    for (instructionIt = instructions.begin();
+         instructionIt != instructions.end();
+         instructionIt++)
     {
-      if ((*it)->getLabel() == NULL)
+      if ((*instructionIt)->getLabel() == NULL)
         continue;
       
-      std::string label = (*it)->getLabel()->getName();
+      std::string label = (*instructionIt)->getLabel()->getName();
       LabelList::iterator labelIt = std::find_if(labels.begin(), labels.end(), FindLabel(label));
       
       if (labelIt != labels.end())
-        (*it)->setLabel(*labelIt);
+        (*instructionIt)->setLabel(*labelIt);
     }
     
     // Then we setup de branching instructions
-    for (it = branchingInstructions.begin();
-         it != branchingInstructions.end();
-         it++)
+    for (instructionIt = branchingInstructions.begin();
+         instructionIt != branchingInstructions.end();
+         instructionIt++)
     {
-      std::string label = (*it)->getLabelDestiny();
+      std::string label = (*instructionIt)->getLabelDestiny();
       LabelList::iterator labelIt = std::find_if(labels.begin(), labels.end(), FindLabel(label));
       
       if (labelIt != labels.end())
       {
-        (*it)->setBranchDestiny(*labelIt->getDestiny());
-        (*it)->setImmediateValue(labelIt->getDestiny()->getAddress());
+        (*instructionIt)->setBranchDestiny(*labelIt->getDestiny());
+        (*instructionIt)->setImmediateValue(labelIt->getDestiny()->getAddress());
       }
     }
     
     // At last we move the pointers to the cloned patterns
-    for (it = instructions.begin();
-         it != instructions.end();
-         it++)
-    { 
-        const IPBIWPattern* pattern = (*it)->getPattern();
-        PBIWPatternList::iterator patternIt = std::find_if(patterns.begin(), patterns.end(), FindPattern(pattern));
+    for (instructionIt = instructions.begin();
+         instructionIt != instructions.end();
+         instructionIt++)
+    {    
+      const IPBIWPattern* pattern = (*instructionIt)->getPattern();
+      PBIWPatternList::iterator patternIt = std::find_if(patterns.begin(), patterns.end(), FindPattern(pattern));
       
       if (patternIt != patterns.end())
-        (*it)->pointToPattern(**patternIt);
-        
+        (*instructionIt)->pointToPattern(**patternIt);
     }
   }
   
