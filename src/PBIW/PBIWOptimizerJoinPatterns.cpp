@@ -252,7 +252,7 @@ namespace PBIW
             
         preprocessPatterns();
 //        patterns.erase(patterns.end());
-//        start = threeOperation.size() + twoOperation.size() + oneOperation.size();
+        start = patterns.size();
         //AllPatterns patterns = this->getPatterns();
             std::cout << "HHHHHH<< " << patterns.at(0)->getOperation(0)->getOpcode() << std::endl;
                 std::cout << "HHHHHH<< " << patterns.at(0)->getOperation(0)->getType() << std::endl;
@@ -625,7 +625,8 @@ namespace PBIW
                 for(int j = 0; j < 4; j++)
                 {
                     if(((tempPattern1->getOperation(j)->getType() != syllableType[j]) ||
-                       (tempPattern1->getOperation(j)->getOpcode() == 0)) && (tempPattern1->getOperation(0)->getOpcode() != 31))
+                        (tempPattern1->getOperation(j)->getOpcode() == 0)) &&
+                        (tempPattern1->getOperation(0)->getOpcode() != 31))
                     {
                         if((!oneOperation.at(types[j]).empty()) && ((syllableType[j]) ||
                             (tempPattern1->getOperation(j)->getOpcode() == 0)))
@@ -660,11 +661,12 @@ namespace PBIW
                 }
             }
             i++;
-        }        
-        finish = threeOperation.size() + twoOperation.size() + oneOperation.size();
+        }       
+        removePatternEqual();
+//        finish = patterns.size();
         std::cout << "Total " << start << " " << finish << std::endl;
-        start++;
-    }while(start < 1);
+        finish = start;
+    }while(start > finish);
     }
     
     
@@ -713,6 +715,16 @@ namespace PBIW
 //        std::cout << "OP : " << samples.at(1).annulBits.at(1) << std::endl;
 //        std::cout << "OP : " << samples.at(1).annulBits.at(2) << std::endl;
 //        std::cout << "OP : " << samples.at(1).annulBits.at(3) << std::endl;
+        
+        std::cout << "OP : " << sampleP1.annulBits.at(0) << std::endl;
+        std::cout << "OP : " << sampleP1.annulBits.at(1) << std::endl;
+        std::cout << "OP : " << sampleP1.annulBits.at(2) << std::endl;
+        std::cout << "OP : " << sampleP1.annulBits.at(3) << std::endl;
+        
+        std::cout << "\nOP : " << sampleP2.annulBits.at(0) << std::endl;
+        std::cout << "OP : " << sampleP2.annulBits.at(1) << std::endl;
+        std::cout << "OP : " << sampleP2.annulBits.at(2) << std::endl;
+        std::cout << "OP : " << sampleP2.annulBits.at(3) << std::endl;
 
         int syllableType[4] = {4, 2, 2, 3}; // Based on the rVex syllables types: ALU = 1, MUL, MEM, CTRL
         std::cout << "ADDR : " << sampleP1.originalAddress << std::endl;
@@ -731,7 +743,7 @@ namespace PBIW
                         if(pattern2->getOperation(i)->getType() != syllableType[i])
                         {
                             addTempOperation(pattern2->getOperation(i));
-                            sampleP2.annulBits.at(i) = 0;
+//                            sampleP2.annulBits.at(i) = 0;
                         }
                         else
                         {
@@ -745,7 +757,7 @@ namespace PBIW
                     if((pattern2->getOperation(i)->getOpcode() != 0))
                     {
                         addTempOperation(pattern2->getOperation(i));
-                        sampleP2.annulBits.at(i) = 0;
+//                        sampleP2.annulBits.at(i) = 0;
                     }                    
                 }
             }
@@ -815,9 +827,10 @@ namespace PBIW
                         if(sampleP1.operations.at(j)->getOpcode() == 0)
                         {
                             
-//                            sampleP2.operations.at(i) = 0;
+                            sampleP2.operations.at(i) = 0;
                             sampleP1.operations.at(j) = tempOps.front();
                             sampleP2.annulBits.at(j) = 1;
+                            sampleP2.annulBits.at(i) = 0;
 
                             pattern1->setOperation(*tempOps.front(), j); // assign one operation to the pattern
 //                            pattern1->setOperation(*pattern2->getOperation(i), i); 
@@ -896,7 +909,7 @@ namespace PBIW
                                 else
                                 {
                                     sampleP2.annulBits.at(j) = 1;
-//                                    sampleP2.operations.at(i) = 0;
+                                    sampleP2.annulBits.at(i) = 0;
 //                                       sampleP1.annulBits.at(i) = 0;
 //                                       sampleP1.operations.at(j) = tempOps.front();
                                     sampleP2.operations.at(j) = tempOps.front();
@@ -961,10 +974,10 @@ namespace PBIW
 //        std::cout << "OP : " << samples.at(0).annulBits.at(2) << std::endl;
 //        std::cout << "OP : " << samples.at(0).annulBits.at(3) << std::endl;
 //        
-//        std::cout << "\nOP : " << samples.at(1).annulBits.at(0) << std::endl;
-//        std::cout << "OP : " << samples.at(1).annulBits.at(1) << std::endl;
-//        std::cout << "OP : " << samples.at(1).annulBits.at(2) << std::endl;
-//        std::cout << "OP : " << samples.at(1).annulBits.at(3) << std::endl;
+        std::cout << "\nOP : " << sampleP2.annulBits.at(0) << std::endl;
+        std::cout << "OP : " << sampleP2.annulBits.at(1) << std::endl;
+        std::cout << "OP : " << sampleP2.annulBits.at(2) << std::endl;
+        std::cout << "OP : " << sampleP2.annulBits.at(3) << std::endl;
 ////        
 //        if(samples.size()>2)
 //        {
@@ -1061,6 +1074,35 @@ namespace PBIW
         {
             (*it)->setAnnulBit(index, bit);
         }        
+    }
+    
+    void
+    PBIWOptimizerJoinPatterns::removePatternEqual()
+    {
+        PBIWPatternList::iterator it1;
+        PBIWPatternList::iterator it2;
+//        PBIWPatternList tempPatterns;
+        unsigned int address = 0;
+        
+        for(it1 = patterns.begin(); it1 < patterns.end(); it1++)
+        {
+            if((*it1)->getAddress() != address)
+                (*it1)->setAddress(address);
+            
+            for(it2 = it1+1; (it2 < patterns.end()) && (it1+1 < patterns.end()); it2++)
+            {
+                if(**it1 == **it2)
+                {
+                    updateAddressInstruction(*it1, *it2);
+                    std::cout << "RTRRTRTRTRTRTRTRTRTRTRTRT" << std::endl;
+                }              
+            }
+            
+            address++;
+//            tempPatterns.push_back(*it1);
+        }
+        
+//        patterns = tempPatterns;        
     }
     
     void

@@ -63,6 +63,8 @@ namespace PBIW
         
         virtual void updateAnnulBits(IPBIWPattern* pattern, int index, bool bit);
         
+        virtual void removePatternEqual();
+        
         virtual void updateAddressInstruction(IPBIWPattern* pattern1, IPBIWPattern* pattern2);
         
         virtual void getPatternsToJoin(int index1, int index2);

@@ -123,7 +123,7 @@ namespace PBIW
     }
   }
   
-  void 
+    void 
   BaseOptimizer::printStatistics(IPBIWPrinter& printer, int originalInstructionsCount, int encodedPatterns, int encodedInstructions)
   {
     unsigned int instructionsBytes = instructions.size() * 8;
@@ -144,17 +144,37 @@ namespace PBIW
       << patternsBytes + instructionsBytes <<" bytes" << std::endl
       
       << "----" << std::endl
+      << "PBIW Encode Summary: \n\n"
       
-      << "Original Pattern count = " << encodedPatterns << std::endl
+      << "Encoded Pattern count = " << encodedPatterns
+      << " ( " << encodedPatterns * 12 << " bytes )" << std::endl
             
+      << "Encoded Instructions count = " << encodedInstructions
+      << " ( " << encodedInstructions * 8 << " bytes )" << std::endl
+            
+      << "Reuse ratio = " 
+      << (encodedInstructions / (double)encodedPatterns) << std::endl
+            
+      << "Total = " << (encodedPatterns * 12) + (encodedInstructions * 8) << " bytes" << std::endl
+      << "----" << std::endl
+            
+      << "rVex Summary: \n\n"
       << "Original Instructions count = " << originalInstructionsCount
       << " ( " << originalInstructionsCount * 16 <<" bytes )" << std::endl
-      
+            
+      << "----" << std::endl 
+            
+      << "Compressions Rates: \n\n"
       << "Compression ratio (Join/PBIW) = " 
-      << ((instructionsBytes + patternsBytes) / (double)((encodedInstructions * 8) + (encodedPatterns * 12))) * 100.0 << " %" << std::endl
+      << (((instructions.size() * 8) + (patterns.size() * 12)) / (double)((encodedInstructions * 8) + (encodedPatterns * 12))) * 100.0 << " %" << std::endl
             
       << "Compression ratio (Join/rVex) = " 
-      << ((instructionsBytes + patternsBytes) / (double)(originalInstructionsCount * 16)) * 100.0 << " %" << std::endl;
+      << (((instructions.size() * 8) + (patterns.size() * 12)) / (double)(originalInstructionsCount * 16)) * 100.0 << " %" << std::endl
+    
+      << "Compression ratio (PBIW/rVex) = " 
+      << (((encodedInstructions * 8) + (encodedPatterns * 12)) / (double)(originalInstructionsCount * 16)) * 100.0 << " %" << std::endl
+    
+      << "----" << std::endl;
   }
   
   void 
