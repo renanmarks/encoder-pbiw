@@ -76,7 +76,7 @@ namespace PBIW
     { return instructionsThatUseIt.size(); }
     
     virtual void resetUsageCounter()
-    { usageCounter = 0; }
+    { instructionsThatUseIt.clear(); }
     
     virtual void reorganize();
 

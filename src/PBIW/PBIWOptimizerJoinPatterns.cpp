@@ -739,9 +739,6 @@ namespace PBIW
         std::cout << "ADDR : " << sampleP1.originalAddress << std::endl;
         std::cout << "ADDR : " << sampleP2.originalAddress << std::endl;
         
-        if((sampleP1.originalAddress == 55) || (sampleP2.originalAddress == 55))
-            std::cout << "OK " << std::endl;
-        
         for(int i = 0; i < 4; i++)
         {
             if(pattern1->getOperation(i)->getOpcode() != 0)
