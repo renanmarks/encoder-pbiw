@@ -11,13 +11,14 @@
 #include "PBIWOptimizerJoinPatterns.h"
 #include "BaseOptimizer.h"
 #include "Operation.h"
+#include "Interfaces/IPBIWInstruction.h"
 #include "src/rVex/Operations/MISC/NOP.h"
 #include "src/rVex/Operations/ALU/NANDL.h"
 
 namespace PBIW
 {
     using namespace Interfaces;
-    
+  
     static const int SIZE = 4;
     
     void
