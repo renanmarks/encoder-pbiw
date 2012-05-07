@@ -14,7 +14,7 @@
 #include "Interfaces/IOperand.h"
 #include "src/rVex/Instruction.h"
 
-#define ZEROINDEX 14   // 15
+#define ZEROINDEX 0   // 15
 #define IMM9BITS 9    // 10
 #define IMM12BITS 10   // 11
 #define ALLFIELDS 11   // 12

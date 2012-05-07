@@ -25,8 +25,6 @@
       </nativedebugger>
       <runprofile version="9">
         <runcommandpicklist>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" mergesort.s</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" nested_complex_rVex.s</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" Fatorial.s</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" Fibonacci.s</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" sqrt_rVex_bug14.s</runcommandpicklistitem>
@@ -35,8 +33,10 @@
           <runcommandpicklistitem>"${OUTPUT_PATH}" -d dag</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -d dag_rVex.s</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -d instrucao.s</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -d linked_list.s</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -d nested_complex_rVex.s</runcommandpicklistitem>
         </runcommandpicklist>
-        <runcommand>"${OUTPUT_PATH}" -d instrucao.s</runcommand>
+        <runcommand>"${OUTPUT_PATH}" -d nested_complex_rVex.s</runcommand>
         <rundir>/home/renato/pbiw_encoder/dist/Debug/GNU-Linux-x86</rundir>
         <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>

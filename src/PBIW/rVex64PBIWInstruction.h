@@ -36,7 +36,7 @@ namespace PBIW
         zeroOperand(0),
         annulBits(4,false)
       {
-        zeroOperand.setIndex(14);        
+        zeroOperand.setIndex(0);        
       }
 
       rVex64PBIWInstruction(const rVex64PBIWInstruction& other) : 
@@ -53,7 +53,7 @@ namespace PBIW
         syllablesPacked(other.syllablesPacked),
         annulBits(other.annulBits)
       {
-        zeroOperand.setIndex(15);
+        zeroOperand.setIndex(0);
       }
 
       virtual ~rVex64PBIWInstruction();

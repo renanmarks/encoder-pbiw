@@ -249,10 +249,13 @@ namespace PBIW
             threeOperation.clear();
             twoOperation.clear();
             oneOperation.clear();
+            samples.clear();
             
         preprocessPatterns();
 //        patterns.erase(patterns.end());
         start = patterns.size();
+         
+        std::cout << "Start " << start << std::endl;
         //AllPatterns patterns = this->getPatterns();
             std::cout << "HHHHHH<< " << patterns.at(0)->getOperation(0)->getOpcode() << std::endl;
                 std::cout << "HHHHHH<< " << patterns.at(0)->getOperation(0)->getType() << std::endl;
@@ -532,7 +535,7 @@ namespace PBIW
 //                            {
 //                                j = 4;
 //                            }
-                            j = 4;
+//                            j = 4;
                             
 //                            samples.clear();                            
                         }
@@ -580,21 +583,22 @@ namespace PBIW
 //                            oneOperation.at(types[4]).erase(oneOperation.at(types[4]).begin());
 //                            samples.clear();
 //                        }
-                        else if(i == 3)
+                        else if((i == 3) || (j == 3))
                         {
                             for(int k = 0; (k < 4) && (!oneOperation.at(types[4]).empty()); k++)
                             {
                                 if(tempPattern1->getOperation(k)->getOpcode() == 0)
                                 {
                                     joinPatterns(tempPattern1, *(std::find(patterns.begin(), patterns.end(), oneOperation.at(types[4]).front())));
-                                    oneOperation.at(types[4]).erase(oneOperation.at(types[4]).begin());                                
+                                    oneOperation.at(types[4]).pop_front(); 
+//                                    tempPattern1 = NULL;
                                 }
                             }
-                            if(!oneOperation.at(types[4]).empty())
-                            {
+//                            if(!oneOperation.at(types[4]).empty())
+//                            {
                                 tempPattern1 = NULL;
                                 j = 4;
-                            }
+//                            }
                             
 //                            samples.clear();                            
                         }
@@ -603,7 +607,6 @@ namespace PBIW
             }
             i++;
         }
-        
         
         i = 0;
         tempPattern1 = NULL;
@@ -625,18 +628,20 @@ namespace PBIW
                 for(int j = 0; j < 4; j++)
                 {
                     if(((tempPattern1->getOperation(j)->getType() != syllableType[j]) ||
-                        (tempPattern1->getOperation(j)->getOpcode() == 0)) &&
+                        (tempPattern1->getOperation(j)->getOpcode() == 0) || 
+                        (!oneOperation.at(types[4]).empty())) &&
                         (tempPattern1->getOperation(0)->getOpcode() != 31))
                     {
-                        if((!oneOperation.at(types[j]).empty()) && ((syllableType[j]) ||
-                            (tempPattern1->getOperation(j)->getOpcode() == 0)))
+                        if((!oneOperation.at(types[j]).empty()) && 
+                          ((tempPattern1->getOperation(j)->getType() != syllableType[j]) ||
+                          (tempPattern1->getOperation(j)->getOpcode() == 0)))
                         {
                             joinPatterns(tempPattern1, *(std::find(patterns.begin(), patterns.end(), oneOperation.at(types[j]).front())));
                             oneOperation.at(types[j]).erase(oneOperation.at(types[j]).begin());
                             tempPattern1 = NULL;
                             j = 4;
                         }
-                        else if(i == 3)
+                        else if((i == 3) || (j == 3))
                         {
                             for(int k = 0; (k < 4) && (!oneOperation.at(types[4]).empty()); k++)
                             {
@@ -645,15 +650,15 @@ namespace PBIW
                                     joinPatterns(tempPattern1, *(std::find(patterns.begin(), patterns.end(), oneOperation.at(types[4]).front())));
                                     oneOperation.at(types[4]).erase(oneOperation.at(types[4]).begin());                                
                                     j = 4;
-                                    k = 4;
-                                    tempPattern1 = NULL;
+//                                    k = 4;
+//                                    tempPattern1 = NULL;
                                 }
                             }
-                            if(!oneOperation.at(types[4]).empty())
-                            {
+//                            if(!oneOperation.at(types[4]).empty())
+//                            {
                                 tempPattern1 = NULL;
                                 j = 4;
-                            }
+//                            }
                             
 //                            samples.clear();                            
                         }
@@ -662,10 +667,13 @@ namespace PBIW
             }
             i++;
         }       
-        removePatternEqual();
-//        finish = patterns.size();
+        std::cout << "Before " << patterns.size()<< std::endl;
+        updatePatterns();
+        std::cout << "After " << patterns.size()  << std::endl;
+        finish = patterns.size();
         std::cout << "Total " << start << " " << finish << std::endl;
-        finish = start;
+        
+//        finish = start;
     }while(start > finish);
     }
     
@@ -673,20 +681,20 @@ namespace PBIW
     void
     PBIWOptimizerJoinPatterns::joinPatterns(IPBIWPattern* pattern1, IPBIWPattern* pattern2)
     {
-        if(pattern1->getInstructionsThatUseIt().size() > pattern2->getInstructionsThatUseIt().size())
+//        if(pattern1->getInstructionsThatUseIt().size() > pattern2->getInstructionsThatUseIt().size())
             joiningPatterns(pattern1, pattern2);
         
-        else if(pattern1->getInstructionsThatUseIt().size() < pattern2->getInstructionsThatUseIt().size())
-            joiningPatterns(pattern2, pattern1);
-        
-        else
-        {
-            if(pattern1->getOperationCount() >= pattern2->getOperationCount())
-                joiningPatterns(pattern1, pattern2);
-            
-            else
-                joiningPatterns(pattern2, pattern1);
-        }        
+//        else if(pattern1->getInstructionsThatUseIt().size() < pattern2->getInstructionsThatUseIt().size())
+//            joiningPatterns(pattern2, pattern1);
+//        
+//        else
+//        {
+//            if(pattern1->getOperationCount() >= pattern2->getOperationCount())
+//                joiningPatterns(pattern1, pattern2);
+//            
+//            else
+//                joiningPatterns(pattern2, pattern1);
+//        }        
     }
     
     void
@@ -698,13 +706,13 @@ namespace PBIW
 //        printDeque(twoOperation);
 //        printDeque(threeOperation);        
 //        
-        std::cout << "SAMPLES " << samples.size() << std::endl;
+//        std::cout << "SAMPLES " << samples.size() << std::endl;
         Sample& sampleP1 = addSample(*pattern1);
         Sample& sampleP2 = addSample(*pattern2);
         Sample* sampleAux = NULL;
         sampleP2.newAddress = sampleP1.originalAddress;
         
-        std::cout << "SAMPLES " << samples.size() << std::endl;
+//        std::cout << "SAMPLES " << samples.size() << std::endl;
         
 //        std::cout << "OP : " << samples.at(0).annulBits.at(0) << std::endl;
 //        std::cout << "OP : " << samples.at(0).annulBits.at(1) << std::endl;
@@ -729,6 +737,10 @@ namespace PBIW
         int syllableType[4] = {4, 2, 2, 3}; // Based on the rVex syllables types: ALU = 1, MUL, MEM, CTRL
         std::cout << "ADDR : " << sampleP1.originalAddress << std::endl;
         std::cout << "ADDR : " << sampleP2.originalAddress << std::endl;
+        
+        if((sampleP1.originalAddress == 55) || (sampleP2.originalAddress == 55))
+            std::cout << "OK " << std::endl;
+        
         for(int i = 0; i < 4; i++)
         {
             if(pattern1->getOperation(i)->getOpcode() != 0)
@@ -809,8 +821,9 @@ namespace PBIW
                             else
                             {
                                 sampleP2.annulBits.at(2) = 1;
+                                sampleP2.annulBits.at(i) = 0;
                                 sampleP2.operations.at(2) = sampleP2.operations.at(i);
-//                                sampleP2.operations.at(i) = 0;
+                                
                                 pattern1->setOperation(*pattern2->getOperation(i), 2);
                             }
                             
@@ -974,10 +987,10 @@ namespace PBIW
 //        std::cout << "OP : " << samples.at(0).annulBits.at(2) << std::endl;
 //        std::cout << "OP : " << samples.at(0).annulBits.at(3) << std::endl;
 //        
-        std::cout << "\nOP : " << sampleP2.annulBits.at(0) << std::endl;
-        std::cout << "OP : " << sampleP2.annulBits.at(1) << std::endl;
-        std::cout << "OP : " << sampleP2.annulBits.at(2) << std::endl;
-        std::cout << "OP : " << sampleP2.annulBits.at(3) << std::endl;
+//        std::cout << "\nOP : " << sampleP2.annulBits.at(0) << std::endl;
+//        std::cout << "OP : " << sampleP2.annulBits.at(1) << std::endl;
+//        std::cout << "OP : " << sampleP2.annulBits.at(2) << std::endl;
+//        std::cout << "OP : " << sampleP2.annulBits.at(3) << std::endl;
 ////        
 //        if(samples.size()>2)
 //        {
@@ -1077,7 +1090,7 @@ namespace PBIW
     }
     
     void
-    PBIWOptimizerJoinPatterns::removePatternEqual()
+    PBIWOptimizerJoinPatterns::updatePatterns()
     {
         PBIWPatternList::iterator it1;
         PBIWPatternList::iterator it2;
