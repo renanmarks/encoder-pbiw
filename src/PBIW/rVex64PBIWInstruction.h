@@ -29,7 +29,8 @@ namespace PBIW
         address(0), 
         label(NULL), 
         branchDestiny(NULL), 
-        pattern(NULL), 
+        pattern(NULL),
+        codingOperation(NULL),
         opBRslot(-1),
         opBRFslot(-1),
         immediate(),
@@ -72,6 +73,12 @@ namespace PBIW
       { return label; }
 
       virtual void pointToPattern(IPBIWPattern& pattern);
+      
+      virtual void setCodingOperation(IOperation& operation)
+      { codingOperation = &dynamic_cast<Operation&>(operation); }
+      
+      virtual IOperation* getCodingOperation() const
+      { return codingOperation; }
 
       virtual rVex96PBIWPattern* getPattern() const
       { return this->pattern; }
@@ -173,6 +180,7 @@ namespace PBIW
       rVex64PBIWInstruction* branchDestiny;
 
       rVex96PBIWPattern* pattern;
+      Operation* codingOperation;
 
       /* The readRegs organization is as follows:
 
@@ -189,6 +197,7 @@ namespace PBIW
       
       virtual int giveEmptyBranchSourceSlot();
       void setBranchSlot(const Operand&, Operand&);
+      void updateIndexes(int oldIndex, int newIndex);
 
       Operand immediate; // (9 or 12 bit immediates)
       Operand zeroOperand;
@@ -200,6 +209,18 @@ namespace PBIW
       SyllableList syllablesPacked;
       
       AnnulationBits annulBits;
+
+      /**
+     * Functor used to find a operand that has value between 0 and 7.
+     */
+      class Find3BitsOperand : public std::unary_function<Operand, bool>
+      {
+      public:
+          bool operator()(const Operand& t) const 
+          { return (t.getValue() < 8) && (t.getIndex() < 11) && !t.isBRSource() && !t.isBRDestiny(); }
+      };
+      
+      unsigned int giveEmptySlot() const;
     };
 }
 

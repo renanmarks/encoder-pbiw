@@ -111,7 +111,7 @@ namespace PBIW
     unsigned short opcode; // 9b
     unsigned short originalOpcode; // 9b
     
-    short readBrOperand; // 9b , used only in ADDCG, DIVS, SLCT and SLCTF
+    short readBrOperand; // 3b , used only in ADDCG, DIVS, SLCT, SLCTF, BR and BRF
     
     /**
      * Pointer to the write GR operand
