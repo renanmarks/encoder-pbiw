@@ -36,7 +36,8 @@ namespace PBIW
         zeroOperand(0),
         annulBits(4,false)
       {
-        zeroOperand.setIndex(0);        
+        zeroOperand.setIndex(0);
+        operands.push_back(zeroOperand);
       }
 
       rVex64PBIWInstruction(const rVex64PBIWInstruction& other) : 

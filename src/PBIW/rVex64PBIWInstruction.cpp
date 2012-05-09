@@ -15,11 +15,11 @@
 #include "src/rVex/Instruction.h"
 
 #define ZEROINDEX 0   // 15
-#define IMM9BITS 9    // 10
-#define IMM12BITS 10   // 11
-#define ALLFIELDS 11   // 12
-#define READFIELDS 7   // 8
-#define WRITEFIELDS 3  // 4
+#define IMM9BITS 10    // 10
+#define IMM12BITS 11   // 11
+#define ALLFIELDS 12   // 12
+#define READFIELDS 8  // 8
+#define WRITEFIELDS 4  // 4
 
 namespace PBIW
 {
@@ -130,7 +130,7 @@ namespace PBIW
       if (!hasImmediate)
       {
         // operands
-        for (it=operands.begin(); // O(|operands|) = O(4) = O(1)
+        for (it=operands.begin()+1; // O(|operands|) = O(4) = O(1)
              it < operands.end();
              it++)
         {
@@ -147,7 +147,7 @@ namespace PBIW
       } 
       else
       {
-        for (it=operands.begin(); // O(|operands|) = O(4) = O(1)
+        for (it=operands.begin()+1; // O(|operands|) = O(4) = O(1)
              it < operands.end()-3;
              it++)
         {
@@ -254,7 +254,7 @@ namespace PBIW
     const IOperand&
     rVex64PBIWInstruction::containsOperand(const IOperand& operand) const // O(1)
     {
-      if (operand.getValue() == 0 && !operand.isBRSource() && !operand.isBRDestiny() && !operand.isImmediate())
+      if (operand.getValue() == 0 /*&& !operand.isBRSource() && !operand.isBRDestiny()*/ && !operand.isImmediate())
         return zeroOperand;
       
       OperandVector::const_iterator it;
@@ -288,7 +288,7 @@ namespace PBIW
       std::list<Operand>::iterator operandIt = std::find(operandsTemp.begin(), operandsTemp.end(), operand);
       
       // If found the operand, lets remove it and use it at the specified slot
-      if (operandIt != operandsTemp.end())
+      if (operandIt != operandsTemp.end() && operandIt->getValue() != 0 && operandIt->getIndex() != 0)
       {
         // Save the old index, so we can update the pattern at next
         unsigned int oldIndex = operandIt->getIndex();
@@ -410,9 +410,9 @@ namespace PBIW
         return;
       }
       
-      if (operand.getValue() == 0 && !operand.isBRSource() && !operand.isBRDestiny())
+      if (operand.getValue() == 0 /*&& !operand.isBRSource() && !operand.isBRDestiny()*/)
       {
-        operand.setIndex(ZEROINDEX);
+        operand.setIndex(zeroOperand.getIndex());
         return;
       }
       
@@ -498,7 +498,7 @@ namespace PBIW
         for(it = operands.begin(); it < operands.begin()+READFIELDS; it++, index++)
         {
           // Change the operand position and inform the new space opened
-          if (!it->isBRSource())
+          if (!it->isBRSource() && it->getValue() != 0 && it->getIndex() != 0)
           {
             Operand operandIt = *it;
             
