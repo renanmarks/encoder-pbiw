@@ -250,6 +250,13 @@ namespace PBIW
       return operand;
     }
 
+    void 
+    rVex64PBIWInstruction::updateIndexes(int oldIndex, int newIndex)
+    {
+      pattern->updateIndexes(oldIndex, newIndex);
+      codingOperation->updateIndexes(oldIndex, newIndex);
+    }
+    
     void rVex64PBIWInstruction::setBranchSlot(const Operand& operand, Operand& field)
     {
       // Spill index (to prevent cyclic dependencies at swap)
@@ -268,7 +275,7 @@ namespace PBIW
         operandsTemp.erase(operandIt);
         
         // First, update the indexes with the spill index...
-        pattern->updateIndexes(oldIndex, spillIndex);
+        updateIndexes(oldIndex, spillIndex);
         
         // ... then re-index all the operands as consequence of the move!
         int newIndex = 0;
@@ -280,12 +287,12 @@ namespace PBIW
           if (newIndex == 6 && (opBRFslot.getValue() > -1 || &opBRFslot == &field))
             newIndex++;
           
-          pattern->updateIndexes(operandIt->getIndex(), newIndex);
+          updateIndexes(operandIt->getIndex(), newIndex);
           operandIt->setIndex(newIndex);
         }
         
         // next change the spill indexes back to the new index!
-        pattern->updateIndexes(spillIndex, index);
+        updateIndexes(spillIndex, index);
         
         // Sort them and apply to the original vector
         operandsTemp.sort();
@@ -311,12 +318,13 @@ namespace PBIW
           {
             Operand operandAtIndex = operands.at(index);
 
-            unsigned int oldIndex = operandAtIndex.getIndex();
-            addReadOperand(operandAtIndex);
-            unsigned int newIndex = operandAtIndex.getIndex();
-
-            pattern->updateIndexes(oldIndex, newIndex);
+            // Spill index (to prevent cyclic dependencies at swap)
+            const unsigned int spillIndex = 100;
             
+            updateIndexes(operandAtIndex.getIndex(), spillIndex);
+            addReadOperand(operandAtIndex);
+            updateIndexes(operandAtIndex.getIndex(), spillIndex);
+
             operands.erase(operands.begin()+index);
           }
           else
@@ -326,14 +334,14 @@ namespace PBIW
             if (freeSlotIndex > -1)
             {
               operands.at(freeSlotIndex) = operands.at(index);
-              pattern->updateIndexes(index, freeSlotIndex);
+              updateIndexes(index, freeSlotIndex);
               operands.erase(operands.begin()+index);
             }
           }
         }
         else
         {
-          throw std::range_error("Not found free slot to move operation.");
+          throw std::range_error("Not found free slot to move operand.");
         }
       }
       
@@ -426,26 +434,27 @@ namespace PBIW
       if (index == 11 && operand.getValue() >= 8)
       {
         // Spill index (to prevent cyclic dependencies at swap)
-        const unsigned int spillIndex = 99;
+        const unsigned int spillIndex = 101;
         std::list<Operand> operandsTemp(operands.begin(), operands.end());
         std::list<Operand>::iterator operandIt = std::find_if(operandsTemp.begin(), operandsTemp.end(), Find3BitsOperand());
 
-        // If found the operand, lets remove it and use it at the specified slot
+        // If found the operand, lets move it and use it at the specified slot
         if (operandIt != operandsTemp.end())
         {
-          Operand tempOperand = *operandIt;
+          Operand substituteOperand = *operandIt;
           
           // First, update the indexes with the spill index...
-          pattern->updateIndexes(tempOperand.getIndex(), spillIndex);
+          updateIndexes(substituteOperand.getIndex(), spillIndex);
           
           *(operandIt) = dynamic_cast<const Operand&>(operand); 
-          operandIt->setIndex(tempOperand.getIndex()); // Copy 11th operand to the position
+          operand.setIndex(substituteOperand.getIndex()); // To return the index, maintaining the semantics of the code
+          operandIt->setIndex(substituteOperand.getIndex()); // Copy 11th operand to the position
           
-          tempOperand.setIndex(index);
-          operandsTemp.push_back(tempOperand); // put the 3 bit operand into the last position
+          substituteOperand.setIndex(index);
+          operandsTemp.push_back(substituteOperand); // put the 3 bit operand into the last position
 
           // next change the spill indexes back to the new index!
-          pattern->updateIndexes(spillIndex, index);
+          updateIndexes(spillIndex, index);
 
           // Sort them and apply to the original vector
           operandsTemp.sort();
@@ -506,15 +515,16 @@ namespace PBIW
         for(it = operands.begin(); it < operands.begin()+8; it++, index++)
         {
           // Change the operand position and inform the new space opened
-          if (!it->isBRSource())
+          if (!it->isBRSource() && !it->isBRDestiny())
           {
             Operand operandIt = *it;
             
-            unsigned int oldIndex = operandIt.getIndex();
-            addReadOperand(operandIt);
-            unsigned int newIndex = operandIt.getIndex();
+            // Spill index (to prevent cyclic dependencies at swap)
+            const unsigned int spillIndex = 102;
             
-            pattern->updateIndexes(oldIndex, newIndex);
+            updateIndexes(operandIt.getIndex(), spillIndex);
+            addReadOperand(operandIt);
+            updateIndexes(spillIndex, operandIt.getIndex());
             
             return index;
           }

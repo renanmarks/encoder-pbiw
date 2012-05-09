@@ -61,6 +61,10 @@ namespace PBIW
          */
         virtual void pointToPattern(IPBIWPattern&) = 0;
         
+        virtual void setCodingOperation(IOperation& operation) = 0;
+      
+        virtual IOperation* getCodingOperation() const = 0;
+        
         /**
          * Return the pattern that this instruction points to.
          * @return The pattern pointed by this instruction

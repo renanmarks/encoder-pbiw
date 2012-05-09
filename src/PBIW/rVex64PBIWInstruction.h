@@ -29,7 +29,8 @@ namespace PBIW
         address(0), 
         label(NULL), 
         branchDestiny(NULL), 
-        pattern(NULL), 
+        pattern(NULL),
+        codingOperation(NULL),
         opBRslot(-1),
         opBRFslot(-1),
         immediate(),
@@ -69,6 +70,12 @@ namespace PBIW
       { return label; }
 
       virtual void pointToPattern(IPBIWPattern& pattern);
+      
+      virtual void setCodingOperation(IOperation& operation)
+      { codingOperation = &dynamic_cast<Operation&>(operation); }
+      
+      virtual IOperation* getCodingOperation() const
+      { return codingOperation; }
 
       virtual rVex96PBIWPattern* getPattern() const
       { return this->pattern; }
@@ -156,6 +163,7 @@ namespace PBIW
       rVex64PBIWInstruction* branchDestiny;
 
       rVex96PBIWPattern* pattern;
+      Operation* codingOperation;
 
       /* The readRegs organization is as follows:
 
@@ -172,6 +180,7 @@ namespace PBIW
       
       virtual int giveEmptyBranchSourceSlot();
       void setBranchSlot(const Operand&, Operand&);
+      void updateIndexes(int oldIndex, int newIndex);
 
       Operand immediate; // (9 or 12 bit immediates)
       Operand zeroOperand;
