@@ -341,7 +341,16 @@ namespace PBIW
     {
       std::vector<IPBIWInstruction*> codedInstructionsCopy(codedInstructions.begin(), codedInstructions.end());
       std::vector<IPBIWPattern*> codedPatternsCopy(codedPatterns.begin(), codedPatterns.end());
-      std::vector<PBIW::Label> labelsCopy(labels.begin(), labels.end());
+      std::vector<ILabel*> labelsCopy;
+      
+      LabelVector::iterator labelIt;
+      
+      for (labelIt = labels.begin();
+         labelIt != labels.end();
+         labelIt++)
+      {
+        labelsCopy.push_back(&(*labelIt));
+      }
       
       (*it)->useInstructions(codedInstructionsCopy);
       (*it)->usePatterns(codedPatternsCopy);

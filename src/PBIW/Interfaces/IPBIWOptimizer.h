@@ -21,14 +21,15 @@ namespace PBIW
     public:
       virtual ~IPBIWOptimizer() {}
       
-      virtual void useLabels(const std::vector<Label>&) = 0;
+      virtual void useLabels(const std::vector<ILabel*>&) = 0;
       virtual void useInstructions(const std::vector<IPBIWInstruction*>&) = 0;
       virtual void usePatterns(const std::vector<IPBIWPattern*>&) = 0;
       
       virtual void print(IPBIWPrinter& printer) = 0;
-
-      virtual std::vector<IPBIWPattern*> getPatterns() = 0;
-      virtual std::vector<IPBIWInstruction*> getInstructions() = 0;
+      
+      virtual std::vector<IPBIWPattern*> getPatterns() const = 0;
+      virtual std::vector<IPBIWInstruction*> getInstructions() const = 0;
+      virtual std::vector<ILabel*> getLabels() const = 0;
       
       virtual void setupOptimizer() = 0;
       

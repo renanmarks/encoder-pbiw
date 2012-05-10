@@ -26,17 +26,19 @@ namespace PBIW
     BaseOptimizer(const BaseOptimizer& orig);
     virtual ~BaseOptimizer();
     
-    virtual void useLabels(const std::vector<Label>&);
+    virtual void useLabels(const std::vector<ILabel*>&);
     virtual void useInstructions(const std::vector<IPBIWInstruction*>&);
     virtual void usePatterns(const std::vector<IPBIWPattern*>&);
 
     virtual void print(IPBIWPrinter& printer);
 
-    virtual std::vector<IPBIWPattern*> getPatterns()
+    virtual std::vector<IPBIWPattern*> getPatterns() const 
     { return std::vector<IPBIWPattern*>(patterns.begin(), patterns.end()); }
     
-    virtual std::vector<IPBIWInstruction*> getInstructions()
+    virtual std::vector<IPBIWInstruction*> getInstructions() const
     { return std::vector<IPBIWInstruction*>(instructions.begin(), instructions.end()); }
+    
+    virtual std::vector<ILabel*> getLabels() const;
 
     virtual void setupOptimizer();
     
