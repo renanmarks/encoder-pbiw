@@ -22,7 +22,7 @@ namespace rVex
     class rVexPrinter : public IPrinter
     {
     public:
-      rVexPrinter( std::ostream& output ) : output(output) { }
+      rVexPrinter( std::ostream&);
       virtual ~rVexPrinter( ) { }
       
       /**

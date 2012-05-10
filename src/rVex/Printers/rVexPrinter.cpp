@@ -20,6 +20,13 @@ namespace rVex
      * @param If it is the first syllable
      * @param If it is the last syllable
      */
+      
+    rVexPrinter::rVexPrinter( std::ostream& output )  // O(1)
+      : output(output) 
+    { 
+
+    }
+    
     void 
     rVexPrinter::printSyllable(const rVex::Syllable* syllable, unsigned int binary, bool first, bool last) // O(1)
     {
@@ -58,13 +65,14 @@ namespace rVex
       SyllableVec syllables = instruction.getSyllables();
       SyllableVec::const_iterator it;
       
-      output << "[I: " << instruction.getAddress() << "] ["<< instruction.getWordAddress() << "]" << std::endl;
+      output << "[I: " << instruction.getAddress() << "]"<< std::endl;
       
       try 
       {
       
         for ( it = syllables.begin(); it < syllables.end(); it++) // O(1)
         {
+          /*
           // If the current is the first put 01 in LF...
           if (it == syllables.begin()) 
             (*it)->print(*this, true, false); // O(1)
@@ -75,18 +83,19 @@ namespace rVex
 
           else // ... if is in the middle, put 00 in LF bits
             (*it)->print(*this, false, false); // O(1)
-          
-          output << " -- " << (*it)->getTextRepresentation() << std::endl;
+          */
+            if((*it)->getTextRepresentation() != "")
+                output << (*it)->getTextRepresentation() << "\n";
         }
       
-        instruction.printSyllableDependencies(*this);
+        //instruction.printSyllableDependencies(*this);
       }
       catch (rVex::Syllable::LayoutNotSupportedException* e)
       {
         output << "Error printing: " << e->what() << "Opcode: " << (*it)->getOpcode() << std::endl; // O(1)
       }
       
-      output << std::endl;
+      //output << std::endl;
     }
 
     /**
