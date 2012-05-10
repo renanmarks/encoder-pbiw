@@ -431,14 +431,14 @@ namespace PBIW
         // If we have immediate, do the absolute indexing
         if (immediate.isImmediate9Bits())
         {
-          if (operands.size() == 8) // 9
-            index = 10;
-          else if (operands.size() < 8)
+          if (operands.size() == 9) 
+            index = 11;
+          else if (operands.size() < 9)
             index = operands.size();
         }
         else if (immediate.isImmediate12Bits())
         {
-          if (operands.size() < 8)
+          if (operands.size() < 9)
             index = operands.size();
         }
       }
@@ -537,7 +537,7 @@ namespace PBIW
     rVex64PBIWInstruction::giveEmptyBranchSourceSlot()
     {
       // Check if there is space in the 0-7 slot range;
-      if (operands.size() < READFIELDS)
+      if (operands.size() < 8)
       {
         if (operands.size() == 0)
           return -2;
@@ -551,7 +551,7 @@ namespace PBIW
         OperandVector::iterator it;
         int index = 0;
         
-        for(it = operands.begin(); it < operands.begin()+READFIELDS; it++, index++)
+        for(it = operands.begin(); it < operands.begin()+8; it++, index++)
         {
           // Change the operand position and inform the new space opened
           if (!it->isBRSource() && !it->isBRDestiny() && it->getValue() != 0 && it->getIndex() != 0)
@@ -591,9 +591,9 @@ namespace PBIW
           if (this->containsImmediate())
             return false;
 
-          if (operand.getOperand()->isImmediate9Bits() && operands.size() == 9)
+          if (operand.getOperand()->isImmediate9Bits() && operands.size() == 10)
           {
-            if (operands.back().getValue() < READFIELDS)
+            if (operands.back().getValue() < 8)
             {
               operands.back().setIndex(IMM12BITS);
               return true;
@@ -602,10 +602,10 @@ namespace PBIW
             return false;
           }
 
-          if (operand.getOperand()->isImmediate9Bits() && operands.size() > 9)
+          if (operand.getOperand()->isImmediate9Bits() && operands.size() > 10)
             return false;
 
-          if (operand.getOperand()->isImmediate12Bits() && operands.size() > 9)
+          if (operand.getOperand()->isImmediate12Bits() && operands.size() > 10)
             return false;
           break;
 
@@ -617,7 +617,7 @@ namespace PBIW
             return (opBRFslot.getValue() == -1);
         
           // Check if there is space in the 0-7 slot range;
-          if (operands.size() < READFIELDS)
+          if (operands.size() < 8)
           {
             return true;
           }
@@ -663,24 +663,24 @@ namespace PBIW
         if (opBRslot.getValue() > -1)
         {
           if (opBRFslot.getValue() > -1)
-            return (operandsSize < READFIELDS);
+            return (operandsSize < 8);
           
-          return (operandsSize < 8);
+          return (operandsSize < 9);
         }
         
-        return (operandsSize < 9);
+        return (operandsSize < 10);
       }
       else if (immediate.isImmediate12Bits())
       {
         if (opBRslot.getValue() > -1)
         {
           if (opBRFslot.getValue() > -1)
-            return (operandsSize < 6);
+            return (operandsSize < 7);
           
-          return (operandsSize < READFIELDS);
+          return (operandsSize < 8);
         }
         
-        return (operandsSize < 8);
+        return (operandsSize < 9);
       }
       
       return (operandsSize < ALLFIELDS);

@@ -217,7 +217,7 @@ namespace PBIW
       {
       public:
           bool operator()(const Operand& t) const 
-          { return (t.getValue() < 8) && (t.getIndex() < 11) && !t.isBRSource() && !t.isBRDestiny(); }
+          { return (t.getValue() < 8) && (t.getValue() != 0) && (t.getIndex() < 11) && (t.getIndex() != 0) && !t.isBRSource() && !t.isBRDestiny(); }
       };
       
       unsigned int giveEmptySlot() const;
