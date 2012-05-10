@@ -11,13 +11,14 @@
 #include "PBIWOptimizerJoinPatterns.h"
 #include "BaseOptimizer.h"
 #include "Operation.h"
+#include "Interfaces/IPBIWInstruction.h"
 #include "src/rVex/Operations/MISC/NOP.h"
 #include "src/rVex/Operations/ALU/NANDL.h"
 
 namespace PBIW
 {
     using namespace Interfaces;
-    
+  
     static const int SIZE = 4;
     
     void
@@ -737,9 +738,6 @@ namespace PBIW
         int syllableType[4] = {4, 2, 2, 3}; // Based on the rVex syllables types: ALU = 1, MUL, MEM, CTRL
         std::cout << "ADDR : " << sampleP1.originalAddress << std::endl;
         std::cout << "ADDR : " << sampleP2.originalAddress << std::endl;
-        
-        if((sampleP1.originalAddress == 55) || (sampleP2.originalAddress == 55))
-            std::cout << "OK " << std::endl;
         
         for(int i = 0; i < 4; i++)
         {

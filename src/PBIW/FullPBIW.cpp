@@ -64,7 +64,7 @@ namespace PBIW
   // O(|codedPatterns|) + O(1) = O(|codedPatterns|)
   void FullPBIW::savePBIWElements(rVex64PBIWInstruction*& finalInstruction, rVex96PBIWPattern*& newPattern)
   {
-    newPattern->reorganize(finalInstruction); // O(1)
+    newPattern->reorganize(); // O(1)
     
     const IPBIWPattern& foundPattern = hasPattern(*newPattern); // O(|codedPatterns|)
     IPBIWPattern& notConstFoundPattern = const_cast<IPBIWPattern&>(foundPattern); // O(1)
@@ -164,6 +164,8 @@ namespace PBIW
         finalOperation->setImmediateSwitch( (*syllableIt)->getImmediateSwitch() );
         finalOperation->setType( (*syllableIt)->getSyllableType() );
         
+        finalInstruction->setCodingOperation(*finalOperation);
+        
         // For each operand...
         rVex::Utils::OperandVectorBuilder operandVectorBuilder;
         (*syllableIt)->exportOperandVector(operandVectorBuilder);
@@ -189,7 +191,6 @@ namespace PBIW
               if ( (*instructionIt)->canSplitSyllable(*syllableIt) )
               {
                 saveAndCreateNewPBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
-                resetFinalOperation(operandIt, finalOperation, *syllableIt, operands); // O(1)
               }
               else
               {
@@ -203,13 +204,14 @@ namespace PBIW
                 syllablesBuffer.remove(*syllableIt);
                 
                 saveAndCreateNewPBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
-                
-                operandVectorBuilder.clearOperandVector();
-                (*syllableIt)->exportOperandVector(operandVectorBuilder);
-                operands = operandVectorBuilder.getOperandVector();
-                
-                resetFinalOperation(operandIt, finalOperation, *syllableIt, operands); // O(1)
               }
+
+              operandVectorBuilder.clearOperandVector();
+              (*syllableIt)->exportOperandVector(operandVectorBuilder);
+              operands = operandVectorBuilder.getOperandVector();
+              
+              resetFinalOperation(operandIt, finalOperation, *syllableIt, operands); // O(1)
+              finalInstruction->setCodingOperation(*finalOperation);
             }
 
             operand = (*operandIt)->getOperand(); // O(1)
@@ -273,7 +275,7 @@ namespace PBIW
           {
             finalOperation->addOperand( foundOperand ); // O(1)
           }
-         
+          
         } // ... end for each operand
         
         syllablesBuffer.push_back(*syllableIt);
