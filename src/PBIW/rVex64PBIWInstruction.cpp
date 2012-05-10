@@ -377,18 +377,7 @@ namespace PBIW
       
       setBranchSlot(operandReference, this->opBRFslot);
     }
-    
-//    rVex64PBIWInstruction::AnnulationBits
-//    rVex64PBIWInstruction::getAnnulBits()
-//    {
-//        AnnulationBits bits;
-//        
-//        for(int i = 0; i < 4; i++)
-//            bits.push_back(annulBits[i]);
-//        
-//        return bits;
-//    }
-    
+   
     void
     rVex64PBIWInstruction::addWriteOperand(IOperand& operand) // O(1)
     {
