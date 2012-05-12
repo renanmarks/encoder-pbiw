@@ -342,20 +342,16 @@ namespace PBIW
   rVex96PBIWPattern::exchangeOperations(int index1, int index2) // O(1)
   {
       IOperation* operation;
+      IPBIWInstruction* instruction = *(this->instructionsThatUseIt.begin());
       
       // Exchange the indexes
       operation = operations.at(index1);
       operations.at(index1) = operations.at(index2);
       operations.at(index2) = operation;    
-  }
-   
-  void
-  rVex96PBIWPattern::exchangeOperations(int index1, int index2, IPBIWInstruction* instruction) // O(1)
-  {
-      this->exchangeOperations(index1, index2);
+      
       instruction->updateAnnulBits(index1, index2);
   }
-  
+    
   bool
   rVex96PBIWPattern::operator<(const IPBIWPattern& other) const // O(1)
   {
