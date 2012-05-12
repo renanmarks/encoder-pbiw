@@ -5,9 +5,10 @@
  * Created on December 22, 2011, 3:37 PM
  */
 
-#include "BaseOptimizer.h"
+
 #include "Interfaces/IPBIWInstruction.h"
 #include <algorithm>
+#include "PBIWOptimizerJoinPatterns.h"
 
 namespace PBIW
 {
@@ -161,7 +162,7 @@ namespace PBIW
     }
   }
   
-    void 
+  void 
   BaseOptimizer::printStatistics(IPBIWPrinter& printer, int originalInstructionsCount, int encodedPatterns, int encodedInstructions)
   {
     unsigned int instructionsBytes = instructions.size() * 8;
@@ -169,11 +170,11 @@ namespace PBIW
     
     printer.getOutputStream()
       << "Optimizer Summary: \n\n"
-      << "Instruction count = " << instructions.size() 
-      << " ( " << instructionsBytes <<" bytes )" << std::endl
-      
       << "Pattern count = " << patterns.size()
       << " ( " << patternsBytes <<" bytes )" << std::endl
+            
+      << "Instruction count = " << instructions.size() 
+      << " ( " << instructionsBytes <<" bytes )" << std::endl
       
       << "Reuse ratio = " 
       << (instructions.size() / (double)patterns.size()) << std::endl
