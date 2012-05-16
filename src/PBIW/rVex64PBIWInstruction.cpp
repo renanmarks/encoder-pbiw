@@ -106,9 +106,9 @@ namespace PBIW
       // Extra bit
       //output.longWord<<=1;
             
-      for(unsigned int i = 0;
-              i < annulBits.size();
-              i++) 
+      for(unsigned int i = annulBits.size()-1;
+              i >= 0 && i < 4;
+              i--) 
       {
           output.longWord<<=1;
           output.longWord|= annulBits[i];          
@@ -391,18 +391,7 @@ namespace PBIW
       
       setBranchSlot(operandReference, this->opBRFslot);
     }
-    
-//    rVex64PBIWInstruction::AnnulationBits
-//    rVex64PBIWInstruction::getAnnulBits()
-//    {
-//        AnnulationBits bits;
-//        
-//        for(int i = 0; i < 4; i++)
-//            bits.push_back(annulBits[i]);
-//        
-//        return bits;
-//    }
-    
+   
     void
     rVex64PBIWInstruction::addWriteOperand(IOperand& operand) // O(1)
     {

@@ -5,9 +5,10 @@
  * Created on December 22, 2011, 3:37 PM
  */
 
-#include "BaseOptimizer.h"
+
 #include "Interfaces/IPBIWInstruction.h"
 #include <algorithm>
+#include "PBIWOptimizerJoinPatterns.h"
 
 namespace PBIW
 {
@@ -19,7 +20,10 @@ namespace PBIW
 
   BaseOptimizer::BaseOptimizer(const BaseOptimizer& orig)
   {
-    // TODO
+    useInstructions(orig.getInstructions());
+    usePatterns(orig.getPatterns());
+    useLabels(orig.getLabels());
+    setupOptimizer();
   }
 
   BaseOptimizer::~BaseOptimizer()
@@ -35,13 +39,32 @@ namespace PBIW
       delete *patternIt;
   }
 
-  void
-  BaseOptimizer::useLabels(const std::vector<Label>& labels) // O(1)
+  std::vector<ILabel*> 
+  BaseOptimizer::getLabels() const
   {
-    std::vector<Label>::const_iterator it;
+    std::vector<ILabel*> labelsCopy;
+    LabelList::const_iterator labelIt;
+      
+    for (labelIt = labels.begin();
+        labelIt != labels.end();
+        labelIt++)
+    {
+      labelsCopy.push_back(const_cast<Label*>(&*labelIt));
+    }
+    
+    return labelsCopy;
+  }
+  
+  void
+  BaseOptimizer::useLabels(const std::vector<ILabel*>& labels) // O(1)
+  {
+    std::vector<ILabel*>::const_iterator it;
     
     for (it = labels.begin(); it < labels.end(); it++) // O(|labels|) = O(1)
-      this->labels.push_back(*it);
+    {
+      Label label = *dynamic_cast<Label*>(*it);
+      this->labels.push_back(label);
+    }
   }
 
   void
@@ -139,7 +162,7 @@ namespace PBIW
     }
   }
   
-    void 
+  void 
   BaseOptimizer::printStatistics(IPBIWPrinter& printer, int originalInstructionsCount, int encodedPatterns, int encodedInstructions)
   {
     unsigned int instructionsBytes = instructions.size() * 8;
@@ -147,11 +170,11 @@ namespace PBIW
     
     printer.getOutputStream()
       << "Optimizer Summary: \n\n"
-      << "Instruction count = " << instructions.size() 
-      << " ( " << instructionsBytes <<" bytes )" << std::endl
-      
       << "Pattern count = " << patterns.size()
       << " ( " << patternsBytes <<" bytes )" << std::endl
+            
+      << "Instruction count = " << instructions.size() 
+      << " ( " << instructionsBytes <<" bytes )" << std::endl
       
       << "Reuse ratio = " 
       << (instructions.size() / (double)patterns.size()) << std::endl

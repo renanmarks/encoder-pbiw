@@ -24,6 +24,7 @@
         <itemPath>src/PBIW/Label.h</itemPath>
         <itemPath>src/PBIW/Operand.h</itemPath>
         <itemPath>src/PBIW/Operation.h</itemPath>
+        <itemPath>src/PBIW/PBIWOptimizerDataSet.h</itemPath>
         <itemPath>src/PBIW/PBIWOptimizerJoinPatterns.h</itemPath>
         <itemPath>src/PBIW/Printers/PartialPBIWDebugPrinter.h</itemPath>
         <itemPath>src/PBIW/Printers/PartialPBIWPrinter.h</itemPath>
@@ -186,6 +187,7 @@
         <itemPath>src/PBIW/FullPBIW.cpp</itemPath>
         <itemPath>src/PBIW/Operand.cpp</itemPath>
         <itemPath>src/PBIW/Operation.cpp</itemPath>
+        <itemPath>src/PBIW/PBIWOptimizerDataSet.cpp</itemPath>
         <itemPath>src/PBIW/PBIWOptimizerJoinPatterns.cpp</itemPath>
         <itemPath>src/PBIW/Printers/PartialPBIWDebugPrinter.cpp</itemPath>
         <itemPath>src/PBIW/Printers/PartialPBIWPrinter.cpp</itemPath>

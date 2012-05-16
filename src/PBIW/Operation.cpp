@@ -83,22 +83,22 @@ namespace PBIW
       case rVex::Syllable::opIGOTO:
         if (writeOperand == -1)
         {
-          writeOperand = 15;
+          writeOperand = 0;
           
           if (operand.isImmediate())
-            readOperands.push_back(15);
+            readOperands.push_back(0);
         }
         break;
       
       case rVex::Syllable::opCALL:
         if (operand.isImmediate())
-          readOperands.push_back(15);
+          readOperands.push_back(0);
         break;
         
       case rVex::Syllable::opBR:
       case rVex::Syllable::opBRF:
         if (writeOperand == -1)
-          writeOperand = 15;
+          writeOperand = 0;
         break;
       
       case rVex::Syllable::opRETURN: // TODO
