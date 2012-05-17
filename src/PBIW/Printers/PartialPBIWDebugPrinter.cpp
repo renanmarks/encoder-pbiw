@@ -73,12 +73,23 @@ namespace PBIW
   {
     IPBIWInstruction::OperandVector operands = instruction.getOperands(); // O(1)
     IPBIWInstruction::OperandVector::const_iterator it;
+    IPBIWInstruction::AnnulationBits::const_iterator aBit;
     
     std::list<rVex::Syllable*>::const_iterator sIt;
     std::list<rVex::Syllable*> references = instruction.getSyllableReferences(); // O(1)
+    std::vector<bool> annulBits = instruction.getAnnulBits();
     
     printer << "\tInstruction Addr: " << instruction.getAddress() << std::endl;
     printer << "\tPoints to pattern at addr: " << instruction.getPattern()->getAddress() << std::endl;
+    printer << "\tAnnul Bits: ";
+            
+    for(aBit = annulBits.begin();
+        aBit < annulBits.end();
+        aBit++)
+    {
+        printer << *aBit;
+    }
+    printer << std::endl;
     
     printer << "\tReferences : " << std::endl;
     
