@@ -100,7 +100,7 @@ main(int argc, char** argv)
   }
 
   //  time.finish();
-  dataSet.minimumPatterns();
+//  dataSet.minimumPatterns();
   
   return 0;
 }
