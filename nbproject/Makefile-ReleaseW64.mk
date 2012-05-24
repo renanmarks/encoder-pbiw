@@ -55,12 +55,14 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/rVex/Operations/MEM/LDH.o \
 	${OBJECTDIR}/src/rVex/Operations/MEM/STB.o \
 	${OBJECTDIR}/src/rVex/Operations/ALU/ADDCG.o \
+	${OBJECTDIR}/src/PBIW/PBIWOptimizerDataSet.o \
 	${OBJECTDIR}/src/rVex/SyllableALU.o \
 	${OBJECTDIR}/src/rVex/SyllableMISC.o \
 	${OBJECTDIR}/src/rVex/Utils/OperandVectorBuilder.o \
 	${OBJECTDIR}/src/PBIW/Utils/OperandVector.o \
 	${OBJECTDIR}/src/VexParser/Structs/ISection.o \
 	${OBJECTDIR}/src/VexParser/VexContext.o \
+	${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/PatternInformation.o \
 	${OBJECTDIR}/src/rVex/Operations/MEM/LDHU.o \
 	${OBJECTDIR}/src/rVex/Utils/DependencyChains.o \
 	${OBJECTDIR}/src/PBIW/Operand.o \
@@ -73,7 +75,9 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/rVex/SyllableCTRL.o \
 	${OBJECTDIR}/src/rVex/Operations/ALU/CMPLE.o \
 	${OBJECTDIR}/src/rVex/Syllable.o \
+	${OBJECTDIR}/src/PBIW/PBIWOptimizerJoinPatterns.o \
 	${OBJECTDIR}/src/VexParser/driver.o \
+	${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/OperationInformation.o \
 	${OBJECTDIR}/src/rVex/Operations/MEM/LDB.o \
 	${OBJECTDIR}/src/PBIW/Printers/PartialPBIWPrinter.o \
 	${OBJECTDIR}/src/PBIW/Printers/PartialPBIWDebugPrinter.o \
@@ -81,10 +85,11 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/rVex/Operations/ALU/CMPGE.o \
 	${OBJECTDIR}/src/PBIW/FullPBIW.o \
 	${OBJECTDIR}/src/rVex/Operations/ALU/SLCT.o \
-	${OBJECTDIR}/src/VexParser/Processors/PseudoSyllableProcessor.o \
+	${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/PatternBuilder.o \
 	${OBJECTDIR}/src/VexParser/Structs/Function.o \
 	${OBJECTDIR}/src/PBIW/rVex96PBIWPattern.o \
 	${OBJECTDIR}/src/rVex/Printers/VHDLPrinter.o \
+	${OBJECTDIR}/src/VexParser/Processors/PseudoSyllableProcessor.o \
 	${OBJECTDIR}/src/VexParser/Expressions/Arguments.o \
 	${OBJECTDIR}/src/rVex/Operations/ALU/CMPLTU.o \
 	${OBJECTDIR}/src/rVex/Operations/ALU/CMPLT.o \
@@ -235,6 +240,11 @@ ${OBJECTDIR}/src/rVex/Operations/ALU/ADDCG.o: src/rVex/Operations/ALU/ADDCG.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/ALU/ADDCG.o src/rVex/Operations/ALU/ADDCG.cpp
 
+${OBJECTDIR}/src/PBIW/PBIWOptimizerDataSet.o: src/PBIW/PBIWOptimizerDataSet.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/PBIW
+	${RM} $@.d
+	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/PBIWOptimizerDataSet.o src/PBIW/PBIWOptimizerDataSet.cpp
+
 ${OBJECTDIR}/src/rVex/SyllableALU.o: src/rVex/SyllableALU.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/rVex
 	${RM} $@.d
@@ -264,6 +274,11 @@ ${OBJECTDIR}/src/VexParser/VexContext.o: src/VexParser/VexContext.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/VexParser
 	${RM} $@.d
 	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/VexParser/VexContext.o src/VexParser/VexContext.cpp
+
+${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/PatternInformation.o: src/PBIW/Optimizers/JoinPattern/PatternInformation.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern
+	${RM} $@.d
+	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/PatternInformation.o src/PBIW/Optimizers/JoinPattern/PatternInformation.cpp
 
 ${OBJECTDIR}/src/rVex/Operations/MEM/LDHU.o: src/rVex/Operations/MEM/LDHU.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/rVex/Operations/MEM
@@ -325,10 +340,20 @@ ${OBJECTDIR}/src/rVex/Syllable.o: src/rVex/Syllable.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Syllable.o src/rVex/Syllable.cpp
 
+${OBJECTDIR}/src/PBIW/PBIWOptimizerJoinPatterns.o: src/PBIW/PBIWOptimizerJoinPatterns.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/PBIW
+	${RM} $@.d
+	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/PBIWOptimizerJoinPatterns.o src/PBIW/PBIWOptimizerJoinPatterns.cpp
+
 ${OBJECTDIR}/src/VexParser/driver.o: src/VexParser/driver.cc 
 	${MKDIR} -p ${OBJECTDIR}/src/VexParser
 	${RM} $@.d
 	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/VexParser/driver.o src/VexParser/driver.cc
+
+${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/OperationInformation.o: src/PBIW/Optimizers/JoinPattern/OperationInformation.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern
+	${RM} $@.d
+	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/OperationInformation.o src/PBIW/Optimizers/JoinPattern/OperationInformation.cpp
 
 ${OBJECTDIR}/src/rVex/Operations/MEM/LDB.o: src/rVex/Operations/MEM/LDB.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/rVex/Operations/MEM
@@ -365,10 +390,10 @@ ${OBJECTDIR}/src/rVex/Operations/ALU/SLCT.o: src/rVex/Operations/ALU/SLCT.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/ALU/SLCT.o src/rVex/Operations/ALU/SLCT.cpp
 
-${OBJECTDIR}/src/VexParser/Processors/PseudoSyllableProcessor.o: src/VexParser/Processors/PseudoSyllableProcessor.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/VexParser/Processors
+${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/PatternBuilder.o: src/PBIW/Optimizers/JoinPattern/PatternBuilder.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern
 	${RM} $@.d
-	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/VexParser/Processors/PseudoSyllableProcessor.o src/VexParser/Processors/PseudoSyllableProcessor.cpp
+	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/PatternBuilder.o src/PBIW/Optimizers/JoinPattern/PatternBuilder.cpp
 
 ${OBJECTDIR}/src/VexParser/Structs/Function.o: src/VexParser/Structs/Function.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/VexParser/Structs
@@ -384,6 +409,11 @@ ${OBJECTDIR}/src/rVex/Printers/VHDLPrinter.o: src/rVex/Printers/VHDLPrinter.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/rVex/Printers
 	${RM} $@.d
 	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Printers/VHDLPrinter.o src/rVex/Printers/VHDLPrinter.cpp
+
+${OBJECTDIR}/src/VexParser/Processors/PseudoSyllableProcessor.o: src/VexParser/Processors/PseudoSyllableProcessor.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/VexParser/Processors
+	${RM} $@.d
+	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/VexParser/Processors/PseudoSyllableProcessor.o src/VexParser/Processors/PseudoSyllableProcessor.cpp
 
 ${OBJECTDIR}/src/VexParser/Expressions/Arguments.o: src/VexParser/Expressions/Arguments.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/VexParser/Expressions
@@ -462,25 +492,25 @@ ${TESTDIR}/TestFiles/f1: ${TESTDIR}/src/Tests/rVex/rVexInstructionTest.o ${TESTD
 ${TESTDIR}/src/Tests/Parser/ExpressionTest.o: src/Tests/Parser/ExpressionTest.cpp 
 	${MKDIR} -p ${TESTDIR}/src/Tests/Parser
 	${RM} $@.d
-	$(COMPILE.cc) -O3 -s -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/Parser/ExpressionTest.o src/Tests/Parser/ExpressionTest.cpp
+	$(COMPILE.cc) -O3 -s -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/Parser/ExpressionTest.o src/Tests/Parser/ExpressionTest.cpp
 
 
 ${TESTDIR}/src/Tests/Parser/VexContextTest.o: src/Tests/Parser/VexContextTest.cpp 
 	${MKDIR} -p ${TESTDIR}/src/Tests/Parser
 	${RM} $@.d
-	$(COMPILE.cc) -O3 -s -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/Parser/VexContextTest.o src/Tests/Parser/VexContextTest.cpp
+	$(COMPILE.cc) -O3 -s -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/Parser/VexContextTest.o src/Tests/Parser/VexContextTest.cpp
 
 
 ${TESTDIR}/src/Tests/rVex/rVexInstructionTest.o: src/Tests/rVex/rVexInstructionTest.cpp 
 	${MKDIR} -p ${TESTDIR}/src/Tests/rVex
 	${RM} $@.d
-	$(COMPILE.cc) -O3 -s -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/rVex/rVexInstructionTest.o src/Tests/rVex/rVexInstructionTest.cpp
+	$(COMPILE.cc) -O3 -s -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/rVex/rVexInstructionTest.o src/Tests/rVex/rVexInstructionTest.cpp
 
 
 ${TESTDIR}/src/Tests/rVex/rVexSyllableTest.o: src/Tests/rVex/rVexSyllableTest.cpp 
 	${MKDIR} -p ${TESTDIR}/src/Tests/rVex
 	${RM} $@.d
-	$(COMPILE.cc) -O3 -s -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/rVex/rVexSyllableTest.o src/Tests/rVex/rVexSyllableTest.cpp
+	$(COMPILE.cc) -O3 -s -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/src/Tests/rVex/rVexSyllableTest.o src/Tests/rVex/rVexSyllableTest.cpp
 
 
 ${OBJECTDIR}/src/rVex/Operations/MEM/STH_nomain.o: ${OBJECTDIR}/src/rVex/Operations/MEM/STH.o src/rVex/Operations/MEM/STH.cpp 
@@ -756,6 +786,19 @@ ${OBJECTDIR}/src/rVex/Operations/ALU/ADDCG_nomain.o: ${OBJECTDIR}/src/rVex/Opera
 	    ${CP} ${OBJECTDIR}/src/rVex/Operations/ALU/ADDCG.o ${OBJECTDIR}/src/rVex/Operations/ALU/ADDCG_nomain.o;\
 	fi
 
+${OBJECTDIR}/src/PBIW/PBIWOptimizerDataSet_nomain.o: ${OBJECTDIR}/src/PBIW/PBIWOptimizerDataSet.o src/PBIW/PBIWOptimizerDataSet.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/PBIW
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/PBIW/PBIWOptimizerDataSet.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/PBIWOptimizerDataSet_nomain.o src/PBIW/PBIWOptimizerDataSet.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/PBIW/PBIWOptimizerDataSet.o ${OBJECTDIR}/src/PBIW/PBIWOptimizerDataSet_nomain.o;\
+	fi
+
 ${OBJECTDIR}/src/rVex/SyllableALU_nomain.o: ${OBJECTDIR}/src/rVex/SyllableALU.o src/rVex/SyllableALU.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/rVex
 	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/rVex/SyllableALU.o`; \
@@ -832,6 +875,19 @@ ${OBJECTDIR}/src/VexParser/VexContext_nomain.o: ${OBJECTDIR}/src/VexParser/VexCo
 	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/VexParser/VexContext_nomain.o src/VexParser/VexContext.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/VexParser/VexContext.o ${OBJECTDIR}/src/VexParser/VexContext_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/PatternInformation_nomain.o: ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/PatternInformation.o src/PBIW/Optimizers/JoinPattern/PatternInformation.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/PatternInformation.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/PatternInformation_nomain.o src/PBIW/Optimizers/JoinPattern/PatternInformation.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/PatternInformation.o ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/PatternInformation_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/rVex/Operations/MEM/LDHU_nomain.o: ${OBJECTDIR}/src/rVex/Operations/MEM/LDHU.o src/rVex/Operations/MEM/LDHU.cpp 
@@ -990,6 +1046,19 @@ ${OBJECTDIR}/src/rVex/Syllable_nomain.o: ${OBJECTDIR}/src/rVex/Syllable.o src/rV
 	    ${CP} ${OBJECTDIR}/src/rVex/Syllable.o ${OBJECTDIR}/src/rVex/Syllable_nomain.o;\
 	fi
 
+${OBJECTDIR}/src/PBIW/PBIWOptimizerJoinPatterns_nomain.o: ${OBJECTDIR}/src/PBIW/PBIWOptimizerJoinPatterns.o src/PBIW/PBIWOptimizerJoinPatterns.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/PBIW
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/PBIW/PBIWOptimizerJoinPatterns.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/PBIWOptimizerJoinPatterns_nomain.o src/PBIW/PBIWOptimizerJoinPatterns.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/PBIW/PBIWOptimizerJoinPatterns.o ${OBJECTDIR}/src/PBIW/PBIWOptimizerJoinPatterns_nomain.o;\
+	fi
+
 ${OBJECTDIR}/src/VexParser/driver_nomain.o: ${OBJECTDIR}/src/VexParser/driver.o src/VexParser/driver.cc 
 	${MKDIR} -p ${OBJECTDIR}/src/VexParser
 	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/VexParser/driver.o`; \
@@ -1001,6 +1070,19 @@ ${OBJECTDIR}/src/VexParser/driver_nomain.o: ${OBJECTDIR}/src/VexParser/driver.o 
 	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/VexParser/driver_nomain.o src/VexParser/driver.cc;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/VexParser/driver.o ${OBJECTDIR}/src/VexParser/driver_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/OperationInformation_nomain.o: ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/OperationInformation.o src/PBIW/Optimizers/JoinPattern/OperationInformation.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/OperationInformation.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/OperationInformation_nomain.o src/PBIW/Optimizers/JoinPattern/OperationInformation.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/OperationInformation.o ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/OperationInformation_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/rVex/Operations/MEM/LDB_nomain.o: ${OBJECTDIR}/src/rVex/Operations/MEM/LDB.o src/rVex/Operations/MEM/LDB.cpp 
@@ -1094,17 +1176,17 @@ ${OBJECTDIR}/src/rVex/Operations/ALU/SLCT_nomain.o: ${OBJECTDIR}/src/rVex/Operat
 	    ${CP} ${OBJECTDIR}/src/rVex/Operations/ALU/SLCT.o ${OBJECTDIR}/src/rVex/Operations/ALU/SLCT_nomain.o;\
 	fi
 
-${OBJECTDIR}/src/VexParser/Processors/PseudoSyllableProcessor_nomain.o: ${OBJECTDIR}/src/VexParser/Processors/PseudoSyllableProcessor.o src/VexParser/Processors/PseudoSyllableProcessor.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/VexParser/Processors
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/VexParser/Processors/PseudoSyllableProcessor.o`; \
+${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/PatternBuilder_nomain.o: ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/PatternBuilder.o src/PBIW/Optimizers/JoinPattern/PatternBuilder.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/PatternBuilder.o`; \
 	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/VexParser/Processors/PseudoSyllableProcessor_nomain.o src/VexParser/Processors/PseudoSyllableProcessor.cpp;\
+	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/PatternBuilder_nomain.o src/PBIW/Optimizers/JoinPattern/PatternBuilder.cpp;\
 	else  \
-	    ${CP} ${OBJECTDIR}/src/VexParser/Processors/PseudoSyllableProcessor.o ${OBJECTDIR}/src/VexParser/Processors/PseudoSyllableProcessor_nomain.o;\
+	    ${CP} ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/PatternBuilder.o ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/PatternBuilder_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/VexParser/Structs/Function_nomain.o: ${OBJECTDIR}/src/VexParser/Structs/Function.o src/VexParser/Structs/Function.cpp 
@@ -1144,6 +1226,19 @@ ${OBJECTDIR}/src/rVex/Printers/VHDLPrinter_nomain.o: ${OBJECTDIR}/src/rVex/Print
 	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Printers/VHDLPrinter_nomain.o src/rVex/Printers/VHDLPrinter.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/rVex/Printers/VHDLPrinter.o ${OBJECTDIR}/src/rVex/Printers/VHDLPrinter_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/VexParser/Processors/PseudoSyllableProcessor_nomain.o: ${OBJECTDIR}/src/VexParser/Processors/PseudoSyllableProcessor.o src/VexParser/Processors/PseudoSyllableProcessor.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/VexParser/Processors
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/VexParser/Processors/PseudoSyllableProcessor.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/VexParser/Processors/PseudoSyllableProcessor_nomain.o src/VexParser/Processors/PseudoSyllableProcessor.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/VexParser/Processors/PseudoSyllableProcessor.o ${OBJECTDIR}/src/VexParser/Processors/PseudoSyllableProcessor_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/VexParser/Expressions/Arguments_nomain.o: ${OBJECTDIR}/src/VexParser/Expressions/Arguments.o src/VexParser/Expressions/Arguments.cpp 
