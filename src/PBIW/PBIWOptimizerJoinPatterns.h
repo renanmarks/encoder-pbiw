@@ -29,7 +29,7 @@ namespace PBIW
             }
             
             unsigned int originalAddress;
-            int newAddress;
+            unsigned int newAddress;
             std::vector<bool> annulBits;
             std::deque<IOperation*> operations;
             std::deque<IPBIWInstruction*> instructionsThatUseIt;

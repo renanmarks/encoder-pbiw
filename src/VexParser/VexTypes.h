@@ -143,6 +143,8 @@ namespace VexParser
    * Pure base class used to construct Vex syllables at parsing.
    */
   struct OperationConstructor {
+    virtual ~OperationConstructor() {}
+    
     virtual rVex::Syllable* create( void ) const = 0;
     
     virtual rVex::Syllable* operator()( void ) const {

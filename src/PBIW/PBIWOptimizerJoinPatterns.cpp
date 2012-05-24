@@ -806,31 +806,25 @@ namespace PBIW
     {
         AllSamples::iterator itSample;
         struct Sample samplePattern;
-        bool find = false;
         
         for(itSample = samples.begin(); itSample < samples.end(); itSample++)
         {
-            if((*itSample).originalAddress == pattern.getAddress())
+            if(itSample->originalAddress == pattern.getAddress())
                 return (*itSample);                
         }
         
-        if(!find)
-        {
-            samplePattern.originalAddress = pattern.getAddress();
-            
-            samplePattern.instructionsThatUseIt = pattern.getInstructionsThatUseIt2();
+        samplePattern.originalAddress = pattern.getAddress();
 
-            samplePattern.annulBits = samplePattern.instructionsThatUseIt.at(0)->getAnnulBits();
-            
-            std::vector<IOperation*> operation = pattern.getOperations();
-            std::copy(operation.begin(),operation.end(),std::back_inserter(samplePattern.operations));
+        samplePattern.instructionsThatUseIt = pattern.getInstructionsThatUseIt2();
 
-            samples.push_back(samplePattern);
-            
-            return samples.back();
-        }
-         
-        
+        samplePattern.annulBits = samplePattern.instructionsThatUseIt.at(0)->getAnnulBits();
+
+        std::vector<IOperation*> operation = pattern.getOperations();
+        std::copy(operation.begin(),operation.end(),std::back_inserter(samplePattern.operations));
+
+        samples.push_back(samplePattern);
+
+        return samples.back();
     }
     
     void
