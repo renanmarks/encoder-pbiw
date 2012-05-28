@@ -84,7 +84,7 @@ namespace rVex
         
         if ( hasTrueDependency )
         {
-          Dependency::SyllableList::iterator syllableIt;
+          Dependency::SyllableList::const_iterator syllableIt;
           
           for (syllableIt = it->second.depends.begin();
                syllableIt < it->second.depends.end();
@@ -105,8 +105,8 @@ namespace rVex
     }
     
     void 
-    DependencyChains::markSplits(rVex::Syllable* first, 
-                                 rVex::Syllable* last)
+    DependencyChains::markSplits(const rVex::Syllable* first, 
+                                 const rVex::Syllable* last)
     {
       // Starting with the next element
       DependencyDictionary::iterator it = std::find_if(dependencies.begin(), dependencies.end(), SearchSyllable(first->getAddress()+1));

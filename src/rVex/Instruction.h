@@ -68,7 +68,7 @@ namespace rVex
       void buildSyllableDependencies()
       { dependencies.buildDependenciesChains(*this); }
       
-      bool canSplitSyllable(Syllable* syllable) const
+      bool canSplitSyllable(const Syllable* syllable) const
       { return dependencies.canSplitSyllable(syllable); }
       
     private:
