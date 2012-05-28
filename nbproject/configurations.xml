@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="79">
+<configurationDescriptor version="80">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <logicalFolder name="f4" displayName="GenericAssembly" projectFiles="true">
+        <logicalFolder name="f1" displayName="Interfaces" projectFiles="true">
+          <itemPath>src/GenericAssembly/Interfaces/IContext.h</itemPath>
+          <itemPath>src/GenericAssembly/Interfaces/IInstruction.h</itemPath>
+          <itemPath>src/GenericAssembly/Interfaces/ILabel.h</itemPath>
+          <itemPath>src/GenericAssembly/Interfaces/IOperand.h</itemPath>
+          <itemPath>src/GenericAssembly/Interfaces/IOperation.h</itemPath>
+          <itemPath>src/GenericAssembly/Interfaces/ISection.h</itemPath>
+        </logicalFolder>
+      </logicalFolder>
       <logicalFolder name="f2" displayName="PBIW" projectFiles="true">
         <logicalFolder name="f1" displayName="Interfaces" projectFiles="true">
           <itemPath>src/PBIW/Interfaces/ILabel.h</itemPath>
