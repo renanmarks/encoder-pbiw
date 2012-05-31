@@ -6,6 +6,7 @@
  */
 
 #include <algorithm>
+#include <iostream>
 
 #include "OperationInformation.h"
 #include "PatternInformation.h"
@@ -66,8 +67,8 @@ namespace PBIW
       PatternInformation::updateInstructionsAnnulationBits()
       {
         InstructionCollection::iterator instructionIt;
-
-        for (instructionIt = instructions.begin(); 
+        
+        for (instructionIt = instructions.begin();
             instructionIt != instructions.end();
             instructionIt++)
         {
@@ -75,6 +76,13 @@ namespace PBIW
 
           OperationsCollections::iterator opIt;
           int operationIndex = 0;
+          
+          std::cout << "---\nBefore Annul"<<std::endl;
+          IPBIWInstruction::AnnulationBits::iterator it;
+          for(it = annulationBits.begin(); it < annulationBits.end(); it++ )
+          {
+              std::cout << *it << std::endl;
+          }
           
           for (opIt = slots.begin(); opIt != slots.end(); opIt++, operationIndex++)
           {
@@ -85,6 +93,13 @@ namespace PBIW
             }
           }
 
+          std::cout << "\nAfter Annul" << std::endl;
+          
+          for(it = annulationBits.begin(); it < annulationBits.end(); it++ )
+          {
+              std::cout << *it << std::endl;
+          }
+          
           (*instructionIt)->setAnnulBits(annulationBits);
         }
       }

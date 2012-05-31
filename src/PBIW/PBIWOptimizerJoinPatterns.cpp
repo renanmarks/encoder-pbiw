@@ -14,6 +14,7 @@
 #include "Interfaces/IPBIWInstruction.h"
 #include "src/rVex/Operations/MISC/NOP.h"
 #include "src/rVex/Operations/ALU/NANDL.h"
+#include "Optimizers/JoinPattern/PatternBuilder.h"
 
 namespace PBIW
 {
@@ -240,604 +241,351 @@ namespace PBIW
     void
     PBIWOptimizerJoinPatterns::processJoinPatterns()
     {
-        int start = 0;
-        int finish = 0;
-        
-        do{
-            threeOperation.clear();
-            twoOperation.clear();
-            oneOperation.clear();
-            samples.clear();
+        Optimizers::JoinPattern::PatternBuilder patternBuilder;        
             
-            preprocessPatterns();
-            start = patterns.size();
+        preprocessPatterns();
 
-            BaseDeque::iterator itBase1, itBase2;
-            InnerDeque::iterator itInner1, itInner2;
+        IPBIWPattern* temp = patterns.back();
+        patterns.pop_back();
 
-            // CTRL = 0, MEM = 1, MUL = 2, ADD = 3
-            for(itBase1 = threeOperation.begin(), itBase2 = oneOperation.begin();
-                (itBase1 < threeOperation.end()-1) && (itBase2 < oneOperation.end()-1);
-                itBase1++, itBase2++)
+        BaseDeque::iterator itBase1, itBase2;
+        InnerDeque::iterator itInner1, itInner2;
+
+        // CTRL = 0, MEM = 1, MUL = 2, ADD = 3
+        for(itBase1 = threeOperation.begin(), itBase2 = oneOperation.begin();
+            (itBase1 < threeOperation.end()-1) && (itBase2 < oneOperation.end()-1);
+            itBase1++, itBase2++)
+        {
+            for(itInner1 = (*itBase1).begin(), itInner2 = (*itBase2).begin();
+                (itInner1 < (*itBase1).end()) && (itInner2 < (*itBase2).end());
+                itInner1++, itInner2++)
             {
-                for(itInner1 = (*itBase1).begin(), itInner2 = (*itBase2).begin();
-                    (itInner1 < (*itBase1).end()) && (itInner2 < (*itBase2).end());
-                    itInner1++, itInner2++)
-                {
-                    IPBIWPattern* first = *(std::find(patterns.begin(), patterns.end(), *itInner1));
-                    IPBIWPattern* second = *(std::find(patterns.begin(), patterns.end(), *itInner2));
+                IPBIWPattern* first = *(std::find(patterns.begin(), patterns.end(), *itInner1));
+                IPBIWPattern* second = *(std::find(patterns.begin(), patterns.end(), *itInner2));
 
-                    joinPatterns(first, second);
+                patterns.push_back(patternBuilder.startWithPattern(first).joinWithPattern(second).buildPattern());
 
-                    (*itBase1).erase((*itBase1).begin());
-                    (*itBase2).erase((*itBase2).begin());
-                }            
-            }
+                patterns.erase(std::find(patterns.begin(), patterns.end(), first));
+                patterns.erase(std::find(patterns.begin(), patterns.end(), second));
 
-            int i = 0;
-            // MUL_MUL = 0, CTRL_MUL, MEM_MUL, CTRL_MEM, CTRL_ALU, MEM_ALU, MUL_ALU, ALU_ALU
-            for(itBase1 = twoOperation.begin();
-                itBase1 < twoOperation.end();
-                itBase1++)
+                (*itBase1).erase((*itBase1).begin());
+                (*itBase2).erase((*itBase2).begin());                   
+            }            
+        }
+
+        int i = 0;
+        // MUL_MUL = 0, CTRL_MUL, MEM_MUL, CTRL_MEM, CTRL_ALU, MEM_ALU, MUL_ALU, ALU_ALU
+        for(itBase1 = twoOperation.begin();
+            itBase1 < twoOperation.end();
+            itBase1++)
+        {
+            for(itInner1 = (*itBase1).begin();
+                itInner1 < (*itBase1).end();
+                itInner1++)
             {
-                for(itInner1 = (*itBase1).begin();
-                    itInner1 < (*itBase1).end();
-                    itInner1++)
-                {
-                    if(!(*itBase1).empty())
-                    {                
-                        switch(i)
-                        {
-                            case MUL_MUL:
-                                if(!twoOperation.at(CTRL_MEM).empty())
-                                getPatternsToJoin(MUL_MUL, CTRL_MEM); 
+                if(!(*itBase1).empty())
+                {                
+                    switch(i)
+                    {
+                        case MUL_MUL:
+                            if(!twoOperation.at(CTRL_MEM).empty())
+                            getPatternsToJoin(MUL_MUL, CTRL_MEM); 
 
-                                if(!twoOperation.at(CTRL_ALU).empty())
-                                getPatternsToJoin(MUL_MUL, CTRL_ALU);
+                            if(!twoOperation.at(CTRL_ALU).empty())
+                            getPatternsToJoin(MUL_MUL, CTRL_ALU);
 
-                                if(!twoOperation.at(MEM_ALU).empty())
-                                    getPatternsToJoin(MUL_MUL, MEM_ALU);
-                                break;
+                            if(!twoOperation.at(MEM_ALU).empty())
+                                getPatternsToJoin(MUL_MUL, MEM_ALU);
+                            break;
 
-                            case CTRL_MUL:
-                                if(!twoOperation.at(MEM_MUL).empty())
-                                    getPatternsToJoin(CTRL_MUL, MEM_MUL);
+                        case CTRL_MUL:
+                            if(!twoOperation.at(MEM_MUL).empty())
+                                getPatternsToJoin(CTRL_MUL, MEM_MUL);
 
-                                if(!twoOperation.at(MEM_ALU).empty())
-                                    getPatternsToJoin(CTRL_MUL, MEM_ALU);
+                            if(!twoOperation.at(MEM_ALU).empty())
+                                getPatternsToJoin(CTRL_MUL, MEM_ALU);
 
-                                if(!twoOperation.at(MUL_ALU).empty())
-                                    getPatternsToJoin(CTRL_MUL, MUL_ALU);
-                                break;
+                            if(!twoOperation.at(MUL_ALU).empty())
+                                getPatternsToJoin(CTRL_MUL, MUL_ALU);
+                            break;
 
-                            case MEM_MUL:
-                                if(!twoOperation.at(CTRL_ALU).empty())
-                                    getPatternsToJoin(MEM_MUL, CTRL_ALU);
+                        case MEM_MUL:
+                            if(!twoOperation.at(CTRL_ALU).empty())
+                                getPatternsToJoin(MEM_MUL, CTRL_ALU);
 
-                                if(!twoOperation.at(MUL_ALU).empty())
-                                    getPatternsToJoin(MEM_MUL, MUL_ALU);
-                                break;
+                            if(!twoOperation.at(MUL_ALU).empty())
+                                getPatternsToJoin(MEM_MUL, MUL_ALU);
+                            break;
 
-                            case CTRL_MEM:
-                                if(!twoOperation.at(MUL_ALU).empty())
-                                    getPatternsToJoin(CTRL_MEM, MUL_ALU);
-                                break;
+                        case CTRL_MEM:
+                            if(!twoOperation.at(MUL_ALU).empty())
+                                getPatternsToJoin(CTRL_MEM, MUL_ALU);
+                            break;
 
-                            case CTRL_ALU:
-                                if(!twoOperation.at(MEM_ALU).empty())
-                                    getPatternsToJoin(CTRL_ALU, MEM_ALU);
+                        case CTRL_ALU:
+                            if(!twoOperation.at(MEM_ALU).empty())
+                                getPatternsToJoin(CTRL_ALU, MEM_ALU);
 
-                                if(!twoOperation.at(MUL_ALU).empty())
-                                    getPatternsToJoin(CTRL_ALU, MUL_ALU);
-                                break;
+                            if(!twoOperation.at(MUL_ALU).empty())
+                                getPatternsToJoin(CTRL_ALU, MUL_ALU);
+                            break;
 
-                            case MEM_ALU: 
-                                if(!twoOperation.at(MUL_ALU).empty())
-                                    getPatternsToJoin(MEM_ALU, MUL_ALU);
-                                break;
+                        case MEM_ALU: 
+                            if(!twoOperation.at(MUL_ALU).empty())
+                                getPatternsToJoin(MEM_ALU, MUL_ALU);
+                            break;
 
-                            case ALU_ALU:
-                                int j = 0;
-                                for(itBase2 = twoOperation.begin(); 
-                                    itBase2 < twoOperation.end();
-                                    itBase2++)
+                        case ALU_ALU:
+                            int j = 0;
+                            for(itBase2 = twoOperation.begin(); 
+                                itBase2 < twoOperation.end();
+                                itBase2++)
+                            {
+                                for(itInner2 = (*itBase1).begin();
+                                    itInner2 < (*itBase1).end();
+                                    itInner2++)
                                 {
-                                    for(itInner2 = (*itBase1).begin();
-                                        itInner2 < (*itBase1).end();
-                                        itInner2++)
+                                    if((!(*itBase2).empty()) && (!twoOperation.at(ALU_ALU).empty()) && (j != 7))
                                     {
-                                        if((!(*itBase2).empty()) && (!twoOperation.at(ALU_ALU).empty()) && (j != 7))
+                                        getPatternsToJoin(j, ALU_ALU);
+                                    }                                    
+                                    else if(j == 7)// if alu_alu
+                                    {
+                                        while(itBase2->size() > 1)
                                         {
-                                            getPatternsToJoin(j, ALU_ALU);
-                                        }                                    
-                                        else if(j == 7)// if alu_alu
-                                        {
-                                            while(itBase2->size() > 1)
-                                            {
-                                                joinPatterns(itBase2->front(), itBase2->back());
-                                                itBase2->pop_front();
-                                                itBase2->pop_back();
-                                            }
+                                            patterns.push_back(
+                                            patternBuilder.startWithPattern(itBase2->front()).joinWithPattern(itBase2->back()).buildPattern());
+
+                                            patterns.erase(std::find(patterns.begin(), patterns.end(), itBase2->front()));
+                                            patterns.erase(std::find(patterns.begin(), patterns.end(), itBase2->back()));
+
+                                            itBase2->pop_front();
+                                            itBase2->pop_back();                                                
                                         }
                                     }
-                                    j++;
                                 }
-                                break;
-                        }        
-                    }
+                                j++;
+                            }
+                            break;
+                    }        
                 }
-
-                i++;
             }
 
-            // CTRL = 0, MEM, MUL, ALU
-            int types[5] = {0, 2, 2, 1, 3};
-            int syllableType[4] = {4, 2, 2, 3};
-            int count;
-            IPBIWPattern* tempPattern = NULL;
+            i++;
+        }
 
-            i = 0;
+        // CTRL = 0, MEM, MUL, ALU
+        int types[5] = {0, 2, 2, 1, 3};
+        int syllableType[4] = {4, 2, 2, 3};
+        int count = 2;
+        IPBIWPattern* tempPattern = NULL;
+        i = 0;
 
-            // CTRL = 0, MEM = 1, MUL = 2, ADD = 3
-            for(itBase1 = twoOperation.begin();
-                itBase1 < twoOperation.end();
-                itBase1++)
+        // CTRL = 0, MEM = 1, MUL = 2, ADD = 3
+        for(itBase1 = twoOperation.begin();
+            itBase1 < twoOperation.end();
+            itBase1++)
+        {
+            for(itInner1 = (*itBase1).begin();
+                itInner1 < (*itBase1).end() && count <= 4;
+                itInner1++)
             {
-                for(itInner1 = (*itBase1).begin();
-                    itInner1 < (*itBase1).end();
-                    itInner1++)
+                if(tempPattern == NULL)
                 {
-                    if(tempPattern == NULL)
-                    {
-                        tempPattern = *(std::find(patterns.begin(), patterns.end(), *itInner1));
-                        twoOperation.at(i).erase(itInner1);
-                    }
+                    tempPattern = *(std::find(patterns.begin(), patterns.end(), *itInner1));
+                    patternBuilder.startWithPattern(tempPattern);
+                    twoOperation.at(i).erase(itInner1);                                                                        
+                }
 
-                    for(int j = 0; j < 4; j++)
+                for(int j = 0; j < 4; j++)
+                {
+                    if((tempPattern->getOperation(j)->getType() != syllableType[j]) ||
+                    (tempPattern->getOperation(j)->getOpcode() == 0))
                     {
-                        if((tempPattern->getOperation(j)->getType() != syllableType[j]) ||
-                        (tempPattern->getOperation(j)->getOpcode() == 0))
+                        if((!oneOperation.at(types[j]).empty()) &&
+                            (tempPattern->getOperation(j)->getOpcode() == 0))
                         {
-                            if((!oneOperation.at(types[j]).empty()) &&
-                                (tempPattern->getOperation(j)->getOpcode() == 0))
+                            patterns.erase(std::find(patterns.begin(), patterns.end(), tempPattern));
+
+                            tempPattern = patternBuilder
+                            .joinWithPattern(*(std::find(patterns.begin(), patterns.end(), oneOperation.at(types[j]).front())))
+                            .buildPattern();
+
+                            patterns.erase(std::find(patterns.begin(), patterns.end(), oneOperation.at(types[j]).front()));
+                            oneOperation.at(types[j]).pop_front();
+
+                            patterns.push_back(tempPattern);
+                            count++;
+                        }
+                        if(j == 3)
+                        {
+                            for(int k = 0; (k < 4) && (!oneOperation.at(types[4]).empty()); k++)
                             {
-                                joinPatterns(tempPattern, *(std::find(patterns.begin(), patterns.end(), oneOperation.at(types[j]).front())));
-                                oneOperation.at(types[j]).erase(oneOperation.at(types[j]).begin());
-                                count++;
-                            }
-                            if(j == 3)
-                            {
-                                for(int k = 0; (k < 4) && (!oneOperation.at(types[4]).empty()); k++)
+                                if(tempPattern->getOperation(k)->getOpcode() == 0)
                                 {
-                                    if(tempPattern->getOperation(k)->getOpcode() == 0)
-                                    {
-                                        joinPatterns(tempPattern, *(std::find(patterns.begin(), patterns.end(), oneOperation.at(types[4]).front())));
-                                        oneOperation.at(types[4]).erase(oneOperation.at(types[4]).begin());                                
-                                        count++;
-                                    }
+                                    patterns.erase(std::find(patterns.begin(), patterns.end(), tempPattern));
+
+                                    tempPattern = patternBuilder
+                                    .joinWithPattern(*(std::find(patterns.begin(), patterns.end(), oneOperation.at(types[4]).front())))
+                                    .buildPattern();
+
+                                    patterns.erase(std::find(patterns.begin(), patterns.end(), oneOperation.at(types[4]).front()));
+                                    oneOperation.at(types[4]).pop_front();
+
+                                    patterns.push_back(tempPattern);
+                                    count++;
                                 }
                             }
                         }
-                    }
-                }
-                tempPattern = NULL;
-                i++;
-            }        
-
-            IPBIWPattern* tempPattern1 = NULL;
-            i = 0;
-
-            for(itBase1 = threeOperation.begin();
-                itBase1 < threeOperation.end();
-                itBase1++)
-            {
-                for(itInner1 = (*itBase1).begin();
-                    itInner1 < (*itBase1).end();
-                    itInner1++)
-                {
-                    if(tempPattern1 == NULL)
-                    {
-                        tempPattern1 = *(std::find(patterns.begin(), patterns.end(), *itInner1));
-                        threeOperation.at(i).erase(itInner1);
-                    }
-
-                    for(int j = 0; j < 4; j++)
-                    {
-                        if((tempPattern1->getOperation(j)->getType() != syllableType[j]))
-                        {
-                            if((!oneOperation.at(types[j]).empty()) && ((syllableType[j] == j) ||
-                                (tempPattern1->getOperation(j)->getOpcode() == 0)))
-                            {
-                                joinPatterns(tempPattern1, *(std::find(patterns.begin(), patterns.end(), oneOperation.at(types[j]).front())));
-                                oneOperation.at(types[j]).erase(oneOperation.at(types[j]).begin());
-                                j = 4;
-                                tempPattern1 = NULL;
-                            }
-                            else if((i == 3) || (j == 3))
-                            {
-                                for(int k = 0; (k < 4) && (!oneOperation.at(types[4]).empty()); k++)
-                                {
-                                    if(tempPattern1->getOperation(k)->getOpcode() == 0)
-                                    {
-                                        joinPatterns(tempPattern1, *(std::find(patterns.begin(), patterns.end(), oneOperation.at(types[4]).front())));
-                                        oneOperation.at(types[4]).pop_front(); 
-                                    }
-                                }
-                                tempPattern1 = NULL;
-                                j = 4;
-                            }
-                        }
-                    }
-                }
-                i++;
+                    }                        
+                }     
             }
+            tempPattern = NULL;
+            i++;
+        }        
 
-            i = 0;
-            tempPattern1 = NULL;
+        IPBIWPattern* tempPattern1 = NULL;
+        i = 0;
 
-            // CTRL = 0, MEM = 1, MUL = 2, ADD = 3
-            for(itBase1 = oneOperation.begin();
-                itBase1 < oneOperation.end();
-                itBase1++)
+        for(itBase1 = threeOperation.begin();
+            itBase1 < threeOperation.end();
+            itBase1++)
+        {
+            for(itInner1 = (*itBase1).begin();
+                itInner1 < (*itBase1).end();
+                itInner1++)
             {
-                for(itInner1 = (*itBase1).begin();
-                    itInner1 < (*itBase1).end();
-                    itInner1++)
+                if(tempPattern1 == NULL)
                 {
-                    if(tempPattern1 == NULL)
-                    {
-                        tempPattern1 = *(std::find(patterns.begin(), patterns.end(), *itInner1));
-                        oneOperation.at(i).erase(itInner1);
-                    }
+                    tempPattern1 = *(std::find(patterns.begin(), patterns.end(), *itInner1));
+                    patternBuilder.startWithPattern(tempPattern1);
+                    threeOperation.at(i).erase(itInner1);
+                }
 
-                    for(int j = 0; j < 4; j++)
+                for(int j = 0; j < 4; j++)
+                {
+                    if((tempPattern1->getOperation(j)->getType() != syllableType[j]))
                     {
-                        if(((tempPattern1->getOperation(j)->getType() != syllableType[j]) ||
-                            (tempPattern1->getOperation(j)->getOpcode() == 0) || 
-                            (!oneOperation.at(types[4]).empty())) &&
-                            (tempPattern1->getOperation(0)->getOpcode() != 31))
-                        {
-                            if((!oneOperation.at(types[j]).empty()) && 
-                            ((tempPattern1->getOperation(j)->getType() != syllableType[j]) ||
+                        if((!oneOperation.at(types[j]).empty()) && ((syllableType[j] == j) ||
                             (tempPattern1->getOperation(j)->getOpcode() == 0)))
+                        {
+                            patterns.push_back(
+                            patternBuilder
+                            .joinWithPattern(*(std::find(patterns.begin(), patterns.end(), oneOperation.at(types[j]).front())))
+                            .buildPattern());
+
+                            patterns.erase(std::find(patterns.begin(), patterns.end(), tempPattern1));
+                            patterns.erase(std::find(patterns.begin(), patterns.end(), oneOperation.at(types[j]).front()));
+                            oneOperation.at(types[j]).pop_front();
+                            j = 4;
+                            tempPattern1 = NULL;
+                        }
+                        else if((i == 3) || (j == 3))
+                        {
+                            for(int k = 0; (k < 4) && (!oneOperation.at(types[4]).empty()); k++)
                             {
-                                joinPatterns(tempPattern1, *(std::find(patterns.begin(), patterns.end(), oneOperation.at(types[j]).front())));
-                                oneOperation.at(types[j]).erase(oneOperation.at(types[j]).begin());
-                                tempPattern1 = NULL;
-                                j = 4;
-                            }
-                            else if((i == 3) || (j == 3))
-                            {
-                                for(int k = 0; (k < 4) && (!oneOperation.at(types[4]).empty()); k++)
+                                if(tempPattern1->getOperation(k)->getOpcode() == 0)
                                 {
-                                    if(tempPattern1->getOperation(k)->getOpcode() == 0)
-                                    {
-                                        joinPatterns(tempPattern1, *(std::find(patterns.begin(), patterns.end(), oneOperation.at(types[4]).front())));
-                                        oneOperation.at(types[4]).erase(oneOperation.at(types[4]).begin());                                
-                                        j = 4;
-                                    }
+                                    patterns.push_back(
+                                    patternBuilder
+                                    .joinWithPattern(*(std::find(patterns.begin(), patterns.end(), oneOperation.at(types[4]).front())))
+                                    .buildPattern());
+
+                                    patterns.erase(std::find(patterns.begin(), patterns.end(), tempPattern1));
+                                    patterns.erase(std::find(patterns.begin(), patterns.end(), oneOperation.at(types[4]).front()));
+                                    oneOperation.at(types[4]).pop_front(); 
                                 }
-                                tempPattern1 = NULL;
-                                j = 4;
                             }
+                            tempPattern1 = NULL;
+                            j = 4;
                         }
                     }
                 }
-                i++;
-            }       
-            updatePatterns();
-            finish = patterns.size();
+            }
+            i++;
+        }
 
-        }while(start > finish);
-    }
-    
-    
-    void
-    PBIWOptimizerJoinPatterns::joinPatterns(IPBIWPattern* pattern1, IPBIWPattern* pattern2)
-    {
-            joiningPatterns(pattern1, pattern2);
-    }
-    
-    void
-    PBIWOptimizerJoinPatterns::joiningPatterns(IPBIWPattern* pattern1, IPBIWPattern* pattern2)
-    {
-        AllSamples::iterator it;
-        Sample& sampleP1 = addSample(*pattern1);
-        Sample& sampleP2 = addSample(*pattern2);
-        Sample* sampleAux = NULL;
-        sampleP2.newAddress = sampleP1.originalAddress;
+        i = 0;
+        count = 1;
+        tempPattern1 = NULL;
 
-        int syllableType[4] = {4, 2, 2, 3}; // Based on the rVex syllables types: ALU = 1, MUL, MEM, CTRL
-      
-        for(int i = 0; i < 4; i++)
+        // CTRL = 0, MEM = 1, MUL = 2, ADD = 3
+        for(itBase1 = oneOperation.begin();
+            itBase1 < oneOperation.end();
+            itBase1++)
         {
-            if(pattern1->getOperation(i)->getOpcode() != 0)
+            for(itInner1 = (*itBase1).begin();
+                itInner1 < (*itBase1).end() && count <= 4;
+                itInner1++)
             {
-                if((pattern1->getOperation(i)->getType() != syllableType[i]))
+                if(tempPattern1 == NULL)
                 {
-                    if((pattern2->getOperation(i)->getOpcode() != 0))
+                    tempPattern1 = *(std::find(patterns.begin(), patterns.end(), *itInner1));
+                    patternBuilder.startWithPattern(tempPattern1);
+                    oneOperation.at(i).erase(itInner1);
+                }
+
+                for(int j = 0; j < 4; j++)
+                {
+                    if(((tempPattern1->getOperation(j)->getType() != syllableType[j]) ||
+                        (tempPattern1->getOperation(j)->getOpcode() == 0) || 
+                        (!oneOperation.at(types[4]).empty())) &&
+                        (tempPattern1->getOperation(0)->getOpcode() != 31))
                     {
-                        if(pattern2->getOperation(i)->getType() != syllableType[i])
+                        if((!oneOperation.at(types[j]).empty()) && 
+                        ((tempPattern1->getOperation(j)->getType() != syllableType[j]) ||
+                        (tempPattern1->getOperation(j)->getOpcode() == 0)))
                         {
-                            addTempOperation(pattern2->getOperation(i));
+                            patterns.erase(std::find(patterns.begin(), patterns.end(), tempPattern1));
+
+                            tempPattern1 = patternBuilder
+                            .joinWithPattern(*(std::find(patterns.begin(), patterns.end(), oneOperation.at(types[j]).front())))
+                            .buildPattern();
+
+                            patterns.erase(std::find(patterns.begin(), patterns.end(), oneOperation.at(types[j]).front()));
+                            oneOperation.at(types[j]).pop_front();
+
+                            j = 4;
+                            count++;
                         }
-                        else
+                        else if((i == 3) || (j == 3))
                         {
-                            addTempOperation(pattern1->getOperation(i));
-                        }
-                    }
-                }
-                else
-                {
-                    if((pattern2->getOperation(i)->getOpcode() != 0))
-                    {
-                        addTempOperation(pattern2->getOperation(i));
-                    }                    
-                }
-            }
-            else 
-            {
-                if(pattern2->getOperation(i)->getOpcode() != 0)
-                {
-                    pattern1->setOperation(*pattern2->getOperation(i), i);                    
-                }
-            }
-            
-            while(!tempOps.empty())
-            {
-                if((pattern1->getOperation(i)->getType() == syllableType[2]) &&
-                    (pattern2->getOperation(i)->getType() == syllableType[2]))
-                {
-                    int j = 3;
-                    while(j >= 0)
-                    {
-                        if((sampleP1.operations.at(j)->getType() != syllableType[2]) &&
-                           (sampleP2.operations.at(j)->getType() != syllableType[2]))
-                        {
-                            if(sampleP1.operations.at(2)->getOpcode() != 0)
+                            for(int k = 0; (k < 4) && (!oneOperation.at(types[4]).empty()); k++)
                             {
-                                if(sampleP1.operations.at(3)->getOpcode() == 0)
+                                if(tempPattern1->getOperation(k)->getOpcode() == 0)
                                 {
-                                    sampleP1.operations.at(3) = sampleP2.operations.at(1);
-                                    sampleP1.annulBits.at(2) = 0;
-                                    sampleP1.annulBits.at(3) = 1;
-                                    pattern1->setOperation(*pattern1->getOperation(2), 3); // assign one operation to the pattern
-                                }
-                                else if(sampleP1.operations.at(0)->getOpcode() == 0)
-                                {
-                                    sampleP1.operations.at(0) = sampleP2.operations.at(1);
-                                    sampleP1.annulBits.at(2) = 0;
-                                    sampleP1.annulBits.at(0) = 1;
-                                    pattern1->setOperation(*pattern1->getOperation(2), 0); // assign one operation to the pattern
-                                }
-                                
-                                sampleP2.annulBits.at(j) = 0;
-                                sampleP2.annulBits.at(2) = 1;
+                                    patterns.erase(std::find(patterns.begin(), patterns.end(), tempPattern1));
 
-                                sampleP1.operations.at(2) = tempOps.front();
-                                sampleP2.operations.at(2) = tempOps.front();
+                                    tempPattern1 = patternBuilder
+                                    .joinWithPattern(*(std::find(patterns.begin(), patterns.end(), oneOperation.at(types[4]).front())))
+                                    .buildPattern();
 
-                                pattern1->setOperation(*tempOps.front(), 2); // assign one operation to the pattern
+                                    patterns.erase(std::find(patterns.begin(), patterns.end(), oneOperation.at(types[4]).front()));
+                                    oneOperation.at(types[4]).pop_front();
+
+                                    j = 4;
+                                    count++;
+                                }
                             }
-                            else
-                            {
-                                sampleP2.annulBits.at(2) = 1;
-                                sampleP2.annulBits.at(i) = 0;
-                                sampleP2.operations.at(2) = sampleP2.operations.at(i);
-                                
-                                pattern1->setOperation(*pattern2->getOperation(i), 2);
-                            }                            
-                            tempOps.pop_front();
-                            j = -1;
+                            j = 4;
                         }
                     }
                 }
-                else if((pattern1->getOperation(i)->getType() == syllableType[i]))
-                {
-                    int j = 3;
-                    while(j >= 0)
-                    {
-                        if(sampleP1.operations.at(j)->getOpcode() == 0)
-                        {                            
-                            sampleP2.operations.at(i) = 0;
-                            sampleP1.operations.at(j) = tempOps.front();
-                            sampleP2.annulBits.at(j) = 1;
-                            sampleP2.annulBits.at(i) = 0;
 
-                            pattern1->setOperation(*tempOps.front(), j); // assign one operation to the pattern
-                            tempOps.erase(tempOps.begin()); // Erase the operation after assign to the pattern
-                            j = -1;
-                        }
-                        j--;                        
-                    }                        
+                if(count > 1)
+                {
+                    patterns.push_back(tempPattern1);
+                    count = 1;
                 }
-                else if((pattern1->getOperation(i)->getType() != syllableType[i]))
-                {
-                    int j = 3;
-                    while(j >= 0)
-                    {                                              
-                        if(sampleP1.operations.at(j)->getOpcode() == 0)
-                        {
-                            if(!sampleP1.annulBits.at(j))
-                            {
-                                if((*(sampleP1.operations.at(i)) != *pattern1->getOperation(i)) ||
-                                   (*(sampleP2.operations.at(i)) != *pattern2->getOperation(i)))
-                                {
-                                    for(it = samples.begin(); ((it < samples.end()) && (!tempOps.empty())); it++)
-                                    {
-                                        if((it->originalAddress != sampleP1.originalAddress) &&
-                                        (it->originalAddress != sampleP2.originalAddress) &&
-                                        (*(it->operations.at(i)) == *tempOps.front()))
-                                        {                                       
-                                            it->annulBits.at(i) = 0;
-                                            it->annulBits.at(j) = 1;
-                                            it->operations.at(j) = tempOps.front();
-
-                                            pattern1->setOperation(*tempOps.front(), j); // assign one operation to the pattern
-                                            pattern1->setOperation(*pattern2->getOperation(i), i);
-                                        }
-                                    }
-                                    tempOps.erase(tempOps.begin()); // Erase the operation after assign to the pattern
-                                }
-                                else if(sampleP2.operations.at(i)->getType() == syllableType[i])
-                                {
-                                    if(!sampleP1.annulBits.at(i))
-                                    {
-                                        if((*(sampleP1.operations.at(i)) == *pattern1->getOperation(i)))
-                                        {
-                                            sampleAux = processSample(sampleP1, i);
-                                            if(sampleAux != NULL)
-                                            {
-                                                sampleAux->annulBits.at(i) = 0;
-                                                sampleAux->annulBits.at(j) = 1;
-                                                sampleP1.operations.at(j) = tempOps.front();
-                                                sampleAux = NULL;
-                                            }
-                                        }
-                                        else
-                                        {
-                                            sampleP1.annulBits.at(i) = 0;
-                                            sampleP2.annulBits.at(j) = 1;                                            
-                                            sampleP2.operations.at(j) = tempOps.front();
-                                        }
-                                    }
-                                    else
-                                    {
-                                        sampleP1.annulBits.at(j) = 1;
-                                        sampleP1.annulBits.at(i) = 0;
-                                    }
-
-                                    pattern1->setOperation(*tempOps.front(), j); // assign one operation to the pattern
-                                    pattern1->setOperation(*pattern2->getOperation(i), i);
-                                }
-                                else
-                                {
-                                    sampleP2.annulBits.at(j) = 1;
-                                    sampleP2.annulBits.at(i) = 0;
-                                    sampleP2.operations.at(j) = tempOps.front();
-
-                                    pattern1->setOperation(*tempOps.front(), j); // assign one operation to the pattern
-                                }
-                                tempOps.erase(tempOps.begin()); // Erase the operation after assign to the pattern
-                            }
-                            else if((j == 2) && (tempOps.front()->getOpcode() == syllableType[2]))
-                            {
-                                if(!sampleP1.annulBits.at(j))
-                                {
-                                    for(it = samples.begin(); ((it < samples.end()) && (!tempOps.empty())); it++)
-                                    {
-                                        if((it->originalAddress != sampleP1.originalAddress) &&
-                                        (it->originalAddress != sampleP2.originalAddress) &&
-                                        (*(it->operations.at(i)) == *tempOps.front()))
-                                        {                                       
-                                            it->annulBits.at(i) = 0;
-                                            it->annulBits.at(j) = 1;
-                                            it->operations.at(j) = tempOps.front();
-
-                                            pattern1->setOperation(*tempOps.front(), j); // assign one operation to the pattern
-                                            pattern1->setOperation(*pattern2->getOperation(i), i);
-                                        }
-                                        
-                                        tempOps.erase(tempOps.begin()); // Erase the operation after assign to the pattern
-                                    }
-                                }
-                                else if(sampleP1.annulBits.at(j)) 
-                                {
-                                    sampleP2.annulBits.at(i) = 0;
-                                    sampleP2.annulBits.at(j) = 1;
-                                    sampleP1.annulBits.at(j) = 0;
-                                    sampleP1.operations.at(j) = tempOps.front();
-                                    sampleP2.operations.at(j) = tempOps.front();
-
-                                    pattern1->setOperation(*tempOps.front(), j); // assign one operation to the pattern
-                                }
-                            }
-                            else
-                            {
-                                sampleP1.annulBits.at(j) = 1;
-                                pattern1->setOperation(*tempOps.front(), j); // assign one operation to the pattern
-                                pattern1->setOperation(*pattern2->getOperation(i), i);                                       
-                                tempOps.erase(tempOps.begin()); // Erase the operation after assign to the pattern
-                            }
-                          
-                            j = -1;
-                        }                  
-                        j--;
-                    }                        
-                }                    
             }
-        }
-        updateAddressInstruction(pattern1, pattern2);
-        updateBits();
+            i++;
+        }       
+
+        patterns.push_back(temp);
+
+        updatePatterns();
     }
     
-    PBIWOptimizerJoinPatterns::Sample*
-    PBIWOptimizerJoinPatterns::processSample(Sample& sample, int index)
-    {
-        AllSamples::iterator it;
-        
-        for(it = samples.begin(); it < samples.end(); it++)
-        {
-            if((it->newAddress == sample.originalAddress) && 
-               (*(sample.operations.at(index)) == *(it->operations.at(index))))
-            {
-                return &(*it);
-            }
-        }
-        return NULL;
-    }
-    
-    
-    void
-    PBIWOptimizerJoinPatterns::updateBits()
-    {
-        AllSamples::iterator it1;
-        AllInstructions::iterator it2;
-        
-        for(it1 = samples.begin(); it1 < samples.end(); it1++)
-        {
-            for(it2 = (*it1).instructionsThatUseIt.begin(); it2 < (*it1).instructionsThatUseIt.end(); it2++)
-                (*it2)->setAnnulBits(it1->annulBits);
-        }
-    }
-    
-    PBIWOptimizerJoinPatterns::Sample&
-    PBIWOptimizerJoinPatterns::addSample(IPBIWPattern& pattern)
-    {
-        AllSamples::iterator itSample;
-        struct Sample samplePattern;
-        
-        for(itSample = samples.begin(); itSample < samples.end(); itSample++)
-        {
-            if(itSample->originalAddress == pattern.getAddress())
-                return (*itSample);                
-        }
-        
-        samplePattern.originalAddress = pattern.getAddress();
-
-        samplePattern.instructionsThatUseIt = pattern.getInstructionsThatUseIt2();
-
-        samplePattern.annulBits = samplePattern.instructionsThatUseIt.at(0)->getAnnulBits();
-
-        std::vector<IOperation*> operation = pattern.getOperations();
-        std::copy(operation.begin(),operation.end(),std::back_inserter(samplePattern.operations));
-
-        samples.push_back(samplePattern);
-
-        return samples.back();
-    }
-    
-    void
-    PBIWOptimizerJoinPatterns::updateAnnulBits(IPBIWPattern* pattern, int index, bool bit)
-    {
-        AllInstructions instructions = pattern->getInstructionsThatUseIt2();
-        AllInstructions::iterator it;
-        
-        for(it = instructions.begin();
-            it < instructions.end();
-            it++)
-            (*it)->setAnnulBit(index, bit);
-    }
     
     void
     PBIWOptimizerJoinPatterns::updatePatterns()
@@ -890,17 +638,18 @@ namespace PBIW
             IPBIWPattern* first = *(std::find(patterns.begin(), patterns.end(), *itInner1));
             IPBIWPattern* second = *(std::find(patterns.begin(), patterns.end(), *itInner2));
             
-            joinPatterns(first, second);
+            Optimizers::JoinPattern::PatternBuilder patternBuilder;
+            
+            patterns.push_back(
+            patternBuilder.startWithPattern(first).joinWithPattern(second).buildPattern());
+            
+            patterns.erase(std::find(patterns.begin(), patterns.end(), first));
+            patterns.erase(std::find(patterns.begin(), patterns.end(), second));
+            
             twoOperation.at(index1).erase(itInner1);
             twoOperation.at(index2).erase(itInner2);
         }        
         
-    }
-    
-    void
-    PBIWOptimizerJoinPatterns::addTempOperation(IOperation* operation)
-    {
-        tempOps.push_back(operation);
     }
     
     void

@@ -8,6 +8,8 @@
 #include "PatternBuilder.h"
 #include "src/PBIW/rVex96PBIWPattern.h"
 
+#include <iostream>
+
 namespace PBIW
 {
   using namespace Interfaces;
@@ -16,7 +18,7 @@ namespace PBIW
   {
     namespace JoinPattern
     {
-      IPBIWPattern* 
+      IPBIWPattern*
       PatternBuilder::buildPattern()
       {
         // TODO: Make this non-dependent of the croncrete rVex96Pattern
@@ -38,20 +40,19 @@ namespace PBIW
           {
             if ( opIt->getOriginalPosition() > -1 )
               returnedPattern->addOperation( opIt->getOperation()->clone() );
-          }
+          }          
         }
-        
+          
         // ... reorganize it and use itself to update our operations
         // position information!
-        reorganizeOperations(returnedPattern);
-        
+        reorganizeOperations(returnedPattern);     
         return returnedPattern;
       }
       
       void 
       PatternBuilder::reorganizeOperations(IPBIWPattern* returnedPattern)
       {
-        returnedPattern->reorganize();
+//        returnedPattern->reorganize();
         
         PatternInformationList::iterator it;
         
@@ -72,6 +73,14 @@ namespace PBIW
         patternInfo.setPattern(pattern);
         clear();
         
+         std::cout << "--- StartWith ---" << std::endl;
+          IPBIWInstruction::AnnulationBits annulationBits = pattern->getInstructionsThatUseIt().front()->getAnnulBits();
+          IPBIWInstruction::AnnulationBits::iterator it;
+          for(it = annulationBits.begin(); it < annulationBits.end(); it++ )
+          {
+              std::cout << *it << std::endl;
+          }
+        
         patternInformations.push_back(patternInfo);
         
         return *this;
@@ -82,6 +91,14 @@ namespace PBIW
       {
         PatternInformation patternInfo;
         patternInfo.setPattern(pattern);
+        
+        std::cout << "--- Start ---" << std::endl;
+          IPBIWInstruction::AnnulationBits annulationBits = pattern->getInstructionsThatUseIt().front()->getAnnulBits();
+          IPBIWInstruction::AnnulationBits::iterator it;
+          for(it = annulationBits.begin(); it < annulationBits.end(); it++ )
+          {
+              std::cout << *it << std::endl;
+          }
         
         patternInformations.push_back(patternInfo);
         
