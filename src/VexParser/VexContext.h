@@ -12,13 +12,13 @@
 #include <vector>
 #include <list>
 #include <functional>
-#include "../rVex/Instruction.h"
-#include "../rVex/Label.h"
-#include "../rVex/SyllableMUL.h"
-#include "../rVex/SyllableMISC.h"
-#include "../rVex/SyllableMEM.h"
-#include "../rVex/SyllableCTRL.h"
-#include "../rVex/SyllableALU.h"
+#include "src/rVex/Instruction.h"
+#include "src/rVex/Label.h"
+#include "src/rVex/SyllableMUL.h"
+#include "src/rVex/SyllableMISC.h"
+#include "src/rVex/SyllableMEM.h"
+#include "src/rVex/SyllableCTRL.h"
+#include "src/rVex/SyllableALU.h"
 #include "src/PBIW/Interfaces/IPBIW.h"
 #include "src/PBIW/Interfaces/IPBIWPrinter.h"
 #include "Structs/SyllableBufferItem.h"
@@ -50,13 +50,13 @@ namespace VexParser
      * The two main lists which holds the instructions and its respective
      * syllables parsed.
      */
-    typedef std::list<rVex::Syllable*> SyllableList;
-    typedef std::list<rVex::Instruction*> InstructionList;
+    typedef std::list<rVex::Syllable*> rVexSyllableList;
+    typedef std::list<rVex::Instruction*> rVexInstructionList;
     
     /**
      * Vector of the labels in assembly
      */
-    typedef std::list<rVex::Label> LabelVector;
+    typedef std::list<rVex::Label> rVexLabelVector;
     
     
     /**
@@ -135,18 +135,18 @@ namespace VexParser
     
     /* Getters and setters */
     void
-    setInstructions(const InstructionList& instructions)
+    setInstructions(const rVexInstructionList& instructions)
     { this->instructions = instructions; }
 
-    const InstructionList&
+    rVexInstructionList
     getInstructions() const
     { return instructions; }
 
     void
-    setSyllables(const SyllableList& syllables)
+    setSyllables(const rVexSyllableList& syllables)
     { this->syllables = syllables; }
 
-    const SyllableList&
+    rVexSyllableList
     getSyllables() const
     { return syllables; }
 
@@ -167,10 +167,10 @@ namespace VexParser
     { return controlSyllables; }
 
     void
-    setLabels(const LabelVector& labels)
+    setLabels(const rVexLabelVector& labels)
     { this->labels = labels; }
 
-    LabelVector
+    rVexLabelVector
     getLabels() const
     { return labels; }
 
@@ -185,16 +185,16 @@ namespace VexParser
     bool debugEnabled; // Be verbose or not, that's the question!
     rVex::Printers::IPrinter& printer; // Printer used to output data
     
-    LabelVector labels;
+    rVexLabelVector labels;
     bool hasLabel; // Used to know when a label is defined
     
     ControlSyllablesVector controlSyllables;
     SyllableBuffer syllableBuffer;
     
-    SyllableList syllables;
-    SyllableList::iterator startSyllable;
+    rVexSyllableList syllables;
+    rVexSyllableList::iterator startSyllable;
     
-    InstructionList instructions;
+    rVexInstructionList instructions;
     
     /*
      * Syllable and Instruction counter.

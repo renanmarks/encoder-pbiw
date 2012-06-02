@@ -30,7 +30,7 @@ namespace GenericAssembly
       /**
        * Returns the label which points to this instruction.
        */
-      ILabel* getLabel() const = 0;
+      virtual ILabel* getLabel() const = 0;
       
       /**
        * Return an deque containing the pointers of the operations of the instruction.

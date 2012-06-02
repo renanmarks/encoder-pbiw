@@ -26,7 +26,7 @@ namespace VexParser
   {
     if (!syllables.empty())
     {
-      SyllableList::iterator it;
+      rVexSyllableList::iterator it;
       
       for (it = syllables.begin();
            it != syllables.end();
@@ -38,7 +38,7 @@ namespace VexParser
     
     if (!instructions.empty())
     {
-      InstructionList::iterator it;
+      rVexInstructionList::iterator it;
       
       for (it = instructions.begin();
            it != instructions.end();
@@ -128,7 +128,7 @@ namespace VexParser
   void VexContext::processLabels()
   {
     std::ostream& stream = printer.getOutputStream(); // O(1)
-    LabelVector::iterator labelIt;
+    rVexLabelVector::iterator labelIt;
     
     if (debugEnabled)
     {
@@ -175,7 +175,7 @@ namespace VexParser
          it++)
     {
       std::string label = (*it)->getLabelDestiny();
-      LabelVector::iterator labelIt = std::find_if(labels.begin(), labels.end(), FindLabel(label));
+      rVexLabelVector::iterator labelIt = std::find_if(labels.begin(), labels.end(), FindLabel(label));
       
       if ( labelIt != labels.end() )
         (*it)->setBranchDestiny(labelIt->destiny);
@@ -252,7 +252,7 @@ namespace VexParser
   rVex::Instruction*
   VexContext::getInstruction(unsigned int index) // O(|isntructions|)
   {
-    InstructionList::iterator it = instructions.begin();
+    rVexInstructionList::iterator it = instructions.begin();
     unsigned int i = 0;
     
     while (i++ < index) // O(|instructions|)
@@ -267,7 +267,7 @@ namespace VexParser
   void
   VexContext::print()  // O(|instructions|)
   {
-    InstructionList::const_iterator instructionIt;
+    rVexInstructionList::const_iterator instructionIt;
     
     printer.printHeader(); // O(1)
     
@@ -275,7 +275,7 @@ namespace VexParser
         instructionIt != instructions.end();
         instructionIt++)
     {
-      InstructionList::const_iterator next = instructionIt;
+      rVexInstructionList::const_iterator next = instructionIt;
       next++;
       
       // Do not print to "nop/nop/nop/stop" instructions
