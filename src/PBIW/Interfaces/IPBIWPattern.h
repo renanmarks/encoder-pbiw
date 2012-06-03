@@ -77,6 +77,7 @@ namespace PBIW
         virtual std::deque<IPBIWInstruction*> getInstructionsThatUseIt() const = 0;
 
         virtual void reorganize() = 0;
+        virtual void reorganize(bool) = 0;
         
         virtual std::deque<IPBIWInstruction*> getInstructionsThatUseIt2() = 0;
         

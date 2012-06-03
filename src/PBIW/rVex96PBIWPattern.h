@@ -79,6 +79,7 @@ namespace PBIW
     { instructionsThatUseIt.clear(); }
     
     virtual void reorganize();
+    virtual void reorganize(bool updateInstructionAnnulationBits);
 
     virtual void print(IPBIWPrinter&) const;
     
@@ -106,7 +107,7 @@ namespace PBIW
      * @param index1
      * @param index2
      */
-    virtual void exchangeOperations(int index1, int index2);
+    virtual void exchangeOperations(int index1, int index2, bool updateInstructionAnnulationBits);
         
   };
 }

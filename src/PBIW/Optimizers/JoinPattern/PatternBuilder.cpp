@@ -52,7 +52,7 @@ namespace PBIW
       void 
       PatternBuilder::reorganizeOperations(IPBIWPattern* returnedPattern)
       {
-//        returnedPattern->reorganize();
+        returnedPattern->reorganize(false);
         
         PatternInformationList::iterator it;
         

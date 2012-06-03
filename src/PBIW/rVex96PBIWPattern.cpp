@@ -166,6 +166,12 @@ namespace PBIW
   void 
   rVex96PBIWPattern::reorganize() // O(1)
   {
+    this->reorganize(true);
+  }
+  
+  void 
+  rVex96PBIWPattern::reorganize(bool updateInstructionAnnulationBits) // O(1)
+  {
     Operand zero;
     
     // Generate NOPS if we have less than 4 operations in the pattern
@@ -201,7 +207,7 @@ namespace PBIW
             (counterIt != 0)
           )
         {            
-            this->exchangeOperations(0, counterIt);
+            this->exchangeOperations(0, counterIt, updateInstructionAnnulationBits);
 
             counterIt--;
             it--; 
@@ -211,7 +217,7 @@ namespace PBIW
                  (counterIt != 3)
                )
         {            
-            this->exchangeOperations(3, counterIt);
+            this->exchangeOperations(3, counterIt, updateInstructionAnnulationBits);
             
             counterIt--;
             it--;
@@ -235,11 +241,11 @@ namespace PBIW
               
               if(operations.at(1)->getOpcode() > operations.at(counterIt)->getOpcode())
               {
-                  this->exchangeOperations(1, counterIt);
+                  this->exchangeOperations(1, counterIt, updateInstructionAnnulationBits);
               }                  
           }                    
                     
-          this->exchangeOperations(index, counterIt);
+          this->exchangeOperations(index, counterIt, updateInstructionAnnulationBits);
           
           counterIt--;
           it--;
@@ -250,7 +256,7 @@ namespace PBIW
         {
             if(operations.at(1)->getOpcode() > operations.at(2)->getOpcode())
             {
-                this->exchangeOperations(1, 2);
+                this->exchangeOperations(1, 2, updateInstructionAnnulationBits);
             }
             else if(operations.at(1)->getOpcode() == operations.at(2)->getOpcode())
             {
@@ -269,7 +275,7 @@ namespace PBIW
 
                   if (*operandIt1 > *operandIt2)
                   {
-                    this->exchangeOperations(1, 2);
+                    this->exchangeOperations(1, 2, updateInstructionAnnulationBits);
                     break;
                   }
                 }
@@ -302,7 +308,7 @@ namespace PBIW
             {
                 if(operations.at(index1)->getOpcode() > operations.at(index2)->getOpcode())
                 {
-                    this->exchangeOperations(index1, index2);
+                    this->exchangeOperations(index1, index2, updateInstructionAnnulationBits);
                 }
                 else if( (operations.at(index1)->getOpcode() == operations.at(index2)->getOpcode()) )
                 {
@@ -321,7 +327,7 @@ namespace PBIW
 
                       if (*operandIt1 > *operandIt2)
                       {
-                        this->exchangeOperations(index1, index2);
+                        this->exchangeOperations(index1, index2, updateInstructionAnnulationBits);
                         break;
                       }                        
                     }
@@ -331,7 +337,7 @@ namespace PBIW
                     (operations.at(index1)->getType() == rVex::Syllable::SyllableType::ALU))
                    ) 
             {
-                this->exchangeOperations(index1, index2);
+                this->exchangeOperations(index1, index2, updateInstructionAnnulationBits);
             }
         }
     } 
@@ -339,17 +345,20 @@ namespace PBIW
   }
     
   void
-  rVex96PBIWPattern::exchangeOperations(int index1, int index2) // O(1)
+  rVex96PBIWPattern::exchangeOperations(int index1, int index2, bool updateInstructionAnnulationBits) // O(1)
   {
       IOperation* operation;
-      IPBIWInstruction* instruction = *(this->instructionsThatUseIt.begin());
       
       // Exchange the indexes
       operation = operations.at(index1);
       operations.at(index1) = operations.at(index2);
       operations.at(index2) = operation;    
       
-      instruction->updateAnnulBits(index1, index2);
+      if (updateInstructionAnnulationBits)
+      {
+        IPBIWInstruction* instruction = *(this->instructionsThatUseIt.begin());
+        instruction->updateAnnulBits(index1, index2);
+      }
   }
     
   bool

@@ -78,19 +78,14 @@ namespace PBIW
         {
         public:
             FindOperation(const IOperation* operation) 
-              : operation(operation), position(0) 
+              : operation(operation)
             { }
 
             bool operator()(IOperation* const& t) 
-            { position++; return (*t == *operation); }
+            { return (*t == *operation); }
 
-            int
-            GetPosition() const
-            { return position; }
-            
         private:
             const IOperation* operation;
-            int position;
         };
         
         IPBIWPattern* pattern;

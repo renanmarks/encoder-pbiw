@@ -125,14 +125,19 @@ namespace PBIW
             IPBIWPattern::OperationVector operations = newPattern->getOperations();
             FindOperation finderFunctor(it->getOperation());
 
-            IPBIWPattern::OperationVector::iterator opIt = 
-              std::find_if(operations.begin(), operations.end(), finderFunctor);
+            int finderIndex = 0;
+            IPBIWPattern::OperationVector::iterator opIt = operations.begin();
+            
+            // Search for the operation in the new pattern
+            for (; opIt!=operations.end() ; opIt++, finderIndex++ ) 
+              if ( finderFunctor(*opIt) ) 
+                break;
 
             // If found the operation, set it's new position!
             if (opIt != operations.end())
             {
-              newSlots[finderFunctor.GetPosition()].setOperation(*opIt);
-              newSlots[finderFunctor.GetPosition()].setOriginalPosition(it->getOriginalPosition());
+              newSlots[finderIndex].setOperation(*opIt);
+              newSlots[finderIndex].setOriginalPosition(it->getOriginalPosition());
             }
           }
         }
