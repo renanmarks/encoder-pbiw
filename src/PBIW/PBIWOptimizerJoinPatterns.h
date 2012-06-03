@@ -56,6 +56,7 @@ namespace PBIW
         std::deque<std::deque<IPBIWPattern*> > oneOperation;
         std::deque<std::deque<IPBIWPattern*> > twoOperation;
         std::deque<std::deque<IPBIWPattern*> > threeOperation;
+        PBIWPatternList joinedPattern;
     };
 
 }

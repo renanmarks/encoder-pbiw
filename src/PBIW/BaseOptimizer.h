@@ -100,7 +100,6 @@ namespace PBIW
     typedef std::set<IPBIWPattern*> PBIWPatternSet;
     typedef std::list<Label> LabelList;
     
-    PBIWPatternList joinedPattern;
     PBIWInstructionList instructions;
     PBIWInstructionList branchingInstructions;
     PBIWPatternList patterns;
