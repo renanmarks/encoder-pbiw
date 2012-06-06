@@ -15,6 +15,7 @@
 #include "src/rVex/rVex.h"
 #include "rVex64PBIWInstruction.h"
 #include "Interfaces/IPBIW.h"
+#include "Optimizers/JoinPattern/PatternInformation.h"
 //#include "Operation.h"
 
 namespace PBIW

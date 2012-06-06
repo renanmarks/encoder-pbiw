@@ -65,21 +65,13 @@ namespace PBIW
           it->updateInstructionsPointers(returnedPattern); // CHANGE ALL THE POINTERS! \o>
         }
       }
-      
+        
       PatternBuilder&
       PatternBuilder::startWithPattern(IPBIWPattern* pattern)
       {
         PatternInformation patternInfo;
         patternInfo.setPattern(pattern);
         clear();
-        
-         std::cout << "--- StartWith ---" << std::endl;
-          IPBIWInstruction::AnnulationBits annulationBits = pattern->getInstructionsThatUseIt().front()->getAnnulBits();
-          IPBIWInstruction::AnnulationBits::iterator it;
-          for(it = annulationBits.begin(); it < annulationBits.end(); it++ )
-          {
-              std::cout << *it << std::endl;
-          }
         
         patternInformations.push_back(patternInfo);
         
@@ -91,14 +83,6 @@ namespace PBIW
       {
         PatternInformation patternInfo;
         patternInfo.setPattern(pattern);
-        
-        std::cout << "--- Start ---" << std::endl;
-          IPBIWInstruction::AnnulationBits annulationBits = pattern->getInstructionsThatUseIt().front()->getAnnulBits();
-          IPBIWInstruction::AnnulationBits::iterator it;
-          for(it = annulationBits.begin(); it < annulationBits.end(); it++ )
-          {
-              std::cout << *it << std::endl;
-          }
         
         patternInformations.push_back(patternInfo);
         

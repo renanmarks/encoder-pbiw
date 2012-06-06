@@ -355,7 +355,7 @@ namespace PBIW
                                         {
                                             patterns.push_back(
                                             patternBuilder.startWithPattern(itBase2->front()).joinWithPattern(itBase2->back()).buildPattern());
-
+                                            
                                             patterns.erase(std::find(patterns.begin(), patterns.end(), itBase2->front()));
                                             patterns.erase(std::find(patterns.begin(), patterns.end(), itBase2->back()));
 

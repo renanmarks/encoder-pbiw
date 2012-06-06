@@ -77,13 +77,6 @@ namespace PBIW
           OperationsCollections::iterator opIt;
           int operationIndex = 0;
           
-          std::cout << "---\nBefore Annul"<<std::endl;
-          IPBIWInstruction::AnnulationBits::iterator it;
-          for(it = annulationBits.begin(); it < annulationBits.end(); it++ )
-          {
-              std::cout << *it << std::endl;
-          }
-          
           for (opIt = slots.begin(); opIt != slots.end(); opIt++, operationIndex++)
           {
             if (opIt->getOperation() != NULL)
@@ -91,13 +84,6 @@ namespace PBIW
               annulationBits[opIt->getOriginalPosition()] = false;
               annulationBits[operationIndex] = true;
             }
-          }
-
-          std::cout << "\nAfter Annul" << std::endl;
-          
-          for(it = annulationBits.begin(); it < annulationBits.end(); it++ )
-          {
-              std::cout << *it << std::endl;
           }
           
           (*instructionIt)->setAnnulBits(annulationBits);
@@ -129,8 +115,8 @@ namespace PBIW
             IPBIWPattern::OperationVector::iterator opIt = operations.begin();
             
             // Search for the operation in the new pattern
-            for (; opIt!=operations.end() ; opIt++, finderIndex++ ) 
-              if ( finderFunctor(*opIt) ) 
+            for (; opIt!=operations.end() ; opIt++, finderIndex++ )
+              if ( finderFunctor(*opIt) )                  
                 break;
 
             // If found the operation, set it's new position!

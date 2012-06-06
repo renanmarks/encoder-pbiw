@@ -154,6 +154,8 @@ namespace PBIW
       VexSyllableVector syllables = (*instructionIt)->getSyllables();
       VexSyllableVector::const_iterator syllableIt;
       
+      unsigned int index = 0;
+      
       for (syllableIt = syllables.begin();  // O(|syllables| * (4 + |codedPatterns|)) = O(4 * (4 + |codedPatterns|)) = 
            syllableIt < syllables.end();    // O(16 + 16|codedPatterns|)
            syllableIt++)
@@ -199,6 +201,7 @@ namespace PBIW
                   syllablesBuffer.remove(*syllableIt);
                   syllableIt--; // go back
                   newPattern->removeLastAddedOperation();
+                  finalInstruction->setAnnulBit(index-1,false);
                 } 
                 
                 syllablesBuffer.remove(*syllableIt);
@@ -282,7 +285,7 @@ namespace PBIW
         newPattern->addOperation(finalOperation);
         
         // Set annul bit referent this operation is used by the pattern (pointed by the instruction)
-        unsigned int index = newPattern->getOperations().size();
+        index = newPattern->getOperations().size();
         
         if(newPattern->getOperation(index-1)->getOpcode() != 0)
         {
