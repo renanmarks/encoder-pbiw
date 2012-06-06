@@ -5,8 +5,8 @@
  * Created on May 27, 2012, 3:56 PM
  */
 
-#ifndef IINSTRUCTION_H
-#define	IINSTRUCTION_H
+#ifndef GENERICASSEMBLY_IINSTRUCTION_H
+#define	GENERICASSEMBLY_IINSTRUCTION_H
 
 namespace GenericAssembly
 {
@@ -47,5 +47,5 @@ namespace GenericAssembly
   }
 }
 
-#endif	/* IINSTRUCTION_H */
+#endif	/* GENERICASSEMBLY_IINSTRUCTION_H */
 

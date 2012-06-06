@@ -5,8 +5,8 @@
  * Created on May 27, 2012, 4:00 PM
  */
 
-#ifndef ILABEL_H
-#define	ILABEL_H
+#ifndef GENERICASSEMBLY_ILABEL_H
+#define	GENERICASSEMBLY_ILABEL_H
 
 namespace GenericAssembly
 {
@@ -22,5 +22,5 @@ namespace GenericAssembly
   }
 }
 
-#endif	/* ILABEL_H */
+#endif	/* GENERICASSEMBLY_ILABEL_H */
 

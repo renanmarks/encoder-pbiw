@@ -5,8 +5,8 @@
  * Created on May 27, 2012, 3:56 PM
  */
 
-#ifndef IOPERATION_H
-#define	IOPERATION_H
+#ifndef GENERICASSEMBLY_IOPERATION_H
+#define	GENERICASSEMBLY_IOPERATION_H
 
 namespace GenericAssembly
 {
@@ -26,5 +26,5 @@ namespace GenericAssembly
   }
 }
 
-#endif	/* IOPERATION_H */
+#endif	/* GENERICASSEMBLY_IOPERATION_H */
 

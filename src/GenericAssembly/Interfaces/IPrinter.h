@@ -5,8 +5,8 @@
  * Created on May 27, 2012, 5:35 PM
  */
 
-#ifndef IPRINTER_H
-#define	IPRINTER_H
+#ifndef GENERICASSEMBLY_IPRINTER_H
+#define	GENERICASSEMBLY_IPRINTER_H
 
 #include <ostream>
 
@@ -54,5 +54,5 @@ namespace GenericAssembly
   }
 }
 
-#endif	/* IPRINTER_H */
+#endif	/* GENERICASSEMBLY_IPRINTER_H */
 

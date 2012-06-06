@@ -5,8 +5,8 @@
  * Created on May 27, 2012, 4:17 PM
  */
 
-#ifndef ISECTION_H
-#define	ISECTION_H
+#ifndef GENERICASSEMBLY_ISECTION_H
+#define	GENERICASSEMBLY_ISECTION_H
 
 namespace GenericAssembly
 {
@@ -22,5 +22,5 @@ namespace GenericAssembly
   }
 }
 
-#endif	/* ISECTION_H */
+#endif	/* GENERICASSEMBLY_ISECTION_H */
 

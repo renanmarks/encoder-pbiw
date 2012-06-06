@@ -5,8 +5,8 @@
  * Created on May 27, 2012, 3:56 PM
  */
 
-#ifndef IOPERAND_H
-#define	IOPERAND_H
+#ifndef GENERICASSEMBLY_IOPERAND_H
+#define	GENERICASSEMBLY_IOPERAND_H
 
 namespace GenericAssembly
 {
@@ -20,5 +20,5 @@ namespace GenericAssembly
   }
 }
 
-#endif	/* IOPERAND_H */
+#endif	/* GENERICASSEMBLY_IOPERAND_H */
 

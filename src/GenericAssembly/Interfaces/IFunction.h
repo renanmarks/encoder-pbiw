@@ -5,8 +5,8 @@
  * Created on May 27, 2012, 5:26 PM
  */
 
-#ifndef IFUNCTION_H
-#define	IFUNCTION_H
+#ifndef GENERICASSEMBLY_IFUNCTION_H
+#define	GENERICASSEMBLY_IFUNCTION_H
 
 namespace GenericAssembly
 {
@@ -21,5 +21,5 @@ namespace GenericAssembly
   }
 }
 
-#endif	/* IFUNCTION_H */
+#endif	/* GENERICASSEMBLY_IFUNCTION_H */
 

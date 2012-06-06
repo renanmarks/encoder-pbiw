@@ -5,10 +5,11 @@
  * Created on October 5, 2011, 2:25 PM
  */
 
-#ifndef LABEL_H
-#define	LABEL_H
+#ifndef RVEX_LABEL_H
+#define	RVEX_LABEL_H
 
 #include <string>
+#include "src/GenericAssembly/Interfaces/ILabel.h"
 
 namespace rVex
 {
@@ -17,7 +18,7 @@ namespace rVex
   /**
    * Structure used to save the label definition information.
    */
-  struct Label
+  struct Label : public GenericAssembly::Interfaces::ILabel
   {
     typedef enum 
     {
@@ -39,5 +40,5 @@ namespace rVex
   };
 }
 
-#endif	/* LABEL_H */
+#endif	/* RVEX_LABEL_H */
 

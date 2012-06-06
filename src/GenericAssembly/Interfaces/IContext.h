@@ -5,8 +5,8 @@
  * Created on May 27, 2012, 3:59 PM
  */
 
-#ifndef ICONTEXT_H
-#define	ICONTEXT_H
+#ifndef GENERICASSEMBLY_ICONTEXT_H
+#define	GENERICASSEMBLY_ICONTEXT_H
 
 #include "src/GenericAssembly/Interfaces/IInstruction.h"
 #include "src/GenericAssembly/Interfaces/IOperation.h"
@@ -53,5 +53,5 @@ namespace GenericAssembly
   }
 }
 
-#endif	/* ICONTEXT_H */
+#endif	/* GENERICASSEMBLY_ICONTEXT_H */
 
