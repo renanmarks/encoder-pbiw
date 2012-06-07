@@ -138,15 +138,15 @@ namespace VexParser
           labelIt != labels.end();
           labelIt++)
       {
-        stream << labelIt->name; 
+        stream << labelIt->getName(); 
 
-        if (labelIt->scope == rVex::Label::GLOBAL)
+        if (labelIt->getScope() == GenericAssembly::Utils::LabelScope::GLOBAL)
           stream << ".G";
         else
           stream << ".L";
 
-        stream << "[" << labelIt->absoluteAddress << "]"
-          << "(" << labelIt->destiny->getAddress() << ")"
+        stream << "[" << labelIt->getAbsoluteAddress() << "]"
+          << "(" << labelIt->getDestiny()->getAddress() << ")"
           << std::endl;
       }
 
@@ -178,7 +178,7 @@ namespace VexParser
       rVexLabelVector::iterator labelIt = std::find_if(labels.begin(), labels.end(), FindLabel(label));
       
       if ( labelIt != labels.end() )
-        (*it)->setBranchDestiny(labelIt->destiny);
+        (*it)->setBranchDestiny(dynamic_cast<rVex::Syllable*>(labelIt->getDestiny()));
     
       if (debugEnabled)
       {
@@ -193,14 +193,14 @@ namespace VexParser
     }
   }
   
-  void VexContext::setLabel(std::string name, rVex::Label::LabelScope scope)  // O(1)
+  void VexContext::setLabel(std::string name, GenericAssembly::Utils::LabelScope::Type scope)  // O(1)
   { 
     rVex::Label label;
     
     hasLabel = true;
     
-    label.name = name;
-    label.scope = scope;
+    label.setName(name);
+    label.setScope(scope);
     
     labels.push_back(label);
   }
@@ -235,8 +235,8 @@ namespace VexParser
     {
       rVex::Label& label = labels.back(); // O(1)
 
-      label.destiny = instruction->getSyllables()[0]; // O(1)
-      label.absoluteAddress = instruction->getAddress(); // O(1)
+      label.setDestiny(instruction->getSyllables()[0]); // O(1)
+      label.setAbsoluteAddress(instruction->getAddress()); // O(1)
       
       instruction->setLabel(label);  // O(1)
       

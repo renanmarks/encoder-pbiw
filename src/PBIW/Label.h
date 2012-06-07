@@ -23,15 +23,24 @@ namespace PBIW
   {
   public:
     Label()
-      : name(""), scope(GLOBAL), destiny(NULL), absoluteAddress(0)
+      : name(""), 
+        scope(GenericAssembly::Utils::LabelScope::GLOBAL), 
+        destiny(NULL), 
+        absoluteAddress(0)
     { }
     
     Label(const Label& other)
-      : name(other.name), scope(other.getScope()), destiny(other.getDestiny()), absoluteAddress(other.getAbsoluteAddress())
+      : name(other.name), 
+      scope(other.getScope()), 
+      destiny(other.getDestiny()), 
+      absoluteAddress(other.getAbsoluteAddress())
     { }
     
     Label(const rVex::Label& rVexLabel)
-      : name(rVexLabel.name), scope(static_cast<LabelScope>(rVexLabel.scope)), destiny(NULL), absoluteAddress(0)
+      : name(rVexLabel.getName()), 
+      scope(rVexLabel.getScope()), 
+      destiny(NULL), 
+      absoluteAddress(0)
     { }
     
     ~Label() 
@@ -54,10 +63,10 @@ namespace PBIW
     { return destiny; }
 
     void
-    setScope(LabelScope scope)
+    setScope(GenericAssembly::Utils::LabelScope::Type scope)
     { this->scope=scope; }
 
-    LabelScope
+    GenericAssembly::Utils::LabelScope::Type
     getScope() const
     { return scope; }
 
@@ -71,7 +80,7 @@ namespace PBIW
     
   private:
     std::string name;
-    LabelScope scope;
+    GenericAssembly::Utils::LabelScope::Type scope;
     IPBIWInstruction* destiny;
     unsigned int absoluteAddress;
   };

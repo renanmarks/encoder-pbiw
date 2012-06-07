@@ -83,7 +83,7 @@ namespace rVex
       try 
       {
         if (instruction.haveLabel())
-          output << "\t\t-- " << instruction.getLabel()->name << ": " << std::endl;
+          output << "\t\t-- " << instruction.getLabel()->getName() << ": " << std::endl;
         
         output << "\t\t" << instruction.getAddress() << " =>\t";
         

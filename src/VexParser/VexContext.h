@@ -98,7 +98,7 @@ namespace VexParser
     /**
      * Add the labels to the label vector.
      */
-    void setLabel(std::string, rVex::Label::LabelScope);
+    void setLabel(std::string, GenericAssembly::Utils::LabelScope::Type);
     
     /**
      * Process the label vector translating the labels to respective instruction
@@ -219,7 +219,7 @@ namespace VexParser
         FindLabel(const std::string label) : label(label) {}
 
         bool operator()(const rVex::Label& t) const 
-        { return (t.name == label); }
+        { return (t.getName() == label); }
         
     private:
         const std::string label;

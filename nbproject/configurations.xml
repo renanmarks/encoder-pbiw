@@ -249,6 +249,7 @@
           <itemPath>src/rVex/Utils/OperandVectorBuilder.cpp</itemPath>
         </logicalFolder>
         <itemPath>src/rVex/Instruction.cpp</itemPath>
+        <itemPath>src/rVex/Label.cpp</itemPath>
         <itemPath>src/rVex/Syllable.cpp</itemPath>
         <itemPath>src/rVex/SyllableALU.cpp</itemPath>
         <itemPath>src/rVex/SyllableCTRL.cpp</itemPath>

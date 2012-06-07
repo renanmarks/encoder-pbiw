@@ -40,7 +40,7 @@
 /* Line 35 of lalr1.cc  */
 #line 22 "parser.yy"
 
-#include "src/rVex/Label.h"
+#include "src/GenericAssembly/Utils/LabelScope.h"
 
 
 
@@ -89,14 +89,14 @@ namespace VexParser {
 /* Line 35 of lalr1.cc  */
 #line 68 "parser.yy"
 
-   int                        value;
-   rVex::Label::LabelScope    scope;
-   std::string*               text;
-   struct VexOpcode*          opcode;
-   struct VexFunction*        function;
-   class Arguments*           arguments;
-   class SyllableArguments*   syllableArguments;
-   class Expression*          expression;
+   int                                         value;
+   GenericAssembly::Utils::LabelScope::Type    scope;
+   std::string*                                text;
+   struct VexOpcode*                           opcode;
+   struct VexFunction*                         function;
+   class Arguments*                            arguments;
+   class SyllableArguments*                    syllableArguments;
+   class Expression*                           expression;
 
 
 

@@ -940,14 +940,14 @@ namespace VexParser {
 
 /* Line 690 of lalr1.cc  */
 #line 392 "parser.yy"
-    { (yyval.scope) = rVex::Label::LOCAL; }
+    { (yyval.scope) = GenericAssembly::Utils::LabelScope::LOCAL; }
     break;
 
   case 89:
 
 /* Line 690 of lalr1.cc  */
 #line 393 "parser.yy"
-    { (yyval.scope) = rVex::Label::GLOBAL; }
+    { (yyval.scope) = GenericAssembly::Utils::LabelScope::GLOBAL; }
     break;
 
   case 90:

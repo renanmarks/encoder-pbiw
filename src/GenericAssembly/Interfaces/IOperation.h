@@ -17,11 +17,13 @@ namespace GenericAssembly
     public:
       virtual ~IOperation() { }
       
+      virtual unsigned int getAddress() const = 0;
+      
       /**
        * Fills up the builder passed as argument with the operands from this
        * operation to be used at the PBIW encoding process.
        */
-      virtual void exportOperandVector(/*Utils::OperandVectorBuilder&*/) const = 0;
+      //virtual void exportOperandVector(/*Utils::OperandVectorBuilder&*/) const = 0;
     };
   }
 }

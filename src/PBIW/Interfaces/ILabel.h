@@ -9,6 +9,7 @@
 #define	PBIWILABEL_H
 
 #include <string>
+#include "src/GenericAssembly/Utils/LabelScope.h"
 
 namespace PBIW
 {
@@ -22,13 +23,7 @@ namespace PBIW
     class ILabel
     {
     public:
-
-      typedef enum
-      {
-        GLOBAL=0, LOCAL=1
-      } LabelScope;
-
-      ~ILabel() { };
+      virtual ~ILabel() { };
       
       virtual void setAbsoluteAddress(unsigned int absoluteAddress) = 0;
       virtual unsigned int getAbsoluteAddress() const = 0;
@@ -36,8 +31,8 @@ namespace PBIW
       virtual void setDestiny(IPBIWInstruction* destiny) = 0;
       virtual IPBIWInstruction* getDestiny() const = 0;
 
-      virtual void setScope(LabelScope scope) = 0;
-      virtual LabelScope getScope() const = 0;
+      virtual void setScope(GenericAssembly::Utils::LabelScope::Type scope) = 0;
+      virtual GenericAssembly::Utils::LabelScope::Type getScope() const = 0;
 
       virtual void setName(const std::string& name) = 0;
       virtual std::string getName() const = 0;

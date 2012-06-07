@@ -56,6 +56,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/rVex/Operations/MEM/STB.o \
 	${OBJECTDIR}/src/rVex/Operations/ALU/ADDCG.o \
 	${OBJECTDIR}/src/rVex/SyllableALU.o \
+	${OBJECTDIR}/src/rVex/Label.o \
 	${OBJECTDIR}/src/rVex/SyllableMISC.o \
 	${OBJECTDIR}/src/rVex/Utils/OperandVectorBuilder.o \
 	${OBJECTDIR}/src/PBIW/Utils/OperandVector.o \
@@ -239,6 +240,11 @@ ${OBJECTDIR}/src/rVex/SyllableALU.o: src/rVex/SyllableALU.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/rVex
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/SyllableALU.o src/rVex/SyllableALU.cpp
+
+${OBJECTDIR}/src/rVex/Label.o: src/rVex/Label.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/rVex
+	${RM} $@.d
+	$(COMPILE.cc) -g -Wall -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Label.o src/rVex/Label.cpp
 
 ${OBJECTDIR}/src/rVex/SyllableMISC.o: src/rVex/SyllableMISC.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/rVex
@@ -767,6 +773,19 @@ ${OBJECTDIR}/src/rVex/SyllableALU_nomain.o: ${OBJECTDIR}/src/rVex/SyllableALU.o 
 	    $(COMPILE.cc) -g -Wall -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/SyllableALU_nomain.o src/rVex/SyllableALU.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/rVex/SyllableALU.o ${OBJECTDIR}/src/rVex/SyllableALU_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/rVex/Label_nomain.o: ${OBJECTDIR}/src/rVex/Label.o src/rVex/Label.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/rVex
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/rVex/Label.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -g -Wall -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Label_nomain.o src/rVex/Label.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/rVex/Label.o ${OBJECTDIR}/src/rVex/Label_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/rVex/SyllableMISC_nomain.o: ${OBJECTDIR}/src/rVex/SyllableMISC.o src/rVex/SyllableMISC.cpp 

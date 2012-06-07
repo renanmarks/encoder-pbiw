@@ -13,8 +13,10 @@
 #include "Label.h"
 #include "Utils/OperandVectorBuilder.h"
 
-#include "../VexParser/Expressions/SyllableArguments.h"
+#include "src/VexParser/Expressions/SyllableArguments.h"
 #include "src/rVex/Printers/IPrinter.h"
+
+#include "src/GenericAssembly/Interfaces/IOperation.h"
 
 namespace rVex
 {
@@ -24,7 +26,7 @@ namespace rVex
   /**
    * A r-Vex instruction syllable (operation)
    */
-  class Syllable
+  class Syllable : public GenericAssembly::Interfaces::IOperation
   {
     public:
       Syllable() : 

@@ -20,7 +20,7 @@
 /* Declaration at parser header */
 %code requires 
 {
-#include "src/rVex/Label.h"
+#include "src/GenericAssembly/Utils/LabelScope.h"
 }
 
 /*** yacc/bison Declarations ***/
@@ -66,14 +66,14 @@
  /*** BEGIN EXAMPLE - Change the example grammar's tokens below ***/
 
 %union {
-   int                        value;
-   rVex::Label::LabelScope    scope;
-   std::string*               text;
-   struct VexOpcode*          opcode;
-   struct VexFunction*        function;
-   class Arguments*           arguments;
-   class SyllableArguments*   syllableArguments;
-   class Expression*          expression;
+   int                                         value;
+   GenericAssembly::Utils::LabelScope::Type    scope;
+   std::string*                                text;
+   struct VexOpcode*                           opcode;
+   struct VexFunction*                         function;
+   class Arguments*                            arguments;
+   class SyllableArguments*                    syllableArguments;
+   class Expression*                           expression;
 }
 
 %token			END	     0	"end of file"
@@ -389,8 +389,8 @@ text_global_dir :       _IMPORT name  { delete $2; }
 equ_dir         :       _EQU name __COMMA expr { delete $2; delete $4; }
                 ;
 
-scope           :       __COLON          { $$ = rVex::Label::LOCAL; }
-                |       __COLON __COLON       { $$ = rVex::Label::GLOBAL; }
+scope           :       __COLON          { $$ = GenericAssembly::Utils::LabelScope::LOCAL; }
+                |       __COLON __COLON       { $$ = GenericAssembly::Utils::LabelScope::GLOBAL; }
                 ;
 
 type_dir        :       _TYPE name __COMMA __AT NAME { delete $2; delete $5; }
