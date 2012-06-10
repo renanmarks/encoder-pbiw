@@ -15,10 +15,11 @@
 #include "Syllable.h"
 #include "Utils/DependencyChains.h"
 #include "src/PBIW/Interfaces/IPBIWInstruction.h"
+#include "src/GenericAssembly/Interfaces/IInstruction.h"
 
 namespace rVex
 {
-  class Instruction
+  class Instruction : public GenericAssembly::Interfaces::IInstruction
   {
     public:
       typedef std::vector<Syllable*> SyllableVector;

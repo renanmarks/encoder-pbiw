@@ -1,7 +1,6 @@
 #include <iostream>
 
 #include "STH.h"
-#include "../../Instruction.h"
 #include "src/rVex/Instruction.h"
 
 namespace rVex

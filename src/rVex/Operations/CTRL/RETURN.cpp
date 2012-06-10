@@ -1,3 +1,4 @@
+#include <vector>
 #include "RETURN.h"
 
 namespace rVex
@@ -36,7 +37,11 @@ namespace rVex
 
         final <<= 5;
 
-        output.printSyllable(this, final, first, last);
+        final|=last;
+        final<<=1;
+        final|=first;
+
+        output.printOperation(*this, std::vector<unsigned int>(1, final));
       }
     }
   }

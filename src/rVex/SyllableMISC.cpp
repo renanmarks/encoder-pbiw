@@ -8,6 +8,6 @@ namespace rVex
   void
   SyllableMISC::print(rVex::Printers::IPrinter& output, bool first, bool last) const // O(1)
   {
-    output.printSyllable(this, printRTYPE(), first, last);
+    output.printOperation(*this, std::vector<unsigned int>(1, printRTYPE(first, last)));
   }
 }

@@ -7,11 +7,18 @@
       <logicalFolder name="f4" displayName="GenericAssembly" projectFiles="true">
         <logicalFolder name="f1" displayName="Interfaces" projectFiles="true">
           <itemPath>src/GenericAssembly/Interfaces/IContext.h</itemPath>
+          <itemPath>src/GenericAssembly/Interfaces/IFunction.h</itemPath>
           <itemPath>src/GenericAssembly/Interfaces/IInstruction.h</itemPath>
           <itemPath>src/GenericAssembly/Interfaces/ILabel.h</itemPath>
           <itemPath>src/GenericAssembly/Interfaces/IOperand.h</itemPath>
           <itemPath>src/GenericAssembly/Interfaces/IOperation.h</itemPath>
+          <itemPath>src/GenericAssembly/Interfaces/IPrinter.h</itemPath>
           <itemPath>src/GenericAssembly/Interfaces/ISection.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="f2" displayName="Utils" projectFiles="true">
+          <itemPath>src/GenericAssembly/Utils/CanCopy.h</itemPath>
+          <itemPath>src/GenericAssembly/Utils/DependencyChains.h</itemPath>
+          <itemPath>src/GenericAssembly/Utils/LabelScope.h</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="f2" displayName="PBIW" projectFiles="true">

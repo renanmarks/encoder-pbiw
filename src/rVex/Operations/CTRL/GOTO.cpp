@@ -1,4 +1,5 @@
-#include "../../Instruction.h"
+#include <vector>
+#include "src/rVex/Instruction.h"
 #include "GOTO.h"
 
 namespace rVex
@@ -32,9 +33,13 @@ namespace rVex
         final <<= 18;
         final |= (this->branchDestiny->getBelongedInstruction()->getAddress() & 0x00000FFF);
 
-        final <<= 5;
+        final <<= 4;
         
-        output.printSyllable(this, final, first, last);
+        final |= last;
+        final <<= 1;
+        final |= first;
+        
+        output.printOperation(*this, std::vector<unsigned int>(1, final));
       }
     }
   }

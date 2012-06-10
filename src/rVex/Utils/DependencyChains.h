@@ -5,12 +5,13 @@
  * Created on April 5, 2012, 3:55 PM
  */
 
-#ifndef DEPENDENCYCHAINS_H
-#define	DEPENDENCYCHAINS_H
+#ifndef RVEX_DEPENDENCYCHAINS_H
+#define	RVEX_DEPENDENCYCHAINS_H
 
 #include <map>
 #include <deque>
 #include <vector>
+#include "src/GenericAssembly/Utils/DependencyChains.h"
 #include "src/rVex/Printers/IPrinter.h"
 
 namespace rVex
@@ -20,51 +21,13 @@ namespace rVex
   
   namespace Utils
   {
-    class DependencyChains
+    class DependencyChains : public GenericAssembly::Utils::DependencyChains<Instruction, Syllable, rVex::Printers::IPrinter>
     {
-    public:
-      void buildDependenciesChains(const rVex::Instruction&);
-      void print(rVex::Printers::IPrinter&) const;
-      
-      bool canSplitSyllable(const rVex::Syllable* syllable) const
-      { return dependencies.find(syllable)->second.canSplit; }
-      
-    private:
-      struct Dependency
-      {
-        Dependency() : canSplit(false), isRealDependency(false) {};
-        
-        bool canSplit;
-        bool isRealDependency;
-        
-        typedef std::deque<const rVex::Syllable*> SyllableList;
-        SyllableList antiDepends;
-        SyllableList depends;
-      };
-      
-      typedef std::pair<const rVex::Syllable*, rVex::Utils::DependencyChains::Dependency> DepMapItem;
-      
-      class SearchSyllable : public std::unary_function<DepMapItem,bool> 
-      {
-        unsigned int address;
-
-      public:
-        SearchSyllable(unsigned int _address) : address(_address)
-        { }
-
-        bool operator() (DepMapItem vish);
-      };
-      
-      void markSplits(const rVex::Syllable*, const rVex::Syllable*);
-      
-      Dependency getDependencies(const std::vector<Syllable*>::iterator&, 
-           const std::vector<Syllable*>&);
-      
-      typedef std::map<const rVex::Syllable*, Dependency> DependencyDictionary;
-      DependencyDictionary dependencies;
+    protected:
+      virtual Dependency getDependencies(Syllable* const& operation, const std::vector<Syllable*>& operations);
     };
   }
 }
 
-#endif	/* DEPENDENCYCHAINS_H */
+#endif	/* RVEX_DEPENDENCYCHAINS_H */
 

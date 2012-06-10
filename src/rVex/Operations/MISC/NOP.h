@@ -8,6 +8,7 @@
 #ifndef NOP_H
 #define	NOP_H
 
+#include <vector>
 #include "../../Syllable.h"
 #include "../../SyllableMISC.h"
 #include "src/rVex/Printers/IPrinter.h"
@@ -35,7 +36,10 @@ namespace rVex
           virtual LayoutType::Type getLayoutType() const { return LayoutType::RTYPE; }
       
           virtual void print(rVex::Printers::IPrinter& output, bool first, bool last) const
-          { output.printSyllable(this, 0, first, last); }
+          { 
+            unsigned int nop = (((0 | last) << 1) | first);
+            output.printOperation(*this, std::vector<unsigned int>(1, nop)); 
+          }
           
           virtual void fillSyllable(VexParser::SyllableArguments& arguments)
           { this->fillTypeXIV(arguments); }

@@ -33,9 +33,12 @@ namespace rVex
         final <<= 6;
         final |= this->grDestiny;
 
-        final <<= 15;
+        final <<= 14;
+        final |= last;
+        final <<= 1;
+        final |= first;
 
-        output.printSyllable(this, final, first, last);
+        output.printOperation(*this, std::vector<unsigned int>(1, final));
       }
     }
   }

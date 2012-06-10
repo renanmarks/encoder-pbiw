@@ -35,9 +35,12 @@ namespace rVex
         final <<= 3;
         final |= this->brSource;
 
-        final <<= 2;
-
-        output.printSyllable(this, final, first, last);
+        final <<= 1;
+        final |= first;
+        final <<= 1;
+        final |= last;
+        
+        output.printOperation(*this, std::vector<unsigned int>(1,final));
       }
     }
   }

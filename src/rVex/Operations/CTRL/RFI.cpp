@@ -22,9 +22,12 @@ namespace rVex
         final <<= 12;
         final |= this->shortImmediate;
 
-        final <<= 2;
-        
-        output.printSyllable(this, final, first, last);
+        final<<=1;
+        final|=last;
+        final<<=1;
+        final|=first;
+
+        output.printOperation(*this, std::vector<unsigned int>(1, final));
       }
     }
   }

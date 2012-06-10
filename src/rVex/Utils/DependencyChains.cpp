@@ -14,136 +14,28 @@ namespace rVex
 {
   namespace Utils
   {
-
-//    DependencyChains::DependencyChains()
-//    {
-//    }
-//
-//    DependencyChains::DependencyChains(const DependencyChains& orig)
-//    {
-//    }
-//
-//    DependencyChains::~DependencyChains()
-//    {
-//    }
-    
-    void 
-    DependencyChains::print(rVex::Printers::IPrinter& printer) const
-    {
-      DependencyDictionary::const_iterator it;
-      
-      for(it = dependencies.begin(); it != dependencies.end(); it++)
-      {
-        printer.getOutputStream() << "Syllable " << it->first->getAddress()
-          << " anti-depends (";
-        
-        Dependency::SyllableList::const_iterator dependencyIt;
-        
-        for(dependencyIt = it->second.antiDepends.begin(); 
-            dependencyIt < it->second.antiDepends.end(); 
-            dependencyIt++)
-        {
-          printer.getOutputStream() << (*dependencyIt)->getAddress() << ", ";
-        }
-        
-        printer.getOutputStream() << ") depends (";
-        
-        for(dependencyIt = it->second.depends.begin(); 
-            dependencyIt < it->second.depends.end(); 
-            dependencyIt++)
-        {
-          printer.getOutputStream() << (*dependencyIt)->getAddress() << ", ";
-        }
-        
-        printer.getOutputStream() << ")";
-        
-        if (it->second.canSplit)
-          printer.getOutputStream() << " Can split here!" << std::endl;
-        else
-          printer.getOutputStream() << " Can NOT split here!" << std::endl;
-      }
-    }
-    
-    
-    
-    void 
-    DependencyChains::buildDependenciesChains(const rVex::Instruction& instruction)
-    {
-      rVex::Instruction::SyllableVector syllables = instruction.getSyllables();
-      rVex::Instruction::SyllableVector::iterator syllableIt;
-      
-      // Fills all the inter-syllable dependencies
-      for(syllableIt = syllables.begin(); syllableIt < syllables.end(); syllableIt++)
-        dependencies[*syllableIt] = getDependencies(syllableIt, syllables);
-      
-      DependencyDictionary::iterator it;
-      
-      for(it = dependencies.begin(); it != dependencies.end(); it++)
-      {
-        bool hasTrueDependency = it->second.depends.size() > 0;
-        
-        if ( hasTrueDependency )
-        {
-          Dependency::SyllableList::const_iterator syllableIt;
-          
-          for (syllableIt = it->second.depends.begin();
-               syllableIt < it->second.depends.end();
-               syllableIt++)
-          {
-            markSplits(*syllableIt, it->first);
-          }
-        }
-        else if (it->second.isRealDependency == false)
-          it->second.canSplit = true;
-      }
-    }
-    
-    bool 
-    DependencyChains::SearchSyllable::operator ()(DepMapItem item)
-    {
-      return item.first->getAddress() == address;
-    }
-    
-    void 
-    DependencyChains::markSplits(const rVex::Syllable* first, 
-                                 const rVex::Syllable* last)
-    {
-      // Starting with the next element
-      DependencyDictionary::iterator it = std::find_if(dependencies.begin(), dependencies.end(), SearchSyllable(first->getAddress()+1));
-      DependencyDictionary::iterator endIt = std::find_if(dependencies.begin(), dependencies.end(), SearchSyllable(last->getAddress()));
-      
-      while(it != endIt)
-      {
-        it->second.canSplit = false;
-        it->second.isRealDependency = true;
-        
-        it = std::find_if(dependencies.begin(), dependencies.end(), SearchSyllable(it->first->getAddress()+1));
-      }
-    }
-    
     DependencyChains::Dependency 
-    DependencyChains::getDependencies(const rVex::Instruction::SyllableVector::iterator& it, 
-      const rVex::Instruction::SyllableVector& syllables)
+    DependencyChains::getDependencies(Syllable* const& operation, const std::vector<Syllable*>& operations)
     {
       Dependency dependency;
-      
-      rVex::Syllable::ReadRegVector readRegs = (*it)->getReadRegisters();
+
+      rVex::Syllable::ReadRegVector readRegs = operation->getReadRegisters();
       rVex::Instruction::SyllableVector::const_iterator otherSyllableIt;
-      
-      for(otherSyllableIt = syllables.begin(); otherSyllableIt < syllables.end(); otherSyllableIt++)
+
+      for(otherSyllableIt = operations.begin(); otherSyllableIt < operations.end(); otherSyllableIt++)
       {
-        if ( ((*otherSyllableIt)->getAddress() == (*it)->getAddress()) || ((*otherSyllableIt)->getGrDestiny() == 0 && !(*it)->hasBrSource()) )
+        if ( ((*otherSyllableIt)->getAddress() == operation->getAddress()) || ((*otherSyllableIt)->getGrDestiny() == 0 && !operation->hasBrSource()) )
           continue;
-        
+
         bool writesInMyGrReadRegister = 
           (*otherSyllableIt)->hasGrDestiny() 
           && (std::find(readRegs.begin(), readRegs.end(), (*otherSyllableIt)->getGrDestiny()) != readRegs.end());
-        
+
         bool writesInMyBrReadRegister = 
           (*otherSyllableIt)->hasBrDestiny() 
-          && (*it)->hasBrSource() 
-          && ((*otherSyllableIt)->getBrDestiny() == (*it)->getBrSource());
-        
+          && operation->hasBrSource() 
+          && ((*otherSyllableIt)->getBrDestiny() == operation->getBrSource());
+
         switch ((*otherSyllableIt)->getOpcode())
         {
           case rVex::Syllable::opSTW:
@@ -153,9 +45,9 @@ namespace rVex
             writesInMyBrReadRegister = false;
             break;
         }
-        
-        bool isAfterMe = (*otherSyllableIt)->getAddress() > (*it)->getAddress();
-        
+
+        bool isAfterMe = (*otherSyllableIt)->getAddress() > operation->getAddress();
+
         if (writesInMyGrReadRegister || writesInMyBrReadRegister)
         {
           if (isAfterMe)
@@ -164,7 +56,7 @@ namespace rVex
             dependency.depends.push_back(*otherSyllableIt);
         }
       }
-      
+
       return dependency;
     }
     

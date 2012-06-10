@@ -18,13 +18,13 @@ namespace rVex
     switch (this->layoutType)
     {
       case LayoutType::RTYPE:
-        output.printSyllable(this, printRTYPE(), first, last);
+        output.printOperation(*this, std::vector<unsigned int>(1, printRTYPE(first, last)));
         break;
       case LayoutType::ISTYPE:
-        output.printSyllable(this, printISTYPE(), first, last);
+        output.printOperation(*this, std::vector<unsigned int>(1, printISTYPE(first, last)));
         break;
       case LayoutType::RTYPE_BS:
-        output.printSyllable(this, printRTYPE_BS(), first, last);
+        output.printOperation(*this, std::vector<unsigned int>(1, printRTYPE_BS(first, last)));
         break;
       default:
         throw LayoutNotSupportedException("This syllable only supports R or IS layouts.");

@@ -14,13 +14,11 @@ namespace GenericAssembly
 {
   namespace Interfaces
   {
-    class IInstruction;
-    class IOperation;
-    
     /**
      * Printer interface
      * Used by the printing mechanisms to output the bytecode.
      */
+    template <class TInstruction, class TOperation>
     class IPrinter
     {
     public:
@@ -29,12 +27,12 @@ namespace GenericAssembly
       /**
        * Print the operation.
        */
-      virtual void printOperation(const IOperation&) = 0;
+      virtual void printOperation(const TOperation&, const std::vector<unsigned int>&) = 0;
       
       /**
        * Print the instruction.
        */
-      virtual void printInstruction(const IInstruction&) = 0;
+      virtual void printInstruction(const TInstruction&) = 0;
       
       /**
        * Print the file header.

@@ -39,34 +39,39 @@ namespace rVex
      * @return A std::string containing binary digits
      */
     void 
-    VHDLPrinter::printSyllable(const rVex::Syllable* syllable, unsigned int binary, bool first, bool last) // O(1)
+    VHDLPrinter::printOperation(const rVex::Syllable& syllable, const std::vector<unsigned int>& binaries) // O(1)
     {
       std::string resultBinary;
-      unsigned int temp = binary;
+      std::vector<unsigned int>::const_iterator it;
       
-      output << "b\"";
-      
-      for (unsigned char counter=0; counter < 30; temp <<= 1, counter++)
+      for (it = binaries.begin(); it < binaries.end(); it++)
       {
-        if (temp & 0x80000000)
-          resultBinary.append("1");
-        else
-          resultBinary.append("0");
+        unsigned int temp = *it;
+
+        output << "b\"";
+
+        for (unsigned char counter=0; counter < 32; temp <<= 1, counter++)
+        {
+          if (temp & 0x80000000)
+          {
+            if (counter == 31)
+              resultBinary.append("1\",");
+            else
+              resultBinary.append("1");
+          }
+          else
+          {
+            if (counter == 31)
+              resultBinary.append("0\"&");
+            else
+              resultBinary.append("0");
+          }
+        }
+
+        output << resultBinary 
+          << " -- " << syllable.getTextRepresentation()
+          << std::endl;
       }
-
-      if (last)
-        resultBinary.append("1");
-      else
-        resultBinary.append("0");
-
-      if (first)
-        resultBinary.append("1\",");
-      else
-        resultBinary.append("0\"&");
-      
-      output << resultBinary 
-        << " -- " << syllable->getTextRepresentation()
-        << std::endl;
     }
 
     /**

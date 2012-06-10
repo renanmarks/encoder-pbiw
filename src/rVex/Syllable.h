@@ -334,13 +334,13 @@ namespace rVex
        */
       virtual void fillSyllable(VexParser::SyllableArguments&) = 0;
       
-      unsigned int printRTYPE() const;
-      unsigned int printISTYPE() const;
-      unsigned int printILTYPE() const;
-      unsigned int printBRANCH() const;
-      unsigned int printRTYPE_BS() const;
-      unsigned int printMEMLOADTYPE() const;
-      unsigned int printMEMSTORETYPE() const;
+      unsigned int printRTYPE(bool, bool) const;
+      unsigned int printISTYPE(bool, bool) const;
+      unsigned int printILTYPE(bool, bool) const;
+      unsigned int printBRANCH(bool, bool) const;
+      unsigned int printRTYPE_BS(bool, bool) const;
+      unsigned int printMEMLOADTYPE(bool, bool) const;
+      unsigned int printMEMSTORETYPE(bool, bool) const;
       
       /**
        * Exception throwed when the syllable layout is not supported by the

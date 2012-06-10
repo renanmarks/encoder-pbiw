@@ -8,6 +8,7 @@
 #ifndef STOP_H
 #define	STOP_H
 
+#include <vector>
 #include "../../SyllableCTRL.h"
 
 namespace rVex
@@ -25,7 +26,10 @@ namespace rVex
           SyllableType::Type getSyllableType() const { return SyllableType::CTRL; }
           
           virtual void print(rVex::Printers::IPrinter& output, bool first, bool last) const
-          { output.printSyllable(this, this->getOpcode() << 25, first, last); }
+          { 
+            unsigned int stop = (((this->getOpcode() << 24) | last) << 1) | first;
+            output.printOperation(*this, std::vector<unsigned int>(1, stop)); 
+          }
           
           virtual void fillSyllable(VexParser::SyllableArguments& arguments)
           { return; }

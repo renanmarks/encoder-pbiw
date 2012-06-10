@@ -67,7 +67,7 @@ namespace rVex
   }
 
   unsigned int
-  Syllable::printRTYPE() const // O(1)
+  Syllable::printRTYPE(bool first, bool last) const // O(1)
   {
     unsigned int final=0;
 
@@ -91,13 +91,16 @@ namespace rVex
     final<<=3;
     final|=this->brDestiny;
 
-    final<<=2;
+    final<<=1;
+    final|=last;
+    final<<=1;
+    final|=first;
 
     return final;
   }
 
   unsigned int
-  Syllable::printISTYPE() const // O(1)
+  Syllable::printISTYPE(bool first, bool last) const // O(1)
   {
     unsigned int final=0;
 
@@ -120,19 +123,22 @@ namespace rVex
     final<<=9;
     final|=(this->shortImmediate & 0x1FF);
 
-    final<<=2;
+    final<<=1;
+    final|=last;
+    final<<=1;
+    final|=first;
 
     return final;
   }
 
   unsigned int
-  Syllable::printILTYPE() const // O(1)
+  Syllable::printILTYPE(bool first, bool last) const // O(1)
   {
     return 0xFFFFFFFF;
   }
 
   unsigned int
-  Syllable::printBRANCH() const // O(1)
+  Syllable::printBRANCH(bool first, bool last) const // O(1)
   {
     unsigned int final=0;
 
@@ -150,13 +156,16 @@ namespace rVex
     final<<=3;
     final|=this->brDestiny;
 
-    final<<=2;
+    final<<=1;
+    final|=last;
+    final<<=1;
+    final|=first;
 
     return final;
   }
 
   unsigned int
-  Syllable::printRTYPE_BS() const // O(1)
+  Syllable::printRTYPE_BS(bool first, bool last) const // O(1)
   {
     unsigned int final=0;
 
@@ -182,13 +191,16 @@ namespace rVex
     final<<=3;
     final|=this->brDestiny;
 
-    final<<=2;
+    final<<=1;
+    final|=last;
+    final<<=1;
+    final|=first;
 
     return final;
   }
 
   unsigned int
-  Syllable::printMEMLOADTYPE() const // O(1)
+  Syllable::printMEMLOADTYPE(bool first, bool last) const // O(1)
   {
     unsigned int final=0;
 
@@ -211,13 +223,16 @@ namespace rVex
     final<<=9;
     final|=this->shortImmediate;
 
-    final<<=2;
+    final<<=1;
+    final|=last;
+    final<<=1;
+    final|=first;
 
     return final;
   }
 
   unsigned int
-  Syllable::printMEMSTORETYPE() const // O(1)
+  Syllable::printMEMSTORETYPE(bool first, bool last) const // O(1)
   {
     unsigned int final=0;
 
@@ -240,7 +255,10 @@ namespace rVex
     final<<=9;
     final|=this->shortImmediate;
 
-    final<<=2;
+    final<<=1;
+    final|=last;
+    final<<=1;
+    final|=first;
 
     return final;
   }
