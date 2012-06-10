@@ -45,7 +45,7 @@ namespace PBIW
     }
     
     void
-    PBIWOptimizerJoinPatterns::preprocessPatterns()
+    PBIWOptimizerJoinPatterns::preprocessPatterns()  // |codedPatterns|
     {
         PBIWOptimizerJoinPatterns::PBIWPatternList::iterator it;
         
@@ -239,11 +239,10 @@ namespace PBIW
     }
     
     void
-    PBIWOptimizerJoinPatterns::processJoinPatterns()
-    {
-        Optimizers::JoinPattern::PatternBuilder patternBuilder;        
-            
-        preprocessPatterns();
+    PBIWOptimizerJoinPatterns::processJoinPatterns() // 2*|codedInstructions| + 2*|codedInstructions| + |codedPatterns| +
+    {                                                //                          2*|codedPatterns| + |codedInstructions| = 
+        Optimizers::JoinPattern::PatternBuilder patternBuilder;
+        preprocessPatterns(); // |codedPatterns|
 
         IPBIWPattern* temp = patterns.back();
         patterns.pop_back();
@@ -260,16 +259,11 @@ namespace PBIW
                 (itInner1 < (*itBase1).end()) && (itInner2 < (*itBase2).end());
                 itInner1++, itInner2++)
             {
-                IPBIWPattern* first = *(std::find(patterns.begin(), patterns.end(), *itInner1));
-                IPBIWPattern* second = *(std::find(patterns.begin(), patterns.end(), *itInner2));
+                patternBuilder.startWithPattern(*itInner1);
+                patterns.push_back(processJoinningPatterns(*itInner1, *itInner2, patternBuilder));
 
-                patterns.push_back(patternBuilder.startWithPattern(first).joinWithPattern(second).buildPattern());
-
-                patterns.erase(std::find(patterns.begin(), patterns.end(), first));
-                patterns.erase(std::find(patterns.begin(), patterns.end(), second));
-
-                (*itBase1).erase((*itBase1).begin());
-                (*itBase2).erase((*itBase2).begin());                   
+                itBase2->pop_front();
+                itBase2->pop_back();                                                
             }            
         }
 
@@ -353,12 +347,9 @@ namespace PBIW
                                     {
                                         while(itBase2->size() > 1)
                                         {
-                                            patterns.push_back(
-                                            patternBuilder.startWithPattern(itBase2->front()).joinWithPattern(itBase2->back()).buildPattern());
+                                            patternBuilder.startWithPattern(itBase2->front());
+                                            patterns.push_back(processJoinningPatterns(itBase2->front(), itBase2->back(), patternBuilder));
                                             
-                                            patterns.erase(std::find(patterns.begin(), patterns.end(), itBase2->front()));
-                                            patterns.erase(std::find(patterns.begin(), patterns.end(), itBase2->back()));
-
                                             itBase2->pop_front();
                                             itBase2->pop_back();                                                
                                         }
@@ -405,13 +396,8 @@ namespace PBIW
                         if((!oneOperation.at(types[j]).empty()) &&
                             (tempPattern->getOperation(j)->getOpcode() == 0))
                         {
-                            patterns.erase(std::find(patterns.begin(), patterns.end(), tempPattern));
-
-                            tempPattern = patternBuilder
-                            .joinWithPattern(*(std::find(patterns.begin(), patterns.end(), oneOperation.at(types[j]).front())))
-                            .buildPattern();
-
-                            patterns.erase(std::find(patterns.begin(), patterns.end(), oneOperation.at(types[j]).front()));
+                            tempPattern = processJoinningPatterns(tempPattern, *(oneOperation.at(types[j]).begin()), patternBuilder);
+                            
                             oneOperation.at(types[j]).pop_front();
 
                             patterns.push_back(tempPattern);
@@ -423,13 +409,8 @@ namespace PBIW
                             {
                                 if(tempPattern->getOperation(k)->getOpcode() == 0)
                                 {
-                                    patterns.erase(std::find(patterns.begin(), patterns.end(), tempPattern));
-
-                                    tempPattern = patternBuilder
-                                    .joinWithPattern(*(std::find(patterns.begin(), patterns.end(), oneOperation.at(types[4]).front())))
-                                    .buildPattern();
-
-                                    patterns.erase(std::find(patterns.begin(), patterns.end(), oneOperation.at(types[4]).front()));
+                                    tempPattern = processJoinningPatterns(tempPattern, *(oneOperation.at(types[4]).begin()), patternBuilder);
+                                    
                                     oneOperation.at(types[4]).pop_front();
 
                                     patterns.push_back(tempPattern);
@@ -469,13 +450,8 @@ namespace PBIW
                         if((!oneOperation.at(types[j]).empty()) && ((syllableType[j] == j) ||
                             (tempPattern1->getOperation(j)->getOpcode() == 0)))
                         {
-                            patterns.push_back(
-                            patternBuilder
-                            .joinWithPattern(*(std::find(patterns.begin(), patterns.end(), oneOperation.at(types[j]).front())))
-                            .buildPattern());
-
-                            patterns.erase(std::find(patterns.begin(), patterns.end(), tempPattern1));
-                            patterns.erase(std::find(patterns.begin(), patterns.end(), oneOperation.at(types[j]).front()));
+                            patterns.push_back(processJoinningPatterns(tempPattern1, *(oneOperation.at(types[j]).begin()), patternBuilder));
+                            
                             oneOperation.at(types[j]).pop_front();
                             j = 4;
                             tempPattern1 = NULL;
@@ -486,13 +462,8 @@ namespace PBIW
                             {
                                 if(tempPattern1->getOperation(k)->getOpcode() == 0)
                                 {
-                                    patterns.push_back(
-                                    patternBuilder
-                                    .joinWithPattern(*(std::find(patterns.begin(), patterns.end(), oneOperation.at(types[4]).front())))
-                                    .buildPattern());
+                                    patterns.push_back(processJoinningPatterns(tempPattern1, *(oneOperation.at(types[4]).begin()), patternBuilder));
 
-                                    patterns.erase(std::find(patterns.begin(), patterns.end(), tempPattern1));
-                                    patterns.erase(std::find(patterns.begin(), patterns.end(), oneOperation.at(types[4]).front()));
                                     oneOperation.at(types[4]).pop_front(); 
                                 }
                             }
@@ -536,13 +507,8 @@ namespace PBIW
                         ((tempPattern1->getOperation(j)->getType() != syllableType[j]) ||
                         (tempPattern1->getOperation(j)->getOpcode() == 0)))
                         {
-                            patterns.erase(std::find(patterns.begin(), patterns.end(), tempPattern1));
+                            tempPattern1 = processJoinningPatterns(tempPattern1, *(oneOperation.at(types[j]).begin()), patternBuilder);
 
-                            tempPattern1 = patternBuilder
-                            .joinWithPattern(*(std::find(patterns.begin(), patterns.end(), oneOperation.at(types[j]).front())))
-                            .buildPattern();
-
-                            patterns.erase(std::find(patterns.begin(), patterns.end(), oneOperation.at(types[j]).front()));
                             oneOperation.at(types[j]).pop_front();
 
                             j = 4;
@@ -554,13 +520,8 @@ namespace PBIW
                             {
                                 if(tempPattern1->getOperation(k)->getOpcode() == 0)
                                 {
-                                    patterns.erase(std::find(patterns.begin(), patterns.end(), tempPattern1));
+                                    tempPattern1 = processJoinningPatterns(tempPattern1, *(oneOperation.at(types[4]).begin()), patternBuilder);
 
-                                    tempPattern1 = patternBuilder
-                                    .joinWithPattern(*(std::find(patterns.begin(), patterns.end(), oneOperation.at(types[4]).front())))
-                                    .buildPattern();
-
-                                    patterns.erase(std::find(patterns.begin(), patterns.end(), oneOperation.at(types[4]).front()));
                                     oneOperation.at(types[4]).pop_front();
 
                                     j = 4;
@@ -583,12 +544,27 @@ namespace PBIW
 
         patterns.push_back(temp);
 
-        updatePatterns();
+        updatePatterns(); //|codedPatterns| + |codedInstructions|
     }
     
+    IPBIWPattern*
+    PBIWOptimizerJoinPatterns::processJoinningPatterns(IPBIWPattern* pattern1, IPBIWPattern* pattern2, Optimizers::JoinPattern::PatternBuilder& patternBuilder)
+    {
+        IPBIWPattern* tempPattern;
+        
+        patterns.erase(std::find(patterns.begin(), patterns.end(), pattern1));
+        
+        tempPattern = patternBuilder
+        .joinWithPattern(*(std::find(patterns.begin(), patterns.end(), pattern2)))
+        .buildPattern();
+
+        patterns.erase(std::find(patterns.begin(), patterns.end(), pattern2));
+        
+        return tempPattern;
+    }
     
     void
-    PBIWOptimizerJoinPatterns::updatePatterns()
+    PBIWOptimizerJoinPatterns::updatePatterns() // |codedPatterns| + |codedInstructions|
     {
         PBIWPatternList::iterator it1;
         PBIWPatternList::iterator it2;
@@ -610,7 +586,7 @@ namespace PBIW
     }
     
     void
-    PBIWOptimizerJoinPatterns::updateAddressInstruction(IPBIWPattern* pattern1, IPBIWPattern* pattern2)
+    PBIWOptimizerJoinPatterns::updateAddressInstruction(IPBIWPattern* pattern1, IPBIWPattern* pattern2) // |codedInstructions|
     {
         AllInstructions instructions = pattern2->getInstructionsThatUseIt();
         AllInstructions::iterator it;
@@ -635,16 +611,10 @@ namespace PBIW
             (itInner1 < twoOperation.at(index1).end()) && (itInner2 < twoOperation.at(index2).end());
             itInner1++, itInner2++)
         {
-            IPBIWPattern* first = *(std::find(patterns.begin(), patterns.end(), *itInner1));
-            IPBIWPattern* second = *(std::find(patterns.begin(), patterns.end(), *itInner2));
-            
             Optimizers::JoinPattern::PatternBuilder patternBuilder;
             
-            patterns.push_back(
-            patternBuilder.startWithPattern(first).joinWithPattern(second).buildPattern());
-            
-            patterns.erase(std::find(patterns.begin(), patterns.end(), first));
-            patterns.erase(std::find(patterns.begin(), patterns.end(), second));
+            patternBuilder.joinWithPattern(*itInner1);
+            patterns.push_back(processJoinningPatterns(*itInner1, *itInner2, patternBuilder));
             
             twoOperation.at(index1).erase(itInner1);
             twoOperation.at(index2).erase(itInner2);

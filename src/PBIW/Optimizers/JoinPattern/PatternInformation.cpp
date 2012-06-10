@@ -32,10 +32,10 @@ namespace PBIW
       }
 
       void
-      PatternInformation::setPattern(IPBIWPattern* pattern)
+      PatternInformation::setPattern(IPBIWPattern* pattern) // |codedInstructions|
       {
         this->pattern = pattern;
-        this->instructions = pattern->getInstructionsThatUseIt();
+        this->instructions = pattern->getInstructionsThatUseIt(); // |codedInstructions|
         
         IPBIWPattern::OperationVector::const_iterator it;
         IPBIWPattern::OperationVector operations = pattern->getOperations();
@@ -51,7 +51,7 @@ namespace PBIW
       }
       
       void
-      PatternInformation::updateInstructionsPointers(IPBIWPattern* pattern)
+      PatternInformation::updateInstructionsPointers(IPBIWPattern* pattern) // |codedInstructions|
       {
         InstructionCollection::iterator instructionIt;
 
@@ -64,7 +64,7 @@ namespace PBIW
       }
       
       void
-      PatternInformation::updateInstructionsAnnulationBits()
+      PatternInformation::updateInstructionsAnnulationBits() // |codedInstructions|
       {
         InstructionCollection::iterator instructionIt;
         
@@ -98,7 +98,7 @@ namespace PBIW
        * object.
        */
       void 
-      PatternInformation::updateSlots(IPBIWPattern* newPattern)
+      PatternInformation::updateSlots(IPBIWPattern* newPattern) // |operations|
       {
         OperationsCollections newSlots(4, OperationInformation());
         OperationsCollections::iterator it;

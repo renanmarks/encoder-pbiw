@@ -19,7 +19,7 @@ namespace PBIW
     namespace JoinPattern
     {
       IPBIWPattern*
-      PatternBuilder::buildPattern()
+      PatternBuilder::buildPattern() // 2*|codedInstructions| + 2*|codedInstructions| + |codedPatterns| = 4|codedInstructions|+ |codedPatterns|
       {
         // TODO: Make this non-dependent of the croncrete rVex96Pattern
         IPBIWPattern* returnedPattern = new rVex96PBIWPattern();
@@ -45,14 +45,15 @@ namespace PBIW
           
         // ... reorganize it and use itself to update our operations
         // position information!
-        reorganizeOperations(returnedPattern);     
+        reorganizeOperations(returnedPattern);   
+        std::cout << "BuildPattern " << std::endl;
         return returnedPattern;
       }
       
       void 
-      PatternBuilder::reorganizeOperations(IPBIWPattern* returnedPattern)
+      PatternBuilder::reorganizeOperations(IPBIWPattern* returnedPattern) 
       {
-        returnedPattern->reorganize(false);
+        returnedPattern->reorganize(false); // O(1)
         
         PatternInformationList::iterator it;
         
@@ -60,18 +61,18 @@ namespace PBIW
              it != patternInformations.end();
              it++)
         {
-          it->updateSlots(returnedPattern); // Update our slots!
-          it->updateInstructionsAnnulationBits(); // Update the annulation bits!
-          it->updateInstructionsPointers(returnedPattern); // CHANGE ALL THE POINTERS! \o>
+          it->updateSlots(returnedPattern); // Update our slots!  |operations| = O(1)
+          it->updateInstructionsAnnulationBits(); // Update the annulation bits!  |codedInstructions|
+          it->updateInstructionsPointers(returnedPattern); // CHANGE ALL THE POINTERS! \o>  |codedInstructions|
         }
       }
         
       PatternBuilder&
-      PatternBuilder::startWithPattern(IPBIWPattern* pattern)
+      PatternBuilder::startWithPattern(IPBIWPattern* pattern) // |codedInstructions|
       {
         PatternInformation patternInfo;
         patternInfo.setPattern(pattern);
-        clear();
+          clear();
         
         patternInformations.push_back(patternInfo);
         
@@ -79,10 +80,10 @@ namespace PBIW
       }
         
       PatternBuilder&
-      PatternBuilder::joinWithPattern(IPBIWPattern* pattern)
+      PatternBuilder::joinWithPattern(IPBIWPattern* pattern) // |codedInstructions|
       {
         PatternInformation patternInfo;
-        patternInfo.setPattern(pattern);
+        patternInfo.setPattern(pattern); // |codedInstructions|
         
         patternInformations.push_back(patternInfo);
         

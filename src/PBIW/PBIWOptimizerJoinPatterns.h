@@ -12,10 +12,12 @@
 #include <vector>
 #include "Interfaces/IPBIWOptimizerJoinPatterns.h"
 #include "BaseOptimizer.h"
+#include "Optimizers/JoinPattern/PatternBuilder.h"
 
 namespace PBIW
 {
     using namespace Interfaces;
+    using namespace Optimizers::JoinPattern;
     
     class PBIWOptimizerJoinPatterns : public BaseOptimizer
     {
@@ -36,6 +38,8 @@ namespace PBIW
         virtual void preprocessPatterns();
         
         virtual void processJoinPatterns();
+        
+        virtual IPBIWPattern* processJoinningPatterns(IPBIWPattern* pattern1, IPBIWPattern* pattern2, Optimizers::JoinPattern::PatternBuilder& patternBuilder);
         
         virtual void updatePatterns();
         
