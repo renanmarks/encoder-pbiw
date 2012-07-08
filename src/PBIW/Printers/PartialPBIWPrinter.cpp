@@ -9,6 +9,7 @@
 #include "PartialPBIWPrinter.h"
 #include "src/PBIW/Interfaces/IPBIWPattern.h"
 #include "src/PBIW/Interfaces/IPBIWInstruction.h"
+#include "src/rVex/Syllable.h"
 
 namespace PBIW
 {
@@ -137,9 +138,10 @@ architecture Behav of i_mem is\n\
     }
     
     printer << "\", -- ";
-      
-    std::list<rVex::Syllable*> syllablesPacked = instruction.getSyllableReferences();
-    std::list<rVex::Syllable*>::const_iterator itSyllable;
+    
+    
+    std::list<GenericAssembly::Interfaces::IOperation*> syllablesPacked = instruction.getSyllableReferences();
+    std::list<GenericAssembly::Interfaces::IOperation*>::const_iterator itSyllable;
     
     for (itSyllable = syllablesPacked.begin(); itSyllable != syllablesPacked.end(); itSyllable++)
     {

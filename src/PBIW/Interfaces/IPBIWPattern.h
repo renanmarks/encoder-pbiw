@@ -8,13 +8,15 @@
 #ifndef IPBIWPATTERN_H
 #define	IPBIWPATTERN_H
 
-#include "IOperation.h"
-#include "IPBIWPrinter.h"
+#include <vector>
 
 namespace PBIW
 {
   namespace Interfaces
   {
+    class IOperation;
+    class IPBIWPrinter;
+    
     /**
      * PBIW Pattern interface
      */

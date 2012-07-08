@@ -71,11 +71,11 @@ namespace PBIW
     virtual short getBrReadOperand() const
     { return readBrOperand; }
     
-    virtual void setImmediateSwitch(rVex::Syllable::ImmediateSwitch::Type type)
-    { immediateSwitch = type; }
+    virtual void setImmediateSwitch(int type)
+    { immediateSwitch = static_cast<rVex::Syllable::ImmediateSwitch::Type>(type); }
     
-    virtual rVex::Syllable::ImmediateSwitch::Type getImmediateSwitch() const
-    { return immediateSwitch; }
+    virtual int getImmediateSwitch() const
+    { return static_cast<int>(immediateSwitch); }
     
     virtual void addOperand(const IOperand& operand);
     
@@ -93,12 +93,12 @@ namespace PBIW
     virtual bool operator!=(const IOperation&) const;
     
     virtual void
-    setType(rVex::Syllable::SyllableType::Type type)
-    { this->type=type; }
+    setType(int type)
+    { this->type=static_cast<rVex::Syllable::SyllableType::Type>(type); }
 
-    virtual rVex::Syllable::SyllableType::Type
+    virtual int
     getType() const
-    { return type; }
+    { return static_cast<int>(type); }
             
   private:
     rVex::Syllable::SyllableType::Type type;

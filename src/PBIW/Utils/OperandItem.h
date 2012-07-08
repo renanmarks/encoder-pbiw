@@ -8,13 +8,9 @@
 #ifndef OPERANDITEM_H
 #define	OPERANDITEM_H
 
+#include "src/GenericAssembly/Interfaces/IOperation.h"
 #include "src/PBIW/Operand.h"
 #include <string>
-
-namespace rVex
-{
-  class Syllable;
-}
 
 namespace PBIW
 {
@@ -36,12 +32,12 @@ namespace PBIW
           GRSource, GRDestiny, BRSource, BRDestiny, Imm
         } Type;
         
-        explicit OperandItem(PBIW::Operand* operand, Type type, const rVex::Syllable* syllable)
+        explicit OperandItem(PBIW::Operand* operand, Type type, const GenericAssembly::Interfaces::IOperation* syllable)
           : operand( operand ), type(type), syllableBelonged(syllable)
         {}
         
         OperandItem(const OperandItem& other)
-          : operand( new PBIW::Operand( *(other.getOperand()) ) ), type(other.getType()), syllableBelonged(other.getSyllableBelonged())
+          : operand( new PBIW::Operand( *(other.getOperand()) ) ), type(other.getType()), syllableBelonged(other.getOperationBelonged())
         {}
         
         ~OperandItem()
@@ -54,7 +50,7 @@ namespace PBIW
             delete this->operand;
             this->operand = new PBIW::Operand( *(other.getOperand()) );
             this->type = other.getType();
-            this->syllableBelonged = other.getSyllableBelonged();
+            this->syllableBelonged = other.getOperationBelonged();
           }
           
           return *this;
@@ -77,17 +73,17 @@ namespace PBIW
         { return operand; }
 
         void
-        setSyllableBelonged(rVex::Syllable* syllableBelonged)
+        setOperationBelonged(GenericAssembly::Interfaces::IOperation* syllableBelonged)
         { this->syllableBelonged=syllableBelonged; }
 
-        const rVex::Syllable*
-        getSyllableBelonged() const
+        const GenericAssembly::Interfaces::IOperation*
+        getOperationBelonged() const
         { return syllableBelonged; }
       
       private:
         PBIW::Operand* operand;
         Type type;
-        const rVex::Syllable* syllableBelonged;
+        const GenericAssembly::Interfaces::IOperation* syllableBelonged;
       };
   }
 }

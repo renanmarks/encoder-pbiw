@@ -62,7 +62,7 @@ namespace PBIW
     /**
      * Buffer used to know the syllables coded at each iteration
      */
-    typedef std::list<rVex::Syllable*> SyllableReferenceList;
+    typedef std::list<GenericAssembly::Interfaces::IOperation*> SyllableReferenceList;
     SyllableReferenceList syllablesBuffer;
     
     typedef std::list<IPBIWInstruction*> PBIWInstructionList;

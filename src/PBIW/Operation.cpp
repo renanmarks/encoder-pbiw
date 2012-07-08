@@ -155,7 +155,7 @@ namespace PBIW
           return false;
     }
     
-    if ( immediateSwitch != other.getImmediateSwitch() )
+    if ( immediateSwitch != static_cast<rVex::Syllable::ImmediateSwitch::Type>(other.getImmediateSwitch()) )
       return false;
     
     if (thisOperands.size() != otherOperands.size())

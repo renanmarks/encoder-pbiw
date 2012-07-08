@@ -8,6 +8,7 @@
 #include "PartialPBIWDebugPrinter.h"
 #include "src/PBIW/Interfaces/IPBIWPattern.h"
 #include "src/PBIW/Interfaces/IPBIWInstruction.h"
+#include "src/PBIW/Interfaces/IOperation.h"
 
 namespace PBIW
 {
@@ -58,8 +59,8 @@ namespace PBIW
     IPBIWInstruction::OperandVector operands = instruction.getOperands(); // O(1)
     IPBIWInstruction::OperandVector::const_iterator it;
     
-    std::list<rVex::Syllable*>::const_iterator sIt;
-    std::list<rVex::Syllable*> references = instruction.getSyllableReferences(); // O(1)
+    std::list<GenericAssembly::Interfaces::IOperation*>::const_iterator sIt;
+    std::list<GenericAssembly::Interfaces::IOperation*> references = instruction.getSyllableReferences(); // O(1)
     
     printer << "\tInstruction Addr: " << instruction.getAddress() << std::endl;
     printer << "\tPoints to pattern at addr: " << instruction.getPattern()->getAddress() << std::endl;

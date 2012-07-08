@@ -8,6 +8,11 @@
 #ifndef GENERICASSEMBLY_IINSTRUCTION_H
 #define	GENERICASSEMBLY_IINSTRUCTION_H
 
+#include <deque>
+#include <set>
+
+#include "src/PBIW/Interfaces/IPBIWInstruction.h"
+
 namespace GenericAssembly
 {
   namespace Interfaces
@@ -22,6 +27,12 @@ namespace GenericAssembly
       
       virtual ~IInstruction() { }
 
+      virtual void addReferencePBIWInstruction(const PBIW::Interfaces::IPBIWInstruction&) = 0;
+      virtual std::set<const PBIW::Interfaces::IPBIWInstruction*> getPBIWInstructions() const = 0;
+      
+      virtual unsigned int getAddress() const = 0;
+      virtual void setAddress(unsigned int) = 0;
+      
       /**
        * Informs if this assembly instruction is pointed by a label.
        */

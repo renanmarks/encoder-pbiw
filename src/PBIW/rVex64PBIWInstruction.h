@@ -59,29 +59,22 @@ namespace PBIW
 
       virtual IPBIWInstruction* clone() const;
       
-      virtual void setAddress(unsigned int addr)
-      { address = addr; }
+      virtual void setAddress(unsigned int addr);
 
-      virtual unsigned int getAddress() const
-      { return address; }
+      virtual unsigned int getAddress() const;
 
       virtual void setLabel(const ILabel&);
-      virtual ILabel* getLabel() const
-      { return label; }
+      virtual ILabel* getLabel() const;
 
       virtual void pointToPattern(IPBIWPattern& pattern);
       
-      virtual void setCodingOperation(IOperation& operation)
-      { codingOperation = &dynamic_cast<Operation&>(operation); }
+      virtual void setCodingOperation(IOperation& operation);
       
-      virtual IOperation* getCodingOperation() const
-      { return codingOperation; }
+      virtual IOperation* getCodingOperation() const;
 
-      virtual rVex96PBIWPattern* getPattern() const
-      { return this->pattern; }
+      virtual rVex96PBIWPattern* getPattern() const;
 
-      virtual bool containsImmediate() const
-      { return immediate.isImmediate9Bits() || immediate.isImmediate12Bits(); }
+      virtual bool containsImmediate() const;
 
       virtual const IOperand& containsOperand(const IOperand&) const;
 
@@ -99,28 +92,22 @@ namespace PBIW
 
       virtual bool hasControlOperationWithLabelDestiny();
 
-      virtual std::string getLabelDestiny() const
-      { return destinyLabel; }
+      virtual std::string getLabelDestiny() const;
 
-      virtual void setLabelDestiny(std::string label)
-      { this->destinyLabel = label; }
+      virtual void setLabelDestiny(std::string label);
 
-      virtual void setImmediateValue(int value)
-      { immediate.setValue(value); }
+      virtual void setImmediateValue(int value);
 
-      virtual int readOperandQuantity() const
-      { return operands.size(); }
-      virtual int writeOperandQuantity() const
-      { return 0; }
+      virtual int readOperandQuantity() const;
+      virtual int writeOperandQuantity() const;
 
       virtual void print(IPBIWPrinter&) const;
 
       virtual OperandVector getOperands() const;
 
-      virtual void setSyllableReferences(const std::list<rVex::Syllable*>& list);
+      virtual void setSyllableReferences(const std::list<GenericAssembly::Interfaces::IOperation*>& list);
 
-      virtual std::list<rVex::Syllable*> getSyllableReferences() const
-      { return syllablesPacked; }
+      virtual std::list<GenericAssembly::Interfaces::IOperation*> getSyllableReferences() const;
 
       virtual void setBranchDestiny(const IPBIWInstruction& branchDestiny);
 

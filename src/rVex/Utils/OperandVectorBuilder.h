@@ -22,9 +22,9 @@ namespace rVex
     class OperandVectorBuilder
     {
     public:
-      void insertRegister(int value, OperandItem::Type type, const rVex::Syllable*);
-      void insertRegisters(const std::vector<unsigned int>& values, OperandItem::Type type, const rVex::Syllable*);
-      void insertImmediate(int value, Operand::Immediate::Type, const rVex::Syllable*);
+      void insertRegister(int value, OperandItem::Type type, const GenericAssembly::Interfaces::IOperation*);
+      void insertRegisters(const std::vector<unsigned int>& values, OperandItem::Type type, const GenericAssembly::Interfaces::IOperation*);
+      void insertImmediate(int value, Operand::Immediate::Type, const GenericAssembly::Interfaces::IOperation*);
       
       void clearOperandVector()
       { items.clear(); }

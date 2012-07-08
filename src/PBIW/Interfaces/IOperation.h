@@ -37,8 +37,8 @@ namespace PBIW
       virtual void setBrReadOperand(short opcode) = 0;
       virtual short getBrReadOperand() const = 0;
       
-      virtual void setImmediateSwitch(rVex::Syllable::ImmediateSwitch::Type) = 0;
-      virtual rVex::Syllable::ImmediateSwitch::Type getImmediateSwitch() const = 0;
+      virtual void setImmediateSwitch(int) = 0;
+      virtual int getImmediateSwitch() const = 0;
 
       virtual void addOperand(const IOperand&) = 0;
 
@@ -47,8 +47,8 @@ namespace PBIW
       
       virtual void updateIndexes(int oldIndex, int newIndex) = 0;
       
-      virtual void setType(rVex::Syllable::SyllableType::Type) = 0;
-      virtual rVex::Syllable::SyllableType::Type getType() const = 0;
+      virtual void setType(int) = 0;
+      virtual int getType() const = 0;
       
       virtual bool operator==(const IOperation&) const = 0;
       virtual bool operator!=(const IOperation&) const = 0;        

@@ -14,9 +14,9 @@
 #include "IOperand.h"
 #include "IPBIWPattern.h"
 #include "IPBIWPrinter.h"
-#include "src/rVex/Syllable.h"
 #include "src/PBIW/Utils/OperandItem.h"
 #include "ILabel.h"
+#include "src/GenericAssembly/Interfaces/IOperation.h"
 
 namespace PBIW
 {
@@ -186,12 +186,12 @@ namespace PBIW
         /**
          * Set the syllables that were codified in this instruction.
          */
-        virtual void setSyllableReferences(const std::list<rVex::Syllable*>&) = 0;
+        virtual void setSyllableReferences(const std::list<GenericAssembly::Interfaces::IOperation*>&) = 0;
         
         /**
          * Returns the syllables that were codified in this instruction.
          */
-        virtual std::list<rVex::Syllable*> getSyllableReferences() const = 0;
+        virtual std::list<GenericAssembly::Interfaces::IOperation*> getSyllableReferences() const = 0;
     };
 
   }
