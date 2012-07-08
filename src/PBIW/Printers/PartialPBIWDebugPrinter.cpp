@@ -9,6 +9,7 @@
 #include "src/PBIW/Interfaces/IPBIWPattern.h"
 #include "src/PBIW/Interfaces/IPBIWInstruction.h"
 #include "src/PBIW/Interfaces/IOperation.h"
+#include "src/PBIW/Interfaces/IPBIW.h"
 
 namespace PBIW
 {
@@ -21,7 +22,22 @@ namespace PBIW
     
     printer << "\tPattern Addr: " << pattern.getAddress() << std::endl;
     printer << "\tReuse count: " << pattern.getUsageCounter() << std::endl;
-
+    printer << "\tInstr. use it: ";
+    
+    typedef std::deque<IPBIWInstruction*> AddrInstruction;
+    AddrInstruction addrInstruction = pattern.getInstructionsThatUseIt();
+    AddrInstruction::const_iterator it;
+    
+    for(it = addrInstruction.begin(); it < addrInstruction.end(); it++)
+    {
+        if(it != addrInstruction.begin())
+            printer  << ", ";
+        
+        printer << (*it)->getAddress();        
+    }
+    
+    printer << std::endl;
+    
     for (unsigned int i = 0; i < operationCount; i++) // O(|operationCount|)
     {
       unsigned short opcode = pattern[i]->getOpcode();
@@ -58,12 +74,23 @@ namespace PBIW
   {
     IPBIWInstruction::OperandVector operands = instruction.getOperands(); // O(1)
     IPBIWInstruction::OperandVector::const_iterator it;
+    IPBIWInstruction::AnnulationBits::const_iterator aBit;
     
     std::list<GenericAssembly::Interfaces::IOperation*>::const_iterator sIt;
-    std::list<GenericAssembly::Interfaces::IOperation*> references = instruction.getSyllableReferences(); // O(1)
+    std::list<GenericAssembly::Interfaces::IOperation*> references = instruction.getOperationReferences(); // O(1)
+    std::vector<bool> annulBits = instruction.getAnnulBits();
     
     printer << "\tInstruction Addr: " << instruction.getAddress() << std::endl;
     printer << "\tPoints to pattern at addr: " << instruction.getPattern()->getAddress() << std::endl;
+    printer << "\tAnnul Bits: ";
+            
+    for(aBit = annulBits.begin();
+        aBit < annulBits.end();
+        aBit++)
+    {
+        printer << *aBit;
+    }
+    printer << std::endl;
     
     printer << "\tReferences : " << std::endl;
     

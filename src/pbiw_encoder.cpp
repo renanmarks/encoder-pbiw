@@ -18,16 +18,20 @@ using namespace std;
 #include "PBIW/Printers/PartialPBIWPrinter.h"
 #include "PBIW/Printers/PartialPBIWDebugPrinter.h"
 #include "VexParser/VexTypes.h"
+#include "PBIW/BaseOptimizer.h"
+#include "PBIW/PBIWOptimizerJoinPatterns.h"
+#include "PBIW/Interfaces/IPBIWPattern.h"
+#include "PBIW/PBIWOptimizerDataSet.h"
 //#include "Time/ExecutionTime.h"
 
 
-bool execute(const std::string&, const std::string&, bool, bool, bool);
+bool execute(const std::string&, const std::string&, bool, bool, bool, PBIW::PBIWOptimizerDataSet&);
 
 int
 main(int argc, char** argv)
 {
-  //  Time::ExecutionTime time;  
-  //  time.start();
+  PBIW::PBIWOptimizerDataSet dataSet;
+  
   std::string flags;
   std::string version = "2.0";
 
@@ -80,7 +84,7 @@ main(int argc, char** argv)
     {
       std::string filename=argv[ai];
 
-      execute(filename, flags, debugEnabled, traceParsing, traceScanning);
+      execute(filename, flags, debugEnabled, traceParsing, traceScanning, dataSet);
     }
   }
 
@@ -96,7 +100,8 @@ main(int argc, char** argv)
   }
 
   //  time.finish();
-
+//  dataSet.minimumPatterns();
+  
   return 0;
 }
 
@@ -106,7 +111,7 @@ main(int argc, char** argv)
  * @returns if the parsing was OK or not;
  */
 bool
-execute(const std::string& filename, const std::string& flags, bool debugEnabled, bool traceParsing, bool traceScanning)
+execute(const std::string& filename, const std::string& flags, bool debugEnabled, bool traceParsing, bool traceScanning, PBIW::PBIWOptimizerDataSet& dataSet)
 {
   // read a file with expressions
   std::fstream infile(filename.c_str());
@@ -159,8 +164,8 @@ execute(const std::string& filename, const std::string& flags, bool debugEnabled
   context.processLabels(); // O(1)
   context.print(); // O(|instructions|)
 
-  
-  
+  PBIW::PBIWOptimizerJoinPatterns optimizer;  
+    
   // Instantiate the PBIW encoder
   PBIW::FullPBIW pbiw;
   pbiw.setDebug(context.isDebuggingEnabled());
@@ -169,11 +174,23 @@ execute(const std::string& filename, const std::string& flags, bool debugEnabled
   {
     PBIW::PartialPBIWDebugPrinter pbiwDebugPrinter(std::cout);
     context.encodePBIW(pbiw); // O(|codedPatterns|^2)
-
+    
+    pbiw.registerOptimizer(optimizer);
+    pbiw.runOptimizers();
+  
+    dataSet.setOptimizers(optimizer);
+    
     pbiw.printInstructions(pbiwDebugPrinter);
     pbiw.printPatterns(pbiwDebugPrinter);
     pbiw.printStatistics(pbiwDebugPrinter);
+    
+    std::cout << " --- Begin post optimizer data ---" << std::endl;
+    
+    optimizer.printInstructions(pbiwDebugPrinter);
+    optimizer.printPatterns(pbiwDebugPrinter); 
+    optimizer.printStatistics(pbiwDebugPrinter, context.getInstructions().size(), pbiw.getPatterns().size(), pbiw.getInstructions().size());
   } 
+
   else
   {
     std::string imemFilename=filename;
@@ -196,9 +213,16 @@ execute(const std::string& filename, const std::string& flags, bool debugEnabled
 
     context.encodePBIW(pbiw); // O(|codedPatterns|^2)
     
+    pbiw.registerOptimizer(optimizer);
+    pbiw.runOptimizers();
+    
     pbiw.printStatistics(statisticsPBIWPrinter);
-    pbiw.printInstructions(imemPBIWPrinter);
-    pbiw.printPatterns(pachePBIWPrinter);
+//    pbiw.printInstructions(imemPBIWPrinter);
+//    pbiw.printPatterns(pachePBIWPrinter);
+    
+    optimizer.printStatistics(statisticsPBIWPrinter, context.getInstructions().size(), pbiw.getPatterns().size(), pbiw.getInstructions().size());
+    optimizer.printInstructions(imemPBIWPrinter);
+    optimizer.printPatterns(pachePBIWPrinter);    
   }
 
   return result;

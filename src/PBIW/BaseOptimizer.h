@@ -30,8 +30,10 @@ namespace PBIW
     virtual void useInstructions(const std::vector<IPBIWInstruction*>&);
     virtual void usePatterns(const std::vector<IPBIWPattern*>&);
 
-    virtual void print(IPBIWPrinter& printer);
-
+    virtual void printStatistics(IPBIWPrinter&, int, int , int );
+    virtual void printInstructions(IPBIWPrinter&);
+    virtual void printPatterns(IPBIWPrinter&);
+    
     virtual std::vector<IPBIWPattern*> getPatterns() const 
     { return std::vector<IPBIWPattern*>(patterns.begin(), patterns.end()); }
     
@@ -92,9 +94,9 @@ namespace PBIW
      */
     virtual void run() = 0;
   
-  private:
-    typedef std::list<IPBIWInstruction*> PBIWInstructionList;
-    typedef std::list<IPBIWPattern*> PBIWPatternList;
+  protected:
+    typedef std::deque<IPBIWInstruction*> PBIWInstructionList;
+    typedef std::deque<IPBIWPattern*> PBIWPatternList;
     typedef std::set<IPBIWPattern*> PBIWPatternSet;
     typedef std::list<Label> LabelList;
     

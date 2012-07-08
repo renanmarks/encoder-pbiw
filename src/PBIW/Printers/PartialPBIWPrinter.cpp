@@ -140,7 +140,7 @@ architecture Behav of i_mem is\n\
     printer << "\", -- ";
     
     
-    std::list<GenericAssembly::Interfaces::IOperation*> syllablesPacked = instruction.getSyllableReferences();
+    std::list<GenericAssembly::Interfaces::IOperation*> syllablesPacked = instruction.getOperationReferences();
     std::list<GenericAssembly::Interfaces::IOperation*>::const_iterator itSyllable;
     
     for (itSyllable = syllablesPacked.begin(); itSyllable != syllablesPacked.end(); itSyllable++)

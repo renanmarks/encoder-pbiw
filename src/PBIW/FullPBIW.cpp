@@ -81,13 +81,12 @@ namespace PBIW
     }
 
     finalInstruction->pointToPattern(notConstFoundPattern);
-    finalInstruction->setSyllableReferences(syllablesBuffer);
+    finalInstruction->setOperationReferences(syllablesBuffer);
     
     syllablesBuffer.clear(); // Clear the buffer to get new references
     
     finalInstruction->setAddress(codedInstructions.size()); // Set the instruction address
     codedInstructions.push_back(finalInstruction);
-    notConstFoundPattern.incrementUsageCounter();
     
     if (finalInstruction->hasControlOperationWithLabelDestiny())
       branchingInstructions.push_back(finalInstruction);
@@ -155,6 +154,8 @@ namespace PBIW
       VexSyllableVector syllables = (*instructionIt)->getSyllables();
       VexSyllableVector::const_iterator syllableIt;
       
+      unsigned int index = 0;
+      
       for (syllableIt = syllables.begin();  // O(|syllables| * (4 + |codedPatterns|)) = O(4 * (4 + |codedPatterns|)) = 
            syllableIt < syllables.end();    // O(16 + 16|codedPatterns|)
            syllableIt++)
@@ -200,6 +201,7 @@ namespace PBIW
                   syllablesBuffer.remove(*syllableIt);
                   syllableIt--; // go back
                   newPattern->removeLastAddedOperation();
+                  finalInstruction->setAnnulBit(index-1,false);
                 } 
                 
                 syllablesBuffer.remove(*syllableIt);
@@ -281,6 +283,14 @@ namespace PBIW
         
         syllablesBuffer.push_back(*syllableIt);
         newPattern->addOperation(finalOperation);
+        
+        // Set annul bit referent this operation is used by the pattern (pointed by the instruction)
+        index = newPattern->getOperations().size();
+        
+        if(newPattern->getOperation(index-1)->getOpcode() != 0)
+        {
+          finalInstruction->setAnnulBit(index-1,true);          
+        }
       } // ... end for each syllable
       
       savePBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)

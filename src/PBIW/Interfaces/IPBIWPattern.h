@@ -8,12 +8,13 @@
 #ifndef IPBIWPATTERN_H
 #define	IPBIWPATTERN_H
 
-#include <vector>
+#include <deque>
 
 namespace PBIW
 {
   namespace Interfaces
   {
+    class IPBIWInstruction;
     class IOperation;
     class IPBIWPrinter;
     
@@ -53,7 +54,9 @@ namespace PBIW
          * @param Index of pattern to be returned
          * @return The operation
          */
+        virtual OperationVector getOperations() const = 0;
         virtual IOperation* getOperation(unsigned int) const = 0;
+        virtual void setOperation(IOperation&, int) = 0;
         virtual IOperation* operator[](const unsigned int) const = 0;
         
         /**
@@ -72,12 +75,19 @@ namespace PBIW
          */
         virtual void updateIndexes(int oldIndex, int newIndex) = 0;
         
-        virtual void incrementUsageCounter() = 0;
-        virtual int getUsageCounter() const = 0;
-        virtual void resetUsageCounter() = 0;
+        virtual void referencedByInstruction(IPBIWInstruction*) = 0;
         
+        virtual std::deque<IPBIWInstruction*> getInstructionsThatUseIt() const = 0;
+
         virtual void reorganize() = 0;
+        virtual void reorganize(bool) = 0;
         
+        virtual std::deque<IPBIWInstruction*> getInstructionsThatUseIt2() = 0;
+        
+        virtual int getUsageCounter() const = 0;
+
+        virtual void resetUsageCounter() = 0;
+
         /**
          * Print this pattern using the specified printer.
          * @param An IPBIWPrinter

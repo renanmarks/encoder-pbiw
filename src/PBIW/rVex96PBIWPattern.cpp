@@ -13,6 +13,9 @@
 #include "src/PBIW/Printers/PartialPBIWPrinter.h"
 #include "Interfaces/IPBIWInstruction.h"
 #include "src/rVex/rVex.h"
+#include "rVex64PBIWInstruction.h"
+#include "Interfaces/IPBIW.h"
+#include "Optimizers/JoinPattern/PatternInformation.h"
 //#include "Operation.h"
 
 namespace PBIW
@@ -21,12 +24,13 @@ namespace PBIW
     
   rVex96PBIWPattern::rVex96PBIWPattern(const rVex96PBIWPattern& orig)
     : address(orig.address), 
-      usageCounter(orig.usageCounter)
+      usageCounter(orig.usageCounter),
+      instructionsThatUseIt(orig.instructionsThatUseIt)
   {
     OperationVector::const_iterator it;
 
     for(it = orig.operations.begin(); 
-        it < orig.operations.end(); 
+        it != orig.operations.end(); 
         it++)
     {
       operations.push_back( (*it)->clone() );
@@ -46,7 +50,7 @@ namespace PBIW
     
     operations.clear();
   }
-
+  
   IPBIWPattern* 
   rVex96PBIWPattern::clone() const
   {
@@ -154,8 +158,20 @@ namespace PBIW
     }
   }
   
+  void
+  rVex96PBIWPattern::referencedByInstruction(IPBIWInstruction* instructionPointed)
+  {
+      this->instructionsThatUseIt.insert(instructionPointed);
+  }
+  
   void 
   rVex96PBIWPattern::reorganize() // O(1)
+  {
+    this->reorganize(true);
+  }
+  
+  void 
+  rVex96PBIWPattern::reorganize(bool updateInstructionAnnulationBits) // O(1)
   {
     Operand zero;
     
@@ -192,7 +208,7 @@ namespace PBIW
             (counterIt != 0)
           )
         {            
-            this->exchangeOperations(0, counterIt);
+            this->exchangeOperations(0, counterIt, updateInstructionAnnulationBits);
 
             counterIt--;
             it--; 
@@ -202,7 +218,7 @@ namespace PBIW
                  (counterIt != 3)
                )
         {            
-            this->exchangeOperations(3, counterIt);
+            this->exchangeOperations(3, counterIt, updateInstructionAnnulationBits);
             
             counterIt--;
             it--;
@@ -226,11 +242,11 @@ namespace PBIW
               
               if(operations.at(1)->getOpcode() > operations.at(counterIt)->getOpcode())
               {
-                  this->exchangeOperations(1, counterIt);
+                  this->exchangeOperations(1, counterIt, updateInstructionAnnulationBits);
               }                  
           }                    
                     
-          this->exchangeOperations(index, counterIt);
+          this->exchangeOperations(index, counterIt, updateInstructionAnnulationBits);
           
           counterIt--;
           it--;
@@ -241,7 +257,7 @@ namespace PBIW
         {
             if(operations.at(1)->getOpcode() > operations.at(2)->getOpcode())
             {
-                this->exchangeOperations(1, 2);
+                this->exchangeOperations(1, 2, updateInstructionAnnulationBits);
             }
             else if(operations.at(1)->getOpcode() == operations.at(2)->getOpcode())
             {
@@ -260,7 +276,7 @@ namespace PBIW
 
                   if (*operandIt1 > *operandIt2)
                   {
-                    this->exchangeOperations(1, 2);
+                    this->exchangeOperations(1, 2, updateInstructionAnnulationBits);
                     break;
                   }
                 }
@@ -293,7 +309,7 @@ namespace PBIW
             {
                 if(operations.at(index1)->getOpcode() > operations.at(index2)->getOpcode())
                 {
-                    this->exchangeOperations(index1, index2);
+                    this->exchangeOperations(index1, index2, updateInstructionAnnulationBits);
                 }
                 else if( (operations.at(index1)->getOpcode() == operations.at(index2)->getOpcode()) )
                 {
@@ -312,9 +328,9 @@ namespace PBIW
 
                       if (*operandIt1 > *operandIt2)
                       {
-                        this->exchangeOperations(index1, index2);
+                        this->exchangeOperations(index1, index2, updateInstructionAnnulationBits);
                         break;
-                      }
+                      }                        
                     }
                 }
             }     
@@ -322,15 +338,15 @@ namespace PBIW
                     (operations.at(index1)->getType() == rVex::Syllable::SyllableType::ALU))
                    ) 
             {
-                this->exchangeOperations(index1, index2);
+                this->exchangeOperations(index1, index2, updateInstructionAnnulationBits);
             }
         }
-    }    
+    } 
   
   }
     
   void
-  rVex96PBIWPattern::exchangeOperations(int index1, int index2) // O(1)
+  rVex96PBIWPattern::exchangeOperations(int index1, int index2, bool updateInstructionAnnulationBits) // O(1)
   {
       IOperation* operation;
       
@@ -338,8 +354,14 @@ namespace PBIW
       operation = operations.at(index1);
       operations.at(index1) = operations.at(index2);
       operations.at(index2) = operation;    
+      
+      if (updateInstructionAnnulationBits)
+      {
+        IPBIWInstruction* instruction = *(this->instructionsThatUseIt.begin());
+        instruction->updateAnnulBits(index1, index2);
+      }
   }
-  
+    
   bool
   rVex96PBIWPattern::operator<(const IPBIWPattern& other) const // O(1)
   {

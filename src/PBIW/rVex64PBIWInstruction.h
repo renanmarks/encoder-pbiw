@@ -34,9 +34,11 @@ namespace PBIW
         opBRslot(-1),
         opBRFslot(-1),
         immediate(),
-        zeroOperand(0)
+        zeroOperand(0),
+        annulBits(4,false)
       {
-        zeroOperand.setIndex(15);
+        zeroOperand.setIndex(0);
+        operands.push_back(zeroOperand);
       }
 
       rVex64PBIWInstruction(const rVex64PBIWInstruction& other) : 
@@ -50,11 +52,12 @@ namespace PBIW
         opBRFslot(other.opBRFslot),
         immediate(other.immediate),
         zeroOperand(other.zeroOperand),
-        syllablesPacked(other.syllablesPacked)
+        syllablesPacked(other.syllablesPacked),
+        annulBits(other.annulBits)
       {
-        zeroOperand.setIndex(15);
+        zeroOperand.setIndex(0);
       }
-        
+
       virtual ~rVex64PBIWInstruction();
 
       virtual IPBIWInstruction* clone() const;
@@ -105,9 +108,9 @@ namespace PBIW
 
       virtual OperandVector getOperands() const;
 
-      virtual void setSyllableReferences(const std::list<GenericAssembly::Interfaces::IOperation*>& list);
+      virtual void setOperationReferences(const std::list<GenericAssembly::Interfaces::IOperation*>& list);
 
-      virtual std::list<GenericAssembly::Interfaces::IOperation*> getSyllableReferences() const;
+      virtual std::list<GenericAssembly::Interfaces::IOperation*> getOperationReferences() const;
 
       virtual void setBranchDestiny(const IPBIWInstruction& branchDestiny);
 
@@ -117,7 +120,18 @@ namespace PBIW
       void setOpBRFslot(IOperand&);
 
       void setOpBRslot(IOperand&);
-
+            
+      virtual const AnnulationBits& getAnnulBits() const
+      {     return this->annulBits;    }
+      
+      virtual void setAnnulBit(int index, bool value)
+      {     annulBits[index] = value;   }
+      
+      virtual void setAnnulBits(const AnnulationBits& vectorBits)
+      {     annulBits = vectorBits;     }
+      
+      virtual void updateAnnulBits(int index1, int index2);
+      
       /**
      * Exception thrown when the an encoding mismatch exception occurs;
      */
@@ -178,6 +192,8 @@ namespace PBIW
       typedef std::list<rVex::Syllable*> SyllableList;
       SyllableList syllablesPacked;
       
+      AnnulationBits annulBits;
+
       /**
      * Functor used to find a operand that has value between 0 and 7.
      */
@@ -185,7 +201,7 @@ namespace PBIW
       {
       public:
           bool operator()(const Operand& t) const 
-          { return (t.getValue() < 8) && (t.getIndex() < 11) && !t.isBRSource() && !t.isBRDestiny(); }
+          { return (t.getValue() < 8) && (t.getValue() != 0) && (t.getIndex() < 11) && (t.getIndex() != 0) && !t.isBRSource() && !t.isBRDestiny(); }
       };
       
       unsigned int giveEmptySlot() const;

@@ -11,6 +11,7 @@
 #include <set>
 #include <list>
 #include <deque>
+#include <vector>
 #include "IOperand.h"
 #include "IPBIWPattern.h"
 #include "IPBIWPrinter.h"
@@ -186,12 +187,23 @@ namespace PBIW
         /**
          * Set the syllables that were codified in this instruction.
          */
-        virtual void setSyllableReferences(const std::list<GenericAssembly::Interfaces::IOperation*>&) = 0;
+        virtual void setOperationReferences(const std::list<GenericAssembly::Interfaces::IOperation*>&) = 0;
         
         /**
          * Returns the syllables that were codified in this instruction.
          */
-        virtual std::list<GenericAssembly::Interfaces::IOperation*> getSyllableReferences() const = 0;
+        virtual std::list<GenericAssembly::Interfaces::IOperation*> getOperationReferences() const = 0;
+       
+        typedef std::vector<bool> AnnulationBits;
+        virtual const AnnulationBits& getAnnulBits() const = 0;
+        
+        virtual void setAnnulBit(int, bool) = 0;
+        
+        virtual void setAnnulBits(const AnnulationBits& vectorBits) = 0;
+        
+//        virtual void setAnnulBits(std::deque<bool>* annulatioBits) = 0;
+        
+        virtual void updateAnnulBits(int index1, int index2) = 0;
     };
 
   }

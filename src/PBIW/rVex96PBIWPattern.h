@@ -8,7 +8,9 @@
 #ifndef RVEX96PBIWPATTERN_H
 #define	RVEX96PBIWPATTERN_H
 
+#include <deque>
 #include <vector>
+#include <set>
 #include "Interfaces/IPBIWPattern.h"
 #include "Operation.h"
 
@@ -48,6 +50,12 @@ namespace PBIW
     virtual IOperation* getOperation(unsigned int index) const
     { return operations[index]; }
     
+    virtual void setOperation(IOperation& operation, int index)
+    {  
+      delete this->operations[index];
+      this->operations[index] = operation.clone();
+    }
+    
     virtual IOperation* operator[](const unsigned int index) const
     { return getOperation(index); }
     
@@ -56,17 +64,23 @@ namespace PBIW
     virtual unsigned int getOperationCount() const
     { return operations.size(); }
     
-    virtual void incrementUsageCounter()
-    { usageCounter++; }
+    virtual void referencedByInstruction(IPBIWInstruction* instructionPointed);
+    
+    virtual std::deque<IPBIWInstruction*> getInstructionsThatUseIt() const
+    {   return std::deque<IPBIWInstruction*>(instructionsThatUseIt.begin(), instructionsThatUseIt.end());   }
+    
+    virtual std::deque<IPBIWInstruction*> getInstructionsThatUseIt2()
+    {   return std::deque<IPBIWInstruction*>(instructionsThatUseIt.begin(), instructionsThatUseIt.end());   }
     
     virtual int getUsageCounter() const
-    { return usageCounter; }
+    { return instructionsThatUseIt.size(); }
     
     virtual void resetUsageCounter()
-    { usageCounter = 0; }
+    { instructionsThatUseIt.clear(); }
     
     virtual void reorganize();
-    
+    virtual void reorganize(bool updateInstructionAnnulationBits);
+
     virtual void print(IPBIWPrinter&) const;
     
     virtual void updateIndexes(int oldIndex, int newIndex);
@@ -85,8 +99,16 @@ namespace PBIW
     OperationVector operations; // Max 4
     int usageCounter;
     
-    virtual void exchangeOperations(int index1, int index2);
+    typedef std::set<IPBIWInstruction*> InstructionsThatUseIt;
+    InstructionsThatUseIt instructionsThatUseIt;
     
+    /**
+     * Used to exchange operations of patterns referents to the instructions without annulation bits
+     * @param index1
+     * @param index2
+     */
+    virtual void exchangeOperations(int index1, int index2, bool updateInstructionAnnulationBits);
+        
   };
 }
 

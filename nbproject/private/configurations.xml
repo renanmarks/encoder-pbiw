@@ -25,9 +25,6 @@
       </nativedebugger>
       <runprofile version="9">
         <runcommandpicklist>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" mergesort2.s</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" mergesort.s</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" nested_complex_rVex.s</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" Fatorial.s</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" Fibonacci.s</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" sqrt_rVex_bug14.s</runcommandpicklistitem>
@@ -35,9 +32,12 @@
           <runcommandpicklistitem>"${OUTPUT_PATH}" -d sqrt_rVex.s</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -d dag</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" -d dag_rVex.s</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -d instrucao.s</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -d linked_list.s</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" -d nested_complex_rVex.s</runcommandpicklistitem>
         </runcommandpicklist>
-        <runcommand>"${OUTPUT_PATH}" -d dag_rVex.s</runcommand>
-        <rundir>/home/helix/NetBeansProjects/pbiw_encoder/dist/Debug/GNU-Linux-x86</rundir>
+        <runcommand>"${OUTPUT_PATH}" -d nested_complex_rVex.s</runcommand>
+        <rundir>/home/renato/pbiw_encoder/dist/Debug/GNU-Linux-x86</rundir>
         <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>
         <remove-instrumentation>0</remove-instrumentation>
@@ -72,7 +72,7 @@
           <runcommandpicklistitem>"${OUTPUT_PATH}" nested_complex_rVex.s</runcommandpicklistitem>
         </runcommandpicklist>
         <runcommand>"${OUTPUT_PATH}" nested_complex_rVex.s</runcommand>
-        <rundir>/home/helix/NetBeansProjects/pbiw_encoder/dist/Release/GNU-Linux-x86</rundir>
+        <rundir>/home/renato/pbiw_encoder/dist/Release/GNU-Linux-x86</rundir>
         <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>
         <remove-instrumentation>0</remove-instrumentation>
@@ -107,7 +107,7 @@
           <runcommandpicklistitem>"${OUTPUT_PATH}" nested_complex_rVex.s</runcommandpicklistitem>
         </runcommandpicklist>
         <runcommand>"${OUTPUT_PATH}" nested_complex_rVex.s</runcommand>
-        <rundir>/home/helix/NetBeansProjects/pbiw_encoder/dist/Release/Windows-x86</rundir>
+        <rundir>/home/renato/pbiw_encoder/dist/Release/Windows-x86</rundir>
         <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>
         <remove-instrumentation>0</remove-instrumentation>
@@ -142,7 +142,7 @@
           <runcommandpicklistitem>"${OUTPUT_PATH}" nested_complex_rVex.s</runcommandpicklistitem>
         </runcommandpicklist>
         <runcommand>"${OUTPUT_PATH}" nested_complex_rVex.s</runcommand>
-        <rundir>/home/helix/NetBeansProjects/pbiw_encoder/dist/Release/Windows_x64</rundir>
+        <rundir>/home/renato/pbiw_encoder/dist/Release/Windows_x64</rundir>
         <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>
         <remove-instrumentation>0</remove-instrumentation>

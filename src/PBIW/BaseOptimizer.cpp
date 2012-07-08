@@ -5,9 +5,10 @@
  * Created on December 22, 2011, 3:37 PM
  */
 
-#include "BaseOptimizer.h"
+
 #include "Interfaces/IPBIWInstruction.h"
-#include "algorithm"
+#include <algorithm>
+#include "PBIWOptimizerJoinPatterns.h"
 
 namespace PBIW
 {
@@ -161,33 +162,91 @@ namespace PBIW
     }
   }
   
-  void
-  BaseOptimizer::print(IPBIWPrinter& printer)
+  void 
+  BaseOptimizer::printStatistics(IPBIWPrinter& printer, int originalInstructionsCount, int encodedPatterns, int encodedInstructions)
+  {
+    unsigned int instructionsBytes = instructions.size() * 8;
+    unsigned int patternsBytes = patterns.size() * 12;
+    
+    printer.getOutputStream()
+      << "Optimizer Summary: \n\n"
+      << "Pattern count = " << patterns.size()
+      << " ( " << patternsBytes <<" bytes )" << std::endl
+            
+      << "Instruction count = " << instructions.size() 
+      << " ( " << instructionsBytes <<" bytes )" << std::endl
+      
+      << "Reuse ratio = " 
+      << (instructions.size() / (double)patterns.size()) << std::endl
+      
+      << "Total = " 
+      << patternsBytes + instructionsBytes <<" bytes" << std::endl
+      
+      << "----" << std::endl
+      << "PBIW Encode Summary: \n\n"
+      
+      << "Encoded Pattern count = " << encodedPatterns
+      << " ( " << encodedPatterns * 12 << " bytes )" << std::endl
+            
+      << "Encoded Instructions count = " << encodedInstructions
+      << " ( " << encodedInstructions * 8 << " bytes )" << std::endl
+            
+      << "Reuse ratio = " 
+      << (encodedInstructions / (double)encodedPatterns) << std::endl
+            
+      << "Total = " << (encodedPatterns * 12) + (encodedInstructions * 8) << " bytes" << std::endl
+      << "----" << std::endl
+            
+      << "rVex Summary: \n\n"
+      << "Original Instructions count = " << originalInstructionsCount
+      << " ( " << originalInstructionsCount * 16 <<" bytes )" << std::endl
+            
+      << "----" << std::endl 
+            
+      << "Compressions Rates: \n\n"
+      << "Compression ratio (Join/PBIW) = " 
+      << (((instructions.size() * 8) + (patterns.size() * 12)) / (double)((encodedInstructions * 8) + (encodedPatterns * 12))) * 100.0 << " %" << std::endl
+            
+      << "Compression ratio (Join/rVex) = " 
+      << (((instructions.size() * 8) + (patterns.size() * 12)) / (double)(originalInstructionsCount * 16)) * 100.0 << " %" << std::endl
+    
+      << "Compression ratio (PBIW/rVex) = " 
+      << (((encodedInstructions * 8) + (encodedPatterns * 12)) / (double)(originalInstructionsCount * 16)) * 100.0 << " %" << std::endl
+    
+      << "----" << std::endl;
+  }
+  
+  void 
+  BaseOptimizer::printInstructions(IPBIWPrinter& instructionPrinter)
   {
     PBIWInstructionList::const_iterator instructionIt;
     
-    printer.printInstructionsHeader();
+    instructionPrinter.printInstructionsHeader();
     
     for (instructionIt = instructions.begin();
          instructionIt != instructions.end();
          instructionIt++)
     {
-      (*instructionIt)->print(printer);
+      (*instructionIt)->print(instructionPrinter);
     }
     
-    printer.printInstructionsFooter(instructions.size());
-    
+    instructionPrinter.printInstructionsFooter(instructions.size());
+  }
+  
+  void 
+  BaseOptimizer::printPatterns(IPBIWPrinter& patternPrinter)
+  {
     PBIWPatternList::const_iterator patternIt;
     
-    printer.printPatternsHeader();
+    patternPrinter.printPatternsHeader();
     
     for (patternIt = patterns.begin();
          patternIt != patterns.end();
          patternIt++)
     {
-      (*patternIt)->print(printer);
+      (*patternIt)->print(patternPrinter);
     }
     
-    printer.printPatternsFooter(patterns.size());
+    patternPrinter.printPatternsFooter(patterns.size());
   }
 }
