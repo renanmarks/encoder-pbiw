@@ -8,14 +8,15 @@
 #include <typeinfo>
 #include <iostream>
 #include <stdexcept>
-#include "rVex96PBIWPattern.h"
-#include "Operand.h"
-#include "src/PBIW/Printers/PartialPBIWPrinter.h"
-#include "Interfaces/IPBIWInstruction.h"
+#include "src/rVex/PBIW/rVex96PBIWPattern.h"
+#include "src/rVex/PBIW/Operand.h"
+#include "src/rVex/PBIW/Printers/PartialPBIWPrinter.h"
+#include "src/rVex/PBIW/rVex64PBIWInstruction.h"
 #include "src/rVex/rVex.h"
-#include "rVex64PBIWInstruction.h"
-#include "Interfaces/IPBIW.h"
-#include "Optimizers/JoinPattern/PatternInformation.h"
+
+#include "src/PBIW/Interfaces/IPBIWInstruction.h"
+#include "src/PBIW/Interfaces/IPBIW.h"
+#include "src/PBIW/Optimizers/JoinPattern/PatternInformation.h"
 //#include "Operation.h"
 
 namespace PBIW

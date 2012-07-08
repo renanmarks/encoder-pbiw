@@ -26,7 +26,7 @@
 #include <vector>
 
 #include "parser.tab.hh"
-#include "../rVex/Syllable.h"
+#include "src/rVex/Syllable.h"
 
 typedef VexParser::Parser::token token;
 typedef VexParser::Parser::token_type token_type;

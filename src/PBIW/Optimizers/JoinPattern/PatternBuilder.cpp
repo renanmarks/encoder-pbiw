@@ -6,7 +6,7 @@
  */
 
 #include "PatternBuilder.h"
-#include "src/PBIW/rVex96PBIWPattern.h"
+#include "src/rVex/PBIW/rVex96PBIWPattern.h"
 
 #include <iostream>
 

@@ -20,7 +20,7 @@
 //#include "src/GenericAssembly/Interfaces/IOperation.h"
 
 #include "src/rVex/Printers/IPrinter.h"
-#include "src/VexParser/Expressions/SyllableArguments.h"
+#include "src/rVex/Parser/Expressions/SyllableArguments.h"
 
 #include "Utils/OperandVectorBuilder.h"
 #include "Utils/DependencyChains.h"

@@ -23,7 +23,9 @@ namespace PBIW
     class ILabel
     {
     public:
-      virtual ~ILabel() { };
+      virtual ~ILabel() { }
+      
+      virtual ILabel* clone() const = 0;
       
       virtual void setAbsoluteAddress(unsigned int absoluteAddress) = 0;
       virtual unsigned int getAbsoluteAddress() const = 0;

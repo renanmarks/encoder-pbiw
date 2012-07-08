@@ -27,7 +27,7 @@
 
 #include "VexTypes.h"
 #include "parser.tab.hh"
-#include "../rVex/Operations/Operations.h"
+#include "src/rVex/Operations/Operations.h"
 
 typedef VexParser::Parser::token token;
 typedef VexParser::Parser::token_type token_type;

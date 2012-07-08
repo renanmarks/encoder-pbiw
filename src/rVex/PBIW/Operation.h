@@ -8,7 +8,7 @@
 #ifndef OPERATION_H
 #define	OPERATION_H
 
-#include "Interfaces/IOperation.h"
+#include "src/PBIW/Interfaces/IOperation.h"
 
 namespace PBIW
 {

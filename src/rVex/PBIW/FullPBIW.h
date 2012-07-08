@@ -12,9 +12,9 @@
 #include <vector>
 #include <list>
 
-#include "Interfaces/IPBIW.h"
+#include "src/PBIW/Interfaces/IPBIW.h"
 #include "Label.h"
-#include "Utils/OperandVector.h"
+#include "src/PBIW/Utils/OperandVector.h"
 #include "src/rVex/Syllable.h"
 #include "rVex64PBIWInstruction.h"
 #include "rVex96PBIWPattern.h"

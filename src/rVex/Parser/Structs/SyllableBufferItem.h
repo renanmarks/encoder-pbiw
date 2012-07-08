@@ -9,7 +9,7 @@
 #define	SYLLABLEBUFFERITEM_H
 
 #include "src/rVex/Syllable.h"
-#include "src/VexParser/Expressions/SyllableArguments.h"
+#include "src/rVex/Parser/Expressions/SyllableArguments.h"
 
 namespace VexParser
 {

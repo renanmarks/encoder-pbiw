@@ -9,7 +9,7 @@
 #define	PBIWLABEL_H
 
 #include <string>
-#include "Interfaces/ILabel.h"
+#include "src/PBIW/Interfaces/ILabel.h"
 #include "src/rVex/Label.h"
 
 namespace PBIW
@@ -43,9 +43,12 @@ namespace PBIW
       absoluteAddress(0)
     { }
     
-    ~Label() 
+    virtual ~Label() 
     { }
 
+    virtual ILabel* clone() const
+    { return new Label(*this); }
+    
     void
     setAbsoluteAddress(unsigned int absoluteAddress)
     { this->absoluteAddress=absoluteAddress; }

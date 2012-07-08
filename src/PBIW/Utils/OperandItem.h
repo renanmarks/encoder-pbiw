@@ -9,7 +9,7 @@
 #define	OPERANDITEM_H
 
 #include "src/GenericAssembly/Interfaces/IOperation.h"
-#include "src/PBIW/Operand.h"
+#include "src/rVex/PBIW/Operand.h"
 #include <string>
 
 namespace PBIW

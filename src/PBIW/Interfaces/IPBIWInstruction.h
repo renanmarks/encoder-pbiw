@@ -49,7 +49,7 @@ namespace PBIW
         /**
          * Set the label of this instruction
          */
-        virtual void setLabel(const ILabel&) = 0;
+        virtual void setLabel(const ILabel*) = 0;
         
         /**
          * Get the label of this instruction

@@ -10,7 +10,7 @@
 #include <vector>
 #include <list>
 #include "SyllablePacker.h"
-#include "src/VexParser/VexContext.h"
+#include "src/rVex/Parser/VexContext.h"
 
 namespace VexParser
 {

@@ -9,11 +9,11 @@
 #define	RVEX64PBIWINSTRUCTION_H
 
 #include <vector>
-#include "Label.h"
-#include "Interfaces/IPBIWInstruction.h"
-#include "Interfaces/IOperand.h"
-#include "rVex96PBIWPattern.h"
+#include "src/PBIW/Interfaces/IPBIWInstruction.h"
+#include "src/PBIW/Interfaces/IOperand.h"
 #include "src/rVex/Syllable.h"
+#include "Label.h"
+#include "rVex96PBIWPattern.h"
 
 namespace PBIW
 {
@@ -66,7 +66,7 @@ namespace PBIW
 
       virtual unsigned int getAddress() const;
 
-      virtual void setLabel(const ILabel&);
+      virtual void setLabel(const ILabel*);
       virtual ILabel* getLabel() const;
 
       virtual void pointToPattern(IPBIWPattern& pattern);

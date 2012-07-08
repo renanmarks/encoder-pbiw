@@ -147,7 +147,7 @@ namespace PBIW
         
         labels.push_back(label);
         
-        finalInstruction->setLabel(labels.back());
+        finalInstruction->setLabel(&labels.back());
       }
       
       // For each syllable...

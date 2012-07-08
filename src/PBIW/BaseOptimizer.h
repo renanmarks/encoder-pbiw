@@ -10,8 +10,8 @@
 
 #include <list>
 #include <set>
-#include "Interfaces/IPBIWOptimizer.h"
-#include "Interfaces/ILabel.h"
+#include "src/PBIW/Interfaces/IPBIWOptimizer.h"
+#include "src/PBIW/Interfaces/ILabel.h"
 
 namespace PBIW
 {
@@ -67,8 +67,8 @@ namespace PBIW
     public:
         FindLabel(const std::string label) : label(label) {}
 
-        bool operator()(const ILabel& t) const 
-        { return (t.getName() == label); }
+        bool operator()(const ILabel* t) const 
+        { return (t->getName() == label); }
         
     private:
         const std::string label;
@@ -98,7 +98,7 @@ namespace PBIW
     typedef std::deque<IPBIWInstruction*> PBIWInstructionList;
     typedef std::deque<IPBIWPattern*> PBIWPatternList;
     typedef std::set<IPBIWPattern*> PBIWPatternSet;
-    typedef std::list<Label> LabelList;
+    typedef std::list<ILabel*> LabelList;
     
     PBIWInstructionList instructions;
     PBIWInstructionList branchingInstructions;

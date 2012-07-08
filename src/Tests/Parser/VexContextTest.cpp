@@ -1,7 +1,7 @@
 #include <memory>
 
 #include "gtest/gtest.h"
-#include "src/VexParser/VexContext.h"
+#include "src/rVex/Parser/VexContext.h"
 #include "src/rVex/Printers/rVexPrinter.h"
 #include "src/rVex/rVex.h"
 

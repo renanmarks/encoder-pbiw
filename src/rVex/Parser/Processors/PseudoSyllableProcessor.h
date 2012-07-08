@@ -1,14 +1,14 @@
 /* 
- * File:   SyllablePacker.h
+ * File:   PseudoSyllableProcessor.h
  * Author: helix
  *
- * Created on January 14, 2012, 5:21 PM
+ * Created on January 14, 2012, 5:22 PM
  */
 
-#ifndef SYLLABLEPACKER_H
-#define	SYLLABLEPACKER_H
+#ifndef PSEUDOSYLLABLEPROCESSOR_H
+#define	PSEUDOSYLLABLEPROCESSOR_H
 
-#include "src/VexParser/Interfaces/IParserProcessor.h"
+#include "src/rVex/Parser/Interfaces/IParserProcessor.h"
 
 namespace VexParser
 {
@@ -18,12 +18,13 @@ namespace VexParser
   
   namespace Processors
   {
-    class SyllablePacker : public IParserProcessor
+
+    class PseudoSyllableProcessor : public IParserProcessor
     {
     public:
-      explicit SyllablePacker(VexContext&);
-      SyllablePacker(const SyllablePacker&);
-      virtual ~SyllablePacker();
+      PseudoSyllableProcessor(VexContext&);
+      PseudoSyllableProcessor(const PseudoSyllableProcessor&);
+      virtual ~PseudoSyllableProcessor();
       
       virtual void process(rVex::SyllableALU* syllable, SyllableArguments& arguments);
       
@@ -34,17 +35,18 @@ namespace VexParser
       virtual void process(rVex::SyllableMEM* syllable, SyllableArguments& arguments);
       
       virtual void process(rVex::SyllableMISC* syllable, SyllableArguments& arguments);
-
+      
       VexContext&
       getContext() const
       { return context; }
       
     private:
       VexContext& context;
-
+      
+      int getSyllableBufferItemPosition(rVex::Syllable* syllable);
     };
   }
 }
 
-#endif	/* SYLLABLEPACKER_H */
+#endif	/* PSEUDOSYLLABLEPROCESSOR_H */
 

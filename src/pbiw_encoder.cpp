@@ -9,19 +9,19 @@
 #include <fstream>
 using namespace std;
 
-#include "VexParser/driver.h"
-#include "VexParser/VexContext.h"
+#include "src/rVex/Parser/driver.h"
+#include "src/rVex/Parser/VexContext.h"
 #include "pbiw_encoder.h"
-#include "rVex/Printers/rVexPrinter.h"
-#include "rVex/Printers/VHDLPrinter.h"
-#include "PBIW/FullPBIW.h"
-#include "PBIW/Printers/PartialPBIWPrinter.h"
-#include "PBIW/Printers/PartialPBIWDebugPrinter.h"
-#include "VexParser/VexTypes.h"
-#include "PBIW/BaseOptimizer.h"
-#include "PBIW/PBIWOptimizerJoinPatterns.h"
-#include "PBIW/Interfaces/IPBIWPattern.h"
-#include "PBIW/PBIWOptimizerDataSet.h"
+#include "src/rVex/Printers/rVexPrinter.h"
+#include "src/rVex/Printers/VHDLPrinter.h"
+#include "src/rVex/PBIW/FullPBIW.h"
+#include "src/rVex/PBIW/Printers/PartialPBIWPrinter.h"
+#include "src/rVex/PBIW/Printers/PartialPBIWDebugPrinter.h"
+#include "src/rVex/Parser/VexTypes.h"
+#include "src/PBIW/BaseOptimizer.h"
+#include "src/PBIW/PBIWOptimizerJoinPatterns.h"
+#include "src/PBIW/Interfaces/IPBIWPattern.h"
+#include "src/PBIW/PBIWOptimizerDataSet.h"
 //#include "Time/ExecutionTime.h"
 
 

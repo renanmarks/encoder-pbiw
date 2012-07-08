@@ -6,7 +6,7 @@
  */
 
 #include "PBIWOptimizerDataSet.h"
-#include "Printers/PartialPBIWDebugPrinter.h"
+#include "src/rVex/PBIW/Printers/PartialPBIWDebugPrinter.h"
 
 namespace PBIW
 {

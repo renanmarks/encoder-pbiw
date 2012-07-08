@@ -11,7 +11,7 @@
 #include <deque>
 #include <vector>
 #include <set>
-#include "Interfaces/IPBIWPattern.h"
+#include "src/PBIW/Interfaces/IPBIWPattern.h"
 #include "Operation.h"
 
 namespace PBIW

@@ -7,9 +7,9 @@
 
 #include <sstream>
 #include <iostream>
-#include "src/VexParser/VexContext.h"
+#include "src/rVex/Parser/VexContext.h"
 #include "PseudoSyllableProcessor.h"
-#include "src/VexParser/VexContext.h"
+#include "src/rVex/Parser/VexContext.h"
 
 namespace VexParser
 {

@@ -270,11 +270,9 @@ namespace PBIW
     }
 
     void
-    rVex64PBIWInstruction::setLabel(const ILabel& label) // O(1)
+    rVex64PBIWInstruction::setLabel(const ILabel* label) // O(1)
     {
-      const Label& temp=dynamic_cast<const Label&> (label);
-
-      this->label= &const_cast<Label&> (temp);
+      this->label = const_cast<ILabel*>(label);
     }
 
     void

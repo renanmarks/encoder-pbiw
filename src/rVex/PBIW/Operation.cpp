@@ -8,7 +8,7 @@
 #include <cstddef>
 #include <iostream>
 #include "Operation.h"
-#include "Interfaces/IPBIWInstruction.h"
+#include "src/PBIW/Interfaces/IPBIWInstruction.h"
 #include "src/rVex/Syllable.h"
 
 namespace PBIW

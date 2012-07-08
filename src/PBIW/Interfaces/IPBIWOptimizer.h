@@ -10,7 +10,7 @@
 
 #include "IPBIWInstruction.h"
 #include "IPBIWPattern.h"
-#include "../Label.h"
+#include "ILabel.h"
 
 namespace PBIW
 {

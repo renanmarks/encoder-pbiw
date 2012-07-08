@@ -10,7 +10,7 @@
 #include <signal.h>
 #include "PBIWOptimizerJoinPatterns.h"
 #include "BaseOptimizer.h"
-#include "Operation.h"
+#include "src/PBIW/Interfaces/IOperation.h"
 #include "Interfaces/IPBIWInstruction.h"
 #include "src/rVex/Operations/MISC/NOP.h"
 #include "src/rVex/Operations/ALU/NANDL.h"

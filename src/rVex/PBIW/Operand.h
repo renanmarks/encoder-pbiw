@@ -8,7 +8,7 @@
 #ifndef OPERAND_H
 #define	OPERAND_H
 
-#include "Interfaces/IOperand.h"
+#include "src/PBIW/Interfaces/IOperand.h"
 
 namespace PBIW
 {
