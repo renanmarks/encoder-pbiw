@@ -13,6 +13,7 @@
 #include <set>
 #include <vector>
 #include "src/PBIW/Interfaces/IOperand.h"
+#include "src/GenericAssembly/Utils/DerivedFrom.h"
 
 namespace PBIW
 {
@@ -29,20 +30,21 @@ namespace PBIW
 
       OperandVector& operator=(const OperandVector&);
       
-//      template<class Enumerable>
-//      void fill(Enumerable& enumerable);
-      
-      template <class TOperand>
-      void fill(const std::list<TOperand>&);
-      
-      template <class TOperand>
-      void fill(const std::vector<TOperand>&);
-      
-      template <class TOperand>
-      void fill(const std::set<TOperand>&);
-      
-      template <class TOperand>
-      void fill(const std::deque<TOperand>&);
+      /**
+       * Fills in this operand vector with cloned operations.
+       * This is used to expose only the operand interface for who will use it.
+       */
+      template<class TEnumerable>
+      void fill(TEnumerable& enumerable)
+      {
+        using PBIW::Interfaces::IOperand;
+        GenericAssembly::Utils::DerivedFrom<typename TEnumerable::value_type, IOperand>();
+        
+        typename TEnumerable::const_iterator it;
+
+        for (it = enumerable.begin(); it != enumerable.end(); it++)
+          operands.push_back((*it).clone());
+      }
       
       /*
        * Wrapper methods to internal vector.

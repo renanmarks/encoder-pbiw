@@ -5,8 +5,8 @@
  * Created on October 30, 2011, 4:28 PM
  */
 
-#ifndef PBIWFULL_PARTIALPBIWPRINTER_H
-#define	PBIWFULL_PARTIALPBIWPRINTER_H
+#ifndef PBIWFULL_PBIWPRINTER_H
+#define	PBIWFULL_PBIWPRINTER_H
 
 #include "src/PBIW/Interfaces/IPBIWPrinter.h"
 

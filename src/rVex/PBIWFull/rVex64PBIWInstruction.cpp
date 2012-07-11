@@ -14,6 +14,7 @@
 #include "src/PBIW/Interfaces/IOperand.h"
 #include "src/rVex/Instruction.h"
 #include "src/rVex/PBIWFull/rVex64PBIWInstruction.h"
+#include "src/PBIW/Utils/OperandVector.h"
 
 #define ZEROINDEX 0   // 15
 #define IMM9BITS 10    // 10
@@ -161,7 +162,7 @@ namespace PBIWFull
 
     PBIW::Utils::OperandVector returnVector;
 
-    //returnVector.fill<Operand>(temp);
+    returnVector.fill(temp);
 
     return returnVector;
   }
@@ -277,9 +278,9 @@ namespace PBIWFull
   void
   rVex64PBIWInstruction::setBranchDestiny(const IPBIWInstruction& branchDestiny)
   {
-    //const rVex64PBIWInstruction& temp=dynamic_cast<const rVex64PBIWInstruction&> (branchDestiny);
+    const rVex64PBIWInstruction& temp=dynamic_cast<const rVex64PBIWInstruction&> (branchDestiny);
 
-    //this->branchDestiny= &const_cast<rVex64PBIWInstruction&> (temp);
+    this->branchDestiny= &const_cast<rVex64PBIWInstruction&> (temp);
   }
 
   bool

@@ -445,6 +445,18 @@ namespace PBIWPartial
     return std::vector<IPBIWPattern*>(codedPatterns.begin(), codedPatterns.end());
   }
   
+  std::vector<ILabel*> 
+  PartialPBIW::getLabels()
+  {
+    std::deque<ILabel*> temp;
+    LabelVector::iterator it;
+    
+    for(it = labels.begin(); it != labels.end(); it++)
+      temp.push_back(&(*it));
+    
+    return std::vector<ILabel*>(temp.begin(), temp.end());
+  }
+  
   void 
   PartialPBIW::printStatistics(IPBIWPrinter& printer)
   {

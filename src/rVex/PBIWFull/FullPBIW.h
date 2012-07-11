@@ -86,7 +86,7 @@ namespace PBIWFull
     void savePBIWElements(rVex64PBIWInstruction*&, rVex96PBIWPattern*&);
     void createNewPBIWElements(rVex64PBIWInstruction*&, rVex96PBIWPattern*&);
     void saveAndCreateNewPBIWElements(rVex64PBIWInstruction*&, rVex96PBIWPattern*&);
-    void resetFinalOperation(VexSyllableOperandVector::Collection::const_iterator&, IOperation*&, rVex::Syllable* const&, const VexSyllableOperandVector&);
+    void resetFinalOperation(VexSyllableOperandVector::Collection::const_iterator&, Operation*&, rVex::Syllable* const&, const VexSyllableOperandVector&);
 
     /**
      * Process the label vector translating the labels to respective instruction

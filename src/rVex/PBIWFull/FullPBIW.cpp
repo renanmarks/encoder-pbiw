@@ -110,7 +110,7 @@ namespace PBIWFull
   }
   
   void FullPBIW::resetFinalOperation(VexSyllableOperandVector::Collection::const_iterator& operandIt, // O(1)
-                                        IOperation*& finalOperation, 
+                                        Operation*& finalOperation, 
                                         rVex::Syllable* const& syllable,
                                         const VexSyllableOperandVector& operands)
   {
@@ -162,7 +162,7 @@ namespace PBIWFull
            syllableIt < syllables.end();    // O(16 + 16|codedPatterns|)
            syllableIt++)
       {
-        IOperation* finalOperation = new Operation();
+        Operation* finalOperation = new Operation();
         
         finalOperation->setOpcode( (*syllableIt)->getOpcode() );
         finalOperation->setImmediateSwitch( (*syllableIt)->getImmediateSwitch() );
@@ -320,7 +320,7 @@ namespace PBIWFull
       
       if (labelIt != labels.end())
       {
-        (*it)->setBranchDestiny(*labelIt->getDestiny());
+        (*it)->setBranchDestiny(*(labelIt->getDestiny()));
         (*it)->setImmediateValue(labelIt->getDestiny()->getAddress());
       }
       

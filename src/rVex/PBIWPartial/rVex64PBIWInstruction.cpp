@@ -107,7 +107,7 @@ namespace PBIWPartial
 
     PBIW::Utils::OperandVector returnVector;
     
-    //returnVector.fill<Operand>(temp);
+    returnVector.fill(temp);
 
     return returnVector;
   }
@@ -205,9 +205,9 @@ namespace PBIWPartial
   void
   rVex64PBIWInstruction::setBranchDestiny(const IPBIWInstruction& branchDestiny)
   {
-    //const rVex64PBIWInstruction& temp = dynamic_cast<const rVex64PBIWInstruction&> (branchDestiny);
+    const rVex64PBIWInstruction& temp = dynamic_cast<const rVex64PBIWInstruction&> (branchDestiny);
 
-    //this->branchDestiny= &const_cast<rVex64PBIWInstruction&> (temp);
+    this->branchDestiny= &const_cast<rVex64PBIWInstruction&> (temp);
   }
 
   bool
