@@ -83,6 +83,7 @@ namespace PBIWPartial
     
     void savePBIWElements(IPBIWInstruction*&, IPBIWPattern*&);
     void saveAndCreateNewPBIWElements(IPBIWInstruction*&, IPBIWPattern*&);
+    void createNewPBIWElements(IPBIWInstruction*&, IPBIWPattern*& );
     void resetFinalOperation(VexSyllableOperandVector::Collection::const_iterator&, IOperation*&, rVex::Syllable* const&, const VexSyllableOperandVector&);
 
     /**

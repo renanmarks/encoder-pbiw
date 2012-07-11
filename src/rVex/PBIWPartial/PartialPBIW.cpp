@@ -66,7 +66,7 @@ namespace PBIWPartial
   // O(|codedPatterns|) + O(1) = O(|codedPatterns|)
   void PartialPBIW::savePBIWElements(IPBIWInstruction*& finalInstruction, IPBIWPattern*& newPattern)
   {
-    newPattern->reorganize(finalInstruction); // O(1)
+    newPattern->reorganize(); // O(1)
     
     const IPBIWPattern& foundPattern = hasPattern(*newPattern); // O(|codedPatterns|)
     IPBIWPattern& notConstFoundPattern = const_cast<IPBIWPattern&>(foundPattern); // O(1)
@@ -89,7 +89,6 @@ namespace PBIWPartial
     
     finalInstruction->setAddress(codedInstructions.size()); // Set the instruction address
     codedInstructions.push_back(finalInstruction);
-    notConstFoundPattern.referencedByInstruction(finalInstruction);
     
     if (finalInstruction->hasControlOperationWithLabelDestiny())
       branchingInstructions.push_back(finalInstruction);
@@ -99,9 +98,15 @@ namespace PBIWPartial
   void PartialPBIW::saveAndCreateNewPBIWElements(IPBIWInstruction*& finalInstruction, IPBIWPattern*& newPattern)
   {
     savePBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
-
+    createNewPBIWElements(finalInstruction, newPattern);
+  }
+  
+  void PartialPBIW::createNewPBIWElements(IPBIWInstruction*& finalInstruction, IPBIWPattern*& newPattern)
+  {
     finalInstruction = factory.createInstruction();// new rVex64PBIWInstruction();
     newPattern = factory.createPattern(); //new rVex96PBIWPattern();
+    
+    finalInstruction->pointToPattern(*newPattern);
   }
   
   void PartialPBIW::resetFinalOperation(VexSyllableOperandVector::Collection::const_iterator& operandIt, // O(1)
@@ -130,8 +135,10 @@ namespace PBIWPartial
         instructionIt++)                                // O(16|codedPatterns||originalInstructions| + 16|codedPatterns|^2) =                 
     {                                                   // O(|codedPatterns||originalInstructions| * |codedPatterns|^2) =                
       // Create a new PBIW instruction and PBIW pattern                  // O(|codedPatterns|^3)
-      IPBIWInstruction* finalInstruction = factory.createInstruction();//new rVex64PBIWInstruction();
-      IPBIWPattern* newPattern = factory.createPattern();//new rVex96PBIWPattern();
+      IPBIWInstruction* finalInstruction;
+      IPBIWPattern* newPattern;
+      
+      createNewPBIWElements(finalInstruction, newPattern);
       
       // Copy the original labels to the data structure used in PBIW
       if ( (*instructionIt)->haveLabel() )
@@ -149,6 +156,8 @@ namespace PBIWPartial
       VexSyllableVector syllables = (*instructionIt)->getSyllables();
       VexSyllableVector::const_iterator syllableIt;
       
+      unsigned int index = 0;
+      
       for (syllableIt = syllables.begin();  // O(|syllables| * (4 + |codedPatterns|)) = O(4 * (4 + |codedPatterns|)) = 
            syllableIt < syllables.end();    // O(16 + 16|codedPatterns|)
            syllableIt++)
@@ -158,6 +167,8 @@ namespace PBIWPartial
         finalOperation->setOpcode( (*syllableIt)->getOpcode() );
         finalOperation->setImmediateSwitch( (*syllableIt)->getImmediateSwitch() );
         finalOperation->setType( (*syllableIt)->getSyllableType() );
+        
+        finalInstruction->setCodingOperation(*finalOperation);
         
         bool syllableHasBrDestiny = (*syllableIt)->hasBrDestiny();
         
@@ -185,6 +196,8 @@ namespace PBIWPartial
             {
               saveAndCreateNewPBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
               resetFinalOperation(operandIt, finalOperation, *syllableIt, operands); // O(1)
+              
+              finalInstruction->setCodingOperation(*finalOperation);
             }
 
             operand = (*operandIt)->getOperand(); // O(1)
@@ -247,6 +260,8 @@ namespace PBIWPartial
               {
                 saveAndCreateNewPBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
                 resetFinalOperation(operandIt, finalOperation, *syllableIt, operands); // O(1)
+                
+                finalInstruction->setCodingOperation(*finalOperation);
               }
 
               operand = (*operandIt)->getOperand();
@@ -277,6 +292,8 @@ namespace PBIWPartial
                 {
                   saveAndCreateNewPBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
                   resetFinalOperation(operandIt, finalOperation, *syllableIt, operands); // O(1)
+                  
+                  finalInstruction->setCodingOperation(*finalOperation);
                 }
 
                 operand = (*operandIt)->getOperand();
@@ -312,6 +329,14 @@ namespace PBIWPartial
         
         syllablesBuffer.push_back(*syllableIt);
         newPattern->addOperation(finalOperation);
+        
+        // Set annul bit referent this operation is used by the pattern (pointed by the instruction)
+        index = newPattern->getOperations().size();
+        
+        if(newPattern->getOperation(index-1)->getOpcode() != 0)
+        {
+          finalInstruction->setAnnulBit(index-1,true);          
+        }
       } // ... end for each syllable
       
       savePBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
