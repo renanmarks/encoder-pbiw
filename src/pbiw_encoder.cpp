@@ -184,42 +184,41 @@ execute(const std::string& filename, const std::string& flags, bool debugEnabled
   if (context.isDebuggingEnabled())
   {
     // Full
-    PBIWFull::FullPBIWDebugPrinter fullPbiwDebugPrinter(std::cout);
-    context.encodePBIW(fullPbiw); // O(|codedPatterns|^2)
-    
-    fullPbiw.registerOptimizer(fullOptimizer);
-    fullPbiw.runOptimizers();
-    
-    dataSet.setOptimizers(fullOptimizer);
-    
-    fullPbiw.printInstructions(fullPbiwDebugPrinter);
-    fullPbiw.printPatterns(fullPbiwDebugPrinter);
-    fullPbiw.printStatistics(fullPbiwDebugPrinter);
-    
-    std::cout << " --- Begin Full post optimizer data ---" << std::endl;
-    
-    fullOptimizer.printInstructions(fullPbiwDebugPrinter);
-    fullOptimizer.printPatterns(fullPbiwDebugPrinter); 
-    fullOptimizer.printStatistics(fullPbiwDebugPrinter, context.getInstructions().size(), fullPbiw.getPatterns().size(), fullPbiw.getInstructions().size());
+//    PBIWFull::FullPBIWDebugPrinter fullPbiwDebugPrinter(std::cout);
+//    context.encodePBIW(fullPbiw); // O(|codedPatterns|^2)
+//    
+//    fullPbiw.registerOptimizer(fullOptimizer);
+//    fullPbiw.runOptimizers();
+//    
+//    dataSet.setOptimizers(fullOptimizer);
+//    
+//    fullPbiw.printInstructions(fullPbiwDebugPrinter);
+//    fullPbiw.printPatterns(fullPbiwDebugPrinter);
+//    fullPbiw.printStatistics(fullPbiwDebugPrinter);
+//    
+//    std::cout << " --- Begin Full post optimizer data ---" << std::endl;
+//    
+//    fullOptimizer.printInstructions(fullPbiwDebugPrinter);
+//    fullOptimizer.printPatterns(fullPbiwDebugPrinter); 
+//    fullOptimizer.printStatistics(fullPbiwDebugPrinter, context.getInstructions().size(), fullPbiw.getPatterns().size(), fullPbiw.getInstructions().size());
     
     // Partial
     
     PBIWPartial::PartialPBIWDebugPrinter partialPbiwDebugPrinter(std::cout);
-    
     context.encodePBIW(partialPbiw);
     
     partialPbiw.registerOptimizer(partialOptimizer);
     partialPbiw.runOptimizers();
   
-    partialPbiw.printInstructions(partialPbiwDebugPrinter);
-    partialPbiw.printPatterns(partialPbiwDebugPrinter);
+//    partialPbiw.printInstructions(partialPbiwDebugPrinter);
+//    partialPbiw.printPatterns(partialPbiwDebugPrinter);
     partialPbiw.printStatistics(partialPbiwDebugPrinter);
     
-    std::cout << " --- Begin Full post optimizer data ---" << std::endl;
+    std::cout << " --- Begin Full post optimizer data (Debug)---" << std::endl;
     
-    partialOptimizer.printInstructions(fullPbiwDebugPrinter);
-    partialOptimizer.printPatterns(fullPbiwDebugPrinter); 
-    partialOptimizer.printStatistics(fullPbiwDebugPrinter, context.getInstructions().size(), fullPbiw.getPatterns().size(), fullPbiw.getInstructions().size());
+//    partialOptimizer.printInstructions(partialPbiwDebugPrinter);
+//    partialOptimizer.printPatterns(partialPbiwDebugPrinter); 
+    partialOptimizer.printStatistics(partialPbiwDebugPrinter, context.getInstructions().size(), partialPbiw.getPatterns().size(), partialPbiw.getInstructions().size());
   } 
 
   else
@@ -238,22 +237,45 @@ execute(const std::string& filename, const std::string& flags, bool debugEnabled
       << "PBIW patterns file: " << pcacheFilename << std::endl
       << std::endl;
     
-    PBIWFull::FullPBIWPrinter statisticsPBIWPrinter(std::cout);
-    PBIWFull::FullPBIWPrinter imemPBIWPrinter(imemFile);
-    PBIWFull::FullPBIWPrinter pachePBIWPrinter(pcacheFile);
+    // Full
+    
+//    PBIWFull::FullPBIWPrinter statisticsPBIWPrinter(std::cout);
+//    PBIWFull::FullPBIWPrinter imemPBIWPrinter(imemFile);
+//    PBIWFull::FullPBIWPrinter pachePBIWPrinter(pcacheFile);
+//
+//    context.encodePBIW(fullPbiw); // O(|codedPatterns|^2)
+//    
+//    fullPbiw.registerOptimizer(fullOptimizer);
+//    fullPbiw.runOptimizers();
+//    
+//    fullPbiw.printStatistics(statisticsPBIWPrinter);
+////    pbiw.printInstructions(imemPBIWPrinter);
+////    pbiw.printPatterns(pachePBIWPrinter);
+//    
+//    fullOptimizer.printStatistics(statisticsPBIWPrinter, context.getInstructions().size(), fullPbiw.getPatterns().size(), fullPbiw.getInstructions().size());
+//    fullOptimizer.printInstructions(imemPBIWPrinter);
+//    fullOptimizer.printPatterns(pachePBIWPrinter);    
+    
+    // Partial
+    
+    PBIWPartial::PartialPBIWPrinter statisticsPBIWPrinter(std::cout);
+    PBIWPartial::PartialPBIWPrinter imemPBIWPrinter(imemFile);
+    PBIWPartial::PartialPBIWPrinter pachePBIWPrinter(pcacheFile);
 
-    context.encodePBIW(fullPbiw); // O(|codedPatterns|^2)
+    context.encodePBIW(partialPbiw); // O(|codedPatterns|^2)
     
-    fullPbiw.registerOptimizer(fullOptimizer);
-    fullPbiw.runOptimizers();
+    partialPbiw.registerOptimizer(partialOptimizer);
+    partialPbiw.runOptimizers();
     
-    fullPbiw.printStatistics(statisticsPBIWPrinter);
+    partialPbiw.printStatistics(statisticsPBIWPrinter);
 //    pbiw.printInstructions(imemPBIWPrinter);
 //    pbiw.printPatterns(pachePBIWPrinter);
     
-    fullOptimizer.printStatistics(statisticsPBIWPrinter, context.getInstructions().size(), fullPbiw.getPatterns().size(), fullPbiw.getInstructions().size());
-    fullOptimizer.printInstructions(imemPBIWPrinter);
-    fullOptimizer.printPatterns(pachePBIWPrinter);    
+    std::cout << " --- Begin Full post optimizer data (Debug)---" << std::endl;
+    
+    partialOptimizer.printStatistics(statisticsPBIWPrinter, context.getInstructions().size(), partialPbiw.getPatterns().size(), partialPbiw.getInstructions().size());
+//    partialOptimizer.printInstructions(imemPBIWPrinter);
+//    partialOptimizer.printPatterns(pachePBIWPrinter);    
   }
 
   return result;
