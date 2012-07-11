@@ -5,11 +5,11 @@
  * Created on December 9, 2011, 8:45 PM
  */
 
-#ifndef OPERANDITEM_H
-#define	OPERANDITEM_H
+#ifndef OPERANDITEMDTO_H
+#define	OPERANDITEMDTO_H
 
+#include "src/PBIW/Interfaces/IOperand.h"
 #include "src/GenericAssembly/Interfaces/IOperation.h"
-#include "src/rVex/PBIW/Operand.h"
 #include <string>
 
 namespace PBIW
@@ -25,32 +25,32 @@ namespace PBIW
       /**
        * An item of the OperandVector.
        */
-      class OperandItem
+      class OperandItemDTO
       {
       public:
         typedef enum {
           GRSource, GRDestiny, BRSource, BRDestiny, Imm
         } Type;
         
-        explicit OperandItem(PBIW::Operand* operand, Type type, const GenericAssembly::Interfaces::IOperation* syllable)
-          : operand( operand ), type(type), syllableBelonged(syllable)
+        explicit OperandItemDTO(PBIW::Interfaces::IOperand* operand, Type type, const GenericAssembly::Interfaces::IOperation* operation)
+          : operand( operand ), type(type), operationBelonged(operation)
         {}
         
-        OperandItem(const OperandItem& other)
-          : operand( new PBIW::Operand( *(other.getOperand()) ) ), type(other.getType()), syllableBelonged(other.getOperationBelonged())
+        OperandItemDTO(const OperandItemDTO& other)
+          : operand( other.getOperand()->clone() ), type(other.getType()), operationBelonged(other.getOperationBelonged())
         {}
         
-        ~OperandItem()
-        { delete operand;  }
+        ~OperandItemDTO()
+        { delete operand; }
 
-        OperandItem& operator=(const OperandItem& other)
+        OperandItemDTO& operator=(const OperandItemDTO& other)
         {
           if (this != &other)
           {
             delete this->operand;
-            this->operand = new PBIW::Operand( *(other.getOperand()) );
+            this->operand = other.getOperand()->clone();
             this->type = other.getType();
-            this->syllableBelonged = other.getOperationBelonged();
+            this->operationBelonged = other.getOperationBelonged();
           }
           
           return *this;
@@ -65,25 +65,25 @@ namespace PBIW
         { return type; }
 
         void
-        setOperand(PBIW::Operand* operand)
+        setOperand(PBIW::Interfaces::IOperand* operand)
         { this->operand = operand; }
 
-        PBIW::Operand*
+        PBIW::Interfaces::IOperand*
         getOperand() const
         { return operand; }
 
         void
         setOperationBelonged(GenericAssembly::Interfaces::IOperation* syllableBelonged)
-        { this->syllableBelonged=syllableBelonged; }
+        { this->operationBelonged=syllableBelonged; }
 
         const GenericAssembly::Interfaces::IOperation*
         getOperationBelonged() const
-        { return syllableBelonged; }
+        { return operationBelonged; }
       
       private:
-        PBIW::Operand* operand;
+        PBIW::Interfaces::IOperand* operand;
         Type type;
-        const GenericAssembly::Interfaces::IOperation* syllableBelonged;
+        const GenericAssembly::Interfaces::IOperation* operationBelonged;
       };
   }
 }

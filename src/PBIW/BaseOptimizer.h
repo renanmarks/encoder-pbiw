@@ -12,12 +12,17 @@
 #include <set>
 #include "src/PBIW/Interfaces/IPBIWOptimizer.h"
 #include "src/PBIW/Interfaces/ILabel.h"
+#include "src/PBIW/Interfaces/IPBIWPrinter.h"
+#include "src/PBIW/Interfaces/IPBIWFactory.h"
 
 namespace PBIW
 {
   using PBIW::Interfaces::ILabel;
   using PBIW::Interfaces::IPBIWInstruction;
   using PBIW::Interfaces::IPBIWPattern;
+  using PBIW::Interfaces::IPBIWPrinter;
+  using PBIW::Interfaces::IPBIWOptimizer;
+  using PBIW::Interfaces::IPBIWFactory;
   
   class BaseOptimizer : public IPBIWOptimizer
   {
@@ -92,7 +97,7 @@ namespace PBIW
     /**
      * Must be implemented by specific optimizers.
      */
-    virtual void run() = 0;
+    virtual void run(IPBIWFactory& factory) = 0;
   
   protected:
     typedef std::deque<IPBIWInstruction*> PBIWInstructionList;

@@ -11,6 +11,7 @@
 #include "src/PBIW/Interfaces/IPBIWInstruction.h"
 #include "src/PBIW/Interfaces/IPBIWPattern.h"
 #include "src/PBIW/Interfaces/IOperation.h"
+#include "src/PBIW/Interfaces/IPBIWFactory.h"
 
 #include "PatternInformation.h"
 
@@ -26,11 +27,14 @@ namespace PBIW
       class PatternBuilder
       {
       public:
-        PatternBuilder()
+        PatternBuilder(IPBIWFactory& factory)
+        : factory(factory)
         { }
         
         PatternBuilder(const PatternBuilder& orig)
-        : patternInformations(orig.patternInformations)
+        : 
+        factory(orig.factory),
+        patternInformations(orig.patternInformations)
         { }
         
         virtual ~PatternBuilder()
@@ -67,6 +71,7 @@ namespace PBIW
         { patternInformations.clear(); }
         
       private:
+        IPBIWFactory& factory;
         void reorganizeOperations(IPBIWPattern* returnedPattern);
         
         typedef std::deque<PatternInformation> PatternInformationList;

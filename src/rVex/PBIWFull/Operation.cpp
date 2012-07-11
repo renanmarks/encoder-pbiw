@@ -11,9 +11,9 @@
 #include "src/PBIW/Interfaces/IPBIWInstruction.h"
 #include "src/rVex/Syllable.h"
 
-namespace PBIW
+namespace PBIWFull
 {
-  using namespace Interfaces;
+  using namespace PBIW::Interfaces;
   
   void 
   Operation::setOpcode(unsigned short opcode)

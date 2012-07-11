@@ -8,10 +8,10 @@
 #include <typeinfo>
 #include <iostream>
 #include <stdexcept>
-#include "src/rVex/PBIW/rVex96PBIWPattern.h"
-#include "src/rVex/PBIW/Operand.h"
-#include "src/rVex/PBIW/Printers/PartialPBIWPrinter.h"
-#include "src/rVex/PBIW/rVex64PBIWInstruction.h"
+#include "rVex96PBIWPattern.h"
+#include "Operand.h"
+#include "Printers/FullPBIWPrinter.h"
+#include "rVex64PBIWInstruction.h"
 #include "src/rVex/rVex.h"
 
 #include "src/PBIW/Interfaces/IPBIWInstruction.h"
@@ -19,13 +19,12 @@
 #include "src/PBIW/Optimizers/JoinPattern/PatternInformation.h"
 //#include "Operation.h"
 
-namespace PBIW
+namespace PBIWFull
 {
-  using namespace Interfaces;
+  using namespace PBIW::Interfaces;
     
   rVex96PBIWPattern::rVex96PBIWPattern(const rVex96PBIWPattern& orig)
     : address(orig.address), 
-      usageCounter(orig.usageCounter),
       instructionsThatUseIt(orig.instructionsThatUseIt)
   {
     OperationVector::const_iterator it;

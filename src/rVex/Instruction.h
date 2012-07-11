@@ -17,19 +17,24 @@
 
 #include "src/PBIW/Interfaces/IPBIWInstruction.h"
 #include "src/GenericAssembly/Interfaces/IInstruction.h"
-//#include "src/GenericAssembly/Interfaces/IOperation.h"
 
 #include "src/rVex/Printers/IPrinter.h"
 #include "src/rVex/Parser/Expressions/SyllableArguments.h"
 
-#include "Utils/OperandVectorBuilder.h"
 #include "Utils/DependencyChains.h"
 
 #include "Label.h"
 
 namespace rVex
 {
+  // Begin Forwarding declarations
+  namespace Utils
+  {
+    class OperandVectorBuilder;
+  }
+  
   class Syllable;
+  // End Forwarding declarations
   
   class Instruction : public GenericAssembly::Interfaces::IInstruction
   {
@@ -149,31 +154,31 @@ namespace rVex
 //          opADDCG  = 127, 
           
         opDIVS   = 112,
-//          opDIVS   = 113,
-//          opDIVS   = 114,
-//          opDIVS   = 115,
-//          opDIVS   = 116,
-//          opDIVS   = 117,
-//          opDIVS   = 118,
-//          opDIVS   = 119,
+        //opDIVS   = 113,
+        //opDIVS   = 114,
+        //opDIVS   = 115,
+        //opDIVS   = 116,
+        //opDIVS   = 117,
+        //opDIVS   = 118,
+        //opDIVS   = 119,
           
         opSLCT   = 56,
-//          opSLCT   = 57,
-//          opSLCT   = 58,
-//          opSLCT   = 59,
-//          opSLCT   = 60,
-//          opSLCT   = 61,
-//          opSLCT   = 62,
-//          opSLCT   = 63,
+        //opSLCT   = 57,
+        //opSLCT   = 58,
+        //opSLCT   = 59,
+        //opSLCT   = 60,
+        //opSLCT   = 61,
+        //opSLCT   = 62,
+        //opSLCT   = 63,
           
         opSLCTF  = 48,
-//          opSLCTF  = 49,
-//          opSLCTF  = 50,
-//          opSLCTF  = 51,
-//          opSLCTF  = 52,
-//          opSLCTF  = 53,
-//          opSLCTF  = 54,
-//          opSLCTF  = 55,
+        //opSLCTF  = 49,
+        //opSLCTF  = 50,
+        //opSLCTF  = 51,
+        //opSLCTF  = 52,
+        //opSLCTF  = 53,
+        //opSLCTF  = 54,
+        //opSLCTF  = 55,
 
         /* MUL opcodes */
         opMPYLL  =  1,
@@ -241,6 +246,14 @@ namespace rVex
           NO_IMM, SHORT_IMM, BRANCH_IMM, LONG_IMM 
         } Type;
       } ImmediateSwitch;
+      
+      /**
+       * The type of branch operand*/
+      typedef struct {
+        typedef enum {
+          NONE, SOURCE, DESTINY
+        } Type;
+      } BranchOperand;
       
       typedef std::vector<unsigned int> ReadRegVector;
       

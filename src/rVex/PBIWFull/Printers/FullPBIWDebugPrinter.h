@@ -5,27 +5,27 @@
  * Created on October 30, 2011, 4:28 PM
  */
 
-#ifndef PARTIALPBIWPRINTER_H
-#define	PARTIALPBIWPRINTER_H
+#ifndef PARTIALPBIWDEBUGPRINTER_H
+#define	PARTIALPBIWDEBUGPRINTER_H
 
 #include "src/PBIW/Interfaces/IPBIWPrinter.h"
 
-namespace PBIW
+namespace PBIWFull
 {
-  using namespace Interfaces;
+  using namespace PBIW::Interfaces;
 
-  class PartialPBIWPrinter : public IPBIWPrinter
+  class FullPBIWDebugPrinter : public IPBIWPrinter
   {
   public:
-    PartialPBIWPrinter(std::ostream& printer) 
+    FullPBIWDebugPrinter(std::ostream& printer) 
     : printer(printer)
     { }
     
-    PartialPBIWPrinter(const PartialPBIWPrinter& orig) 
-    : printer( const_cast<PartialPBIWPrinter&>(orig).getOutputStream() )
+    FullPBIWDebugPrinter(const FullPBIWDebugPrinter& orig) 
+    : printer( const_cast<FullPBIWDebugPrinter&>(orig).getOutputStream() )
     { }
     
-    virtual ~PartialPBIWPrinter()
+    virtual ~FullPBIWDebugPrinter()
     { }
 
     virtual void printPatternsHeader();

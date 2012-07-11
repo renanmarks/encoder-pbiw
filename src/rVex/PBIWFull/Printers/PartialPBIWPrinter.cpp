@@ -6,17 +6,17 @@
  */
 
 #include <list>
-#include "PartialPBIWPrinter.h"
+#include "FullPBIWPrinter.h"
 #include "src/PBIW/Interfaces/IPBIWPattern.h"
 #include "src/PBIW/Interfaces/IPBIWInstruction.h"
 #include "src/rVex/Syllable.h"
 
-namespace PBIW
+namespace PBIWFull
 {
-  using namespace Interfaces;
+  using namespace PBIW::Interfaces;
 
   void
-  PartialPBIWPrinter::printPatternsHeader() // O(1)
+  FullPBIWPrinter::printPatternsHeader() // O(1)
   {
     printer << "library ieee;\n\
 use ieee.std_logic_1164.all;\n\
@@ -39,7 +39,7 @@ architecture teste of pcache1 is\n\
   }
   
   void
-  PartialPBIWPrinter::printPattern(const IPBIWPattern& pattern, const std::vector<unsigned int>& binary) // O(|operationCount|)
+  FullPBIWPrinter::printPattern(const IPBIWPattern& pattern, const std::vector<unsigned int>& binary) // O(|operationCount|)
   {
     printer << "\t\t" << pattern.getAddress() << " => b\"";
     
@@ -67,7 +67,7 @@ architecture teste of pcache1 is\n\
   }
 
   void
-  PartialPBIWPrinter::printPatternsFooter(unsigned int patternsCount) // O(1)
+  FullPBIWPrinter::printPatternsFooter(unsigned int patternsCount) // O(1)
   {
     if (patternsCount >= 63)
       printer << "--- WARNING: More than 64 patterns generated. Check your VHDL entity to accomplish the new address range." << std::endl;
@@ -81,7 +81,7 @@ end architecture teste;\n" << std::endl;
   }
   
   void
-  PartialPBIWPrinter::printInstructionsHeader() // O(1)
+  FullPBIWPrinter::printInstructionsHeader() // O(1)
   {
     printer << "library ieee;\n\
 use ieee.std_logic_1164.all;\n\
@@ -111,7 +111,7 @@ architecture Behav of i_mem is\n\
   }
 
   void
-  PartialPBIWPrinter::printInstruction(const IPBIWInstruction& instruction, const std::vector<unsigned int>& binary) // O(1)
+  FullPBIWPrinter::printInstruction(const IPBIWInstruction& instruction, const std::vector<unsigned int>& binary) // O(1)
   {
     if (instruction.getLabel() != NULL)
       printer << "\t\t-- " << instruction.getLabel()->getName() << ": " << std::endl;
@@ -153,7 +153,7 @@ architecture Behav of i_mem is\n\
   }
   
   void
-  PartialPBIWPrinter::printInstructionsFooter(unsigned int instructionsCount) // O(1)
+  FullPBIWPrinter::printInstructionsFooter(unsigned int instructionsCount) // O(1)
   {
     if (instructionsCount >= 63)
       printer << "--- WARNING: More than 64 instructions generated. Check your VHDL entity to accomplish the new address range." << std::endl;

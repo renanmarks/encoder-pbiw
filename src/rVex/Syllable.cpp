@@ -216,19 +216,18 @@ namespace rVex
   void
   Syllable::exportOperandVector(Utils::OperandVectorBuilder& builder) const // O(1)
   {
-    using PBIW::Operand;
-    using PBIW::Utils::OperandItem;
+    using PBIW::Utils::OperandItemDTO;
 
     switch (getLayoutType()) {
       case LayoutType::RTYPE:
-        builder.insertRegister(this->grDestiny, OperandItem::GRDestiny, this);
-        builder.insertRegisters(readRegisters, OperandItem::GRSource, this);
+        builder.insertRegister(this->grDestiny, OperandItemDTO::GRDestiny, this);
+        builder.insertRegisters(readRegisters, OperandItemDTO::GRSource, this);
         break;
 
       case LayoutType::ISTYPE:
-        builder.insertRegister(this->grDestiny, OperandItem::GRDestiny, this);
-        builder.insertRegisters(readRegisters, OperandItem::GRSource, this);
-        builder.insertImmediate(this->shortImmediate, Operand::Immediate::NineBits, this);
+        builder.insertRegister(this->grDestiny, OperandItemDTO::GRDestiny, this);
+        builder.insertRegisters(readRegisters, OperandItemDTO::GRSource, this);
+        builder.insertImmediate(this->shortImmediate, Syllable::ImmediateSwitch::SHORT_IMM, this);
         break;
 
         //      Must implement in each specific opcode

@@ -16,8 +16,8 @@
           <itemPath>src/GenericAssembly/Interfaces/ISection.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f2" displayName="Utils" projectFiles="true">
-          <itemPath>src/GenericAssembly/Utils/CanCopy.h</itemPath>
           <itemPath>src/GenericAssembly/Utils/DependencyChains.h</itemPath>
+          <itemPath>src/GenericAssembly/Utils/DerivedFrom.h</itemPath>
           <itemPath>src/GenericAssembly/Utils/LabelScope.h</itemPath>
         </logicalFolder>
       </logicalFolder>
@@ -27,6 +27,7 @@
           <itemPath>src/PBIW/Interfaces/IOperand.h</itemPath>
           <itemPath>src/PBIW/Interfaces/IOperation.h</itemPath>
           <itemPath>src/PBIW/Interfaces/IPBIW.h</itemPath>
+          <itemPath>src/PBIW/Interfaces/IPBIWFactory.h</itemPath>
           <itemPath>src/PBIW/Interfaces/IPBIWInstruction.h</itemPath>
           <itemPath>src/PBIW/Interfaces/IPBIWOptimizer.h</itemPath>
           <itemPath>src/PBIW/Interfaces/IPBIWPattern.h</itemPath>
@@ -40,8 +41,9 @@
           </logicalFolder>
         </logicalFolder>
         <logicalFolder name="f2" displayName="Utils" projectFiles="true">
-          <itemPath>src/PBIW/Utils/OperandItem.h</itemPath>
+          <itemPath>src/PBIW/Utils/OperandItemDTO.h</itemPath>
           <itemPath>src/PBIW/Utils/OperandVector.h</itemPath>
+          <itemPath>src/PBIW/Utils/OperandVectorDTO.h</itemPath>
         </logicalFolder>
         <itemPath>src/PBIW/BaseOptimizer.h</itemPath>
         <itemPath>src/PBIW/PBIWOptimizerDataSet.h</itemPath>
@@ -168,17 +170,31 @@
           <itemPath>src/rVex/Parser/stack.hh</itemPath>
           <itemPath>src/rVex/Parser/y.tab.h</itemPath>
         </logicalFolder>
-        <logicalFolder name="PBIW" displayName="PBIW" projectFiles="true">
+        <logicalFolder name="PBIW" displayName="PBIWFull" projectFiles="true">
           <logicalFolder name="Printers" displayName="Printers" projectFiles="true">
-            <itemPath>src/rVex/PBIW/Printers/PartialPBIWDebugPrinter.h</itemPath>
-            <itemPath>src/rVex/PBIW/Printers/PartialPBIWPrinter.h</itemPath>
+            <itemPath>src/rVex/PBIWFull/Printers/FullPBIWDebugPrinter.h</itemPath>
+            <itemPath>src/rVex/PBIWFull/Printers/FullPBIWPrinter.h</itemPath>
           </logicalFolder>
-          <itemPath>src/rVex/PBIW/FullPBIW.h</itemPath>
-          <itemPath>src/rVex/PBIW/Label.h</itemPath>
-          <itemPath>src/rVex/PBIW/Operand.h</itemPath>
-          <itemPath>src/rVex/PBIW/Operation.h</itemPath>
-          <itemPath>src/rVex/PBIW/rVex64PBIWInstruction.h</itemPath>
-          <itemPath>src/rVex/PBIW/rVex96PBIWPattern.h</itemPath>
+          <itemPath>src/rVex/PBIWFull/Factory.h</itemPath>
+          <itemPath>src/rVex/PBIWFull/FullPBIW.h</itemPath>
+          <itemPath>src/rVex/PBIWFull/Label.h</itemPath>
+          <itemPath>src/rVex/PBIWFull/Operand.h</itemPath>
+          <itemPath>src/rVex/PBIWFull/Operation.h</itemPath>
+          <itemPath>src/rVex/PBIWFull/rVex64PBIWInstruction.h</itemPath>
+          <itemPath>src/rVex/PBIWFull/rVex96PBIWPattern.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="f3" displayName="PBIWPartial" projectFiles="true">
+          <logicalFolder name="f1" displayName="Printers" projectFiles="true">
+            <itemPath>src/rVex/PBIWPartial/Printers/PartialPBIWDebugPrinter.h</itemPath>
+            <itemPath>src/rVex/PBIWPartial/Printers/PartialPBIWPrinter.h</itemPath>
+          </logicalFolder>
+          <itemPath>src/rVex/PBIWPartial/Factory.h</itemPath>
+          <itemPath>src/rVex/PBIWPartial/Label.h</itemPath>
+          <itemPath>src/rVex/PBIWPartial/Operand.h</itemPath>
+          <itemPath>src/rVex/PBIWPartial/Operation.h</itemPath>
+          <itemPath>src/rVex/PBIWPartial/PartialPBIW.h</itemPath>
+          <itemPath>src/rVex/PBIWPartial/rVex64PBIWInstruction.h</itemPath>
+          <itemPath>src/rVex/PBIWPartial/rVex96PBIWPattern.h</itemPath>
         </logicalFolder>
         <logicalFolder name="Printers" displayName="Printers" projectFiles="true">
           <itemPath>src/rVex/Printers/IPrinter.h</itemPath>
@@ -217,6 +233,7 @@
         </logicalFolder>
         <logicalFolder name="f1" displayName="Utils" projectFiles="true">
           <itemPath>src/PBIW/Utils/OperandVector.cpp</itemPath>
+          <itemPath>src/PBIW/Utils/OperandVectorDTO.cpp</itemPath>
         </logicalFolder>
         <itemPath>src/PBIW/BaseOptimizer.cpp</itemPath>
         <itemPath>src/PBIW/PBIWOptimizerDataSet.cpp</itemPath>
@@ -281,16 +298,29 @@
           <itemPath>src/rVex/Parser/parser.tab.cc</itemPath>
           <itemPath>src/rVex/Parser/scanner.cc</itemPath>
         </logicalFolder>
-        <logicalFolder name="PBIW" displayName="PBIW" projectFiles="true">
+        <logicalFolder name="PBIW" displayName="PBIWFull" projectFiles="true">
           <logicalFolder name="Printers" displayName="Printers" projectFiles="true">
-            <itemPath>src/rVex/PBIW/Printers/PartialPBIWDebugPrinter.cpp</itemPath>
-            <itemPath>src/rVex/PBIW/Printers/PartialPBIWPrinter.cpp</itemPath>
+            <itemPath>src/rVex/PBIWFull/Printers/PartialPBIWDebugPrinter.cpp</itemPath>
+            <itemPath>src/rVex/PBIWFull/Printers/PartialPBIWPrinter.cpp</itemPath>
           </logicalFolder>
-          <itemPath>src/rVex/PBIW/FullPBIW.cpp</itemPath>
-          <itemPath>src/rVex/PBIW/Operand.cpp</itemPath>
-          <itemPath>src/rVex/PBIW/Operation.cpp</itemPath>
-          <itemPath>src/rVex/PBIW/rVex64PBIWInstruction.cpp</itemPath>
-          <itemPath>src/rVex/PBIW/rVex96PBIWPattern.cpp</itemPath>
+          <itemPath>src/rVex/PBIWFull/Factory.cpp</itemPath>
+          <itemPath>src/rVex/PBIWFull/FullPBIW.cpp</itemPath>
+          <itemPath>src/rVex/PBIWFull/Operand.cpp</itemPath>
+          <itemPath>src/rVex/PBIWFull/Operation.cpp</itemPath>
+          <itemPath>src/rVex/PBIWFull/rVex64PBIWInstruction.cpp</itemPath>
+          <itemPath>src/rVex/PBIWFull/rVex96PBIWPattern.cpp</itemPath>
+        </logicalFolder>
+        <logicalFolder name="f3" displayName="PBIWPartial" projectFiles="true">
+          <logicalFolder name="f1" displayName="Printers" projectFiles="true">
+            <itemPath>src/rVex/PBIWPartial/Printers/PartialPBIWDebugPrinter.cpp</itemPath>
+            <itemPath>src/rVex/PBIWPartial/Printers/PartialPBIWPrinter.cpp</itemPath>
+          </logicalFolder>
+          <itemPath>src/rVex/PBIWPartial/Factory.cpp</itemPath>
+          <itemPath>src/rVex/PBIWPartial/Operand.cpp</itemPath>
+          <itemPath>src/rVex/PBIWPartial/Operation.cpp</itemPath>
+          <itemPath>src/rVex/PBIWPartial/PartialPBIW.cpp</itemPath>
+          <itemPath>src/rVex/PBIWPartial/rVex64PBIWInstruction.cpp</itemPath>
+          <itemPath>src/rVex/PBIWPartial/rVex96PBIWPattern.cpp</itemPath>
         </logicalFolder>
         <logicalFolder name="Printers" displayName="Printers" projectFiles="true">
           <itemPath>src/rVex/Printers/VHDLPrinter.cpp</itemPath>

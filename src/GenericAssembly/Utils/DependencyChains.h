@@ -15,7 +15,7 @@
 #include "src/GenericAssembly/Interfaces/IInstruction.h"
 #include "src/GenericAssembly/Interfaces/IOperation.h"
 #include "src/GenericAssembly/Interfaces/IPrinter.h"
-#include "src/GenericAssembly/Utils/CanCopy.h"
+#include "src/GenericAssembly/Utils/DerivedFrom.h"
 
 namespace GenericAssembly
 {

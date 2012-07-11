@@ -1,12 +1,12 @@
 /* 
- * File:   FullPBIW.h
+ * File:   PBIW.h
  * Author: helix
  *
  * Created on July 20, 2011, 4:13 PM
  */
 
-#ifndef FULLPBIW_H
-#define	FULLPBIW_H
+#ifndef PBIWPARTIAL_PARTIALPBIW_H
+#define	PBIWPARTIAL_PARTIALPBIW_H
 
 #include <set>
 #include <vector>
@@ -14,14 +14,13 @@
 
 #include "src/PBIW/Interfaces/IPBIW.h"
 #include "Label.h"
-#include "src/PBIW/Utils/OperandVector.h"
+#include "src/PBIW/Utils/OperandVectorDTO.h"
 #include "src/rVex/Syllable.h"
-#include "rVex64PBIWInstruction.h"
-#include "rVex96PBIWPattern.h"
+#include "Factory.h"
 
-namespace PBIW
+namespace PBIWPartial
 {
-  using namespace Interfaces;
+  using namespace PBIW::Interfaces;
 
   /**
    * Class responsible for encoding the r-Vex instructions in
@@ -36,18 +35,18 @@ namespace PBIW
    * The flexibility of this class is in the fact that it operates only
    * using the interfaces to the data structures used.
    */
-  class FullPBIW : public IPBIW
+  class PartialPBIW : public IPBIW
   {
   private:
     
-    bool debug;
+    PBIWPartial::Factory factory;
     
-    unsigned int originalInstructionsCount;
+    bool debug;
     
     /**
      * Type definitions to references rVex structures
      */
-    typedef Utils::OperandVector VexSyllableOperandVector; 
+    typedef PBIW::Utils::OperandVectorDTO VexSyllableOperandVector; 
     typedef rVex::Instruction::SyllableVector VexSyllableVector;
 //    
 //    typedef std::vector<rVex::Instruction*> VexInstructionVector;
@@ -56,8 +55,10 @@ namespace PBIW
     /**
      * Internal data structures
      */
-    typedef std::list<PBIW::Label> LabelVector;
+    typedef std::list<PBIWPartial::Label> LabelVector;
     LabelVector labels;
+    
+    unsigned int originalInstructionsCount;
     
     /**
      * Buffer used to know the syllables coded at each iteration
@@ -80,9 +81,8 @@ namespace PBIW
     
     const IPBIWPattern& hasPattern(const IPBIWPattern&) const;
     
-    void savePBIWElements(rVex64PBIWInstruction*&, rVex96PBIWPattern*&);
-    void createNewPBIWElements(rVex64PBIWInstruction*&, rVex96PBIWPattern*&);
-    void saveAndCreateNewPBIWElements(rVex64PBIWInstruction*&, rVex96PBIWPattern*&);
+    void savePBIWElements(IPBIWInstruction*&, IPBIWPattern*&);
+    void saveAndCreateNewPBIWElements(IPBIWInstruction*&, IPBIWPattern*&);
     void resetFinalOperation(VexSyllableOperandVector::Collection::const_iterator&, IOperation*&, rVex::Syllable* const&, const VexSyllableOperandVector&);
 
     /**
@@ -107,10 +107,10 @@ namespace PBIW
     };
     
   public:
-    FullPBIW() : debug(false), originalInstructionsCount(0)
+    PartialPBIW() : debug(false)
     {}
     
-    virtual ~FullPBIW();
+    virtual ~PartialPBIW();
 
     virtual void encode(const std::vector<rVex::Instruction*>&);
     virtual void decode(const std::vector<IPBIWInstruction*>&, const std::vector<IPBIWPattern*>&);
@@ -118,14 +118,13 @@ namespace PBIW
     virtual void registerOptimizer(IPBIWOptimizer&);
     virtual void runOptimizers();
     
-    virtual void printStatistics(IPBIWPrinter&);
     virtual void printInstructions(IPBIWPrinter&);
     virtual void printPatterns(IPBIWPrinter&);
+    virtual void printStatistics(IPBIWPrinter& printer);
 
     virtual std::vector<IPBIWPattern*> getPatterns();
     virtual std::vector<IPBIWInstruction*> getInstructions();
-    virtual std::vector<ILabel*> getLabels();
-    
+
     void
     setDebug(bool debug)
     { this->debug=debug; }

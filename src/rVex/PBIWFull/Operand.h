@@ -5,14 +5,15 @@
  * Created on October 20, 2011, 2:00 PM
  */
 
-#ifndef OPERAND_H
-#define	OPERAND_H
+#ifndef PBIWFULL_OPERAND_H
+#define	PBIWFULL_OPERAND_H
 
 #include "src/PBIW/Interfaces/IOperand.h"
+#include "src/rVex/Syllable.h"
 
-namespace PBIW
+namespace PBIWFull
 {
-  using namespace Interfaces;
+  using namespace PBIW::Interfaces;
   
   /**
    * The operand used in the PBIW encoding.
@@ -21,24 +22,15 @@ namespace PBIW
   {
   public:
     
-    typedef struct {
-      typedef enum {
-        None, NineBits, TwelveBits
-      } Type;
-    } Immediate;
-    
-    typedef struct {
-      typedef enum {
-        None, Source, Destiny
-      } Type;
-    } Branch;
-    
     explicit Operand();
     explicit Operand(int);
-    explicit Operand(int, Immediate::Type);
+    explicit Operand(int, rVex::Syllable::ImmediateSwitch::Type);
     Operand(const Operand&);
     virtual ~Operand() { }
   
+    virtual IOperand* clone() const
+    { return new Operand(*this); }
+    
     virtual void setIndex(unsigned int index) 
     { this->index = index; }
     
@@ -46,15 +38,21 @@ namespace PBIW
     { return this->index; }
     
     virtual bool isImmediate9Bits() const
-    { return this->immType == Immediate::NineBits; }
+    { return this->immType == rVex::Syllable::ImmediateSwitch::SHORT_IMM; }
+    
+    virtual void isImmediate9Bits(bool valid) 
+    { this->immType = rVex::Syllable::ImmediateSwitch::SHORT_IMM; }
     
     virtual bool isImmediate12Bits() const
-    { return this->immType == Immediate::TwelveBits; }
+    { return this->immType == rVex::Syllable::ImmediateSwitch::BRANCH_IMM; }
+    
+    virtual void isImmediate12Bits(bool valid) 
+    { this->immType = rVex::Syllable::ImmediateSwitch::BRANCH_IMM; }
     
     virtual bool isImmediate() const
     { return isImmediate12Bits() || isImmediate9Bits(); }
     
-    virtual Immediate::Type getImmediateType() const
+    virtual rVex::Syllable::ImmediateSwitch::Type getImmediateType() const
     { return immType; }
     
     virtual void setValue(int value)
@@ -63,20 +61,20 @@ namespace PBIW
     virtual int getValue() const
     { return value; }
     
-    virtual Branch::Type getBanchType() const
+    virtual rVex::Syllable::BranchOperand::Type getBanchType() const
     { return branchType; }
     
     virtual bool isBRSource() const
-    { return branchType == Branch::Source; }
+    { return branchType == rVex::Syllable::BranchOperand::SOURCE; }
     
     virtual void setBRSource(const bool value)
-    { if (value) branchType = Branch::Source; }
+    { if (value) branchType = rVex::Syllable::BranchOperand::SOURCE; }
     
     virtual bool isBRDestiny() const
-    { return branchType == Branch::Destiny; }
+    { return branchType == rVex::Syllable::BranchOperand::DESTINY; }
     
     virtual void setBRDestiny(const bool value)
-    { if (value) branchType = Branch::Destiny; }
+    { if (value) branchType = rVex::Syllable::BranchOperand::DESTINY; }
 
     virtual bool operator<(const IOperand&) const;
     virtual bool operator>(const IOperand&) const;
@@ -91,10 +89,10 @@ namespace PBIW
     unsigned int index;
     
     // This is an immediate operand?
-    Immediate::Type immType;
+    rVex::Syllable::ImmediateSwitch::Type immType;
     
     // Type of this operand
-    Branch::Type branchType;
+    rVex::Syllable::BranchOperand::Type branchType;
     
     // The value of this operand (register number or immediate number)
     int value;

@@ -1,6 +1,7 @@
 #include <vector>
 #include "src/rVex/Instruction.h"
 #include "GOTO.h"
+#include "src/rVex/Utils/OperandVectorBuilder.h"
 
 namespace rVex
 {
@@ -11,13 +12,12 @@ namespace rVex
       void
       GOTO::exportOperandVector(Utils::OperandVectorBuilder& builder) const
       {
-        using PBIW::Operand;
-        using PBIW::Utils::OperandItem;
+        using PBIW::Utils::OperandItemDTO;
         
         if (this->branchDestiny != NULL)
-          builder.insertImmediate(this->shortImmediate, Operand::Immediate::TwelveBits, this);
+          builder.insertImmediate(this->shortImmediate, rVex::Syllable::ImmediateSwitch::BRANCH_IMM, this);
         else
-          builder.insertRegisters(this->readRegisters, OperandItem::GRSource, this);
+          builder.insertRegisters(this->readRegisters, OperandItemDTO::GRSource, this);
       }
       
       void 

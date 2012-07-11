@@ -239,9 +239,9 @@ namespace PBIW
     }
     
     void
-    PBIWOptimizerJoinPatterns::processJoinPatterns()
+    PBIWOptimizerJoinPatterns::processJoinPatterns(IPBIWFactory& factory)
     {
-        Optimizers::JoinPattern::PatternBuilder patternBuilder;        
+        Optimizers::JoinPattern::PatternBuilder patternBuilder(factory);        
             
         preprocessPatterns();
 
@@ -289,50 +289,50 @@ namespace PBIW
                     {
                         case MUL_MUL:
                             if(!twoOperation.at(CTRL_MEM).empty())
-                            getPatternsToJoin(MUL_MUL, CTRL_MEM); 
+                            getPatternsToJoin(MUL_MUL, CTRL_MEM, factory); 
 
                             if(!twoOperation.at(CTRL_ALU).empty())
-                            getPatternsToJoin(MUL_MUL, CTRL_ALU);
+                            getPatternsToJoin(MUL_MUL, CTRL_ALU, factory);
 
                             if(!twoOperation.at(MEM_ALU).empty())
-                                getPatternsToJoin(MUL_MUL, MEM_ALU);
+                                getPatternsToJoin(MUL_MUL, MEM_ALU, factory);
                             break;
 
                         case CTRL_MUL:
                             if(!twoOperation.at(MEM_MUL).empty())
-                                getPatternsToJoin(CTRL_MUL, MEM_MUL);
+                                getPatternsToJoin(CTRL_MUL, MEM_MUL, factory);
 
                             if(!twoOperation.at(MEM_ALU).empty())
-                                getPatternsToJoin(CTRL_MUL, MEM_ALU);
+                                getPatternsToJoin(CTRL_MUL, MEM_ALU, factory);
 
                             if(!twoOperation.at(MUL_ALU).empty())
-                                getPatternsToJoin(CTRL_MUL, MUL_ALU);
+                                getPatternsToJoin(CTRL_MUL, MUL_ALU, factory);
                             break;
 
                         case MEM_MUL:
                             if(!twoOperation.at(CTRL_ALU).empty())
-                                getPatternsToJoin(MEM_MUL, CTRL_ALU);
+                                getPatternsToJoin(MEM_MUL, CTRL_ALU, factory);
 
                             if(!twoOperation.at(MUL_ALU).empty())
-                                getPatternsToJoin(MEM_MUL, MUL_ALU);
+                                getPatternsToJoin(MEM_MUL, MUL_ALU, factory);
                             break;
 
                         case CTRL_MEM:
                             if(!twoOperation.at(MUL_ALU).empty())
-                                getPatternsToJoin(CTRL_MEM, MUL_ALU);
+                                getPatternsToJoin(CTRL_MEM, MUL_ALU, factory);
                             break;
 
                         case CTRL_ALU:
                             if(!twoOperation.at(MEM_ALU).empty())
-                                getPatternsToJoin(CTRL_ALU, MEM_ALU);
+                                getPatternsToJoin(CTRL_ALU, MEM_ALU, factory);
 
                             if(!twoOperation.at(MUL_ALU).empty())
-                                getPatternsToJoin(CTRL_ALU, MUL_ALU);
+                                getPatternsToJoin(CTRL_ALU, MUL_ALU, factory);
                             break;
 
                         case MEM_ALU: 
                             if(!twoOperation.at(MUL_ALU).empty())
-                                getPatternsToJoin(MEM_ALU, MUL_ALU);
+                                getPatternsToJoin(MEM_ALU, MUL_ALU, factory);
                             break;
 
                         case ALU_ALU:
@@ -347,7 +347,7 @@ namespace PBIW
                                 {
                                     if((!(*itBase2).empty()) && (!twoOperation.at(ALU_ALU).empty()) && (j != 7))
                                     {
-                                        getPatternsToJoin(j, ALU_ALU);
+                                        getPatternsToJoin(j, ALU_ALU, factory);
                                     }                                    
                                     else if(j == 7)// if alu_alu
                                     {
@@ -620,14 +620,14 @@ namespace PBIW
             it++)
         {
             (*it)->pointToPattern(*pattern1);
-            pattern1->getInstructionsThatUseIt2().push_back(*it);
+            pattern1->getInstructionsThatUseIt().push_back(*it);
         }
         
         patterns.erase(std::find(patterns.begin(), patterns.end(), pattern2));                
     }
     
     void
-    PBIWOptimizerJoinPatterns::getPatternsToJoin(int index1, int index2)
+    PBIWOptimizerJoinPatterns::getPatternsToJoin(int index1, int index2, IPBIWFactory& factory)
     {
         InnerDeque::iterator itInner1, itInner2;
         
@@ -638,7 +638,7 @@ namespace PBIW
             IPBIWPattern* first = *(std::find(patterns.begin(), patterns.end(), *itInner1));
             IPBIWPattern* second = *(std::find(patterns.begin(), patterns.end(), *itInner2));
             
-            Optimizers::JoinPattern::PatternBuilder patternBuilder;
+            Optimizers::JoinPattern::PatternBuilder patternBuilder(factory);
             
             patterns.push_back(
             patternBuilder.startWithPattern(first).joinWithPattern(second).buildPattern());
@@ -653,8 +653,8 @@ namespace PBIW
     }
     
     void
-    PBIWOptimizerJoinPatterns::run() 
+    PBIWOptimizerJoinPatterns::run(IPBIWFactory& factory) 
     {
-        this->processJoinPatterns();
+        this->processJoinPatterns(factory);
     }    
 }

@@ -9,6 +9,7 @@
 #include "Syllable.h"
 #include "src/rVex/Printers/IPrinter.h"
 #include "src/PBIW/Interfaces/IPBIWInstruction.h"
+#include "Utils/OperandVectorBuilder.h"
 
 namespace rVex
 {

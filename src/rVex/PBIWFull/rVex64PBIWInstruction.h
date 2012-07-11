@@ -5,19 +5,22 @@
  * Created on July 21, 2011, 3:18 PM
  */
 
-#ifndef RVEX64PBIWINSTRUCTION_H
-#define	RVEX64PBIWINSTRUCTION_H
+#ifndef PBIWFULL_RVEX64PBIWINSTRUCTION_H
+#define	PBIWFULL_RVEX64PBIWINSTRUCTION_H
 
 #include <vector>
 #include "src/PBIW/Interfaces/IPBIWInstruction.h"
 #include "src/PBIW/Interfaces/IOperand.h"
+#include "src/PBIW/Utils/OperandVector.h"
 #include "src/rVex/Syllable.h"
-#include "Label.h"
+#include "src/rVex/Utils/OperandVectorBuilder.h"
 #include "rVex96PBIWPattern.h"
+#include "Operand.h"
+#include "Label.h"
 
-namespace PBIW
+namespace PBIWFull
 {
-  using namespace Interfaces;
+  using namespace PBIW::Interfaces;
 
     /**
      * r-VEX 64 bits length instruction 
@@ -58,12 +61,11 @@ namespace PBIW
         zeroOperand.setIndex(0);
       }
 
-      virtual ~rVex64PBIWInstruction();
+      virtual ~rVex64PBIWInstruction() { }
 
       virtual IPBIWInstruction* clone() const;
       
       virtual void setAddress(unsigned int addr);
-
       virtual unsigned int getAddress() const;
 
       virtual void setLabel(const ILabel*);
@@ -72,7 +74,6 @@ namespace PBIW
       virtual void pointToPattern(IPBIWPattern& pattern);
       
       virtual void setCodingOperation(IOperation& operation);
-      
       virtual IOperation* getCodingOperation() const;
 
       virtual rVex96PBIWPattern* getPattern() const;
@@ -85,11 +86,12 @@ namespace PBIW
 
       virtual void addBranchOperand(IOperand&);
       
+      virtual void setBranchSourceOperand(IOperand&);
       virtual bool hasBranchSourceOperand() const;
 
       virtual void addWriteOperand(IOperand& operand);
 
-      virtual bool hasOperandSlot(const Utils::OperandItem&);
+      virtual bool hasOperandSlot(const PBIW::Utils::OperandItemDTO&);
       virtual bool hasReadOperandSlot() const;
       virtual bool hasWriteOperandSlot() const;
 
@@ -106,7 +108,7 @@ namespace PBIW
 
       virtual void print(IPBIWPrinter&) const;
 
-      virtual OperandVector getOperands() const;
+      virtual PBIW::Utils::OperandVector getOperands() const;
 
       virtual void setOperationReferences(const std::list<GenericAssembly::Interfaces::IOperation*>& list);
 
@@ -175,7 +177,8 @@ namespace PBIW
         '------------------------- Br src ----------------------'      '----9b imm---'
                                            '  BR  ' BRF  '             '-------12b imm-----'
        */
-      OperandVector operands; // Max 12
+      
+      std::deque<Operand> operands; // Max 12
       Operand opBRslot;
       Operand opBRFslot;
       

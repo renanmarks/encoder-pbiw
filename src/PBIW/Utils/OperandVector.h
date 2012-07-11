@@ -2,14 +2,17 @@
  * File:   OperandVector.h
  * Author: helix
  *
- * Created on December 10, 2011, 8:22 PM
+ * Created on July 10, 2012, 2:44 PM
  */
 
 #ifndef OPERANDVECTOR_H
 #define	OPERANDVECTOR_H
 
+#include <deque>
+#include <list>
+#include <set>
 #include <vector>
-#include "OperandItem.h"
+#include "src/PBIW/Interfaces/IOperand.h"
 
 namespace PBIW
 {
@@ -18,18 +21,32 @@ namespace PBIW
     class OperandVector
     {
     public:
+      typedef std::deque<Interfaces::IOperand*> Collection;
+      
       OperandVector();
       OperandVector(const OperandVector& orig);
       virtual ~OperandVector();
-    
-      typedef std::vector<OperandItem*> Collection;
-      
+
       OperandVector& operator=(const OperandVector&);
+      
+//      template<class Enumerable>
+//      void fill(Enumerable& enumerable);
+      
+      template <class TOperand>
+      void fill(const std::list<TOperand>&);
+      
+      template <class TOperand>
+      void fill(const std::vector<TOperand>&);
+      
+      template <class TOperand>
+      void fill(const std::set<TOperand>&);
+      
+      template <class TOperand>
+      void fill(const std::deque<TOperand>&);
       
       /*
        * Wrapper methods to internal vector.
        */
-      
       void
       clear();
       
@@ -65,16 +82,25 @@ namespace PBIW
       rend() const
       { return operands.rend(); }
       
+      Collection::reference
+      operator[](int index)
+      { return operands[index]; }
+      
+      Collection::const_reference
+      operator[](int index) const
+      { return operands[index]; }
+      
       void
-      push_back(OperandItem* operandItem)
+      push_back(Interfaces::IOperand* operandItem)
       { operands.push_back(operandItem); }
       
     private:
+      void copy(const OperandVector&);
       
       Collection operands;
     };
   }
 }
 
-#endif	/* OPERANDVECTOR_H */
+#endif	/* OPERATIONVECTOR_H */
 

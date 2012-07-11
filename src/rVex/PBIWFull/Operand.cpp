@@ -8,21 +8,22 @@
 #include <ios>
 #include <typeinfo>
 #include "Operand.h"
+#include "src/rVex/Instruction.h"
 
-namespace PBIW
+namespace PBIWFull
 {
   Operand::Operand()
-  : index(0), immType(Immediate::None), branchType(Branch::None), value(0)
+  : index(0), immType(rVex::Syllable::ImmediateSwitch::NO_IMM), branchType(rVex::Syllable::BranchOperand::NONE), value(0)
   {
   }
   
   Operand::Operand(int value)
-  : index(0), immType(Immediate::None), branchType(Branch::None), value(value)
+  : index(0), immType(rVex::Syllable::ImmediateSwitch::NO_IMM), branchType(rVex::Syllable::BranchOperand::NONE), value(value)
   {
   }
   
-  Operand::Operand(int value, Immediate::Type immediateType)
-  : index(0), immType(immediateType), branchType(Branch::None), value(value)
+  Operand::Operand(int value, rVex::Syllable::ImmediateSwitch::Type immediateType)
+  : index(0), immType(immediateType), branchType(rVex::Syllable::BranchOperand::NONE), value(value)
   {
   }
   

@@ -5,14 +5,14 @@
  * Created on October 20, 2011, 3:38 PM
  */
 
-#ifndef OPERATION_H
-#define	OPERATION_H
+#ifndef PBIWFULL_OPERATION_H
+#define	PBIWFULL_OPERATION_H
 
 #include "src/PBIW/Interfaces/IOperation.h"
 
-namespace PBIW
+namespace PBIWFull
 {
-  using namespace Interfaces;
+  using namespace PBIW::Interfaces;
 
 /*  Class(or struct :P) used to store the individual pattern data.
  
@@ -65,8 +65,8 @@ namespace PBIW
     virtual unsigned short getOriginalOpcode() const
     { return originalOpcode; }
     
-    virtual void setBrReadOperand(short opcode)
-    { this->readBrOperand = opcode; }
+    virtual void setBrReadOperand(short index)
+    { this->readBrOperand = index; }
     
     virtual short getBrReadOperand() const
     { return readBrOperand; }

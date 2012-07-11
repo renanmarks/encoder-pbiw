@@ -10,9 +10,9 @@
 
 #include "src/PBIW/Interfaces/IPBIWPrinter.h"
 
-namespace PBIW
+namespace PBIWPartial
 {
-  using namespace Interfaces;
+  using namespace PBIW::Interfaces;
 
   class PartialPBIWDebugPrinter : public IPBIWPrinter
   {

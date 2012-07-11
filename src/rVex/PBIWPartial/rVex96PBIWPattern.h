@@ -5,18 +5,16 @@
  * Created on July 21, 2011, 3:18 PM
  */
 
-#ifndef RVEX96PBIWPATTERN_H
-#define	RVEX96PBIWPATTERN_H
+#ifndef PBIWPARTIAL_RVEX96PBIWPATTERN_H
+#define	PBIWPARTIAL_RVEX96PBIWPATTERN_H
 
-#include <deque>
 #include <vector>
-#include <set>
 #include "src/PBIW/Interfaces/IPBIWPattern.h"
 #include "Operation.h"
 
-namespace PBIW
+namespace PBIWPartial
 {
-  using namespace Interfaces;
+  using namespace PBIW::Interfaces;
 
   /**
    * r-VEX 96 bits length pattern
@@ -24,11 +22,8 @@ namespace PBIW
   class rVex96PBIWPattern : public IPBIWPattern
   {
   public:
-    rVex96PBIWPattern() : usageCounter(0)
-    {}
-    
-    rVex96PBIWPattern(const rVex96PBIWPattern&);
-    
+    rVex96PBIWPattern();
+    rVex96PBIWPattern(const rVex96PBIWPattern& orig);
     virtual ~rVex96PBIWPattern();
 
     virtual IPBIWPattern* clone() const;
@@ -40,9 +35,6 @@ namespace PBIW
     { return address; }
     
     virtual void addOperation(IOperation*);
-    
-    virtual void removeLastAddedOperation()
-    { operations.pop_back(); }
     
     virtual OperationVector getOperations() const
     { return operations; }
@@ -66,10 +58,7 @@ namespace PBIW
     
     virtual void referencedByInstruction(IPBIWInstruction* instructionPointed);
     
-    virtual std::deque<IPBIWInstruction*> getInstructionsThatUseIt() const
-    {   return std::deque<IPBIWInstruction*>(instructionsThatUseIt.begin(), instructionsThatUseIt.end());   }
-    
-    virtual std::deque<IPBIWInstruction*> getInstructionsThatUseIt2()
+    virtual std::deque<IPBIWInstruction*> getInstructionsThatUseIt()
     {   return std::deque<IPBIWInstruction*>(instructionsThatUseIt.begin(), instructionsThatUseIt.end());   }
     
     virtual int getUsageCounter() const
@@ -80,7 +69,7 @@ namespace PBIW
     
     virtual void reorganize();
     virtual void reorganize(bool updateInstructionAnnulationBits);
-
+    
     virtual void print(IPBIWPrinter&) const;
     
     virtual void updateIndexes(int oldIndex, int newIndex);
@@ -97,18 +86,13 @@ namespace PBIW
     unsigned int address;
     
     OperationVector operations; // Max 4
-    int usageCounter;
     
     typedef std::set<IPBIWInstruction*> InstructionsThatUseIt;
     InstructionsThatUseIt instructionsThatUseIt;
     
-    /**
-     * Used to exchange operations of patterns referents to the instructions without annulation bits
-     * @param index1
-     * @param index2
-     */
+    virtual unsigned int getValueByIndex(const IPBIWInstruction*& instruction, int index) const;
     virtual void exchangeOperations(int index1, int index2, bool updateInstructionAnnulationBits);
-        
+    
   };
 }
 

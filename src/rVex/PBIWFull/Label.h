@@ -5,16 +5,16 @@
  * Created on October 5, 2011, 2:25 PM
  */
 
-#ifndef PBIWLABEL_H
-#define	PBIWLABEL_H
+#ifndef PBIWFULL_PBIWLABEL_H
+#define	PBIWFULL_PBIWLABEL_H
 
 #include <string>
 #include "src/PBIW/Interfaces/ILabel.h"
 #include "src/rVex/Label.h"
 
-namespace PBIW
+namespace PBIWFull
 {
-  using namespace Interfaces;
+  using namespace PBIW::Interfaces;
   
   /**
    * Structure used to save the label definition information.

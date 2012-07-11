@@ -8,31 +8,38 @@
 #ifndef OPERANDVECTORBUILDER_H
 #define	OPERANDVECTORBUILDER_H
 
-#include "src/PBIW/Utils/OperandItem.h"
-#include "src/PBIW/Utils/OperandVector.h"
+#include "src/PBIW/Utils/OperandItemDTO.h"
+#include "src/PBIW/Utils/OperandVectorDTO.h"
+#include "src/PBIW/Interfaces/IPBIWFactory.h"
+#include "src/PBIW/Interfaces/IOperand.h"
+#include "src/rVex/Syllable.h"
 
 namespace rVex
 {
   namespace Utils
   {
-    using PBIW::Utils::OperandVector;
-    using PBIW::Utils::OperandItem;
-    using PBIW::Operand;
+    using PBIW::Utils::OperandVectorDTO;
+    using PBIW::Utils::OperandItemDTO;
+    using PBIW::Interfaces::IPBIWFactory;
+    using PBIW::Interfaces::IOperand;
     
     class OperandVectorBuilder
     {
     public:
-      void insertRegister(int value, OperandItem::Type type, const GenericAssembly::Interfaces::IOperation*);
-      void insertRegisters(const std::vector<unsigned int>& values, OperandItem::Type type, const GenericAssembly::Interfaces::IOperation*);
-      void insertImmediate(int value, Operand::Immediate::Type, const GenericAssembly::Interfaces::IOperation*);
+      OperandVectorBuilder(const PBIW::Interfaces::IPBIWFactory& factory);
+      
+      void insertRegister(int value, OperandItemDTO::Type type, const GenericAssembly::Interfaces::IOperation*);
+      void insertRegisters(const std::vector<unsigned int>& values, OperandItemDTO::Type type, const GenericAssembly::Interfaces::IOperation*);
+      void insertImmediate(int value, rVex::Syllable::ImmediateSwitch::Type, const GenericAssembly::Interfaces::IOperation*);
       
       void clearOperandVector()
       { items.clear(); }
       
-      const OperandVector& getOperandVector();
+      const OperandVectorDTO& getOperandVector();
       
     private:
-      OperandVector items;
+      OperandVectorDTO items;
+      const IPBIWFactory& factory;
     };
   }
 }

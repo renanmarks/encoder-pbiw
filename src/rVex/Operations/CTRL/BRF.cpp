@@ -1,5 +1,6 @@
-#include "../../Instruction.h"
+#include "src/rVex/Instruction.h"
 #include "BRF.h"
+#include "src/rVex/Utils/OperandVectorBuilder.h"
 
 namespace rVex
 {
@@ -10,11 +11,10 @@ namespace rVex
       void
       BRF::exportOperandVector(Utils::OperandVectorBuilder& builder) const // O(1)
       {
-        using PBIW::Operand;
-        using PBIW::Utils::OperandItem;
+        using PBIW::Utils::OperandItemDTO;
         
-        builder.insertRegister(this->brSource, OperandItem::BRSource, this); // O(1)
-        builder.insertImmediate(this->shortImmediate, Operand::Immediate::TwelveBits, this); // O(1)
+        builder.insertRegister(this->brSource, OperandItemDTO::BRSource, this); // O(1)
+        builder.insertImmediate(this->shortImmediate, rVex::Syllable::ImmediateSwitch::BRANCH_IMM, this); // O(1)
       }
       
       void 

@@ -1,8 +1,8 @@
 #include <iostream>
 
 #include "SLCT.h"
-#include "../../Instruction.h"
 #include "src/rVex/Instruction.h"
+#include "src/rVex/Utils/OperandVectorBuilder.h"
 
 namespace rVex
 {
@@ -12,15 +12,14 @@ namespace rVex
     {
       void SLCT::exportOperandVector(Utils::OperandVectorBuilder& builder) const
       {
-        using PBIW::Operand;
-        using PBIW::Utils::OperandItem;
+        using PBIW::Utils::OperandItemDTO;
         
-        builder.insertRegister(this->brSource, OperandItem::BRSource, this);
-        builder.insertRegister(this->grDestiny, OperandItem::GRDestiny, this);
-        builder.insertRegisters(readRegisters, OperandItem::GRSource, this);
+        builder.insertRegister(this->brSource, OperandItemDTO::BRSource, this);
+        builder.insertRegister(this->grDestiny, OperandItemDTO::GRDestiny, this);
+        builder.insertRegisters(readRegisters, OperandItemDTO::GRSource, this);
 
         if (getLayoutType() == LayoutType::ISTYPE)
-          builder.insertImmediate(this->shortImmediate, Operand::Immediate::NineBits, this);
+          builder.insertImmediate(this->shortImmediate, rVex::Syllable::ImmediateSwitch::SHORT_IMM, this);
       }
     }
   }

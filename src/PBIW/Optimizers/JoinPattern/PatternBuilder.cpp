@@ -6,8 +6,6 @@
  */
 
 #include "PatternBuilder.h"
-#include "src/rVex/PBIW/rVex96PBIWPattern.h"
-
 #include <iostream>
 
 namespace PBIW
@@ -21,8 +19,7 @@ namespace PBIW
       IPBIWPattern*
       PatternBuilder::buildPattern()
       {
-        // TODO: Make this non-dependent of the croncrete rVex96Pattern
-        IPBIWPattern* returnedPattern = new rVex96PBIWPattern();
+        IPBIWPattern* returnedPattern = factory.createPattern();
         
         PatternInformationList::iterator it;
 

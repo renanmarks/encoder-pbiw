@@ -14,9 +14,9 @@ using namespace std;
 #include "pbiw_encoder.h"
 #include "src/rVex/Printers/rVexPrinter.h"
 #include "src/rVex/Printers/VHDLPrinter.h"
-#include "src/rVex/PBIW/FullPBIW.h"
-#include "src/rVex/PBIW/Printers/PartialPBIWPrinter.h"
-#include "src/rVex/PBIW/Printers/PartialPBIWDebugPrinter.h"
+#include "src/rVex/PBIWFull/FullPBIW.h"
+#include "src/rVex/PBIWFull/Printers/FullPBIWPrinter.h"
+#include "src/rVex/PBIWFull/Printers/FullPBIWDebugPrinter.h"
 #include "src/rVex/Parser/VexTypes.h"
 #include "src/PBIW/BaseOptimizer.h"
 #include "src/PBIW/PBIWOptimizerJoinPatterns.h"
@@ -167,12 +167,12 @@ execute(const std::string& filename, const std::string& flags, bool debugEnabled
   PBIW::PBIWOptimizerJoinPatterns optimizer;  
     
   // Instantiate the PBIW encoder
-  PBIW::FullPBIW pbiw;
+  PBIWFull::FullPBIW pbiw;
   pbiw.setDebug(context.isDebuggingEnabled());
   
   if (context.isDebuggingEnabled())
   {
-    PBIW::PartialPBIWDebugPrinter pbiwDebugPrinter(std::cout);
+    PBIWFull::FullPBIWDebugPrinter pbiwDebugPrinter(std::cout);
     context.encodePBIW(pbiw); // O(|codedPatterns|^2)
     
     pbiw.registerOptimizer(optimizer);
@@ -207,9 +207,9 @@ execute(const std::string& filename, const std::string& flags, bool debugEnabled
       << "PBIW patterns file: " << pcacheFilename << std::endl
       << std::endl;
     
-    PBIW::PartialPBIWPrinter statisticsPBIWPrinter(std::cout);
-    PBIW::PartialPBIWPrinter imemPBIWPrinter(imemFile);
-    PBIW::PartialPBIWPrinter pachePBIWPrinter(pcacheFile);
+    PBIWFull::FullPBIWPrinter statisticsPBIWPrinter(std::cout);
+    PBIWFull::FullPBIWPrinter imemPBIWPrinter(imemFile);
+    PBIWFull::FullPBIWPrinter pachePBIWPrinter(pcacheFile);
 
     context.encodePBIW(pbiw); // O(|codedPatterns|^2)
     

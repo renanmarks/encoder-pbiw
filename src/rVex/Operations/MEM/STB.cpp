@@ -1,8 +1,8 @@
 #include <iostream>
 
 #include "STB.h"
-#include "../../Instruction.h"
 #include "src/rVex/Instruction.h"
+#include "src/rVex/Utils/OperandVectorBuilder.h"
 
 namespace rVex
 {
@@ -12,12 +12,11 @@ namespace rVex
     {
       void STB::exportOperandVector(Utils::OperandVectorBuilder& builder) const
       {
-        using PBIW::Operand;
-        using PBIW::Utils::OperandItem;
+        using PBIW::Utils::OperandItemDTO;
         
-        builder.insertRegister(this->grDestiny, OperandItem::GRSource, this);
-        builder.insertRegisters(readRegisters, OperandItem::GRSource, this);
-        builder.insertImmediate(this->shortImmediate, Operand::Immediate::NineBits, this);
+        builder.insertRegister(this->grDestiny, OperandItemDTO::GRSource, this);
+        builder.insertRegisters(readRegisters, OperandItemDTO::GRSource, this);
+        builder.insertImmediate(this->shortImmediate, rVex::Syllable::ImmediateSwitch::SHORT_IMM, this);
       }
     }
   }

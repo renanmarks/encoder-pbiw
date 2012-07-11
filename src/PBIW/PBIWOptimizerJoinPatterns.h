@@ -11,6 +11,7 @@
 #include <deque>
 #include <vector>
 #include "Interfaces/IPBIWOptimizerJoinPatterns.h"
+#include "Interfaces/IPBIWFactory.h"
 #include "BaseOptimizer.h"
 
 namespace PBIW
@@ -35,15 +36,15 @@ namespace PBIW
         
         virtual void preprocessPatterns();
         
-        virtual void processJoinPatterns();
+        virtual void processJoinPatterns(IPBIWFactory& factory);
         
         virtual void updatePatterns();
         
         virtual void updateAddressInstruction(IPBIWPattern* pattern1, IPBIWPattern* pattern2);
         
-        virtual void getPatternsToJoin(int index1, int index2);
+        virtual void getPatternsToJoin(int index1, int index2, IPBIWFactory& factory);
         
-        virtual void run();
+        virtual void run(IPBIWFactory& factory);
     
         typedef std::vector<IPBIWPattern*> AllPatterns;
         typedef std::deque<IPBIWInstruction*> AllInstructions;

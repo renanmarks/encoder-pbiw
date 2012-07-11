@@ -21,12 +21,18 @@ namespace PBIW
     public:
       virtual ~IOperand() {}
       
+      virtual IOperand* clone() const = 0;
+      
       virtual void setIndex(unsigned int) = 0;
       virtual unsigned int getIndex() const = 0;
       
       virtual bool isImmediate() const = 0;
+      
       virtual bool isImmediate9Bits() const = 0;
+      virtual void isImmediate9Bits(bool) = 0;
+      
       virtual bool isImmediate12Bits() const = 0;
+      virtual void isImmediate12Bits(bool) = 0;
       
       virtual void setValue(int) = 0;
       virtual int getValue() const = 0;

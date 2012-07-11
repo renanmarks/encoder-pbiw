@@ -1,5 +1,5 @@
 /* 
- * File:   FullPBIW.cpp
+ * File:   PBIW.cpp
  * Author: helix
  * 
  * Created on July 20, 2011, 4:13 PM
@@ -8,18 +8,20 @@
 #include <iostream>
 #include <stdexcept>
 
-#include "FullPBIW.h"
-#include "rVex64PBIWInstruction.h"
+#include "PartialPBIW.h"
+
 #include "Operation.h"
 #include "Operand.h"
 #include "Printers/PartialPBIWPrinter.h"
-#include "Printers/PartialPBIWDebugPrinter.h"
+#include "src/rVex/PBIWPartial/Factory.h"
+#include "src/rVex/PBIWPartial/rVex64PBIWInstruction.h"
+#include "src/rVex/Utils/OperandVectorBuilder.h"
 
-namespace PBIW
+namespace PBIWPartial
 {
-  using namespace Interfaces;
+  using namespace PBIW::Interfaces;
   
-  FullPBIW::~FullPBIW() 
+  PartialPBIW::~PartialPBIW() 
   { 
     PBIWPatternList::iterator patternIt;
     PBIWInstructionList::iterator instructionIt;
@@ -40,7 +42,7 @@ namespace PBIW
   }
   
   const IPBIWPattern&
-  FullPBIW::hasPattern(const IPBIWPattern& other) const  // O(|codedPatterns|)
+  PartialPBIW::hasPattern(const IPBIWPattern& other) const  // O(|codedPatterns|)
   {
     if (codedPatterns.size() == 0)
       return other;
@@ -62,9 +64,9 @@ namespace PBIW
   }
   
   // O(|codedPatterns|) + O(1) = O(|codedPatterns|)
-  void FullPBIW::savePBIWElements(rVex64PBIWInstruction*& finalInstruction, rVex96PBIWPattern*& newPattern)
+  void PartialPBIW::savePBIWElements(IPBIWInstruction*& finalInstruction, IPBIWPattern*& newPattern)
   {
-    newPattern->reorganize(); // O(1)
+    newPattern->reorganize(finalInstruction); // O(1)
     
     const IPBIWPattern& foundPattern = hasPattern(*newPattern); // O(|codedPatterns|)
     IPBIWPattern& notConstFoundPattern = const_cast<IPBIWPattern&>(foundPattern); // O(1)
@@ -87,41 +89,36 @@ namespace PBIW
     
     finalInstruction->setAddress(codedInstructions.size()); // Set the instruction address
     codedInstructions.push_back(finalInstruction);
+    notConstFoundPattern.referencedByInstruction(finalInstruction);
     
     if (finalInstruction->hasControlOperationWithLabelDestiny())
       branchingInstructions.push_back(finalInstruction);
   }
   
   // O(|codedPatterns|)
-  void FullPBIW::saveAndCreateNewPBIWElements(rVex64PBIWInstruction*& finalInstruction, rVex96PBIWPattern*& newPattern)
+  void PartialPBIW::saveAndCreateNewPBIWElements(IPBIWInstruction*& finalInstruction, IPBIWPattern*& newPattern)
   {
     savePBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
-    createNewPBIWElements(finalInstruction, newPattern);
+
+    finalInstruction = factory.createInstruction();// new rVex64PBIWInstruction();
+    newPattern = factory.createPattern(); //new rVex96PBIWPattern();
   }
   
-  void FullPBIW::createNewPBIWElements(rVex64PBIWInstruction*& finalInstruction, rVex96PBIWPattern*& newPattern)
-  {
-    finalInstruction = new rVex64PBIWInstruction();
-    newPattern = new rVex96PBIWPattern();
-    
-    finalInstruction->pointToPattern(*newPattern);
-  }
-  
-  void FullPBIW::resetFinalOperation(VexSyllableOperandVector::Collection::const_iterator& operandIt, // O(1)
+  void PartialPBIW::resetFinalOperation(VexSyllableOperandVector::Collection::const_iterator& operandIt, // O(1)
                                         IOperation*& finalOperation, 
                                         rVex::Syllable* const& syllable,
                                         const VexSyllableOperandVector& operands)
   {
     operandIt = operands.begin();
     delete finalOperation;
-    finalOperation = new Operation();
+    finalOperation = factory.createOperation();//new Operation();
     finalOperation->setOpcode( syllable->getOpcode() );
     finalOperation->setImmediateSwitch( syllable->getImmediateSwitch() );
     finalOperation->setType( syllable->getSyllableType() );
   }
   
   void                                                                                 
-  FullPBIW::encode(const std::vector<rVex::Instruction*>& originalInstructions) // O(|codedPatterns|^2)
+  PartialPBIW::encode(const std::vector<rVex::Instruction*>& originalInstructions) // O(|codedPatterns|^2)
   {
     std::vector<rVex::Instruction*>::const_iterator instructionIt;
     
@@ -133,16 +130,14 @@ namespace PBIW
         instructionIt++)                                // O(16|codedPatterns||originalInstructions| + 16|codedPatterns|^2) =                 
     {                                                   // O(|codedPatterns||originalInstructions| * |codedPatterns|^2) =                
       // Create a new PBIW instruction and PBIW pattern                  // O(|codedPatterns|^3)
-      rVex64PBIWInstruction* finalInstruction;
-      rVex96PBIWPattern* newPattern;
-      
-      createNewPBIWElements(finalInstruction, newPattern);
+      IPBIWInstruction* finalInstruction = factory.createInstruction();//new rVex64PBIWInstruction();
+      IPBIWPattern* newPattern = factory.createPattern();//new rVex96PBIWPattern();
       
       // Copy the original labels to the data structure used in PBIW
       if ( (*instructionIt)->haveLabel() )
       {
         rVex::Label* instructionLabel = (*instructionIt)->getLabel();
-        PBIW::Label label = *instructionLabel;
+        PBIWPartial::Label label = *instructionLabel;
         label.setDestiny(finalInstruction);
         
         labels.push_back(label);
@@ -154,22 +149,20 @@ namespace PBIW
       VexSyllableVector syllables = (*instructionIt)->getSyllables();
       VexSyllableVector::const_iterator syllableIt;
       
-      unsigned int index = 0;
-      
       for (syllableIt = syllables.begin();  // O(|syllables| * (4 + |codedPatterns|)) = O(4 * (4 + |codedPatterns|)) = 
            syllableIt < syllables.end();    // O(16 + 16|codedPatterns|)
            syllableIt++)
       {
-        IOperation* finalOperation = new Operation();
+        IOperation* finalOperation = factory.createOperation();//new Operation();
         
         finalOperation->setOpcode( (*syllableIt)->getOpcode() );
         finalOperation->setImmediateSwitch( (*syllableIt)->getImmediateSwitch() );
         finalOperation->setType( (*syllableIt)->getSyllableType() );
         
-        finalInstruction->setCodingOperation(*finalOperation);
+        bool syllableHasBrDestiny = (*syllableIt)->hasBrDestiny();
         
         // For each operand...
-        rVex::Utils::OperandVectorBuilder operandVectorBuilder;
+        rVex::Utils::OperandVectorBuilder operandVectorBuilder(factory);
         (*syllableIt)->exportOperandVector(operandVectorBuilder);
         
         VexSyllableOperandVector::Collection::const_iterator operandIt;
@@ -190,82 +183,118 @@ namespace PBIW
           {
             if ( !finalInstruction->hasOperandSlot( **operandIt ) )
             {
-              if ( (*instructionIt)->canSplitSyllable(*syllableIt) )
-              {
-                saveAndCreateNewPBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
-              }
-              else
-              {
-                while ( !(*instructionIt)->canSplitSyllable(*syllableIt) )
-                {
-                  syllablesBuffer.remove(*syllableIt);
-                  syllableIt--; // go back
-                  newPattern->removeLastAddedOperation();
-                  finalInstruction->setAnnulBit(index-1,false);
-                } 
-                
-                syllablesBuffer.remove(*syllableIt);
-                
-                saveAndCreateNewPBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
-              }
-
-              operandVectorBuilder.clearOperandVector();
-              (*syllableIt)->exportOperandVector(operandVectorBuilder);
-              operands = operandVectorBuilder.getOperandVector();
-              
+              saveAndCreateNewPBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
               resetFinalOperation(operandIt, finalOperation, *syllableIt, operands); // O(1)
-              finalInstruction->setCodingOperation(*finalOperation);
             }
 
             operand = (*operandIt)->getOperand(); // O(1)
 
             switch ( (*operandIt)->getType() )
             {
-              case Utils::OperandItem::BRSource :
-                if (finalOperation->getOpcode() == rVex::Syllable::opBR)
-                {
-                  finalInstruction->setOpBRslot(*operand); // O(1)
+              case rVex::Utils::OperandItemDTO::GRDestiny :
+                if (operand->getValue() == 0)
                   break;
-                }
-                else if (finalOperation->getOpcode() == rVex::Syllable::opBRF)
-                {
-                  finalInstruction->setOpBRFslot(*operand); // O(1)
-                  break;
-                }
-                
-              case Utils::OperandItem::BRDestiny :
-                finalInstruction->addBranchOperand(*operand); // O(1)
+
+              case rVex::Utils::OperandItemDTO::Imm :
+                finalInstruction->addWriteOperand(*operand); // O(1)
                 break;
-              case Utils::OperandItem::GRSource :
-              case Utils::OperandItem::GRDestiny :
-              case Utils::OperandItem::Imm :
+
+              case rVex::Utils::OperandItemDTO::BRSource :
+                finalInstruction->setBranchSourceOperand(*operand); // O(1)
+                break;
+              
+              case rVex::Utils::OperandItemDTO::BRDestiny :
                 finalInstruction->addReadOperand(*operand); // O(1)
                 break;
-            }
-          }
-          else 
-          {
-            // If found, check if it is some operand of a BR/BRF syllable
-            // and put it in its position
-            switch ( (*operandIt)->getType() )
-            {
-              case Utils::OperandItem::BRSource :
-                if (finalOperation->getOpcode() == rVex::Syllable::opBR)
-                {
-                  finalInstruction->setOpBRslot(*operand); // O(1)
-                  finalOperation->addOperand( *operand ); // O(1)
-                  continue;
-                }
-                else if (finalOperation->getOpcode() == rVex::Syllable::opBRF)
-                {
-                  finalInstruction->setOpBRFslot(*operand); // O(1)
-                  finalOperation->addOperand( *operand ); // O(1)
-                  continue;
-                }
-              default:
+                
+              case rVex::Utils::OperandItemDTO::GRSource :
+                if (operand->getValue() != 0)
+                  finalInstruction->addReadOperand(*operand); // O(1)
+
                 break;
             }
           }
+          else // if found...
+          {
+            /* Fix the bug when the read operands reference an write operand in
+             * a PBIW instruction.
+             * Simply check this condition and, if true, "copy"
+             * the operand in the write section to a field in the read section
+             * and uses this new index as a reference.
+             **/
+            
+            bool isZeroReadRegister = foundOperand.getIndex() == 0 && foundOperand.getValue() == 0 && 
+                 (  (*operandIt)->getType() == rVex::Utils::OperandItemDTO::GRSource 
+                    /*|| (*operandIt)->getType() == Utils::OperandItem::BRSource*/ );
+            
+            if (syllableHasBrDestiny)
+            {
+              if ((*operandIt)->getType() == rVex::Utils::OperandItemDTO::GRDestiny && (*operandIt)->getOperand()->getValue() == 0 )
+              {
+                // If it's a syllable that uses an Branch register as destiny (The General Register destiny and it has value zero (must!))
+                // we don't do any copy or "error recovery" strategy.
+              }
+              else if ( (*operandIt)->getType() == rVex::Utils::OperandItemDTO::BRDestiny )
+              {
+                // If it's a syllable that uses an Branch register as destiny
+                // we don't do any copy or "error recovery" strategy.
+              }
+            }
+            else
+            if (!isZeroReadRegister && foundOperand.getIndex() > 7) // Fixes for write operands
+            {
+              if ( !finalInstruction->hasReadOperandSlot() )  // // O(|readOperands|) = O(8) = O(1)
+              {
+                saveAndCreateNewPBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
+                resetFinalOperation(operandIt, finalOperation, *syllableIt, operands); // O(1)
+              }
+
+              operand = (*operandIt)->getOperand();
+              
+              switch ( (*operandIt)->getType() )
+              {
+                case rVex::Utils::OperandItemDTO::BRSource :
+                  finalInstruction->setBranchSourceOperand(*operand); // O(1)
+                  continue;
+                  break;
+                  
+                case rVex::Utils::OperandItemDTO::GRSource :
+                  finalInstruction->addReadOperand(*operand); // O(1)
+                  finalOperation->addOperand(*operand); // O(1)
+                  continue;
+                default:
+                  break;
+              }
+            }
+            else if (!isZeroReadRegister && foundOperand.getIndex() < 8)// Fixes for read operands
+            {
+              if ( (*syllableIt)->getOpcode() != rVex::Syllable::opNOP )
+              {
+//                if (syllableHasBrDestiny && (*operandIt)->getType() == Utils::OperandItem::BRDestiny && (*operandIt)->getOperand()->getValue() == 0)
+//                  continue;
+                
+                if ( !finalInstruction->hasWriteOperandSlot() )
+                {
+                  saveAndCreateNewPBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
+                  resetFinalOperation(operandIt, finalOperation, *syllableIt, operands); // O(1)
+                }
+
+                operand = (*operandIt)->getOperand();
+                
+                switch ( (*operandIt)->getType() )
+                {
+                  case rVex::Utils::OperandItemDTO::BRDestiny :
+                    break;
+                  case rVex::Utils::OperandItemDTO::GRDestiny :
+                    finalInstruction->addWriteOperand(*operand); // O(1)
+                    finalOperation->addOperand(*operand); // O(1)
+                    continue;
+                  default:
+                    break;
+                }
+              }
+            }
+          } // end if (not) found operands
           
           // If the PBIW instruction has been splitted
           if (firstInstruction != finalInstruction)
@@ -278,19 +307,11 @@ namespace PBIW
           {
             finalOperation->addOperand( foundOperand ); // O(1)
           }
-          
+         
         } // ... end for each operand
         
         syllablesBuffer.push_back(*syllableIt);
         newPattern->addOperation(finalOperation);
-        
-        // Set annul bit referent this operation is used by the pattern (pointed by the instruction)
-        index = newPattern->getOperations().size();
-        
-        if(newPattern->getOperation(index-1)->getOpcode() != 0)
-        {
-          finalInstruction->setAnnulBit(index-1,true);          
-        }
       } // ... end for each syllable
       
       savePBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
@@ -299,7 +320,7 @@ namespace PBIW
     processLabels();
   }
 
-  void FullPBIW::processLabels()
+  void PartialPBIW::processLabels()
   {
     if (debug)
     {
@@ -334,14 +355,14 @@ namespace PBIW
     return;
   }
   
-  void FullPBIW::registerOptimizer(IPBIWOptimizer& optimizer)
+  void PartialPBIW::registerOptimizer(IPBIWOptimizer& optimizer)
   {
     optimizers.push_back(&optimizer);
     
     return;
   }
   
-  void FullPBIW::runOptimizers()
+  void PartialPBIW::runOptimizers()
   {
     PBIWOptimizerList::iterator it;
     
@@ -365,15 +386,67 @@ namespace PBIW
       (*it)->useInstructions(codedInstructionsCopy);
       (*it)->usePatterns(codedPatternsCopy);
       (*it)->useLabels(labelsCopy);
-      (*it)->setupOptimizer();
-      (*it)->run();
+      (*it)->run(factory);
     }
     
     return;
   }
   
+  void
+  PartialPBIW::printInstructions(IPBIWPrinter& printer)
+  {
+    PBIWInstructionList::const_iterator instructionIt;
+    
+    printer.printInstructionsHeader();
+    
+    for (instructionIt = codedInstructions.begin();
+         instructionIt != codedInstructions.end();
+         instructionIt++)
+    {
+      (*instructionIt)->print(printer);
+    }
+    
+    printer.printInstructionsFooter(codedInstructions.size());
+  }
+  
+  void
+  PartialPBIW::printPatterns(IPBIWPrinter& printer)
+  {
+    PBIWPatternList::const_iterator patternIt;
+    
+    printer.printPatternsHeader();
+    
+    for (patternIt = codedPatterns.begin();
+         patternIt != codedPatterns.end();
+         patternIt++)
+    {
+      (*patternIt)->print(printer);
+    }
+    
+    printer.printPatternsFooter(codedPatterns.size());
+  }
+  
+  void
+  PartialPBIW::decode(const std::vector<IPBIWInstruction*>& codedInstructions, 
+               const std::vector<IPBIWPattern*>& codedPatterns)
+  {
+
+  }
+
+  std::vector<IPBIWInstruction*>
+  PartialPBIW::getInstructions()
+  {
+    return std::vector<IPBIWInstruction*>(codedInstructions.begin(), codedInstructions.end());
+  }
+
+  std::vector<IPBIWPattern*>
+  PartialPBIW::getPatterns()
+  {
+    return std::vector<IPBIWPattern*>(codedPatterns.begin(), codedPatterns.end());
+  }
+  
   void 
-  FullPBIW::printStatistics(IPBIWPrinter& printer)
+  PartialPBIW::printStatistics(IPBIWPrinter& printer)
   {
     unsigned int instructionsBytes = codedInstructions.size() * 8;
     unsigned int patternsBytes = codedPatterns.size() * 12;
@@ -400,70 +473,5 @@ namespace PBIW
       
       << "Compression ratio = " 
       << ((instructionsBytes + patternsBytes) / (double)originalInstructionsBytes) * 100.0 << " %" << std::endl;
-  }
-  
-  void
-  FullPBIW::printInstructions(IPBIWPrinter& printer)
-  {
-    PBIWInstructionList::const_iterator instructionIt;
-    
-    printer.printInstructionsHeader();
-    
-    for (instructionIt = codedInstructions.begin();
-         instructionIt != codedInstructions.end();
-         instructionIt++)
-    {
-      (*instructionIt)->print(printer);
-    }
-    
-    printer.printInstructionsFooter(codedInstructions.size());
-  }
-  
-  void
-  FullPBIW::printPatterns(IPBIWPrinter& printer)
-  {
-    PBIWPatternList::const_iterator patternIt;
-    
-    printer.printPatternsHeader();
-    
-    for (patternIt = codedPatterns.begin();
-         patternIt != codedPatterns.end();
-         patternIt++)
-    {
-      (*patternIt)->print(printer);
-    }
-    
-    printer.printPatternsFooter(codedPatterns.size());
-  }
-  
-  void
-  FullPBIW::decode(const std::vector<IPBIWInstruction*>& codedInstructions, 
-               const std::vector<IPBIWPattern*>& codedPatterns)
-  {
-
-  }
-
-  std::vector<IPBIWInstruction*>
-  FullPBIW::getInstructions()
-  {
-    return std::vector<IPBIWInstruction*>(codedInstructions.begin(), codedInstructions.end());
-  }
-
-  std::vector<IPBIWPattern*>
-  FullPBIW::getPatterns()
-  {
-    return std::vector<IPBIWPattern*>(codedPatterns.begin(), codedPatterns.end());
-  }
-  
-  std::vector<ILabel*> 
-  FullPBIW::getLabels()
-  {
-    std::deque<ILabel*> temp;
-    LabelVector::iterator it;
-    
-    for(it = labels.begin(); it != labels.end(); it++)
-      temp.push_back(&(*it));
-    
-    return std::vector<ILabel*>(temp.begin(), temp.end());
   }
 }
