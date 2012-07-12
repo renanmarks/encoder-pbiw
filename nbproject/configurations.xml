@@ -362,14 +362,14 @@
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
-    <Elem>grammar</Elem>
-    <Elem>new_grammar</Elem>
-    <Elem>rVex/Operands</Elem>
-    <Elem>rVex/Operations</Elem>
-    <Elem>VexParser</Elem>
-    <Elem>src/rVex/Printers</Elem>
-    <Elem>src/rVex/Parser</Elem>
-    <Elem>src/rVex/PBIW</Elem>
+    <Elem>/home/renato/pbiw_encoder/grammar</Elem>
+    <Elem>/home/renato/pbiw_encoder/new_grammar</Elem>
+    <Elem>/home/renato/pbiw_encoder/rVex/Operands</Elem>
+    <Elem>/home/renato/pbiw_encoder/rVex/Operations</Elem>
+    <Elem>/home/renato/pbiw_encoder/VexParser</Elem>
+    <Elem>/home/renato/pbiw_encoder/src/rVex/Printers</Elem>
+    <Elem>/home/renato/pbiw_encoder/src/rVex/Parser</Elem>
+    <Elem>/home/renato/pbiw_encoder/src/rVex/PBIW</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -398,6 +398,7 @@
           <linkerLibItems>
             <linkerLibLibItem>gtest</linkerLibLibItem>
             <linkerLibLibItem>gtest_main</linkerLibLibItem>
+            <linkerLibLibItem>pthread_workqueue</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>

@@ -65,11 +65,11 @@ namespace PBIW
             bool ops[SIZE] = {0, 0, 0, 0};
             bool threeOps[SIZE] = {0, 0, 0, 0};
                         
-            std::cout << "PATTERNS " << pat++ << std::endl;
+//            std::cout << "PATTERNS " << pat++ << std::endl;
             // Operations
             for(int i = 0; i < SIZE; i++)
             {
-                std::cout << "OPCODE " << (*it)->getOperation(i)->getOpcode() << std::endl;
+//                std::cout << "OPCODE " << (*it)->getOperation(i)->getOpcode() << std::endl;
                 if(((*it)->getOperation(i)->getOpcode() != 0) && ((*it)->getOperation(i)->getOpcode() != 31))
                 {
                     if((*it)->getOperation(i)->getType() == rVex::Syllable::SyllableType::MEM)
@@ -228,14 +228,14 @@ namespace PBIW
             
         }
         
-        printDeque(oneOperation);
-        printDeque(twoOperation);
-        printDeque(threeOperation);    
-        
-        std::cout << "COUNT 1..3 ops: " << count2[0] << std::endl;
-        std::cout << "COUNT 4 ops: " << count2[1] << std::endl;
-        std::cout << "COUNT others: " << count2[2] << std::endl;
-        std::cout << "Totals: " << (count2[0] + count2[1] + count2[2]) << std::endl;
+//        printDeque(oneOperation);
+//        printDeque(twoOperation);
+//        printDeque(threeOperation);    
+//        
+//        std::cout << "COUNT 1..3 ops: " << count2[0] << std::endl;
+//        std::cout << "COUNT 4 ops: " << count2[1] << std::endl;
+//        std::cout << "COUNT others: " << count2[2] << std::endl;
+//        std::cout << "Totals: " << (count2[0] + count2[1] + count2[2]) << std::endl;
     }
     
     void
@@ -243,8 +243,18 @@ namespace PBIW
     {
         Optimizers::JoinPattern::PatternBuilder patternBuilder(factory);        
             
+        int start = 0;
+        int finish = 0;
+        
+        do{
+            threeOperation.clear();
+            twoOperation.clear();
+            oneOperation.clear();
+            
         preprocessPatterns();
 
+        start = patterns.size();
+        
         IPBIWPattern* temp = patterns.back();
         patterns.pop_back();
 
@@ -582,8 +592,11 @@ namespace PBIW
         }       
 
         patterns.push_back(temp);
-
+//        finish = threeOperation.size() + twoOperation.size() + oneOperation.size();        
         updatePatterns();
+        finish = patterns.size();        
+        
+        }while(start > finish);
     }
     
     
