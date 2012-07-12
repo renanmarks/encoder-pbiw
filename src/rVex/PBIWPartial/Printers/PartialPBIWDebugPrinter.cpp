@@ -21,8 +21,7 @@ namespace PBIWPartial
     
     printer << "\tPattern Addr: " << pattern.getAddress() << std::endl;
     printer << "\tReuse count: " << pattern.getUsageCounter() << std::endl;
-    printer << "\tInstr. use it: ";
-    
+        
     for (unsigned int i = 0; i < operationCount; i++) // O(|operationCount|)
     {
       printer << "Opcode: " << pattern[i]->getOpcode() << " - ";
