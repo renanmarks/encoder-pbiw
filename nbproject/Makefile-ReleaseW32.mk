@@ -38,6 +38,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/rVex/Operations/CTRL/GOTO.o \
 	${OBJECTDIR}/src/rVex/Operations/ALU/CMPNE.o \
 	${OBJECTDIR}/src/rVex/PBIWPartial/Operation.o \
+	${OBJECTDIR}/src/rVex/PBIWFull/Printers/FullPBIWPrinter.o \
 	${OBJECTDIR}/src/rVex/Operations/CTRL/ICALL.o \
 	${OBJECTDIR}/src/rVex/PBIWFull/Operand.o \
 	${OBJECTDIR}/src/rVex/Operations/MEM/STW.o \
@@ -58,7 +59,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/rVex/Operations/MEM/LDH.o \
 	${OBJECTDIR}/src/rVex/PBIWFull/Factory.o \
 	${OBJECTDIR}/src/rVex/PBIWPartial/Printers/PartialPBIWDebugPrinter.o \
-	${OBJECTDIR}/src/rVex/PBIWFull/Printers/PartialPBIWPrinter.o \
 	${OBJECTDIR}/src/rVex/Operations/MEM/STB.o \
 	${OBJECTDIR}/src/rVex/Operations/ALU/ADDCG.o \
 	${OBJECTDIR}/src/rVex/PBIWPartial/rVex64PBIWInstruction.o \
@@ -75,7 +75,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/rVex/Parser/Structs/ISection.o \
 	${OBJECTDIR}/src/rVex/Operations/MEM/LDHU.o \
 	${OBJECTDIR}/src/rVex/Operations/ALU/CMPGT.o \
-	${OBJECTDIR}/src/rVex/PBIWFull/Printers/PartialPBIWDebugPrinter.o \
 	${OBJECTDIR}/src/pbiw_encoder.o \
 	${OBJECTDIR}/src/rVex/Utils/DependencyChains.o \
 	${OBJECTDIR}/src/rVex/Parser/Structs/Function.o \
@@ -89,9 +88,10 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/rVex/Syllable.o \
 	${OBJECTDIR}/src/rVex/PBIWPartial/rVex96PBIWPattern.o \
 	${OBJECTDIR}/src/PBIW/PBIWOptimizerJoinPatterns.o \
-	${OBJECTDIR}/src/rVex/PBIWPartial/Operand.o \
 	${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/OperationInformation.o \
 	${OBJECTDIR}/src/rVex/Operations/MEM/LDB.o \
+	${OBJECTDIR}/src/rVex/PBIWPartial/Operand.o \
+	${OBJECTDIR}/src/rVex/PBIWFull/Printers/FullPBIWDebugPrinter.o \
 	${OBJECTDIR}/src/rVex/Parser/Expressions/Arguments.o \
 	${OBJECTDIR}/src/rVex/SyllableMEM.o \
 	${OBJECTDIR}/src/rVex/Operations/ALU/CMPGE.o \
@@ -165,6 +165,11 @@ ${OBJECTDIR}/src/rVex/PBIWPartial/Operation.o: src/rVex/PBIWPartial/Operation.cp
 	${MKDIR} -p ${OBJECTDIR}/src/rVex/PBIWPartial
 	${RM} $@.d
 	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/PBIWPartial/Operation.o src/rVex/PBIWPartial/Operation.cpp
+
+${OBJECTDIR}/src/rVex/PBIWFull/Printers/FullPBIWPrinter.o: src/rVex/PBIWFull/Printers/FullPBIWPrinter.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/rVex/PBIWFull/Printers
+	${RM} $@.d
+	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/PBIWFull/Printers/FullPBIWPrinter.o src/rVex/PBIWFull/Printers/FullPBIWPrinter.cpp
 
 ${OBJECTDIR}/src/rVex/Operations/CTRL/ICALL.o: src/rVex/Operations/CTRL/ICALL.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/rVex/Operations/CTRL
@@ -266,11 +271,6 @@ ${OBJECTDIR}/src/rVex/PBIWPartial/Printers/PartialPBIWDebugPrinter.o: src/rVex/P
 	${RM} $@.d
 	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/PBIWPartial/Printers/PartialPBIWDebugPrinter.o src/rVex/PBIWPartial/Printers/PartialPBIWDebugPrinter.cpp
 
-${OBJECTDIR}/src/rVex/PBIWFull/Printers/PartialPBIWPrinter.o: src/rVex/PBIWFull/Printers/PartialPBIWPrinter.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/rVex/PBIWFull/Printers
-	${RM} $@.d
-	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/PBIWFull/Printers/PartialPBIWPrinter.o src/rVex/PBIWFull/Printers/PartialPBIWPrinter.cpp
-
 ${OBJECTDIR}/src/rVex/Operations/MEM/STB.o: src/rVex/Operations/MEM/STB.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/rVex/Operations/MEM
 	${RM} $@.d
@@ -351,11 +351,6 @@ ${OBJECTDIR}/src/rVex/Operations/ALU/CMPGT.o: src/rVex/Operations/ALU/CMPGT.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/ALU/CMPGT.o src/rVex/Operations/ALU/CMPGT.cpp
 
-${OBJECTDIR}/src/rVex/PBIWFull/Printers/PartialPBIWDebugPrinter.o: src/rVex/PBIWFull/Printers/PartialPBIWDebugPrinter.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/rVex/PBIWFull/Printers
-	${RM} $@.d
-	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/PBIWFull/Printers/PartialPBIWDebugPrinter.o src/rVex/PBIWFull/Printers/PartialPBIWDebugPrinter.cpp
-
 ${OBJECTDIR}/src/pbiw_encoder.o: src/pbiw_encoder.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
@@ -421,11 +416,6 @@ ${OBJECTDIR}/src/PBIW/PBIWOptimizerJoinPatterns.o: src/PBIW/PBIWOptimizerJoinPat
 	${RM} $@.d
 	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/PBIWOptimizerJoinPatterns.o src/PBIW/PBIWOptimizerJoinPatterns.cpp
 
-${OBJECTDIR}/src/rVex/PBIWPartial/Operand.o: src/rVex/PBIWPartial/Operand.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/rVex/PBIWPartial
-	${RM} $@.d
-	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/PBIWPartial/Operand.o src/rVex/PBIWPartial/Operand.cpp
-
 ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/OperationInformation.o: src/PBIW/Optimizers/JoinPattern/OperationInformation.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern
 	${RM} $@.d
@@ -435,6 +425,16 @@ ${OBJECTDIR}/src/rVex/Operations/MEM/LDB.o: src/rVex/Operations/MEM/LDB.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/rVex/Operations/MEM
 	${RM} $@.d
 	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/MEM/LDB.o src/rVex/Operations/MEM/LDB.cpp
+
+${OBJECTDIR}/src/rVex/PBIWPartial/Operand.o: src/rVex/PBIWPartial/Operand.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/rVex/PBIWPartial
+	${RM} $@.d
+	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/PBIWPartial/Operand.o src/rVex/PBIWPartial/Operand.cpp
+
+${OBJECTDIR}/src/rVex/PBIWFull/Printers/FullPBIWDebugPrinter.o: src/rVex/PBIWFull/Printers/FullPBIWDebugPrinter.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/rVex/PBIWFull/Printers
+	${RM} $@.d
+	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/PBIWFull/Printers/FullPBIWDebugPrinter.o src/rVex/PBIWFull/Printers/FullPBIWDebugPrinter.cpp
 
 ${OBJECTDIR}/src/rVex/Parser/Expressions/Arguments.o: src/rVex/Parser/Expressions/Arguments.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/rVex/Parser/Expressions
@@ -629,6 +629,19 @@ ${OBJECTDIR}/src/rVex/PBIWPartial/Operation_nomain.o: ${OBJECTDIR}/src/rVex/PBIW
 	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/PBIWPartial/Operation_nomain.o src/rVex/PBIWPartial/Operation.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/rVex/PBIWPartial/Operation.o ${OBJECTDIR}/src/rVex/PBIWPartial/Operation_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/rVex/PBIWFull/Printers/FullPBIWPrinter_nomain.o: ${OBJECTDIR}/src/rVex/PBIWFull/Printers/FullPBIWPrinter.o src/rVex/PBIWFull/Printers/FullPBIWPrinter.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/rVex/PBIWFull/Printers
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/rVex/PBIWFull/Printers/FullPBIWPrinter.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/PBIWFull/Printers/FullPBIWPrinter_nomain.o src/rVex/PBIWFull/Printers/FullPBIWPrinter.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/rVex/PBIWFull/Printers/FullPBIWPrinter.o ${OBJECTDIR}/src/rVex/PBIWFull/Printers/FullPBIWPrinter_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/rVex/Operations/CTRL/ICALL_nomain.o: ${OBJECTDIR}/src/rVex/Operations/CTRL/ICALL.o src/rVex/Operations/CTRL/ICALL.cpp 
@@ -891,19 +904,6 @@ ${OBJECTDIR}/src/rVex/PBIWPartial/Printers/PartialPBIWDebugPrinter_nomain.o: ${O
 	    ${CP} ${OBJECTDIR}/src/rVex/PBIWPartial/Printers/PartialPBIWDebugPrinter.o ${OBJECTDIR}/src/rVex/PBIWPartial/Printers/PartialPBIWDebugPrinter_nomain.o;\
 	fi
 
-${OBJECTDIR}/src/rVex/PBIWFull/Printers/PartialPBIWPrinter_nomain.o: ${OBJECTDIR}/src/rVex/PBIWFull/Printers/PartialPBIWPrinter.o src/rVex/PBIWFull/Printers/PartialPBIWPrinter.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/rVex/PBIWFull/Printers
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/rVex/PBIWFull/Printers/PartialPBIWPrinter.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} $@.d;\
-	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/PBIWFull/Printers/PartialPBIWPrinter_nomain.o src/rVex/PBIWFull/Printers/PartialPBIWPrinter.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/src/rVex/PBIWFull/Printers/PartialPBIWPrinter.o ${OBJECTDIR}/src/rVex/PBIWFull/Printers/PartialPBIWPrinter_nomain.o;\
-	fi
-
 ${OBJECTDIR}/src/rVex/Operations/MEM/STB_nomain.o: ${OBJECTDIR}/src/rVex/Operations/MEM/STB.o src/rVex/Operations/MEM/STB.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/rVex/Operations/MEM
 	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/rVex/Operations/MEM/STB.o`; \
@@ -1112,19 +1112,6 @@ ${OBJECTDIR}/src/rVex/Operations/ALU/CMPGT_nomain.o: ${OBJECTDIR}/src/rVex/Opera
 	    ${CP} ${OBJECTDIR}/src/rVex/Operations/ALU/CMPGT.o ${OBJECTDIR}/src/rVex/Operations/ALU/CMPGT_nomain.o;\
 	fi
 
-${OBJECTDIR}/src/rVex/PBIWFull/Printers/PartialPBIWDebugPrinter_nomain.o: ${OBJECTDIR}/src/rVex/PBIWFull/Printers/PartialPBIWDebugPrinter.o src/rVex/PBIWFull/Printers/PartialPBIWDebugPrinter.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/rVex/PBIWFull/Printers
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/rVex/PBIWFull/Printers/PartialPBIWDebugPrinter.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} $@.d;\
-	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/PBIWFull/Printers/PartialPBIWDebugPrinter_nomain.o src/rVex/PBIWFull/Printers/PartialPBIWDebugPrinter.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/src/rVex/PBIWFull/Printers/PartialPBIWDebugPrinter.o ${OBJECTDIR}/src/rVex/PBIWFull/Printers/PartialPBIWDebugPrinter_nomain.o;\
-	fi
-
 ${OBJECTDIR}/src/pbiw_encoder_nomain.o: ${OBJECTDIR}/src/pbiw_encoder.o src/pbiw_encoder.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/pbiw_encoder.o`; \
@@ -1294,19 +1281,6 @@ ${OBJECTDIR}/src/PBIW/PBIWOptimizerJoinPatterns_nomain.o: ${OBJECTDIR}/src/PBIW/
 	    ${CP} ${OBJECTDIR}/src/PBIW/PBIWOptimizerJoinPatterns.o ${OBJECTDIR}/src/PBIW/PBIWOptimizerJoinPatterns_nomain.o;\
 	fi
 
-${OBJECTDIR}/src/rVex/PBIWPartial/Operand_nomain.o: ${OBJECTDIR}/src/rVex/PBIWPartial/Operand.o src/rVex/PBIWPartial/Operand.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/rVex/PBIWPartial
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/rVex/PBIWPartial/Operand.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} $@.d;\
-	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/PBIWPartial/Operand_nomain.o src/rVex/PBIWPartial/Operand.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/src/rVex/PBIWPartial/Operand.o ${OBJECTDIR}/src/rVex/PBIWPartial/Operand_nomain.o;\
-	fi
-
 ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/OperationInformation_nomain.o: ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/OperationInformation.o src/PBIW/Optimizers/JoinPattern/OperationInformation.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern
 	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/OperationInformation.o`; \
@@ -1331,6 +1305,32 @@ ${OBJECTDIR}/src/rVex/Operations/MEM/LDB_nomain.o: ${OBJECTDIR}/src/rVex/Operati
 	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/MEM/LDB_nomain.o src/rVex/Operations/MEM/LDB.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/rVex/Operations/MEM/LDB.o ${OBJECTDIR}/src/rVex/Operations/MEM/LDB_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/rVex/PBIWPartial/Operand_nomain.o: ${OBJECTDIR}/src/rVex/PBIWPartial/Operand.o src/rVex/PBIWPartial/Operand.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/rVex/PBIWPartial
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/rVex/PBIWPartial/Operand.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/PBIWPartial/Operand_nomain.o src/rVex/PBIWPartial/Operand.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/rVex/PBIWPartial/Operand.o ${OBJECTDIR}/src/rVex/PBIWPartial/Operand_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/rVex/PBIWFull/Printers/FullPBIWDebugPrinter_nomain.o: ${OBJECTDIR}/src/rVex/PBIWFull/Printers/FullPBIWDebugPrinter.o src/rVex/PBIWFull/Printers/FullPBIWDebugPrinter.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/rVex/PBIWFull/Printers
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/rVex/PBIWFull/Printers/FullPBIWDebugPrinter.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/PBIWFull/Printers/FullPBIWDebugPrinter_nomain.o src/rVex/PBIWFull/Printers/FullPBIWDebugPrinter.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/rVex/PBIWFull/Printers/FullPBIWDebugPrinter.o ${OBJECTDIR}/src/rVex/PBIWFull/Printers/FullPBIWDebugPrinter_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/rVex/Parser/Expressions/Arguments_nomain.o: ${OBJECTDIR}/src/rVex/Parser/Expressions/Arguments.o src/rVex/Parser/Expressions/Arguments.cpp 

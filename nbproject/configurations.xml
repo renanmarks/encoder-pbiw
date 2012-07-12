@@ -300,8 +300,8 @@
         </logicalFolder>
         <logicalFolder name="PBIW" displayName="PBIWFull" projectFiles="true">
           <logicalFolder name="Printers" displayName="Printers" projectFiles="true">
-            <itemPath>src/rVex/PBIWFull/Printers/PartialPBIWDebugPrinter.cpp</itemPath>
-            <itemPath>src/rVex/PBIWFull/Printers/PartialPBIWPrinter.cpp</itemPath>
+            <itemPath>src/rVex/PBIWFull/Printers/FullPBIWDebugPrinter.cpp</itemPath>
+            <itemPath>src/rVex/PBIWFull/Printers/FullPBIWPrinter.cpp</itemPath>
           </logicalFolder>
           <itemPath>src/rVex/PBIWFull/Factory.cpp</itemPath>
           <itemPath>src/rVex/PBIWFull/FullPBIW.cpp</itemPath>

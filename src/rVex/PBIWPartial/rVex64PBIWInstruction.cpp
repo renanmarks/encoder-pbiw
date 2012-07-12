@@ -129,6 +129,14 @@ namespace PBIWPartial
 
     output.longWord|=pattern->getAddress();
 
+    for(unsigned int i = annulBits.size()-1;
+            i >= 0 && i < 4;
+            i--) 
+    {
+      output.longWord<<=1;
+      output.longWord|= annulBits[i];          
+    }
+    
     // Get rid of the -1 values
     for (it=operands.begin();
          it < operands.end();
@@ -139,7 +147,7 @@ namespace PBIWPartial
     }
 
     // Read operands
-    for (it=operands.begin(); // O(|operands|) = O(8) = O(1)
+    for (it=operands.begin()+1; // O(|operands|) = O(8) = O(1)
          it < operands.end() - 4; //&& (*it)->getIndex() < 8;
          it++)
     {
