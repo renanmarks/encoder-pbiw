@@ -21,7 +21,22 @@ namespace PBIWPartial
     
     printer << "\tPattern Addr: " << pattern.getAddress() << std::endl;
     printer << "\tReuse count: " << pattern.getUsageCounter() << std::endl;
+    printer << "\tInstr. use it: ";
+    
+    typedef std::deque<IPBIWInstruction*> AddrInstruction;
+    AddrInstruction addrInstruction = const_cast<IPBIWPattern&>(pattern).getInstructionsThatUseIt();
+    AddrInstruction::iterator it;
+    
+    for(it = addrInstruction.begin(); it < addrInstruction.end(); it++)
+    {
+        if(it != addrInstruction.begin())
+            printer  << ", ";
         
+        printer << (*it)->getAddress();        
+    }
+    
+    printer << std::endl;
+    
     for (unsigned int i = 0; i < operationCount; i++) // O(|operationCount|)
     {
       printer << "Opcode: " << pattern[i]->getOpcode() << " - ";
