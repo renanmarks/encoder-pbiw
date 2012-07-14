@@ -28,10 +28,10 @@ namespace PBIWPartial
 
     virtual IPBIWPattern* clone() const;
     
-    virtual void setAddress(int addr)
+    virtual void setAddress(unsigned int addr)
     { address = addr; }
         
-    virtual int getAddress() const
+    virtual unsigned int getAddress() const
     { return address; }
     
     virtual void addOperation(IOperation*);
@@ -83,7 +83,7 @@ namespace PBIWPartial
     virtual bool operator!=(const IPBIWPattern&) const;
 
   private:
-    int address;
+    unsigned int address;
     
     OperationVector operations; // Max 4
     

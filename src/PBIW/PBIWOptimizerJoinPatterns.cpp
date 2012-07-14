@@ -228,14 +228,14 @@ namespace PBIW
             
         }
         
-        printDeque(oneOperation);
-        printDeque(twoOperation);
-        printDeque(threeOperation);    
-        
-        std::cout << "COUNT 1..3 ops: " << count2[0] << std::endl;
-        std::cout << "COUNT 4 ops: " << count2[1] << std::endl;
-        std::cout << "COUNT others: " << count2[2] << std::endl;
-        std::cout << "Totals: " << (count2[0] + count2[1] + count2[2]) << std::endl;
+//        printDeque(oneOperation);
+//        printDeque(twoOperation);
+//        printDeque(threeOperation);    
+//        
+//        std::cout << "COUNT 1..3 ops: " << count2[0] << std::endl;
+//        std::cout << "COUNT 4 ops: " << count2[1] << std::endl;
+//        std::cout << "COUNT others: " << count2[2] << std::endl;
+//        std::cout << "Totals: " << (count2[0] + count2[1] + count2[2]) << std::endl;
     }
     
     void
@@ -606,7 +606,7 @@ namespace PBIW
     {
         PBIWPatternList::iterator it1;
         PBIWPatternList::iterator it2;
-        int address = 0;
+        unsigned int address = 0;
         
         for(it1 = patterns.begin(); it1 < patterns.end(); it1++)
         {

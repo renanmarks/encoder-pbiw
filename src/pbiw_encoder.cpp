@@ -268,8 +268,8 @@ execute(const std::string& filename, const std::string& flags, bool debugEnabled
     partialPbiw.runOptimizers();
     
     partialPbiw.printStatistics(statisticsPBIWPrinter);
-    partialPbiw.printInstructions(imemPBIWPrinter);
-    partialPbiw.printPatterns(pachePBIWPrinter);
+//    pbiw.printInstructions(imemPBIWPrinter);
+//    pbiw.printPatterns(pachePBIWPrinter);
     
     std::cout << " --- Begin Full post optimizer data (Debug)---" << std::endl;
     

@@ -32,10 +32,10 @@ namespace PBIWFull
 
     virtual IPBIWPattern* clone() const;
     
-    virtual void setAddress(int addr)
+    virtual void setAddress(unsigned int addr)
     { address = addr; }
         
-    virtual int getAddress() const
+    virtual unsigned int getAddress() const
     { return address; }
     
     virtual void addOperation(IOperation*);
