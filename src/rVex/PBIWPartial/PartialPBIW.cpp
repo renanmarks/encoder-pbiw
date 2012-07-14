@@ -411,6 +411,7 @@ namespace PBIWPartial
       (*it)->useInstructions(codedInstructionsCopy);
       (*it)->usePatterns(codedPatternsCopy);
       (*it)->useLabels(labelsCopy);
+      (*it)->setupOptimizer();
       (*it)->run(factory);
     }
     

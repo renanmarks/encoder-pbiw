@@ -36,12 +36,12 @@ namespace PBIW
         /**
          * Set pattern's absolute memory address.
          */
-        virtual void setAddress(unsigned int) = 0;
+        virtual void setAddress(int) = 0;
         
         /**
          * Get pattern's absolute memory address.
          */
-        virtual unsigned int getAddress() const = 0;
+        virtual int getAddress() const = 0;
         
         /**
          * Add a single pattern to this sets of patterns.
