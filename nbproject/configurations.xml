@@ -4,32 +4,50 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <logicalFolder name="f4" displayName="GenericAssembly" projectFiles="true">
+        <logicalFolder name="f1" displayName="Interfaces" projectFiles="true">
+          <itemPath>src/GenericAssembly/Interfaces/IContext.h</itemPath>
+          <itemPath>src/GenericAssembly/Interfaces/IFunction.h</itemPath>
+          <itemPath>src/GenericAssembly/Interfaces/IInstruction.h</itemPath>
+          <itemPath>src/GenericAssembly/Interfaces/ILabel.h</itemPath>
+          <itemPath>src/GenericAssembly/Interfaces/IOperand.h</itemPath>
+          <itemPath>src/GenericAssembly/Interfaces/IOperation.h</itemPath>
+          <itemPath>src/GenericAssembly/Interfaces/IPrinter.h</itemPath>
+          <itemPath>src/GenericAssembly/Interfaces/ISection.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="f2" displayName="Utils" projectFiles="true">
+          <itemPath>src/GenericAssembly/Utils/DependencyChains.h</itemPath>
+          <itemPath>src/GenericAssembly/Utils/DerivedFrom.h</itemPath>
+          <itemPath>src/GenericAssembly/Utils/LabelScope.h</itemPath>
+        </logicalFolder>
+      </logicalFolder>
       <logicalFolder name="f2" displayName="PBIW" projectFiles="true">
         <logicalFolder name="f1" displayName="Interfaces" projectFiles="true">
           <itemPath>src/PBIW/Interfaces/ILabel.h</itemPath>
           <itemPath>src/PBIW/Interfaces/IOperand.h</itemPath>
           <itemPath>src/PBIW/Interfaces/IOperation.h</itemPath>
           <itemPath>src/PBIW/Interfaces/IPBIW.h</itemPath>
+          <itemPath>src/PBIW/Interfaces/IPBIWFactory.h</itemPath>
           <itemPath>src/PBIW/Interfaces/IPBIWInstruction.h</itemPath>
           <itemPath>src/PBIW/Interfaces/IPBIWOptimizer.h</itemPath>
           <itemPath>src/PBIW/Interfaces/IPBIWPattern.h</itemPath>
           <itemPath>src/PBIW/Interfaces/IPBIWPrinter.h</itemPath>
         </logicalFolder>
+        <logicalFolder name="f3" displayName="Optimizers" projectFiles="true">
+          <logicalFolder name="f1" displayName="JoinPattern" projectFiles="true">
+            <itemPath>src/PBIW/Optimizers/JoinPattern/OperationInformation.h</itemPath>
+            <itemPath>src/PBIW/Optimizers/JoinPattern/PatternBuilder.h</itemPath>
+            <itemPath>src/PBIW/Optimizers/JoinPattern/PatternInformation.h</itemPath>
+          </logicalFolder>
+        </logicalFolder>
         <logicalFolder name="f2" displayName="Utils" projectFiles="true">
-          <itemPath>src/PBIW/Utils/OperandItem.h</itemPath>
+          <itemPath>src/PBIW/Utils/OperandItemDTO.h</itemPath>
           <itemPath>src/PBIW/Utils/OperandVector.h</itemPath>
+          <itemPath>src/PBIW/Utils/OperandVectorDTO.h</itemPath>
         </logicalFolder>
         <itemPath>src/PBIW/BaseOptimizer.h</itemPath>
-        <itemPath>src/PBIW/FullPBIW.h</itemPath>
-        <itemPath>src/PBIW/Label.h</itemPath>
-        <itemPath>src/PBIW/Operand.h</itemPath>
-        <itemPath>src/PBIW/Operation.h</itemPath>
         <itemPath>src/PBIW/PBIWOptimizerDataSet.h</itemPath>
         <itemPath>src/PBIW/PBIWOptimizerJoinPatterns.h</itemPath>
-        <itemPath>src/PBIW/Printers/PartialPBIWDebugPrinter.h</itemPath>
-        <itemPath>src/PBIW/Printers/PartialPBIWPrinter.h</itemPath>
-        <itemPath>src/PBIW/rVex64PBIWInstruction.h</itemPath>
-        <itemPath>src/PBIW/rVex96PBIWPattern.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="rVex" projectFiles="true">
         <logicalFolder name="f1" displayName="Operations" projectFiles="true">
@@ -120,6 +138,64 @@
           </logicalFolder>
           <itemPath>src/rVex/Operations/Operations.h</itemPath>
         </logicalFolder>
+        <logicalFolder name="Parser" displayName="Parser" projectFiles="true">
+          <logicalFolder name="Expressions" displayName="Expressions" projectFiles="true">
+            <itemPath>src/rVex/Parser/Expressions/Arguments.h</itemPath>
+            <itemPath>src/rVex/Parser/Expressions/Expression.h</itemPath>
+            <itemPath>src/rVex/Parser/Expressions/SyllableArguments.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="Interfaces" displayName="Interfaces" projectFiles="true">
+            <itemPath>src/rVex/Parser/Interfaces/IParserProcessor.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="Processors" displayName="Processors" projectFiles="true">
+            <itemPath>src/rVex/Parser/Processors/PseudoSyllableProcessor.h</itemPath>
+            <itemPath>src/rVex/Parser/Processors/SyllablePacker.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="Structs" displayName="Structs" projectFiles="true">
+            <itemPath>src/rVex/Parser/Structs/Function.h</itemPath>
+            <itemPath>src/rVex/Parser/Structs/ISection.h</itemPath>
+            <itemPath>src/rVex/Parser/Structs/SyllableBufferItem.h</itemPath>
+          </logicalFolder>
+          <itemPath>src/rVex/Parser/FlexLexer.h</itemPath>
+          <itemPath>src/rVex/Parser/VexContext.h</itemPath>
+          <itemPath>src/rVex/Parser/VexOpcodes.h</itemPath>
+          <itemPath>src/rVex/Parser/VexTypes.h</itemPath>
+          <itemPath>src/rVex/Parser/driver.h</itemPath>
+          <itemPath>src/rVex/Parser/location.hh</itemPath>
+          <itemPath>src/rVex/Parser/parser.tab.hh</itemPath>
+          <itemPath>src/rVex/Parser/parser.yy</itemPath>
+          <itemPath>src/rVex/Parser/position.hh</itemPath>
+          <itemPath>src/rVex/Parser/scanner.h</itemPath>
+          <itemPath>src/rVex/Parser/scanner.ll</itemPath>
+          <itemPath>src/rVex/Parser/stack.hh</itemPath>
+          <itemPath>src/rVex/Parser/y.tab.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="PBIW" displayName="PBIWFull" projectFiles="true">
+          <logicalFolder name="Printers" displayName="Printers" projectFiles="true">
+            <itemPath>src/rVex/PBIWFull/Printers/FullPBIWDebugPrinter.h</itemPath>
+            <itemPath>src/rVex/PBIWFull/Printers/FullPBIWPrinter.h</itemPath>
+          </logicalFolder>
+          <itemPath>src/rVex/PBIWFull/Factory.h</itemPath>
+          <itemPath>src/rVex/PBIWFull/FullPBIW.h</itemPath>
+          <itemPath>src/rVex/PBIWFull/Label.h</itemPath>
+          <itemPath>src/rVex/PBIWFull/Operand.h</itemPath>
+          <itemPath>src/rVex/PBIWFull/Operation.h</itemPath>
+          <itemPath>src/rVex/PBIWFull/rVex64PBIWInstruction.h</itemPath>
+          <itemPath>src/rVex/PBIWFull/rVex96PBIWPattern.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="f3" displayName="PBIWPartial" projectFiles="true">
+          <logicalFolder name="f1" displayName="Printers" projectFiles="true">
+            <itemPath>src/rVex/PBIWPartial/Printers/PartialPBIWDebugPrinter.h</itemPath>
+            <itemPath>src/rVex/PBIWPartial/Printers/PartialPBIWPrinter.h</itemPath>
+          </logicalFolder>
+          <itemPath>src/rVex/PBIWPartial/Factory.h</itemPath>
+          <itemPath>src/rVex/PBIWPartial/Label.h</itemPath>
+          <itemPath>src/rVex/PBIWPartial/Operand.h</itemPath>
+          <itemPath>src/rVex/PBIWPartial/Operation.h</itemPath>
+          <itemPath>src/rVex/PBIWPartial/PartialPBIW.h</itemPath>
+          <itemPath>src/rVex/PBIWPartial/rVex64PBIWInstruction.h</itemPath>
+          <itemPath>src/rVex/PBIWPartial/rVex96PBIWPattern.h</itemPath>
+        </logicalFolder>
         <logicalFolder name="Printers" displayName="Printers" projectFiles="true">
           <itemPath>src/rVex/Printers/IPrinter.h</itemPath>
           <itemPath>src/rVex/Printers/VHDLPrinter.h</itemPath>
@@ -138,38 +214,6 @@
         <itemPath>src/rVex/SyllableMUL.h</itemPath>
         <itemPath>src/rVex/rVex.h</itemPath>
       </logicalFolder>
-      <logicalFolder name="f3" displayName="VexParser" projectFiles="true">
-        <logicalFolder name="f2" displayName="Expressions" projectFiles="true">
-          <itemPath>src/VexParser/Expressions/Arguments.h</itemPath>
-          <itemPath>src/VexParser/Expressions/Expression.h</itemPath>
-          <itemPath>src/VexParser/Expressions/SyllableArguments.h</itemPath>
-        </logicalFolder>
-        <logicalFolder name="f3" displayName="Interfaces" projectFiles="true">
-          <itemPath>src/VexParser/Interfaces/IParserProcessor.h</itemPath>
-        </logicalFolder>
-        <logicalFolder name="f4" displayName="Processors" projectFiles="true">
-          <itemPath>src/VexParser/Processors/PseudoSyllableProcessor.h</itemPath>
-          <itemPath>src/VexParser/Processors/SyllablePacker.h</itemPath>
-        </logicalFolder>
-        <logicalFolder name="f1" displayName="Structs" projectFiles="true">
-          <itemPath>src/VexParser/Structs/Function.h</itemPath>
-          <itemPath>src/VexParser/Structs/ISection.h</itemPath>
-          <itemPath>src/VexParser/Structs/SyllableBufferItem.h</itemPath>
-        </logicalFolder>
-        <itemPath>src/VexParser/FlexLexer.h</itemPath>
-        <itemPath>src/VexParser/VexContext.h</itemPath>
-        <itemPath>src/VexParser/VexOpcodes.h</itemPath>
-        <itemPath>src/VexParser/VexTypes.h</itemPath>
-        <itemPath>src/VexParser/driver.h</itemPath>
-        <itemPath>src/VexParser/location.hh</itemPath>
-        <itemPath>src/VexParser/parser.tab.hh</itemPath>
-        <itemPath>src/VexParser/parser.yy</itemPath>
-        <itemPath>src/VexParser/position.hh</itemPath>
-        <itemPath>src/VexParser/scanner.h</itemPath>
-        <itemPath>src/VexParser/scanner.ll</itemPath>
-        <itemPath>src/VexParser/stack.hh</itemPath>
-        <itemPath>src/VexParser/y.tab.h</itemPath>
-      </logicalFolder>
       <itemPath>src/pbiw_encoder.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -180,19 +224,20 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="f1" displayName="PBIW" projectFiles="true">
+        <logicalFolder name="f2" displayName="Optimizers" projectFiles="true">
+          <logicalFolder name="f1" displayName="JoinPattern" projectFiles="true">
+            <itemPath>src/PBIW/Optimizers/JoinPattern/OperationInformation.cpp</itemPath>
+            <itemPath>src/PBIW/Optimizers/JoinPattern/PatternBuilder.cpp</itemPath>
+            <itemPath>src/PBIW/Optimizers/JoinPattern/PatternInformation.cpp</itemPath>
+          </logicalFolder>
+        </logicalFolder>
         <logicalFolder name="f1" displayName="Utils" projectFiles="true">
           <itemPath>src/PBIW/Utils/OperandVector.cpp</itemPath>
+          <itemPath>src/PBIW/Utils/OperandVectorDTO.cpp</itemPath>
         </logicalFolder>
         <itemPath>src/PBIW/BaseOptimizer.cpp</itemPath>
-        <itemPath>src/PBIW/FullPBIW.cpp</itemPath>
-        <itemPath>src/PBIW/Operand.cpp</itemPath>
-        <itemPath>src/PBIW/Operation.cpp</itemPath>
         <itemPath>src/PBIW/PBIWOptimizerDataSet.cpp</itemPath>
         <itemPath>src/PBIW/PBIWOptimizerJoinPatterns.cpp</itemPath>
-        <itemPath>src/PBIW/Printers/PartialPBIWDebugPrinter.cpp</itemPath>
-        <itemPath>src/PBIW/Printers/PartialPBIWPrinter.cpp</itemPath>
-        <itemPath>src/PBIW/rVex64PBIWInstruction.cpp</itemPath>
-        <itemPath>src/PBIW/rVex96PBIWPattern.cpp</itemPath>
       </logicalFolder>
       <logicalFolder name="f2" displayName="rVex" projectFiles="true">
         <logicalFolder name="f1" displayName="Operations" projectFiles="true">
@@ -234,6 +279,49 @@
             <itemPath>src/rVex/Operations/MEM/STW.cpp</itemPath>
           </logicalFolder>
         </logicalFolder>
+        <logicalFolder name="Parser" displayName="Parser" projectFiles="true">
+          <logicalFolder name="Expressions" displayName="Expressions" projectFiles="true">
+            <itemPath>src/rVex/Parser/Expressions/Arguments.cpp</itemPath>
+            <itemPath>src/rVex/Parser/Expressions/Expression.cpp</itemPath>
+          </logicalFolder>
+          <logicalFolder name="Processors" displayName="Processors" projectFiles="true">
+            <itemPath>src/rVex/Parser/Processors/PseudoSyllableProcessor.cpp</itemPath>
+            <itemPath>src/rVex/Parser/Processors/SyllablePacker.cpp</itemPath>
+          </logicalFolder>
+          <logicalFolder name="Structs" displayName="Structs" projectFiles="true">
+            <itemPath>src/rVex/Parser/Structs/Function.cpp</itemPath>
+            <itemPath>src/rVex/Parser/Structs/ISection.cpp</itemPath>
+            <itemPath>src/rVex/Parser/Structs/SyllableBufferItem.cpp</itemPath>
+          </logicalFolder>
+          <itemPath>src/rVex/Parser/VexContext.cpp</itemPath>
+          <itemPath>src/rVex/Parser/driver.cc</itemPath>
+          <itemPath>src/rVex/Parser/parser.tab.cc</itemPath>
+          <itemPath>src/rVex/Parser/scanner.cc</itemPath>
+        </logicalFolder>
+        <logicalFolder name="PBIW" displayName="PBIWFull" projectFiles="true">
+          <logicalFolder name="Printers" displayName="Printers" projectFiles="true">
+            <itemPath>src/rVex/PBIWFull/Printers/FullPBIWDebugPrinter.cpp</itemPath>
+            <itemPath>src/rVex/PBIWFull/Printers/FullPBIWPrinter.cpp</itemPath>
+          </logicalFolder>
+          <itemPath>src/rVex/PBIWFull/Factory.cpp</itemPath>
+          <itemPath>src/rVex/PBIWFull/FullPBIW.cpp</itemPath>
+          <itemPath>src/rVex/PBIWFull/Operand.cpp</itemPath>
+          <itemPath>src/rVex/PBIWFull/Operation.cpp</itemPath>
+          <itemPath>src/rVex/PBIWFull/rVex64PBIWInstruction.cpp</itemPath>
+          <itemPath>src/rVex/PBIWFull/rVex96PBIWPattern.cpp</itemPath>
+        </logicalFolder>
+        <logicalFolder name="f3" displayName="PBIWPartial" projectFiles="true">
+          <logicalFolder name="f1" displayName="Printers" projectFiles="true">
+            <itemPath>src/rVex/PBIWPartial/Printers/PartialPBIWDebugPrinter.cpp</itemPath>
+            <itemPath>src/rVex/PBIWPartial/Printers/PartialPBIWPrinter.cpp</itemPath>
+          </logicalFolder>
+          <itemPath>src/rVex/PBIWPartial/Factory.cpp</itemPath>
+          <itemPath>src/rVex/PBIWPartial/Operand.cpp</itemPath>
+          <itemPath>src/rVex/PBIWPartial/Operation.cpp</itemPath>
+          <itemPath>src/rVex/PBIWPartial/PartialPBIW.cpp</itemPath>
+          <itemPath>src/rVex/PBIWPartial/rVex64PBIWInstruction.cpp</itemPath>
+          <itemPath>src/rVex/PBIWPartial/rVex96PBIWPattern.cpp</itemPath>
+        </logicalFolder>
         <logicalFolder name="Printers" displayName="Printers" projectFiles="true">
           <itemPath>src/rVex/Printers/VHDLPrinter.cpp</itemPath>
           <itemPath>src/rVex/Printers/rVexPrinter.cpp</itemPath>
@@ -243,31 +331,13 @@
           <itemPath>src/rVex/Utils/OperandVectorBuilder.cpp</itemPath>
         </logicalFolder>
         <itemPath>src/rVex/Instruction.cpp</itemPath>
+        <itemPath>src/rVex/Label.cpp</itemPath>
         <itemPath>src/rVex/Syllable.cpp</itemPath>
         <itemPath>src/rVex/SyllableALU.cpp</itemPath>
         <itemPath>src/rVex/SyllableCTRL.cpp</itemPath>
         <itemPath>src/rVex/SyllableMEM.cpp</itemPath>
         <itemPath>src/rVex/SyllableMISC.cpp</itemPath>
         <itemPath>src/rVex/SyllableMUL.cpp</itemPath>
-      </logicalFolder>
-      <logicalFolder name="f3" displayName="VexParser" projectFiles="true">
-        <logicalFolder name="f2" displayName="Expressions" projectFiles="true">
-          <itemPath>src/VexParser/Expressions/Arguments.cpp</itemPath>
-          <itemPath>src/VexParser/Expressions/Expression.cpp</itemPath>
-        </logicalFolder>
-        <logicalFolder name="f3" displayName="Processors" projectFiles="true">
-          <itemPath>src/VexParser/Processors/PseudoSyllableProcessor.cpp</itemPath>
-          <itemPath>src/VexParser/Processors/SyllablePacker.cpp</itemPath>
-        </logicalFolder>
-        <logicalFolder name="f1" displayName="Structs" projectFiles="true">
-          <itemPath>src/VexParser/Structs/Function.cpp</itemPath>
-          <itemPath>src/VexParser/Structs/ISection.cpp</itemPath>
-          <itemPath>src/VexParser/Structs/SyllableBufferItem.cpp</itemPath>
-        </logicalFolder>
-        <itemPath>src/VexParser/VexContext.cpp</itemPath>
-        <itemPath>src/VexParser/driver.cc</itemPath>
-        <itemPath>src/VexParser/parser.tab.cc</itemPath>
-        <itemPath>src/VexParser/scanner.cc</itemPath>
       </logicalFolder>
       <itemPath>src/pbiw_encoder.cpp</itemPath>
     </logicalFolder>
@@ -292,12 +362,14 @@
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
-    <Elem>grammar</Elem>
-    <Elem>new_grammar</Elem>
-    <Elem>rVex/Operands</Elem>
-    <Elem>rVex/Operations</Elem>
-    <Elem>VexParser</Elem>
-    <Elem>src/rVex/Printers</Elem>
+    <Elem>/home/renato/pbiw_encoder/grammar</Elem>
+    <Elem>/home/renato/pbiw_encoder/new_grammar</Elem>
+    <Elem>/home/renato/pbiw_encoder/rVex/Operands</Elem>
+    <Elem>/home/renato/pbiw_encoder/rVex/Operations</Elem>
+    <Elem>/home/renato/pbiw_encoder/VexParser</Elem>
+    <Elem>/home/renato/pbiw_encoder/src/rVex/Printers</Elem>
+    <Elem>/home/renato/pbiw_encoder/src/rVex/Parser</Elem>
+    <Elem>/home/renato/pbiw_encoder/src/rVex/PBIW</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -326,6 +398,7 @@
           <linkerLibItems>
             <linkerLibLibItem>gtest</linkerLibLibItem>
             <linkerLibLibItem>gtest_main</linkerLibLibItem>
+            <linkerLibLibItem>pthread_workqueue</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>

@@ -1,4 +1,5 @@
 #include "CALL.h"
+#include "src/rVex/Utils/OperandVectorBuilder.h"
 
 namespace rVex
 {
@@ -9,15 +10,14 @@ namespace rVex
       void
       CALL::exportOperandVector(Utils::OperandVectorBuilder& builder) const
       {
-        using PBIW::Operand;
-        using PBIW::Utils::OperandItem;
+        using PBIW::Utils::OperandItemDTO;
         
-        builder.insertRegister(this->grDestiny, OperandItem::GRSource, this);
+        builder.insertRegister(this->grDestiny, OperandItemDTO::GRSource, this);
         
         if (readRegisters.size() == 0)
-          builder.insertImmediate(this->shortImmediate, Operand::Immediate::TwelveBits, this);
+          builder.insertImmediate(this->shortImmediate, rVex::Syllable::ImmediateSwitch::BRANCH_IMM, this);
         else
-          builder.insertRegister(this->readRegisters[0], OperandItem::GRSource, this);
+          builder.insertRegister(this->readRegisters[0], OperandItemDTO::GRSource, this);
       }
       
       void
@@ -33,9 +33,12 @@ namespace rVex
         final <<= 6;
         final |= this->grDestiny;
 
-        final <<= 15;
+        final <<= 14;
+        final |= last;
+        final <<= 1;
+        final |= first;
 
-        output.printSyllable(this, final, first, last);
+        output.printOperation(*this, std::vector<unsigned int>(1, final));
       }
     }
   }

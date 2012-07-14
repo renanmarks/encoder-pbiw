@@ -8,6 +8,7 @@
 #ifndef LDBU_H
 #define	LDBU_H
 
+#include <vector>
 #include "../../SyllableMEM.h"
 
 namespace rVex
@@ -23,7 +24,7 @@ namespace rVex
           SyllableType::Type getSyllableType() const { return SyllableType::MEM; }
           
           void print(rVex::Printers::IPrinter& output, bool first, bool last) const
-          { output.printSyllable(this, printMEMLOADTYPE(), first, last); }
+          { output.printOperation(*this, std::vector<unsigned int>(1, printMEMLOADTYPE(first, last))); }
           
           virtual void fillSyllable(VexParser::SyllableArguments& arguments)
           { this->fillTypeX(arguments); }

@@ -1,6 +1,6 @@
 #include "BR.h"
-#include "../../Instruction.h"
 #include "src/rVex/Instruction.h"
+#include "src/rVex/Utils/OperandVectorBuilder.h"
 
 namespace rVex
 {
@@ -12,11 +12,10 @@ namespace rVex
       void
       BR::exportOperandVector(Utils::OperandVectorBuilder& builder) const  // O(1)
       {
-        using PBIW::Operand;
-        using PBIW::Utils::OperandItem;
+        using PBIW::Utils::OperandItemDTO;
         
-        builder.insertRegister(this->brSource, OperandItem::BRSource, this);
-        builder.insertImmediate(this->shortImmediate, Operand::Immediate::TwelveBits, this);
+        builder.insertRegister(this->brSource, OperandItemDTO::BRSource, this);
+        builder.insertImmediate(this->shortImmediate, rVex::Syllable::ImmediateSwitch::BRANCH_IMM, this);
       }
       
       void 
@@ -35,9 +34,12 @@ namespace rVex
         final <<= 3;
         final |= this->brSource;
 
-        final <<= 2;
-
-        output.printSyllable(this, final, first, last);
+        final <<= 1;
+        final |= first;
+        final <<= 1;
+        final |= last;
+        
+        output.printOperation(*this, std::vector<unsigned int>(1,final));
       }
     }
   }

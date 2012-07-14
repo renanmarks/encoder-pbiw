@@ -9,6 +9,7 @@
 #define	IPRINTER_H
 
 #include <ostream>
+#include "src/GenericAssembly/Interfaces/IPrinter.h"
 
 namespace rVex
 {
@@ -21,32 +22,10 @@ namespace rVex
      * Printer interface
      * Used by the printing mechanisms to output the bytecode.
      */
-    class IPrinter
+    class IPrinter : public GenericAssembly::Interfaces::IPrinter<Instruction, Syllable>
     {
     public:
       virtual ~IPrinter() { }
-      
-      /**
-       * Print the syllable.
-       */
-      virtual void printSyllable(const rVex::Syllable*,unsigned int, bool, bool) = 0;
-      
-      /**
-       * Print the instruction.
-       */
-      virtual void printInstruction(const Instruction&) = 0;
-      
-      /**
-       * Print the file header.
-       */
-      virtual void printHeader() = 0;
-      
-      /**
-       * Print the file footer.
-       */
-      virtual void printFooter() = 0;
-      
-      virtual std::ostream& getOutputStream() = 0;
     };
   }
 }

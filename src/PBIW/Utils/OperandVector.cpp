@@ -1,8 +1,8 @@
 /* 
- * File:   OperandVector.cpp
+ * File:   OperationVector.cpp
  * Author: helix
  * 
- * Created on December 10, 2011, 8:22 PM
+ * Created on July 10, 2012, 2:44 PM
  */
 
 #include "OperandVector.h"
@@ -17,19 +17,24 @@ namespace PBIW
       
     }
 
-    OperandVector::OperandVector(const OperandVector& orig) // O(|orig|)
+    OperandVector::OperandVector(const OperandVector& orig)
     {
-      Collection::const_iterator it;
-
-      for (it = orig.begin(); it < orig.end(); it++) // O(|orig|)
-        operands.push_back(new OperandItem(**it));
+      copy(orig);
     }
 
     OperandVector::~OperandVector()
     {
       clear();
     }
+    
+    void OperandVector::copy(const OperandVector& orig)
+    {
+      Collection::const_iterator it;
 
+      for (it = orig.begin(); it < orig.end(); it++) // O(|orig|)
+        operands.push_back((*it)->clone());
+    }
+    
     void OperandVector::clear()
     {
       Collection::iterator it;
@@ -46,14 +51,11 @@ namespace PBIW
       if (this != &other)
       {
         clear();
-        
-        Collection::const_iterator otherIt;
-        
-        for (otherIt = other.begin(); otherIt < other.end(); otherIt++)
-          operands.push_back(new OperandItem(**otherIt));
+        copy(other);
       }
       
       return *this;
     }
+
   }
 }

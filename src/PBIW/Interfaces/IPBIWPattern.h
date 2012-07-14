@@ -8,13 +8,16 @@
 #ifndef IPBIWPATTERN_H
 #define	IPBIWPATTERN_H
 
-#include "IOperation.h"
-#include "IPBIWPrinter.h"
+#include <deque>
 
 namespace PBIW
 {
   namespace Interfaces
   {
+    class IPBIWInstruction;
+    class IOperation;
+    class IPBIWPrinter;
+    
     /**
      * PBIW Pattern interface
      */
@@ -74,11 +77,10 @@ namespace PBIW
         
         virtual void referencedByInstruction(IPBIWInstruction*) = 0;
         
-        virtual std::deque<IPBIWInstruction*> getInstructionsThatUseIt() const = 0;
+        virtual std::deque<IPBIWInstruction*> getInstructionsThatUseIt() = 0;
 
         virtual void reorganize() = 0;
-        
-        virtual std::deque<IPBIWInstruction*> getInstructionsThatUseIt2() = 0;
+        virtual void reorganize(bool) = 0;
         
         virtual int getUsageCounter() const = 0;
 

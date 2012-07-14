@@ -10,14 +10,19 @@
 
 #include <list>
 #include <set>
-#include "Interfaces/IPBIWOptimizer.h"
-#include "Interfaces/ILabel.h"
+#include "src/PBIW/Interfaces/IPBIWOptimizer.h"
+#include "src/PBIW/Interfaces/ILabel.h"
+#include "src/PBIW/Interfaces/IPBIWPrinter.h"
+#include "src/PBIW/Interfaces/IPBIWFactory.h"
 
 namespace PBIW
 {
   using PBIW::Interfaces::ILabel;
   using PBIW::Interfaces::IPBIWInstruction;
   using PBIW::Interfaces::IPBIWPattern;
+  using PBIW::Interfaces::IPBIWPrinter;
+  using PBIW::Interfaces::IPBIWOptimizer;
+  using PBIW::Interfaces::IPBIWFactory;
   
   class BaseOptimizer : public IPBIWOptimizer
   {
@@ -67,8 +72,8 @@ namespace PBIW
     public:
         FindLabel(const std::string label) : label(label) {}
 
-        bool operator()(const ILabel& t) const 
-        { return (t.getName() == label); }
+        bool operator()(const ILabel* t) const 
+        { return (t->getName() == label); }
         
     private:
         const std::string label;
@@ -92,13 +97,13 @@ namespace PBIW
     /**
      * Must be implemented by specific optimizers.
      */
-    virtual void run() = 0;
+    virtual void run(IPBIWFactory& factory) = 0;
   
   protected:
     typedef std::deque<IPBIWInstruction*> PBIWInstructionList;
     typedef std::deque<IPBIWPattern*> PBIWPatternList;
     typedef std::set<IPBIWPattern*> PBIWPatternSet;
-    typedef std::list<Label> LabelList;
+    typedef std::list<ILabel*> LabelList;
     
     PBIWInstructionList instructions;
     PBIWInstructionList branchingInstructions;

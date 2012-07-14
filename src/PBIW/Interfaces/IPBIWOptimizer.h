@@ -10,7 +10,8 @@
 
 #include "IPBIWInstruction.h"
 #include "IPBIWPattern.h"
-#include "../Label.h"
+#include "ILabel.h"
+#include "IPBIWFactory.h"
 
 namespace PBIW
 {
@@ -35,7 +36,7 @@ namespace PBIW
       
       virtual void setupOptimizer() = 0;
       
-      virtual void run() = 0;
+      virtual void run(IPBIWFactory&) = 0;
     };
   }
 }

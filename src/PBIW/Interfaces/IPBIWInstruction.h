@@ -15,9 +15,10 @@
 #include "IOperand.h"
 #include "IPBIWPattern.h"
 #include "IPBIWPrinter.h"
-#include "src/rVex/Syllable.h"
-#include "src/PBIW/Utils/OperandItem.h"
+#include "src/PBIW/Utils/OperandItemDTO.h"
 #include "ILabel.h"
+#include "src/GenericAssembly/Interfaces/IOperation.h"
+#include "src/PBIW/Utils/OperandVector.h"
 
 namespace PBIW
 {
@@ -29,7 +30,7 @@ namespace PBIW
     class IPBIWInstruction
     {
       public:
-        virtual ~IPBIWInstruction() {}
+        virtual ~IPBIWInstruction() { }
         
         /**
          * Deep copy this instruction.
@@ -49,7 +50,7 @@ namespace PBIW
         /**
          * Set the label of this instruction
          */
-        virtual void setLabel(const ILabel&) = 0;
+        virtual void setLabel(const ILabel*) = 0;
         
         /**
          * Get the label of this instruction
@@ -93,6 +94,11 @@ namespace PBIW
         virtual void addBranchOperand(IOperand&) = 0;
         
         /**
+         * TODO Description
+         */
+        virtual void setBranchSourceOperand(IOperand&) = 0;
+        
+        /**
          * Returns if there is an Branch Source Operand in the instruction
          */
         virtual bool hasBranchSourceOperand() const = 0;
@@ -107,7 +113,7 @@ namespace PBIW
          * Check if this instruction has a free operand slot (either read or
          * write operand).
          */
-        virtual bool hasOperandSlot(const Utils::OperandItem&) = 0;
+        virtual bool hasOperandSlot(const PBIW::Utils::OperandItemDTO&) = 0;
         
         virtual bool hasReadOperandSlot() const = 0;
         virtual bool hasWriteOperandSlot() const = 0;
@@ -165,19 +171,15 @@ namespace PBIW
          * Comparer or ordering the Operands in the Set implementation.
          */
         struct OperandComparer {
-          bool operator() (const Operand& lhs, const Operand& rhs) const
+          bool operator() (const IOperand& lhs, const IOperand& rhs) const
           { return lhs < rhs; }
         };
-        
-        typedef std::set<Operand, OperandComparer> OperandSet;
-        typedef std::vector<Operand> OperandVector;
-        typedef std::deque<Operand> OperandDeque;
         
         /**
          * Return a vector of all operands in this instruction.
          * @return An operand vector
          */
-        virtual OperandVector getOperands() const = 0;
+        virtual PBIW::Utils::OperandVector getOperands() const = 0;
         
         /**
          * Informs if the PBIW instruction contains immediate operand
@@ -187,12 +189,12 @@ namespace PBIW
         /**
          * Set the syllables that were codified in this instruction.
          */
-        virtual void setSyllableReferences(const std::list<rVex::Syllable*>&) = 0;
+        virtual void setOperationReferences(const std::list<GenericAssembly::Interfaces::IOperation*>&) = 0;
         
         /**
          * Returns the syllables that were codified in this instruction.
          */
-        virtual std::list<rVex::Syllable*> getSyllableReferences() const = 0;
+        virtual std::list<GenericAssembly::Interfaces::IOperation*> getOperationReferences() const = 0;
        
         typedef std::vector<bool> AnnulationBits;
         virtual const AnnulationBits& getAnnulBits() const = 0;
@@ -204,7 +206,6 @@ namespace PBIW
 //        virtual void setAnnulBits(std::deque<bool>* annulatioBits) = 0;
         
         virtual void updateAnnulBits(int index1, int index2) = 0;
-        
     };
 
   }

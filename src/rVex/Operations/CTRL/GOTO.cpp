@@ -1,5 +1,7 @@
-#include "../../Instruction.h"
+#include <vector>
+#include "src/rVex/Instruction.h"
 #include "GOTO.h"
+#include "src/rVex/Utils/OperandVectorBuilder.h"
 
 namespace rVex
 {
@@ -10,13 +12,12 @@ namespace rVex
       void
       GOTO::exportOperandVector(Utils::OperandVectorBuilder& builder) const
       {
-        using PBIW::Operand;
-        using PBIW::Utils::OperandItem;
+        using PBIW::Utils::OperandItemDTO;
         
         if (this->branchDestiny != NULL)
-          builder.insertImmediate(this->shortImmediate, Operand::Immediate::TwelveBits, this);
+          builder.insertImmediate(this->shortImmediate, rVex::Syllable::ImmediateSwitch::BRANCH_IMM, this);
         else
-          builder.insertRegisters(this->readRegisters, OperandItem::GRSource, this);
+          builder.insertRegisters(this->readRegisters, OperandItemDTO::GRSource, this);
       }
       
       void 
@@ -32,9 +33,13 @@ namespace rVex
         final <<= 18;
         final |= (this->branchDestiny->getBelongedInstruction()->getAddress() & 0x00000FFF);
 
-        final <<= 5;
+        final <<= 4;
         
-        output.printSyllable(this, final, first, last);
+        final |= last;
+        final <<= 1;
+        final |= first;
+        
+        output.printOperation(*this, std::vector<unsigned int>(1, final));
       }
     }
   }

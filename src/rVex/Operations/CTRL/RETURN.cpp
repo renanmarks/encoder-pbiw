@@ -1,4 +1,6 @@
+#include <vector>
 #include "RETURN.h"
+#include "src/rVex/Utils/OperandVectorBuilder.h"
 
 namespace rVex
 {
@@ -9,13 +11,12 @@ namespace rVex
       void
       RETURN::exportOperandVector(Utils::OperandVectorBuilder& builder) const
       {
-        using PBIW::Operand;
-        using PBIW::Utils::OperandItem;
+        using PBIW::Utils::OperandItemDTO;
         
 //        builder.insertRegister(this->grDestiny, OperandItem::GRDestiny);
 //        builder.insertRegister(this->readRegisters.at(0), OperandItem::GRSource);
-        builder.insertRegister(this->readRegisters.at(1), OperandItem::GRSource, this);
-        builder.insertImmediate(this->shortImmediate, Operand::Immediate::TwelveBits, this);
+        builder.insertRegister(this->readRegisters.at(1), OperandItemDTO::GRSource, this);
+        builder.insertImmediate(this->shortImmediate, rVex::Syllable::ImmediateSwitch::BRANCH_IMM, this);
       }
       
       void 
@@ -36,7 +37,11 @@ namespace rVex
 
         final <<= 5;
 
-        output.printSyllable(this, final, first, last);
+        final|=last;
+        final<<=1;
+        final|=first;
+
+        output.printOperation(*this, std::vector<unsigned int>(1, final));
       }
     }
   }

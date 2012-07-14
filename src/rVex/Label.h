@@ -5,39 +5,45 @@
  * Created on October 5, 2011, 2:25 PM
  */
 
-#ifndef LABEL_H
-#define	LABEL_H
+#ifndef RVEX_LABEL_H
+#define	RVEX_LABEL_H
 
 #include <string>
+#include "src/GenericAssembly/Interfaces/ILabel.h"
 
 namespace rVex
 {
+  using namespace GenericAssembly::Interfaces;
   class Syllable;
   
   /**
    * Structure used to save the label definition information.
    */
-  struct Label
+  class Label : public ILabel
   {
-    typedef enum 
-    {
-      GLOBAL = 0, LOCAL = 1
-    } LabelScope;
+  public:
+    Label();
+    Label(const Label& other);
+    
+    virtual void setAbsoluteAddress(unsigned int address);
+    virtual unsigned int getAbsoluteAddress() const;
 
-    Label() 
-      : name(""), scope(GLOBAL), destiny(NULL), absoluteAddress(0)
-    { }
+    virtual void setDestiny(IOperation* operation);
+    virtual IOperation* getDestiny() const;
+
+    virtual void setScope(GenericAssembly::Utils::LabelScope::Type labelScope);
+    virtual GenericAssembly::Utils::LabelScope::Type getScope() const;
+
+    virtual void setName(const std::string& name);
+    virtual std::string getName() const;
     
-    Label(const Label& other) 
-      : name(other.name), scope(other.scope), destiny(other.destiny), absoluteAddress(other.absoluteAddress)
-    { }
-    
+  private:
     std::string name;
-    LabelScope scope;
+    GenericAssembly::Utils::LabelScope::Type scope;
     rVex::Syllable* destiny;
     unsigned int absoluteAddress;
   };
 }
 
-#endif	/* LABEL_H */
+#endif	/* RVEX_LABEL_H */
 

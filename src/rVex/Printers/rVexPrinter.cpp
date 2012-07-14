@@ -28,30 +28,27 @@ namespace rVex
     }
     
     void 
-    rVexPrinter::printSyllable(const rVex::Syllable* syllable, unsigned int binary, bool first, bool last) // O(1)
+    rVexPrinter::printOperation(const rVex::Syllable& syllable, const std::vector<unsigned int>& binaries) // O(1)
     {
       std::string resultBinary;
-      unsigned int temp = binary;
-
-      for (unsigned char counter=0; counter < 30; temp <<= 1, counter++)
+      std::vector<unsigned int>::const_iterator it;
+      
+      output << "\t(S: " << syllable.getAddress() << ") ";
+      
+      for (it = binaries.begin(); it < binaries.end(); it++)
       {
-        if (temp & 0x80000000)
-          resultBinary.append("1");
-        else
-          resultBinary.append("0");
+        unsigned int temp = *it;
+
+        for (unsigned char counter=0; counter < 32; temp <<= 1, counter++)
+        {
+          if (temp & 0x80000000)
+            resultBinary.append("1");
+          else
+            resultBinary.append("0");
+        }
+        
+        output << resultBinary;
       }
-
-      if (last)
-        resultBinary.append("1");
-      else
-        resultBinary.append("0");
-
-      if (first)
-        resultBinary.append("1");
-      else
-        resultBinary.append("0");
-
-      output << "\t(S: " << syllable->getAddress() << ") " << resultBinary;
     }
 
     /**

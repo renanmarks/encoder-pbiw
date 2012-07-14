@@ -8,6 +8,7 @@
 #ifndef PFT_H
 #define	PFT_H
 
+#include <vector>
 #include "../../SyllableMEM.h"
 
 namespace rVex
@@ -25,7 +26,10 @@ namespace rVex
           SyllableType::Type getSyllableType() const { return SyllableType::MEM; }
           
           void print(rVex::Printers::IPrinter& output, bool first, bool last) const
-          { output.printSyllable(this, 0xDEAD0000, first, last); }
+          { 
+            unsigned int prefetch = ((last << 1) | first) | 0xDEAD0000;
+            output.printOperation(*this, std::vector<unsigned int>(1, prefetch)); 
+          }
           
           virtual void fillSyllable(VexParser::SyllableArguments& arguments)
           { this->fillTypeXII(arguments); }

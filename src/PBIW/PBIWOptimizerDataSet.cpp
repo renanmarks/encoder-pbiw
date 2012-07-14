@@ -6,7 +6,7 @@
  */
 
 #include "PBIWOptimizerDataSet.h"
-#include "Printers/PartialPBIWDebugPrinter.h"
+#include "Interfaces/IPBIWPrinter.h"
 
 namespace PBIW
 {
@@ -61,7 +61,7 @@ namespace PBIW
             }        
         }
 
-        printPatterns();
+        //printPatterns();
     }
 
     void
@@ -71,12 +71,10 @@ namespace PBIW
     }
     
     void 
-    PBIWOptimizerDataSet::printPatterns() const
+    PBIWOptimizerDataSet::printPatterns(IPBIWPrinter& printer) const
     {
         Patterns::const_iterator patternIt;
         Optimizers::const_iterator optIt;
-        PartialPBIWDebugPrinter pbiwDebugPrinter(std::cout);
-        IPBIWPrinter& printer = pbiwDebugPrinter;
         int i = 0;
         int total = 0;
 

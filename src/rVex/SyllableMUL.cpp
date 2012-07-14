@@ -17,10 +17,10 @@ namespace rVex
     switch (this->layoutType)
     {
       case LayoutType::RTYPE:
-        output.printSyllable(this, printRTYPE(), first, last); // O(1)
+        output.printOperation(*this, std::vector<unsigned int>(1, printRTYPE(first, last))); // O(1)
         break;
       case LayoutType::ISTYPE:
-        output.printSyllable(this, printISTYPE(), first, last); // O(1)
+        output.printOperation(*this, std::vector<unsigned int>(1, printISTYPE(first, last))); // O(1)
         break;
       default:
         throw new LayoutNotSupportedException("This instruction only supports R or IS layouts.");

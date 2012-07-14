@@ -11,6 +11,7 @@
 #include <deque>
 #include <iostream>
 #include "PBIWOptimizerJoinPatterns.h"
+#include "Interfaces/IPBIWPrinter.h"
 
 namespace PBIW
 {
@@ -28,7 +29,7 @@ namespace PBIW
         
         virtual void minimumPatterns();
         
-        virtual void printPatterns() const;
+        virtual void printPatterns(IPBIWPrinter&) const;
         
         virtual Optimizers getOptimizers() const
         {   return Optimizers(optimizers.begin(), optimizers.end());  }

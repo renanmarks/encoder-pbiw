@@ -28,7 +28,7 @@ namespace rVex
       /**
        * Print the syllable.
        */
-      virtual void printSyllable(const rVex::Syllable*,unsigned int, bool, bool);
+      virtual void printOperation(const rVex::Syllable&, const std::vector<unsigned int>&);
       
       /**
        * Print the instruction.

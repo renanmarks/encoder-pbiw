@@ -8,6 +8,7 @@
 #ifndef STW_H
 #define	STW_H
 
+#include <vector>
 #include "../../SyllableMEM.h"
 
 namespace rVex
@@ -25,7 +26,7 @@ namespace rVex
           SyllableType::Type getSyllableType() const { return SyllableType::MEM; }
           
           void print(rVex::Printers::IPrinter& output, bool first, bool last) const
-          { output.printSyllable(this, printMEMSTORETYPE(), first, last); }
+          { output.printOperation(*this, std::vector<unsigned int>(1, printMEMSTORETYPE(first, last))); }
           
           virtual void fillSyllable(VexParser::SyllableArguments& arguments)
           { this->fillTypeXI(arguments); }

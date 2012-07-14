@@ -49,7 +49,7 @@ namespace PBIW
         labelIt != labels.end();
         labelIt++)
     {
-      labelsCopy.push_back(const_cast<Label*>(&*labelIt));
+      labelsCopy.push_back(const_cast<ILabel*>(*labelIt));
     }
     
     return labelsCopy;
@@ -62,8 +62,8 @@ namespace PBIW
     
     for (it = labels.begin(); it < labels.end(); it++) // O(|labels|) = O(1)
     {
-      Label label = *dynamic_cast<Label*>(*it);
-      this->labels.push_back(label);
+      //Label label = *dynamic_cast<Label*>(*it);
+      this->labels.push_back((*it)->clone());
     }
   }
 
@@ -106,14 +106,14 @@ namespace PBIW
          labelIt != labels.end();
          labelIt++)
     {
-      const IPBIWInstruction* destiny = labelIt->getDestiny();
+      const IPBIWInstruction* destiny = (*labelIt)->getDestiny();
       PBIWInstructionList::iterator foundInstructionIt = 
         std::find_if(instructions.begin(), instructions.end(), FindInstruction(destiny));
       
       if (foundInstructionIt != instructions.end())
       {
-        labelIt->setDestiny(*foundInstructionIt);
-        labelIt->setAbsoluteAddress((*foundInstructionIt)->getAddress());
+        (*labelIt)->setDestiny(*foundInstructionIt);
+        (*labelIt)->setAbsoluteAddress((*foundInstructionIt)->getAddress());
       }
     }
     
@@ -144,8 +144,8 @@ namespace PBIW
       
       if (labelIt != labels.end())
       {
-        (*instructionIt)->setBranchDestiny(*labelIt->getDestiny());
-        (*instructionIt)->setImmediateValue(labelIt->getDestiny()->getAddress());
+        (*instructionIt)->setBranchDestiny(*(*labelIt)->getDestiny());
+        (*instructionIt)->setImmediateValue((*labelIt)->getDestiny()->getAddress());
       }
     }
     
