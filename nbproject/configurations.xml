@@ -398,7 +398,6 @@
           <linkerLibItems>
             <linkerLibLibItem>gtest</linkerLibLibItem>
             <linkerLibLibItem>gtest_main</linkerLibLibItem>
-            <linkerLibLibItem>pthread_workqueue</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>

@@ -56,8 +56,8 @@ namespace rVex
       else
         resultBinary.append("0\"&");
       */
-        if(syllable->getTextRepresentation() != "")
-                output << syllable->getTextRepresentation() << std::endl;
+        if(syllable.getTextRepresentation() != "")
+                output << syllable.getTextRepresentation() << std::endl;
 
     }
 
