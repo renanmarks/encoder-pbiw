@@ -28,7 +28,7 @@ namespace PBIW
       public:
         virtual ~IPBIW() {}
         
-        virtual void encode(const std::vector<rVex::Instruction*>&) = 0;
+        virtual void encode(const std::vector<GenericAssembly::Interfaces::IInstruction*>&) = 0;
         virtual void decode(const std::vector<IPBIWInstruction*>&, const std::vector<IPBIWPattern*>&) = 0;
         
         virtual void registerOptimizer(IPBIWOptimizer&) = 0;

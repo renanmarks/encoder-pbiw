@@ -313,7 +313,7 @@ namespace VexParser
   void 
   VexContext::encodePBIW(PBIW::Interfaces::IPBIW& pbiw) const // O(|codedPatterns|^2 + |instructions|) =
   {                                                                                                        // O(|codedPatterns|^2)
-    std::vector<rVex::Instruction*> instructionVector(instructions.begin(), instructions.end());
+    std::vector<GenericAssembly::Interfaces::IInstruction*> instructionVector(instructions.begin(), instructions.end());
     
     pbiw.encode(instructionVector); // O(|codedPatterns|^2)
   }

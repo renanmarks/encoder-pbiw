@@ -123,6 +123,22 @@ namespace PBIWFull
   }
   
   void                                                                                 
+  FullPBIW::encode(const std::vector<GenericAssembly::Interfaces::IInstruction*>& originalInstructions) // O(|codedPatterns|^2)
+  {
+    std::vector<rVex::Instruction*> rVexInstructions;
+    std::vector<GenericAssembly::Interfaces::IInstruction*>::const_iterator it;
+    
+    for (it = originalInstructions.begin();
+         it != originalInstructions.end();
+         it++)
+    {
+      rVexInstructions.push_back( static_cast<rVex::Instruction*>(*it) );
+    }
+    
+    encode(rVexInstructions);
+  }
+  
+  void                                                                                 
   FullPBIW::encode(const std::vector<rVex::Instruction*>& originalInstructions) // O(|codedPatterns|^2)
   {
     std::vector<rVex::Instruction*>::const_iterator instructionIt;

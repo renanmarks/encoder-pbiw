@@ -113,6 +113,7 @@ namespace PBIWPartial
     
     virtual ~PartialPBIW();
 
+    virtual void encode(const std::vector<GenericAssembly::Interfaces::IInstruction*>&);
     virtual void encode(const std::vector<rVex::Instruction*>&);
     virtual void decode(const std::vector<IPBIWInstruction*>&, const std::vector<IPBIWPattern*>&);
     
