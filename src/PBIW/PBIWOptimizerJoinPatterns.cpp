@@ -54,7 +54,6 @@ namespace PBIW
         threeOperation.resize(SIZE);
         
         int count2[3] = {0, 0, 0};
-        int pat = 0;
         // Patterns
         for(it = patterns.begin();
             it < patterns.end();

@@ -41,7 +41,6 @@ main(int argc, char** argv)
   std::string flags;
   std::string version = "2.0";
 
-  bool result=false;
   bool traceParsing=false;
   bool traceScanning=false;
   bool debugEnabled=false;
