@@ -22,6 +22,16 @@
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="f2" displayName="PBIW" projectFiles="true">
+        <logicalFolder name="f4" displayName="Generic" projectFiles="true">
+          <itemPath>src/PBIW/Generic/Configuration.h</itemPath>
+          <itemPath>src/PBIW/Generic/Factory.h</itemPath>
+          <itemPath>src/PBIW/Generic/GenericPBIW.h</itemPath>
+          <itemPath>src/PBIW/Generic/Instruction.h</itemPath>
+          <itemPath>src/PBIW/Generic/Label.h</itemPath>
+          <itemPath>src/PBIW/Generic/Operand.h</itemPath>
+          <itemPath>src/PBIW/Generic/Operation.h</itemPath>
+          <itemPath>src/PBIW/Generic/Pattern.h</itemPath>
+        </logicalFolder>
         <logicalFolder name="f1" displayName="Interfaces" projectFiles="true">
           <itemPath>src/PBIW/Interfaces/ILabel.h</itemPath>
           <itemPath>src/PBIW/Interfaces/IOperand.h</itemPath>
@@ -224,6 +234,16 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="f1" displayName="PBIW" projectFiles="true">
+        <logicalFolder name="f3" displayName="Generic" projectFiles="true">
+          <itemPath>src/PBIW/Generic/Configuration.cpp</itemPath>
+          <itemPath>src/PBIW/Generic/Factory.cpp</itemPath>
+          <itemPath>src/PBIW/Generic/GenericPBIW.cpp</itemPath>
+          <itemPath>src/PBIW/Generic/Instruction.cpp</itemPath>
+          <itemPath>src/PBIW/Generic/Label.cpp</itemPath>
+          <itemPath>src/PBIW/Generic/Operand.cpp</itemPath>
+          <itemPath>src/PBIW/Generic/Operation.cpp</itemPath>
+          <itemPath>src/PBIW/Generic/Pattern.cpp</itemPath>
+        </logicalFolder>
         <logicalFolder name="f2" displayName="Optimizers" projectFiles="true">
           <logicalFolder name="f1" displayName="JoinPattern" projectFiles="true">
             <itemPath>src/PBIW/Optimizers/JoinPattern/OperationInformation.cpp</itemPath>
@@ -361,16 +381,6 @@
       <itemPath>Makefile</itemPath>
     </logicalFolder>
   </logicalFolder>
-  <sourceRootList>
-    <Elem>/home/renato/pbiw_encoder/grammar</Elem>
-    <Elem>/home/renato/pbiw_encoder/new_grammar</Elem>
-    <Elem>/home/renato/pbiw_encoder/rVex/Operands</Elem>
-    <Elem>/home/renato/pbiw_encoder/rVex/Operations</Elem>
-    <Elem>/home/renato/pbiw_encoder/VexParser</Elem>
-    <Elem>/home/renato/pbiw_encoder/src/rVex/Printers</Elem>
-    <Elem>/home/renato/pbiw_encoder/src/rVex/Parser</Elem>
-    <Elem>/home/renato/pbiw_encoder/src/rVex/PBIW</Elem>
-  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="Debug" type="1">
@@ -398,7 +408,6 @@
           <linkerLibItems>
             <linkerLibLibItem>gtest</linkerLibLibItem>
             <linkerLibLibItem>gtest_main</linkerLibLibItem>
-            <linkerLibLibItem>pthread_workqueue</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>

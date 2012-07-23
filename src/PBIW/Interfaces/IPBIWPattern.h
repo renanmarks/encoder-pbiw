@@ -9,6 +9,7 @@
 #define	IPBIWPATTERN_H
 
 #include <deque>
+#include <vector>
 
 namespace PBIW
 {

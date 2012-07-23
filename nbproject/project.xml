@@ -9,16 +9,7 @@
             <header-extensions>h,hh,ll,yy</header-extensions>
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects/>
-            <sourceRootList>
-                <sourceRootElem>/home/renato/pbiw_encoder/grammar</sourceRootElem>
-                <sourceRootElem>/home/renato/pbiw_encoder/new_grammar</sourceRootElem>
-                <sourceRootElem>/home/renato/pbiw_encoder/rVex/Operands</sourceRootElem>
-                <sourceRootElem>/home/renato/pbiw_encoder/rVex/Operations</sourceRootElem>
-                <sourceRootElem>/home/renato/pbiw_encoder/VexParser</sourceRootElem>
-                <sourceRootElem>/home/renato/pbiw_encoder/src/rVex/Printers</sourceRootElem>
-                <sourceRootElem>/home/renato/pbiw_encoder/src/rVex/Parser</sourceRootElem>
-                <sourceRootElem>/home/renato/pbiw_encoder/src/rVex/PBIW</sourceRootElem>
-            </sourceRootList>
+            <sourceRootList/>
             <confList>
                 <confElem>
                     <name>Debug</name>
