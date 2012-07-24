@@ -5,8 +5,8 @@
  * Created on July 19, 2012, 8:37 PM
  */
 
-#ifndef PBIW_GENERIC_GENERICPBIW_H
-#define	PBIW_GENERIC_GENERICPBIW_H
+#ifndef PBIW_GENERIC_CODEC_H
+#define	PBIW_GENERIC_CODEC_H
 
 #include "src/PBIW/Interfaces/IPBIW.h"
 
@@ -16,12 +16,12 @@ namespace PBIW
   
   namespace Generic
   {
-    class GenericPBIW : public IPBIW
+    class Codec : public IPBIW
     {
     public:
-      GenericPBIW();
-      GenericPBIW(const GenericPBIW& orig);
-      virtual ~GenericPBIW();
+      Codec();
+      Codec(const Codec& orig);
+      virtual ~Codec();
 
       virtual void encode(const std::vector<GenericAssembly::Interfaces::IInstruction*>&);
       virtual void decode(const std::vector<IPBIWInstruction*>&, const std::vector<IPBIWPattern*>&);

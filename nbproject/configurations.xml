@@ -23,9 +23,9 @@
       </logicalFolder>
       <logicalFolder name="f2" displayName="PBIW" projectFiles="true">
         <logicalFolder name="f4" displayName="Generic" projectFiles="true">
+          <itemPath>src/PBIW/Generic/Codec.h</itemPath>
           <itemPath>src/PBIW/Generic/Configuration.h</itemPath>
           <itemPath>src/PBIW/Generic/Factory.h</itemPath>
-          <itemPath>src/PBIW/Generic/GenericPBIW.h</itemPath>
           <itemPath>src/PBIW/Generic/Instruction.h</itemPath>
           <itemPath>src/PBIW/Generic/Label.h</itemPath>
           <itemPath>src/PBIW/Generic/Operand.h</itemPath>
@@ -235,9 +235,9 @@
                    projectFiles="true">
       <logicalFolder name="f1" displayName="PBIW" projectFiles="true">
         <logicalFolder name="f3" displayName="Generic" projectFiles="true">
+          <itemPath>src/PBIW/Generic/Codec.cpp</itemPath>
           <itemPath>src/PBIW/Generic/Configuration.cpp</itemPath>
           <itemPath>src/PBIW/Generic/Factory.cpp</itemPath>
-          <itemPath>src/PBIW/Generic/GenericPBIW.cpp</itemPath>
           <itemPath>src/PBIW/Generic/Instruction.cpp</itemPath>
           <itemPath>src/PBIW/Generic/Label.cpp</itemPath>
           <itemPath>src/PBIW/Generic/Operand.cpp</itemPath>
@@ -401,15 +401,6 @@
           </incDir>
           <warningLevel>2</warningLevel>
         </ccTool>
-        <linkerTool>
-          <linkerAddLib>
-            <pElem>/usr/local/lib/gtest</pElem>
-          </linkerAddLib>
-          <linkerLibItems>
-            <linkerLibLibItem>gtest</linkerLibLibItem>
-            <linkerLibLibItem>gtest_main</linkerLibLibItem>
-          </linkerLibItems>
-        </linkerTool>
       </compileType>
       <folder path="TestFiles">
         <ccTool>
@@ -417,6 +408,11 @@
             <pElem>src</pElem>
           </incDir>
         </ccTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerLibLibItem>gtest</linkerLibLibItem>
+          </linkerLibItems>
+        </linkerTool>
       </folder>
       <folder path="TestFiles/f1">
         <cTool>

@@ -63,9 +63,9 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/rVex/PBIWPartial/Printers/PartialPBIWDebugPrinter.o \
 	${OBJECTDIR}/src/rVex/Operations/MEM/STB.o \
 	${OBJECTDIR}/src/rVex/Operations/ALU/ADDCG.o \
-	${OBJECTDIR}/src/PBIW/Generic/GenericPBIW.o \
 	${OBJECTDIR}/src/rVex/PBIWPartial/rVex64PBIWInstruction.o \
 	${OBJECTDIR}/src/PBIW/PBIWOptimizerDataSet.o \
+	${OBJECTDIR}/src/PBIW/Generic/Codec.o \
 	${OBJECTDIR}/src/rVex/SyllableALU.o \
 	${OBJECTDIR}/src/rVex/Label.o \
 	${OBJECTDIR}/src/rVex/SyllableMISC.o \
@@ -299,11 +299,6 @@ ${OBJECTDIR}/src/rVex/Operations/ALU/ADDCG.o: src/rVex/Operations/ALU/ADDCG.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/ALU/ADDCG.o src/rVex/Operations/ALU/ADDCG.cpp
 
-${OBJECTDIR}/src/PBIW/Generic/GenericPBIW.o: src/PBIW/Generic/GenericPBIW.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Generic
-	${RM} $@.d
-	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/Generic/GenericPBIW.o src/PBIW/Generic/GenericPBIW.cpp
-
 ${OBJECTDIR}/src/rVex/PBIWPartial/rVex64PBIWInstruction.o: src/rVex/PBIWPartial/rVex64PBIWInstruction.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/rVex/PBIWPartial
 	${RM} $@.d
@@ -313,6 +308,11 @@ ${OBJECTDIR}/src/PBIW/PBIWOptimizerDataSet.o: src/PBIW/PBIWOptimizerDataSet.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/PBIW
 	${RM} $@.d
 	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/PBIWOptimizerDataSet.o src/PBIW/PBIWOptimizerDataSet.cpp
+
+${OBJECTDIR}/src/PBIW/Generic/Codec.o: src/PBIW/Generic/Codec.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Generic
+	${RM} $@.d
+	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/Generic/Codec.o src/PBIW/Generic/Codec.cpp
 
 ${OBJECTDIR}/src/rVex/SyllableALU.o: src/rVex/SyllableALU.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/rVex
@@ -1004,19 +1004,6 @@ ${OBJECTDIR}/src/rVex/Operations/ALU/ADDCG_nomain.o: ${OBJECTDIR}/src/rVex/Opera
 	    ${CP} ${OBJECTDIR}/src/rVex/Operations/ALU/ADDCG.o ${OBJECTDIR}/src/rVex/Operations/ALU/ADDCG_nomain.o;\
 	fi
 
-${OBJECTDIR}/src/PBIW/Generic/GenericPBIW_nomain.o: ${OBJECTDIR}/src/PBIW/Generic/GenericPBIW.o src/PBIW/Generic/GenericPBIW.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Generic
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/PBIW/Generic/GenericPBIW.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} $@.d;\
-	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/Generic/GenericPBIW_nomain.o src/PBIW/Generic/GenericPBIW.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/src/PBIW/Generic/GenericPBIW.o ${OBJECTDIR}/src/PBIW/Generic/GenericPBIW_nomain.o;\
-	fi
-
 ${OBJECTDIR}/src/rVex/PBIWPartial/rVex64PBIWInstruction_nomain.o: ${OBJECTDIR}/src/rVex/PBIWPartial/rVex64PBIWInstruction.o src/rVex/PBIWPartial/rVex64PBIWInstruction.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/rVex/PBIWPartial
 	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/rVex/PBIWPartial/rVex64PBIWInstruction.o`; \
@@ -1041,6 +1028,19 @@ ${OBJECTDIR}/src/PBIW/PBIWOptimizerDataSet_nomain.o: ${OBJECTDIR}/src/PBIW/PBIWO
 	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/PBIWOptimizerDataSet_nomain.o src/PBIW/PBIWOptimizerDataSet.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/PBIW/PBIWOptimizerDataSet.o ${OBJECTDIR}/src/PBIW/PBIWOptimizerDataSet_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/PBIW/Generic/Codec_nomain.o: ${OBJECTDIR}/src/PBIW/Generic/Codec.o src/PBIW/Generic/Codec.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Generic
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/PBIW/Generic/Codec.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/Generic/Codec_nomain.o src/PBIW/Generic/Codec.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/PBIW/Generic/Codec.o ${OBJECTDIR}/src/PBIW/Generic/Codec_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/rVex/SyllableALU_nomain.o: ${OBJECTDIR}/src/rVex/SyllableALU.o src/rVex/SyllableALU.cpp 
