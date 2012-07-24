@@ -58,6 +58,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/rVex/PBIWFull/Operation.o \
 	${OBJECTDIR}/src/rVex/Parser/Structs/SyllableBufferItem.o \
 	${OBJECTDIR}/src/rVex/Operations/CTRL/RFI.o \
+	${OBJECTDIR}/src/PBIW/Generic/Printer.o \
 	${OBJECTDIR}/src/rVex/Operations/MEM/LDH.o \
 	${OBJECTDIR}/src/rVex/PBIWFull/Factory.o \
 	${OBJECTDIR}/src/rVex/PBIWPartial/Printers/PartialPBIWDebugPrinter.o \
@@ -273,6 +274,11 @@ ${OBJECTDIR}/src/rVex/Operations/CTRL/RFI.o: src/rVex/Operations/CTRL/RFI.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/rVex/Operations/CTRL
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/CTRL/RFI.o src/rVex/Operations/CTRL/RFI.cpp
+
+${OBJECTDIR}/src/PBIW/Generic/Printer.o: src/PBIW/Generic/Printer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Generic
+	${RM} $@.d
+	$(COMPILE.cc) -g -Wall -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/Generic/Printer.o src/PBIW/Generic/Printer.cpp
 
 ${OBJECTDIR}/src/rVex/Operations/MEM/LDH.o: src/rVex/Operations/MEM/LDH.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/rVex/Operations/MEM
@@ -937,6 +943,19 @@ ${OBJECTDIR}/src/rVex/Operations/CTRL/RFI_nomain.o: ${OBJECTDIR}/src/rVex/Operat
 	    $(COMPILE.cc) -g -Wall -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/CTRL/RFI_nomain.o src/rVex/Operations/CTRL/RFI.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/rVex/Operations/CTRL/RFI.o ${OBJECTDIR}/src/rVex/Operations/CTRL/RFI_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/PBIW/Generic/Printer_nomain.o: ${OBJECTDIR}/src/PBIW/Generic/Printer.o src/PBIW/Generic/Printer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Generic
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/PBIW/Generic/Printer.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -g -Wall -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/Generic/Printer_nomain.o src/PBIW/Generic/Printer.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/PBIW/Generic/Printer.o ${OBJECTDIR}/src/PBIW/Generic/Printer_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/rVex/Operations/MEM/LDH_nomain.o: ${OBJECTDIR}/src/rVex/Operations/MEM/LDH.o src/rVex/Operations/MEM/LDH.cpp 
