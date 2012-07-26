@@ -20,7 +20,7 @@ namespace PBIW
     class Printer : public IPBIWPrinter
     {
     public:
-      Printer(const std::ostream& output);
+      Printer(std::ostream& output);
       Printer(const Printer& orig);
       virtual ~Printer();
       

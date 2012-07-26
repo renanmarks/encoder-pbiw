@@ -89,6 +89,11 @@ namespace PBIWFull
     
     virtual void updateIndexes(int oldIndex, int newIndex);
     
+    virtual bool operator<(const IOperation&) const;
+    virtual bool operator>(const IOperation&) const;
+    virtual bool operator<=(const IOperation&) const;
+    virtual bool operator>=(const IOperation&) const;
+    
     virtual bool operator==(const IOperation&) const;
     virtual bool operator!=(const IOperation&) const;
     

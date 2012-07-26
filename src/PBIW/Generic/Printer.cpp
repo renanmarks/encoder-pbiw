@@ -12,7 +12,7 @@ namespace PBIW
   namespace Generic
   {
 
-    Printer::Printer(const std::ostream& output)
+    Printer::Printer(std::ostream& output)
     : output(output)
     {
     }

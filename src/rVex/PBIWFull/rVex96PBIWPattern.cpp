@@ -365,13 +365,29 @@ namespace PBIWFull
   bool
   rVex96PBIWPattern::operator<(const IPBIWPattern& other) const // O(1)
   {
-    return operations.size() < other.getOperationCount();
+    const rVex96PBIWPattern& otherTemp = dynamic_cast<const rVex96PBIWPattern&>(other);
+
+    unsigned int count = otherTemp.getOperationCount();
+
+    if (operations.size() < count)
+      return true;
+
+    for (unsigned int i = 0; i < count; i++)
+    {
+      const IOperation& thisOperation = *(operations[i]);
+      const IOperation& otherOperation = *(otherTemp.getOperation(i));
+      
+      if ( thisOperation >= otherOperation )
+        return false;
+    }
+
+    return true;
   }
 
   bool
   rVex96PBIWPattern::operator>(const IPBIWPattern& other) const // O(1)
   {
-    return operations.size() > other.getOperationCount();
+    return !(*this < other) && (*this != other);
   }
 
   bool
