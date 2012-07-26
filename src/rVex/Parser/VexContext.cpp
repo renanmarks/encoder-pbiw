@@ -22,6 +22,76 @@
 
 namespace VexParser
 {
+  void
+  VexContext::setInstructions(const rVexInstructionList& instructions)
+  {
+    this->instructions=instructions;
+  }
+  
+  IContext::InstructionDeque
+  VexContext::getInstructions() const
+  { 
+    return IContext::InstructionDeque(instructions.begin(), instructions.end()); 
+  }
+
+  void
+  VexContext::setOperations(const rVexSyllableList& syllables)
+  { 
+    this->syllables = syllables; 
+  }
+
+  IContext::OperationDeque
+  VexContext::getOperations() const
+  { 
+    return IContext::OperationDeque(syllables.begin(), syllables.end()); 
+  }
+
+  void
+  VexContext::setSyllableBuffer(const SyllableBuffer& syllableBuffer)
+  { 
+    this->syllableBuffer = syllableBuffer; 
+  }
+
+  VexContext::SyllableBuffer&
+  VexContext::getSyllableBuffer()
+  { 
+    return syllableBuffer; 
+  }
+
+  void
+  VexContext::setControlSyllables(const ControlSyllablesVector& controlSyllables)
+  { 
+    this->controlSyllables = controlSyllables; 
+  }
+
+  VexContext::ControlSyllablesVector&
+  VexContext::getControlSyllables()
+  { 
+    return controlSyllables; 
+  }
+
+  void
+  VexContext::setLabels(const rVexLabelVector& labels)
+  { 
+    this->labels = labels; 
+  }
+
+  IContext::LabelDeque
+  VexContext::getLabels() const
+  { 
+    rVexLabelVector::const_iterator it;
+    IContext::LabelDeque returnDeque;
+    
+    for (it = labels.begin();
+         it != labels.end();
+         it++)
+    {
+      returnDeque.push_back( const_cast<rVex::Label*>(&(*it)) );
+    }
+    
+    return returnDeque; 
+  }
+  
   VexContext::~VexContext( )
   {
     if (!syllables.empty())
