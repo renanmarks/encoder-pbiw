@@ -74,9 +74,9 @@ namespace rVex
   }
 
   bool
-  Instruction::canSplitSyllable(const Syllable* syllable) const
+  Instruction::canSplitInstruction(const IOperation& syllable) const
   {
-    return dependencies.canSplitSyllable(syllable);
+    return dependencies.canSplitSyllable(&dynamic_cast<const Syllable&>(syllable));
   }
 
   unsigned int
@@ -219,6 +219,12 @@ namespace rVex
     return reverseOrderedSyllables;
   }
 
+  Instruction::OperationDeque 
+  Instruction::getOperations() const
+  {
+    return Instruction::OperationDeque(syllables.begin(), syllables.end());
+  }
+  
   Instruction::SyllableVector
   Instruction::getSyllables() const // O(1)
   {

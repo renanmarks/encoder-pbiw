@@ -3,6 +3,7 @@
 #include "ADDCG.h"
 #include "src/rVex/Instruction.h"
 #include "src/rVex/Utils/OperandVectorBuilder.h"
+#include "ADD.h"
 
 namespace rVex
 {
@@ -10,14 +11,17 @@ namespace rVex
   {
     namespace ALU
     {
-      void ADDCG::exportOperandVector(Utils::OperandVectorBuilder& builder) const
+      Syllable::OperandConstPtrDeque 
+      ADDCG::exportOperandVector() const
       {
-        using PBIW::Utils::OperandItemDTO;
+        Utils::OperandVectorBuilder builder;
         
-        builder.insertRegister(this->brSource, OperandItemDTO::BRSource, this);
-        builder.insertRegister(this->grDestiny, OperandItemDTO::GRDestiny, this);
-        builder.insertRegisters(readRegisters, OperandItemDTO::GRSource, this);
-        builder.insertRegister(this->brDestiny, OperandItemDTO::BRDestiny, this);
+        builder.insertOperand(this->brSource);
+        builder.insertOperand(this->grDestiny);
+        builder.insertOperands(readRegisters);
+        builder.insertOperand(this->brDestiny);
+        
+        return builder.getOperandVector();
       }
     }
   }

@@ -46,4 +46,34 @@ namespace PBIWPartial
   {
     return new Label();
   }
+  
+  IOperation*
+  Factory::createOperation(const GenericAssembly::Interfaces::IOperation& operation) const
+  {
+    const rVex::Syllable& syllable = dynamic_cast<const rVex::Syllable&>(operation);
+    Operation* finalOperation = static_cast<Operation*>(createOperation());
+    
+    finalOperation->setOpcode( syllable.getOpcode() );
+    finalOperation->setImmediateSwitch( syllable.getImmediateSwitch() );
+    finalOperation->setType( syllable.getSyllableType() );
+    
+    return finalOperation;
+  }
+
+  IOperand*
+  Factory::createOperand(const GenericAssembly::Interfaces::IOperand& operand) const
+  {
+    IOperand* operandPBIW = createOperand();
+    
+    operandPBIW->setValue(operand.getValue());
+    operandPBIW->setTypeCode(operand.getTypeCode());
+    operandPBIW->setIndex(0);
+    
+    return operandPBIW;
+  }
+
+  ILabel*
+  Factory::createLabel(const GenericAssembly::Interfaces::ILabel& label) const
+  {
+  }
 }

@@ -25,7 +25,8 @@ namespace PBIW
 
     void
     Codec::encode(const std::vector<GenericAssembly::Interfaces::IInstruction*>&)
-    {    
+    {
+      
     }
 
     void

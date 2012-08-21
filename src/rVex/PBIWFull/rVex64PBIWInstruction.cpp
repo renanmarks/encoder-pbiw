@@ -204,8 +204,8 @@ namespace PBIWFull
         (*it)->setValue(zeroOperand.getValue());
     }
 
-    bool hasImm9Bits=operands[IMM9BITS]->isImmediate9Bits();
-    bool hasImm12Bits=operands[IMM12BITS]->isImmediate12Bits();
+    bool hasImm9Bits=dynamic_cast<Operand*>(operands[IMM9BITS])->isImmediate9Bits();
+    bool hasImm12Bits=dynamic_cast<Operand*>(operands[IMM12BITS])->isImmediate12Bits();
     bool hasImmediate=hasImm9Bits || hasImm12Bits;
 
     if (!hasImmediate)
@@ -517,28 +517,30 @@ namespace PBIWFull
   void
   rVex64PBIWInstruction::addReadOperand(IOperand& operand) // O(1)
   {
-    if (operand.isImmediate())
+    Operand& convertedOperand = dynamic_cast<Operand&>(operand);
+    
+    if (convertedOperand.isImmediate())
     {
-      if (operand.isImmediate9Bits())
-        operand.setIndex(IMM9BITS);
-      else if (operand.isImmediate12Bits())
-        operand.setIndex(IMM12BITS);
+      if (convertedOperand.isImmediate9Bits())
+        convertedOperand.setIndex(IMM9BITS);
+      else if (convertedOperand.isImmediate12Bits())
+        convertedOperand.setIndex(IMM12BITS);
 
-      immediate=dynamic_cast<Operand&> (operand);
+      immediate=convertedOperand;
 
       return;
     }
 
-    if (operand.getValue() == 0 /*&& !operand.isBRSource() && !operand.isBRDestiny()*/)
+    if (convertedOperand.getValue() == 0 /*&& !operand.isBRSource() && !operand.isBRDestiny()*/)
     {
-      operand.setIndex(zeroOperand.getIndex());
+      convertedOperand.setIndex(zeroOperand.getIndex());
       return;
     }
 
     // If we not have the immediate yet, do the normal indexing
     unsigned int index = giveEmptySlot();
 
-    if (index == 11 && operand.getValue() >= 8)
+    if (index == 11 && convertedOperand.getValue() >= 8)
     {
       // Spill index (to prevent cyclic dependencies at swap)
       const unsigned int spillIndex = 101;
@@ -553,8 +555,8 @@ namespace PBIWFull
         // First, update the indexes with the spill index...
         updateIndexes(substituteOperand.getIndex(), spillIndex);
 
-        *(operandIt) = dynamic_cast<const Operand&>(operand); 
-        operand.setIndex(substituteOperand.getIndex()); // To return the index, maintaining the semantics of the code
+        *(operandIt) = const_cast<const Operand&>(convertedOperand); 
+        convertedOperand.setIndex(substituteOperand.getIndex()); // To return the index, maintaining the semantics of the code
         operandIt->setIndex(substituteOperand.getIndex()); // Copy 11th operand to the position
 
         substituteOperand.setIndex(index);
@@ -571,8 +573,8 @@ namespace PBIWFull
     }
     else
     {
-      operand.setIndex(index);
-      operands.push_back(dynamic_cast<Operand&> (operand));
+      convertedOperand.setIndex(index);
+      operands.push_back(convertedOperand);
     }
   }
 
@@ -655,37 +657,42 @@ namespace PBIWFull
   }
 
   bool
-  rVex64PBIWInstruction::hasOperandSlot(const rVex::Utils::OperandItemDTO& operand) // O(1)
+  rVex64PBIWInstruction::hasOperandSlot(const PBIW::Utils::OperandItemDTO& operand) // O(1)
   {
-    switch (operand.getType()) 
+    switch ( static_cast<rVex::Operand::Type>(operand.getOperand()->getTypeCode()) )
     {
-      case rVex::Utils::OperandItemDTO::Imm:
-        if (this->containsImmediate())
-          return false;
-
-        if (operand.getOperand()->isImmediate9Bits() && operands.size() == 10)
+      case rVex::Operand::Imm12:
+      case rVex::Operand::Imm9:
         {
-          if (operands.back().getValue() < 8)
+          if (this->containsImmediate())
+            return false;
+
+          Operand* convertedOperand = dynamic_cast<Operand*>(operand.getPBIWOperand());
+
+          if (convertedOperand->isImmediate9Bits() && operands.size() == 10)
           {
-            operands.back().setIndex(IMM12BITS);
-            return true;
+            if (operands.back().getValue() < 8)
+            {
+              operands.back().setIndex(IMM12BITS);
+              return true;
+            }
+
+            return false;
           }
 
-          return false;
+          if (convertedOperand->isImmediate9Bits() && operands.size() > 10)
+            return false;
+
+          if (convertedOperand->isImmediate12Bits() && operands.size() > 10)
+            return false;
         }
-
-        if (operand.getOperand()->isImmediate9Bits() && operands.size() > 10)
-          return false;
-
-        if (operand.getOperand()->isImmediate12Bits() && operands.size() > 10)
-          return false;
         break;
 
-      case rVex::Utils::OperandItemDTO::BRSource:
-        if (operand.getOperationBelonged()->isOpcode(rVex::Syllable::opBR))
+      case rVex::Operand::BRSource:
+        if (operand.getOperand()->getOperationBelonged()->isOpcode(rVex::Syllable::opBR))
           return (opBRslot.getValue() == -1);
 
-        if (operand.getOperationBelonged()->isOpcode(rVex::Syllable::opBRF))
+        if (operand.getOperand()->getOperationBelonged()->isOpcode(rVex::Syllable::opBRF))
           return (opBRFslot.getValue() == -1);
 
         // Check if there is space in the 0-7 slot range;

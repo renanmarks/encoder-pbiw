@@ -9,12 +9,14 @@
 #define	GENERICASSEMBLY_IOPERATION_H
 
 #include <string>
+#include <deque>
 
 namespace GenericAssembly
 {
   namespace Interfaces
   {
     class IInstruction;
+    class IOperand;
     
     class IOperation
     {
@@ -35,11 +37,12 @@ namespace GenericAssembly
       virtual void setTextRepresentation(std::string textRepresentation) = 0;
       virtual std::string getTextRepresentation() const = 0;
       
+      typedef std::deque<const IOperand*> OperandConstPtrDeque;
       /**
        * Fills up the builder passed as argument with the operands from this
        * operation to be used at the PBIW encoding process.
        */
-      //virtual void exportOperandVector(/*Utils::OperandVectorBuilder&*/) const = 0;
+      virtual OperandConstPtrDeque exportOperandVector() const = 0;
     };
   }
 }

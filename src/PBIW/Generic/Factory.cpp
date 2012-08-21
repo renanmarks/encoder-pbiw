@@ -12,12 +12,12 @@ namespace PBIW
   {
 
     Factory::Factory(const Configuration& config)
-      : configuration(config)
+    : configuration(config)
     {
     }
 
     Factory::Factory(const Factory& orig)
-      : configuration(orig.configuration)
+    : configuration(orig.configuration)
     {
     }
 
@@ -47,6 +47,21 @@ namespace PBIW
 
     ILabel*
     Factory::createLabel() const
+    {
+    }
+
+    IOperation*
+    Factory::createOperation(const GenericAssembly::Interfaces::IOperation& operation) const
+    {
+    }
+
+    IOperand*
+    Factory::createOperand(const GenericAssembly::Interfaces::IOperand& operand) const
+    {
+    }
+
+    ILabel*
+    Factory::createLabel(const GenericAssembly::Interfaces::ILabel& label) const
     {
     }
   }

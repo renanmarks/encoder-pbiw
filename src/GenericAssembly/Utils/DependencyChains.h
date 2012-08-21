@@ -75,7 +75,7 @@ namespace GenericAssembly
       
         for(it = dependencies.begin(); it != dependencies.end(); it++)
         {
-          printer.getOutputStream() << "Syllable " << it->first->getAddress()
+          printer.getOutputStream() << "Operation " << it->first->getAddress()
             << " anti-depends (";
 
           typename Dependency::OperationList::const_iterator dependencyIt;

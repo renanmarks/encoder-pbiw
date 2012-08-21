@@ -217,6 +217,7 @@
           <itemPath>src/rVex/Utils/OperandVectorBuilder.h</itemPath>
         </logicalFolder>
         <itemPath>src/rVex/Instruction.h</itemPath>
+        <itemPath>src/rVex/Operand.h</itemPath>
         <itemPath>src/rVex/Syllable.h</itemPath>
         <itemPath>src/rVex/SyllableALU.h</itemPath>
         <itemPath>src/rVex/SyllableCTRL.h</itemPath>
@@ -354,6 +355,7 @@
         </logicalFolder>
         <itemPath>src/rVex/Instruction.cpp</itemPath>
         <itemPath>src/rVex/Label.cpp</itemPath>
+        <itemPath>src/rVex/Operand.cpp</itemPath>
         <itemPath>src/rVex/Syllable.cpp</itemPath>
         <itemPath>src/rVex/SyllableALU.cpp</itemPath>
         <itemPath>src/rVex/SyllableCTRL.cpp</itemPath>

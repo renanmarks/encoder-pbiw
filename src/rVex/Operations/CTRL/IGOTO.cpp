@@ -17,7 +17,7 @@ namespace rVex
         final |= Syllable::ImmediateSwitch::BRANCH_IMM;
         
         final <<= 6;
-        final |= this->grDestiny;
+        final |= getGrDestinyValue();
 
         final <<= 14;
         final |= last;

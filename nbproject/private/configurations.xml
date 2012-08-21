@@ -37,7 +37,7 @@
           <runcommandpicklistitem>"${OUTPUT_PATH}" -d nested_complex_rVex.s</runcommandpicklistitem>
         </runcommandpicklist>
         <runcommand>"${OUTPUT_PATH}" -d nested_complex_rVex.s</runcommand>
-        <rundir>/home/renato/pbiw_encoder/dist/Debug/GNU-Linux-x86</rundir>
+        <rundir>/home/helix/NetBeansProjects/pbiw_encoder/dist/Debug/GNU-Linux-x86</rundir>
         <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>
         <remove-instrumentation>0</remove-instrumentation>

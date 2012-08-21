@@ -155,8 +155,8 @@ namespace PBIWPartial
       output.longWord|=(*it)->getValue();
     }
 
-    bool hasImm9Bits=operands[10]->isImmediate9Bits();
-    bool hasImm12Bits=operands[11]->isImmediate12Bits();
+    bool hasImm9Bits=dynamic_cast<Operand*>(operands[10])->isImmediate9Bits();
+    bool hasImm12Bits=dynamic_cast<Operand*>(operands[11])->isImmediate12Bits();
     bool hasImmediate=hasImm9Bits || hasImm12Bits;
 
     if (!hasImmediate)
@@ -296,15 +296,17 @@ namespace PBIWPartial
   void
   rVex64PBIWInstruction::addReadOperand(IOperand& operand) // O(1)
   {
-    if (operand.isBRSource())
+    Operand& convertedOperand = dynamic_cast<Operand&>(operand);
+    
+    if (convertedOperand.isBRSource())
     {
-      setBranchSourceOperand(operand);
+      setBranchSourceOperand(convertedOperand);
       return;
     }
     
     unsigned int index=this->readOperands.size();
-    operand.setIndex(index);
-    this->readOperands.push_back(dynamic_cast<Operand&> (operand));
+    convertedOperand.setIndex(index);
+    this->readOperands.push_back(convertedOperand);
   }
 
   void
@@ -338,14 +340,16 @@ namespace PBIWPartial
   void
   rVex64PBIWInstruction::addWriteOperand(IOperand& operand) // O(1)
   {
-    if (operand.isImmediate())
+    Operand& convertedOperand = dynamic_cast<Operand&>(operand);
+    
+    if (convertedOperand.isImmediate())
     {
-      if (operand.isImmediate9Bits())
+      if (convertedOperand.isImmediate9Bits())
         operand.setIndex(10);
-      else if (operand.isImmediate12Bits())
+      else if (convertedOperand.isImmediate12Bits())
         operand.setIndex(11);
 
-      immediate=dynamic_cast<Operand&> (operand);
+      immediate=convertedOperand;
 
       return;
     }
@@ -385,16 +389,16 @@ namespace PBIWPartial
       index=8 + this->writeOperands.size();
     }
 
-    operand.setIndex(index);
-    this->writeOperands.push_back(dynamic_cast<Operand&> (operand));
+    convertedOperand.setIndex(index);
+    this->writeOperands.push_back(convertedOperand);
   }
 
   bool
   rVex64PBIWInstruction::hasOperandSlot(const PBIW::Utils::OperandItemDTO& operand) // O(1)
   {
-    switch (operand.getType()) 
+    switch ( static_cast<rVex::Operand::Type>(operand.getOperand()->getTypeCode()) )
     {
-      case PBIW::Utils::OperandItemDTO::GRDestiny:
+      case rVex::Operand::GRDestiny:
       {
         bool hasWriteSlot = this->hasWriteOperandSlot();
         
@@ -416,29 +420,42 @@ namespace PBIWPartial
       }
         break;
 
-      case PBIW::Utils::OperandItemDTO::Imm:
-        if (this->containsImmediate())
-          return false;
-
-        if (operand.getOperand()->isImmediate9Bits() && writeOperands.size() == 2)
+      case rVex::Operand::Imm12:
         {
-          writeOperands.back().setIndex(11);
-          return false;
+          Operand* convertedOperand = dynamic_cast<Operand*>(operand.getPBIWOperand());
+
+          if (this->containsImmediate())
+            return false;
+
+          if (convertedOperand->isImmediate12Bits() && writeOperands.size() > 1)
+            return false;
         }
+        break;
+        
+      case rVex::Operand::Imm9:
+        {
+          Operand* convertedOperand = dynamic_cast<Operand*>(operand.getPBIWOperand());
 
-        if (operand.getOperand()->isImmediate9Bits() && writeOperands.size() > 2)
-          return false;
+          if (this->containsImmediate())
+            return false;
 
-        if (operand.getOperand()->isImmediate12Bits() && writeOperands.size() > 1)
-          return false;
+          if (convertedOperand->isImmediate9Bits() && writeOperands.size() == 2)
+          {
+            writeOperands.back().setIndex(11);
+            return false;
+          }
+
+          if (convertedOperand->isImmediate9Bits() && writeOperands.size() > 2)
+            return false;
+        }
         break;
 
-      case PBIW::Utils::OperandItemDTO::BRSource:
+      case rVex::Operand::BRSource:
         return !this->hasBranchSourceOperand();
         break;
       
-      case PBIW::Utils::OperandItemDTO::BRDestiny:
-      case PBIW::Utils::OperandItemDTO::GRSource:
+      case rVex::Operand::BRDestiny:
+      case rVex::Operand::GRSource:
         if (operand.getOperand()->getValue() != 0)
           return this->hasReadOperandSlot();
 

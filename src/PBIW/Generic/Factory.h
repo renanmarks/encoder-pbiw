@@ -31,6 +31,10 @@ namespace PBIW
       virtual IOperation* createOperation() const;
       virtual IOperand* createOperand() const;
       virtual ILabel* createLabel() const;
+      
+      IOperation* createOperation(const GenericAssembly::Interfaces::IOperation&) const;
+      IOperand* createOperand(const GenericAssembly::Interfaces::IOperand&) const;
+      ILabel* createLabel(const GenericAssembly::Interfaces::ILabel&) const;
     private:
       Configuration configuration;
     };

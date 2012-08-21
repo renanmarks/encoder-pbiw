@@ -98,6 +98,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/PBIW/PBIWOptimizerJoinPatterns.o \
 	${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/OperationInformation.o \
 	${OBJECTDIR}/src/rVex/Operations/MEM/LDB.o \
+	${OBJECTDIR}/src/rVex/Operand.o \
 	${OBJECTDIR}/src/rVex/PBIWPartial/Operand.o \
 	${OBJECTDIR}/src/rVex/PBIWFull/Printers/FullPBIWDebugPrinter.o \
 	${OBJECTDIR}/src/rVex/Parser/Expressions/Arguments.o \
@@ -474,6 +475,11 @@ ${OBJECTDIR}/src/rVex/Operations/MEM/LDB.o: src/rVex/Operations/MEM/LDB.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/rVex/Operations/MEM
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/MEM/LDB.o src/rVex/Operations/MEM/LDB.cpp
+
+${OBJECTDIR}/src/rVex/Operand.o: src/rVex/Operand.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/rVex
+	${RM} $@.d
+	$(COMPILE.cc) -g -Wall -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operand.o src/rVex/Operand.cpp
 
 ${OBJECTDIR}/src/rVex/PBIWPartial/Operand.o: src/rVex/PBIWPartial/Operand.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/rVex/PBIWPartial
@@ -1463,6 +1469,19 @@ ${OBJECTDIR}/src/rVex/Operations/MEM/LDB_nomain.o: ${OBJECTDIR}/src/rVex/Operati
 	    $(COMPILE.cc) -g -Wall -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/MEM/LDB_nomain.o src/rVex/Operations/MEM/LDB.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/rVex/Operations/MEM/LDB.o ${OBJECTDIR}/src/rVex/Operations/MEM/LDB_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/rVex/Operand_nomain.o: ${OBJECTDIR}/src/rVex/Operand.o src/rVex/Operand.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/rVex
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/rVex/Operand.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -g -Wall -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operand_nomain.o src/rVex/Operand.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/rVex/Operand.o ${OBJECTDIR}/src/rVex/Operand_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/rVex/PBIWPartial/Operand_nomain.o: ${OBJECTDIR}/src/rVex/PBIWPartial/Operand.o src/rVex/PBIWPartial/Operand.cpp 

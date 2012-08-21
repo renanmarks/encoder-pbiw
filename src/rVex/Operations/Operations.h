@@ -5,8 +5,8 @@
  * Created on August 21, 2011, 8:31 PM
  */
 
-#ifndef OPERATIONS_H
-#define	OPERATIONS_H
+#ifndef RVEX_OPERATIONS_H
+#define	RVEX_OPERATIONS_H
 
 #include "ALU/ADD.h"
 #include "ALU/AND.h"

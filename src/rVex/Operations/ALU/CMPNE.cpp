@@ -10,22 +10,24 @@ namespace rVex
   {
     namespace ALU
     {
-      void CMPNE::exportOperandVector(Utils::OperandVectorBuilder& builder) const
+      Syllable::OperandConstPtrDeque CMPNE::exportOperandVector() const
       {
-        using PBIW::Utils::OperandItemDTO;
+        Utils::OperandVectorBuilder builder;
         
         if (this->haveBRDestiny)
-          builder.insertRegister(0, OperandItemDTO::GRDestiny, this);
+          builder.insertOperand(Operand(Operand::GRDestiny));
         else
-          builder.insertRegister(this->grDestiny, OperandItemDTO::GRDestiny, this);
+          builder.insertOperand(grDestiny);
         
-        builder.insertRegisters(readRegisters, OperandItemDTO::GRSource, this);
+        builder.insertOperands(readRegisters);
         
         if (getLayoutType() == LayoutType::ISTYPE)
-          builder.insertImmediate(this->shortImmediate, rVex::Syllable::ImmediateSwitch::SHORT_IMM, this);
+          builder.insertOperand(this->shortImmediate);
         
         if (this->haveBRDestiny)
-          builder.insertRegister(this->brDestiny, OperandItemDTO::BRDestiny, this);
+          builder.insertOperand(this->brDestiny);
+        
+        return builder.getOperandVector();
       }
     }
   }

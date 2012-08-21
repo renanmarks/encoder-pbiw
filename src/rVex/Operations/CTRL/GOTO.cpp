@@ -9,15 +9,17 @@ namespace rVex
   {
     namespace CTRL
     {
-      void
-      GOTO::exportOperandVector(Utils::OperandVectorBuilder& builder) const
+      Syllable::OperandConstPtrDeque
+      GOTO::exportOperandVector() const
       {
-        using PBIW::Utils::OperandItemDTO;
+        Utils::OperandVectorBuilder builder;
         
         if (this->branchDestiny != NULL)
-          builder.insertImmediate(this->shortImmediate, rVex::Syllable::ImmediateSwitch::BRANCH_IMM, this);
+          builder.insertOperand(shortImmediate);
         else
-          builder.insertRegisters(this->readRegisters, OperandItemDTO::GRSource, this);
+          builder.insertOperands(readRegisters);
+        
+        return builder.getOperandVector();
       }
       
       void 

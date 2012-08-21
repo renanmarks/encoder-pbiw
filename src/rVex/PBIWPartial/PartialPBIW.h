@@ -84,7 +84,7 @@ namespace PBIWPartial
     void savePBIWElements(IPBIWInstruction*&, IPBIWPattern*&);
     void saveAndCreateNewPBIWElements(IPBIWInstruction*&, IPBIWPattern*&);
     void createNewPBIWElements(IPBIWInstruction*&, IPBIWPattern*& );
-    void resetFinalOperation(VexSyllableOperandVector::Collection::const_iterator&, IOperation*&, rVex::Syllable* const&, const VexSyllableOperandVector&);
+    void resetFinalOperation(GenericAssembly::Interfaces::IOperation::OperandConstPtrDeque::const_iterator&, IOperation*&, rVex::Syllable* const&, const GenericAssembly::Interfaces::IOperation::OperandConstPtrDeque&);
 
     /**
      * Process the label vector translating the labels to respective instruction

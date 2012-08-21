@@ -19,7 +19,7 @@ namespace GenericAssembly
     /**
      * A label in the assembly 
      */
-    class ILabel : public IOperand
+    class ILabel
     {
     public:
       virtual ~ILabel() { }

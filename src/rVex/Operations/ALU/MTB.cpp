@@ -10,14 +10,16 @@ namespace rVex
   {
     namespace ALU
     {
-      void MTB::exportOperandVector(Utils::OperandVectorBuilder& builder) const
+      Syllable::OperandConstPtrDeque MTB::exportOperandVector() const
       {
-        using PBIW::Utils::OperandItemDTO;
+        Utils::OperandVectorBuilder builder;
         
-        builder.insertRegister(0, OperandItemDTO::GRDestiny, this);
-        builder.insertRegister(readRegisters[0], OperandItemDTO::GRSource, this);
-        builder.insertRegister(0, OperandItemDTO::GRSource, this);
-        builder.insertRegister(this->brDestiny, OperandItemDTO::BRDestiny, this);
+        builder.insertOperand(Operand(Operand::GRDestiny));
+        builder.insertOperand(readRegisters[0]);
+        builder.insertOperand(Operand(Operand::GRSource));
+        builder.insertOperand(brDestiny);
+        
+        return builder.getOperandVector();
       }
     }
   }

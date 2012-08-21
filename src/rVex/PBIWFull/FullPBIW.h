@@ -50,7 +50,6 @@ namespace PBIWFull
     /**
      * Type definitions to references rVex structures
      */
-    typedef rVex::Utils::OperandVectorDTO VexSyllableOperandVector; 
     typedef rVex::Instruction::SyllableVector VexSyllableVector;
 //    
 //    typedef std::vector<rVex::Instruction*> VexInstructionVector;
@@ -86,7 +85,10 @@ namespace PBIWFull
     void savePBIWElements(rVex64PBIWInstruction*&, rVex96PBIWPattern*&);
     void createNewPBIWElements(rVex64PBIWInstruction*&, rVex96PBIWPattern*&);
     void saveAndCreateNewPBIWElements(rVex64PBIWInstruction*&, rVex96PBIWPattern*&);
-    void resetFinalOperation(VexSyllableOperandVector::Collection::const_iterator&, Operation*&, rVex::Syllable* const&, const VexSyllableOperandVector&);
+    void resetFinalOperation(GenericAssembly::Interfaces::IOperation::OperandConstPtrDeque::const_iterator&, 
+    IOperation*&, 
+    rVex::Syllable* const&, 
+    const GenericAssembly::Interfaces::IOperation::OperandConstPtrDeque&);
 
     /**
      * Process the label vector translating the labels to respective instruction

@@ -109,17 +109,14 @@ namespace PBIWFull
     finalInstruction->pointToPattern(*newPattern);
   }
   
-  void FullPBIW::resetFinalOperation(VexSyllableOperandVector::Collection::const_iterator& operandIt, // O(1)
-                                        Operation*& finalOperation, 
+  void FullPBIW::resetFinalOperation(GenericAssembly::Interfaces::IOperation::OperandConstPtrDeque::const_iterator& operandIt, // O(1)
+                                        IOperation*& finalOperation, 
                                         rVex::Syllable* const& syllable,
-                                        const VexSyllableOperandVector& operands)
+                                        const GenericAssembly::Interfaces::IOperation::OperandConstPtrDeque& operands)
   {
     operandIt = operands.begin();
     delete finalOperation;
-    finalOperation = new Operation();
-    finalOperation->setOpcode( syllable->getOpcode() );
-    finalOperation->setImmediateSwitch( syllable->getImmediateSwitch() );
-    finalOperation->setType( syllable->getSyllableType() );
+    finalOperation = factory.createOperation(*syllable);//new Operation();
   }
   
   void                                                                                 
@@ -178,27 +175,22 @@ namespace PBIWFull
            syllableIt < syllables.end();    // O(16 + 16|codedPatterns|)
            syllableIt++)
       {
-        Operation* finalOperation = new Operation();
-        
-        finalOperation->setOpcode( (*syllableIt)->getOpcode() );
-        finalOperation->setImmediateSwitch( (*syllableIt)->getImmediateSwitch() );
-        finalOperation->setType( (*syllableIt)->getSyllableType() );
+        IOperation* finalOperation = factory.createOperation(**syllableIt);//new Operation();
         
         finalInstruction->setCodingOperation(*finalOperation);
         
         // For each operand...
-        rVex::Utils::OperandVectorBuilder operandVectorBuilder(factory);
-        (*syllableIt)->exportOperandVector(operandVectorBuilder);
+        using GenericAssembly::Interfaces::IOperation;
         
-        VexSyllableOperandVector::Collection::const_iterator operandIt;
-        VexSyllableOperandVector operands = operandVectorBuilder.getOperandVector();
+        IOperation::OperandConstPtrDeque::const_iterator operandIt;
+        IOperation::OperandConstPtrDeque operands = (*syllableIt)->exportOperandVector();
         
         for (operandIt = operands.begin(); // O(|operands| + |codedPatterns|) = O(4 + |codedPatterns|) = O(|codedPatterns|)
              operandIt < operands.end();
              operandIt++)
         {
           const IPBIWInstruction* firstInstruction = finalInstruction;
-          IOperand* operand = (*operandIt)->getOperand();
+          IOperand* operand = factory.createOperand(**operandIt);
           
           // Search for the operand (only its value and type(imm, for example))
           const IOperand& foundOperand = finalInstruction->containsOperand( *operand ); // O(|operands|) = O(12) = O(1)
@@ -206,15 +198,15 @@ namespace PBIWFull
           // If not found in the instruction (i.e. the operand returned is the same searched)...
           if ( &foundOperand == operand )
           {
-            if ( !finalInstruction->hasOperandSlot( **operandIt ) )
+            if ( !finalInstruction->hasOperandSlot( PBIW::Utils::OperandItemDTO(operand, *operandIt) ) )
             {
-              if ( (*instructionIt)->canSplitSyllable(*syllableIt) )
+              if ( (*instructionIt)->canSplitInstruction(**syllableIt) )
               {
                 saveAndCreateNewPBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
               }
               else
               {
-                while ( !(*instructionIt)->canSplitSyllable(*syllableIt) )
+                while ( !(*instructionIt)->canSplitInstruction(**syllableIt) )
                 {
                   syllablesBuffer.remove(*syllableIt);
                   syllableIt--; // go back
@@ -227,19 +219,17 @@ namespace PBIWFull
                 saveAndCreateNewPBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
               }
 
-              operandVectorBuilder.clearOperandVector();
-              (*syllableIt)->exportOperandVector(operandVectorBuilder);
-              operands = operandVectorBuilder.getOperandVector();
+              operands = (*syllableIt)->exportOperandVector();
               
               resetFinalOperation(operandIt, finalOperation, *syllableIt, operands); // O(1)
               finalInstruction->setCodingOperation(*finalOperation);
             }
 
-            operand = (*operandIt)->getOperand(); // O(1)
+            operand = factory.createOperand(**operandIt); // O(1)
 
-            switch ( (*operandIt)->getType() )
+            switch ( static_cast<rVex::Operand::Type>(operand->getTypeCode()) )
             {
-              case rVex::Utils::OperandItemDTO::BRSource :
+              case rVex::Operand::BRSource :
                 if (finalOperation->getOpcode() == rVex::Syllable::opBR)
                 {
                   finalInstruction->setOpBRslot(*operand); // O(1)
@@ -251,12 +241,13 @@ namespace PBIWFull
                   break;
                 }
                 
-              case rVex::Utils::OperandItemDTO::BRDestiny :
+              case rVex::Operand::BRDestiny :
                 finalInstruction->addBranchOperand(*operand); // O(1)
                 break;
-              case rVex::Utils::OperandItemDTO::GRSource :
-              case rVex::Utils::OperandItemDTO::GRDestiny :
-              case rVex::Utils::OperandItemDTO::Imm :
+              case rVex::Operand::GRSource :
+              case rVex::Operand::GRDestiny :
+              case rVex::Operand::Imm9 :
+              case rVex::Operand::Imm12 :
                 finalInstruction->addReadOperand(*operand); // O(1)
                 break;
             }
@@ -265,9 +256,9 @@ namespace PBIWFull
           {
             // If found, check if it is some operand of a BR/BRF syllable
             // and put it in its position
-            switch ( (*operandIt)->getType() )
+            switch ( static_cast<rVex::Operand::Type>(operand->getTypeCode()) )
             {
-              case rVex::Utils::OperandItemDTO::BRSource :
+              case rVex::Operand::BRSource :
                 if (finalOperation->getOpcode() == rVex::Syllable::opBR)
                 {
                   finalInstruction->setOpBRslot(*operand); // O(1)
@@ -288,7 +279,7 @@ namespace PBIWFull
           // If the PBIW instruction has been splitted
           if (firstInstruction != finalInstruction)
           {
-            IOperand* tempOperand = (*operandIt)->getOperand(); // O(1)
+            IOperand* tempOperand = factory.createOperand(**operandIt); // O(1)
             const IOperand& foundOperand = finalInstruction->containsOperand( *tempOperand ); // O(1)
             finalOperation->addOperand( foundOperand ); // O(1)
           }
