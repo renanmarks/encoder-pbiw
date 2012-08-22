@@ -10,7 +10,8 @@ namespace rVex
   {
     namespace ALU
     {
-      Syllable::OperandConstPtrDeque CMPLT::exportOperandVector() const
+      Syllable::OperandConstPtrDeque 
+      CMPLT::exportOperandVector() const
       {
         Utils::OperandVectorBuilder builder;
         
@@ -26,6 +27,8 @@ namespace rVex
         
         if (this->haveBRDestiny)
           builder.insertOperand(brDestiny);
+        
+        return builder.getOperandVector();
       }
     }
   }
