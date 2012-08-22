@@ -32,7 +32,7 @@ namespace rVex
   }
   
   Operand::Operand(const Operand& other)
-   : type(other.type), value(other.value)
+   : type(other.type), value(other.value), syllableBelonged(other.syllableBelonged)
   {
   }
 

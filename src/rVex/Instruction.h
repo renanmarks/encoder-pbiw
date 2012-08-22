@@ -18,6 +18,7 @@
 
 #include "src/PBIW/Interfaces/IPBIWInstruction.h"
 #include "src/GenericAssembly/Interfaces/IInstruction.h"
+#include "src/GenericAssembly/Interfaces/IOperation.h"
 
 #include "src/rVex/Printers/IPrinter.h"
 #include "src/rVex/Parser/Expressions/SyllableArguments.h"
@@ -228,7 +229,7 @@ namespace rVex
         } Type;
       } BranchOperand;
       
-      typedef std::deque<Operand> OperandDeque;
+      typedef std::vector<Operand> OperandVector;
 
       
       virtual OperandConstPtrDeque exportOperandVector() const;
@@ -255,7 +256,7 @@ namespace rVex
       virtual void setLayoutType(Syllable::LayoutType::Type);
       virtual void setLayoutType(int);
       
-      virtual OperandDeque getReadOperands() const;
+      virtual OperandVector getReadOperands() const;
 
       virtual void setShortImmediateValue(unsigned short shortImmediate);
       virtual unsigned short getShortImmediateValue() const;
@@ -361,7 +362,7 @@ namespace rVex
       Operand brDestiny;
       bool haveBRDestiny;
       
-      OperandDeque readRegisters;
+      OperandVector readRegisters;
       Operand brSource;
       bool haveBRSource;
       Operand shortImmediate;

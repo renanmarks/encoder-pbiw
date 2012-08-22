@@ -49,8 +49,8 @@ namespace rVex
     virtual void setOperationBelonged(GenericAssembly::Interfaces::IOperation*);
     virtual GenericAssembly::Interfaces::IOperation* getOperationBelonged() const;
     
-    bool operator==(const IOperand&) const;
-    bool operator!=(const IOperand&) const;
+    virtual bool operator==(const IOperand&) const;
+    virtual bool operator!=(const IOperand&) const;
     
   private:
     Type type;

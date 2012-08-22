@@ -54,7 +54,7 @@ namespace rVex
     return grDestiny;
   }
 
-  Syllable::OperandDeque
+  Syllable::OperandVector
   Syllable::getReadOperands() const
   {
     return this->readRegisters;
@@ -311,7 +311,7 @@ namespace rVex
     final<<=6;
     final|=getGrDestinyValue();
 
-    OperandDeque::const_iterator it;
+    OperandVector::const_iterator it;
 
     for (it=readRegisters.begin(); it < readRegisters.end(); it++) // O(1)
     {
@@ -346,7 +346,7 @@ namespace rVex
 
     final|=(getGrDestinyValue() != 0) ? getGrDestinyValue() : getBrDestinyValue();
 
-    OperandDeque::const_iterator it;
+    OperandVector::const_iterator it;
 
     for (it=readRegisters.begin(); it < readRegisters.end(); it++) // O(1)
     {
@@ -414,7 +414,7 @@ namespace rVex
     final<<=6;
     final|=getGrDestinyValue();
 
-    OperandDeque::const_iterator it;
+    OperandVector::const_iterator it;
 
     for (it=readRegisters.begin(); it < readRegisters.end(); it++) // O(1)
     {
@@ -446,7 +446,7 @@ namespace rVex
     final<<=6;
     final|=getGrDestinyValue();
 
-    OperandDeque::const_iterator it;
+    OperandVector::const_iterator it;
 
     for (it=readRegisters.begin(); it < readRegisters.end(); it++) // O(1)
     {
@@ -478,7 +478,7 @@ namespace rVex
     final<<=6;
     final|=getGrDestinyValue();
 
-    OperandDeque::const_iterator it;
+    OperandVector::const_iterator it;
 
     for (it=readRegisters.begin(); it < readRegisters.end(); it++) // O(1)
     {

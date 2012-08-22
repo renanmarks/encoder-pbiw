@@ -19,7 +19,7 @@ namespace rVex
     {
       Dependency dependency;
 
-      rVex::Syllable::OperandDeque readRegs = operation->getReadOperands();
+      rVex::Syllable::OperandVector readRegs = operation->getReadOperands();
       rVex::Instruction::SyllableVector::const_iterator otherSyllableIt;
 
       for(otherSyllableIt = operations.begin(); otherSyllableIt < operations.end(); otherSyllableIt++)
