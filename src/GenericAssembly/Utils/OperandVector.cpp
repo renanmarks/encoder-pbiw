@@ -9,11 +9,6 @@
 
 namespace GenericAssembly
 {
-  namespace Interfaces
-  {
-    class IOperand;
-  }
-  
   namespace Utils
   {
     OperandVector::OperandVector()

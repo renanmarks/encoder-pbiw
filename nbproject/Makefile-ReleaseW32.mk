@@ -35,7 +35,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/rVex/Operations/MEM/STH.o \
-	${OBJECTDIR}/src/PBIW/Generic/Label.o \
 	${OBJECTDIR}/src/rVex/Operations/CTRL/GOTO.o \
 	${OBJECTDIR}/src/rVex/Operations/ALU/CMPNE.o \
 	${OBJECTDIR}/src/rVex/PBIWPartial/Operation.o \
@@ -52,13 +51,11 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/rVex/Operations/MEM/LDBU.o \
 	${OBJECTDIR}/src/rVex/Operations/ALU/DIVS.o \
 	${OBJECTDIR}/src/rVex/Parser/driver.o \
-	${OBJECTDIR}/src/PBIW/Generic/Instruction.o \
 	${OBJECTDIR}/src/rVex/Operations/ALU/CMPLEU.o \
 	${OBJECTDIR}/src/rVex/Operations/CTRL/BR.o \
 	${OBJECTDIR}/src/rVex/PBIWFull/Operation.o \
 	${OBJECTDIR}/src/rVex/Parser/Structs/SyllableBufferItem.o \
 	${OBJECTDIR}/src/rVex/Operations/CTRL/RFI.o \
-	${OBJECTDIR}/src/PBIW/Generic/Printer.o \
 	${OBJECTDIR}/src/rVex/Operations/MEM/LDH.o \
 	${OBJECTDIR}/src/rVex/PBIWFull/Factory.o \
 	${OBJECTDIR}/src/rVex/PBIWPartial/Printers/PartialPBIWDebugPrinter.o \
@@ -66,7 +63,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/rVex/Operations/ALU/ADDCG.o \
 	${OBJECTDIR}/src/rVex/PBIWPartial/rVex64PBIWInstruction.o \
 	${OBJECTDIR}/src/PBIW/PBIWOptimizerDataSet.o \
-	${OBJECTDIR}/src/PBIW/Generic/Codec.o \
 	${OBJECTDIR}/src/rVex/SyllableALU.o \
 	${OBJECTDIR}/src/rVex/Label.o \
 	${OBJECTDIR}/src/rVex/SyllableMISC.o \
@@ -75,12 +71,9 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/PBIW/Utils/OperandVector.o \
 	${OBJECTDIR}/src/PBIW/Utils/OperandVectorDTO.o \
 	${OBJECTDIR}/src/rVex/PBIWFull/FullPBIW.o \
-	${OBJECTDIR}/src/PBIW/Generic/Operation.o \
 	${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/PatternInformation.o \
 	${OBJECTDIR}/src/rVex/Parser/Structs/ISection.o \
-	${OBJECTDIR}/src/PBIW/Generic/Configuration.o \
 	${OBJECTDIR}/src/rVex/Operations/MEM/LDHU.o \
-	${OBJECTDIR}/src/PBIW/Generic/Pattern.o \
 	${OBJECTDIR}/src/rVex/Operations/ALU/CMPGT.o \
 	${OBJECTDIR}/src/pbiw_encoder.o \
 	${OBJECTDIR}/src/rVex/Utils/DependencyChains.o \
@@ -89,7 +82,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/rVex/Operations/CTRL/CALL.o \
 	${OBJECTDIR}/src/rVex/Operations/ALU/SLCTF.o \
 	${OBJECTDIR}/src/rVex/Parser/Processors/SyllablePacker.o \
-	${OBJECTDIR}/src/PBIW/Generic/Factory.o \
 	${OBJECTDIR}/src/rVex/Parser/Expressions/Expression.o \
 	${OBJECTDIR}/src/rVex/SyllableCTRL.o \
 	${OBJECTDIR}/src/rVex/Operations/ALU/CMPLE.o \
@@ -103,7 +95,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/rVex/PBIWPartial/Operand.o \
 	${OBJECTDIR}/src/rVex/PBIWFull/Printers/FullPBIWDebugPrinter.o \
 	${OBJECTDIR}/src/rVex/Parser/Expressions/Arguments.o \
-	${OBJECTDIR}/src/PBIW/Generic/Operand.o \
 	${OBJECTDIR}/src/rVex/SyllableMEM.o \
 	${OBJECTDIR}/src/rVex/Operations/ALU/CMPGE.o \
 	${OBJECTDIR}/src/rVex/PBIWPartial/Printers/PartialPBIWPrinter.o \
@@ -161,11 +152,6 @@ ${OBJECTDIR}/src/rVex/Operations/MEM/STH.o: src/rVex/Operations/MEM/STH.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/rVex/Operations/MEM
 	${RM} $@.d
 	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/MEM/STH.o src/rVex/Operations/MEM/STH.cpp
-
-${OBJECTDIR}/src/PBIW/Generic/Label.o: src/PBIW/Generic/Label.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Generic
-	${RM} $@.d
-	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/Generic/Label.o src/PBIW/Generic/Label.cpp
 
 ${OBJECTDIR}/src/rVex/Operations/CTRL/GOTO.o: src/rVex/Operations/CTRL/GOTO.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/rVex/Operations/CTRL
@@ -247,11 +233,6 @@ ${OBJECTDIR}/src/rVex/Parser/driver.o: src/rVex/Parser/driver.cc
 	${RM} $@.d
 	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Parser/driver.o src/rVex/Parser/driver.cc
 
-${OBJECTDIR}/src/PBIW/Generic/Instruction.o: src/PBIW/Generic/Instruction.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Generic
-	${RM} $@.d
-	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/Generic/Instruction.o src/PBIW/Generic/Instruction.cpp
-
 ${OBJECTDIR}/src/rVex/Operations/ALU/CMPLEU.o: src/rVex/Operations/ALU/CMPLEU.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/rVex/Operations/ALU
 	${RM} $@.d
@@ -276,11 +257,6 @@ ${OBJECTDIR}/src/rVex/Operations/CTRL/RFI.o: src/rVex/Operations/CTRL/RFI.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/rVex/Operations/CTRL
 	${RM} $@.d
 	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/CTRL/RFI.o src/rVex/Operations/CTRL/RFI.cpp
-
-${OBJECTDIR}/src/PBIW/Generic/Printer.o: src/PBIW/Generic/Printer.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Generic
-	${RM} $@.d
-	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/Generic/Printer.o src/PBIW/Generic/Printer.cpp
 
 ${OBJECTDIR}/src/rVex/Operations/MEM/LDH.o: src/rVex/Operations/MEM/LDH.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/rVex/Operations/MEM
@@ -316,11 +292,6 @@ ${OBJECTDIR}/src/PBIW/PBIWOptimizerDataSet.o: src/PBIW/PBIWOptimizerDataSet.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/PBIW
 	${RM} $@.d
 	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/PBIWOptimizerDataSet.o src/PBIW/PBIWOptimizerDataSet.cpp
-
-${OBJECTDIR}/src/PBIW/Generic/Codec.o: src/PBIW/Generic/Codec.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Generic
-	${RM} $@.d
-	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/Generic/Codec.o src/PBIW/Generic/Codec.cpp
 
 ${OBJECTDIR}/src/rVex/SyllableALU.o: src/rVex/SyllableALU.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/rVex
@@ -362,11 +333,6 @@ ${OBJECTDIR}/src/rVex/PBIWFull/FullPBIW.o: src/rVex/PBIWFull/FullPBIW.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/PBIWFull/FullPBIW.o src/rVex/PBIWFull/FullPBIW.cpp
 
-${OBJECTDIR}/src/PBIW/Generic/Operation.o: src/PBIW/Generic/Operation.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Generic
-	${RM} $@.d
-	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/Generic/Operation.o src/PBIW/Generic/Operation.cpp
-
 ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/PatternInformation.o: src/PBIW/Optimizers/JoinPattern/PatternInformation.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern
 	${RM} $@.d
@@ -377,20 +343,10 @@ ${OBJECTDIR}/src/rVex/Parser/Structs/ISection.o: src/rVex/Parser/Structs/ISectio
 	${RM} $@.d
 	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Parser/Structs/ISection.o src/rVex/Parser/Structs/ISection.cpp
 
-${OBJECTDIR}/src/PBIW/Generic/Configuration.o: src/PBIW/Generic/Configuration.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Generic
-	${RM} $@.d
-	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/Generic/Configuration.o src/PBIW/Generic/Configuration.cpp
-
 ${OBJECTDIR}/src/rVex/Operations/MEM/LDHU.o: src/rVex/Operations/MEM/LDHU.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/rVex/Operations/MEM
 	${RM} $@.d
 	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/MEM/LDHU.o src/rVex/Operations/MEM/LDHU.cpp
-
-${OBJECTDIR}/src/PBIW/Generic/Pattern.o: src/PBIW/Generic/Pattern.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Generic
-	${RM} $@.d
-	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/Generic/Pattern.o src/PBIW/Generic/Pattern.cpp
 
 ${OBJECTDIR}/src/rVex/Operations/ALU/CMPGT.o: src/rVex/Operations/ALU/CMPGT.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/rVex/Operations/ALU
@@ -431,11 +387,6 @@ ${OBJECTDIR}/src/rVex/Parser/Processors/SyllablePacker.o: src/rVex/Parser/Proces
 	${MKDIR} -p ${OBJECTDIR}/src/rVex/Parser/Processors
 	${RM} $@.d
 	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Parser/Processors/SyllablePacker.o src/rVex/Parser/Processors/SyllablePacker.cpp
-
-${OBJECTDIR}/src/PBIW/Generic/Factory.o: src/PBIW/Generic/Factory.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Generic
-	${RM} $@.d
-	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/Generic/Factory.o src/PBIW/Generic/Factory.cpp
 
 ${OBJECTDIR}/src/rVex/Parser/Expressions/Expression.o: src/rVex/Parser/Expressions/Expression.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/rVex/Parser/Expressions
@@ -501,11 +452,6 @@ ${OBJECTDIR}/src/rVex/Parser/Expressions/Arguments.o: src/rVex/Parser/Expression
 	${MKDIR} -p ${OBJECTDIR}/src/rVex/Parser/Expressions
 	${RM} $@.d
 	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Parser/Expressions/Arguments.o src/rVex/Parser/Expressions/Arguments.cpp
-
-${OBJECTDIR}/src/PBIW/Generic/Operand.o: src/PBIW/Generic/Operand.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Generic
-	${RM} $@.d
-	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/Generic/Operand.o src/PBIW/Generic/Operand.cpp
 
 ${OBJECTDIR}/src/rVex/SyllableMEM.o: src/rVex/SyllableMEM.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/rVex
@@ -656,19 +602,6 @@ ${OBJECTDIR}/src/rVex/Operations/MEM/STH_nomain.o: ${OBJECTDIR}/src/rVex/Operati
 	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/MEM/STH_nomain.o src/rVex/Operations/MEM/STH.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/rVex/Operations/MEM/STH.o ${OBJECTDIR}/src/rVex/Operations/MEM/STH_nomain.o;\
-	fi
-
-${OBJECTDIR}/src/PBIW/Generic/Label_nomain.o: ${OBJECTDIR}/src/PBIW/Generic/Label.o src/PBIW/Generic/Label.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Generic
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/PBIW/Generic/Label.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} $@.d;\
-	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/Generic/Label_nomain.o src/PBIW/Generic/Label.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/src/PBIW/Generic/Label.o ${OBJECTDIR}/src/PBIW/Generic/Label_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/rVex/Operations/CTRL/GOTO_nomain.o: ${OBJECTDIR}/src/rVex/Operations/CTRL/GOTO.o src/rVex/Operations/CTRL/GOTO.cpp 
@@ -879,19 +812,6 @@ ${OBJECTDIR}/src/rVex/Parser/driver_nomain.o: ${OBJECTDIR}/src/rVex/Parser/drive
 	    ${CP} ${OBJECTDIR}/src/rVex/Parser/driver.o ${OBJECTDIR}/src/rVex/Parser/driver_nomain.o;\
 	fi
 
-${OBJECTDIR}/src/PBIW/Generic/Instruction_nomain.o: ${OBJECTDIR}/src/PBIW/Generic/Instruction.o src/PBIW/Generic/Instruction.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Generic
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/PBIW/Generic/Instruction.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} $@.d;\
-	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/Generic/Instruction_nomain.o src/PBIW/Generic/Instruction.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/src/PBIW/Generic/Instruction.o ${OBJECTDIR}/src/PBIW/Generic/Instruction_nomain.o;\
-	fi
-
 ${OBJECTDIR}/src/rVex/Operations/ALU/CMPLEU_nomain.o: ${OBJECTDIR}/src/rVex/Operations/ALU/CMPLEU.o src/rVex/Operations/ALU/CMPLEU.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/rVex/Operations/ALU
 	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/rVex/Operations/ALU/CMPLEU.o`; \
@@ -955,19 +875,6 @@ ${OBJECTDIR}/src/rVex/Operations/CTRL/RFI_nomain.o: ${OBJECTDIR}/src/rVex/Operat
 	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/CTRL/RFI_nomain.o src/rVex/Operations/CTRL/RFI.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/rVex/Operations/CTRL/RFI.o ${OBJECTDIR}/src/rVex/Operations/CTRL/RFI_nomain.o;\
-	fi
-
-${OBJECTDIR}/src/PBIW/Generic/Printer_nomain.o: ${OBJECTDIR}/src/PBIW/Generic/Printer.o src/PBIW/Generic/Printer.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Generic
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/PBIW/Generic/Printer.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} $@.d;\
-	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/Generic/Printer_nomain.o src/PBIW/Generic/Printer.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/src/PBIW/Generic/Printer.o ${OBJECTDIR}/src/PBIW/Generic/Printer_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/rVex/Operations/MEM/LDH_nomain.o: ${OBJECTDIR}/src/rVex/Operations/MEM/LDH.o src/rVex/Operations/MEM/LDH.cpp 
@@ -1059,19 +966,6 @@ ${OBJECTDIR}/src/PBIW/PBIWOptimizerDataSet_nomain.o: ${OBJECTDIR}/src/PBIW/PBIWO
 	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/PBIWOptimizerDataSet_nomain.o src/PBIW/PBIWOptimizerDataSet.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/PBIW/PBIWOptimizerDataSet.o ${OBJECTDIR}/src/PBIW/PBIWOptimizerDataSet_nomain.o;\
-	fi
-
-${OBJECTDIR}/src/PBIW/Generic/Codec_nomain.o: ${OBJECTDIR}/src/PBIW/Generic/Codec.o src/PBIW/Generic/Codec.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Generic
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/PBIW/Generic/Codec.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} $@.d;\
-	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/Generic/Codec_nomain.o src/PBIW/Generic/Codec.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/src/PBIW/Generic/Codec.o ${OBJECTDIR}/src/PBIW/Generic/Codec_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/rVex/SyllableALU_nomain.o: ${OBJECTDIR}/src/rVex/SyllableALU.o src/rVex/SyllableALU.cpp 
@@ -1178,19 +1072,6 @@ ${OBJECTDIR}/src/rVex/PBIWFull/FullPBIW_nomain.o: ${OBJECTDIR}/src/rVex/PBIWFull
 	    ${CP} ${OBJECTDIR}/src/rVex/PBIWFull/FullPBIW.o ${OBJECTDIR}/src/rVex/PBIWFull/FullPBIW_nomain.o;\
 	fi
 
-${OBJECTDIR}/src/PBIW/Generic/Operation_nomain.o: ${OBJECTDIR}/src/PBIW/Generic/Operation.o src/PBIW/Generic/Operation.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Generic
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/PBIW/Generic/Operation.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} $@.d;\
-	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/Generic/Operation_nomain.o src/PBIW/Generic/Operation.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/src/PBIW/Generic/Operation.o ${OBJECTDIR}/src/PBIW/Generic/Operation_nomain.o;\
-	fi
-
 ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/PatternInformation_nomain.o: ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/PatternInformation.o src/PBIW/Optimizers/JoinPattern/PatternInformation.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern
 	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/PatternInformation.o`; \
@@ -1217,19 +1098,6 @@ ${OBJECTDIR}/src/rVex/Parser/Structs/ISection_nomain.o: ${OBJECTDIR}/src/rVex/Pa
 	    ${CP} ${OBJECTDIR}/src/rVex/Parser/Structs/ISection.o ${OBJECTDIR}/src/rVex/Parser/Structs/ISection_nomain.o;\
 	fi
 
-${OBJECTDIR}/src/PBIW/Generic/Configuration_nomain.o: ${OBJECTDIR}/src/PBIW/Generic/Configuration.o src/PBIW/Generic/Configuration.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Generic
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/PBIW/Generic/Configuration.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} $@.d;\
-	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/Generic/Configuration_nomain.o src/PBIW/Generic/Configuration.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/src/PBIW/Generic/Configuration.o ${OBJECTDIR}/src/PBIW/Generic/Configuration_nomain.o;\
-	fi
-
 ${OBJECTDIR}/src/rVex/Operations/MEM/LDHU_nomain.o: ${OBJECTDIR}/src/rVex/Operations/MEM/LDHU.o src/rVex/Operations/MEM/LDHU.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/rVex/Operations/MEM
 	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/rVex/Operations/MEM/LDHU.o`; \
@@ -1241,19 +1109,6 @@ ${OBJECTDIR}/src/rVex/Operations/MEM/LDHU_nomain.o: ${OBJECTDIR}/src/rVex/Operat
 	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/MEM/LDHU_nomain.o src/rVex/Operations/MEM/LDHU.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/rVex/Operations/MEM/LDHU.o ${OBJECTDIR}/src/rVex/Operations/MEM/LDHU_nomain.o;\
-	fi
-
-${OBJECTDIR}/src/PBIW/Generic/Pattern_nomain.o: ${OBJECTDIR}/src/PBIW/Generic/Pattern.o src/PBIW/Generic/Pattern.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Generic
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/PBIW/Generic/Pattern.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} $@.d;\
-	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/Generic/Pattern_nomain.o src/PBIW/Generic/Pattern.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/src/PBIW/Generic/Pattern.o ${OBJECTDIR}/src/PBIW/Generic/Pattern_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/rVex/Operations/ALU/CMPGT_nomain.o: ${OBJECTDIR}/src/rVex/Operations/ALU/CMPGT.o src/rVex/Operations/ALU/CMPGT.cpp 
@@ -1358,19 +1213,6 @@ ${OBJECTDIR}/src/rVex/Parser/Processors/SyllablePacker_nomain.o: ${OBJECTDIR}/sr
 	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Parser/Processors/SyllablePacker_nomain.o src/rVex/Parser/Processors/SyllablePacker.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/rVex/Parser/Processors/SyllablePacker.o ${OBJECTDIR}/src/rVex/Parser/Processors/SyllablePacker_nomain.o;\
-	fi
-
-${OBJECTDIR}/src/PBIW/Generic/Factory_nomain.o: ${OBJECTDIR}/src/PBIW/Generic/Factory.o src/PBIW/Generic/Factory.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Generic
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/PBIW/Generic/Factory.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} $@.d;\
-	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/Generic/Factory_nomain.o src/PBIW/Generic/Factory.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/src/PBIW/Generic/Factory.o ${OBJECTDIR}/src/PBIW/Generic/Factory_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/rVex/Parser/Expressions/Expression_nomain.o: ${OBJECTDIR}/src/rVex/Parser/Expressions/Expression.o src/rVex/Parser/Expressions/Expression.cpp 
@@ -1540,19 +1382,6 @@ ${OBJECTDIR}/src/rVex/Parser/Expressions/Arguments_nomain.o: ${OBJECTDIR}/src/rV
 	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Parser/Expressions/Arguments_nomain.o src/rVex/Parser/Expressions/Arguments.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/rVex/Parser/Expressions/Arguments.o ${OBJECTDIR}/src/rVex/Parser/Expressions/Arguments_nomain.o;\
-	fi
-
-${OBJECTDIR}/src/PBIW/Generic/Operand_nomain.o: ${OBJECTDIR}/src/PBIW/Generic/Operand.o src/PBIW/Generic/Operand.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Generic
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/PBIW/Generic/Operand.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} $@.d;\
-	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/Generic/Operand_nomain.o src/PBIW/Generic/Operand.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/src/PBIW/Generic/Operand.o ${OBJECTDIR}/src/PBIW/Generic/Operand_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/rVex/SyllableMEM_nomain.o: ${OBJECTDIR}/src/rVex/SyllableMEM.o src/rVex/SyllableMEM.cpp 
