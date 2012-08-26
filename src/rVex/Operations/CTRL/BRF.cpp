@@ -8,7 +8,7 @@ namespace rVex
   {
     namespace CTRL
     {
-      Syllable::OperandConstPtrDeque
+      GenericAssembly::Utils::OperandVector
       BRF::exportOperandVector() const // O(1)
       {
         Utils::OperandVectorBuilder builder;

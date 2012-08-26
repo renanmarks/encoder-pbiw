@@ -29,7 +29,9 @@ namespace rVex
     Operand(Type, int);
     Operand(const Operand&);
     
-    virtual GenericAssembly::Interfaces::IOperand* clone();
+    virtual ~Operand() { }
+    
+    virtual GenericAssembly::Interfaces::IOperand* clone() const;
     
     virtual void setType(Type);
     virtual Type getType() const;

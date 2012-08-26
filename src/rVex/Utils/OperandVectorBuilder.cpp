@@ -14,7 +14,7 @@ namespace rVex
   namespace Utils
   {
 
-//    OperandVectorBuilder::OperandVectorBuilder(IOperation::OperandConstPtrDeque& deque);
+//    OperandVectorBuilder::OperandVectorBuilder(IOperation::GenericAssembly::Utils::OperandVector& deque);
 //    : deque(deque)
 //    {
 //
@@ -23,13 +23,13 @@ namespace rVex
     void 
     OperandVectorBuilder::clearOperandVector()
     {
-      deque.clear();
+      operands.clear();
     }
 
-    GenericAssembly::Interfaces::IOperation::OperandConstPtrDeque
+    GenericAssembly::Utils::OperandVector
     OperandVectorBuilder::getOperandVector()
     {
-      return deque;
+      return operands;
     }
   }
 }

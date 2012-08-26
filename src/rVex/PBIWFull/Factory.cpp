@@ -67,7 +67,6 @@ namespace PBIWFull
     
     operandPBIW->setValue(operand.getValue());
     operandPBIW->setTypeCode(operand.getTypeCode());
-    operandPBIW->setIndex(0);
     
     return operandPBIW;
   }

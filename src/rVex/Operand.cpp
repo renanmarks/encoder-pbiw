@@ -55,7 +55,7 @@ namespace rVex
   }
   
   GenericAssembly::Interfaces::IOperand*
-  Operand::clone()
+  Operand::clone() const
   {
     return new Operand(*this);
   }

@@ -36,7 +36,7 @@ namespace PBIW
         {}
         
         ~OperandItemDTO()
-        { delete operandPBIW; }
+        {  }
 
         OperandItemDTO& operator=(const OperandItemDTO& other)
         {

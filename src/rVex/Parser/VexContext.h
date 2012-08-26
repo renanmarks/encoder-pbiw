@@ -61,19 +61,15 @@ namespace VexParser
      */
     typedef std::list<rVex::Label> rVexLabelVector;
 
-    /**
-     * All the memory allocated by the syllables are freed.
-     */
-    VexContext(rVex::Printers::IPrinter& printer) :
+    VexContext() :
     debugEnabled(false),
-    printer(printer),
     hasLabel(false),
     syllableCounter(0),
     instructionCounter(0),
     lastWordAddress(0)
     {
     }
-
+    
     virtual ~VexContext();
 
     /**
@@ -118,7 +114,7 @@ namespace VexParser
     /**
      * Prints the data to the specified output.
      */
-    void print();
+    void print(rVex::Printers::IPrinter& printer);
 
     /**
      * Encode the Vex Instructions using the referenced PBIW algorithm and
@@ -179,7 +175,6 @@ namespace VexParser
      * Status variables.
      */
     bool debugEnabled; // Be verbose or not, that's the question!
-    rVex::Printers::IPrinter& printer; // Printer used to output data
 
     rVexLabelVector labels;
     bool hasLabel; // Used to know when a label is defined

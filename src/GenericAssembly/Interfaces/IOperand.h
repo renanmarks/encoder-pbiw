@@ -19,7 +19,7 @@ namespace GenericAssembly
     public:
       virtual ~IOperand() { }
       
-      virtual IOperand* clone() = 0;
+      virtual IOperand* clone() const = 0;
       
       virtual void setTypeCode(int) = 0;
       virtual int getTypeCode() const = 0;

@@ -27,7 +27,7 @@ namespace rVex
           
           virtual void print(rVex::Printers::IPrinter&, bool, bool) const;
           
-          OperandConstPtrDeque exportOperandVector() const;
+          GenericAssembly::Utils::OperandVector exportOperandVector() const;
       };
     }
   }

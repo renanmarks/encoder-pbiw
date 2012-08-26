@@ -11,7 +11,7 @@ namespace rVex
   {
     namespace MEM
     {
-      Syllable::OperandConstPtrDeque
+      GenericAssembly::Utils::OperandVector
       STH::exportOperandVector() const
       {
         Utils::OperandVectorBuilder builder;

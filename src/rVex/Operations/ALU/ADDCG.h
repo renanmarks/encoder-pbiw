@@ -25,7 +25,7 @@ namespace rVex
           virtual void fillSyllable(VexParser::SyllableArguments& arguments)
           { this->fillTypeIV(arguments); }
           
-          OperandConstPtrDeque exportOperandVector() const;
+          GenericAssembly::Utils::OperandVector exportOperandVector() const;
       };
     }
   }

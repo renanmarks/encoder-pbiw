@@ -8,7 +8,7 @@
 #ifndef OPERANDVECTORBUILDER_H
 #define	OPERANDVECTORBUILDER_H
 
-#include <vector>
+#include "src/GenericAssembly/Utils/OperandVector.h"
 #include "src/GenericAssembly/Interfaces/IOperation.h"
 
 namespace rVex
@@ -18,13 +18,13 @@ namespace rVex
     class OperandVectorBuilder
     {
     public:
-//      OperandVectorBuilder(IOperation::OperandConstPtrDeque&);
+//      OperandVectorBuilder(IOperation::GenericAssembly::Utils::OperandVector&);
     
       template <class TOperand>
       void
       insertOperand(const TOperand& value) // O(1)
       {
-        deque.push_back(&value);
+        operands.push_back(&value);
       }
 
       template <class TOperand> 
@@ -39,10 +39,10 @@ namespace rVex
       
       void clearOperandVector();
       
-      GenericAssembly::Interfaces::IOperation::OperandConstPtrDeque getOperandVector();
+      GenericAssembly::Utils::OperandVector getOperandVector();
       
     private:
-      GenericAssembly::Interfaces::IOperation::OperandConstPtrDeque deque;
+      GenericAssembly::Utils::OperandVector operands;
     };
   }
 }

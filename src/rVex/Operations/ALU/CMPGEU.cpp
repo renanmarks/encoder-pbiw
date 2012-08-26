@@ -10,7 +10,7 @@ namespace rVex
   {
     namespace ALU
     {
-      Syllable::OperandConstPtrDeque CMPGEU::exportOperandVector() const
+      GenericAssembly::Utils::OperandVector CMPGEU::exportOperandVector() const
       {
         Utils::OperandVectorBuilder builder;
         

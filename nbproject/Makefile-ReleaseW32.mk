@@ -96,6 +96,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/rVex/Syllable.o \
 	${OBJECTDIR}/src/rVex/PBIWPartial/rVex96PBIWPattern.o \
 	${OBJECTDIR}/src/PBIW/PBIWOptimizerJoinPatterns.o \
+	${OBJECTDIR}/src/GenericAssembly/Utils/OperandVector.o \
 	${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/OperationInformation.o \
 	${OBJECTDIR}/src/rVex/Operations/MEM/LDB.o \
 	${OBJECTDIR}/src/rVex/Operand.o \
@@ -465,6 +466,11 @@ ${OBJECTDIR}/src/PBIW/PBIWOptimizerJoinPatterns.o: src/PBIW/PBIWOptimizerJoinPat
 	${MKDIR} -p ${OBJECTDIR}/src/PBIW
 	${RM} $@.d
 	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/PBIWOptimizerJoinPatterns.o src/PBIW/PBIWOptimizerJoinPatterns.cpp
+
+${OBJECTDIR}/src/GenericAssembly/Utils/OperandVector.o: src/GenericAssembly/Utils/OperandVector.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/GenericAssembly/Utils
+	${RM} $@.d
+	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/GenericAssembly/Utils/OperandVector.o src/GenericAssembly/Utils/OperandVector.cpp
 
 ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/OperationInformation.o: src/PBIW/Optimizers/JoinPattern/OperationInformation.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern
@@ -1443,6 +1449,19 @@ ${OBJECTDIR}/src/PBIW/PBIWOptimizerJoinPatterns_nomain.o: ${OBJECTDIR}/src/PBIW/
 	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/PBIWOptimizerJoinPatterns_nomain.o src/PBIW/PBIWOptimizerJoinPatterns.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/PBIW/PBIWOptimizerJoinPatterns.o ${OBJECTDIR}/src/PBIW/PBIWOptimizerJoinPatterns_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/GenericAssembly/Utils/OperandVector_nomain.o: ${OBJECTDIR}/src/GenericAssembly/Utils/OperandVector.o src/GenericAssembly/Utils/OperandVector.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/GenericAssembly/Utils
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/GenericAssembly/Utils/OperandVector.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/GenericAssembly/Utils/OperandVector_nomain.o src/GenericAssembly/Utils/OperandVector.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/GenericAssembly/Utils/OperandVector.o ${OBJECTDIR}/src/GenericAssembly/Utils/OperandVector_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/OperationInformation_nomain.o: ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/OperationInformation.o src/PBIW/Optimizers/JoinPattern/OperationInformation.cpp 

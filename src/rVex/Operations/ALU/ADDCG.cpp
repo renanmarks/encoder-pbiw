@@ -11,7 +11,7 @@ namespace rVex
   {
     namespace ALU
     {
-      Syllable::OperandConstPtrDeque 
+      GenericAssembly::Utils::OperandVector 
       ADDCG::exportOperandVector() const
       {
         Utils::OperandVectorBuilder builder;

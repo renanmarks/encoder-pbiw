@@ -19,6 +19,7 @@
           <itemPath>src/GenericAssembly/Utils/DependencyChains.h</itemPath>
           <itemPath>src/GenericAssembly/Utils/DerivedFrom.h</itemPath>
           <itemPath>src/GenericAssembly/Utils/LabelScope.h</itemPath>
+          <itemPath>src/GenericAssembly/Utils/OperandVector.h</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="f2" displayName="PBIW" projectFiles="true">
@@ -235,6 +236,11 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <logicalFolder name="f3" displayName="GenericAssembly" projectFiles="true">
+        <logicalFolder name="f1" displayName="Utils" projectFiles="true">
+          <itemPath>src/GenericAssembly/Utils/OperandVector.cpp</itemPath>
+        </logicalFolder>
+      </logicalFolder>
       <logicalFolder name="f1" displayName="PBIW" projectFiles="true">
         <logicalFolder name="f3" displayName="Generic" projectFiles="true">
           <itemPath>src/PBIW/Generic/Codec.cpp</itemPath>

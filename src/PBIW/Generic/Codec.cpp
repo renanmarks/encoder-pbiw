@@ -24,13 +24,13 @@ namespace PBIW
     }
 
     void
-    Codec::encode(const std::vector<GenericAssembly::Interfaces::IInstruction*>&)
+    Codec::encode(const std::deque<GenericAssembly::Interfaces::IInstruction*>&)
     {
       
     }
 
     void
-    Codec::decode(const std::vector<IPBIWInstruction*>&, const std::vector<IPBIWPattern*>&)
+    Codec::decode(const std::deque<IPBIWInstruction*>&, const std::deque<IPBIWPattern*>&)
     {
     }
 
@@ -59,22 +59,22 @@ namespace PBIW
     {
     }
 
-    std::vector<IPBIWPattern*>
+    std::deque<IPBIWPattern*>
     Codec::getPatterns()
     {
-      return std::vector<IPBIWPattern*>();
+      return std::deque<IPBIWPattern*>();
     }
 
-    std::vector<IPBIWInstruction*>
+    std::deque<IPBIWInstruction*>
     Codec::getInstructions()
     {
-      return std::vector<IPBIWInstruction*>();
+      return std::deque<IPBIWInstruction*>();
     }
 
-    std::vector<ILabel*>
+    std::deque<ILabel*>
     Codec::getLabels()
     {
-      return std::vector<ILabel*>();
+      return std::deque<ILabel*>();
     }
     
   }

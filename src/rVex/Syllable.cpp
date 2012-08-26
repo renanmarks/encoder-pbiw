@@ -9,7 +9,7 @@ namespace rVex
 
   Syllable::Syllable() :
   address(0),
-  layoutType(),
+  layoutType(LayoutType::RTYPE),
   grDestiny(Operand::GRDestiny),
   haveGRDestiny(false),
   brDestiny(Operand::BRDestiny),
@@ -239,11 +239,10 @@ namespace rVex
     return (getOpcode() & opcode) == opcode; 
   }
   
-  Syllable::OperandConstPtrDeque
+  GenericAssembly::Utils::OperandVector
   Syllable::exportOperandVector() const // O(1)
   {
     Utils::OperandVectorBuilder builder;
-    using PBIW::Utils::OperandItemDTO;
 
     switch (getLayoutType()) {
       case LayoutType::RTYPE:

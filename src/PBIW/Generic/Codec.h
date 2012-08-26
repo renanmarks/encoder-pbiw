@@ -23,8 +23,8 @@ namespace PBIW
       Codec(const Codec& orig);
       virtual ~Codec();
 
-      virtual void encode(const std::vector<GenericAssembly::Interfaces::IInstruction*>&);
-      virtual void decode(const std::vector<IPBIWInstruction*>&, const std::vector<IPBIWPattern*>&);
+      virtual void encode(const std::deque<GenericAssembly::Interfaces::IInstruction*>&);
+      virtual void decode(const std::deque<IPBIWInstruction*>&, const std::deque<IPBIWPattern*>&);
 
       virtual void registerOptimizer(IPBIWOptimizer&);
       virtual void runOptimizers();
@@ -33,9 +33,9 @@ namespace PBIW
       virtual void printInstructions(IPBIWPrinter&);
       virtual void printPatterns(IPBIWPrinter&);
 
-      virtual std::vector<IPBIWPattern*> getPatterns();
-      virtual std::vector<IPBIWInstruction*> getInstructions();
-      virtual std::vector<ILabel*> getLabels();
+      virtual std::deque<IPBIWPattern*> getPatterns();
+      virtual std::deque<IPBIWInstruction*> getInstructions();
+      virtual std::deque<ILabel*> getLabels();
 
     private:
 

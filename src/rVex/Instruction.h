@@ -232,7 +232,7 @@ namespace rVex
       typedef std::vector<Operand> OperandVector;
 
       
-      virtual OperandConstPtrDeque exportOperandVector() const;
+      virtual GenericAssembly::Utils::OperandVector exportOperandVector() const;
       
       unsigned int getAddress() const;
       void setAddress(unsigned int);

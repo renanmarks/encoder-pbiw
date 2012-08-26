@@ -109,10 +109,10 @@ namespace PBIWFull
     finalInstruction->pointToPattern(*newPattern);
   }
   
-  void FullPBIW::resetFinalOperation(GenericAssembly::Interfaces::IOperation::OperandConstPtrDeque::const_iterator& operandIt, // O(1)
+  void FullPBIW::resetFinalOperation(GenericAssembly::Utils::OperandVector::const_iterator& operandIt, // O(1)
                                         IOperation*& finalOperation, 
                                         rVex::Syllable* const& syllable,
-                                        const GenericAssembly::Interfaces::IOperation::OperandConstPtrDeque& operands)
+                                        const GenericAssembly::Utils::OperandVector& operands)
   {
     operandIt = operands.begin();
     delete finalOperation;
@@ -120,10 +120,10 @@ namespace PBIWFull
   }
   
   void                                                                                 
-  FullPBIW::encode(const std::vector<GenericAssembly::Interfaces::IInstruction*>& originalInstructions) // O(|codedPatterns|^2)
+  FullPBIW::encode(const std::deque<GenericAssembly::Interfaces::IInstruction*>& originalInstructions) // O(|codedPatterns|^2)
   {
-    std::vector<rVex::Instruction*> rVexInstructions;
-    std::vector<GenericAssembly::Interfaces::IInstruction*>::const_iterator it;
+    std::deque<rVex::Instruction*> rVexInstructions;
+    std::deque<GenericAssembly::Interfaces::IInstruction*>::const_iterator it;
     
     for (it = originalInstructions.begin();
          it != originalInstructions.end();
@@ -136,9 +136,9 @@ namespace PBIWFull
   }
   
   void                                                                                 
-  FullPBIW::encode(const std::vector<rVex::Instruction*>& originalInstructions) // O(|codedPatterns|^2)
+  FullPBIW::encode(const std::deque<rVex::Instruction*>& originalInstructions) // O(|codedPatterns|^2)
   {
-    std::vector<rVex::Instruction*>::const_iterator instructionIt;
+    std::deque<rVex::Instruction*>::const_iterator instructionIt;
     
     originalInstructionsCount = originalInstructions.size();
     
@@ -182,8 +182,8 @@ namespace PBIWFull
         // For each operand...
         using GenericAssembly::Interfaces::IOperation;
         
-        IOperation::OperandConstPtrDeque::const_iterator operandIt;
-        IOperation::OperandConstPtrDeque operands = (*syllableIt)->exportOperandVector();
+        GenericAssembly::Utils::OperandVector::const_iterator operandIt;
+        GenericAssembly::Utils::OperandVector operands = (*syllableIt)->exportOperandVector();
         
         for (operandIt = operands.begin(); // O(|operands| + |codedPatterns|) = O(4 + |codedPatterns|) = O(|codedPatterns|)
              operandIt < operands.end();
@@ -223,9 +223,10 @@ namespace PBIWFull
               
               resetFinalOperation(operandIt, finalOperation, *syllableIt, operands); // O(1)
               finalInstruction->setCodingOperation(*finalOperation);
+              
+              delete operand;
+              operand = factory.createOperand(**operandIt); // O(1)
             }
-
-            operand = factory.createOperand(**operandIt); // O(1)
 
             switch ( static_cast<rVex::Operand::Type>(operand->getTypeCode()) )
             {
@@ -279,6 +280,7 @@ namespace PBIWFull
           // If the PBIW instruction has been splitted
           if (firstInstruction != finalInstruction)
           {
+            delete operand;
             IOperand* tempOperand = factory.createOperand(**operandIt); // O(1)
             const IOperand& foundOperand = finalInstruction->containsOperand( *tempOperand ); // O(1)
             finalOperation->addOperand( foundOperand ); // O(1)
@@ -446,25 +448,25 @@ namespace PBIWFull
   }
   
   void
-  FullPBIW::decode(const std::vector<IPBIWInstruction*>& codedInstructions, 
-               const std::vector<IPBIWPattern*>& codedPatterns)
+  FullPBIW::decode(const std::deque<IPBIWInstruction*>& codedInstructions, 
+               const std::deque<IPBIWPattern*>& codedPatterns)
   {
 
   }
 
-  std::vector<IPBIWInstruction*>
+  std::deque<IPBIWInstruction*>
   FullPBIW::getInstructions()
   {
-    return std::vector<IPBIWInstruction*>(codedInstructions.begin(), codedInstructions.end());
+    return std::deque<IPBIWInstruction*>(codedInstructions.begin(), codedInstructions.end());
   }
 
-  std::vector<IPBIWPattern*>
+  std::deque<IPBIWPattern*>
   FullPBIW::getPatterns()
   {
-    return std::vector<IPBIWPattern*>(codedPatterns.begin(), codedPatterns.end());
+    return std::deque<IPBIWPattern*>(codedPatterns.begin(), codedPatterns.end());
   }
   
-  std::vector<ILabel*> 
+  std::deque<ILabel*> 
   FullPBIW::getLabels()
   {
     std::deque<ILabel*> temp;
@@ -473,6 +475,6 @@ namespace PBIWFull
     for(it = labels.begin(); it != labels.end(); it++)
       temp.push_back(&(*it));
     
-    return std::vector<ILabel*>(temp.begin(), temp.end());
+    return std::deque<ILabel*>(temp.begin(), temp.end());
   }
 }

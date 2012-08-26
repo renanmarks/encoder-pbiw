@@ -11,8 +11,15 @@
 #include <string>
 #include <deque>
 
+//#include "src/GenericAssembly/Utils/OperandVector.h"
+
 namespace GenericAssembly
 {
+  namespace Utils
+  {
+    class OperandVector;
+  }
+  
   namespace Interfaces
   {
     class IInstruction;
@@ -37,12 +44,11 @@ namespace GenericAssembly
       virtual void setTextRepresentation(std::string textRepresentation) = 0;
       virtual std::string getTextRepresentation() const = 0;
       
-      typedef std::deque<const IOperand*> OperandConstPtrDeque;
       /**
        * Fills up the builder passed as argument with the operands from this
        * operation to be used at the PBIW encoding process.
        */
-      virtual OperandConstPtrDeque exportOperandVector() const = 0;
+      virtual Utils::OperandVector exportOperandVector() const = 0;
     };
   }
 }
