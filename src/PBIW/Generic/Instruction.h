@@ -44,6 +44,7 @@ namespace PBIW
 
       virtual const IOperand& containsOperand(const IOperand&) const;
 
+      virtual void addOperand(IOperand&);
       virtual void addReadOperand(IOperand&);
 
       virtual void addBranchOperand(IOperand&);

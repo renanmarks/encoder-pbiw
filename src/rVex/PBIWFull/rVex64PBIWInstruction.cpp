@@ -476,6 +476,35 @@ namespace PBIWFull
   {
     addReadOperand(operand);
   }
+  
+  void 
+  rVex64PBIWInstruction::addOperand(IOperand& operand)
+  {
+    switch ( static_cast<rVex::Operand::Type>(operand.getTypeCode()) )
+    {
+      case rVex::Operand::BRSource :
+        if (codingOperation->getOpcode() == rVex::Syllable::opBR)
+        {
+          this->setOpBRslot(operand); // O(1)
+          break;
+        }
+        else if (codingOperation->getOpcode() == rVex::Syllable::opBRF)
+        {
+          this->setOpBRFslot(operand); // O(1)
+          break;
+        }
+
+      case rVex::Operand::BRDestiny :
+        this->addBranchOperand(operand); // O(1)
+        break;
+      case rVex::Operand::GRSource :
+      case rVex::Operand::GRDestiny :
+      case rVex::Operand::Imm9 :
+      case rVex::Operand::Imm12 :
+        this->addReadOperand(operand); // O(1)
+        break;
+    }
+  }
 
   unsigned int 
   rVex64PBIWInstruction::giveEmptySlot() const

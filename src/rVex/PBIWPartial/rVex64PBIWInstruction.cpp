@@ -293,6 +293,36 @@ namespace PBIWPartial
     return operand;
   }
 
+  void 
+  rVex64PBIWInstruction::addOperand(IOperand& operand)
+  {
+    switch ( static_cast<rVex::Operand::Type>(operand.getTypeCode()) )
+    {
+      case rVex::Operand::GRDestiny :
+        if (operand.getValue() == 0)
+          break;
+
+      case rVex::Operand::Imm9:
+      case rVex::Operand::Imm12:
+        this->addWriteOperand(operand); // O(1)
+        break;
+
+      case rVex::Operand::BRSource :
+        this->setBranchSourceOperand(operand); // O(1)
+        break;
+
+      case rVex::Operand::BRDestiny :
+        this->addReadOperand(operand); // O(1)
+        break;
+
+      case rVex::Operand::GRSource :
+        if (operand.getValue() != 0)
+          this->addReadOperand(operand); // O(1)
+
+        break;
+    }
+  }
+  
   void
   rVex64PBIWInstruction::addReadOperand(IOperand& operand) // O(1)
   {

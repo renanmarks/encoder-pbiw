@@ -83,10 +83,22 @@ namespace PBIW
         virtual const IOperand& containsOperand(const IOperand&) const = 0;
         
         /**
+         * Adds a operand to this instruction.
+         * @param The Operand to be added.
+         */
+        virtual void addOperand(IOperand&) = 0;
+        
+        /**
          * Adds a read operand to this instruction.
          * @param The Operand to be added.
          */
         virtual void addReadOperand(IOperand&) = 0;
+        
+        /**
+         * Adds a write operand to this instruction.
+         * @param The Operand to be added.
+         */
+        virtual void addWriteOperand(IOperand&) = 0;
         
         /**
          * Defines the Branch Source Operand in the instruction
@@ -102,12 +114,6 @@ namespace PBIW
          * Returns if there is an Branch Source Operand in the instruction
          */
         virtual bool hasBranchSourceOperand() const = 0;
-        
-        /**
-         * Adds a write operand to this instruction.
-         * @param The Operand to be added.
-         */
-        virtual void addWriteOperand(IOperand&) = 0;
         
         /**
          * Check if this instruction has a free operand slot (either read or

@@ -228,52 +228,28 @@ namespace PBIWFull
               operand = factory.createOperand(**operandIt); // O(1)
             }
 
-            switch ( static_cast<rVex::Operand::Type>(operand->getTypeCode()) )
-            {
-              case rVex::Operand::BRSource :
-                if (finalOperation->getOpcode() == rVex::Syllable::opBR)
-                {
-                  finalInstruction->setOpBRslot(*operand); // O(1)
-                  break;
-                }
-                else if (finalOperation->getOpcode() == rVex::Syllable::opBRF)
-                {
-                  finalInstruction->setOpBRFslot(*operand); // O(1)
-                  break;
-                }
-                
-              case rVex::Operand::BRDestiny :
-                finalInstruction->addBranchOperand(*operand); // O(1)
-                break;
-              case rVex::Operand::GRSource :
-              case rVex::Operand::GRDestiny :
-              case rVex::Operand::Imm9 :
-              case rVex::Operand::Imm12 :
-                finalInstruction->addReadOperand(*operand); // O(1)
-                break;
-            }
+            finalInstruction->addOperand(*operand);
           }
           else 
           {
             // If found, check if it is some operand of a BR/BRF syllable
             // and put it in its position
-            switch ( static_cast<rVex::Operand::Type>(operand->getTypeCode()) )
+            rVex::Operand::Type type = static_cast<rVex::Operand::Type>(operand->getTypeCode());
+            
+            if (type == rVex::Operand::BRSource)
             {
-              case rVex::Operand::BRSource :
-                if (finalOperation->getOpcode() == rVex::Syllable::opBR)
-                {
-                  finalInstruction->setOpBRslot(*operand); // O(1)
-                  finalOperation->addOperand( *operand ); // O(1)
-                  continue;
-                }
-                else if (finalOperation->getOpcode() == rVex::Syllable::opBRF)
-                {
-                  finalInstruction->setOpBRFslot(*operand); // O(1)
-                  finalOperation->addOperand( *operand ); // O(1)
-                  continue;
-                }
-              default:
-                break;
+              if (finalOperation->getOpcode() == rVex::Syllable::opBR)
+              {
+                finalInstruction->setOpBRslot(*operand); // O(1)
+                finalOperation->addOperand( *operand ); // O(1)
+                continue;
+              }
+              else if (finalOperation->getOpcode() == rVex::Syllable::opBRF)
+              {
+                finalInstruction->setOpBRFslot(*operand); // O(1)
+                finalOperation->addOperand( *operand ); // O(1)
+                continue;
+              }
             }
           }
           

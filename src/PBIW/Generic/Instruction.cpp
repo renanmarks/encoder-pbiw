@@ -73,6 +73,12 @@ namespace PBIW
     {
     }
 
+    void 
+    Instruction::addOperand(IOperand&)
+    {
+      
+    }
+    
     void
     Instruction::addReadOperand(IOperand&)
     {
