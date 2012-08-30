@@ -281,6 +281,7 @@ namespace PBIWFull
     const rVex64PBIWInstruction& temp=dynamic_cast<const rVex64PBIWInstruction&> (branchDestiny);
 
     this->branchDestiny= &const_cast<rVex64PBIWInstruction&> (temp);
+    this->setImmediateValue(temp.getAddress());
   }
 
   bool

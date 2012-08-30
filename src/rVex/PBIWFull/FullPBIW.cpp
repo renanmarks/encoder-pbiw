@@ -300,20 +300,22 @@ namespace PBIWFull
          it != branchingInstructions.end();
          it++)
     {
-      std::string label = (*it)->getLabelDestiny();
+      rVex64PBIWInstruction* instruction = static_cast<rVex64PBIWInstruction*>(*it);
+      
+      std::string label = instruction->getLabelDestiny();
       LabelVector::iterator labelIt = std::find_if(labels.begin(), labels.end(), FindLabel(label));
       
       if (labelIt != labels.end())
       {
-        (*it)->setBranchDestiny(*(labelIt->getDestiny()));
-        (*it)->setImmediateValue(labelIt->getDestiny()->getAddress());
+        instruction->setBranchDestiny(*(labelIt->getDestiny()));
+        instruction->setImmediateValue(labelIt->getDestiny()->getAddress());
       }
       
       if (debug)
       {
-        std::cout << "PBIW Instr" << " addr[" << (*it)->getAddress() << "]"
-          << " branching label " << (*it)->getLabelDestiny()
-          << " now points to addr[" << (*it)->getBranchDestiny()->getAddress() << "]"
+        std::cout << "PBIW Instr" << " addr[" << instruction->getAddress() << "]"
+          << " branching label " << instruction->getLabelDestiny()
+          << " now points to addr[" << instruction->getBranchDestiny()->getAddress() << "]"
           << std::endl;      
       }
     }

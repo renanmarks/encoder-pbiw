@@ -63,8 +63,15 @@ namespace PBIW
          */
         virtual void pointToPattern(IPBIWPattern&) = 0;
         
+        /**
+         * Keeps track of the current encoding operation to check its internal 
+         * properties and make decisions using them.
+         */
         virtual void setCodingOperation(IOperation& operation) = 0;
-      
+
+        /**
+         * Returns a pointer to the current encoding operation.
+         */
         virtual IOperation* getCodingOperation() const = 0;
         
         /**
@@ -99,21 +106,6 @@ namespace PBIW
          * @param The Operand to be added.
          */
         virtual void addWriteOperand(IOperand&) = 0;
-        
-        /**
-         * Defines the Branch Source Operand in the instruction
-         */
-        virtual void addBranchOperand(IOperand&) = 0;
-        
-        /**
-         * TODO Description
-         */
-        virtual void setBranchSourceOperand(IOperand&) = 0;
-        
-        /**
-         * Returns if there is an Branch Source Operand in the instruction
-         */
-        virtual bool hasBranchSourceOperand() const = 0;
         
         /**
          * Check if this instruction has a free operand slot (either read or
@@ -153,11 +145,6 @@ namespace PBIW
         virtual IPBIWInstruction* getBranchDestiny() const = 0;
         
         /**
-         * Defines the immediate field.
-         */
-        virtual void setImmediateValue(int) = 0;
-        
-        /**
          * Return the quantity of read operands.
          */
         virtual int readOperandQuantity() const = 0;
@@ -188,11 +175,6 @@ namespace PBIW
         virtual PBIW::Utils::OperandVector getOperands() const = 0;
         
         /**
-         * Informs if the PBIW instruction contains immediate operand
-         */
-        virtual bool containsImmediate() const = 0;
-        
-        /**
          * Set the syllables that were codified in this instruction.
          */
         virtual void setOperationReferences(const std::list<GenericAssembly::Interfaces::IOperation*>&) = 0;
@@ -206,10 +188,7 @@ namespace PBIW
         virtual const AnnulationBits& getAnnulBits() const = 0;
         
         virtual void setAnnulBit(int, bool) = 0;
-        
         virtual void setAnnulBits(const AnnulationBits& vectorBits) = 0;
-        
-//        virtual void setAnnulBits(std::deque<bool>* annulatioBits) = 0;
         
         virtual void updateAnnulBits(int index1, int index2) = 0;
     };

@@ -41,8 +41,8 @@ namespace PBIWPartial
     }
   }
   
-  const IPBIWPattern&
-  PartialPBIW::hasPattern(const IPBIWPattern& other) const  // O(|codedPatterns|)
+  const rVex96PBIWPattern&
+  PartialPBIW::hasPattern(const rVex96PBIWPattern& other) const  // O(|codedPatterns|)
   {
     if (codedPatterns.size() == 0)
       return other;
@@ -54,7 +54,7 @@ namespace PBIWPartial
          it != codedPatterns.end();
          it++)
     {
-      const IPBIWPattern& pattern = **it;
+      const rVex96PBIWPattern& pattern = static_cast<const rVex96PBIWPattern&>(**it);
       
       if ( pattern == other )
         return pattern;
@@ -64,12 +64,12 @@ namespace PBIWPartial
   }
   
   // O(|codedPatterns|) + O(1) = O(|codedPatterns|)
-  void PartialPBIW::savePBIWElements(IPBIWInstruction*& finalInstruction, IPBIWPattern*& newPattern)
+  void PartialPBIW::savePBIWElements(rVex64PBIWInstruction*& finalInstruction, rVex96PBIWPattern*& newPattern)
   {
     newPattern->reorganize(); // O(1)
     
-    const IPBIWPattern& foundPattern = hasPattern(*newPattern); // O(|codedPatterns|)
-    IPBIWPattern& notConstFoundPattern = const_cast<IPBIWPattern&>(foundPattern); // O(1)
+    const rVex96PBIWPattern& foundPattern = hasPattern(*newPattern); // O(|codedPatterns|)
+    rVex96PBIWPattern& notConstFoundPattern = const_cast<rVex96PBIWPattern&>(foundPattern); // O(1)
     
     // If not found in the patterns set
     if ( &notConstFoundPattern == newPattern )
@@ -95,16 +95,16 @@ namespace PBIWPartial
   }
   
   // O(|codedPatterns|)
-  void PartialPBIW::saveAndCreateNewPBIWElements(IPBIWInstruction*& finalInstruction, IPBIWPattern*& newPattern)
+  void PartialPBIW::saveAndCreateNewPBIWElements(rVex64PBIWInstruction*& finalInstruction, rVex96PBIWPattern*& newPattern)
   {
     savePBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
     createNewPBIWElements(finalInstruction, newPattern);
   }
   
-  void PartialPBIW::createNewPBIWElements(IPBIWInstruction*& finalInstruction, IPBIWPattern*& newPattern)
+  void PartialPBIW::createNewPBIWElements(rVex64PBIWInstruction*& finalInstruction, rVex96PBIWPattern*& newPattern)
   {
-    finalInstruction = factory.createInstruction();// new rVex64PBIWInstruction();
-    newPattern = factory.createPattern(); //new rVex96PBIWPattern();
+    finalInstruction = static_cast<rVex64PBIWInstruction*>(factory.createInstruction());// new rVex64PBIWInstruction();
+    newPattern = static_cast<rVex96PBIWPattern*>(factory.createPattern()); //new rVex96PBIWPattern();
     
     finalInstruction->pointToPattern(*newPattern);
   }
@@ -148,8 +148,8 @@ namespace PBIWPartial
         instructionIt++)                                // O(16|codedPatterns||originalInstructions| + 16|codedPatterns|^2) =                 
     {                                                   // O(|codedPatterns||originalInstructions| * |codedPatterns|^2) =                
       // Create a new PBIW instruction and PBIW pattern                  // O(|codedPatterns|^3)
-      IPBIWInstruction* finalInstruction;
-      IPBIWPattern* newPattern;
+      rVex64PBIWInstruction* finalInstruction;
+      rVex96PBIWPattern* newPattern;
       
       createNewPBIWElements(finalInstruction, newPattern);
       
@@ -349,20 +349,22 @@ namespace PBIWPartial
          it != branchingInstructions.end();
          it++)
     {
-      std::string label = (*it)->getLabelDestiny();
+      rVex64PBIWInstruction* instruction = static_cast<rVex64PBIWInstruction*>(*it);
+      
+      std::string label = instruction->getLabelDestiny();
       LabelVector::iterator labelIt = std::find_if(labels.begin(), labels.end(), FindLabel(label));
       
       if (labelIt != labels.end())
       {
-        (*it)->setBranchDestiny(*labelIt->getDestiny());
-        (*it)->setImmediateValue(labelIt->getDestiny()->getAddress());
+        instruction->setBranchDestiny(*labelIt->getDestiny());
+        instruction->setImmediateValue(labelIt->getDestiny()->getAddress());
       }
       
       if (debug)
       {
-        std::cout << "PBIW Instr" << " addr[" << (*it)->getAddress() << "]"
-          << " branching label " << (*it)->getLabelDestiny()
-          << " now points to addr[" << (*it)->getBranchDestiny()->getAddress() << "]"
+        std::cout << "PBIW Instr" << " addr[" << instruction->getAddress() << "]"
+          << " branching label " << instruction->getLabelDestiny()
+          << " now points to addr[" << instruction->getBranchDestiny()->getAddress() << "]"
           << std::endl;      
       }
     }

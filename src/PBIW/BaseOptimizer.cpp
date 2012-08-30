@@ -145,7 +145,9 @@ namespace PBIW
       if (labelIt != labels.end())
       {
         (*instructionIt)->setBranchDestiny(*(*labelIt)->getDestiny());
-        (*instructionIt)->setImmediateValue((*labelIt)->getDestiny()->getAddress());
+        
+        // This MUST be done (if necessary) when the setBranchDestiny() is called!
+        //(*instructionIt)->setImmediateValue((*labelIt)->getDestiny()->getAddress());
       }
     }
     

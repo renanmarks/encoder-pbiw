@@ -23,6 +23,9 @@ namespace PBIWPartial
 {
   using namespace PBIW::Interfaces;
 
+  class rVex64PBIWInstruction;
+  class rVex96PBIWPattern;
+  
   /**
    * Class responsible for encoding the r-Vex instructions in
    * "Partial" PBIW scheme.
@@ -80,11 +83,11 @@ namespace PBIWPartial
     typedef std::list<IPBIWOptimizer*> PBIWOptimizerList;
     PBIWOptimizerList optimizers;
     
-    const IPBIWPattern& hasPattern(const IPBIWPattern&) const;
+    const rVex96PBIWPattern& hasPattern(const rVex96PBIWPattern&) const;
     
-    void savePBIWElements(IPBIWInstruction*&, IPBIWPattern*&);
-    void saveAndCreateNewPBIWElements(IPBIWInstruction*&, IPBIWPattern*&);
-    void createNewPBIWElements(IPBIWInstruction*&, IPBIWPattern*& );
+    void savePBIWElements(rVex64PBIWInstruction*&, rVex96PBIWPattern*&);
+    void saveAndCreateNewPBIWElements(rVex64PBIWInstruction*&, rVex96PBIWPattern*&);
+    void createNewPBIWElements(rVex64PBIWInstruction*&, rVex96PBIWPattern*& );
     void resetFinalOperation(GenericAssembly::Utils::OperandVector::const_iterator&, IOperation*&, rVex::Syllable* const&, const GenericAssembly::Utils::OperandVector&);
 
     /**
