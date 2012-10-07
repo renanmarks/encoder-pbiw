@@ -128,10 +128,13 @@ namespace PBIWPartial
     virtual void printPatterns(IPBIWPrinter&);
     virtual void printStatistics(IPBIWPrinter& printer);
 
-    virtual std::deque<IPBIWPattern*> getPatterns();
-    virtual std::deque<IPBIWInstruction*> getInstructions();
-    virtual std::deque<ILabel*> getLabels();
+    virtual std::deque<IPBIWPattern*> getPatterns() const;
+    virtual std::deque<IPBIWInstruction*> getInstructions() const;
+    virtual std::deque<ILabel*> getLabels() const;
 
+    virtual unsigned int getOriginalInstructionCount() const
+    { return originalInstructionsCount; };
+    
     void
     setDebug(bool debug)
     { this->debug=debug; }

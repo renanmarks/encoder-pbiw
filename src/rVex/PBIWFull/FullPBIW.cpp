@@ -338,23 +338,7 @@ namespace PBIWFull
          it != optimizers.end();
          it++)
     {
-      std::vector<IPBIWInstruction*> codedInstructionsCopy(codedInstructions.begin(), codedInstructions.end());
-      std::vector<IPBIWPattern*> codedPatternsCopy(codedPatterns.begin(), codedPatterns.end());
-      std::vector<ILabel*> labelsCopy;
-      
-      LabelVector::iterator labelIt;
-      
-      for (labelIt = labels.begin();
-         labelIt != labels.end();
-         labelIt++)
-      {
-        labelsCopy.push_back(&(*labelIt));
-      }
-      
-      (*it)->useInstructions(codedInstructionsCopy);
-      (*it)->usePatterns(codedPatternsCopy);
-      (*it)->useLabels(labelsCopy);
-      (*it)->setupOptimizer();
+      (*it)->useContext(*this);
       (*it)->run(factory);
     }
     
@@ -433,25 +417,25 @@ namespace PBIWFull
   }
 
   std::deque<IPBIWInstruction*>
-  FullPBIW::getInstructions()
+  FullPBIW::getInstructions() const
   {
     return std::deque<IPBIWInstruction*>(codedInstructions.begin(), codedInstructions.end());
   }
 
   std::deque<IPBIWPattern*>
-  FullPBIW::getPatterns()
+  FullPBIW::getPatterns() const
   {
     return std::deque<IPBIWPattern*>(codedPatterns.begin(), codedPatterns.end());
   }
   
   std::deque<ILabel*> 
-  FullPBIW::getLabels()
+  FullPBIW::getLabels() const
   {
     std::deque<ILabel*> temp;
-    LabelVector::iterator it;
+    LabelVector::const_iterator it;
     
     for(it = labels.begin(); it != labels.end(); it++)
-      temp.push_back(&(*it));
+      temp.push_back( const_cast<Label*>(&(*it)) );
     
     return std::deque<ILabel*>(temp.begin(), temp.end());
   }

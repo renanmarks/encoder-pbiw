@@ -12,27 +12,25 @@
 #include "IPBIWPattern.h"
 #include "ILabel.h"
 #include "IPBIWFactory.h"
+#include "IPBIWSet.h"
+#include <deque>
 
 namespace PBIW
 {
   namespace Interfaces 
   {
-    class IPBIWOptimizer 
+    class IPBIW;
+    
+    class IPBIWOptimizer : public IPBIWSet
     {
     public:
       virtual ~IPBIWOptimizer() {}
       
-      virtual void useLabels(const std::vector<ILabel*>&) = 0;
-      virtual void useInstructions(const std::vector<IPBIWInstruction*>&) = 0;
-      virtual void usePatterns(const std::vector<IPBIWPattern*>&) = 0;
+      virtual void useContext(const IPBIW&) = 0;
       
-      virtual void printStatistics(IPBIWPrinter&, int , int, int) = 0;
-      virtual void printInstructions(IPBIWPrinter&) = 0;
-      virtual void printPatterns(IPBIWPrinter&) = 0;
-
-      virtual std::vector<IPBIWPattern*> getPatterns() const = 0;
-      virtual std::vector<IPBIWInstruction*> getInstructions() const = 0;
-      virtual std::vector<ILabel*> getLabels() const = 0;
+      virtual void useLabels(const std::deque<ILabel*>&) = 0;
+      virtual void useInstructions(const std::deque<IPBIWInstruction*>&) = 0;
+      virtual void usePatterns(const std::deque<IPBIWPattern*>&) = 0;
       
       virtual void setupOptimizer() = 0;
       

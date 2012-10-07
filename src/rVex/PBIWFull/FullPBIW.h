@@ -129,9 +129,12 @@ namespace PBIWFull
     virtual void printInstructions(IPBIWPrinter&);
     virtual void printPatterns(IPBIWPrinter&);
 
-    virtual std::deque<IPBIWPattern*> getPatterns();
-    virtual std::deque<IPBIWInstruction*> getInstructions();
-    virtual std::deque<ILabel*> getLabels();
+    virtual std::deque<IPBIWPattern*> getPatterns() const;
+    virtual std::deque<IPBIWInstruction*> getInstructions() const;
+    virtual std::deque<ILabel*> getLabels() const;
+    
+    virtual unsigned int getOriginalInstructionCount() const
+    { return originalInstructionsCount; };
     
     void
     setDebug(bool debug)

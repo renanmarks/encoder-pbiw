@@ -116,10 +116,7 @@ encodePBIW(const std::string& filename,
     
       patternJoinOptimizer.printInstructions(printer);
       patternJoinOptimizer.printPatterns(printer); 
-      patternJoinOptimizer.printStatistics(printer, 
-                                      context.getInstructions().size(), 
-                                      pbiwContext.getPatterns().size(), 
-                                      pbiwContext.getInstructions().size());
+      patternJoinOptimizer.printStatistics(printer);
       
       return;
     }
@@ -163,10 +160,7 @@ encodePBIW(const std::string& filename,
 
     patternJoinOptimizer.printInstructions(pbiwInstructionPrinter);
     patternJoinOptimizer.printPatterns(pbiwPatternPrinter); 
-    patternJoinOptimizer.printStatistics(pbiwStatisticsPrinter, 
-                                      context.getInstructions().size(), 
-                                      pbiwContext.getPatterns().size(), 
-                                      pbiwContext.getInstructions().size());
+    patternJoinOptimizer.printStatistics(pbiwStatisticsPrinter);
     
     return;
   }

@@ -10,10 +10,12 @@
 
 #include <list>
 #include <set>
+#include <deque>
 #include "src/PBIW/Interfaces/IPBIWOptimizer.h"
 #include "src/PBIW/Interfaces/ILabel.h"
 #include "src/PBIW/Interfaces/IPBIWPrinter.h"
 #include "src/PBIW/Interfaces/IPBIWFactory.h"
+#include "src/PBIW/Interfaces/IPBIW.h"
 
 namespace PBIW
 {
@@ -23,6 +25,7 @@ namespace PBIW
   using PBIW::Interfaces::IPBIWPrinter;
   using PBIW::Interfaces::IPBIWOptimizer;
   using PBIW::Interfaces::IPBIWFactory;
+  using PBIW::Interfaces::IPBIW;
   
   class BaseOptimizer : public IPBIWOptimizer
   {
@@ -31,21 +34,27 @@ namespace PBIW
     BaseOptimizer(const BaseOptimizer& orig);
     virtual ~BaseOptimizer();
     
-    virtual void useLabels(const std::vector<ILabel*>&);
-    virtual void useInstructions(const std::vector<IPBIWInstruction*>&);
-    virtual void usePatterns(const std::vector<IPBIWPattern*>&);
+    virtual void useContext(const IPBIW& context);
+    
+    virtual void useLabels(const std::deque<ILabel*>&);
+    virtual void useInstructions(const std::deque<IPBIWInstruction*>&);
+    virtual void usePatterns(const std::deque<IPBIWPattern*>&);
 
-    virtual void printStatistics(IPBIWPrinter&, int, int , int );
+    virtual void printStatistics(IPBIWPrinter&);
     virtual void printInstructions(IPBIWPrinter&);
     virtual void printPatterns(IPBIWPrinter&);
     
-    virtual std::vector<IPBIWPattern*> getPatterns() const 
-    { return std::vector<IPBIWPattern*>(patterns.begin(), patterns.end()); }
+    virtual unsigned int getOriginalInstructionCount() const
+    { return contextPBIW->getOriginalInstructionCount(); }
     
-    virtual std::vector<IPBIWInstruction*> getInstructions() const
-    { return std::vector<IPBIWInstruction*>(instructions.begin(), instructions.end()); }
+    virtual std::deque<IPBIWPattern*> getPatterns() const 
+    { return patterns; }
     
-    virtual std::vector<ILabel*> getLabels() const;
+    virtual std::deque<IPBIWInstruction*> getInstructions() const
+    { return instructions; }
+    
+    virtual std::deque<ILabel*> getLabels() const
+    { return labels; }
 
     virtual void setupOptimizer();
     
@@ -103,8 +112,9 @@ namespace PBIW
     typedef std::deque<IPBIWInstruction*> PBIWInstructionList;
     typedef std::deque<IPBIWPattern*> PBIWPatternList;
     typedef std::set<IPBIWPattern*> PBIWPatternSet;
-    typedef std::list<ILabel*> LabelList;
-    
+    typedef std::deque<ILabel*> LabelList;
+
+    const IPBIW* contextPBIW;
     PBIWInstructionList instructions;
     PBIWInstructionList branchingInstructions;
     PBIWPatternList patterns;

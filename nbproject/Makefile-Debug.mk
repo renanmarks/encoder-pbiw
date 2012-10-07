@@ -138,7 +138,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L/usr/local/lib/gtest -lgtest -lgtest_main -lpthread_workqueue
+LDLIBSOPTIONS=-L/usr/local/lib/gtest -lgtest
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}

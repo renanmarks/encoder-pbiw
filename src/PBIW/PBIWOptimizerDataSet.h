@@ -19,9 +19,9 @@ namespace PBIW
     
     class PBIWOptimizerDataSet {
     public:
-        PBIWOptimizerDataSet();
-        PBIWOptimizerDataSet(const PBIWOptimizerDataSet& orig);
-        virtual ~PBIWOptimizerDataSet();
+//        PBIWOptimizerDataSet();
+//        PBIWOptimizerDataSet(const PBIWOptimizerDataSet& orig);
+//        virtual ~PBIWOptimizerDataSet();
         
         typedef std::deque<PBIWOptimizerJoinPatterns> Optimizers;
         typedef std::deque<IPBIWPattern*> Patterns;
@@ -32,7 +32,7 @@ namespace PBIW
         virtual void printPatterns(IPBIWPrinter&) const;
         
         virtual Optimizers getOptimizers() const
-        {   return Optimizers(optimizers.begin(), optimizers.end());  }
+        { return optimizers; }
         
         virtual void setOptimizers(const PBIWOptimizerJoinPatterns& optimizer);
         

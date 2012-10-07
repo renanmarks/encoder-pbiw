@@ -23,7 +23,7 @@ namespace PBIW
     /**
      * PBIW codec interface
      */
-    class IPBIW
+    class IPBIW : public IPBIWSet
     {
       public:
         virtual ~IPBIW() {}
@@ -36,14 +36,6 @@ namespace PBIW
         
         virtual void registerOptimizer(IPBIWOptimizer&) = 0;
         virtual void runOptimizers() = 0;
-        
-        virtual void printStatistics(IPBIWPrinter&) = 0;
-        virtual void printInstructions(IPBIWPrinter&) = 0;
-        virtual void printPatterns(IPBIWPrinter&) = 0;
-
-        virtual std::deque<IPBIWPattern*> getPatterns() = 0;
-        virtual std::deque<IPBIWInstruction*> getInstructions() = 0;
-        virtual std::deque<ILabel*> getLabels() = 0;
     };
   }
 }

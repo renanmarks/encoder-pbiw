@@ -9,6 +9,7 @@
 #include "Interfaces/IPBIWInstruction.h"
 #include <algorithm>
 #include "PBIWOptimizerJoinPatterns.h"
+#include "Interfaces/IPBIW.h"
 
 namespace PBIW
 {
@@ -39,26 +40,21 @@ namespace PBIW
       delete *patternIt;
   }
 
-  std::vector<ILabel*> 
-  BaseOptimizer::getLabels() const
+  void 
+  BaseOptimizer::useContext(const IPBIW& context)
   {
-    std::vector<ILabel*> labelsCopy;
-    LabelList::const_iterator labelIt;
-      
-    for (labelIt = labels.begin();
-        labelIt != labels.end();
-        labelIt++)
-    {
-      labelsCopy.push_back(const_cast<ILabel*>(*labelIt));
-    }
+    this->contextPBIW = &context;
     
-    return labelsCopy;
+    this->useInstructions(context.getInstructions());
+    this->usePatterns(context.getPatterns());
+    this->useLabels(context.getLabels());
+    this->setupOptimizer();
   }
   
   void
-  BaseOptimizer::useLabels(const std::vector<ILabel*>& labels) // O(1)
+  BaseOptimizer::useLabels(const std::deque<ILabel*>& labels) // O(1)
   {
-    std::vector<ILabel*>::const_iterator it;
+    std::deque<ILabel*>::const_iterator it;
     
     for (it = labels.begin(); it < labels.end(); it++) // O(|labels|) = O(1)
     {
@@ -68,9 +64,9 @@ namespace PBIW
   }
 
   void
-  BaseOptimizer::useInstructions(const std::vector<IPBIWInstruction*>& instructions) // O(|instructions|)
+  BaseOptimizer::useInstructions(const std::deque<IPBIWInstruction*>& instructions) // O(|instructions|)
   {
-    std::vector<IPBIWInstruction*>::const_iterator it;
+    std::deque<IPBIWInstruction*>::const_iterator it;
     
     for (it = instructions.begin(); it < instructions.end(); it++)
     {
@@ -84,9 +80,9 @@ namespace PBIW
   }
 
   void
-  BaseOptimizer::usePatterns(const std::vector<IPBIWPattern*>& patterns) // O(|patterns|)
+  BaseOptimizer::usePatterns(const std::deque<IPBIWPattern*>& patterns) // O(|patterns|)
   {
-    std::vector<IPBIWPattern*>::const_iterator it;
+    std::deque<IPBIWPattern*>::const_iterator it;
     
     for (it = patterns.begin(); it < patterns.end(); it++)
     {
@@ -165,8 +161,12 @@ namespace PBIW
   }
   
   void 
-  BaseOptimizer::printStatistics(IPBIWPrinter& printer, int originalInstructionsCount, int encodedPatterns, int encodedInstructions)
+  BaseOptimizer::printStatistics(IPBIWPrinter& printer)
   {
+    unsigned int originalInstructionsCount = contextPBIW->getOriginalInstructionCount();
+    unsigned int originalEncodedInstructionsCount = contextPBIW->getInstructions().size();
+    unsigned int originalEncodedPatternsCount = contextPBIW->getPatterns().size();
+    
     unsigned int instructionsBytes = instructions.size() * 8;
     unsigned int patternsBytes = patterns.size() * 12;
     
@@ -187,16 +187,16 @@ namespace PBIW
       << "----" << std::endl
       << "PBIW Encode Summary: \n\n"
       
-      << "Encoded Pattern count = " << encodedPatterns
-      << " ( " << encodedPatterns * 12 << " bytes )" << std::endl
+      << "Encoded Pattern count = " << originalEncodedPatternsCount
+      << " ( " << originalEncodedPatternsCount * 12 << " bytes )" << std::endl
             
-      << "Encoded Instructions count = " << encodedInstructions
-      << " ( " << encodedInstructions * 8 << " bytes )" << std::endl
+      << "Encoded Instructions count = " << originalEncodedInstructionsCount
+      << " ( " << originalEncodedInstructionsCount * 8 << " bytes )" << std::endl
             
       << "Reuse ratio = " 
-      << (encodedInstructions / (double)encodedPatterns) << std::endl
+      << (originalEncodedInstructionsCount / (double)originalEncodedPatternsCount) << std::endl
             
-      << "Total = " << (encodedPatterns * 12) + (encodedInstructions * 8) << " bytes" << std::endl
+      << "Total = " << (originalEncodedPatternsCount * 12) + (originalEncodedInstructionsCount * 8) << " bytes" << std::endl
       << "----" << std::endl
             
       << "rVex Summary: \n\n"
@@ -207,13 +207,13 @@ namespace PBIW
             
       << "Compressions Rates: \n\n"
       << "Compression ratio (Join/PBIW) = " 
-      << (((instructions.size() * 8) + (patterns.size() * 12)) / (double)((encodedInstructions * 8) + (encodedPatterns * 12))) * 100.0 << " %" << std::endl
+      << (((instructions.size() * 8) + (patterns.size() * 12)) / (double)((originalEncodedInstructionsCount * 8) + (originalEncodedPatternsCount * 12))) * 100.0 << " %" << std::endl
             
       << "Compression ratio (Join/rVex) = " 
       << (((instructions.size() * 8) + (patterns.size() * 12)) / (double)(originalInstructionsCount * 16)) * 100.0 << " %" << std::endl
     
       << "Compression ratio (PBIW/rVex) = " 
-      << (((encodedInstructions * 8) + (encodedPatterns * 12)) / (double)(originalInstructionsCount * 16)) * 100.0 << " %" << std::endl
+      << (((originalEncodedInstructionsCount * 8) + (originalEncodedPatternsCount * 12)) / (double)(originalInstructionsCount * 16)) * 100.0 << " %" << std::endl
     
       << "----" << std::endl;
   }

@@ -12,14 +12,14 @@ namespace PBIW
 {
     using namespace Interfaces;
     
-    PBIWOptimizerDataSet::PBIWOptimizerDataSet() {   
-    }
-
-    PBIWOptimizerDataSet::PBIWOptimizerDataSet(const PBIWOptimizerDataSet& orig) {
-    }
-
-    PBIWOptimizerDataSet::~PBIWOptimizerDataSet() {
-    }
+//    PBIWOptimizerDataSet::PBIWOptimizerDataSet() {   
+//    }
+//
+//    PBIWOptimizerDataSet::PBIWOptimizerDataSet(const PBIWOptimizerDataSet& orig) {
+//    }
+//
+//    PBIWOptimizerDataSet::~PBIWOptimizerDataSet() {
+//    }
     
     void
     PBIWOptimizerDataSet::minimumPatterns()
@@ -29,7 +29,7 @@ namespace PBIW
         Patterns::iterator it2;
         Patterns::const_iterator it3;
         Patterns patterns;
-        VectorPatterns tempPatterns;
+        Patterns tempPatterns;
         
         for(it1 = optimizers.begin(); it1 < optimizers.end(); it1++)
         {
