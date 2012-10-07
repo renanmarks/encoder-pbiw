@@ -28,21 +28,12 @@ namespace PBIW
       
       virtual bool isImmediate() const = 0;
       
-      virtual bool isImmediate9Bits() const = 0;
-      virtual void isImmediate9Bits(bool) = 0;
-      
-      virtual bool isImmediate12Bits() const = 0;
-      virtual void isImmediate12Bits(bool) = 0;
+      virtual void setTypeCode(int) = 0;
+      virtual int getTypeCode() const = 0;
       
       virtual void setValue(int) = 0;
       virtual int getValue() const = 0;
       
-      virtual bool isBRSource() const = 0;
-      virtual void setBRSource(const bool) = 0;
-      
-      virtual bool isBRDestiny() const = 0;
-      virtual void setBRDestiny(const bool) = 0;
-
       virtual bool operator<(const IOperand&) const = 0;
       virtual bool operator>(const IOperand&) const = 0;
       virtual bool operator<=(const IOperand&) const = 0;

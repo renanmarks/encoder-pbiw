@@ -19,22 +19,22 @@ namespace rVex
     {
       Dependency dependency;
 
-      rVex::Syllable::ReadRegVector readRegs = operation->getReadRegisters();
+      rVex::Syllable::OperandVector readRegs = operation->getReadOperands();
       rVex::Instruction::SyllableVector::const_iterator otherSyllableIt;
 
       for(otherSyllableIt = operations.begin(); otherSyllableIt < operations.end(); otherSyllableIt++)
       {
-        if ( ((*otherSyllableIt)->getAddress() == operation->getAddress()) || ((*otherSyllableIt)->getGrDestiny() == 0 && !operation->hasBrSource()) )
+        if ( ((*otherSyllableIt)->getAddress() == operation->getAddress()) || ((*otherSyllableIt)->getGrDestinyValue() == 0 && !operation->hasBrSource()) )
           continue;
 
         bool writesInMyGrReadRegister = 
           (*otherSyllableIt)->hasGrDestiny() 
-          && (std::find(readRegs.begin(), readRegs.end(), (*otherSyllableIt)->getGrDestiny()) != readRegs.end());
+          && (std::find(readRegs.begin(), readRegs.end(), (*otherSyllableIt)->getGrDestinyOperand()) != readRegs.end());
 
         bool writesInMyBrReadRegister = 
           (*otherSyllableIt)->hasBrDestiny() 
           && operation->hasBrSource() 
-          && ((*otherSyllableIt)->getBrDestiny() == operation->getBrSource());
+          && ((*otherSyllableIt)->getBrDestinyValue() == operation->getBrSourceValue());
 
         switch ((*otherSyllableIt)->getOpcode())
         {

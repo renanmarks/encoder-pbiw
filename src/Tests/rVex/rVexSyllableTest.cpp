@@ -10,7 +10,7 @@ namespace SyllableTest
   {
     rVex::Operations::ALU::ADD ADDR;
 
-    ADDR.setGrDestiny(1);
+    ADDR.setGrDestinyValue(1);
     ADDR.addReadRegister(10);
     ADDR.addReadRegister(63);
 
@@ -18,9 +18,9 @@ namespace SyllableTest
 
     rVex::Operations::ALU::ADD ADDIS;
 
-    ADDIS.setGrDestiny(1);
+    ADDIS.setGrDestinyValue(1);
     ADDIS.addReadRegister(10);
-    ADDIS.setShortImmediate(255);
+    ADDIS.setShortImmediateValue(255);
 
     ASSERT_EQ(0x828253FC, ADDIS.printISTYPE());
   }
@@ -31,15 +31,15 @@ namespace SyllableTest
 
     ANDR.addReadRegister(10);
     ANDR.addReadRegister(63);
-    ANDR.setGrDestiny(1);
+    ANDR.setGrDestinyValue(1);
 
     ASSERT_EQ(0x860257E0, ANDR.printRTYPE());
 
     rVex::Operations::ALU::AND ANDIS;
 
-    ANDIS.setGrDestiny(1);
+    ANDIS.setGrDestinyValue(1);
     ANDIS.addReadRegister(10);
-    ANDIS.setShortImmediate(255);
+    ANDIS.setShortImmediateValue(255);
 
     ASSERT_EQ(0x868253FC, ANDIS.printISTYPE());
   }
@@ -50,15 +50,15 @@ TEST(SyllableTest, PrintBinaryANDC)     // Test 3
   
   ANDC.addReadRegister(10);
   ANDC.addReadRegister(63);
-  ANDC.setGrDestiny(1);
+  ANDC.setGrDestinyValue(1);
   
   ASSERT_EQ(0x880257E0, ANDC.printRTYPE());
   
   rVex::Operations::ALU::ANDC ANDCIS;
 
-  ANDCIS.setGrDestiny(1);
+  ANDCIS.setGrDestinyValue(1);
   ANDCIS.addReadRegister(10);
-  ANDCIS.setShortImmediate(255);
+  ANDCIS.setShortImmediateValue(255);
   
   ASSERT_EQ(0x888253FC, ANDCIS.printISTYPE());
 }
@@ -69,15 +69,15 @@ TEST(SyllableTest, PrintBinaryMAX)      // Test 4
   
   MAXR.addReadRegister(10);
   MAXR.addReadRegister(63);
-  MAXR.setGrDestiny(1);
+  MAXR.setGrDestinyValue(1);
   
   ASSERT_EQ(0x8A0257E0, MAXR.printRTYPE());
   
   rVex::Operations::ALU::MAX MAXIS;
   
-  MAXIS.setGrDestiny(1);
+  MAXIS.setGrDestinyValue(1);
   MAXIS.addReadRegister(10);
-  MAXIS.setShortImmediate(255);
+  MAXIS.setShortImmediateValue(255);
   
   ASSERT_EQ(0x8A8253FC, MAXIS.printISTYPE());
 }
@@ -88,15 +88,15 @@ TEST(SyllableTest, PrintBinaryMAXU)      // Test 5
   
   MAXUR.addReadRegister(10);
   MAXUR.addReadRegister(63);
-  MAXUR.setGrDestiny(1);
+  MAXUR.setGrDestinyValue(1);
   
   ASSERT_EQ(0x8C0257E0, MAXUR.printRTYPE());
   
   rVex::Operations::ALU::MAXU MAXUIS;
   
-  MAXUIS.setGrDestiny(1);
+  MAXUIS.setGrDestinyValue(1);
   MAXUIS.addReadRegister(10);
-  MAXUIS.setShortImmediate(255);
+  MAXUIS.setShortImmediateValue(255);
   
   ASSERT_EQ(0x8C8253FC, MAXUIS.printISTYPE());
 }
@@ -107,15 +107,15 @@ TEST(SyllableTest, PrintBinaryMIN)      // Test 6
   
   MINR.addReadRegister(10);
   MINR.addReadRegister(63);
-  MINR.setGrDestiny(1);
+  MINR.setGrDestinyValue(1);
   
   ASSERT_EQ(0x8E0257E0, MINR.printRTYPE());
   
   rVex::Operations::ALU::MIN MINIS;
   
-  MINIS.setGrDestiny(1);
+  MINIS.setGrDestinyValue(1);
   MINIS.addReadRegister(10);
-  MINIS.setShortImmediate(255);
+  MINIS.setShortImmediateValue(255);
   
   ASSERT_EQ(0x8E8253FC, MINIS.printISTYPE());
 }
@@ -127,15 +127,15 @@ TEST(SyllableTest, PrintBinaryMINU)      // Test 7
   
   MINUR.addReadRegister(10);
   MINUR.addReadRegister(63);
-  MINUR.setGrDestiny(1);
+  MINUR.setGrDestinyValue(1);
   
   ASSERT_EQ(0x900257E0, MINUR.printRTYPE());
   
   rVex::Operations::ALU::MINU MINUIS;
   
-  MINUIS.setGrDestiny(1);
+  MINUIS.setGrDestinyValue(1);
   MINUIS.addReadRegister(10);
-  MINUIS.setShortImmediate(255);
+  MINUIS.setShortImmediateValue(255);
   
   ASSERT_EQ(0x908253FC, MINUIS.printISTYPE());
 }
@@ -146,15 +146,15 @@ TEST(SyllableTest, PrintBinaryOR)      // Test 8
   
   ORR.addReadRegister(10);
   ORR.addReadRegister(63);
-  ORR.setGrDestiny(1);
+  ORR.setGrDestinyValue(1);
   
   ASSERT_EQ(0x920257E0, ORR.printRTYPE());
   
   rVex::Operations::ALU::OR ORIS;
   
-  ORIS.setGrDestiny(1);
+  ORIS.setGrDestinyValue(1);
   ORIS.addReadRegister(10);
-  ORIS.setShortImmediate(255);
+  ORIS.setShortImmediateValue(255);
   
   ASSERT_EQ(0x928253FC, ORIS.printISTYPE());
 }
@@ -165,15 +165,15 @@ TEST(SyllableTest, PrintBinaryORC)      // Test 9
   
   ORCR.addReadRegister(10);
   ORCR.addReadRegister(63);
-  ORCR.setGrDestiny(1);
+  ORCR.setGrDestinyValue(1);
   
   ASSERT_EQ(0x940257E0, ORCR.printRTYPE());
   
   rVex::Operations::ALU::ORC ORCIS;
   
-  ORCIS.setGrDestiny(1);
+  ORCIS.setGrDestinyValue(1);
   ORCIS.addReadRegister(10);
-  ORCIS.setShortImmediate(255);
+  ORCIS.setShortImmediateValue(255);
   
   ASSERT_EQ(0x948253FC, ORCIS.printISTYPE());
 }
@@ -184,15 +184,15 @@ TEST(SyllableTest, PrintBinarySH1ADD)      // Test 10
   
   SH1ADDR.addReadRegister(10);
   SH1ADDR.addReadRegister(63);
-  SH1ADDR.setGrDestiny(1);
+  SH1ADDR.setGrDestinyValue(1);
   
   ASSERT_EQ(0x960257E0, SH1ADDR.printRTYPE());
   
   rVex::Operations::ALU::SH1ADD SH1ADDIS;
   
-  SH1ADDIS.setGrDestiny(1);
+  SH1ADDIS.setGrDestinyValue(1);
   SH1ADDIS.addReadRegister(10);
-  SH1ADDIS.setShortImmediate(255);
+  SH1ADDIS.setShortImmediateValue(255);
   
   ASSERT_EQ(0x968253FC, SH1ADDIS.printISTYPE());
 }
@@ -203,15 +203,15 @@ TEST(SyllableTest, PrintBinarySH2ADD)      // Test 11
   
   SH2ADDR.addReadRegister(10);
   SH2ADDR.addReadRegister(63);
-  SH2ADDR.setGrDestiny(1);
+  SH2ADDR.setGrDestinyValue(1);
   
   ASSERT_EQ(0x980257E0, SH2ADDR.printRTYPE());
   
   rVex::Operations::ALU::SH2ADD SH2ADDIS;
   
-  SH2ADDIS.setGrDestiny(1);
+  SH2ADDIS.setGrDestinyValue(1);
   SH2ADDIS.addReadRegister(10);
-  SH2ADDIS.setShortImmediate(255);
+  SH2ADDIS.setShortImmediateValue(255);
   
   ASSERT_EQ(0x988253FC, SH2ADDIS.printISTYPE());
 }
@@ -222,15 +222,15 @@ TEST(SyllableTest, PrintBinarySH3ADD)      // Test 12
   
   SH3ADDR.addReadRegister(10);
   SH3ADDR.addReadRegister(63);
-  SH3ADDR.setGrDestiny(1);
+  SH3ADDR.setGrDestinyValue(1);
   
   ASSERT_EQ(0x9A0257E0, SH3ADDR.printRTYPE());
   
   rVex::Operations::ALU::SH3ADD SH3ADDIS;
   
-  SH3ADDIS.setGrDestiny(1);
+  SH3ADDIS.setGrDestinyValue(1);
   SH3ADDIS.addReadRegister(10);
-  SH3ADDIS.setShortImmediate(255);
+  SH3ADDIS.setShortImmediateValue(255);
   
   ASSERT_EQ(0x9A8253FC, SH3ADDIS.printISTYPE());
 }
@@ -241,15 +241,15 @@ TEST(SyllableTest, PrintBinarySH4ADD)      // Test 13
   
   SH4ADDR.addReadRegister(10);
   SH4ADDR.addReadRegister(63);
-  SH4ADDR.setGrDestiny(1);
+  SH4ADDR.setGrDestinyValue(1);
   
   ASSERT_EQ(0x9C0257E0, SH4ADDR.printRTYPE());
   
   rVex::Operations::ALU::SH4ADD SH4ADDIS;
   
-  SH4ADDIS.setGrDestiny(1);
+  SH4ADDIS.setGrDestinyValue(1);
   SH4ADDIS.addReadRegister(10);
-  SH4ADDIS.setShortImmediate(255);
+  SH4ADDIS.setShortImmediateValue(255);
   
   ASSERT_EQ(0x9C8253FC, SH4ADDIS.printISTYPE());
 }
@@ -260,15 +260,15 @@ TEST(SyllableTest, PrintBinarySHL)      // Test 14
   
   SHLR.addReadRegister(10);
   SHLR.addReadRegister(63);
-  SHLR.setGrDestiny(1);
+  SHLR.setGrDestinyValue(1);
   
   ASSERT_EQ(0x9E0257E0, SHLR.printRTYPE());
   
   rVex::Operations::ALU::SHL SHLIS;
   
-  SHLIS.setGrDestiny(1);
+  SHLIS.setGrDestinyValue(1);
   SHLIS.addReadRegister(10);
-  SHLIS.setShortImmediate(255);
+  SHLIS.setShortImmediateValue(255);
   
   ASSERT_EQ(0x9E8253FC, SHLIS.printISTYPE());
 }
@@ -279,15 +279,15 @@ TEST(SyllableTest, PrintBinarySHR)      // Test 15
   
   SHRR.addReadRegister(10);
   SHRR.addReadRegister(63);
-  SHRR.setGrDestiny(1);
+  SHRR.setGrDestinyValue(1);
   
   ASSERT_EQ(0xA00257E0, SHRR.printRTYPE());
   
   rVex::Operations::ALU::SHR SHRIS;
   
-  SHRIS.setGrDestiny(1);
+  SHRIS.setGrDestinyValue(1);
   SHRIS.addReadRegister(10);
-  SHRIS.setShortImmediate(255);
+  SHRIS.setShortImmediateValue(255);
   
   ASSERT_EQ(0xA08253FC, SHRIS.printISTYPE());
 }
@@ -298,15 +298,15 @@ TEST(SyllableTest, PrintBinarySHRU)      // Test 16
   
   SHRUR.addReadRegister(10);
   SHRUR.addReadRegister(63);
-  SHRUR.setGrDestiny(1);
+  SHRUR.setGrDestinyValue(1);
   
   ASSERT_EQ(0xA20257E0, SHRUR.printRTYPE());
   
   rVex::Operations::ALU::SHRU SHRUIS;
   
-  SHRUIS.setGrDestiny(1);
+  SHRUIS.setGrDestinyValue(1);
   SHRUIS.addReadRegister(10);
-  SHRUIS.setShortImmediate(255);
+  SHRUIS.setShortImmediateValue(255);
   
   ASSERT_EQ(0xA28253FC, SHRUIS.printISTYPE());
 }
@@ -317,15 +317,15 @@ TEST(SyllableTest, PrintBinarySUB)      // Test 17
   
   SUBR.addReadRegister(10);
   SUBR.addReadRegister(63);
-  SUBR.setGrDestiny(1);
+  SUBR.setGrDestinyValue(1);
   
   ASSERT_EQ(0xA40257E0, SUBR.printRTYPE());
   
   rVex::Operations::ALU::SUB SUBIS;
   
-  SUBIS.setGrDestiny(1);
+  SUBIS.setGrDestinyValue(1);
   SUBIS.addReadRegister(10);
-  SUBIS.setShortImmediate(255);
+  SUBIS.setShortImmediateValue(255);
   
   ASSERT_EQ(0xA48253FC, SUBIS.printISTYPE());
 }
@@ -336,15 +336,15 @@ TEST(SyllableTest, PrintBinarySXTB)      // Test 18
   
   SXTBR.addReadRegister(10);
   SXTBR.addReadRegister(63);
-  SXTBR.setGrDestiny(1);
+  SXTBR.setGrDestinyValue(1);
   
   ASSERT_EQ(0xA60257E0, SXTBR.printRTYPE());
   
   rVex::Operations::ALU::SXTB SXTBIS;
   
-  SXTBIS.setGrDestiny(1);
+  SXTBIS.setGrDestinyValue(1);
   SXTBIS.addReadRegister(10);
-  SXTBIS.setShortImmediate(255);
+  SXTBIS.setShortImmediateValue(255);
   
   ASSERT_EQ(0xA68253FC, SXTBIS.printISTYPE());
 }
@@ -355,15 +355,15 @@ TEST(SyllableTest, PrintBinarySXTH)      // Test 19
   
   SXTHR.addReadRegister(10);
   SXTHR.addReadRegister(63);
-  SXTHR.setGrDestiny(1);
+  SXTHR.setGrDestinyValue(1);
   
   ASSERT_EQ(0xA80257E0, SXTHR.printRTYPE());
   
   rVex::Operations::ALU::SXTH SXTHIS;
   
-  SXTHIS.setGrDestiny(1);
+  SXTHIS.setGrDestinyValue(1);
   SXTHIS.addReadRegister(10);
-  SXTHIS.setShortImmediate(255);
+  SXTHIS.setShortImmediateValue(255);
   
   ASSERT_EQ(0xA88253FC, SXTHIS.printISTYPE());
 }
@@ -374,15 +374,15 @@ TEST(SyllableTest, PrintBinaryZXTB)      // Test 20
   
   ZXTBR.addReadRegister(10);
   ZXTBR.addReadRegister(63);
-  ZXTBR.setGrDestiny(1);
+  ZXTBR.setGrDestinyValue(1);
   
   ASSERT_EQ(0xAA0257E0, ZXTBR.printRTYPE());
   
   rVex::Operations::ALU::ZXTB ZXTBIS;
   
-  ZXTBIS.setGrDestiny(1);
+  ZXTBIS.setGrDestinyValue(1);
   ZXTBIS.addReadRegister(10);
-  ZXTBIS.setShortImmediate(255);
+  ZXTBIS.setShortImmediateValue(255);
   
   ASSERT_EQ(0xAA8253FC, ZXTBIS.printISTYPE());
 }
@@ -393,15 +393,15 @@ TEST(SyllableTest, PrintBinaryZXTH)      // Test 21
   
   ZXTHR.addReadRegister(10);
   ZXTHR.addReadRegister(63);
-  ZXTHR.setGrDestiny(1);
+  ZXTHR.setGrDestinyValue(1);
   
   ASSERT_EQ(0xAC0257E0, ZXTHR.printRTYPE());
   
   rVex::Operations::ALU::ZXTH ZXTHIS;
   
-  ZXTHIS.setGrDestiny(1);
+  ZXTHIS.setGrDestinyValue(1);
   ZXTHIS.addReadRegister(10);
-  ZXTHIS.setShortImmediate(255);
+  ZXTHIS.setShortImmediateValue(255);
   
   ASSERT_EQ(0xAC8253FC, ZXTHIS.printISTYPE());
 }
@@ -412,15 +412,15 @@ TEST(SyllableTest, PrintBinaryXOR)      // Test 22
   
   XOR.addReadRegister(10);
   XOR.addReadRegister(63);
-  XOR.setGrDestiny(1);
+  XOR.setGrDestinyValue(1);
   
   ASSERT_EQ(0xAE0257E0, XOR.printRTYPE());
   
   rVex::Operations::ALU::XOR XORIS;
   
-  XORIS.setGrDestiny(1);
+  XORIS.setGrDestinyValue(1);
   XORIS.addReadRegister(10);
-  XORIS.setShortImmediate(255);
+  XORIS.setShortImmediateValue(255);
   
   ASSERT_EQ(0xAE8253FC, XORIS.printISTYPE());
 }
@@ -431,7 +431,7 @@ TEST(SyllableTest, PrintBinaryMOV)      // Test 23
   
   MOVR.addReadRegister(0);
   MOVR.addReadRegister(63);
-  MOVR.setGrDestiny(1);
+  MOVR.setGrDestinyValue(1);
   
   ASSERT_EQ(0xB00207E0, MOVR.printRTYPE());
 }

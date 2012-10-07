@@ -7,17 +7,19 @@ namespace rVex
   {
     namespace CTRL
     {
-      void
-      CALL::exportOperandVector(Utils::OperandVectorBuilder& builder) const
+      GenericAssembly::Utils::OperandVector
+      CALL::exportOperandVector() const
       {
-        using PBIW::Utils::OperandItemDTO;
+        Utils::OperandVectorBuilder builder;
         
-        builder.insertRegister(this->grDestiny, OperandItemDTO::GRSource, this);
+        builder.insertOperand(this->grDestiny);
         
         if (readRegisters.size() == 0)
-          builder.insertImmediate(this->shortImmediate, rVex::Syllable::ImmediateSwitch::BRANCH_IMM, this);
+          builder.insertOperand(this->shortImmediate);
         else
-          builder.insertRegister(this->readRegisters[0], OperandItemDTO::GRSource, this);
+          builder.insertOperand(this->readRegisters[0]);
+        
+        return builder.getOperandVector();
       }
       
       void
@@ -31,7 +33,7 @@ namespace rVex
         final |= Syllable::ImmediateSwitch::BRANCH_IMM;
         
         final <<= 6;
-        final |= this->grDestiny;
+        final |= getGrDestinyValue();
 
         final <<= 14;
         final |= last;

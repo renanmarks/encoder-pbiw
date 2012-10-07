@@ -8,38 +8,41 @@
 #ifndef OPERANDVECTORBUILDER_H
 #define	OPERANDVECTORBUILDER_H
 
-#include "src/PBIW/Utils/OperandItemDTO.h"
-#include "src/PBIW/Utils/OperandVectorDTO.h"
-#include "src/PBIW/Interfaces/IPBIWFactory.h"
-#include "src/PBIW/Interfaces/IOperand.h"
-#include "src/rVex/Syllable.h"
+#include "src/GenericAssembly/Utils/OperandVector.h"
+#include "src/GenericAssembly/Interfaces/IOperation.h"
 
 namespace rVex
 {
   namespace Utils
   {
-    using PBIW::Utils::OperandVectorDTO;
-    using PBIW::Utils::OperandItemDTO;
-    using PBIW::Interfaces::IPBIWFactory;
-    using PBIW::Interfaces::IOperand;
-    
     class OperandVectorBuilder
     {
     public:
-      OperandVectorBuilder(const PBIW::Interfaces::IPBIWFactory& factory);
+//      OperandVectorBuilder(IOperation::GenericAssembly::Utils::OperandVector&);
+    
+      template <class TOperand>
+      void
+      insertOperand(const TOperand& value) // O(1)
+      {
+        operands.push_back(&value);
+      }
+
+      template <class TOperand> 
+      void
+      insertOperands(std::vector<TOperand> const& values) // O(1)
+      {
+        typename std::vector<TOperand>::const_iterator it;
+
+        for (it=values.begin(); it < values.end(); it++) // O(1)
+          insertOperand(*it);
+      }
       
-      void insertRegister(int value, OperandItemDTO::Type type, const GenericAssembly::Interfaces::IOperation*);
-      void insertRegisters(const std::vector<unsigned int>& values, OperandItemDTO::Type type, const GenericAssembly::Interfaces::IOperation*);
-      void insertImmediate(int value, rVex::Syllable::ImmediateSwitch::Type, const GenericAssembly::Interfaces::IOperation*);
+      void clearOperandVector();
       
-      void clearOperandVector()
-      { items.clear(); }
-      
-      const OperandVectorDTO& getOperandVector();
+      GenericAssembly::Utils::OperandVector getOperandVector();
       
     private:
-      OperandVectorDTO items;
-      const IPBIWFactory& factory;
+      GenericAssembly::Utils::OperandVector operands;
     };
   }
 }

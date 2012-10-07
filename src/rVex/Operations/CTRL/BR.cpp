@@ -9,13 +9,15 @@ namespace rVex
     namespace CTRL
     {
       
-      void
-      BR::exportOperandVector(Utils::OperandVectorBuilder& builder) const  // O(1)
+      GenericAssembly::Utils::OperandVector
+      BR::exportOperandVector() const  // O(1)
       {
-        using PBIW::Utils::OperandItemDTO;
+        Utils::OperandVectorBuilder builder;
         
-        builder.insertRegister(this->brSource, OperandItemDTO::BRSource, this);
-        builder.insertImmediate(this->shortImmediate, rVex::Syllable::ImmediateSwitch::BRANCH_IMM, this);
+        builder.insertOperand(brSource);
+        builder.insertOperand(shortImmediate);
+        
+        return builder.getOperandVector();
       }
       
       void 
@@ -32,7 +34,7 @@ namespace rVex
         final |= (this->branchDestiny->getBelongedInstruction()->getAddress() & 0x00000FFF);
 
         final <<= 3;
-        final |= this->brSource;
+        final |= getBrSourceValue();
 
         final <<= 1;
         final |= first;

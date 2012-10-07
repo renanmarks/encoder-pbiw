@@ -9,6 +9,7 @@
 #define	PBIWPARTIAL_OPERAND_H
 
 #include "src/PBIW/Interfaces/IOperand.h"
+#include "src/rVex/Operand.h"
 #include "src/rVex/Syllable.h"
 
 namespace PBIWPartial
@@ -23,7 +24,7 @@ namespace PBIWPartial
   public:
     explicit Operand();
     explicit Operand(int);
-    explicit Operand(int, rVex::Syllable::ImmediateSwitch::Type);
+    explicit Operand(int, rVex::Operand::Type);
     Operand(const Operand&);
     virtual ~Operand() { }
   
@@ -36,23 +37,26 @@ namespace PBIWPartial
     virtual unsigned int getIndex() const
     { return this->index; }
     
+    virtual void setTypeCode(int type) 
+    { this->type = static_cast<rVex::Operand::Type>(type); }
+    
+    virtual int getTypeCode() const
+    { return static_cast<int>(this->type); }
+    
     virtual bool isImmediate9Bits() const
-    { return this->immType == rVex::Syllable::ImmediateSwitch::SHORT_IMM; }
+    { return this->type == rVex::Operand::Imm9; }
     
     virtual void isImmediate9Bits(bool valid) 
-    { this->immType = rVex::Syllable::ImmediateSwitch::SHORT_IMM; }
+    { this->type = valid ? rVex::Operand::Imm9 : rVex::Operand::GRSource; }
     
     virtual bool isImmediate12Bits() const
-    { return this->immType == rVex::Syllable::ImmediateSwitch::BRANCH_IMM; }
+    { return this->type == rVex::Operand::Imm12; }
     
     virtual void isImmediate12Bits(bool valid) 
-    { this->immType = rVex::Syllable::ImmediateSwitch::BRANCH_IMM; }
+    { this->type = valid ? rVex::Operand::Imm12 : rVex::Operand::GRSource; }
     
     virtual bool isImmediate() const
     { return isImmediate12Bits() || isImmediate9Bits(); }
-    
-    virtual rVex::Syllable::ImmediateSwitch::Type getImmediateType() const
-    { return immType; }
     
     virtual void setValue(int value)
     { this->value = value; }
@@ -61,16 +65,16 @@ namespace PBIWPartial
     { return value; }
     
     virtual bool isBRSource() const
-    { return isBRSourceOperand; }
+    { return type == rVex::Operand::BRSource; }
     
     virtual void setBRSource(const bool value)
-    { isBRSourceOperand = value; }
+    { type = value ? rVex::Operand::BRSource : rVex::Operand::GRSource; }
     
     virtual bool isBRDestiny() const
-    { return isBRDestinyOperand; }
+    { return type == rVex::Operand::BRDestiny; }
     
     virtual void setBRDestiny(const bool value)
-    { isBRDestinyOperand = value; }
+    { type = value ? rVex::Operand::BRDestiny : rVex::Operand::GRSource; }
 
     virtual bool operator<(const IOperand&) const;
     virtual bool operator>(const IOperand&) const;
@@ -84,14 +88,7 @@ namespace PBIWPartial
     // Used to know in what position we are in the PBIW instruction
     unsigned int index;
     
-    // This is an immediate operand?
-    rVex::Syllable::ImmediateSwitch::Type immType;
-    
-    // Type of this operand
-    bool isBRDestinyOperand;
-    
-    // Type of this operand
-    bool isBRSourceOperand;
+    rVex::Operand::Type type;
     
     // The value of this operand (register number or immediate number)
     int value;

@@ -9,12 +9,21 @@
 #define	GENERICASSEMBLY_IOPERATION_H
 
 #include <string>
+#include <deque>
+
+//#include "src/GenericAssembly/Utils/OperandVector.h"
 
 namespace GenericAssembly
 {
+  namespace Utils
+  {
+    class OperandVector;
+  }
+  
   namespace Interfaces
   {
     class IInstruction;
+    class IOperand;
     
     class IOperation
     {
@@ -39,7 +48,7 @@ namespace GenericAssembly
        * Fills up the builder passed as argument with the operands from this
        * operation to be used at the PBIW encoding process.
        */
-      //virtual void exportOperandVector(/*Utils::OperandVectorBuilder&*/) const = 0;
+      virtual Utils::OperandVector exportOperandVector() const = 0;
     };
   }
 }

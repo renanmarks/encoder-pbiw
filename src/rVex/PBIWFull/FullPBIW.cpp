@@ -109,23 +109,36 @@ namespace PBIWFull
     finalInstruction->pointToPattern(*newPattern);
   }
   
-  void FullPBIW::resetFinalOperation(VexSyllableOperandVector::Collection::const_iterator& operandIt, // O(1)
-                                        Operation*& finalOperation, 
+  void FullPBIW::resetFinalOperation(GenericAssembly::Utils::OperandVector::const_iterator& operandIt, // O(1)
+                                        IOperation*& finalOperation, 
                                         rVex::Syllable* const& syllable,
-                                        const VexSyllableOperandVector& operands)
+                                        const GenericAssembly::Utils::OperandVector& operands)
   {
     operandIt = operands.begin();
     delete finalOperation;
-    finalOperation = new Operation();
-    finalOperation->setOpcode( syllable->getOpcode() );
-    finalOperation->setImmediateSwitch( syllable->getImmediateSwitch() );
-    finalOperation->setType( syllable->getSyllableType() );
+    finalOperation = factory.createOperation(*syllable);//new Operation();
   }
   
   void                                                                                 
-  FullPBIW::encode(const std::vector<rVex::Instruction*>& originalInstructions) // O(|codedPatterns|^2)
+  FullPBIW::encode(const std::deque<GenericAssembly::Interfaces::IInstruction*>& originalInstructions) // O(|codedPatterns|^2)
   {
-    std::vector<rVex::Instruction*>::const_iterator instructionIt;
+    std::deque<rVex::Instruction*> rVexInstructions;
+    std::deque<GenericAssembly::Interfaces::IInstruction*>::const_iterator it;
+    
+    for (it = originalInstructions.begin();
+         it != originalInstructions.end();
+         it++)
+    {
+      rVexInstructions.push_back( static_cast<rVex::Instruction*>(*it) );
+    }
+    
+    encode(rVexInstructions);
+  }
+  
+  void                                                                                 
+  FullPBIW::encode(const std::deque<rVex::Instruction*>& originalInstructions) // O(|codedPatterns|^2)
+  {
+    std::deque<rVex::Instruction*>::const_iterator instructionIt;
     
     originalInstructionsCount = originalInstructions.size();
     
@@ -162,27 +175,22 @@ namespace PBIWFull
            syllableIt < syllables.end();    // O(16 + 16|codedPatterns|)
            syllableIt++)
       {
-        Operation* finalOperation = new Operation();
-        
-        finalOperation->setOpcode( (*syllableIt)->getOpcode() );
-        finalOperation->setImmediateSwitch( (*syllableIt)->getImmediateSwitch() );
-        finalOperation->setType( (*syllableIt)->getSyllableType() );
+        IOperation* finalOperation = factory.createOperation(**syllableIt);//new Operation();
         
         finalInstruction->setCodingOperation(*finalOperation);
         
         // For each operand...
-        rVex::Utils::OperandVectorBuilder operandVectorBuilder(factory);
-        (*syllableIt)->exportOperandVector(operandVectorBuilder);
+        using GenericAssembly::Interfaces::IOperation;
         
-        VexSyllableOperandVector::Collection::const_iterator operandIt;
-        VexSyllableOperandVector operands = operandVectorBuilder.getOperandVector();
+        GenericAssembly::Utils::OperandVector::const_iterator operandIt;
+        GenericAssembly::Utils::OperandVector operands = (*syllableIt)->exportOperandVector();
         
         for (operandIt = operands.begin(); // O(|operands| + |codedPatterns|) = O(4 + |codedPatterns|) = O(|codedPatterns|)
              operandIt < operands.end();
              operandIt++)
         {
           const IPBIWInstruction* firstInstruction = finalInstruction;
-          IOperand* operand = (*operandIt)->getOperand();
+          IOperand* operand = factory.createOperand(**operandIt);
           
           // Search for the operand (only its value and type(imm, for example))
           const IOperand& foundOperand = finalInstruction->containsOperand( *operand ); // O(|operands|) = O(12) = O(1)
@@ -190,15 +198,15 @@ namespace PBIWFull
           // If not found in the instruction (i.e. the operand returned is the same searched)...
           if ( &foundOperand == operand )
           {
-            if ( !finalInstruction->hasOperandSlot( **operandIt ) )
+            if ( !finalInstruction->hasOperandSlot( PBIW::Utils::OperandItemDTO(operand, *operandIt) ) )
             {
-              if ( (*instructionIt)->canSplitSyllable(*syllableIt) )
+              if ( (*instructionIt)->canSplitInstruction(**syllableIt) )
               {
                 saveAndCreateNewPBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
               }
               else
               {
-                while ( !(*instructionIt)->canSplitSyllable(*syllableIt) )
+                while ( !(*instructionIt)->canSplitInstruction(**syllableIt) )
                 {
                   syllablesBuffer.remove(*syllableIt);
                   syllableIt--; // go back
@@ -211,68 +219,45 @@ namespace PBIWFull
                 saveAndCreateNewPBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
               }
 
-              operandVectorBuilder.clearOperandVector();
-              (*syllableIt)->exportOperandVector(operandVectorBuilder);
-              operands = operandVectorBuilder.getOperandVector();
+              operands = (*syllableIt)->exportOperandVector();
               
               resetFinalOperation(operandIt, finalOperation, *syllableIt, operands); // O(1)
               finalInstruction->setCodingOperation(*finalOperation);
+              
+              delete operand;
+              operand = factory.createOperand(**operandIt); // O(1)
             }
 
-            operand = (*operandIt)->getOperand(); // O(1)
-
-            switch ( (*operandIt)->getType() )
-            {
-              case rVex::Utils::OperandItemDTO::BRSource :
-                if (finalOperation->getOpcode() == rVex::Syllable::opBR)
-                {
-                  finalInstruction->setOpBRslot(*operand); // O(1)
-                  break;
-                }
-                else if (finalOperation->getOpcode() == rVex::Syllable::opBRF)
-                {
-                  finalInstruction->setOpBRFslot(*operand); // O(1)
-                  break;
-                }
-                
-              case rVex::Utils::OperandItemDTO::BRDestiny :
-                finalInstruction->addBranchOperand(*operand); // O(1)
-                break;
-              case rVex::Utils::OperandItemDTO::GRSource :
-              case rVex::Utils::OperandItemDTO::GRDestiny :
-              case rVex::Utils::OperandItemDTO::Imm :
-                finalInstruction->addReadOperand(*operand); // O(1)
-                break;
-            }
+            finalInstruction->addOperand(*operand);
           }
           else 
           {
             // If found, check if it is some operand of a BR/BRF syllable
             // and put it in its position
-            switch ( (*operandIt)->getType() )
+            rVex::Operand::Type type = static_cast<rVex::Operand::Type>(operand->getTypeCode());
+            
+            if (type == rVex::Operand::BRSource)
             {
-              case rVex::Utils::OperandItemDTO::BRSource :
-                if (finalOperation->getOpcode() == rVex::Syllable::opBR)
-                {
-                  finalInstruction->setOpBRslot(*operand); // O(1)
-                  finalOperation->addOperand( *operand ); // O(1)
-                  continue;
-                }
-                else if (finalOperation->getOpcode() == rVex::Syllable::opBRF)
-                {
-                  finalInstruction->setOpBRFslot(*operand); // O(1)
-                  finalOperation->addOperand( *operand ); // O(1)
-                  continue;
-                }
-              default:
-                break;
+              if (finalOperation->getOpcode() == rVex::Syllable::opBR)
+              {
+                finalInstruction->setOpBRslot(*operand); // O(1)
+                finalOperation->addOperand( *operand ); // O(1)
+                continue;
+              }
+              else if (finalOperation->getOpcode() == rVex::Syllable::opBRF)
+              {
+                finalInstruction->setOpBRFslot(*operand); // O(1)
+                finalOperation->addOperand( *operand ); // O(1)
+                continue;
+              }
             }
           }
           
           // If the PBIW instruction has been splitted
           if (firstInstruction != finalInstruction)
           {
-            IOperand* tempOperand = (*operandIt)->getOperand(); // O(1)
+            delete operand;
+            IOperand* tempOperand = factory.createOperand(**operandIt); // O(1)
             const IOperand& foundOperand = finalInstruction->containsOperand( *tempOperand ); // O(1)
             finalOperation->addOperand( foundOperand ); // O(1)
           }
@@ -315,20 +300,22 @@ namespace PBIWFull
          it != branchingInstructions.end();
          it++)
     {
-      std::string label = (*it)->getLabelDestiny();
+      rVex64PBIWInstruction* instruction = static_cast<rVex64PBIWInstruction*>(*it);
+      
+      std::string label = instruction->getLabelDestiny();
       LabelVector::iterator labelIt = std::find_if(labels.begin(), labels.end(), FindLabel(label));
       
       if (labelIt != labels.end())
       {
-        (*it)->setBranchDestiny(*(labelIt->getDestiny()));
-        (*it)->setImmediateValue(labelIt->getDestiny()->getAddress());
+        instruction->setBranchDestiny(*(labelIt->getDestiny()));
+        instruction->setImmediateValue(labelIt->getDestiny()->getAddress());
       }
       
       if (debug)
       {
-        std::cout << "PBIW Instr" << " addr[" << (*it)->getAddress() << "]"
-          << " branching label " << (*it)->getLabelDestiny()
-          << " now points to addr[" << (*it)->getBranchDestiny()->getAddress() << "]"
+        std::cout << "PBIW Instr" << " addr[" << instruction->getAddress() << "]"
+          << " branching label " << instruction->getLabelDestiny()
+          << " now points to addr[" << instruction->getBranchDestiny()->getAddress() << "]"
           << std::endl;      
       }
     }
@@ -351,23 +338,7 @@ namespace PBIWFull
          it != optimizers.end();
          it++)
     {
-      std::vector<IPBIWInstruction*> codedInstructionsCopy(codedInstructions.begin(), codedInstructions.end());
-      std::vector<IPBIWPattern*> codedPatternsCopy(codedPatterns.begin(), codedPatterns.end());
-      std::vector<ILabel*> labelsCopy;
-      
-      LabelVector::iterator labelIt;
-      
-      for (labelIt = labels.begin();
-         labelIt != labels.end();
-         labelIt++)
-      {
-        labelsCopy.push_back(&(*labelIt));
-      }
-      
-      (*it)->useInstructions(codedInstructionsCopy);
-      (*it)->usePatterns(codedPatternsCopy);
-      (*it)->useLabels(labelsCopy);
-      (*it)->setupOptimizer();
+      (*it)->useContext(*this);
       (*it)->run(factory);
     }
     
@@ -439,33 +410,33 @@ namespace PBIWFull
   }
   
   void
-  FullPBIW::decode(const std::vector<IPBIWInstruction*>& codedInstructions, 
-               const std::vector<IPBIWPattern*>& codedPatterns)
+  FullPBIW::decode(const std::deque<IPBIWInstruction*>& codedInstructions, 
+               const std::deque<IPBIWPattern*>& codedPatterns)
   {
 
   }
 
-  std::vector<IPBIWInstruction*>
-  FullPBIW::getInstructions()
+  std::deque<IPBIWInstruction*>
+  FullPBIW::getInstructions() const
   {
-    return std::vector<IPBIWInstruction*>(codedInstructions.begin(), codedInstructions.end());
+    return std::deque<IPBIWInstruction*>(codedInstructions.begin(), codedInstructions.end());
   }
 
-  std::vector<IPBIWPattern*>
-  FullPBIW::getPatterns()
+  std::deque<IPBIWPattern*>
+  FullPBIW::getPatterns() const
   {
-    return std::vector<IPBIWPattern*>(codedPatterns.begin(), codedPatterns.end());
+    return std::deque<IPBIWPattern*>(codedPatterns.begin(), codedPatterns.end());
   }
   
-  std::vector<ILabel*> 
-  FullPBIW::getLabels()
+  std::deque<ILabel*> 
+  FullPBIW::getLabels() const
   {
     std::deque<ILabel*> temp;
-    LabelVector::iterator it;
+    LabelVector::const_iterator it;
     
     for(it = labels.begin(); it != labels.end(); it++)
-      temp.push_back(&(*it));
+      temp.push_back( const_cast<Label*>(&(*it)) );
     
-    return std::vector<ILabel*>(temp.begin(), temp.end());
+    return std::deque<ILabel*>(temp.begin(), temp.end());
   }
 }

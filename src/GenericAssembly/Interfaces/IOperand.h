@@ -8,6 +8,8 @@
 #ifndef GENERICASSEMBLY_IOPERAND_H
 #define	GENERICASSEMBLY_IOPERAND_H
 
+#include "IOperation.h"
+
 namespace GenericAssembly
 {
   namespace Interfaces
@@ -16,6 +18,23 @@ namespace GenericAssembly
     {
     public:
       virtual ~IOperand() { }
+      
+      virtual IOperand* clone() const = 0;
+      
+      virtual void setTypeCode(int) = 0;
+      virtual int getTypeCode() const = 0;
+
+      virtual bool isImmediate() const = 0;
+      virtual bool isRegister() const = 0;
+      
+      virtual void setValue(int) = 0;
+      virtual int getValue() const = 0;
+      
+      virtual void setOperationBelonged(IOperation*) = 0;
+      virtual IOperation* getOperationBelonged() const = 0;
+      
+      virtual bool operator==(const IOperand&) const = 0;
+      virtual bool operator!=(const IOperand&) const = 0;
     };
   }
 }

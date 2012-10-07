@@ -10,16 +10,18 @@ namespace rVex
   {
     namespace ALU
     {
-      void SLCT::exportOperandVector(Utils::OperandVectorBuilder& builder) const
+      GenericAssembly::Utils::OperandVector SLCT::exportOperandVector() const
       {
-        using PBIW::Utils::OperandItemDTO;
+        Utils::OperandVectorBuilder builder;
         
-        builder.insertRegister(this->brSource, OperandItemDTO::BRSource, this);
-        builder.insertRegister(this->grDestiny, OperandItemDTO::GRDestiny, this);
-        builder.insertRegisters(readRegisters, OperandItemDTO::GRSource, this);
+        builder.insertOperand(brSource);
+        builder.insertOperand(grDestiny);
+        builder.insertOperands(readRegisters);
 
         if (getLayoutType() == LayoutType::ISTYPE)
-          builder.insertImmediate(this->shortImmediate, rVex::Syllable::ImmediateSwitch::SHORT_IMM, this);
+          builder.insertOperand(shortImmediate);
+        
+        return builder.getOperandVector();
       }
     }
   }

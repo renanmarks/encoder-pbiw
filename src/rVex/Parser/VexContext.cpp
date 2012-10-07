@@ -22,6 +22,76 @@
 
 namespace VexParser
 {
+  void
+  VexContext::setInstructions(const rVexInstructionList& instructions)
+  {
+    this->instructions=instructions;
+  }
+  
+  IContext::InstructionDeque
+  VexContext::getInstructions() const
+  { 
+    return IContext::InstructionDeque(instructions.begin(), instructions.end()); 
+  }
+
+  void
+  VexContext::setOperations(const rVexSyllableList& syllables)
+  { 
+    this->syllables = syllables; 
+  }
+
+  IContext::OperationDeque
+  VexContext::getOperations() const
+  { 
+    return IContext::OperationDeque(syllables.begin(), syllables.end()); 
+  }
+
+  void
+  VexContext::setSyllableBuffer(const SyllableBuffer& syllableBuffer)
+  { 
+    this->syllableBuffer = syllableBuffer; 
+  }
+
+  VexContext::SyllableBuffer&
+  VexContext::getSyllableBuffer()
+  { 
+    return syllableBuffer; 
+  }
+
+  void
+  VexContext::setControlSyllables(const ControlSyllablesVector& controlSyllables)
+  { 
+    this->controlSyllables = controlSyllables; 
+  }
+
+  VexContext::ControlSyllablesVector&
+  VexContext::getControlSyllables()
+  { 
+    return controlSyllables; 
+  }
+
+  void
+  VexContext::setLabels(const rVexLabelVector& labels)
+  { 
+    this->labels = labels; 
+  }
+
+  IContext::LabelDeque
+  VexContext::getLabels() const
+  { 
+    rVexLabelVector::const_iterator it;
+    IContext::LabelDeque returnDeque;
+    
+    for (it = labels.begin();
+         it != labels.end();
+         it++)
+    {
+      returnDeque.push_back( const_cast<rVex::Label*>(&(*it)) );
+    }
+    
+    return returnDeque; 
+  }
+  
   VexContext::~VexContext( )
   {
     if (!syllables.empty())
@@ -127,38 +197,37 @@ namespace VexParser
   
   void VexContext::processLabels()
   {
-    std::ostream& stream = printer.getOutputStream(); // O(1)
     rVexLabelVector::iterator labelIt;
     
     if (debugEnabled)
     {
-      stream << "----- Labels.L/G [instr addr](syl addr)" << std::endl;
+      std::cout << "----- Labels.L/G [instr addr](syl addr)" << std::endl;
 
       for(labelIt = labels.begin(); // O(|labels|) = O(1)
           labelIt != labels.end();
           labelIt++)
       {
-        stream << labelIt->getName(); 
+        std::cout << labelIt->getName(); 
 
         if (labelIt->getScope() == GenericAssembly::Utils::LabelScope::GLOBAL)
-          stream << ".G";
+          std::cout << ".G";
         else
-          stream << ".L";
+          std::cout << ".L";
 
-        stream << "[" << labelIt->getAbsoluteAddress() << "]"
+        std::cout << "[" << labelIt->getAbsoluteAddress() << "]"
           << "(" << labelIt->getDestiny()->getAddress() << ")"
           << std::endl;
       }
 
       ControlSyllablesVector::const_iterator controlIt;
 
-      stream << "----- Control instructions ("<< controlSyllables.size() << " Total)" << std::endl;
+      std::cout << "----- Control instructions ("<< controlSyllables.size() << " Total)" << std::endl;
 
       for (controlIt = controlSyllables.begin(); // O(|controlSyllables|) = O(1)
            controlIt < controlSyllables.end();
            controlIt++)
       {
-        stream << "Syllable " << "(opcode: " << (*controlIt)->getOpcode() << ") addr: " 
+        std::cout << "Syllable " << "(opcode: " << (*controlIt)->getOpcode() << ") addr: " 
           << "[" << (*controlIt)->getBelongedInstruction()->getAddress() << "]"
           << "(" << (*controlIt)->getAddress() << ")"
           << std::endl;
@@ -182,7 +251,7 @@ namespace VexParser
     
       if (debugEnabled)
       {
-        stream << "Syllable " << "(opcode: " << (*it)->getOpcode() << ") addr:"
+        std::cout << "Syllable " << "(opcode: " << (*it)->getOpcode() << ") addr:"
           << "[" << (*it)->getBelongedInstruction()->getAddress() << "]"
           << "(" << (*it)->getAddress() << ")"
           << " now points to " << (*it)->getLabelDestiny()
@@ -265,7 +334,7 @@ namespace VexParser
   }
   
   void
-  VexContext::print()  // O(|instructions|)
+  VexContext::print(rVex::Printers::IPrinter& printer)  // O(|instructions|)
   {
     rVexInstructionList::const_iterator instructionIt;
     
@@ -313,7 +382,7 @@ namespace VexParser
   void 
   VexContext::encodePBIW(PBIW::Interfaces::IPBIW& pbiw) const // O(|codedPatterns|^2 + |instructions|) =
   {                                                                                                        // O(|codedPatterns|^2)
-    std::vector<rVex::Instruction*> instructionVector(instructions.begin(), instructions.end());
+    std::deque<GenericAssembly::Interfaces::IInstruction*> instructionVector(instructions.begin(), instructions.end());
     
     pbiw.encode(instructionVector); // O(|codedPatterns|^2)
   }

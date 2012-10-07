@@ -103,6 +103,26 @@ namespace PBIWPartial
     }
   }
   
+  bool Operation::operator<(const IOperation&) const 
+  { 
+    return false;
+  }
+  
+  bool Operation::operator>(const IOperation&) const 
+  { 
+    return false;
+  }
+  
+  bool Operation::operator<=(const IOperation&) const 
+  { 
+    return false;
+  }
+  
+  bool Operation::operator>=(const IOperation&) const 
+  { 
+    return false;
+  }
+  
   bool Operation::operator==(const IOperation& other) const  // O(1)
   {
     OperandIndexVector thisOperands = this->getOperandsIndexes();

@@ -10,7 +10,6 @@
 
 #include <deque>
 #include <vector>
-#include "Interfaces/IPBIWOptimizerJoinPatterns.h"
 #include "Interfaces/IPBIWFactory.h"
 #include "BaseOptimizer.h"
 

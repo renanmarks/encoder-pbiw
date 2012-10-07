@@ -2,23 +2,27 @@
 #include <iostream>
 #include "Syllable.h"
 #include "Utils/OperandVectorBuilder.h"
+#include "Operand.h"
 
 namespace rVex
 {
 
   Syllable::Syllable() :
   address(0),
-  layoutType(),
-  grDestiny(0),
+  layoutType(LayoutType::RTYPE),
+  grDestiny(Operand::GRDestiny),
   haveGRDestiny(false),
-  brDestiny(0),
+  brDestiny(Operand::BRDestiny),
   haveBRDestiny(false),
-  brSource(0),
+  brSource(Operand::BRSource),
   haveBRSource(false),
-  shortImmediate(0),
+  shortImmediate(Operand::Imm9),
   branchDestiny(NULL)
   {
-
+    grDestiny.setOperationBelonged(this);
+    brDestiny.setOperationBelonged(this);
+    brSource.setOperationBelonged(this);
+    shortImmediate.setOperationBelonged(this);
   }
 
   Syllable::~Syllable()
@@ -26,24 +30,46 @@ namespace rVex
 
   }
 
+  Operand 
+  Syllable::getShortImmediateOperand() const
+  {
+    return shortImmediate;
+  }
   
+  Operand 
+  Syllable::getBrDestinyOperand() const
+  {
+    return brDestiny;
+  }
+  
+  Operand 
+  Syllable::getBrSourceOperand() const
+  {
+    return brSource;
+  }
+  
+  Operand 
+  Syllable::getGrDestinyOperand() const
+  {
+    return grDestiny;
+  }
 
-  Syllable::ReadRegVector
-  Syllable::getReadRegisters() const
+  Syllable::OperandVector
+  Syllable::getReadOperands() const
   {
     return this->readRegisters;
   }
 
   void
-  Syllable::setShortImmediate(unsigned short shortImmediate)
+  Syllable::setShortImmediateValue(unsigned short shortImmediate)
   {
-    this->shortImmediate=shortImmediate;
+    this->shortImmediate.setValue(shortImmediate);
   }
 
   unsigned short
-  Syllable::getShortImmediate() const
+  Syllable::getShortImmediateValue() const
   {
-    return shortImmediate;
+    return shortImmediate.getValue();
   }
 
   bool
@@ -59,29 +85,29 @@ namespace rVex
   }
 
   void
-  Syllable::setBrDestiny(unsigned char brDestiny)
+  Syllable::setBrDestinyValue(unsigned char brDestiny)
   {
     haveBRDestiny=true;
-    this->brDestiny=brDestiny;
+    this->brDestiny.setValue(brDestiny);
   }
 
   unsigned char
-  Syllable::getBrDestiny() const
+  Syllable::getBrDestinyValue() const
   {
-    return brDestiny;
+    return brDestiny.getValue();
   }
 
   void
-  Syllable::setBrSource(unsigned char brSource)
+  Syllable::setBrSourceValue(unsigned char brSource)
   {
     haveBRSource=true;
-    this->brSource=brSource;
+    this->brSource.setValue(brSource);
   }
 
   unsigned char
-  Syllable::getBrSource() const
+  Syllable::getBrSourceValue() const
   {
-    return brSource;
+    return brSource.getValue();
   }
 
   bool
@@ -91,16 +117,16 @@ namespace rVex
   }
 
   void
-  Syllable::setGrDestiny(unsigned char grDestiny)
+  Syllable::setGrDestinyValue(unsigned char grDestiny)
   {
     haveGRDestiny=true;
-    this->grDestiny=grDestiny;
+    this->grDestiny.setValue(grDestiny);
   }
 
   unsigned char
-  Syllable::getGrDestiny() const
+  Syllable::getGrDestinyValue() const
   {
-    return grDestiny;
+    return grDestiny.getValue();
   }
 
   void
@@ -213,21 +239,21 @@ namespace rVex
     return (getOpcode() & opcode) == opcode; 
   }
   
-  void
-  Syllable::exportOperandVector(Utils::OperandVectorBuilder& builder) const // O(1)
+  GenericAssembly::Utils::OperandVector
+  Syllable::exportOperandVector() const // O(1)
   {
-    using PBIW::Utils::OperandItemDTO;
+    Utils::OperandVectorBuilder builder;
 
     switch (getLayoutType()) {
       case LayoutType::RTYPE:
-        builder.insertRegister(this->grDestiny, OperandItemDTO::GRDestiny, this);
-        builder.insertRegisters(readRegisters, OperandItemDTO::GRSource, this);
+        builder.insertOperand(grDestiny);
+        builder.insertOperands(readRegisters);
         break;
 
       case LayoutType::ISTYPE:
-        builder.insertRegister(this->grDestiny, OperandItemDTO::GRDestiny, this);
-        builder.insertRegisters(readRegisters, OperandItemDTO::GRSource, this);
-        builder.insertImmediate(this->shortImmediate, Syllable::ImmediateSwitch::SHORT_IMM, this);
+        builder.insertOperand(grDestiny);
+        builder.insertOperands(readRegisters);
+        builder.insertOperand(shortImmediate);
         break;
 
         //      Must implement in each specific opcode
@@ -247,6 +273,8 @@ namespace rVex
       default:
         break;
     }
+    
+    return builder.getOperandVector();
   }
 
   Syllable::ImmediateSwitch::Type
@@ -280,21 +308,21 @@ namespace rVex
     final<<=2;
     final|=Syllable::ImmediateSwitch::NO_IMM;
     final<<=6;
-    final|=grDestiny;
+    final|=getGrDestinyValue();
 
-    ReadRegVector::const_iterator it;
+    OperandVector::const_iterator it;
 
     for (it=readRegisters.begin(); it < readRegisters.end(); it++) // O(1)
     {
       final<<=6;
-      final|= *it;
+      final|= it->getValue();
     }
 
     if (readRegisters.size() < 2)
       final<<=6;
 
     final<<=3;
-    final|=this->brDestiny;
+    final|=getBrDestinyValue();
 
     final<<=1;
     final|=last;
@@ -315,18 +343,18 @@ namespace rVex
     final|=Syllable::ImmediateSwitch::SHORT_IMM;
     final<<=6;
 
-    final|=(grDestiny != 0) ? grDestiny : brDestiny;
+    final|=(getGrDestinyValue() != 0) ? getGrDestinyValue() : getBrDestinyValue();
 
-    ReadRegVector::const_iterator it;
+    OperandVector::const_iterator it;
 
     for (it=readRegisters.begin(); it < readRegisters.end(); it++) // O(1)
     {
       final<<=6;
-      final|= *it;
+      final|= it->getValue();
     }
 
     final<<=9;
-    final|=(this->shortImmediate & 0x1FF);
+    final|=(getShortImmediateValue() & 0x1FF);
 
     final<<=1;
     final|=last;
@@ -353,13 +381,13 @@ namespace rVex
     final|=Syllable::ImmediateSwitch::BRANCH_IMM;
     final<<=6;
 
-    final|=grDestiny;
+    final|=getGrDestinyValue();
 
     final<<=12;
-    final|=(this->shortImmediate & 0xFFF);
+    final|=(getShortImmediateValue() & 0xFFF);
 
     final<<=3;
-    final|=this->brDestiny;
+    final|=getBrDestinyValue();
 
     final<<=1;
     final|=last;
@@ -383,18 +411,18 @@ namespace rVex
     final|=Syllable::ImmediateSwitch::NO_IMM;
 
     final<<=6;
-    final|=grDestiny;
+    final|=getGrDestinyValue();
 
-    ReadRegVector::const_iterator it;
+    OperandVector::const_iterator it;
 
     for (it=readRegisters.begin(); it < readRegisters.end(); it++) // O(1)
     {
       final<<=6;
-      final|= *it;
+      final|= it->getValue();
     }
 
     final<<=3;
-    final|=this->brDestiny;
+    final|=getBrDestinyValue();
 
     final<<=1;
     final|=last;
@@ -415,18 +443,18 @@ namespace rVex
     final|=Syllable::ImmediateSwitch::NO_IMM;
 
     final<<=6;
-    final|=grDestiny;
+    final|=getGrDestinyValue();
 
-    ReadRegVector::const_iterator it;
+    OperandVector::const_iterator it;
 
     for (it=readRegisters.begin(); it < readRegisters.end(); it++) // O(1)
     {
       final<<=6;
-      final|= *it;
+      final|= it->getValue();
     }
 
     final<<=9;
-    final|=this->shortImmediate;
+    final|=getShortImmediateValue();
 
     final<<=1;
     final|=last;
@@ -447,18 +475,18 @@ namespace rVex
     final|=Syllable::ImmediateSwitch::NO_IMM;
 
     final<<=6;
-    final|=grDestiny;
+    final|=getGrDestinyValue();
 
-    ReadRegVector::const_iterator it;
+    OperandVector::const_iterator it;
 
     for (it=readRegisters.begin(); it < readRegisters.end(); it++) // O(1)
     {
       final<<=6;
-      final|= *it;
+      final|= it->getValue();
     }
 
     final<<=9;
-    final|=this->shortImmediate;
+    final|=getShortImmediateValue();
 
     final<<=1;
     final|=last;
@@ -475,8 +503,8 @@ namespace rVex
     {
       return (this->getLayoutType() == other.getLayoutType()) &&
         (this->getSyllableType() == other.getSyllableType()) &&
-        (this->getReadRegisters() == other.getReadRegisters() &&
-        (this->getShortImmediate() == other.getShortImmediate()));
+        (this->getReadOperands() == other.getReadOperands() &&
+        (this->getShortImmediateValue() == other.getShortImmediateValue()));
     }
 
     return false;
@@ -494,7 +522,10 @@ namespace rVex
     if (this->readRegisters.size() > 2)
       return;
 
-    this->readRegisters.push_back(readRegister);
+    Operand newOperand(readRegister);
+    newOperand.setOperationBelonged(this);
+      
+    this->readRegisters.push_back(newOperand);
   }
 
   void
@@ -517,7 +548,7 @@ namespace rVex
     if (origin2.isImmediate)
     {
       this->setLayoutType(rVex::Syllable::LayoutType::ISTYPE);
-      this->setShortImmediate(static_cast<unsigned short> (origin2.value));
+      this->setShortImmediateValue(static_cast<unsigned short> (origin2.value));
     } else
     {
       this->setLayoutType(rVex::Syllable::LayoutType::RTYPE);
@@ -525,9 +556,9 @@ namespace rVex
     }
 
     if (destiny.isBranchRegister)
-      this->setBrDestiny(static_cast<unsigned char> (destiny.value));
+      this->setBrDestinyValue(static_cast<unsigned char> (destiny.value));
     else
-      this->setGrDestiny(static_cast<unsigned char> (destiny.value));
+      this->setGrDestinyValue(static_cast<unsigned char> (destiny.value));
   }
 
   void
@@ -541,20 +572,20 @@ namespace rVex
     VexParser::Expression::ParseInfo origin2=sourceArgs[1].getParsedValue();
     VexParser::Expression::ParseInfo origin3=sourceArgs[2].getParsedValue();
 
-    this->setBrSource(static_cast<unsigned char> (origin1.value));
+    this->setBrSourceValue(static_cast<unsigned char> (origin1.value));
     this->addReadRegister(static_cast<unsigned int> (origin2.value));
 
     if (origin3.isImmediate)
     {
       this->setLayoutType(rVex::Syllable::LayoutType::ISTYPE);
-      this->setShortImmediate(static_cast<unsigned short> (origin3.value));
+      this->setShortImmediateValue(static_cast<unsigned short> (origin3.value));
     } else
     {
       this->setLayoutType(rVex::Syllable::LayoutType::RTYPE);
       this->addReadRegister(static_cast<unsigned int> (origin3.value));
     }
 
-    this->setGrDestiny(static_cast<unsigned char> (destiny.value));
+    this->setGrDestinyValue(static_cast<unsigned char> (destiny.value));
   }
 
   void
@@ -573,11 +604,11 @@ namespace rVex
 
     this->setLayoutType(rVex::Syllable::LayoutType::RTYPE_BS);
 
-    this->setGrDestiny(static_cast<unsigned char> (destiny1.value));
-    this->setBrDestiny(static_cast<unsigned char> (destiny2.value));
+    this->setGrDestinyValue(static_cast<unsigned char> (destiny1.value));
+    this->setBrDestinyValue(static_cast<unsigned char> (destiny2.value));
     this->addReadRegister(static_cast<unsigned char> (origin1.value));
     this->addReadRegister(static_cast<unsigned int> (origin2.value));
-    this->setBrSource(static_cast<unsigned int> (origin3.value));
+    this->setBrSourceValue(static_cast<unsigned int> (origin3.value));
   }
 
   void
@@ -590,7 +621,7 @@ namespace rVex
 
     this->setLayoutType(rVex::Syllable::LayoutType::RTYPE);
 
-    this->setBrDestiny(static_cast<unsigned char> (destiny.value));
+    this->setBrDestinyValue(static_cast<unsigned char> (destiny.value));
     this->addReadRegister(static_cast<unsigned int> (origin.value));
   }
 
@@ -603,12 +634,12 @@ namespace rVex
     VexParser::Expression::ParseInfo origin1=arguments.getSourceArguments().getArguments()[0].getParsedValue();
     VexParser::Expression::ParseInfo origin2=arguments.getSourceArguments().getArguments()[1].getParsedValue();
 
-    this->setGrDestiny(static_cast<unsigned char> (destiny.value));
+    this->setGrDestinyValue(static_cast<unsigned char> (destiny.value));
 
     if (origin1.isImmediate)
     {
       this->setLayoutType(rVex::Syllable::LayoutType::ISTYPE);
-      this->setShortImmediate(static_cast<unsigned short> (origin1.value));
+      this->setShortImmediateValue(static_cast<unsigned short> (origin1.value));
     } else
     {
       this->setLayoutType(rVex::Syllable::LayoutType::RTYPE);
@@ -628,7 +659,7 @@ namespace rVex
 
     this->setLayoutType(rVex::Syllable::LayoutType::RTYPE);
 
-    this->setGrDestiny(static_cast<unsigned char> (destiny.value));
+    this->setGrDestinyValue(static_cast<unsigned char> (destiny.value));
     this->addReadRegister(static_cast<unsigned int> (origin.value));
   }
 
@@ -640,7 +671,7 @@ namespace rVex
 
     this->setLayoutType(rVex::Syllable::LayoutType::BRANCH);
 
-    this->setBrSource(static_cast<unsigned char> (source.value));
+    this->setBrSourceValue(static_cast<unsigned char> (source.value));
     this->setLabelDestiny(address);
   }
 
@@ -669,9 +700,9 @@ namespace rVex
 
     this->setLayoutType(rVex::Syllable::LayoutType::MEMTYPE);
 
-    this->setGrDestiny(static_cast<unsigned char> (destiny.value));
+    this->setGrDestinyValue(static_cast<unsigned char> (destiny.value));
     this->addReadRegister(static_cast<unsigned int> (source.value));
-    this->setShortImmediate(static_cast<unsigned short> (offset.value));
+    this->setShortImmediateValue(static_cast<unsigned short> (offset.value));
   }
 
   void
@@ -685,9 +716,9 @@ namespace rVex
 
     this->setLayoutType(rVex::Syllable::LayoutType::MEMTYPE);
 
-    this->setGrDestiny(static_cast<unsigned int> (source.value));
+    this->setGrDestinyValue(static_cast<unsigned int> (source.value));
     this->addReadRegister(static_cast<unsigned char> (baseRegister.value));
-    this->setShortImmediate(static_cast<unsigned short> (offset.value));
+    this->setShortImmediateValue(static_cast<unsigned short> (offset.value));
   }
 
   void
@@ -700,7 +731,7 @@ namespace rVex
 
     this->setLayoutType(rVex::Syllable::LayoutType::ISTYPE);
 
-    this->setShortImmediate(static_cast<unsigned short> (offset.value));
+    this->setShortImmediateValue(static_cast<unsigned short> (offset.value));
     this->addReadRegister(static_cast<unsigned int> (source.value));
   }
 
@@ -737,7 +768,7 @@ namespace rVex
 
     this->setLayoutType(rVex::Syllable::LayoutType::BRANCH);
 
-    this->setShortImmediate(static_cast<unsigned short> (value));
+    this->setShortImmediateValue(static_cast<unsigned short> (value));
   }
 
   void
@@ -758,7 +789,7 @@ namespace rVex
       this->addReadRegister(static_cast<unsigned int> (source.value));
     }
 
-    this->setGrDestiny(static_cast<unsigned char> (destiny.value));
+    this->setGrDestinyValue(static_cast<unsigned char> (destiny.value));
   }
 
   void
@@ -773,7 +804,7 @@ namespace rVex
 
     this->setLayoutType(rVex::Syllable::LayoutType::BRANCH);
 
-    this->setGrDestiny(static_cast<unsigned char> (destiny.value));
+    this->setGrDestinyValue(static_cast<unsigned char> (destiny.value));
     this->addReadRegister(static_cast<unsigned int> (source1.value));
     this->setLabelDestiny(source2.label);
     this->addReadRegister(static_cast<unsigned int> (source3.value));
@@ -787,7 +818,7 @@ namespace rVex
 
     this->setLayoutType(rVex::Syllable::LayoutType::BRANCH);
 
-    this->setGrDestiny(destiny.value);
+    this->setGrDestinyValue(destiny.value);
     this->setPath(source.label);
   }
 
@@ -798,7 +829,7 @@ namespace rVex
 
     this->setLayoutType(rVex::Syllable::LayoutType::BRANCH);
 
-    this->setGrDestiny(source.value);
+    this->setGrDestinyValue(source.value);
   }
 
   void
@@ -811,7 +842,7 @@ namespace rVex
 
     this->setLayoutType(rVex::Syllable::LayoutType::RTYPE);
 
-    this->setGrDestiny(destiny.value);
+    this->setGrDestinyValue(destiny.value);
     this->addReadRegister(source.value);
   }
 }

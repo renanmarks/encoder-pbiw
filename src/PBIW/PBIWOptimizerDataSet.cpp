@@ -12,28 +12,39 @@ namespace PBIW
 {
     using namespace Interfaces;
     
-    PBIWOptimizerDataSet::PBIWOptimizerDataSet() {   
-    }
+//    PBIWOptimizerDataSet::PBIWOptimizerDataSet() {   
+//    }
+//
+//    PBIWOptimizerDataSet::PBIWOptimizerDataSet(const PBIWOptimizerDataSet& orig) {
+//    }
+//
+    PBIWPatternSetOptimizer::~PBIWPatternSetOptimizer() 
+    {
+      PatternsSets::iterator setIt;
+      Patterns::iterator patternIt;
 
-    PBIWOptimizerDataSet::PBIWOptimizerDataSet(const PBIWOptimizerDataSet& orig) {
-    }
-
-    PBIWOptimizerDataSet::~PBIWOptimizerDataSet() {
+      for (setIt = sets.begin(); setIt != sets.end(); setIt++)
+      {
+        for (patternIt = setIt->begin(); patternIt != setIt->end(); patternIt++)
+        {
+          delete *patternIt;
+        }
+      }
     }
     
     void
-    PBIWOptimizerDataSet::minimumPatterns()
+    PBIWPatternSetOptimizer::minimumPatterns()
     {
         
-        Optimizers::iterator it1;
+        PatternsSets::iterator it1;
         Patterns::iterator it2;
         Patterns::const_iterator it3;
         Patterns patterns;
-        VectorPatterns tempPatterns;
+        Patterns tempPatterns;
         
-        for(it1 = optimizers.begin(); it1 < optimizers.end(); it1++)
+        for(it1 = sets.begin(); it1 < sets.end(); it1++)
         {
-            tempPatterns = it1->getPatterns();
+            tempPatterns = *it1;
             patterns.assign(tempPatterns.begin(),tempPatterns.end());
             
             for(it2 = patterns.begin(); it2 < patterns.end(); it2++)
@@ -65,18 +76,24 @@ namespace PBIW
     }
 
     void
-    PBIWOptimizerDataSet::setOptimizers(const PBIWOptimizerJoinPatterns& optimizer)
+    PBIWPatternSetOptimizer::addPatternSet(const std::deque<IPBIWPattern*>& set)
     {
-        optimizers.push_back(optimizer);
+        std::deque<IPBIWPattern*>::const_iterator it;
+        std::deque<IPBIWPattern*> clonedPatterns;
+        
+        for (it = set.begin(); it != set.end(); it++)
+        {
+          clonedPatterns.push_back( (*it)->clone() );
+        }
+      
+        sets.push_back(clonedPatterns);
     }
     
     void 
-    PBIWOptimizerDataSet::printPatterns(IPBIWPrinter& printer) const
+    PBIWPatternSetOptimizer::printPatterns(IPBIWPrinter& printer) const
     {
         Patterns::const_iterator patternIt;
-        Optimizers::const_iterator optIt;
-        int i = 0;
-        int total = 0;
+        
 
         printer.printPatternsHeader();
 
@@ -88,26 +105,30 @@ namespace PBIW
         }
 
         printer.printPatternsFooter(uniquePatterns.size());
-        
-        std::cout << std::endl;
-
-        for(optIt = optimizers.begin(); optIt != optimizers.end(); optIt++)
-        {
-            std::cout << "Program " << i++ << ": " << optIt->getPatterns().size() << " patterns " << std::endl;
-            total += optIt->getPatterns().size();
-        }
-        
-        std::cout << "\n\n-------- Results: Patterns Minimum Set ---------\n" << std::endl;
-
-        std::cout << "Programs: " << optimizers.size() << std::endl;
-        std::cout << "Patterns: " << total << std::endl;
-        std::cout << "Unique Patterns: " << uniquePatterns.size() << std::endl;
-        std::cout << "Reduction Patters: " << total - uniquePatterns.size() << std::endl;
-        std::cout << "Compression Rate: " << uniquePatterns.size()/(double)total*100 << " %" << std::endl;
-        std::cout << "\n---------- End Patterns Minimum Set -----------" << std::endl;
-        std::cout << std::endl;
-        
-        
+    }
+    
+    void 
+    PBIWPatternSetOptimizer::printStatistics() const
+    {
+      PatternsSets::const_iterator optIt;
+      int i = 0;
+      int total = 0;
+      
+      std::cout << "-------- Results: Patterns Minimum Set ---------" << std::endl;
+      std::cout << "Programs: " << sets.size() << std::endl;
+      
+      for(optIt = sets.begin(); optIt != sets.end(); optIt++)
+      {
+          std::cout << "Program " << i++ << ": " << optIt->size() << " patterns " << std::endl;
+          total += optIt->size();
+      }
+      
+      std::cout << "Patterns: " << total << std::endl;
+      std::cout << "Unique Patterns: " << uniquePatterns.size() << std::endl;
+      std::cout << "Reduction Patters: " << total - uniquePatterns.size() << std::endl;
+      std::cout << "Compression Rate: " << uniquePatterns.size()/(double)total*100 << " %" << std::endl;
+      std::cout << "---------- End Patterns Minimum Set -----------" << std::endl;
+      std::cout << std::endl;
     }
 
 }

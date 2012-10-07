@@ -16,74 +16,59 @@ namespace PBIW
 {
   namespace Utils
   {
-    /**
-     * Encapsulates the DTO (Data Transfer Object) used by the PBIW encoder
-     * Provides an vector with all the operands (destiny, source and immediate) 
-     * inside.
-     */
-    
       /**
-       * An item of the OperandVector.
-       */
+      * The DTO (Data Transfer Object) used by the PBIW encoder that encapsulates
+      * all the information necessary to the PBIW encoder: the original operand
+      * and a PBIW encoded operand created by the PBIW factory. 
+      */
       class OperandItemDTO
       {
       public:
-        typedef enum {
-          GRSource, GRDestiny, BRSource, BRDestiny, Imm
-        } Type;
-        
-        explicit OperandItemDTO(PBIW::Interfaces::IOperand* operand, Type type, const GenericAssembly::Interfaces::IOperation* operation)
-          : operand( operand ), type(type), operationBelonged(operation)
+        explicit OperandItemDTO(PBIW::Interfaces::IOperand* operandPBIW, 
+                                const GenericAssembly::Interfaces::IOperand* operand)
+          : operandPBIW( operandPBIW ), 
+            operand(operand)
         {}
         
         OperandItemDTO(const OperandItemDTO& other)
-          : operand( other.getOperand()->clone() ), type(other.getType()), operationBelonged(other.getOperationBelonged())
+          : operandPBIW( other.getPBIWOperand()->clone() ), 
+            operand(operand)
         {}
         
         ~OperandItemDTO()
-        { delete operand; }
+        {  }
 
         OperandItemDTO& operator=(const OperandItemDTO& other)
         {
           if (this != &other)
           {
-            delete this->operand;
-            this->operand = other.getOperand()->clone();
-            this->type = other.getType();
-            this->operationBelonged = other.getOperationBelonged();
+            delete this->operandPBIW;
+            this->operandPBIW = other.getPBIWOperand()->clone();
+            this->operand = other.getOperand();
           }
           
           return *this;
         }
         
         void
-        setType(Type type)
-        { this->type=type; }
-
-        Type
-        getType() const
-        { return type; }
-
-        void
-        setOperand(PBIW::Interfaces::IOperand* operand)
-        { this->operand = operand; }
+        setPBIWOperand(PBIW::Interfaces::IOperand* operand)
+        { this->operandPBIW = operand; }
 
         PBIW::Interfaces::IOperand*
+        getPBIWOperand() const
+        { return operandPBIW; }
+        
+        void
+        setOperand(const GenericAssembly::Interfaces::IOperand* operand)
+        { this->operand = operand; }
+
+        const GenericAssembly::Interfaces::IOperand*
         getOperand() const
         { return operand; }
 
-        void
-        setOperationBelonged(GenericAssembly::Interfaces::IOperation* syllableBelonged)
-        { this->operationBelonged=syllableBelonged; }
-
-        const GenericAssembly::Interfaces::IOperation*
-        getOperationBelonged() const
-        { return operationBelonged; }
-      
       private:
-        PBIW::Interfaces::IOperand* operand;
-        Type type;
-        const GenericAssembly::Interfaces::IOperation* operationBelonged;
+        PBIW::Interfaces::IOperand* operandPBIW;
+        const GenericAssembly::Interfaces::IOperand* operand;
       };
   }
 }

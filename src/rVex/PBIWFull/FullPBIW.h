@@ -15,6 +15,7 @@
 #include "src/PBIW/Interfaces/IPBIW.h"
 #include "Label.h"
 #include "src/PBIW/Utils/OperandVectorDTO.h"
+#include "src/GenericAssembly/Utils/OperandVector.h"
 #include "src/rVex/Syllable.h"
 #include "rVex64PBIWInstruction.h"
 #include "rVex96PBIWPattern.h"
@@ -50,7 +51,6 @@ namespace PBIWFull
     /**
      * Type definitions to references rVex structures
      */
-    typedef rVex::Utils::OperandVectorDTO VexSyllableOperandVector; 
     typedef rVex::Instruction::SyllableVector VexSyllableVector;
 //    
 //    typedef std::vector<rVex::Instruction*> VexInstructionVector;
@@ -86,7 +86,10 @@ namespace PBIWFull
     void savePBIWElements(rVex64PBIWInstruction*&, rVex96PBIWPattern*&);
     void createNewPBIWElements(rVex64PBIWInstruction*&, rVex96PBIWPattern*&);
     void saveAndCreateNewPBIWElements(rVex64PBIWInstruction*&, rVex96PBIWPattern*&);
-    void resetFinalOperation(VexSyllableOperandVector::Collection::const_iterator&, Operation*&, rVex::Syllable* const&, const VexSyllableOperandVector&);
+    void resetFinalOperation(GenericAssembly::Utils::OperandVector::const_iterator&, 
+    IOperation*&, 
+    rVex::Syllable* const&, 
+    const GenericAssembly::Utils::OperandVector&);
 
     /**
      * Process the label vector translating the labels to respective instruction
@@ -115,8 +118,9 @@ namespace PBIWFull
     
     virtual ~FullPBIW();
 
-    virtual void encode(const std::vector<rVex::Instruction*>&);
-    virtual void decode(const std::vector<IPBIWInstruction*>&, const std::vector<IPBIWPattern*>&);
+    virtual void encode(const std::deque<GenericAssembly::Interfaces::IInstruction*>&);
+    virtual void encode(const std::deque<rVex::Instruction*>&);
+    virtual void decode(const std::deque<IPBIWInstruction*>&, const std::deque<IPBIWPattern*>&);
     
     virtual void registerOptimizer(IPBIWOptimizer&);
     virtual void runOptimizers();
@@ -125,9 +129,12 @@ namespace PBIWFull
     virtual void printInstructions(IPBIWPrinter&);
     virtual void printPatterns(IPBIWPrinter&);
 
-    virtual std::vector<IPBIWPattern*> getPatterns();
-    virtual std::vector<IPBIWInstruction*> getInstructions();
-    virtual std::vector<ILabel*> getLabels();
+    virtual std::deque<IPBIWPattern*> getPatterns() const;
+    virtual std::deque<IPBIWInstruction*> getInstructions() const;
+    virtual std::deque<ILabel*> getLabels() const;
+    
+    virtual unsigned int getOriginalInstructionCount() const
+    { return originalInstructionsCount; };
     
     void
     setDebug(bool debug)

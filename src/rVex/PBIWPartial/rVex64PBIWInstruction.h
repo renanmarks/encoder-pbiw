@@ -90,14 +90,15 @@ namespace PBIWPartial
      
     virtual const IOperand& containsOperand(const IOperand&) const;
     
-    virtual void addReadOperand(IOperand& operand);
+    virtual void addOperand(IOperand&);
+    
+    virtual void addReadOperand(IOperand&);
+    virtual void addWriteOperand(IOperand&);
     
     virtual void addBranchOperand(IOperand&);
     
     virtual void setBranchSourceOperand(IOperand&);
     virtual bool hasBranchSourceOperand() const;
-    
-    virtual void addWriteOperand(IOperand& operand);
     
     virtual bool hasOperandSlot(const PBIW::Utils::OperandItemDTO&);
     virtual bool hasReadOperandSlot() const;

@@ -19,6 +19,7 @@
           <itemPath>src/GenericAssembly/Utils/DependencyChains.h</itemPath>
           <itemPath>src/GenericAssembly/Utils/DerivedFrom.h</itemPath>
           <itemPath>src/GenericAssembly/Utils/LabelScope.h</itemPath>
+          <itemPath>src/GenericAssembly/Utils/OperandVector.h</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="f2" displayName="PBIW" projectFiles="true">
@@ -206,6 +207,7 @@
           <itemPath>src/rVex/Utils/OperandVectorBuilder.h</itemPath>
         </logicalFolder>
         <itemPath>src/rVex/Instruction.h</itemPath>
+        <itemPath>src/rVex/Operand.h</itemPath>
         <itemPath>src/rVex/Syllable.h</itemPath>
         <itemPath>src/rVex/SyllableALU.h</itemPath>
         <itemPath>src/rVex/SyllableCTRL.h</itemPath>
@@ -223,6 +225,11 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <logicalFolder name="f3" displayName="GenericAssembly" projectFiles="true">
+        <logicalFolder name="f1" displayName="Utils" projectFiles="true">
+          <itemPath>src/GenericAssembly/Utils/OperandVector.cpp</itemPath>
+        </logicalFolder>
+      </logicalFolder>
       <logicalFolder name="f1" displayName="PBIW" projectFiles="true">
         <logicalFolder name="f2" displayName="Optimizers" projectFiles="true">
           <logicalFolder name="f1" displayName="JoinPattern" projectFiles="true">
@@ -332,6 +339,7 @@
         </logicalFolder>
         <itemPath>src/rVex/Instruction.cpp</itemPath>
         <itemPath>src/rVex/Label.cpp</itemPath>
+        <itemPath>src/rVex/Operand.cpp</itemPath>
         <itemPath>src/rVex/Syllable.cpp</itemPath>
         <itemPath>src/rVex/SyllableALU.cpp</itemPath>
         <itemPath>src/rVex/SyllableCTRL.cpp</itemPath>
@@ -397,7 +405,6 @@
           </linkerAddLib>
           <linkerLibItems>
             <linkerLibLibItem>gtest</linkerLibLibItem>
-            <linkerLibLibItem>gtest_main</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>

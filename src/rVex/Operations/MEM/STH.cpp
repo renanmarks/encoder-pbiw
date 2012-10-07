@@ -2,6 +2,7 @@
 
 #include "STH.h"
 #include "src/rVex/Instruction.h"
+#include "src/rVex/Operand.h"
 #include "src/rVex/Utils/OperandVectorBuilder.h"
 
 namespace rVex
@@ -10,13 +11,16 @@ namespace rVex
   {
     namespace MEM
     {
-      void STH::exportOperandVector(Utils::OperandVectorBuilder& builder) const
+      GenericAssembly::Utils::OperandVector
+      STH::exportOperandVector() const
       {
-        using PBIW::Utils::OperandItemDTO;
+        Utils::OperandVectorBuilder builder;
         
-        builder.insertRegister(this->grDestiny, OperandItemDTO::GRSource, this);
-        builder.insertRegisters(readRegisters, OperandItemDTO::GRSource, this);
-        builder.insertImmediate(this->shortImmediate, rVex::Syllable::ImmediateSwitch::SHORT_IMM, this);
+        builder.insertOperand(grDestiny);
+        builder.insertOperands(readRegisters);
+        builder.insertOperand(shortImmediate);
+        
+        return builder.getOperandVector();
       }
     }
   }

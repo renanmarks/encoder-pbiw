@@ -17,10 +17,10 @@ namespace rVex
         final |= Syllable::ImmediateSwitch::BRANCH_IMM;
         
         final <<= 6;
-        final |= this->grDestiny;
+        final |= getGrDestinyValue();
 
         final <<= 12;
-        final |= this->shortImmediate;
+        final |= getShortImmediateValue();
 
         final<<=1;
         final|=last;

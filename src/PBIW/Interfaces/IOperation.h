@@ -50,6 +50,11 @@ namespace PBIW
       virtual void setType(int) = 0;
       virtual int getType() const = 0;
       
+      virtual bool operator<(const IOperation&) const = 0;
+      virtual bool operator>(const IOperation&) const = 0;
+      virtual bool operator<=(const IOperation&) const = 0;
+      virtual bool operator>=(const IOperation&) const = 0;
+      
       virtual bool operator==(const IOperation&) const = 0;
       virtual bool operator!=(const IOperation&) const = 0;        
       

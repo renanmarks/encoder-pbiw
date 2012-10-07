@@ -10,13 +10,16 @@ namespace rVex
   {
     namespace MEM
     {
-      void STW::exportOperandVector(Utils::OperandVectorBuilder& builder) const
+      GenericAssembly::Utils::OperandVector
+      STW::exportOperandVector() const
       {
-        using PBIW::Utils::OperandItemDTO;
+        Utils::OperandVectorBuilder builder;
         
-        builder.insertRegister(this->grDestiny, OperandItemDTO::GRSource, this);
-        builder.insertRegisters(readRegisters, OperandItemDTO::GRSource, this);
-        builder.insertImmediate(this->shortImmediate, rVex::Syllable::ImmediateSwitch::SHORT_IMM, this);
+        builder.insertOperand(grDestiny);
+        builder.insertOperands(readRegisters);
+        builder.insertOperand(shortImmediate);
+        
+        return builder.getOperandVector();
       }
     }
   }

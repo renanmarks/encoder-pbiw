@@ -9,7 +9,7 @@
 #define	IPBIW_H
 
 #include <ostream>
-#include <vector>
+#include <deque>
 #include "src/rVex/Instruction.h"
 #include "IPBIWInstruction.h"
 #include "IPBIWPattern.h"
@@ -23,24 +23,19 @@ namespace PBIW
     /**
      * PBIW codec interface
      */
-    class IPBIW
+    class IPBIW : public IPBIWSet
     {
       public:
         virtual ~IPBIW() {}
         
-        virtual void encode(const std::vector<rVex::Instruction*>&) = 0;
-        virtual void decode(const std::vector<IPBIWInstruction*>&, const std::vector<IPBIWPattern*>&) = 0;
+        virtual void setDebug(bool) = 0;
+        virtual bool isDebug() const = 0;
+        
+        virtual void encode(const std::deque<GenericAssembly::Interfaces::IInstruction*>&) = 0;
+        virtual void decode(const std::deque<IPBIWInstruction*>&, const std::deque<IPBIWPattern*>&) = 0;
         
         virtual void registerOptimizer(IPBIWOptimizer&) = 0;
         virtual void runOptimizers() = 0;
-        
-        virtual void printStatistics(IPBIWPrinter&) = 0;
-        virtual void printInstructions(IPBIWPrinter&) = 0;
-        virtual void printPatterns(IPBIWPrinter&) = 0;
-
-        virtual std::vector<IPBIWPattern*> getPatterns() = 0;
-        virtual std::vector<IPBIWInstruction*> getInstructions() = 0;
-        virtual std::vector<ILabel*> getLabels() = 0;
     };
   }
 }

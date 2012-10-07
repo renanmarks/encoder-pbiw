@@ -23,7 +23,7 @@ namespace GenericAssembly
     class IInstruction
     {
     public:
-      typedef std::deque<IOperation*> OperationVector;
+      typedef std::deque<IOperation*> OperationDeque;
       
       virtual ~IInstruction() { }
 
@@ -36,24 +36,24 @@ namespace GenericAssembly
       /**
        * Informs if this assembly instruction is pointed by a label.
        */
-      //virtual bool haveLabel() const = 0;
+      virtual bool haveLabel() const = 0;
       
       /**
        * Returns the label which points to this instruction.
        */
-      //virtual ILabel* getLabel() const = 0;
+      virtual ILabel* getLabel() const = 0;
       
       /**
        * Return an deque containing the pointers of the operations of the instruction.
        */
-      //virtual OperationVector getOperations() const = 0;
+      virtual OperationDeque getOperations() const = 0;
       
       /**
        * Informs if this instruction can be splitted in others at the specified
        * operation. Useful when this instruction is a VLIW instruction that 
        * cannot be fully encoded in one PBIW instruction.
        */
-      //virtual bool canSplitInstruction(const IOperation& operation) const = 0;
+      virtual bool canSplitInstruction(const IOperation& operation) const = 0;
     };
   }
 }

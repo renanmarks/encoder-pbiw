@@ -88,8 +88,10 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/rVex/Syllable.o \
 	${OBJECTDIR}/src/rVex/PBIWPartial/rVex96PBIWPattern.o \
 	${OBJECTDIR}/src/PBIW/PBIWOptimizerJoinPatterns.o \
+	${OBJECTDIR}/src/GenericAssembly/Utils/OperandVector.o \
 	${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/OperationInformation.o \
 	${OBJECTDIR}/src/rVex/Operations/MEM/LDB.o \
+	${OBJECTDIR}/src/rVex/Operand.o \
 	${OBJECTDIR}/src/rVex/PBIWPartial/Operand.o \
 	${OBJECTDIR}/src/rVex/PBIWFull/Printers/FullPBIWDebugPrinter.o \
 	${OBJECTDIR}/src/rVex/Parser/Expressions/Arguments.o \
@@ -136,7 +138,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L/usr/local/lib/gtest -lgtest -lgtest_main
+LDLIBSOPTIONS=-L/usr/local/lib/gtest -lgtest
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -416,6 +418,11 @@ ${OBJECTDIR}/src/PBIW/PBIWOptimizerJoinPatterns.o: src/PBIW/PBIWOptimizerJoinPat
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PBIW/PBIWOptimizerJoinPatterns.o src/PBIW/PBIWOptimizerJoinPatterns.cpp
 
+${OBJECTDIR}/src/GenericAssembly/Utils/OperandVector.o: src/GenericAssembly/Utils/OperandVector.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/GenericAssembly/Utils
+	${RM} $@.d
+	$(COMPILE.cc) -g -Wall -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/GenericAssembly/Utils/OperandVector.o src/GenericAssembly/Utils/OperandVector.cpp
+
 ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/OperationInformation.o: src/PBIW/Optimizers/JoinPattern/OperationInformation.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern
 	${RM} $@.d
@@ -425,6 +432,11 @@ ${OBJECTDIR}/src/rVex/Operations/MEM/LDB.o: src/rVex/Operations/MEM/LDB.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/rVex/Operations/MEM
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/MEM/LDB.o src/rVex/Operations/MEM/LDB.cpp
+
+${OBJECTDIR}/src/rVex/Operand.o: src/rVex/Operand.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/rVex
+	${RM} $@.d
+	$(COMPILE.cc) -g -Wall -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operand.o src/rVex/Operand.cpp
 
 ${OBJECTDIR}/src/rVex/PBIWPartial/Operand.o: src/rVex/PBIWPartial/Operand.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/rVex/PBIWPartial
@@ -1281,6 +1293,19 @@ ${OBJECTDIR}/src/PBIW/PBIWOptimizerJoinPatterns_nomain.o: ${OBJECTDIR}/src/PBIW/
 	    ${CP} ${OBJECTDIR}/src/PBIW/PBIWOptimizerJoinPatterns.o ${OBJECTDIR}/src/PBIW/PBIWOptimizerJoinPatterns_nomain.o;\
 	fi
 
+${OBJECTDIR}/src/GenericAssembly/Utils/OperandVector_nomain.o: ${OBJECTDIR}/src/GenericAssembly/Utils/OperandVector.o src/GenericAssembly/Utils/OperandVector.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/GenericAssembly/Utils
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/GenericAssembly/Utils/OperandVector.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -g -Wall -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/GenericAssembly/Utils/OperandVector_nomain.o src/GenericAssembly/Utils/OperandVector.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/GenericAssembly/Utils/OperandVector.o ${OBJECTDIR}/src/GenericAssembly/Utils/OperandVector_nomain.o;\
+	fi
+
 ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/OperationInformation_nomain.o: ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/OperationInformation.o src/PBIW/Optimizers/JoinPattern/OperationInformation.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern
 	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/OperationInformation.o`; \
@@ -1305,6 +1330,19 @@ ${OBJECTDIR}/src/rVex/Operations/MEM/LDB_nomain.o: ${OBJECTDIR}/src/rVex/Operati
 	    $(COMPILE.cc) -g -Wall -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/MEM/LDB_nomain.o src/rVex/Operations/MEM/LDB.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/rVex/Operations/MEM/LDB.o ${OBJECTDIR}/src/rVex/Operations/MEM/LDB_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/rVex/Operand_nomain.o: ${OBJECTDIR}/src/rVex/Operand.o src/rVex/Operand.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/rVex
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/rVex/Operand.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -g -Wall -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operand_nomain.o src/rVex/Operand.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/rVex/Operand.o ${OBJECTDIR}/src/rVex/Operand_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/rVex/PBIWPartial/Operand_nomain.o: ${OBJECTDIR}/src/rVex/PBIWPartial/Operand.o src/rVex/PBIWPartial/Operand.cpp 

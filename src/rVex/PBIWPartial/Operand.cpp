@@ -8,26 +8,27 @@
 #include <ios>
 #include <typeinfo>
 #include "Operand.h"
+#include "src/rVex/Operand.h"
 
 namespace PBIWPartial
 {
   Operand::Operand()
-  : index(0), immType(rVex::Syllable::ImmediateSwitch::NO_IMM), isBRSourceOperand(false), value(0)
+  : index(0), type(rVex::Operand::GRSource),  value(0)
   {
   }
   
   Operand::Operand(int value)
-  : index(0), immType(rVex::Syllable::ImmediateSwitch::NO_IMM), isBRSourceOperand(false), value(value)
+  : index(0), type(rVex::Operand::GRSource), value(value)
   {
   }
   
-  Operand::Operand(int value, rVex::Syllable::ImmediateSwitch::Type immediateType)
-  : index(0), immType(immediateType), isBRSourceOperand(false), value(value)
+  Operand::Operand(int value, rVex::Operand::Type operandType)
+  : index(0), type(operandType), value(value)
   {
   }
   
   Operand::Operand(const Operand& other)
-  : index(other.getIndex()), immType(other.getImmediateType()), isBRSourceOperand(other.isBRSource()), value(other.getValue())
+  : index(other.getIndex()), type(other.type), value(other.getValue())
   {
   }
   

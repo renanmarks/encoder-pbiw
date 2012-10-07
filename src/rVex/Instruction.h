@@ -14,9 +14,11 @@
 #include <algorithm>
 #include <utility>
 #include <string>
+#include <deque>
 
 #include "src/PBIW/Interfaces/IPBIWInstruction.h"
 #include "src/GenericAssembly/Interfaces/IInstruction.h"
+#include "src/GenericAssembly/Interfaces/IOperation.h"
 
 #include "src/rVex/Printers/IPrinter.h"
 #include "src/rVex/Parser/Expressions/SyllableArguments.h"
@@ -24,6 +26,7 @@
 #include "Utils/DependencyChains.h"
 
 #include "Label.h"
+#include "Operand.h"
 
 namespace rVex
 {
@@ -36,11 +39,13 @@ namespace rVex
   class Syllable;
   // End Forwarding declarations
   
+  /**
+   * The rVEX instruction class.
+   */
   class Instruction : public GenericAssembly::Interfaces::IInstruction
   {
     public:
       typedef std::vector<Syllable*> SyllableVector;
-      //typedef std::set<const PBIW::Interfaces::IPBIWInstruction*> PBIWInstructionSet;
       
       Instruction();
       ~Instruction();
@@ -61,6 +66,7 @@ namespace rVex
       void print(rVex::Printers::IPrinter&) const;
       void printSyllableDependencies(rVex::Printers::IPrinter&) const;
       
+      OperationDeque getOperations() const;
       SyllableVector getSyllables() const;
       SyllableVector getOrderedSyllables() const;
 
@@ -71,7 +77,7 @@ namespace rVex
       
       void buildSyllableDependencies(); 
      
-      bool canSplitSyllable(const Syllable* syllable) const;
+      bool canSplitInstruction(const IOperation& operation) const;
       
     private:
       rVex::Label* label;
@@ -84,7 +90,6 @@ namespace rVex
       unsigned int address; // instruction address, aligned by 16 bytes
       unsigned int wordAddress; // word address, aligned by 4 bytes
   };
-  
   
   
   /**
@@ -144,41 +149,10 @@ namespace rVex
         opMTB    = 103,
         opANDL   = 104,
 
-        opADDCG  = 120, 
-//          opADDCG  = 121, 
-//          opADDCG  = 122, 
-//          opADDCG  = 123, 
-//          opADDCG  = 124, 
-//          opADDCG  = 125, 
-//          opADDCG  = 126, 
-//          opADDCG  = 127, 
-          
-        opDIVS   = 112,
-        //opDIVS   = 113,
-        //opDIVS   = 114,
-        //opDIVS   = 115,
-        //opDIVS   = 116,
-        //opDIVS   = 117,
-        //opDIVS   = 118,
-        //opDIVS   = 119,
-          
-        opSLCT   = 56,
-        //opSLCT   = 57,
-        //opSLCT   = 58,
-        //opSLCT   = 59,
-        //opSLCT   = 60,
-        //opSLCT   = 61,
-        //opSLCT   = 62,
-        //opSLCT   = 63,
-          
-        opSLCTF  = 48,
-        //opSLCTF  = 49,
-        //opSLCTF  = 50,
-        //opSLCTF  = 51,
-        //opSLCTF  = 52,
-        //opSLCTF  = 53,
-        //opSLCTF  = 54,
-        //opSLCTF  = 55,
+        opADDCG  = 120, // from 120 to 127
+        opDIVS   = 112, // from 112 to 119
+        opSLCT   = 56, // from 56 to 63
+        opSLCTF  = 48, // from 48 to 55
 
         /* MUL opcodes */
         opMPYLL  =  1,
@@ -255,9 +229,10 @@ namespace rVex
         } Type;
       } BranchOperand;
       
-      typedef std::vector<unsigned int> ReadRegVector;
+      typedef std::vector<Operand> OperandVector;
+
       
-      virtual void exportOperandVector(Utils::OperandVectorBuilder&) const;
+      virtual GenericAssembly::Utils::OperandVector exportOperandVector() const;
       
       unsigned int getAddress() const;
       void setAddress(unsigned int);
@@ -281,22 +256,26 @@ namespace rVex
       virtual void setLayoutType(Syllable::LayoutType::Type);
       virtual void setLayoutType(int);
       
-      virtual ReadRegVector getReadRegisters() const;
+      virtual OperandVector getReadOperands() const;
 
-      virtual void setShortImmediate(unsigned short shortImmediate);
-      virtual unsigned short getShortImmediate() const;
+      virtual void setShortImmediateValue(unsigned short shortImmediate);
+      virtual unsigned short getShortImmediateValue() const;
+      virtual Operand getShortImmediateOperand() const;
 
       virtual bool hasBrDestiny() const;
-      virtual void setBrDestiny(unsigned char brDestiny);
-      virtual unsigned char getBrDestiny() const;
+      virtual void setBrDestinyValue(unsigned char brDestiny);
+      virtual unsigned char getBrDestinyValue() const;
+      virtual Operand getBrDestinyOperand() const;
       
       virtual bool hasBrSource() const;
-      virtual void setBrSource(unsigned char brSource);
-      virtual unsigned char getBrSource() const;
+      virtual void setBrSourceValue(unsigned char brSource);
+      virtual unsigned char getBrSourceValue() const;
+      virtual Operand getBrSourceOperand() const;
 
       virtual bool hasGrDestiny() const;
-      virtual void setGrDestiny(unsigned char grDestiny);
-      virtual unsigned char getGrDestiny() const;
+      virtual void setGrDestinyValue(unsigned char grDestiny);
+      virtual unsigned char getGrDestinyValue() const;
+      virtual Operand getGrDestinyOperand() const;
       
       virtual void setLabelDestiny(std::string label);
       virtual std::string getLabelDestiny() const;
@@ -378,15 +357,15 @@ namespace rVex
       unsigned int address;
       
       Syllable::LayoutType::Type layoutType;
-      unsigned char grDestiny;
+      Operand grDestiny;
       bool haveGRDestiny;
-      unsigned char brDestiny;
+      Operand brDestiny;
       bool haveBRDestiny;
       
-      ReadRegVector readRegisters;
-      unsigned char brSource;
+      OperandVector readRegisters;
+      Operand brSource;
       bool haveBRSource;
-      unsigned short shortImmediate;
+      Operand shortImmediate;
       
       std::string labelDestiny;
       Syllable* branchDestiny;
@@ -415,6 +394,8 @@ namespace rVex
       virtual void fillTypeXIX(VexParser::SyllableArguments&);
       virtual void fillTypeXX(VexParser::SyllableArguments&);
   };
+  
+  
 }
 
 #endif	/* RVEXINSTRUCTION_H */

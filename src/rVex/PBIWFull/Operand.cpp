@@ -9,28 +9,28 @@
 #include <typeinfo>
 #include "Operand.h"
 #include "src/rVex/Instruction.h"
+#include "src/rVex/Operand.h"
 
 namespace PBIWFull
 {
   Operand::Operand()
-  : index(0), immType(rVex::Syllable::ImmediateSwitch::NO_IMM), branchType(rVex::Syllable::BranchOperand::NONE), value(0)
+  : index(0), type(rVex::Operand::GRSource), value(0)
   {
   }
   
   Operand::Operand(int value)
-  : index(0), immType(rVex::Syllable::ImmediateSwitch::NO_IMM), branchType(rVex::Syllable::BranchOperand::NONE), value(value)
+  : index(0), type(rVex::Operand::GRSource), value(value)
   {
   }
   
-  Operand::Operand(int value, rVex::Syllable::ImmediateSwitch::Type immediateType)
-  : index(0), immType(immediateType), branchType(rVex::Syllable::BranchOperand::NONE), value(value)
+  Operand::Operand(int value, rVex::Operand::Type type)
+  : index(0), type(type), value(value)
   {
   }
   
   Operand::Operand(const Operand& other)
   : index(other.getIndex()), 
-    immType(other.getImmediateType()), 
-    branchType(other.getBanchType()), 
+    type(other.type), 
     value(other.getValue())
   {
   }
