@@ -9,7 +9,6 @@
 #include "PartialPBIWPrinter.h"
 #include "src/PBIW/Interfaces/IPBIWPattern.h"
 #include "src/PBIW/Interfaces/IPBIWInstruction.h"
-#include "src/PBIW/Interfaces/IPBIW.h"
 
 namespace PBIWPartial
 {
@@ -41,7 +40,6 @@ architecture teste of pcache1 is\n\
   void
   PartialPBIWPrinter::printPattern(const IPBIWPattern& pattern, const std::vector<unsigned int>& binary) // O(|operationCount|)
   {
-    
     printer << "\t\t" << pattern.getAddress() << " => b\"";
     
     std::vector<unsigned int>::const_iterator it;
@@ -61,11 +59,10 @@ architecture teste of pcache1 is\n\
           printer << "0";
 
         word <<= 1;
-       }
+      }
     }
     
     printer << "\",\n";
-   
   }
 
   void
@@ -84,7 +81,7 @@ end architecture teste;\n" << std::endl;
   
   void
   PartialPBIWPrinter::printInstructionsHeader() // O(1)
-  {/*
+  {
     printer << "library ieee;\n\
 use ieee.std_logic_1164.all;\n\
 use ieee.std_logic_arith.all;\n\
@@ -109,25 +106,19 @@ architecture Behav of i_mem is\n\
 \n\
 \ttype ROM_Array_0 is array (63 downto 0) of std_logic_vector(pbiw-1 downto 0);\n\
 \n\
-\tconstant Content_0: ROM_Array_0 := (" << std::endl;*/
+\tconstant Content_0: ROM_Array_0 := (" << std::endl;
   }
 
   void
   PartialPBIWPrinter::printInstruction(const IPBIWInstruction& instruction, const std::vector<unsigned int>& binary) // O(1)
   {
-    
     if (instruction.getLabel() != NULL)
-      printer << "#" << instruction.getLabel()->getName() << ":" << std::endl << "\n";
+      printer << "\t\t-- " << instruction.getLabel()->getName() << ": " << std::endl;
     
-    printer << "[I-" <<instruction.getAddress();
+    printer << "\t\t" <<instruction.getAddress() << " => b\"";
     
-    const IPBIWPattern* p = instruction.getPattern();
+    std::vector<unsigned int>::const_iterator it;
     
-    printer << " P-" << p->getAddress() << "]" << "\n";
-    
-    //std::vector<unsigned int>::const_iterator it;
-    
-    /*
     for (it = binary.begin();
          it < binary.end();
          it++)
@@ -144,9 +135,8 @@ architecture Behav of i_mem is\n\
         word <<= 1;
       }
     }
-    */
     
-    //printer << "\", -- ";
+    printer << "\", -- ";
       
     std::list<GenericAssembly::Interfaces::IOperation*> syllablesPacked = instruction.getOperationReferences();
     std::list<GenericAssembly::Interfaces::IOperation*>::const_iterator itSyllable;
@@ -158,13 +148,11 @@ architecture Behav of i_mem is\n\
     }
     
     printer << "\n";
-   
   }
   
   void
   PartialPBIWPrinter::printInstructionsFooter(unsigned int instructionsCount) // O(1)
   {
-      /*
     if (instructionsCount >= 63)
       printer << "--- WARNING: More than 64 instructions generated. Check your VHDL entity to accomplish the new address range." << std::endl;
     
@@ -184,6 +172,7 @@ begin\n\
 \t\t\tend if;\n\
 \t\tend if;\n\
 \tend process;\n\
-end Behav;\n" << std::endl;*/
+end Behav;\n" << std::endl;
   }
+  
 }

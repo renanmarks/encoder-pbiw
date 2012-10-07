@@ -62,14 +62,13 @@ namespace rVex
       SyllableVec syllables = instruction.getSyllables();
       SyllableVec::const_iterator it;
       
-      output << "[I: " << instruction.getAddress() << "]"<< std::endl;
+      output << "[I: " << instruction.getAddress() << "] ["<< instruction.getWordAddress() << "]" << std::endl;
       
       try 
       {
       
         for ( it = syllables.begin(); it < syllables.end(); it++) // O(1)
         {
-          /*
           // If the current is the first put 01 in LF...
           if (it == syllables.begin()) 
             (*it)->print(*this, true, false); // O(1)
@@ -80,19 +79,18 @@ namespace rVex
 
           else // ... if is in the middle, put 00 in LF bits
             (*it)->print(*this, false, false); // O(1)
-          */
-            if((*it)->getTextRepresentation() != "")
-                output << (*it)->getTextRepresentation() << "\n";
+          
+          output << " -- " << (*it)->getTextRepresentation() << std::endl;
         }
       
-        //instruction.printSyllableDependencies(*this);
+        instruction.printSyllableDependencies(*this);
       }
-      catch (rVex::Syllable::LayoutNotSupportedException e)
+      catch (rVex::Syllable::LayoutNotSupportedException* e)
       {
-        output << "Error printing: " << e.what() << "Opcode: " << (*it)->getOpcode() << std::endl; // O(1)
+        output << "Error printing: " << e->what() << "Opcode: " << (*it)->getOpcode() << std::endl; // O(1)
       }
       
-      //output << std::endl;
+      output << std::endl;
     }
 
     /**

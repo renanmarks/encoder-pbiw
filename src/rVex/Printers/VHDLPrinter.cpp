@@ -41,7 +41,6 @@ namespace rVex
     void 
     VHDLPrinter::printOperation(const rVex::Syllable& syllable, const std::vector<unsigned int>& binaries) // O(1)
     {
-        /*
       std::string resultBinary;
       std::vector<unsigned int>::const_iterator it;
       
@@ -51,14 +50,28 @@ namespace rVex
 
         output << "b\"";
 
-      if (first)
-        resultBinary.append("1\",");
-      else
-        resultBinary.append("0\"&");
-      */
-        if(syllable.getTextRepresentation() != "")
-                output << syllable.getTextRepresentation() << std::endl;
+        for (unsigned char counter=0; counter < 32; temp <<= 1, counter++)
+        {
+          if (temp & 0x80000000)
+          {
+            if (counter == 31)
+              resultBinary.append("1\",");
+            else
+              resultBinary.append("1");
+          }
+          else
+          {
+            if (counter == 31)
+              resultBinary.append("0\"&");
+            else
+              resultBinary.append("0");
+          }
+        }
 
+        output << resultBinary 
+          << " -- " << syllable.getTextRepresentation()
+          << std::endl;
+      }
     }
 
     /**
@@ -77,7 +90,7 @@ namespace rVex
         if (instruction.haveLabel())
           output << "\t\t-- " << instruction.getLabel()->getName() << ": " << std::endl;
         
-        output << "[I-" << instruction.getAddress() << "]" << "\n";
+        output << "\t\t" << instruction.getAddress() << " =>\t";
         
         for ( it = syllables.begin(); it < syllables.end(); it++)  // O(|syllables|) = O(4) = O(1)
         {
@@ -89,20 +102,20 @@ namespace rVex
           // ... if the current is the FIRST put 01 in LF ...
           else if (it+1 == syllables.end()) 
           {
-            //output << "\t\t\t";
+            output << "\t\t\t";
             (*it)->print(*this, true, false);
           }
           else // ... if is in the middle, put 00 in LF bits
           {
-            //output << "\t\t\t";
+            output << "\t\t\t";
             (*it)->print(*this, false, false);
           }
         }
       
       }
-      catch (rVex::Syllable::LayoutNotSupportedException e)
+      catch (rVex::Syllable::LayoutNotSupportedException* e)
       {
-        output << "Error printing: " << e.what() << "Opcode: " << (*it)->getOpcode() << std::endl;
+        output << "Error printing: " << e->what() << "Opcode: " << (*it)->getOpcode() << std::endl;
       }
       
       output << std::endl;

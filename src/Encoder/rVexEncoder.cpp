@@ -168,8 +168,6 @@ namespace Encoder
       return;
     } 
     
-    std::cout << printDineroData << std::endl;
-    
     if (printDineroData)
     {
       std::string outputFilename = filename;
