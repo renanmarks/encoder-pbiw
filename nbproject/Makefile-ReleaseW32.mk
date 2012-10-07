@@ -71,6 +71,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/PBIW/Utils/OperandVector.o \
 	${OBJECTDIR}/src/PBIW/Utils/OperandVectorDTO.o \
 	${OBJECTDIR}/src/rVex/PBIWFull/FullPBIW.o \
+	${OBJECTDIR}/src/rVex/Printers/DineroTool/AssemblyPrinter.o \
 	${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/PatternInformation.o \
 	${OBJECTDIR}/src/rVex/Parser/Structs/ISection.o \
 	${OBJECTDIR}/src/rVex/Operations/MEM/LDHU.o \
@@ -81,6 +82,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/rVex/Parser/parser.tab.o \
 	${OBJECTDIR}/src/rVex/Operations/CTRL/CALL.o \
 	${OBJECTDIR}/src/rVex/Operations/ALU/SLCTF.o \
+	${OBJECTDIR}/src/rVex/Printers/DineroTool/PBIWPrinter.o \
 	${OBJECTDIR}/src/rVex/Parser/Processors/SyllablePacker.o \
 	${OBJECTDIR}/src/rVex/Parser/Expressions/Expression.o \
 	${OBJECTDIR}/src/rVex/SyllableCTRL.o \
@@ -111,6 +113,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/rVex/Operations/CTRL/BRF.o \
 	${OBJECTDIR}/src/rVex/Parser/Processors/PseudoSyllableProcessor.o \
 	${OBJECTDIR}/src/rVex/Operations/ALU/CMPGTU.o \
+	${OBJECTDIR}/src/Encoder/rVexEncoder.o \
 	${OBJECTDIR}/src/rVex/Instruction.o \
 	${OBJECTDIR}/src/rVex/Operations/CTRL/IGOTO.o \
 	${OBJECTDIR}/src/rVex/Operations/MEM/LDW.o \
@@ -333,6 +336,11 @@ ${OBJECTDIR}/src/rVex/PBIWFull/FullPBIW.o: src/rVex/PBIWFull/FullPBIW.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/PBIWFull/FullPBIW.o src/rVex/PBIWFull/FullPBIW.cpp
 
+${OBJECTDIR}/src/rVex/Printers/DineroTool/AssemblyPrinter.o: src/rVex/Printers/DineroTool/AssemblyPrinter.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/rVex/Printers/DineroTool
+	${RM} $@.d
+	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Printers/DineroTool/AssemblyPrinter.o src/rVex/Printers/DineroTool/AssemblyPrinter.cpp
+
 ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/PatternInformation.o: src/PBIW/Optimizers/JoinPattern/PatternInformation.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern
 	${RM} $@.d
@@ -382,6 +390,11 @@ ${OBJECTDIR}/src/rVex/Operations/ALU/SLCTF.o: src/rVex/Operations/ALU/SLCTF.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/rVex/Operations/ALU
 	${RM} $@.d
 	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/ALU/SLCTF.o src/rVex/Operations/ALU/SLCTF.cpp
+
+${OBJECTDIR}/src/rVex/Printers/DineroTool/PBIWPrinter.o: src/rVex/Printers/DineroTool/PBIWPrinter.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/rVex/Printers/DineroTool
+	${RM} $@.d
+	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Printers/DineroTool/PBIWPrinter.o src/rVex/Printers/DineroTool/PBIWPrinter.cpp
 
 ${OBJECTDIR}/src/rVex/Parser/Processors/SyllablePacker.o: src/rVex/Parser/Processors/SyllablePacker.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/rVex/Parser/Processors
@@ -532,6 +545,11 @@ ${OBJECTDIR}/src/rVex/Operations/ALU/CMPGTU.o: src/rVex/Operations/ALU/CMPGTU.cp
 	${MKDIR} -p ${OBJECTDIR}/src/rVex/Operations/ALU
 	${RM} $@.d
 	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/ALU/CMPGTU.o src/rVex/Operations/ALU/CMPGTU.cpp
+
+${OBJECTDIR}/src/Encoder/rVexEncoder.o: src/Encoder/rVexEncoder.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/Encoder
+	${RM} $@.d
+	$(COMPILE.cc) -O3 -s -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Encoder/rVexEncoder.o src/Encoder/rVexEncoder.cpp
 
 ${OBJECTDIR}/src/rVex/Instruction.o: src/rVex/Instruction.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/rVex
@@ -1072,6 +1090,19 @@ ${OBJECTDIR}/src/rVex/PBIWFull/FullPBIW_nomain.o: ${OBJECTDIR}/src/rVex/PBIWFull
 	    ${CP} ${OBJECTDIR}/src/rVex/PBIWFull/FullPBIW.o ${OBJECTDIR}/src/rVex/PBIWFull/FullPBIW_nomain.o;\
 	fi
 
+${OBJECTDIR}/src/rVex/Printers/DineroTool/AssemblyPrinter_nomain.o: ${OBJECTDIR}/src/rVex/Printers/DineroTool/AssemblyPrinter.o src/rVex/Printers/DineroTool/AssemblyPrinter.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/rVex/Printers/DineroTool
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/rVex/Printers/DineroTool/AssemblyPrinter.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Printers/DineroTool/AssemblyPrinter_nomain.o src/rVex/Printers/DineroTool/AssemblyPrinter.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/rVex/Printers/DineroTool/AssemblyPrinter.o ${OBJECTDIR}/src/rVex/Printers/DineroTool/AssemblyPrinter_nomain.o;\
+	fi
+
 ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/PatternInformation_nomain.o: ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/PatternInformation.o src/PBIW/Optimizers/JoinPattern/PatternInformation.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern
 	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/PBIW/Optimizers/JoinPattern/PatternInformation.o`; \
@@ -1200,6 +1231,19 @@ ${OBJECTDIR}/src/rVex/Operations/ALU/SLCTF_nomain.o: ${OBJECTDIR}/src/rVex/Opera
 	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/ALU/SLCTF_nomain.o src/rVex/Operations/ALU/SLCTF.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/rVex/Operations/ALU/SLCTF.o ${OBJECTDIR}/src/rVex/Operations/ALU/SLCTF_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/rVex/Printers/DineroTool/PBIWPrinter_nomain.o: ${OBJECTDIR}/src/rVex/Printers/DineroTool/PBIWPrinter.o src/rVex/Printers/DineroTool/PBIWPrinter.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/rVex/Printers/DineroTool
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/rVex/Printers/DineroTool/PBIWPrinter.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Printers/DineroTool/PBIWPrinter_nomain.o src/rVex/Printers/DineroTool/PBIWPrinter.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/rVex/Printers/DineroTool/PBIWPrinter.o ${OBJECTDIR}/src/rVex/Printers/DineroTool/PBIWPrinter_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/rVex/Parser/Processors/SyllablePacker_nomain.o: ${OBJECTDIR}/src/rVex/Parser/Processors/SyllablePacker.o src/rVex/Parser/Processors/SyllablePacker.cpp 
@@ -1590,6 +1634,19 @@ ${OBJECTDIR}/src/rVex/Operations/ALU/CMPGTU_nomain.o: ${OBJECTDIR}/src/rVex/Oper
 	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/ALU/CMPGTU_nomain.o src/rVex/Operations/ALU/CMPGTU.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/rVex/Operations/ALU/CMPGTU.o ${OBJECTDIR}/src/rVex/Operations/ALU/CMPGTU_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/Encoder/rVexEncoder_nomain.o: ${OBJECTDIR}/src/Encoder/rVexEncoder.o src/Encoder/rVexEncoder.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/Encoder
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/Encoder/rVexEncoder.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -O3 -s -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Encoder/rVexEncoder_nomain.o src/Encoder/rVexEncoder.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/Encoder/rVexEncoder.o ${OBJECTDIR}/src/Encoder/rVexEncoder_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/rVex/Instruction_nomain.o: ${OBJECTDIR}/src/rVex/Instruction.o src/rVex/Instruction.cpp 

@@ -5,8 +5,8 @@
  * Created on October 11, 2011, 3:04 PM
  */
 
-#ifndef VHDLPRINTER_H
-#define	VHDLPRINTER_H
+#ifndef RVEX_PRINTERS_VHDLPRINTER_H
+#define	RVEX_PRINTERS_VHDLPRINTER_H
 
 #include <ostream>
 #include "../rVex.h"
@@ -67,5 +67,5 @@ namespace rVex
   }
 }
 
-#endif	/* VHDLPRINTER_H */
+#endif	/* RVEX_PRINTERS_VHDLPRINTER_H */
 

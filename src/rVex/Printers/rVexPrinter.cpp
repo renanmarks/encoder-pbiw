@@ -87,9 +87,9 @@ namespace rVex
       
         //instruction.printSyllableDependencies(*this);
       }
-      catch (rVex::Syllable::LayoutNotSupportedException* e)
+      catch (rVex::Syllable::LayoutNotSupportedException e)
       {
-        output << "Error printing: " << e->what() << "Opcode: " << (*it)->getOpcode() << std::endl; // O(1)
+        output << "Error printing: " << e.what() << "Opcode: " << (*it)->getOpcode() << std::endl; // O(1)
       }
       
       //output << std::endl;

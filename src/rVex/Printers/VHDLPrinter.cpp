@@ -100,9 +100,9 @@ namespace rVex
         }
       
       }
-      catch (rVex::Syllable::LayoutNotSupportedException* e)
+      catch (rVex::Syllable::LayoutNotSupportedException e)
       {
-        output << "Error printing: " << e->what() << "Opcode: " << (*it)->getOpcode() << std::endl;
+        output << "Error printing: " << e.what() << "Opcode: " << (*it)->getOpcode() << std::endl;
       }
       
       output << std::endl;

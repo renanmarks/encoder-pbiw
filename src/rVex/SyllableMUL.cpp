@@ -23,7 +23,7 @@ namespace rVex
         output.printOperation(*this, std::vector<unsigned int>(1, printISTYPE(first, last))); // O(1)
         break;
       default:
-        throw new LayoutNotSupportedException("This instruction only supports R or IS layouts.");
+        throw LayoutNotSupportedException("This instruction only supports R or IS layouts.");
     }
   }
  
