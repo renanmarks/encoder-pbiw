@@ -5,42 +5,43 @@
  * Created on May 11, 2012, 5:20 PM
  */
 
-#ifndef PBIWOPTIMIZERDATASET_H
-#define	PBIWOPTIMIZERDATASET_H
+#ifndef PBIWPATTERNSETOPTIMIZER_H
+#define	PBIWPATTERNSETOPTIMIZER_H
 
 #include <deque>
 #include <iostream>
 #include "PBIWOptimizerJoinPatterns.h"
 #include "Interfaces/IPBIWPrinter.h"
+#include "Interfaces/IPBIWSet.h"
 
 namespace PBIW
 {
     using namespace Interfaces;
     
-    class PBIWOptimizerDataSet {
+    class PBIWPatternSetOptimizer {
     public:
 //        PBIWOptimizerDataSet();
 //        PBIWOptimizerDataSet(const PBIWOptimizerDataSet& orig);
-//        virtual ~PBIWOptimizerDataSet();
+        virtual ~PBIWPatternSetOptimizer();
         
-        typedef std::deque<PBIWOptimizerJoinPatterns> Optimizers;
         typedef std::deque<IPBIWPattern*> Patterns;
-        typedef std::vector<IPBIWPattern*> VectorPatterns;
+        typedef std::deque<Patterns> PatternsSets;
         
         virtual void minimumPatterns();
         
         virtual void printPatterns(IPBIWPrinter&) const;
+        virtual void printStatistics() const;
         
-        virtual Optimizers getOptimizers() const
-        { return optimizers; }
+        virtual PatternsSets getPBIWSets() const
+        { return sets; }
         
-        virtual void setOptimizers(const PBIWOptimizerJoinPatterns& optimizer);
+        virtual void addPatternSet(const std::deque<IPBIWPattern*>& set);
         
     private:
-        Optimizers optimizers;
+        PatternsSets sets;
         Patterns uniquePatterns;
     };
 }
 
-#endif	/* PBIWOPTIMIZERDATASET_H */
+#endif	/* PBIWPATTERNSETOPTIMIZER_H */
 

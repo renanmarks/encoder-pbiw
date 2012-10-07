@@ -95,6 +95,7 @@ void
 encodePBIW(const std::string& filename,
                   const VexParser::VexContext& context,
                   PBIW::Interfaces::IPBIW& pbiwContext,
+                  PBIW::PBIWPatternSetOptimizer& patternOptimizer,
                   bool optimize)
 {
   // Instantiate the PBIW optimizer
@@ -118,12 +119,16 @@ encodePBIW(const std::string& filename,
       patternJoinOptimizer.printPatterns(printer); 
       patternJoinOptimizer.printStatistics(printer);
       
+      patternOptimizer.addPatternSet(patternJoinOptimizer.getPatterns());
+      
       return;
     }
     
     pbiwContext.printInstructions(printer);
     pbiwContext.printPatterns(printer);
     pbiwContext.printStatistics(printer);
+    
+    patternOptimizer.addPatternSet(pbiwContext.getPatterns());
     
     return;
   }
@@ -162,12 +167,16 @@ encodePBIW(const std::string& filename,
     patternJoinOptimizer.printPatterns(pbiwPatternPrinter); 
     patternJoinOptimizer.printStatistics(pbiwStatisticsPrinter);
     
+    patternOptimizer.addPatternSet(patternJoinOptimizer.getPatterns());
+    
     return;
   }
 
   pbiwContext.printInstructions(pbiwInstructionPrinter);
   pbiwContext.printPatterns(pbiwPatternPrinter);
   pbiwContext.printStatistics(pbiwStatisticsPrinter);
+  
+  patternOptimizer.addPatternSet(pbiwContext.getPatterns());
   
   return;
 }
@@ -178,14 +187,15 @@ encodePBIW(const std::string& filename,
  */
 void encodePartialPBIW(const std::string& filename,
                        const VexParser::VexContext& context,
+                       PBIW::PBIWPatternSetOptimizer& patternOptimizer,
                        bool optimize)
 {
   PBIWPartial::PartialPBIW pbiwContext;
   
   if (context.isDebuggingEnabled())
-    encodePBIW<PBIWPartial::PartialPBIWDebugPrinter>(filename, context, pbiwContext, optimize);
+    encodePBIW<PBIWPartial::PartialPBIWDebugPrinter>(filename, context, pbiwContext, patternOptimizer, optimize);
   else
-    encodePBIW<PBIWPartial::PartialPBIWPrinter>(filename, context, pbiwContext, optimize);
+    encodePBIW<PBIWPartial::PartialPBIWPrinter>(filename, context, pbiwContext, patternOptimizer, optimize);
   
   return;
 }
@@ -196,14 +206,15 @@ void encodePartialPBIW(const std::string& filename,
  */
 void encodeFullPBIW(const std::string& filename,
                     const VexParser::VexContext& context,
+                    PBIW::PBIWPatternSetOptimizer& patternOptimizer,
                     bool optimize)
 {
   PBIWFull::FullPBIW pbiwContext;
   
     if (context.isDebuggingEnabled())
-      encodePBIW<PBIWFull::FullPBIWDebugPrinter>(filename, context, pbiwContext, optimize);
+      encodePBIW<PBIWFull::FullPBIWDebugPrinter>(filename, context, pbiwContext, patternOptimizer, optimize);
     else
-      encodePBIW<PBIWFull::FullPBIWPrinter>(filename, context, pbiwContext, optimize);
+      encodePBIW<PBIWFull::FullPBIWPrinter>(filename, context, pbiwContext, patternOptimizer, optimize);
   
   return;
 }
@@ -226,6 +237,8 @@ main(int argc, char** argv)
   bool optimizePBIW = false;
   
   std::string flags;
+  
+  PBIW::PBIWPatternSetOptimizer dataSet;
   
   for (int ai=1; ai < argc; ++ai) // O(|argc|)
   {
@@ -323,14 +336,14 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
       assembleVex(context, filename, flags, debugEnabled, traceParsing, traceScanning);
       
       if (fullPBIW)
-        encodeFullPBIW(filename, context, optimizePBIW);
+        encodeFullPBIW(filename, context, dataSet, optimizePBIW);
       else
-        encodePartialPBIW(filename, context, optimizePBIW);
-      
-//      PBIW::PBIWOptimizerDataSet dataSet;
-//      encodePBIW(filename, flags, debugEnabled, traceParsing, traceScanning, dataSet);
+        encodePartialPBIW(filename, context, dataSet, optimizePBIW);
     }
   }
+  
+  dataSet.minimumPatterns();
+  dataSet.printStatistics();
 
   // Clean the memory
   std::vector<VexParser::VexOpcode>::iterator it;
