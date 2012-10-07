@@ -54,7 +54,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     << "-p\tTrace parsing" << std::endl
     << "-s\tTrace scanning" << std::endl
     << "-O\tEnable PBIW optimization" << std::endl
-    << "-u\tEnable rVex PBIW constrained encoding (Default)" << std::endl
+    << "-c\tEnable rVex PBIW constrained encoding (Default)" << std::endl
     << "-uc\tEnable rVex PBIW unconstrained encoding" << std::endl
     << "-do\tEnable Dinero Tool output data" << std::endl
     << std::endl;
