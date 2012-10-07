@@ -441,7 +441,11 @@ namespace PBIWFull
 
           if (freeSlotIndex > -1)
           {
-            operands.at(freeSlotIndex) = operands.at(index);
+            if (operands.size() == static_cast<unsigned int>(freeSlotIndex))
+              operands.push_back(operands.at(index));
+            else
+              operands.at(freeSlotIndex) = operands.at(index);
+            
             updateIndexes(index, freeSlotIndex);
             operands.erase(operands.begin()+index);
           }
@@ -469,7 +473,7 @@ namespace PBIWFull
     Operand& operandReference = dynamic_cast<Operand&>(operand);
     operandReference.setIndex(5);
 
-    setBranchSlot(operandReference, this->opBRFslot);
+    setBranchSlot(operandReference, this->opBRslot);
   }
 
   void
