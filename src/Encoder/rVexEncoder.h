@@ -42,8 +42,8 @@ namespace Encoder
     {
       typedef enum
       {
-        Unconstrained,
-        Constrained
+        Unconstrained, // versão 1.0
+        Constrained    // versão 2.0
       } Type;
     } Algorithm;
     

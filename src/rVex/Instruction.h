@@ -258,8 +258,8 @@ namespace rVex
       
       virtual OperandVector getReadOperands() const;
 
-      virtual void setShortImmediateValue(unsigned short shortImmediate);
-      virtual unsigned short getShortImmediateValue() const;
+      virtual void setShortImmediateValue(unsigned int shortImmediate);
+      virtual unsigned int getShortImmediateValue() const;
       virtual Operand getShortImmediateOperand() const;
 
       virtual bool hasBrDestiny() const;

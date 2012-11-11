@@ -61,12 +61,12 @@ namespace rVex
   }
 
   void
-  Syllable::setShortImmediateValue(unsigned short shortImmediate)
+  Syllable::setShortImmediateValue(unsigned int shortImmediate)
   {
     this->shortImmediate.setValue(shortImmediate);
   }
 
-  unsigned short
+  unsigned int
   Syllable::getShortImmediateValue() const
   {
     return shortImmediate.getValue();
