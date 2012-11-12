@@ -25,7 +25,7 @@ namespace Encoder
     void run();
   
   private:
-    rVexEncoder(const rVexEncoder&) { }
+    rVexEncoder(const rVexEncoder&);
     
     typedef struct
     {

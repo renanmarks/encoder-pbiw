@@ -4,6 +4,9 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <logicalFolder name="f3" displayName="Encoder" projectFiles="true">
+        <itemPath>src/Encoder/rVexEncoder.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="f4" displayName="GenericAssembly" projectFiles="true">
         <logicalFolder name="f1" displayName="Interfaces" projectFiles="true">
           <itemPath>src/GenericAssembly/Interfaces/IContext.h</itemPath>
@@ -198,6 +201,10 @@
           <itemPath>src/rVex/PBIWPartial/rVex96PBIWPattern.h</itemPath>
         </logicalFolder>
         <logicalFolder name="Printers" displayName="Printers" projectFiles="true">
+          <logicalFolder name="f1" displayName="DineroTool" projectFiles="true">
+            <itemPath>src/rVex/Printers/DineroTool/AssemblyPrinter.h</itemPath>
+            <itemPath>src/rVex/Printers/DineroTool/PBIWPrinter.h</itemPath>
+          </logicalFolder>
           <itemPath>src/rVex/Printers/IPrinter.h</itemPath>
           <itemPath>src/rVex/Printers/VHDLPrinter.h</itemPath>
           <itemPath>src/rVex/Printers/rVexPrinter.h</itemPath>
@@ -225,6 +232,9 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <logicalFolder name="f4" displayName="Encoder" projectFiles="true">
+        <itemPath>src/Encoder/rVexEncoder.cpp</itemPath>
+      </logicalFolder>
       <logicalFolder name="f3" displayName="GenericAssembly" projectFiles="true">
         <logicalFolder name="f1" displayName="Utils" projectFiles="true">
           <itemPath>src/GenericAssembly/Utils/OperandVector.cpp</itemPath>
@@ -330,6 +340,10 @@
           <itemPath>src/rVex/PBIWPartial/rVex96PBIWPattern.cpp</itemPath>
         </logicalFolder>
         <logicalFolder name="Printers" displayName="Printers" projectFiles="true">
+          <logicalFolder name="f1" displayName="DineroTool" projectFiles="true">
+            <itemPath>src/rVex/Printers/DineroTool/AssemblyPrinter.cpp</itemPath>
+            <itemPath>src/rVex/Printers/DineroTool/PBIWPrinter.cpp</itemPath>
+          </logicalFolder>
           <itemPath>src/rVex/Printers/VHDLPrinter.cpp</itemPath>
           <itemPath>src/rVex/Printers/rVexPrinter.cpp</itemPath>
         </logicalFolder>

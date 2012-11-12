@@ -12,12 +12,12 @@ namespace PBIW
 {
     using namespace Interfaces;
     
-//    PBIWOptimizerDataSet::PBIWOptimizerDataSet() {   
-//    }
-//
-//    PBIWOptimizerDataSet::PBIWOptimizerDataSet(const PBIWOptimizerDataSet& orig) {
-//    }
-//
+    PBIWPatternSetOptimizer::PBIWPatternSetOptimizer(unsigned int _instructionByteSize, unsigned int _patternByteSize, unsigned int _originalInstructionByteSize) 
+      : instructionByteSize(_instructionByteSize), patternByteSize(_patternByteSize), originalInstructionByteSize(_originalInstructionByteSize)
+    {
+      
+    }
+    
     PBIWPatternSetOptimizer::~PBIWPatternSetOptimizer() 
     {
       PatternsSets::iterator setIt;
@@ -76,7 +76,7 @@ namespace PBIW
     }
 
     void
-    PBIWPatternSetOptimizer::addPatternSet(const std::deque<IPBIWPattern*>& set)
+    PBIWPatternSetOptimizer::addPatternSet(const std::deque<IPBIWPattern*>& set, unsigned int instructionCount, unsigned int originalInstructionCount)
     {
         std::deque<IPBIWPattern*>::const_iterator it;
         std::deque<IPBIWPattern*> clonedPatterns;
@@ -87,6 +87,8 @@ namespace PBIW
         }
       
         sets.push_back(clonedPatterns);
+        instructionsPerProgram.push_back(instructionCount);
+        originalInstructionsPerProgram.push_back(originalInstructionCount);
     }
     
     void 
@@ -110,23 +112,45 @@ namespace PBIW
     void 
     PBIWPatternSetOptimizer::printStatistics() const
     {
-      PatternsSets::const_iterator optIt;
-      int i = 0;
-      int total = 0;
+      int totalPatterns = 0;
+      int totalInstructions = 0;
+      int totalOriginalInstructions = 0;
       
       std::cout << "-------- Results: Patterns Minimum Set ---------" << std::endl;
       std::cout << "Programs: " << sets.size() << std::endl;
       
+      PatternsSets::const_iterator optIt;
+      int i = 0;
+      
       for(optIt = sets.begin(); optIt != sets.end(); optIt++)
       {
-          std::cout << "Program " << i++ << ": " << optIt->size() << " patterns " << std::endl;
-          total += optIt->size();
+          std::cout << "Program " << i << ": " 
+            << originalInstructionsPerProgram.at(i) << " Original Instr., " 
+            << instructionsPerProgram.at(i) << " Instr., " 
+            << optIt->size() << " Patterns " << std::endl;
+          
+          totalPatterns += optIt->size();
+          totalInstructions += instructionsPerProgram.at(i);
+          totalOriginalInstructions += originalInstructionsPerProgram.at(i++);
       }
       
-      std::cout << "Patterns: " << total << std::endl;
-      std::cout << "Unique Patterns: " << uniquePatterns.size() << std::endl;
-      std::cout << "Reduction Patters: " << total - uniquePatterns.size() << std::endl;
-      std::cout << "Compression Rate: " << uniquePatterns.size()/(double)total*100 << " %" << std::endl;
+      unsigned int instructionsSize = totalInstructions * instructionByteSize;
+      unsigned int patternsSize = totalPatterns * patternByteSize;
+      unsigned int originalInstructionsSize = totalOriginalInstructions * originalInstructionByteSize;
+      
+      std::cout << "Original Instr.:   \t" << totalOriginalInstructions << " - " << originalInstructionsSize << " bytes" << std::endl;
+      std::cout << "Instructions:      \t" << totalInstructions << " - " << instructionsSize << " bytes" << std::endl;
+      std::cout << "Unique Patterns:   \t" << uniquePatterns.size() << " - " << patternsSize << " bytes" << std::endl;
+      std::cout << "Total size:        \t" << instructionsSize + patternsSize << " bytes" << std::endl;
+      std::cout << "Compression ratio: \t" << ((instructionsSize + patternsSize) / (double)originalInstructionsSize) * 100 << " %" << std::endl << std::endl;
+      
+      
+      std::cout << "All Patterns:      \t" << totalPatterns << " - " << patternsSize << " bytes" << std::endl;
+      
+      unsigned int duplicatedPatterns = totalPatterns - uniquePatterns.size();
+      std::cout << "Duplicated Patters:\t " << duplicatedPatterns << " - " << duplicatedPatterns * patternByteSize << " bytes" << std::endl << std::endl;
+      
+      std::cout << "Patterns Reduction Rate: " << (uniquePatterns.size() / (double)totalPatterns) * 100 << " %" << std::endl;
       std::cout << "---------- End Patterns Minimum Set -----------" << std::endl;
       std::cout << std::endl;
     }

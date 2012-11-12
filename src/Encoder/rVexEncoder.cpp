@@ -34,7 +34,7 @@
 namespace Encoder
 {
   rVexEncoder::rVexEncoder(const std::list<std::string>& inputFlags)
-    : flagList(inputFlags)
+    : flagList(inputFlags), patternSetOptimizer(8, 12, 16)
   {
     std::list<std::string>::const_iterator it;
     std::string flags;
@@ -227,7 +227,7 @@ namespace Encoder
     pbiwSetAlias->printPatterns(patternPrinter);
     pbiwSetAlias->printStatistics(statisticPrinter);
 
-    patternSetOptimizer.addPatternSet(pbiwSetAlias->getPatterns());
+    patternSetOptimizer.addPatternSet(pbiwSetAlias->getPatterns(), pbiwSetAlias->getInstructions().size(), context.getInstructions().size());
 
     return;
   }

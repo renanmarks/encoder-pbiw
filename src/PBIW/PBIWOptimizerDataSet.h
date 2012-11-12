@@ -20,8 +20,7 @@ namespace PBIW
     
     class PBIWPatternSetOptimizer {
     public:
-//        PBIWOptimizerDataSet();
-//        PBIWOptimizerDataSet(const PBIWOptimizerDataSet& orig);
+        PBIWPatternSetOptimizer(unsigned int, unsigned int, unsigned int);
         virtual ~PBIWPatternSetOptimizer();
         
         typedef std::deque<IPBIWPattern*> Patterns;
@@ -35,11 +34,18 @@ namespace PBIW
         virtual PatternsSets getPBIWSets() const
         { return sets; }
         
-        virtual void addPatternSet(const std::deque<IPBIWPattern*>& set);
+        virtual void addPatternSet(const std::deque<IPBIWPattern*>&, unsigned int, unsigned int);
         
     private:
+        PBIWPatternSetOptimizer(const PBIWPatternSetOptimizer&);
+      
+        std::deque<unsigned int> instructionsPerProgram;
+        std::deque<unsigned int> originalInstructionsPerProgram;
         PatternsSets sets;
         Patterns uniquePatterns;
+        const unsigned int instructionByteSize;
+        const unsigned int patternByteSize;
+        const unsigned int originalInstructionByteSize;
     };
 }
 
