@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <stdexcept>
+#include <sstream>
 
 #include "FullPBIW.h"
 #include "rVex64PBIWInstruction.h"
@@ -170,6 +171,7 @@ namespace PBIWFull
       VexSyllableVector::const_iterator syllableIt;
       
       unsigned int index = 0;
+      unsigned int tries = 0;
       
       for (syllableIt = syllables.begin();  // O(|syllables| * (4 + |codedPatterns|)) = O(4 * (4 + |codedPatterns|)) = 
            syllableIt < syllables.end();    // O(16 + 16|codedPatterns|)
@@ -206,12 +208,24 @@ namespace PBIWFull
               }
               else
               {
+                
+                
                 while ( !(*instructionIt)->canSplitInstruction(**syllableIt) )
                 {
+                  if ((*instructionIt)->getSyllables().size() == tries)
+                  {
+                    std::cout << "Impossible to split instruction: " << std::endl;
+                    std::cout << syllables.front()->getTextRepresentation() << std::endl;;
+                  
+                    std::stringstream errorMsg;
+                    throw EncodingException( errorMsg.str() );
+                  }
+                  
                   syllablesBuffer.remove(*syllableIt);
                   syllableIt--; // go back
                   newPattern->removeLastAddedOperation();
                   finalInstruction->setAnnulBit(index-1,false);
+                  tries++;
                 } 
                 
                 syllablesBuffer.remove(*syllableIt);

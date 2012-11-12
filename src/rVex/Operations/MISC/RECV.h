@@ -8,7 +8,7 @@
 #ifndef RECV_H
 #define	RECV_H
 
-#include "../../SyllableMISC.h"
+#include "../../SyllableCTRL.h"
 
 namespace rVex
 {
@@ -16,7 +16,7 @@ namespace rVex
   {
     namespace MISC
     {
-      class RECV : public SyllableMISC
+      class RECV : public SyllableCTRL
       {
         public:
           RECV() {}

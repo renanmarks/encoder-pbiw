@@ -15,6 +15,7 @@
 #include "SyllableCTRL.h"
 #include "SyllableMUL.h"
 #include "SyllableMEM.h"
+#include "SyllableMISC.h"
 
 #include "Operations/Operations.h"
 

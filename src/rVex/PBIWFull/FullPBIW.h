@@ -143,6 +143,30 @@ namespace PBIWFull
     bool
     isDebug() const
     { return debug; }
+    
+    /**
+     * Exception thrown when the an encoding mismatch exception occurs;
+     */
+    class EncodingException : public std::exception
+    {
+    public:
+      EncodingException( );
+
+      explicit
+      EncodingException( std::string reason ) throw () : reason( reason )
+      { }
+
+      virtual
+      ~EncodingException( ) throw ()
+      { };
+
+      virtual const char*
+      what( ) const throw ()
+      { return reason.c_str(); }
+
+    private:
+      std::string reason;
+    };
   };
 }
 

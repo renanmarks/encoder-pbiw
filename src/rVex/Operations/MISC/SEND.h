@@ -8,7 +8,7 @@
 #ifndef SEND_H
 #define	SEND_H
 
-#include "../../SyllableMISC.h"
+#include "../../SyllableCTRL.h"
 
 namespace rVex
 {
@@ -16,7 +16,7 @@ namespace rVex
   {
     namespace MISC
     {
-      class SEND : public SyllableMISC
+      class SEND : public SyllableCTRL
       {
         public:
           SEND() {}

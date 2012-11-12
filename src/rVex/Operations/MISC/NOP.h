@@ -10,7 +10,7 @@
 
 #include <vector>
 #include "../../Syllable.h"
-#include "../../SyllableMISC.h"
+#include "../../SyllableCTRL.h"
 #include "src/rVex/Printers/IPrinter.h"
 
 namespace rVex
@@ -19,7 +19,7 @@ namespace rVex
   {
     namespace MISC
     {
-      class NOP : public SyllableMISC
+      class NOP : public SyllableCTRL
       {
         public:
           NOP() {}

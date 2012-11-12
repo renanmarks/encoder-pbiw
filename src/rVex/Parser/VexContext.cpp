@@ -247,17 +247,19 @@ namespace VexParser
       rVexLabelVector::iterator labelIt = std::find_if(labels.begin(), labels.end(), FindLabel(label));
       
       if ( labelIt != labels.end() )
+      {
         (*it)->setBranchDestiny(dynamic_cast<rVex::Syllable*>(labelIt->getDestiny()));
     
-      if (debugEnabled)
-      {
-        std::cout << "Syllable " << "(opcode: " << (*it)->getOpcode() << ") addr:"
-          << "[" << (*it)->getBelongedInstruction()->getAddress() << "]"
-          << "(" << (*it)->getAddress() << ")"
-          << " now points to " << (*it)->getLabelDestiny()
-          << "[" << (*it)->getBranchDestiny()->getBelongedInstruction()->getAddress() << "]"
-          << "("  << (*it)->getBranchDestiny()->getAddress() << ")" 
-          << std::endl;
+        if (debugEnabled)
+        {
+          std::cout << "Syllable " << "(opcode: " << (*it)->getOpcode() << ") addr:"
+            << "[" << (*it)->getBelongedInstruction()->getAddress() << "]"
+            << "(" << (*it)->getAddress() << ")"
+            << " now points to " << (*it)->getLabelDestiny()
+            << "[" << (*it)->getBranchDestiny()->getBelongedInstruction()->getAddress() << "]"
+            << "("  << (*it)->getBranchDestiny()->getAddress() << ")" 
+            << std::endl;
+        }
       }
     }
   }
