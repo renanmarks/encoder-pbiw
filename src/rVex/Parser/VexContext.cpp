@@ -268,12 +268,10 @@ namespace VexParser
   { 
     rVex::Label label;
     
-    hasLabel = true;
-    
     label.setName(name);
     label.setScope(scope);
     
-    labels.push_back(label);
+    labelBuffer.push_back(label);
   }
 
   void VexContext::endInstruction() // O(1)
@@ -302,16 +300,22 @@ namespace VexParser
     instruction->setWordAddress(this->lastWordAddress);
     this->lastWordAddress += instruction->getQuantityNotNopOperations();
     
-    if (hasLabel) // Define the label
+    if (labelBuffer.size() > 0) // Define the label
     {
-      rVex::Label& label = labels.back(); // O(1)
+      rVexLabelVector::iterator it;
+      
+      for (it = labelBuffer.begin(); it != labelBuffer.end(); it++)
+      {
+        labels.push_back(*it);
+        rVex::Label& label = labels.back(); // O(1)
 
-      label.setDestiny(instruction->getSyllables()[0]); // O(1)
-      label.setAbsoluteAddress(instruction->getAddress()); // O(1)
+        label.setDestiny(instruction->getSyllables()[0]); // O(1)
+        label.setAbsoluteAddress(instruction->getAddress()); // O(1)
+
+        instruction->setLabel(label);  // O(1)
+      }
       
-      instruction->setLabel(label);  // O(1)
-      
-      hasLabel = false;
+      labelBuffer.clear();
     }
     
     instruction->buildSyllableDependencies();

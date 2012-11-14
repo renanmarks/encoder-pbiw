@@ -15,7 +15,7 @@ namespace rVex
 {
 
   Instruction::Instruction()
-  : label(NULL), address(0)
+  : address(0)
   {
 
   }
@@ -40,19 +40,19 @@ namespace rVex
   void
   Instruction::setLabel(rVex::Label& label)
   {
-    this->label= &label;
+    this->labels.push_back(&label);
   }
 
   bool
-  Instruction::haveLabel() const
+  Instruction::haveLabels() const
   {
-    return this->label != NULL;
+    return this->labels.size() > 0;
   }
 
-  rVex::Label*
-  Instruction::getLabel() const
+  Instruction::LabelDeque
+  Instruction::getLabels() const
   {
-    return this->label;
+    return Instruction::LabelDeque(labels.begin(), labels.end());
   }
 
   void

@@ -39,10 +39,10 @@ namespace PBIWFull
     return address;
   }
 
-  ILabel*
-  rVex64PBIWInstruction::getLabel() const
+  std::deque<ILabel*>
+  rVex64PBIWInstruction::getLabels() const
   {
-    return label;
+    return labels;
   }
 
   std::string
@@ -272,7 +272,7 @@ namespace PBIWFull
   void
   rVex64PBIWInstruction::setLabel(const ILabel* label) // O(1)
   {
-    this->label = const_cast<ILabel*>(label);
+    this->labels.push_back(const_cast<ILabel*>(label));
   }
 
   void

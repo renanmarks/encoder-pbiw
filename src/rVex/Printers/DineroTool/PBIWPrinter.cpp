@@ -5,7 +5,7 @@
  * Created on October 30, 2011, 4:28 PM
  */
 
-#include <list>
+#include <deque>
 #include "PBIWPrinter.h"
 #include "src/PBIW/Interfaces/IPBIWPattern.h"
 #include "src/PBIW/Interfaces/IPBIWInstruction.h"
@@ -48,9 +48,13 @@ namespace rVex
       void
       PBIWPrinter::printInstruction(const IPBIWInstruction& instruction, const std::vector<unsigned int>& binary) // O(1)
       {
+        std::deque<PBIW::Interfaces::ILabel*> labels = instruction.getLabels();
+        std::deque<PBIW::Interfaces::ILabel*>::iterator labelIt;
 
-        if (instruction.getLabel() != NULL)
-          printer << "#" << instruction.getLabel()->getName() << ":" << std::endl << "\n";
+        for (labelIt = labels.begin(); labelIt != labels.end(); labelIt++)
+        {
+          printer << "#" << (*labelIt)->getName() << ":" << std::endl << "\n";
+        }
 
         printer << "[I-" <<instruction.getAddress();
 

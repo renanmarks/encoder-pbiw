@@ -30,7 +30,6 @@ namespace PBIWPartial
   public:
     rVex64PBIWInstruction() 
     : address(0), 
-      label(NULL), 
       branchDestiny(NULL), 
       pattern(NULL), 
       codingOperation(NULL),
@@ -48,7 +47,7 @@ namespace PBIWPartial
     
     rVex64PBIWInstruction(const rVex64PBIWInstruction& other) : 
       address(other.address), 
-      label(other.label),
+      labels(other.labels),
       destinyLabel(other.destinyLabel),
       branchDestiny(other.branchDestiny), 
       pattern(other.pattern), 
@@ -74,8 +73,8 @@ namespace PBIWPartial
     { return address; }
     
     virtual void setLabel(const ILabel*);
-    virtual ILabel* getLabel() const
-    { return label; }
+    virtual std::deque<ILabel*> getLabels() const
+    { return labels; }
     
     virtual void pointToPattern(IPBIWPattern& pattern);
     
@@ -171,7 +170,7 @@ namespace PBIWPartial
   private:
     unsigned int address;
     
-    ILabel* label;
+    std::deque<ILabel*> labels;
     std::string destinyLabel;
     rVex64PBIWInstruction* branchDestiny;
     

@@ -63,7 +63,7 @@ namespace VexParser
 
     VexContext() :
     debugEnabled(false),
-    hasLabel(false),
+    hasLabels(false),
     syllableCounter(0),
     instructionCounter(0),
     lastWordAddress(0)
@@ -177,7 +177,8 @@ namespace VexParser
     bool debugEnabled; // Be verbose or not, that's the question!
 
     rVexLabelVector labels;
-    bool hasLabel; // Used to know when a label is defined
+    bool hasLabels; // Used to know when a label is defined
+    rVexLabelVector labelBuffer; // Used to handle one or more labels at parsing
 
     ControlSyllablesVector controlSyllables;
     SyllableBuffer syllableBuffer;

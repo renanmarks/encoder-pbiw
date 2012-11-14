@@ -113,8 +113,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/rVex/Operations/CTRL/BRF.o \
 	${OBJECTDIR}/src/rVex/Parser/Processors/PseudoSyllableProcessor.o \
 	${OBJECTDIR}/src/rVex/Operations/ALU/CMPGTU.o \
-	${OBJECTDIR}/src/Encoder/rVexEncoder.o \
 	${OBJECTDIR}/src/rVex/Instruction.o \
+	${OBJECTDIR}/src/Encoder/rVexEncoder.o \
 	${OBJECTDIR}/src/rVex/Operations/CTRL/IGOTO.o \
 	${OBJECTDIR}/src/rVex/Operations/MEM/LDW.o \
 	${OBJECTDIR}/src/PBIW/BaseOptimizer.o
@@ -546,15 +546,15 @@ ${OBJECTDIR}/src/rVex/Operations/ALU/CMPGTU.o: src/rVex/Operations/ALU/CMPGTU.cp
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Operations/ALU/CMPGTU.o src/rVex/Operations/ALU/CMPGTU.cpp
 
-${OBJECTDIR}/src/Encoder/rVexEncoder.o: src/Encoder/rVexEncoder.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/Encoder
-	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Encoder/rVexEncoder.o src/Encoder/rVexEncoder.cpp
-
 ${OBJECTDIR}/src/rVex/Instruction.o: src/rVex/Instruction.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/rVex
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Instruction.o src/rVex/Instruction.cpp
+
+${OBJECTDIR}/src/Encoder/rVexEncoder.o: src/Encoder/rVexEncoder.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/Encoder
+	${RM} $@.d
+	$(COMPILE.cc) -g -Wall -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Encoder/rVexEncoder.o src/Encoder/rVexEncoder.cpp
 
 ${OBJECTDIR}/src/rVex/Operations/CTRL/IGOTO.o: src/rVex/Operations/CTRL/IGOTO.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/rVex/Operations/CTRL
@@ -1636,19 +1636,6 @@ ${OBJECTDIR}/src/rVex/Operations/ALU/CMPGTU_nomain.o: ${OBJECTDIR}/src/rVex/Oper
 	    ${CP} ${OBJECTDIR}/src/rVex/Operations/ALU/CMPGTU.o ${OBJECTDIR}/src/rVex/Operations/ALU/CMPGTU_nomain.o;\
 	fi
 
-${OBJECTDIR}/src/Encoder/rVexEncoder_nomain.o: ${OBJECTDIR}/src/Encoder/rVexEncoder.o src/Encoder/rVexEncoder.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/Encoder
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/Encoder/rVexEncoder.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} $@.d;\
-	    $(COMPILE.cc) -g -Wall -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Encoder/rVexEncoder_nomain.o src/Encoder/rVexEncoder.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/src/Encoder/rVexEncoder.o ${OBJECTDIR}/src/Encoder/rVexEncoder_nomain.o;\
-	fi
-
 ${OBJECTDIR}/src/rVex/Instruction_nomain.o: ${OBJECTDIR}/src/rVex/Instruction.o src/rVex/Instruction.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/rVex
 	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/rVex/Instruction.o`; \
@@ -1660,6 +1647,19 @@ ${OBJECTDIR}/src/rVex/Instruction_nomain.o: ${OBJECTDIR}/src/rVex/Instruction.o 
 	    $(COMPILE.cc) -g -Wall -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/rVex/Instruction_nomain.o src/rVex/Instruction.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/rVex/Instruction.o ${OBJECTDIR}/src/rVex/Instruction_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/Encoder/rVexEncoder_nomain.o: ${OBJECTDIR}/src/Encoder/rVexEncoder.o src/Encoder/rVexEncoder.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/Encoder
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/Encoder/rVexEncoder.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -g -Wall -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Encoder/rVexEncoder_nomain.o src/Encoder/rVexEncoder.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/Encoder/rVexEncoder.o ${OBJECTDIR}/src/Encoder/rVexEncoder_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/rVex/Operations/CTRL/IGOTO_nomain.o: ${OBJECTDIR}/src/rVex/Operations/CTRL/IGOTO.o src/rVex/Operations/CTRL/IGOTO.cpp 

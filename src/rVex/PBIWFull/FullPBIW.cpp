@@ -155,15 +155,20 @@ namespace PBIWFull
       createNewPBIWElements(finalInstruction, newPattern);
       
       // Copy the original labels to the data structure used in PBIW
-      if ( (*instructionIt)->haveLabel() )
+      if ( (*instructionIt)->haveLabels() )
       {
-        rVex::Label* instructionLabel = (*instructionIt)->getLabel();
-        PBIWFull::Label label = *instructionLabel;
-        label.setDestiny(finalInstruction);
+        GenericAssembly::Interfaces::IInstruction::LabelDeque instructionLabel = (*instructionIt)->getLabels();
+        GenericAssembly::Interfaces::IInstruction::LabelDeque::const_iterator it;
         
-        labels.push_back(label);
-        
-        finalInstruction->setLabel(&labels.back());
+        for(it = instructionLabel.begin(); it != instructionLabel.end(); it++)
+        {
+          PBIWFull::Label label = *(dynamic_cast<rVex::Label*>(*it));
+          label.setDestiny(finalInstruction);
+
+          labels.push_back(label);
+
+          finalInstruction->setLabel(&labels.back());
+        }
       }
       
       // For each syllable...

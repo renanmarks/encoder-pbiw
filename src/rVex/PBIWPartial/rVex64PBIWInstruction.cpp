@@ -207,7 +207,7 @@ namespace PBIWPartial
   void
   rVex64PBIWInstruction::setLabel(const ILabel* label) // O(1)
   {
-    this->label = const_cast<ILabel*>(label);
+    this->labels.push_back(const_cast<ILabel*>(label));
   }
 
   void

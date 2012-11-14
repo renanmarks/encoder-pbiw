@@ -23,6 +23,7 @@ namespace GenericAssembly
     class IInstruction
     {
     public:
+      typedef std::deque<ILabel*> LabelDeque;
       typedef std::deque<IOperation*> OperationDeque;
       
       virtual ~IInstruction() { }
@@ -36,12 +37,12 @@ namespace GenericAssembly
       /**
        * Informs if this assembly instruction is pointed by a label.
        */
-      virtual bool haveLabel() const = 0;
+      virtual bool haveLabels() const = 0;
       
       /**
        * Returns the label which points to this instruction.
        */
-      virtual ILabel* getLabel() const = 0;
+      virtual LabelDeque getLabels() const = 0;
       
       /**
        * Return an deque containing the pointers of the operations of the instruction.

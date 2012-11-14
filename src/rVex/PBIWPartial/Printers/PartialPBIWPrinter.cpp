@@ -112,8 +112,13 @@ architecture Behav of i_mem is\n\
   void
   PartialPBIWPrinter::printInstruction(const IPBIWInstruction& instruction, const std::vector<unsigned int>& binary) // O(1)
   {
-    if (instruction.getLabel() != NULL)
-      printer << "\t\t-- " << instruction.getLabel()->getName() << ": " << std::endl;
+    std::deque<ILabel*> labels = instruction.getLabels();
+    std::deque<ILabel*>::iterator labelIt;
+    
+    for (labelIt = labels.begin(); labelIt != labels.end(); labelIt++)
+    {
+      printer << "\t\t-- " << (*labelIt)->getName() << ": " << std::endl;
+    }
     
     printer << "\t\t" <<instruction.getAddress() << " => b\"";
     

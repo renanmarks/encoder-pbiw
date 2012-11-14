@@ -60,8 +60,8 @@ namespace rVex
       virtual void setAddress(unsigned int);
       
       void setLabel(rVex::Label& label);
-      bool haveLabel() const;
-      rVex::Label* getLabel() const;
+      bool haveLabels() const;
+      LabelDeque getLabels() const;
       
       void print(rVex::Printers::IPrinter&) const;
       void printSyllableDependencies(rVex::Printers::IPrinter&) const;
@@ -80,7 +80,7 @@ namespace rVex
       bool canSplitInstruction(const IOperation& operation) const;
       
     private:
-      rVex::Label* label;
+      std::deque<rVex::Label*> labels;
       SyllableVector syllables;
 
       std::set<const PBIW::Interfaces::IPBIWInstruction*> pbiwInstructions;

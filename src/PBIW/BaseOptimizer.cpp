@@ -120,14 +120,21 @@ namespace PBIW
          instructionIt != instructions.end();
          instructionIt++)
     {
-      if ((*instructionIt)->getLabel() == NULL)
+      std::deque<PBIW::Interfaces::ILabel*> originalLabels = (*instructionIt)->getLabels();
+      
+      if (originalLabels.size() == 0)
         continue;
       
-      std::string label = (*instructionIt)->getLabel()->getName();
-      LabelList::iterator labelIt = std::find_if(labels.begin(), labels.end(), FindLabel(label));
+      std::deque<PBIW::Interfaces::ILabel*>::const_iterator it;
       
-      if (labelIt != labels.end())
-        (*instructionIt)->setLabel(*labelIt);
+      for(it = originalLabels.begin(); it != originalLabels.end(); it++)
+      {
+        std::string label = (*it)->getName();
+        LabelList::iterator labelIt = std::find_if(labels.begin(), labels.end(), FindLabel(label));
+
+        if (labelIt != labels.end())
+          (*instructionIt)->setLabel(*labelIt);
+      }
     }
     
     // Then we setup de branching instructions

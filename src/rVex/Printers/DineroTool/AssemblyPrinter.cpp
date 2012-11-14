@@ -60,8 +60,13 @@ namespace rVex
 
         try 
         {
-          if (instruction.haveLabel())
-            output << "\t\t-- " << instruction.getLabel()->getName() << ": " << std::endl;
+          std::deque<ILabel*> labels = instruction.getLabels();
+          std::deque<ILabel*>::iterator labelIt;
+
+          for (labelIt = labels.begin(); labelIt != labels.end(); labelIt++)
+          {
+            output << "\t\t-- " << (*labelIt)->getName() << ": " << std::endl;
+          }
 
           output << "[I-" << instruction.getAddress() << "]" << "\n";
 

@@ -55,7 +55,7 @@ namespace PBIW
         /**
          * Get the label of this instruction
          */
-        virtual ILabel* getLabel() const = 0;
+        virtual std::deque<ILabel*> getLabels() const = 0;
         
         /**
          * Points this instruction to its pattern.
