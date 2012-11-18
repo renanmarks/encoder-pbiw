@@ -76,13 +76,13 @@ namespace rVex
   bool
   Instruction::canSplitInstruction(const IOperation& syllable) const
   {
-    return dependencies.canSplitSyllable(&dynamic_cast<const Syllable&>(syllable));
+    return dependencies.canSplitSyllable(dynamic_cast<const Syllable&>(syllable));
   }
 
   unsigned int
   Instruction::getQuantityNotNopOperations() const
   {
-    SyllableVector::const_iterator it;
+    SyllableCollection::const_iterator it;
 
     unsigned int quantity=0;
 
@@ -128,7 +128,7 @@ namespace rVex
   {
     if (this->syllables.size() > 0) // O(1)
     {
-      SyllableVector::iterator it;
+      SyllableCollection::iterator it;
 
       it=std::find(this->syllables.begin(), this->syllables.end(), &syllable);
 
@@ -142,13 +142,13 @@ namespace rVex
     return false;
   }
 
-  Instruction::SyllableVector
+  Instruction::SyllableCollection
   Instruction::getOrderedSyllables() const
   {
-    Instruction::SyllableVector orderedSyllables=this->syllables;
+    Instruction::SyllableCollection orderedSyllables=this->syllables;
 
     int counterIt=0;
-    Instruction::SyllableVector::iterator it;
+    Instruction::SyllableCollection::iterator it;
 
     // Go through all the syllables ordering them
     for (it=orderedSyllables.begin(); // O(|syllableBuffer|) = O(4) = O(1)
@@ -214,18 +214,52 @@ namespace rVex
     }
 
     // Invert the ordering to MEM, ALU, ALU, CTRL to match de rVex slots
-    Instruction::SyllableVector reverseOrderedSyllables(orderedSyllables.rbegin(), orderedSyllables.rend());
+    Instruction::SyllableCollection reverseOrderedSyllables(orderedSyllables.rbegin(), orderedSyllables.rend());
 
     return reverseOrderedSyllables;
   }
 
+  void 
+  Instruction::minimizeOperationDependency()
+  {
+    dependencies.sortOperations(*this);
+  }
+  
+  struct MinimumAddress
+  {
+    bool operator()(GenericAssembly::Interfaces::IOperation* first, GenericAssembly::Interfaces::IOperation* second)
+    {
+      return first->getAddress() < second->getAddress();
+    }
+  };
+  
+  void 
+  Instruction::setOperations(Instruction::OperationDeque& operations)
+  {
+    syllables.clear();
+    
+    MinimumAddress min;
+    Instruction::OperationDeque::iterator opIt = std::min_element(operations.begin(), operations.end(), min);
+    int miniumAddress = (*opIt)->getAddress();
+    
+    Instruction::OperationDeque::iterator it;
+    
+    for (it = operations.begin(); it != operations.end(); it++)
+    {
+      (*it)->setAddress(miniumAddress++);
+      syllables.push_back( dynamic_cast<Syllable*>(*it) );
+    }
+    
+    this->buildSyllableDependencies();
+  }
+  
   Instruction::OperationDeque 
   Instruction::getOperations() const
   {
     return Instruction::OperationDeque(syllables.begin(), syllables.end());
   }
   
-  Instruction::SyllableVector
+  Instruction::SyllableCollection
   Instruction::getSyllables() const // O(1)
   {
     return this->syllables;

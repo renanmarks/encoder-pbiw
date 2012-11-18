@@ -45,7 +45,7 @@ namespace rVex
   class Instruction : public GenericAssembly::Interfaces::IInstruction
   {
     public:
-      typedef std::vector<Syllable*> SyllableVector;
+      typedef std::deque<Syllable*> SyllableCollection;
       
       Instruction();
       ~Instruction();
@@ -66,9 +66,11 @@ namespace rVex
       void print(rVex::Printers::IPrinter&) const;
       void printSyllableDependencies(rVex::Printers::IPrinter&) const;
       
-      OperationDeque getOperations() const;
-      SyllableVector getSyllables() const;
-      SyllableVector getOrderedSyllables() const;
+      void minimizeOperationDependency();
+      virtual void setOperations(OperationDeque&);
+      virtual OperationDeque getOperations() const;
+      SyllableCollection getSyllables() const;
+      SyllableCollection getOrderedSyllables() const;
 
       unsigned int getQuantityNotNopOperations() const;
 
@@ -81,7 +83,7 @@ namespace rVex
       
     private:
       std::deque<rVex::Label*> labels;
-      SyllableVector syllables;
+      SyllableCollection syllables;
 
       std::set<const PBIW::Interfaces::IPBIWInstruction*> pbiwInstructions;
       

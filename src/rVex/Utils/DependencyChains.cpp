@@ -15,12 +15,12 @@ namespace rVex
   namespace Utils
   {
     DependencyChains::Dependency 
-    DependencyChains::getDependencies(Syllable* const& operation, const std::vector<Syllable*>& operations)
+    DependencyChains::getDependencies(Syllable* const& operation, const std::deque<Syllable*>& operations)
     {
       Dependency dependency;
 
       rVex::Syllable::OperandVector readRegs = operation->getReadOperands();
-      rVex::Instruction::SyllableVector::const_iterator otherSyllableIt;
+      std::deque<Syllable*>::const_iterator otherSyllableIt;
 
       for(otherSyllableIt = operations.begin(); otherSyllableIt < operations.end(); otherSyllableIt++)
       {
@@ -51,9 +51,9 @@ namespace rVex
         if (writesInMyGrReadRegister || writesInMyBrReadRegister)
         {
           if (isAfterMe)
-            dependency.antiDepends.push_back(*otherSyllableIt);
+            dependency.antiDepends.insert(*otherSyllableIt);
           else
-            dependency.depends.push_back(*otherSyllableIt);
+            dependency.depends.insert(*otherSyllableIt);
         }
       }
 

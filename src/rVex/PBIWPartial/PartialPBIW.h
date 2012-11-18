@@ -51,7 +51,7 @@ namespace PBIWPartial
      * Type definitions to references rVex structures
      */
     typedef PBIW::Utils::OperandVectorDTO VexSyllableOperandVector; 
-    typedef rVex::Instruction::SyllableVector VexSyllableVector;
+    typedef rVex::Instruction::SyllableCollection VexSyllableVector;
 //    
 //    typedef std::vector<rVex::Instruction*> VexInstructionVector;
 //    const VexInstructionVector& originalInstructions;

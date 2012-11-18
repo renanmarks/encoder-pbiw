@@ -17,6 +17,7 @@
 #include "src/rVex/PBIWFull/Printers/FullPBIWDebugPrinter.h"
 #include "src/rVex/Utils/OperandVectorBuilder.h"
 #include "src/rVex/PBIWFull/Factory.h"
+#include "src/rVex/Printers/rVexPrinter.h"
 
 namespace PBIWFull
 {
@@ -143,10 +144,12 @@ namespace PBIWFull
     
     originalInstructionsCount = originalInstructions.size();
     
+    bool minimizeOperationDependencyOnInstruction = false;
+    
     // For each group of 4 syllables...
     for(instructionIt = originalInstructions.begin();   // O((|originalInstructions| + |codedPatterns|) * (16 + 16|codedPatterns|)) =
         instructionIt < originalInstructions.end();     // O((|originalInstructions| + |codedPatterns|) * 16|codedPatterns|) =                 
-        instructionIt++)                                // O(16|codedPatterns||originalInstructions| + 16|codedPatterns|^2) =                 
+        )                                // O(16|codedPatterns||originalInstructions| + 16|codedPatterns|^2) =                 
     {                                                   // O(|codedPatterns||originalInstructions| * |codedPatterns|^2) =                
       // Create a new PBIW instruction and PBIW pattern                  // O(|codedPatterns|^3)
       rVex64PBIWInstruction* finalInstruction;
@@ -172,11 +175,18 @@ namespace PBIWFull
       }
       
       // For each syllable...
+      if (minimizeOperationDependencyOnInstruction)
+      {
+        minimizeOperationDependencyOnInstruction = false;
+//        rVex::Printers::rVexPrinter p(ss);
+//        (*instructionIt)->print(p);
+        (*instructionIt)->minimizeOperationDependency();
+      }
+
       VexSyllableVector syllables = (*instructionIt)->getSyllables();
       VexSyllableVector::const_iterator syllableIt;
       
       unsigned int index = 0;
-      unsigned int tries = 0;
       
       for (syllableIt = syllables.begin();  // O(|syllables| * (4 + |codedPatterns|)) = O(4 * (4 + |codedPatterns|)) = 
            syllableIt < syllables.end();    // O(16 + 16|codedPatterns|)
@@ -213,29 +223,15 @@ namespace PBIWFull
               }
               else
               {
-                
-                
-                while ( !(*instructionIt)->canSplitInstruction(**syllableIt) )
-                {
-                  if ((*instructionIt)->getSyllables().size() == tries)
-                  {
-                    std::cout << "Impossible to split instruction: " << std::endl;
-                    std::cout << syllables.front()->getTextRepresentation() << std::endl;;
-                  
-                    std::stringstream errorMsg;
-                    throw EncodingException( errorMsg.str() );
-                  }
-                  
-                  syllablesBuffer.remove(*syllableIt);
-                  syllableIt--; // go back
-                  newPattern->removeLastAddedOperation();
-                  finalInstruction->setAnnulBit(index-1,false);
-                  tries++;
-                } 
-                
-                syllablesBuffer.remove(*syllableIt);
-                
-                saveAndCreateNewPBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
+                minimizeOperationDependencyOnInstruction = true;
+                break;
+//                std::cout << "Impossible to split instruction: " << std::endl;
+//                rVex::Printers::rVexPrinter p(std::cout);
+//                std::cout << ss.str();
+//                (*instructionIt)->print(p);
+//                std::cout << syllables.front()->getTextRepresentation() << std::endl;;
+//                std::stringstream errorMsg;
+//                throw EncodingException( errorMsg.str() );
               }
 
               operands = (*syllableIt)->exportOperandVector();
@@ -287,6 +283,9 @@ namespace PBIWFull
           
         } // ... end for each operand
         
+        if (minimizeOperationDependencyOnInstruction)
+          break;
+        
         syllablesBuffer.push_back(*syllableIt);
         newPattern->addOperation(finalOperation);
         
@@ -299,7 +298,12 @@ namespace PBIWFull
         }
       } // ... end for each syllable
       
+      if (minimizeOperationDependencyOnInstruction)
+          continue;
+      
       savePBIWElements(finalInstruction, newPattern); // O(|codedPatterns|)
+      
+      instructionIt++; // go to next instruction
     } // ... end for each instruction
     
     processLabels();

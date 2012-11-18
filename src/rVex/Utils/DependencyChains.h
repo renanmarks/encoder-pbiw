@@ -24,7 +24,7 @@ namespace rVex
     class DependencyChains : public GenericAssembly::Utils::DependencyChains<Instruction, Syllable, rVex::Printers::IPrinter>
     {
     protected:
-      virtual Dependency getDependencies(Syllable* const& operation, const std::vector<Syllable*>& operations);
+      virtual Dependency getDependencies(Syllable* const& operation, const std::deque<Syllable*>& operations);
     };
   }
 }

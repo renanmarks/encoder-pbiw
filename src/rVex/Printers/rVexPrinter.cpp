@@ -57,17 +57,15 @@ namespace rVex
     void 
     rVexPrinter::printInstruction(const rVex::Instruction& instruction) // O(1)
     {
-      typedef std::vector<rVex::Syllable*> SyllableVec;
-      
-      SyllableVec syllables = instruction.getSyllables();
-      SyllableVec::const_iterator it;
+      rVex::Instruction::SyllableCollection syllables = instruction.getSyllables();
+      rVex::Instruction::SyllableCollection::const_iterator it;
       
       output << "[I: " << instruction.getAddress() << "] ["<< instruction.getWordAddress() << "]" << std::endl;
       
       try 
       {
       
-        for ( it = syllables.begin(); it < syllables.end(); it++) // O(1)
+        for ( it = syllables.begin(); it != syllables.end(); it++) // O(1)
         {
           // If the current is the first put 01 in LF...
           if (it == syllables.begin()) 

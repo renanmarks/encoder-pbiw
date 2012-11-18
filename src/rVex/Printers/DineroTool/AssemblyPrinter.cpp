@@ -53,10 +53,8 @@ namespace rVex
       void 
       AssemblyPrinter::printInstruction(const rVex::Instruction& instruction)
       {
-        typedef std::vector<rVex::Syllable*> SyllableVec;
-
-        SyllableVec syllables = instruction.getOrderedSyllables();// O(1)
-        SyllableVec::const_iterator it;
+        rVex::Instruction::SyllableCollection syllables = instruction.getOrderedSyllables();// O(1)
+        rVex::Instruction::SyllableCollection::const_iterator it;
 
         try 
         {

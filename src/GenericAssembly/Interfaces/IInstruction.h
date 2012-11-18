@@ -45,6 +45,11 @@ namespace GenericAssembly
       virtual LabelDeque getLabels() const = 0;
       
       /**
+       * Define the operations of this instruction
+       */
+      virtual void setOperations(OperationDeque&) = 0;
+      
+      /**
        * Return an deque containing the pointers of the operations of the instruction.
        */
       virtual OperationDeque getOperations() const = 0;
