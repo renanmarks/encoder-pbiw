@@ -136,13 +136,15 @@ namespace PBIW
       
       unsigned int instructionsSize = totalInstructions * instructionByteSize;
       unsigned int patternsSize = totalPatterns * patternByteSize;
+      unsigned int uniquePatternsSize = uniquePatterns.size() * patternByteSize;
       unsigned int originalInstructionsSize = totalOriginalInstructions * originalInstructionByteSize;
       
       std::cout << "Original Instr.:   \t" << totalOriginalInstructions << " - " << originalInstructionsSize << " bytes" << std::endl;
       std::cout << "Instructions:      \t" << totalInstructions << " - " << instructionsSize << " bytes" << std::endl;
-      std::cout << "Unique Patterns:   \t" << uniquePatterns.size() << " - " << patternsSize << " bytes" << std::endl;
-      std::cout << "Total size:        \t" << instructionsSize + patternsSize << " bytes" << std::endl;
-      std::cout << "Compression ratio: \t" << ((instructionsSize + patternsSize) / (double)originalInstructionsSize) * 100 << " %" << std::endl << std::endl;
+      std::cout << "Unique Patterns:   \t" << uniquePatterns.size() << " - " << uniquePatternsSize << " bytes" << std::endl;
+      
+      std::cout << "Total size:        \t" << instructionsSize + uniquePatternsSize << " bytes" << std::endl;
+      std::cout << "Compression ratio: \t" << ((instructionsSize + uniquePatternsSize) / (double)originalInstructionsSize) * 100 << " %" << std::endl << std::endl;
       
       
       std::cout << "All Patterns:      \t" << totalPatterns << " - " << patternsSize << " bytes" << std::endl;
