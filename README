@@ -36,11 +36,13 @@ Options:
 
 3.1 PRE-REQUISITES:
 
-  Linux distribution with make, flex and bison packages installed.
+  Linux distribution with cmake, make, flex and bison packages installed.
 
 3.2 COMPILING:
 
-  To build, Just type "make" at the root directory. A binary will be created inside the "dist" folder.
+  To build, Just type "make" at the "build/release" or "build/debug" directory.
+  A binary will be created inside the "src" folder of the respective directory
+  used where the "make" command was executed.
 
 4. CONTACT:
 -----------
