@@ -1,0 +1,595 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+   <FileVersion major="1" minor="6" />
+   <Project>
+      <Option title="Project" />
+      <Option makefile_is_custom="1" />
+      <Option compiler="gcc" />
+      <Option virtualFolders="CMake Files\;CMake Files\src\;CMake Files\src\Encoder\;CMake Files\src\GenericAssembly\;CMake Files\src\PBIW\;CMake Files\src\rVex\;" />
+      <Build>
+      <Target title="all">
+         <Option working_dir="/home/helix/encoder-pbiw/build/debug" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/Makefile&quot;  VERBOSE=1 all" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="rebuild_cache">
+         <Option working_dir="/home/helix/encoder-pbiw/build/debug" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/Makefile&quot;  VERBOSE=1 rebuild_cache" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="pbiwencoder">
+         <Option output="/home/helix/encoder-pbiw/build/debug/src/pbiwencoder" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/helix/encoder-pbiw/build/debug/src" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/helix/encoder-pbiw/src" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/Makefile&quot;  VERBOSE=1 pbiwencoder" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="pbiwencoder/fast">
+         <Option output="/home/helix/encoder-pbiw/build/debug/src/pbiwencoder" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/helix/encoder-pbiw/build/debug/src" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/helix/encoder-pbiw/src" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/Makefile&quot;  VERBOSE=1 pbiwencoder/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="ENCODER_MODULE">
+         <Option output="/home/helix/encoder-pbiw/build/debug/src/Encoder/libENCODER_MODULE.a" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/helix/encoder-pbiw/build/debug/src/Encoder" />
+         <Option object_output="./" />
+         <Option type="2" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/helix/encoder-pbiw/src" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/Encoder/Makefile&quot;  VERBOSE=1 ENCODER_MODULE" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/Encoder/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/Encoder/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/Encoder/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="ENCODER_MODULE/fast">
+         <Option output="/home/helix/encoder-pbiw/build/debug/src/Encoder/libENCODER_MODULE.a" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/helix/encoder-pbiw/build/debug/src/Encoder" />
+         <Option object_output="./" />
+         <Option type="2" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/helix/encoder-pbiw/src" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/Encoder/Makefile&quot;  VERBOSE=1 ENCODER_MODULE/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/Encoder/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/Encoder/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/Encoder/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="GENERICASSEMBLY_MODULE">
+         <Option output="/home/helix/encoder-pbiw/build/debug/src/GenericAssembly/libGENERICASSEMBLY_MODULE.a" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/helix/encoder-pbiw/build/debug/src/GenericAssembly" />
+         <Option object_output="./" />
+         <Option type="2" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/helix/encoder-pbiw/src" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/GenericAssembly/Makefile&quot;  VERBOSE=1 GENERICASSEMBLY_MODULE" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/GenericAssembly/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/GenericAssembly/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/GenericAssembly/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="GENERICASSEMBLY_MODULE/fast">
+         <Option output="/home/helix/encoder-pbiw/build/debug/src/GenericAssembly/libGENERICASSEMBLY_MODULE.a" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/helix/encoder-pbiw/build/debug/src/GenericAssembly" />
+         <Option object_output="./" />
+         <Option type="2" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/helix/encoder-pbiw/src" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/GenericAssembly/Makefile&quot;  VERBOSE=1 GENERICASSEMBLY_MODULE/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/GenericAssembly/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/GenericAssembly/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/GenericAssembly/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="PBIW_MODULE">
+         <Option output="/home/helix/encoder-pbiw/build/debug/src/PBIW/libPBIW_MODULE.a" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/helix/encoder-pbiw/build/debug/src/PBIW" />
+         <Option object_output="./" />
+         <Option type="2" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/helix/encoder-pbiw/src" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/PBIW/Makefile&quot;  VERBOSE=1 PBIW_MODULE" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/PBIW/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/PBIW/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/PBIW/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="PBIW_MODULE/fast">
+         <Option output="/home/helix/encoder-pbiw/build/debug/src/PBIW/libPBIW_MODULE.a" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/helix/encoder-pbiw/build/debug/src/PBIW" />
+         <Option object_output="./" />
+         <Option type="2" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/helix/encoder-pbiw/src" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/PBIW/Makefile&quot;  VERBOSE=1 PBIW_MODULE/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/PBIW/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/PBIW/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/PBIW/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="RVEX_MODULE">
+         <Option output="/home/helix/encoder-pbiw/build/debug/src/rVex/libRVEX_MODULE.a" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/helix/encoder-pbiw/build/debug/src/rVex" />
+         <Option object_output="./" />
+         <Option type="2" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/helix/encoder-pbiw/src" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/rVex/Makefile&quot;  VERBOSE=1 RVEX_MODULE" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/rVex/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/rVex/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/rVex/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="RVEX_MODULE/fast">
+         <Option output="/home/helix/encoder-pbiw/build/debug/src/rVex/libRVEX_MODULE.a" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/helix/encoder-pbiw/build/debug/src/rVex" />
+         <Option object_output="./" />
+         <Option type="2" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/helix/encoder-pbiw/src" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/rVex/Makefile&quot;  VERBOSE=1 RVEX_MODULE/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/rVex/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/rVex/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/rVex/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      </Build>
+      <Unit filename="/home/helix/encoder-pbiw/src/Encoder/rVexEncoder.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/GenericAssembly/Utils/OperandVector.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/PBIW/BaseOptimizer.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/PBIW/Generic/Codec.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/PBIW/Generic/Configuration.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/PBIW/Generic/Factory.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/PBIW/Generic/Instruction.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/PBIW/Generic/Label.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/PBIW/Generic/Operand.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/PBIW/Generic/Operation.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/PBIW/Generic/Pattern.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/PBIW/Generic/Printer.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/PBIW/Optimizers/JoinPattern/OperationInformation.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/PBIW/Optimizers/JoinPattern/PatternBuilder.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/PBIW/Optimizers/JoinPattern/PatternInformation.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/PBIW/PBIWOptimizerDataSet.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/PBIW/PBIWOptimizerJoinPatterns.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/PBIW/Utils/OperandVector.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/PBIW/Utils/OperandVectorDTO.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/pbiw_encoder.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Instruction.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Label.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operand.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/ALU/ADDCG.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/ALU/CMPEQ.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/ALU/CMPGE.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/ALU/CMPGEU.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/ALU/CMPGT.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/ALU/CMPGTU.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/ALU/CMPLE.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/ALU/CMPLEU.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/ALU/CMPLT.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/ALU/CMPLTU.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/ALU/CMPNE.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/ALU/DIVS.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/ALU/MTB.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/ALU/SLCT.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/ALU/SLCTF.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/CTRL/BR.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/CTRL/BRF.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/CTRL/CALL.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/CTRL/GOTO.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/CTRL/ICALL.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/CTRL/IGOTO.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/CTRL/RETURN.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/CTRL/RFI.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/MEM/LDB.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/MEM/LDBU.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/MEM/LDH.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/MEM/LDHU.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/MEM/LDW.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/MEM/STB.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/MEM/STH.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/MEM/STW.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/PBIWFull/Factory.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/PBIWFull/FullPBIW.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/PBIWFull/Operand.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/PBIWFull/Operation.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/PBIWFull/Printers/FullPBIWDebugPrinter.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/PBIWFull/Printers/FullPBIWPrinter.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/PBIWFull/rVex64PBIWInstruction.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/PBIWFull/rVex96PBIWPattern.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/PBIWPartial/Factory.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/PBIWPartial/Operand.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/PBIWPartial/Operation.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/PBIWPartial/PartialPBIW.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/PBIWPartial/Printers/PartialPBIWDebugPrinter.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/PBIWPartial/Printers/PartialPBIWPrinter.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/PBIWPartial/rVex64PBIWInstruction.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/PBIWPartial/rVex96PBIWPattern.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Parser/Expressions/Arguments.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Parser/Expressions/Expression.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Parser/Processors/PseudoSyllableProcessor.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Parser/Processors/SyllablePacker.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Parser/Structs/Function.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Parser/Structs/ISection.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Parser/Structs/SyllableBufferItem.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Parser/VexContext.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Parser/driver.cc">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Parser/parser.tab.cc">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Parser/scanner.cc">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Printers/DineroTool/AssemblyPrinter.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Printers/DineroTool/PBIWPrinter.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Printers/VHDLPrinter.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Printers/rVexPrinter.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Syllable.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/SyllableALU.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/SyllableCTRL.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/SyllableMEM.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/SyllableMISC.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/SyllableMUL.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Utils/DependencyChains.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Utils/OperandVectorBuilder.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/Encoder/rVexEncoder.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/GenericAssembly/Utils/OperandVector.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/PBIW/BaseOptimizer.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/PBIW/Generic/Codec.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/PBIW/Generic/Configuration.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/PBIW/Generic/Factory.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/PBIW/Generic/Instruction.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/PBIW/Generic/Label.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/PBIW/Generic/Operand.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/PBIW/Generic/Operation.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/PBIW/Generic/Pattern.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/PBIW/Generic/Printer.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/PBIW/Optimizers/JoinPattern/OperationInformation.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/PBIW/Optimizers/JoinPattern/PatternBuilder.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/PBIW/Optimizers/JoinPattern/PatternInformation.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/PBIW/PBIWOptimizerDataSet.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/PBIW/PBIWOptimizerJoinPatterns.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/PBIW/Utils/OperandVector.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/PBIW/Utils/OperandVectorDTO.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/pbiw_encoder.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Instruction.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Label.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operand.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/ALU/ADDCG.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/ALU/CMPEQ.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/ALU/CMPGE.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/ALU/CMPGEU.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/ALU/CMPGT.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/ALU/CMPGTU.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/ALU/CMPLE.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/ALU/CMPLEU.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/ALU/CMPLT.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/ALU/CMPLTU.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/ALU/CMPNE.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/ALU/DIVS.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/ALU/MTB.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/ALU/SLCT.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/ALU/SLCTF.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/CTRL/BR.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/CTRL/BRF.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/CTRL/CALL.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/CTRL/GOTO.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/CTRL/ICALL.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/CTRL/IGOTO.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/CTRL/RETURN.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/CTRL/RFI.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/MEM/LDB.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/MEM/LDBU.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/MEM/LDH.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/MEM/LDHU.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/MEM/LDW.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/MEM/STB.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/MEM/STH.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/MEM/STW.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/PBIWFull/Factory.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/PBIWFull/FullPBIW.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/PBIWFull/Operand.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/PBIWFull/Operation.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/PBIWFull/Printers/FullPBIWDebugPrinter.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/PBIWFull/Printers/FullPBIWPrinter.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/PBIWFull/rVex64PBIWInstruction.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/PBIWFull/rVex96PBIWPattern.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/PBIWPartial/Factory.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/PBIWPartial/Operand.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/PBIWPartial/Operation.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/PBIWPartial/PartialPBIW.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/PBIWPartial/Printers/PartialPBIWDebugPrinter.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/PBIWPartial/Printers/PartialPBIWPrinter.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/PBIWPartial/rVex64PBIWInstruction.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/PBIWPartial/rVex96PBIWPattern.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Parser/Expressions/Arguments.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Parser/Expressions/Expression.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Parser/Processors/PseudoSyllableProcessor.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Parser/Processors/SyllablePacker.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Parser/Structs/Function.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Parser/Structs/ISection.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Parser/Structs/SyllableBufferItem.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Parser/VexContext.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Parser/driver.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Parser/scanner.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Printers/DineroTool/AssemblyPrinter.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Printers/DineroTool/PBIWPrinter.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Printers/VHDLPrinter.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Printers/rVexPrinter.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Syllable.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/SyllableALU.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/SyllableCTRL.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/SyllableMEM.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/SyllableMISC.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/SyllableMUL.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Utils/DependencyChains.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Utils/OperandVectorBuilder.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\" />
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\src\" />
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\src\" />
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/Encoder/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\src\Encoder\" />
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/Encoder/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\src\Encoder\" />
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/GenericAssembly/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\src\GenericAssembly\" />
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/GenericAssembly/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\src\GenericAssembly\" />
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/PBIW/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\src\PBIW\" />
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/PBIW/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\src\PBIW\" />
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\src\rVex\" />
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\src\rVex\" />
+      </Unit>
+   </Project>
+</CodeBlocks_project_file>
