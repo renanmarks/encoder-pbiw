@@ -1,3 +1,20 @@
+/************************************************************************
+ * PBIW Software Insfrastructure
+ * Copyright (C) 2013 Renan Albuquerque Marks
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ***********************************************************************/
 /* 
  * File:   Factory.cpp
  * Author: helix
@@ -7,11 +24,11 @@
 
 #include "Factory.h"
 
-#include "src/rVex/PBIWFull/rVex64PBIWInstruction.h"
-#include "src/rVex/PBIWFull/rVex96PBIWPattern.h"
-#include "src/rVex/PBIWFull/Operation.h"
-#include "src/rVex/PBIWFull/Operand.h"
-#include "src/rVex/PBIWFull/Label.h"
+#include "rVex/PBIWFull/rVex64PBIWInstruction.h"
+#include "rVex/PBIWFull/rVex96PBIWPattern.h"
+#include "rVex/PBIWFull/Operation.h"
+#include "rVex/PBIWFull/Operand.h"
+#include "rVex/PBIWFull/Label.h"
 
 namespace PBIWFull
 {

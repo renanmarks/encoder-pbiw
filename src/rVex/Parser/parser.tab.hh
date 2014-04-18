@@ -40,7 +40,7 @@
 /* Line 35 of lalr1.cc  */
 #line 22 "parser.yy"
 
-#include "src/GenericAssembly/Utils/LabelScope.h"
+#include "GenericAssembly/Utils/LabelScope.h"
 
 
 

@@ -20,7 +20,7 @@
 /* Declaration at parser header */
 %code requires 
 {
-#include "src/GenericAssembly/Utils/LabelScope.h"
+#include "GenericAssembly/Utils/LabelScope.h"
 }
 
 /*** yacc/bison Declarations ***/

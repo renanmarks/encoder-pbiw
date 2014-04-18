@@ -1,3 +1,20 @@
+/************************************************************************
+ * PBIW Software Insfrastructure
+ * Copyright (C) 2013 Renan Albuquerque Marks
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ***********************************************************************/
 /**
 *** Copyright (C) 1994 - 2002 Hewlett-Packard Company.
 ***
@@ -27,7 +44,7 @@
 
 #include "VexTypes.h"
 #include "parser.tab.hh"
-#include "src/rVex/Operations/Operations.h"
+#include "rVex/Operations/Operations.h"
 
 typedef VexParser::Parser::token token;
 typedef VexParser::Parser::token_type token_type;

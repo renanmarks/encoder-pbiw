@@ -1,0 +1,1 @@
+add_library(GENERICASSEMBLY_MODULE STATIC Utils/OperandVector)

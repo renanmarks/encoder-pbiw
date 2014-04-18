@@ -1,3 +1,20 @@
+/************************************************************************
+ * PBIW Software Insfrastructure
+ * Copyright (C) 2013 Renan Albuquerque Marks
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ***********************************************************************/
 /* 
  * File:   FullPBIW.cpp
  * Author: helix
@@ -13,11 +30,11 @@
 #include "rVex64PBIWInstruction.h"
 #include "Operation.h"
 #include "Operand.h"
-#include "src/rVex/PBIWFull/Printers/FullPBIWPrinter.h"
-#include "src/rVex/PBIWFull/Printers/FullPBIWDebugPrinter.h"
-#include "src/rVex/Utils/OperandVectorBuilder.h"
-#include "src/rVex/PBIWFull/Factory.h"
-#include "src/rVex/Printers/rVexPrinter.h"
+#include "rVex/PBIWFull/Printers/FullPBIWPrinter.h"
+#include "rVex/PBIWFull/Printers/FullPBIWDebugPrinter.h"
+#include "rVex/Utils/OperandVectorBuilder.h"
+#include "rVex/PBIWFull/Factory.h"
+#include "rVex/Printers/rVexPrinter.h"
 
 namespace PBIWFull
 {

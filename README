@@ -1,0 +1,56 @@
+PBIW Software Infrastructure
+Encoder/Decoder - Version 3.0 (Beta)
+---
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+---
+
+
+1. ARCHITECTURES CURRENTLY FULLY SUPPORTED ON THIS VERSION:
+-----------------------------------------------------------
+
+Architectures supported in this version:
+  rVex Processor
+
+2. USAGE:
+---------
+
+        Usage: ./pbiw_encoder [options] input.s
+
+This will generate 3 files:
+- input.s.vhd: Contains the binary VHDL assembly to run in rVex;
+- input.s.pbiw.vhd: Contains the PBIW instructions binary VHDL assembly to run in rVex;
+- input.s.pcache.vhd: Contains the PBIW patterns binary VHDL assembly to run in rVex;
+
+Options:
+-p      Trace parsing
+-s      Trace scanning
+-O      Enable PBIW optimization
+-c      Enable rVex PBIW constrained encoding (Default)
+-uc     Enable rVex PBIW unconstrained encoding
+-do     Enable Dinero Tool output data
+
+
+3. BUILDING:
+-------------
+
+3.1 PRE-REQUISITES:
+
+  Linux distribution with make, flex and bison packages installed.
+
+3.2 COMPILING:
+
+  To build, Just type "make" at the root directory. A binary will be created inside the "dist" folder.
+
+4. CONTACT:
+-----------
+
+High-performance Computer Systems Laboratory
+College of Computing
+Federal University of Mato Grosso do Sul
+Campo Grande - MS - Brazil
+
+Contact Information: 
+Renan Albuquerque Marks
+renan@facom.ufms.br
+http://lscad.facom.ufms.br

@@ -1,3 +1,20 @@
+/************************************************************************
+ * PBIW Software Insfrastructure
+ * Copyright (C) 2013 Renan Albuquerque Marks
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ***********************************************************************/
 /* 
  * File:   Encoder.cpp
  * Author: helix
@@ -11,25 +28,25 @@
 
 #include "rVexEncoder.h"
 
-#include "src/rVex/Parser/driver.h"
-#include "src/rVex/Parser/VexContext.h"
-#include "src/rVex/Printers/rVexPrinter.h"
-#include "src/rVex/Printers/VHDLPrinter.h"
+#include "rVex/Parser/driver.h"
+#include "rVex/Parser/VexContext.h"
+#include "rVex/Printers/rVexPrinter.h"
+#include "rVex/Printers/VHDLPrinter.h"
 
-#include "src/rVex/PBIWPartial/PartialPBIW.h"
-#include "src/rVex/PBIWPartial/Printers/PartialPBIWPrinter.h"
-#include "src/rVex/PBIWPartial/Printers/PartialPBIWDebugPrinter.h"
+#include "rVex/PBIWPartial/PartialPBIW.h"
+#include "rVex/PBIWPartial/Printers/PartialPBIWPrinter.h"
+#include "rVex/PBIWPartial/Printers/PartialPBIWDebugPrinter.h"
 
-#include "src/rVex/PBIWFull/FullPBIW.h"
-#include "src/rVex/PBIWFull/Printers/FullPBIWPrinter.h"
-#include "src/rVex/PBIWFull/Printers/FullPBIWDebugPrinter.h"
+#include "rVex/PBIWFull/FullPBIW.h"
+#include "rVex/PBIWFull/Printers/FullPBIWPrinter.h"
+#include "rVex/PBIWFull/Printers/FullPBIWDebugPrinter.h"
 
-#include "src/rVex/Parser/VexTypes.h"
-#include "src/PBIW/BaseOptimizer.h"
-#include "src/PBIW/PBIWOptimizerJoinPatterns.h"
-#include "src/PBIW/Interfaces/IPBIWPattern.h"
-#include "src/rVex/Printers/DineroTool/PBIWPrinter.h"
-#include "src/rVex/Printers/DineroTool/AssemblyPrinter.h"
+#include "rVex/Parser/VexTypes.h"
+#include "PBIW/BaseOptimizer.h"
+#include "PBIW/PBIWOptimizerJoinPatterns.h"
+#include "PBIW/Interfaces/IPBIWPattern.h"
+#include "rVex/Printers/DineroTool/PBIWPrinter.h"
+#include "rVex/Printers/DineroTool/AssemblyPrinter.h"
 
 namespace Encoder
 {

@@ -1,3 +1,20 @@
+/************************************************************************
+ * PBIW Software Insfrastructure
+ * Copyright (C) 2013 Renan Albuquerque Marks
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ***********************************************************************/
 /* 
  * File:   pbiw_encoder.cpp
  * Author: helix
@@ -27,8 +44,11 @@ void printHelp(const std::string& binaryName)
   
   std::cout << 
 "PBIW Encoder - Version "<< version << "\n\
-This is free software; see the source for copying conditions.  There is NO\n\
-warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
+Copyright (C) 2013 Renan Albuquerque Marks\n\
+\n\
+This program comes with ABSOLUTELY NO WARRANTY;\n\
+This is free software, and you are welcome to redistribute it\n\
+under certain conditions.\n\
 ---\n" 
   << std::endl;
 

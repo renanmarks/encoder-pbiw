@@ -1,3 +1,20 @@
+/************************************************************************
+ * PBIW Software Insfrastructure
+ * Copyright (C) 2013 Renan Albuquerque Marks
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ***********************************************************************/
 /* 
  * File:   PBIWInstruction.cpp
  * Author: helix
@@ -10,11 +27,11 @@
 #include <algorithm>
 #include <typeinfo>
 #include <stdexcept>
-#include "src/GenericAssembly/Interfaces/IOperation.h"
-#include "src/PBIW/Interfaces/IOperand.h"
-#include "src/rVex/Instruction.h"
-#include "src/rVex/PBIWFull/rVex64PBIWInstruction.h"
-#include "src/PBIW/Utils/OperandVector.h"
+#include "GenericAssembly/Interfaces/IOperation.h"
+#include "PBIW/Interfaces/IOperand.h"
+#include "rVex/Instruction.h"
+#include "rVex/PBIWFull/rVex64PBIWInstruction.h"
+#include "PBIW/Utils/OperandVector.h"
 
 #define ZEROINDEX 0   // 15
 #define IMM9BITS 10    // 10
