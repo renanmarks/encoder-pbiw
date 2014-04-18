@@ -1,0 +1,5 @@
+/home/helix/encoder-pbiw/build/release/src/Encoder/CMakeFiles/ENCODER_MODULE.dir
+/home/helix/encoder-pbiw/build/release/src/GenericAssembly/CMakeFiles/GENERICASSEMBLY_MODULE.dir
+/home/helix/encoder-pbiw/build/release/src/PBIW/CMakeFiles/PBIW_MODULE.dir
+/home/helix/encoder-pbiw/build/release/src/rVex/CMakeFiles/RVEX_MODULE.dir
+/home/helix/encoder-pbiw/build/release/src/CMakeFiles/pbiwencoder.dir

@@ -1,0 +1,2 @@
+/usr/bin/ar cr libENCODER_MODULE.a  CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o
+/usr/bin/ranlib libENCODER_MODULE.a

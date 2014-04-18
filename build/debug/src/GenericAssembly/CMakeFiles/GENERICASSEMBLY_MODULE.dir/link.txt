@@ -1,0 +1,2 @@
+/usr/bin/ar cr libGENERICASSEMBLY_MODULE.a  CMakeFiles/GENERICASSEMBLY_MODULE.dir/Utils/OperandVector.cpp.o
+/usr/bin/ranlib libGENERICASSEMBLY_MODULE.a

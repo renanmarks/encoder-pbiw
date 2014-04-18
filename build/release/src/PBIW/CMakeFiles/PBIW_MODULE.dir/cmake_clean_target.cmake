@@ -1,0 +1,3 @@
+FILE(REMOVE_RECURSE
+  "libPBIW_MODULE.a"
+)
