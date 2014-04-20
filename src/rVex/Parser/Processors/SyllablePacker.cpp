@@ -46,14 +46,14 @@ namespace VexParser
     {
     }
 
-    void SyllablePacker::process(rVex::SyllableALU* syllable, SyllableArguments& arguments)
+    void SyllablePacker::process(rVex::Base::SyllableALU* syllable, SyllableArguments& arguments)
     {
       std::string textRepresentation = syllable->getTextRepresentation();
       
       switch(syllable->getOpcode())
       {
         // If is a MOV with immediate operand then is a pseudo-instruction...
-        case rVex::Syllable::opMOV:
+        case rVex::Base::Syllable::opMOV:
           if (arguments.getSourceArguments().getArguments()[0].getParsedValue().isImmediate)
           {
             // Change from: mov $r0.x = 12345
@@ -79,29 +79,29 @@ namespace VexParser
       context.getSyllableBuffer().push_back(Structs::SyllableBufferItem(syllable, arguments));
     }
 
-    void SyllablePacker::process(rVex::SyllableMEM* syllable, SyllableArguments& arguments)
+    void SyllablePacker::process(rVex::Base::SyllableMEM* syllable, SyllableArguments& arguments)
     {
       syllable->fillSyllable(arguments);
       context.getSyllableBuffer().push_back(Structs::SyllableBufferItem(syllable, arguments));
     }
 
-    void SyllablePacker::process(rVex::SyllableMUL* syllable, SyllableArguments& arguments)
+    void SyllablePacker::process(rVex::Base::SyllableMUL* syllable, SyllableArguments& arguments)
     {
       syllable->fillSyllable(arguments);
       context.getSyllableBuffer().push_back(Structs::SyllableBufferItem(syllable, arguments));
     }
 
-    void SyllablePacker::process(rVex::SyllableCTRL* syllable, SyllableArguments& arguments)
+    void SyllablePacker::process(rVex::Base::SyllableCTRL* syllable, SyllableArguments& arguments)
     {
       std::string textRepresentation = syllable->getTextRepresentation();
       
       switch(syllable->getOpcode())
       {
-        case rVex::Syllable::opXNOP:
+        case rVex::Base::Syllable::opXNOP:
           delete syllable;
           return; // Does not support XNOP yet.
 
-        case rVex::Syllable::opCALL:
+        case rVex::Base::Syllable::opCALL:
         {
           Expression::ParseInfo argumentInfo = 
             arguments.getSourceArguments().getArguments()[0].getParsedValue();
@@ -120,7 +120,7 @@ namespace VexParser
           break;
         }
 
-        case rVex::Syllable::opGOTO:
+        case rVex::Base::Syllable::opGOTO:
         {
           Expression::ParseInfo argumentInfo = 
             arguments.getSourceArguments().getArguments()[0].getParsedValue();
@@ -139,7 +139,7 @@ namespace VexParser
           break;
         }
 
-        case rVex::Syllable::opRETURN:
+        case rVex::Base::Syllable::opRETURN:
           return;
 //        {
 //          Expression::ParseInfo argumentInfo = 
@@ -151,8 +151,8 @@ namespace VexParser
 //          break;
 //        }  
 
-        case rVex::Syllable::opBR:
-        case rVex::Syllable::opBRF:
+        case rVex::Base::Syllable::opBR:
+        case rVex::Base::Syllable::opBRF:
             context.getControlSyllables().push_back(syllable);
           break;
 
@@ -166,7 +166,7 @@ namespace VexParser
       context.getSyllableBuffer().push_back(Structs::SyllableBufferItem(syllable, arguments));
     }
 
-    void SyllablePacker::process(rVex::SyllableMISC* syllable, SyllableArguments& arguments)
+    void SyllablePacker::process(rVex::Base::SyllableMISC* syllable, SyllableArguments& arguments)
     {
       syllable->fillSyllable(arguments);
       context.getSyllableBuffer().push_back(Structs::SyllableBufferItem(syllable, arguments));

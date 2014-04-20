@@ -33,7 +33,7 @@ namespace rVex
   {
     namespace ALU
     {
-      class NORL : public SyllableALU
+      class NORL : public rVex::Base::SyllableALU
       {
         public:
           unsigned int getOpcode() const { return this->opNORL; }

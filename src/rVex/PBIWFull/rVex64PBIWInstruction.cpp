@@ -129,7 +129,7 @@ namespace PBIWFull
     
     for(it = list.begin(); it != list.end(); it++)
     {
-      syllablesPacked.push_back(static_cast<rVex::Syllable*>(*it));
+      syllablesPacked.push_back(static_cast<rVex::Base::Syllable*>(*it));
       (*it)->getBelongedInstruction()->addReferencePBIWInstruction(*this);
     }
   }
@@ -304,7 +304,7 @@ namespace PBIWFull
   bool
   rVex64PBIWInstruction::hasControlOperationWithLabelDestiny()
   {
-    using rVex::Syllable;
+    using rVex::Base::Syllable;
     SyllableList::const_iterator it;
 
     for (it=syllablesPacked.begin();
@@ -502,27 +502,27 @@ namespace PBIWFull
   void 
   rVex64PBIWInstruction::addOperand(IOperand& operand)
   {
-    switch ( static_cast<rVex::Operand::Type>(operand.getTypeCode()) )
+    switch ( static_cast<rVex::Base::Operand::Type>(operand.getTypeCode()) )
     {
-      case rVex::Operand::BRSource :
-        if (codingOperation->getOpcode() == rVex::Syllable::opBR)
+      case rVex::Base::Operand::BRSource :
+        if (codingOperation->getOpcode() == rVex::Base::Syllable::opBR)
         {
           this->setOpBRslot(operand); // O(1)
           break;
         }
-        else if (codingOperation->getOpcode() == rVex::Syllable::opBRF)
+        else if (codingOperation->getOpcode() == rVex::Base::Syllable::opBRF)
         {
           this->setOpBRFslot(operand); // O(1)
           break;
         }
 
-      case rVex::Operand::BRDestiny :
+      case rVex::Base::Operand::BRDestiny :
         this->addBranchOperand(operand); // O(1)
         break;
-      case rVex::Operand::GRSource :
-      case rVex::Operand::GRDestiny :
-      case rVex::Operand::Imm9 :
-      case rVex::Operand::Imm12 :
+      case rVex::Base::Operand::GRSource :
+      case rVex::Base::Operand::GRDestiny :
+      case rVex::Base::Operand::Imm9 :
+      case rVex::Base::Operand::Imm12 :
         this->addReadOperand(operand); // O(1)
         break;
     }
@@ -710,10 +710,10 @@ namespace PBIWFull
   bool
   rVex64PBIWInstruction::hasOperandSlot(const PBIW::Utils::OperandItemDTO& operand) // O(1)
   {
-    switch ( static_cast<rVex::Operand::Type>(operand.getOperand()->getTypeCode()) )
+    switch ( static_cast<rVex::Base::Operand::Type>(operand.getOperand()->getTypeCode()) )
     {
-      case rVex::Operand::Imm12:
-      case rVex::Operand::Imm9:
+      case rVex::Base::Operand::Imm12:
+      case rVex::Base::Operand::Imm9:
         {
           if (this->containsImmediate())
             return false;
@@ -739,11 +739,11 @@ namespace PBIWFull
         }
         break;
 
-      case rVex::Operand::BRSource:
-        if (operand.getOperand()->getOperationBelonged()->isOpcode(rVex::Syllable::opBR))
+      case rVex::Base::Operand::BRSource:
+        if (operand.getOperand()->getOperationBelonged()->isOpcode(rVex::Base::Syllable::opBR))
           return (opBRslot.getValue() == -1);
 
-        if (operand.getOperand()->getOperationBelonged()->isOpcode(rVex::Syllable::opBRF))
+        if (operand.getOperand()->getOperationBelonged()->isOpcode(rVex::Base::Syllable::opBRF))
           return (opBRFslot.getValue() == -1);
 
         // Check if there is space in the 0-7 slot range;

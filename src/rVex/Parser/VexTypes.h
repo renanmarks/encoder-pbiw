@@ -162,9 +162,9 @@ namespace VexParser
   struct OperationConstructor {
     virtual ~OperationConstructor() {}
     
-    virtual rVex::Syllable* create( void ) const = 0;
+    virtual rVex::Base::Syllable* create( void ) const = 0;
     
-    virtual rVex::Syllable* operator()( void ) const {
+    virtual rVex::Base::Syllable* operator()( void ) const {
       return create();
     }
   };
@@ -178,7 +178,7 @@ namespace VexParser
   {
     virtual ~SyllableConstructor() { }
     
-    virtual rVex::Syllable* create( void ) const {
+    virtual rVex::Base::Syllable* create( void ) const {
       return ( new T () );
     }  
   };

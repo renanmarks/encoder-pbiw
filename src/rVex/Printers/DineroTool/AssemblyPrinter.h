@@ -47,12 +47,12 @@ namespace rVex
         /**
         * Print the syllable.
         */
-        virtual void printOperation(const rVex::Syllable&, const std::vector<unsigned int>&);
+        virtual void printOperation(const rVex::Base::Syllable&, const std::vector<unsigned int>&);
 
         /**
         * Print the instruction.
         */
-        virtual void printInstruction(const rVex::Instruction&);
+        virtual void printInstruction(const rVex::Base::Instruction&);
 
         /**
         * Print the file header.

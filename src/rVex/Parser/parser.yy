@@ -474,7 +474,7 @@ normal_mop      :       CLUST OPCODE .mop_arglist
                           if (driver.context.isDebuggingEnabled())
                             std::cout << stringRepresentation.str() << std::endl;
                           
-                          rVex::Syllable* syllable = $2->syllableConstructor->create();
+                          rVex::Base::Syllable* syllable = $2->syllableConstructor->create();
                           syllable->setTextRepresentation(stringRepresentation.str());
                           
                           driver.context.packSyllable(syllable , *$3 ); 
@@ -497,7 +497,7 @@ xnop_mop        :       XNOP NUMBER
                           if (driver.context.isDebuggingEnabled())
                             std::cout << stringRepresentation.str() << std::endl;
                           
-                          rVex::Syllable* syllable = $1->syllableConstructor->create();
+                          rVex::Base::Syllable* syllable = $1->syllableConstructor->create();
                           syllable->setTextRepresentation(stringRepresentation.str());
                           
                           driver.context.packSyllable(syllable, syllableArguments); 

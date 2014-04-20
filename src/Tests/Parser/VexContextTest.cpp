@@ -76,8 +76,8 @@ namespace VexContextTest
   {
 //    std::string compareStr;
 //    
-//    rVex::Syllable* ADD = new rVex::Operations::ALU::ADD();
-//    rVex::Syllable* AND = new rVex::Operations::ALU::AND();
+//    rVex::Base::Syllable* ADD = new rVex::Operations::ALU::ADD();
+//    rVex::Base::Syllable* AND = new rVex::Operations::ALU::AND();
 //    
 //    context.newInstruction();
 //    context.packSyllable(ADD, new SyllableArguments(sourceRegs, destinyRegs) );
@@ -92,8 +92,8 @@ namespace VexContextTest
   {
 //    rVex::Printers::rVexPrinter printer(std::cout);
 //    VexParser::VexContext context(printer);
-//    rVex::Syllable* ADD = new rVex::Operations::ALU::ADD();
-//    rVex::Syllable* AND = new rVex::Operations::ALU::AND();
+//    rVex::Base::Syllable* ADD = new rVex::Operations::ALU::ADD();
+//    rVex::Base::Syllable* AND = new rVex::Operations::ALU::AND();
 //    std::string compareStr;
 //    std::string compareStr2;
 //    
@@ -102,9 +102,9 @@ namespace VexContextTest
 //    context.packSyllable(AND);
 //    context.endInstruction();
 //    
-//    rVex::Syllable* ADDCG = new rVex::Operations::ALU::ADDCG();
-//    rVex::Syllable* ANDC = new rVex::Operations::ALU::ANDC();
-//    rVex::Syllable* ANDL = new rVex::Operations::ALU::ANDL();
+//    rVex::Base::Syllable* ADDCG = new rVex::Operations::ALU::ADDCG();
+//    rVex::Base::Syllable* ANDC = new rVex::Operations::ALU::ANDC();
+//    rVex::Base::Syllable* ANDL = new rVex::Operations::ALU::ANDL();
 //    
 //    context.newInstruction();
 //    context.packSyllable(ADDCG);
@@ -128,8 +128,8 @@ namespace VexContextTest
 //    rVex::Printers::rVexPrinter printer(std::cout);
 //    VexParser::VexContext context(printer);
 //    std::string compareStr;
-//    rVex::Syllable* ADD = new rVex::Operations::ALU::ADD();
-//    rVex::Syllable* AND = new rVex::Operations::ALU::AND();
+//    rVex::Base::Syllable* ADD = new rVex::Operations::ALU::ADD();
+//    rVex::Base::Syllable* AND = new rVex::Operations::ALU::AND();
 //    
 //    context.newInstruction();
 //    context.packSyllable(ADD);
@@ -139,7 +139,7 @@ namespace VexContextTest
 //    compareStr.append(ADD->print(true, false));
 //    compareStr.append(AND->print(false, true));
 //    
-//    rVex::Instruction instruction = context.getInstruction(0);
+//    rVex::Base::Instruction instruction = context.getInstruction(0);
 //    
 //    ASSERT_EQ(compareStr, instruction.print());
 //    ASSERT_EQ(ADD, instruction.getSyllables()[0]);
@@ -151,12 +151,12 @@ namespace VexContextTest
 //    rVex::Printers::rVexPrinter printer(std::cout);
 //    VexParser::VexContext context(printer);
 //    std::string compareStr;
-//    rVex::Syllable* ADDptr;
-//    rVex::Syllable* ANDptr;
+//    rVex::Base::Syllable* ADDptr;
+//    rVex::Base::Syllable* ANDptr;
 //        
 //    {
-//      rVex::Syllable* ADD = new rVex::Operations::ALU::ADD();
-//      rVex::Syllable* AND = new rVex::Operations::ALU::AND();
+//      rVex::Base::Syllable* ADD = new rVex::Operations::ALU::ADD();
+//      rVex::Base::Syllable* AND = new rVex::Operations::ALU::AND();
 //      
 //      ADDptr = ADD;
 //      ANDptr = AND;
@@ -166,7 +166,7 @@ namespace VexContextTest
 //      context.packSyllable(AND);
 //      context.endInstruction();
 //
-//      rVex::Instruction instruction = context.getInstruction(0);
+//      rVex::Base::Instruction instruction = context.getInstruction(0);
 //      
 //      compareStr.append(ADD->print(true, false));
 //      compareStr.append(AND->print(false, true));
@@ -177,7 +177,7 @@ namespace VexContextTest
 //    }
 //    
 //    {
-//      rVex::Instruction instruction = context.getInstruction(0);
+//      rVex::Base::Instruction instruction = context.getInstruction(0);
 //
 //      ASSERT_EQ(compareStr, instruction.print());
 //      ASSERT_EQ(ADDptr, instruction.getSyllables()[0]);

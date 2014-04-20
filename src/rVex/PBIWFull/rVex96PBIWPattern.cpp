@@ -77,7 +77,7 @@ namespace PBIWFull
   bool
   rVex96PBIWPattern::hasControlOperation() const
   {
-    using rVex::Syllable;
+    using rVex::Base::Syllable;
 
     // Fourth operation, position 3 (counting from 0 to 3)
     switch (operations.front()->getOpcode()) {
@@ -117,10 +117,10 @@ namespace PBIWFull
       
       switch((*it)->getOpcode())
       {
-        case rVex::Syllable::opADDCG:
-        case rVex::Syllable::opDIVS:
-        case rVex::Syllable::opSLCT:
-        case rVex::Syllable::opSLCTF:
+        case rVex::Base::Syllable::opADDCG:
+        case rVex::Base::Syllable::opDIVS:
+        case rVex::Base::Syllable::opSLCT:
+        case rVex::Base::Syllable::opSLCTF:
           binary[i] |= (*it)->getBrReadOperand();
           break;
       }
@@ -217,11 +217,11 @@ namespace PBIWFull
       // ALU = 1, MUL = 2, MEM = 3 , CTRL = 4
       if( 
           (*it)->getOpcode() && 
-          ((*it)->getType() != rVex::Syllable::SyllableType::ALU) 
+          ((*it)->getType() != rVex::Base::Syllable::SyllableType::ALU) 
         )
       {
         if(
-            ((*it)->getType() == rVex::Syllable::SyllableType::CTRL) && 
+            ((*it)->getType() == rVex::Base::Syllable::SyllableType::CTRL) && 
             (counterIt != 0)
           )
         {            
@@ -231,7 +231,7 @@ namespace PBIWFull
             it--; 
         }
         else if(
-                 ((*it)->getType() == rVex::Syllable::SyllableType::MEM) && 
+                 ((*it)->getType() == rVex::Base::Syllable::SyllableType::MEM) && 
                  (counterIt != 3)
                )
         {            
@@ -242,14 +242,14 @@ namespace PBIWFull
         }   
 
         else if(
-                 ((*it)->getType() == rVex::Syllable::SyllableType::MUL) && 
+                 ((*it)->getType() == rVex::Base::Syllable::SyllableType::MUL) && 
                  ((counterIt != 1) && (counterIt != 2))
                )
         {
           int index;                  
 
           // set up the index that will receive the MUL syllable
-          if (operations.at(1)->getType() != rVex::Syllable::SyllableType::MUL)
+          if (operations.at(1)->getType() != rVex::Base::Syllable::SyllableType::MUL)
           {
               index = 1;
           }            
@@ -269,8 +269,8 @@ namespace PBIWFull
           it--;
         }        
         
-        if((operations.at(1)->getType() == rVex::Syllable::SyllableType::MUL) &&
-                (operations.at(2)->getType() == rVex::Syllable::SyllableType::MUL))
+        if((operations.at(1)->getType() == rVex::Base::Syllable::SyllableType::MUL) &&
+                (operations.at(2)->getType() == rVex::Base::Syllable::SyllableType::MUL))
         {
             if(operations.at(1)->getOpcode() > operations.at(2)->getOpcode())
             {
@@ -320,8 +320,8 @@ namespace PBIWFull
             index1 < operations.size(); // O(|operations|) = O(4) = O(1)
             index1 ++)
         {   
-            if((operations.at(index1)->getType() == rVex::Syllable::SyllableType::ALU) &&
-                (operations.at(index2)->getType() == rVex::Syllable::SyllableType::ALU)
+            if((operations.at(index1)->getType() == rVex::Base::Syllable::SyllableType::ALU) &&
+                (operations.at(index2)->getType() == rVex::Base::Syllable::SyllableType::ALU)
             )
             {
                 if(operations.at(index1)->getOpcode() > operations.at(index2)->getOpcode())
@@ -352,7 +352,7 @@ namespace PBIWFull
                 }
             }     
             else if(((operations.at(index2)->getOpcode() == 0) && 
-                    (operations.at(index1)->getType() == rVex::Syllable::SyllableType::ALU))
+                    (operations.at(index1)->getType() == rVex::Base::Syllable::SyllableType::ALU))
                    ) 
             {
                 this->exchangeOperations(index1, index2, updateInstructionAnnulationBits);

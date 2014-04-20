@@ -74,8 +74,8 @@ namespace PBIWPartial
   {
     switch(this->getOpcode())
     {
-      case rVex::Syllable::opGOTO:
-      case rVex::Syllable::opIGOTO:
+      case rVex::Base::Syllable::opGOTO:
+      case rVex::Base::Syllable::opIGOTO:
         if (writeOperand == -1)
         {
           writeOperand = 0;
@@ -85,19 +85,19 @@ namespace PBIWPartial
         }
         break;
       
-      case rVex::Syllable::opCALL:
+      case rVex::Base::Syllable::opCALL:
         if (operand.isImmediate())
           readOperands.push_back(0);
         break;
         
-      case rVex::Syllable::opBR:
-      case rVex::Syllable::opBRF:
+      case rVex::Base::Syllable::opBR:
+      case rVex::Base::Syllable::opBRF:
         if (writeOperand == -1)
           writeOperand = 0;
         break;
       
-      case rVex::Syllable::opRETURN: // TODO
-      case rVex::Syllable::opRFI:
+      case rVex::Base::Syllable::opRETURN: // TODO
+      case rVex::Base::Syllable::opRFI:
           break;
     }
     

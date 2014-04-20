@@ -45,7 +45,7 @@ namespace VexParser
     { }
 
     int 
-    PseudoSyllableProcessor::getSyllableBufferItemPosition(rVex::Syllable* syllable)
+    PseudoSyllableProcessor::getSyllableBufferItemPosition(rVex::Base::Syllable* syllable)
     {
       VexContext::SyllableBuffer::const_iterator it;
       int i;
@@ -62,7 +62,7 @@ namespace VexParser
     }
     
     void
-    PseudoSyllableProcessor::process(rVex::SyllableALU* syllable, SyllableArguments& arguments)
+    PseudoSyllableProcessor::process(rVex::Base::SyllableALU* syllable, SyllableArguments& arguments)
     {
       std::string textRepresentation = "(from ";
       textRepresentation.append(syllable->getTextRepresentation());
@@ -70,19 +70,19 @@ namespace VexParser
       
       switch (syllable->getOpcode()) 
       {
-        case rVex::Syllable::opCMPEQ:
-        case rVex::Syllable::opCMPGE:
-        case rVex::Syllable::opCMPGEU:
-        case rVex::Syllable::opCMPGT:
-        case rVex::Syllable::opCMPGTU:
-        case rVex::Syllable::opCMPLE:
-        case rVex::Syllable::opCMPLEU:
-        case rVex::Syllable::opCMPLT:
-        case rVex::Syllable::opCMPLTU:
-        case rVex::Syllable::opCMPNE:
-        case rVex::Syllable::opNANDL:
-        case rVex::Syllable::opNORL:
-        case rVex::Syllable::opORL:
+        case rVex::Base::Syllable::opCMPEQ:
+        case rVex::Base::Syllable::opCMPGE:
+        case rVex::Base::Syllable::opCMPGEU:
+        case rVex::Base::Syllable::opCMPGT:
+        case rVex::Base::Syllable::opCMPGTU:
+        case rVex::Base::Syllable::opCMPLE:
+        case rVex::Base::Syllable::opCMPLEU:
+        case rVex::Base::Syllable::opCMPLT:
+        case rVex::Base::Syllable::opCMPLTU:
+        case rVex::Base::Syllable::opCMPNE:
+        case rVex::Base::Syllable::opNANDL:
+        case rVex::Base::Syllable::opNORL:
+        case rVex::Base::Syllable::opORL:
           // Change from: cmpXX $r0.x = $r0.y, 12345
           // to: 
           // add $r0.31 = $r0.0, 12345
@@ -101,7 +101,7 @@ namespace VexParser
             std::string sourceReg=arguments.getSourceArguments().getArguments()[0].getString();
             int value=arguments.getSourceArguments().getArguments()[1].getValue();
             
-            rVex::SyllableALU* add = new rVex::Operations::ALU::ADD();
+            rVex::Base::SyllableALU* add = new rVex::Operations::ALU::ADD();
             add->setTextRepresentation(textRepresentation);
             
             arguments.getDestinyArguments().clearArguments();
@@ -136,25 +136,25 @@ namespace VexParser
     }
 
     void
-    PseudoSyllableProcessor::process(rVex::SyllableMEM* syllable, SyllableArguments& arguments)
+    PseudoSyllableProcessor::process(rVex::Base::SyllableMEM* syllable, SyllableArguments& arguments)
     {
 
     }
 
     void
-    PseudoSyllableProcessor::process(rVex::SyllableMUL* syllable, SyllableArguments& arguments)
+    PseudoSyllableProcessor::process(rVex::Base::SyllableMUL* syllable, SyllableArguments& arguments)
     {
 
     }
 
     void
-    PseudoSyllableProcessor::process(rVex::SyllableCTRL* syllable, SyllableArguments& arguments)
+    PseudoSyllableProcessor::process(rVex::Base::SyllableCTRL* syllable, SyllableArguments& arguments)
     {
 
     }
 
     void
-    PseudoSyllableProcessor::process(rVex::SyllableMISC* syllable, SyllableArguments& arguments)
+    PseudoSyllableProcessor::process(rVex::Base::SyllableMISC* syllable, SyllableArguments& arguments)
     {
 
     }

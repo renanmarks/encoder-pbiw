@@ -33,7 +33,7 @@ namespace rVex
   {
     namespace ALU
     {
-      class ADDCG : public SyllableALU
+      class ADDCG : public rVex::Base::SyllableALU
       {
         public:
           unsigned int getOpcode() const { return this->opADDCG | getBrSourceValue(); }

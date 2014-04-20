@@ -58,7 +58,7 @@ namespace VexParser
      * Buffer to hold the syllables processed until an end of instruction
      * is issued.
      */
-    typedef std::vector<rVex::SyllableCTRL*> ControlSyllablesVector;
+    typedef std::vector<rVex::Base::SyllableCTRL*> ControlSyllablesVector;
 
     /**
      * Buffer to hold the syllables processed until an end of instruction
@@ -70,13 +70,13 @@ namespace VexParser
      * The two main lists which holds the instructions and its respective
      * syllables parsed.
      */
-    typedef std::list<rVex::Syllable*> rVexSyllableList;
-    typedef std::list<rVex::Instruction*> rVexInstructionList;
+    typedef std::list<rVex::Base::Syllable*> rVexSyllableList;
+		typedef std::list<rVex::Base::Instruction*> rVexInstructionList;
 
     /**
      * Vector of the labels in assembly
      */
-    typedef std::list<rVex::Label> rVexLabelVector;
+		typedef std::list<rVex::Base::Label> rVexLabelVector;
 
     VexContext() :
     debugEnabled(false),
@@ -93,7 +93,7 @@ namespace VexParser
      * Used to select, make a pre-process an pack the parsed syllable
      * in the syllable buffer.
      */
-    void packSyllable(rVex::Syllable*, SyllableArguments&);
+    void packSyllable(rVex::Base::Syllable*, SyllableArguments&);
 
     /**
      * Clears the syllable buffer to hold new parsed syllables.
@@ -109,7 +109,7 @@ namespace VexParser
     /**
      * Given a address, returns the instruction.
      */
-    rVex::Instruction* getInstruction(unsigned int);
+		rVex::Base::Instruction* getInstruction(unsigned int);
 
     /**
      * Add the labels to the label vector.
@@ -222,7 +222,7 @@ namespace VexParser
     /**
      * Functor used to find a label.
      */
-    class FindLabel : public std::unary_function<rVex::Label, bool>
+		class FindLabel : public std::unary_function<rVex::Base::Label, bool>
     {
     public:
 
@@ -230,7 +230,7 @@ namespace VexParser
       {
       }
 
-      bool operator()(const rVex::Label& t) const
+			bool operator()(const rVex::Base::Label& t) const
       {
         return (t.getName() == label);
       }

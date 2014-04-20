@@ -31,9 +31,9 @@ namespace rVex
       {
         Utils::OperandVectorBuilder builder;
         
-        builder.insertOperand(Operand(Operand::GRDestiny));
+				builder.insertOperand(rVex::Base::Operand(rVex::Base::Operand::GRDestiny));
         builder.insertOperand(readRegisters[0]);
-        builder.insertOperand(Operand(Operand::GRSource));
+				builder.insertOperand(rVex::Base::Operand(rVex::Base::Operand::GRSource));
         builder.insertOperand(brDestiny);
         
         return builder.getOperandVector();

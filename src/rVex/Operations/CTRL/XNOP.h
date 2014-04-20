@@ -33,7 +33,7 @@ namespace rVex
   {
     namespace CTRL
     {
-      class XNOP : public SyllableCTRL
+      class XNOP : public rVex::Base::SyllableCTRL
       {
         public:
           unsigned int getOpcode() const { return this->opXNOP; }

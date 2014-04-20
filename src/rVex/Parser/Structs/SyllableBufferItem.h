@@ -39,11 +39,11 @@ namespace VexParser
         : syllable(NULL)
       { }
         
-      SyllableBufferItem(rVex::Syllable* syllableRef)
+			SyllableBufferItem(rVex::Base::Syllable* syllableRef)
         : syllable(syllableRef)
       { }
         
-      SyllableBufferItem(rVex::Syllable* syllableRef, VexParser::SyllableArguments& argumentsRef)
+			SyllableBufferItem(rVex::Base::Syllable* syllableRef, VexParser::SyllableArguments& argumentsRef)
         : syllable(syllableRef),
         arguments(argumentsRef)
       { }
@@ -90,15 +90,15 @@ namespace VexParser
       { return arguments; }
 
       void
-      setSyllable(rVex::Syllable* syllable)
+			setSyllable(rVex::Base::Syllable* syllable)
       { this->syllable = syllable; }
 
-      rVex::Syllable*
+			rVex::Base::Syllable*
       getSyllable() const
       { return syllable; }
     
     private:
-      rVex::Syllable* syllable;
+			rVex::Base::Syllable* syllable;
       VexParser::SyllableArguments arguments;
     };
   }

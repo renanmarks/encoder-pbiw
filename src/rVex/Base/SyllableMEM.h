@@ -31,18 +31,21 @@
 
 namespace rVex
 {
-  /**
-   * A r-Vex instruction MEM syllable (operation)
-   */
-  class SyllableMEM : public Syllable
-  {
-    public:
-      virtual ~SyllableMEM() { }
-      
-      virtual void print(rVex::Printers::IPrinter&, bool, bool) const = 0;
-      
-      virtual void fillSyllable(VexParser::SyllableArguments&) = 0;
-  };
+	namespace Base
+	{
+		/**
+		 * A r-Vex instruction MEM syllable (operation)
+		 */
+		class SyllableMEM : public Syllable
+		{
+			public:
+				virtual ~SyllableMEM() { }
+
+				virtual void print(rVex::Printers::IPrinter&, bool, bool) const = 0;
+
+				virtual void fillSyllable(VexParser::SyllableArguments&) = 0;
+		};
+	}
 }
 
 #endif	/* SYLLABLEMEM_H */

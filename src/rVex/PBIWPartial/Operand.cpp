@@ -30,16 +30,16 @@
 namespace PBIWPartial
 {
   Operand::Operand()
-  : index(0), type(rVex::Operand::GRSource),  value(0)
+  : index(0), type(rVex::Base::Operand::GRSource),  value(0)
   {
   }
   
   Operand::Operand(int value)
-  : index(0), type(rVex::Operand::GRSource), value(value)
+  : index(0), type(rVex::Base::Operand::GRSource), value(value)
   {
   }
   
-  Operand::Operand(int value, rVex::Operand::Type operandType)
+  Operand::Operand(int value, rVex::Base::Operand::Type operandType)
   : index(0), type(operandType), value(value)
   {
   }

@@ -33,7 +33,7 @@ namespace rVex
   {
     namespace CTRL
     {
-      class IGOTO : public SyllableCTRL
+      class IGOTO : public rVex::Base::SyllableCTRL
       {
         public:
           unsigned int getOpcode() const { return this->opIGOTO; }

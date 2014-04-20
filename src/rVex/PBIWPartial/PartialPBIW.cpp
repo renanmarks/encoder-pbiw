@@ -128,7 +128,7 @@ namespace PBIWPartial
   
   void PartialPBIW::resetFinalOperation(GenericAssembly::Utils::OperandVector::const_iterator& operandIt, // O(1)
                                         IOperation*& finalOperation, 
-                                        rVex::Syllable* const& syllable,
+                                        rVex::Base::Syllable* const& syllable,
                                         const GenericAssembly::Utils::OperandVector& operands)
   {
     operandIt = operands.begin();
@@ -139,23 +139,23 @@ namespace PBIWPartial
   void                                                                                 
   PartialPBIW::encode(const std::deque<GenericAssembly::Interfaces::IInstruction*>& originalInstructions) // O(|codedPatterns|^2)
   {
-    std::deque<rVex::Instruction*> rVexInstructions;
+    std::deque<rVex::Base::Instruction*> rVexInstructions;
     std::deque<GenericAssembly::Interfaces::IInstruction*>::const_iterator it;
     
     for (it = originalInstructions.begin();
          it != originalInstructions.end();
          it++)
     {
-      rVexInstructions.push_back( static_cast<rVex::Instruction*>(*it) );
+      rVexInstructions.push_back( static_cast<rVex::Base::Instruction*>(*it) );
     }
     
     encode(rVexInstructions);
   }
   
   void                                                                                 
-  PartialPBIW::encode(const std::deque<rVex::Instruction*>& originalInstructions) // O(|codedPatterns|^2)
+  PartialPBIW::encode(const std::deque<rVex::Base::Instruction*>& originalInstructions) // O(|codedPatterns|^2)
   {
-    std::deque<rVex::Instruction*>::const_iterator instructionIt;
+    std::deque<rVex::Base::Instruction*>::const_iterator instructionIt;
     
     originalInstructionsCount = originalInstructions.size();
     
@@ -178,7 +178,7 @@ namespace PBIWPartial
         
         for(it = instructionLabel.begin(); it != instructionLabel.end(); it++)
         {
-          PBIWPartial::Label label = *(dynamic_cast<rVex::Label*>(*it));
+          PBIWPartial::Label label = *(dynamic_cast<rVex::Base::Label*>(*it));
           label.setDestiny(finalInstruction);
 
           labels.push_back(label);
@@ -243,20 +243,20 @@ namespace PBIWPartial
              * and uses this new index as a reference.
              **/
             
-            rVex::Operand::Type operandType = static_cast<rVex::Operand::Type>(operand->getTypeCode());
+            rVex::Base::Operand::Type operandType = static_cast<rVex::Base::Operand::Type>(operand->getTypeCode());
             
             bool isZeroReadRegister = foundOperand.getIndex() == 0 && foundOperand.getValue() == 0 && 
-                 (  operandType == rVex::Operand::GRSource 
+                 (  operandType == rVex::Base::Operand::GRSource 
                     /*|| (*operandIt)->getType() == Operand::BRSource*/ );
             
             if (syllableHasBrDestiny)
             {
-              if (operandType == rVex::Operand::GRDestiny && operand->getValue() == 0 )
+              if (operandType == rVex::Base::Operand::GRDestiny && operand->getValue() == 0 )
               {
                 // If it's a syllable that uses an Branch register as destiny (The General Register destiny and it has value zero (must!))
                 // we don't do any copy or "error recovery" strategy.
               }
-              else if ( operandType == rVex::Operand::BRDestiny )
+              else if ( operandType == rVex::Base::Operand::BRDestiny )
               {
                 // If it's a syllable that uses an Branch register as destiny
                 // we don't do any copy or "error recovery" strategy.
@@ -276,14 +276,14 @@ namespace PBIWPartial
                 operand = factory.createOperand(**operandIt); // O(1)
               }
 
-              switch ( static_cast<rVex::Operand::Type>(operand->getTypeCode()) )
+              switch ( static_cast<rVex::Base::Operand::Type>(operand->getTypeCode()) )
               {
-                case rVex::Operand::BRSource :
+                case rVex::Base::Operand::BRSource :
                   finalInstruction->setBranchSourceOperand(*operand); // O(1)
                   continue;
                   break;
                   
-                case rVex::Operand::GRSource :
+                case rVex::Base::Operand::GRSource :
                   finalInstruction->addReadOperand(*operand); // O(1)
                   finalOperation->addOperand(*operand); // O(1)
                   continue;
@@ -293,7 +293,7 @@ namespace PBIWPartial
             }
             else if (!isZeroReadRegister && foundOperand.getIndex() < 8)// Fixes for read operands
             {
-              if ( (*syllableIt)->getOpcode() != rVex::Syllable::opNOP )
+              if ( (*syllableIt)->getOpcode() != rVex::Base::Syllable::opNOP )
               {
 //                if (syllableHasBrDestiny && (*operandIt)->getType() == Utils::OperandItem::BRDestiny && (*operandIt)->getOperand()->getValue() == 0)
 //                  continue;
@@ -309,11 +309,11 @@ namespace PBIWPartial
                   operand = factory.createOperand(**operandIt); // O(1)
                 }
 
-                switch ( static_cast<rVex::Operand::Type>(operand->getTypeCode()) )
+                switch ( static_cast<rVex::Base::Operand::Type>(operand->getTypeCode()) )
                 {
-                  case rVex::Operand::BRDestiny :
+                  case rVex::Base::Operand::BRDestiny :
                     break;
-                  case rVex::Operand::GRDestiny :
+                  case rVex::Base::Operand::GRDestiny :
                     finalInstruction->addWriteOperand(*operand); // O(1)
                     finalOperation->addOperand(*operand); // O(1)
                     continue;

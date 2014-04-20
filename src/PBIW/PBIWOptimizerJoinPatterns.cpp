@@ -88,19 +88,19 @@ namespace PBIW
 //                std::cout << "OPCODE " << (*it)->getOperation(i)->getOpcode() << std::endl;
                 if(((*it)->getOperation(i)->getOpcode() != 0) && ((*it)->getOperation(i)->getOpcode() != 31))
                 {
-                    if((*it)->getOperation(i)->getType() == rVex::Syllable::SyllableType::MEM)
+										if((*it)->getOperation(i)->getType() == rVex::Base::Syllable::SyllableType::MEM)
                     {
                         ops[i] = threeOps[i] = true;
                     }
-                    else if((*it)->getOperation(i)->getType() == rVex::Syllable::SyllableType::CTRL)
+										else if((*it)->getOperation(i)->getType() == rVex::Base::Syllable::SyllableType::CTRL)
                     {
                         ops[i] = threeOps[i] = true;                        
                     }
-                    else if((*it)->getOperation(i)->getType() == rVex::Syllable::SyllableType::MUL)
+										else if((*it)->getOperation(i)->getType() == rVex::Base::Syllable::SyllableType::MUL)
                     {
                         ops[i] = threeOps[i] = true;
                     }
-                    else if((*it)->getOperation(i)->getType() == rVex::Syllable::SyllableType::ALU)
+										else if((*it)->getOperation(i)->getType() == rVex::Base::Syllable::SyllableType::ALU)
                     {
                         threeOps[ALU] = true; countALU++;
                     }

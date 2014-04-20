@@ -33,7 +33,7 @@ namespace rVex
   {
     namespace MISC
     {
-      class SEND : public SyllableCTRL
+      class SEND : public rVex::Base::SyllableCTRL
       {
         public:
           SEND() {}

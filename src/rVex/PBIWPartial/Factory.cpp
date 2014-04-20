@@ -67,7 +67,7 @@ namespace PBIWPartial
   IOperation*
   Factory::createOperation(const GenericAssembly::Interfaces::IOperation& operation) const
   {
-    const rVex::Syllable& syllable = dynamic_cast<const rVex::Syllable&>(operation);
+    const rVex::Base::Syllable& syllable = dynamic_cast<const rVex::Base::Syllable&>(operation);
     Operation* finalOperation = static_cast<Operation*>(createOperation());
     
     finalOperation->setOpcode( syllable.getOpcode() );

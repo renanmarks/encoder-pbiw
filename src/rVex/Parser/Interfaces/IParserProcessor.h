@@ -37,15 +37,15 @@ namespace VexParser
     public :
       virtual ~IParserProcessor() { };
       
-      virtual void process(rVex::SyllableALU* syllable, SyllableArguments& arguments) = 0;
+      virtual void process(rVex::Base::SyllableALU* syllable, SyllableArguments& arguments) = 0;
       
-      virtual void process(rVex::SyllableCTRL* syllable, SyllableArguments& arguments) = 0;
+      virtual void process(rVex::Base::SyllableCTRL* syllable, SyllableArguments& arguments) = 0;
       
-      virtual void process(rVex::SyllableMUL* syllable, SyllableArguments& arguments) = 0;
+      virtual void process(rVex::Base::SyllableMUL* syllable, SyllableArguments& arguments) = 0;
       
-      virtual void process(rVex::SyllableMEM* syllable, SyllableArguments& arguments) = 0;
+      virtual void process(rVex::Base::SyllableMEM* syllable, SyllableArguments& arguments) = 0;
       
-      virtual void process(rVex::SyllableMISC* syllable, SyllableArguments& arguments) = 0;
+      virtual void process(rVex::Base::SyllableMISC* syllable, SyllableArguments& arguments) = 0;
     };
   }
 }

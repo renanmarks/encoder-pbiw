@@ -34,7 +34,7 @@ namespace rVex
   {
     namespace MISC
     {
-      class STOP : public SyllableCTRL
+      class STOP : public rVex::Base::SyllableCTRL
       {
         public:
           STOP() { setTextRepresentation("stop"); }

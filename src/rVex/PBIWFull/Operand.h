@@ -42,7 +42,7 @@ namespace PBIWFull
     
     explicit Operand();
     explicit Operand(int);
-    explicit Operand(int, rVex::Operand::Type);
+		explicit Operand(int, rVex::Base::Operand::Type);
     Operand(const Operand&);
     virtual ~Operand() { }
   
@@ -56,22 +56,22 @@ namespace PBIWFull
     { return this->index; }
     
     virtual void setTypeCode(int type) 
-    { this->type = static_cast<rVex::Operand::Type>(type); }
+		{ this->type = static_cast<rVex::Base::Operand::Type>(type); }
     
     virtual int getTypeCode() const
     { return static_cast<int>(this->type); }
     
     virtual bool isImmediate9Bits() const
-    { return this->type == rVex::Operand::Imm9; }
+		{ return this->type == rVex::Base::Operand::Imm9; }
     
     virtual void isImmediate9Bits(bool valid) 
-    { this->type = valid ? rVex::Operand::Imm9 : rVex::Operand::GRSource; }
+		{ this->type = valid ? rVex::Base::Operand::Imm9 : rVex::Base::Operand::GRSource; }
     
     virtual bool isImmediate12Bits() const
-    { return this->type == rVex::Operand::Imm12; }
+		{ return this->type == rVex::Base::Operand::Imm12; }
     
     virtual void isImmediate12Bits(bool valid) 
-    { this->type = valid ? rVex::Operand::Imm12 : rVex::Operand::GRSource; }
+		{ this->type = valid ? rVex::Base::Operand::Imm12 : rVex::Base::Operand::GRSource; }
     
     virtual bool isImmediate() const
     { return isImmediate12Bits() || isImmediate9Bits(); }
@@ -83,16 +83,16 @@ namespace PBIWFull
     { return value; }
     
     virtual bool isBRSource() const
-    { return type == rVex::Operand::BRSource; }
+		{ return type == rVex::Base::Operand::BRSource; }
     
     virtual void setBRSource(const bool value)
-    { type = value ? rVex::Operand::BRSource : rVex::Operand::GRSource; }
+		{ type = value ? rVex::Base::Operand::BRSource : rVex::Base::Operand::GRSource; }
     
     virtual bool isBRDestiny() const
-    { return type == rVex::Operand::BRDestiny; }
+		{ return type == rVex::Base::Operand::BRDestiny; }
     
     virtual void setBRDestiny(const bool value)
-    { type = value ? rVex::Operand::BRDestiny : rVex::Operand::GRSource; }
+		{ type = value ? rVex::Base::Operand::BRDestiny : rVex::Base::Operand::GRSource; }
 
     virtual bool operator<(const IOperand&) const;
     virtual bool operator>(const IOperand&) const;
@@ -106,7 +106,7 @@ namespace PBIWFull
     // Used to know in what position we are in the PBIW instruction
     unsigned int index;
     
-    rVex::Operand::Type type;
+		rVex::Base::Operand::Type type;
     
     // The value of this operand (register number or immediate number)
     int value;

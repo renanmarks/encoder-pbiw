@@ -41,10 +41,10 @@ namespace PBIWFull
 
     switch (realOpcode) // Get the 4 most significant bits from op
     {
-      case rVex::Syllable::opADDCG:
-      case rVex::Syllable::opDIVS:
-      case rVex::Syllable::opSLCT:
-      case rVex::Syllable::opSLCTF:
+      case rVex::Base::Syllable::opADDCG:
+      case rVex::Base::Syllable::opDIVS:
+      case rVex::Base::Syllable::opSLCT:
+      case rVex::Base::Syllable::opSLCTF:
         this->opcode=realOpcode;
         break;
 
@@ -95,8 +95,8 @@ namespace PBIWFull
   Operation::addOperand(const IOperand& operand) // O(1)
   {
     switch (this->getOpcode()) {
-      case rVex::Syllable::opGOTO:
-      case rVex::Syllable::opIGOTO:
+      case rVex::Base::Syllable::opGOTO:
+      case rVex::Base::Syllable::opIGOTO:
         if (writeOperand == -1)
         {
           writeOperand=0;
@@ -106,25 +106,25 @@ namespace PBIWFull
         }
         break;
 
-      case rVex::Syllable::opCALL:
+      case rVex::Base::Syllable::opCALL:
         if (operand.isImmediate())
           readOperands.push_back(0);
         break;
 
-      case rVex::Syllable::opBR:
-      case rVex::Syllable::opBRF:
+      case rVex::Base::Syllable::opBR:
+      case rVex::Base::Syllable::opBRF:
         if (writeOperand == -1)
           writeOperand=0;
         break;
 
-      case rVex::Syllable::opRETURN: // TODO
-      case rVex::Syllable::opRFI:
+      case rVex::Base::Syllable::opRETURN: // TODO
+      case rVex::Base::Syllable::opRFI:
         break;
 
-      case rVex::Syllable::opADDCG:
-      case rVex::Syllable::opDIVS:
-      case rVex::Syllable::opSLCT:
-      case rVex::Syllable::opSLCTF:
+      case rVex::Base::Syllable::opADDCG:
+      case rVex::Base::Syllable::opDIVS:
+      case rVex::Base::Syllable::opSLCT:
+      case rVex::Base::Syllable::opSLCTF:
         if (readBrOperand == -1)
         {
           this->readBrOperand=operand.getIndex();
@@ -181,16 +181,16 @@ namespace PBIWFull
       return false;
 
     switch (opcode) {
-      case rVex::Syllable::opADDCG:
-      case rVex::Syllable::opDIVS:
-      case rVex::Syllable::opSLCT:
-      case rVex::Syllable::opSLCTF:
+      case rVex::Base::Syllable::opADDCG:
+      case rVex::Base::Syllable::opDIVS:
+      case rVex::Base::Syllable::opSLCT:
+      case rVex::Base::Syllable::opSLCTF:
         if ((this->readBrOperand > 0 && other.getBrReadOperand() > 0) &&
             (this->readBrOperand != other.getBrReadOperand()))
           return false;
     }
 
-    if (immediateSwitch != static_cast<rVex::Syllable::ImmediateSwitch::Type> (other.getImmediateSwitch()))
+    if (immediateSwitch != static_cast<rVex::Base::Syllable::ImmediateSwitch::Type> (other.getImmediateSwitch()))
       return false;
 
     if (thisOperands.size() != otherOperands.size())

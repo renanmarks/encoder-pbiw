@@ -32,12 +32,12 @@ namespace rVex
   namespace Utils
   {
     DependencyChains::Dependency 
-    DependencyChains::getDependencies(Syllable* const& operation, const std::deque<Syllable*>& operations)
+		DependencyChains::getDependencies(rVex::Base::Syllable* const& operation, const std::deque<rVex::Base::Syllable*>& operations)
     {
       Dependency dependency;
 
-      rVex::Syllable::OperandVector readRegs = operation->getReadOperands();
-      std::deque<Syllable*>::const_iterator otherSyllableIt;
+      rVex::Base::Syllable::OperandVector readRegs = operation->getReadOperands();
+			std::deque<rVex::Base::Syllable*>::const_iterator otherSyllableIt;
 
       for(otherSyllableIt = operations.begin(); otherSyllableIt < operations.end(); otherSyllableIt++)
       {
@@ -55,9 +55,9 @@ namespace rVex
 
         switch ((*otherSyllableIt)->getOpcode())
         {
-          case rVex::Syllable::opSTW:
-          case rVex::Syllable::opSTH:
-          case rVex::Syllable::opSTB:
+          case rVex::Base::Syllable::opSTW:
+          case rVex::Base::Syllable::opSTH:
+          case rVex::Base::Syllable::opSTB:
             writesInMyGrReadRegister = false;
             writesInMyBrReadRegister = false;
             break;

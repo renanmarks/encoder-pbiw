@@ -24,7 +24,7 @@ namespace InstructionTest
 {
   TEST(InstructionTest, AddSyllable)
   {
-    rVex::Instruction instruction;
+    rVex::Base::Instruction instruction;
     rVex::Operations::ALU::ADD ADD;
     rVex::Operations::ALU::AND AND;
     rVex::Operations::ALU::ANDC ANDC;
@@ -241,7 +241,7 @@ namespace InstructionTest
 
   TEST(InstructionTest, RemoveSyllable)
   {
-    rVex::Instruction instruction;
+    rVex::Base::Instruction instruction;
     rVex::Operations::ALU::ADD ADD;
     rVex::Operations::ALU::AND AND;
     rVex::Operations::ALU::ANDC ANDC;
@@ -501,7 +501,7 @@ namespace InstructionTest
   
   TEST(InstructionTest, GetSyllables)
   {
-    rVex::Instruction instruction;
+    rVex::Base::Instruction instruction;
     rVex::Operations::ALU::ADD ADD;
     rVex::Operations::ALU::AND AND;
     rVex::Operations::ALU::ANDC ANDC;
@@ -544,7 +544,7 @@ namespace InstructionTest
     rVex::Operations::ALU::DIVS DIVS;
     rVex::Operations::ALU::SLCT SLCT;
     rVex::Operations::ALU::SLCTF SLCTF;
-    std::vector<rVex::Syllable*> other;
+    std::vector<rVex::Base::Syllable*> other;
     
     other.push_back(&ADD);
     other.push_back(&AND);

@@ -103,7 +103,7 @@ namespace VexParser
          it != labels.end();
          it++)
     {
-      returnDeque.push_back( const_cast<rVex::Label*>(&(*it)) );
+      returnDeque.push_back( const_cast<rVex::Base::Label*>(&(*it)) );
     }
     
     return returnDeque; 
@@ -141,30 +141,30 @@ namespace VexParser
     syllableBuffer.clear();
   }
   
-  void VexContext::packSyllable(rVex::Syllable* syllable, SyllableArguments& arguments)  // O(1)
+  void VexContext::packSyllable(rVex::Base::Syllable* syllable, SyllableArguments& arguments)  // O(1)
   {
     Processors::SyllablePacker packer(*this);
     
     switch(syllable->getSyllableType())
     {
-      case rVex::Syllable::SyllableType::ALU:
-        packer.process(dynamic_cast<rVex::SyllableALU*>(syllable), arguments);
+      case rVex::Base::Syllable::SyllableType::ALU:
+        packer.process(dynamic_cast<rVex::Base::SyllableALU*>(syllable), arguments);
         break;
         
-      case rVex::Syllable::SyllableType::MEM:
-        packer.process(dynamic_cast<rVex::SyllableMEM*>(syllable), arguments);
+      case rVex::Base::Syllable::SyllableType::MEM:
+        packer.process(dynamic_cast<rVex::Base::SyllableMEM*>(syllable), arguments);
         break;
         
-      case rVex::Syllable::SyllableType::MUL:
-        packer.process(dynamic_cast<rVex::SyllableMUL*>(syllable), arguments);
+      case rVex::Base::Syllable::SyllableType::MUL:
+        packer.process(dynamic_cast<rVex::Base::SyllableMUL*>(syllable), arguments);
         break;
         
-      case rVex::Syllable::SyllableType::CTRL:
-        packer.process(dynamic_cast<rVex::SyllableCTRL*>(syllable), arguments);
+      case rVex::Base::Syllable::SyllableType::CTRL:
+        packer.process(dynamic_cast<rVex::Base::SyllableCTRL*>(syllable), arguments);
         break;
         
       default: // MISC
-        packer.process(dynamic_cast<rVex::SyllableMISC*>(syllable), arguments);
+        packer.process(dynamic_cast<rVex::Base::SyllableMISC*>(syllable), arguments);
         break;
     }
   }
@@ -182,31 +182,31 @@ namespace VexParser
          it < newBuffer.end();
          it++)
     {
-      rVex::Syllable* syllable = it->getSyllable();
+      rVex::Base::Syllable* syllable = it->getSyllable();
       VexParser::SyllableArguments arguments = it->getArguments();
       
       syllableBuffer.push_back(*it);
       
       switch(syllable->getSyllableType())
       {
-        case rVex::Syllable::SyllableType::ALU:
-          processor.process(dynamic_cast<rVex::SyllableALU*>(syllable), arguments);
+        case rVex::Base::Syllable::SyllableType::ALU:
+          processor.process(dynamic_cast<rVex::Base::SyllableALU*>(syllable), arguments);
           break;
 
-        case rVex::Syllable::SyllableType::MEM:
-          processor.process(dynamic_cast<rVex::SyllableMEM*>(syllable), arguments);
+        case rVex::Base::Syllable::SyllableType::MEM:
+          processor.process(dynamic_cast<rVex::Base::SyllableMEM*>(syllable), arguments);
           break;
 
-        case rVex::Syllable::SyllableType::MUL:
-          processor.process(dynamic_cast<rVex::SyllableMUL*>(syllable), arguments);
+        case rVex::Base::Syllable::SyllableType::MUL:
+          processor.process(dynamic_cast<rVex::Base::SyllableMUL*>(syllable), arguments);
           break;
 
-        case rVex::Syllable::SyllableType::CTRL:
-          processor.process(dynamic_cast<rVex::SyllableCTRL*>(syllable), arguments);
+        case rVex::Base::Syllable::SyllableType::CTRL:
+          processor.process(dynamic_cast<rVex::Base::SyllableCTRL*>(syllable), arguments);
           break;
 
         default: // MISC
-          processor.process(dynamic_cast<rVex::SyllableMISC*>(syllable), arguments);
+          processor.process(dynamic_cast<rVex::Base::SyllableMISC*>(syllable), arguments);
           break;
       }
     }
@@ -265,7 +265,7 @@ namespace VexParser
       
       if ( labelIt != labels.end() )
       {
-        (*it)->setBranchDestiny(dynamic_cast<rVex::Syllable*>(labelIt->getDestiny()));
+        (*it)->setBranchDestiny(dynamic_cast<rVex::Base::Syllable*>(labelIt->getDestiny()));
     
         if (debugEnabled)
         {
@@ -283,7 +283,7 @@ namespace VexParser
   
   void VexContext::setLabel(std::string name, GenericAssembly::Utils::LabelScope::Type scope)  // O(1)
   { 
-    rVex::Label label;
+    rVex::Base::Label label;
     
     label.setName(name);
     label.setScope(scope);
@@ -294,7 +294,7 @@ namespace VexParser
   void VexContext::endInstruction() // O(1)
   {
     SyllableBuffer::iterator it;
-    rVex::Instruction* instruction = new rVex::Instruction();
+    rVex::Base::Instruction* instruction = new rVex::Base::Instruction();
     
     postProcess(); // post process
     
@@ -324,7 +324,7 @@ namespace VexParser
       for (it = labelBuffer.begin(); it != labelBuffer.end(); it++)
       {
         labels.push_back(*it);
-        rVex::Label& label = labels.back(); // O(1)
+        rVex::Base::Label& label = labels.back(); // O(1)
 
         label.setDestiny(instruction->getSyllables()[0]); // O(1)
         label.setAbsoluteAddress(instruction->getAddress()); // O(1)
@@ -341,7 +341,7 @@ namespace VexParser
     instructions.push_back(instruction);
   }
   
-  rVex::Instruction*
+  rVex::Base::Instruction*
   VexContext::getInstruction(unsigned int index) // O(|isntructions|)
   {
     rVexInstructionList::iterator it = instructions.begin();

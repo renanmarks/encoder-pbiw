@@ -31,16 +31,16 @@
 namespace PBIWFull
 {
   Operand::Operand()
-  : index(0), type(rVex::Operand::GRSource), value(0)
+  : index(0), type(rVex::Base::Operand::GRSource), value(0)
   {
   }
   
   Operand::Operand(int value)
-  : index(0), type(rVex::Operand::GRSource), value(value)
+  : index(0), type(rVex::Base::Operand::GRSource), value(value)
   {
   }
   
-  Operand::Operand(int value, rVex::Operand::Type type)
+  Operand::Operand(int value, rVex::Base::Operand::Type type)
   : index(0), type(type), value(value)
   {
   }

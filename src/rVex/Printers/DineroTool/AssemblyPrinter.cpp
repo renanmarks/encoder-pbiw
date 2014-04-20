@@ -58,7 +58,7 @@ namespace rVex
       * @return A std::string containing binary digits
       */
       void 
-      AssemblyPrinter::printOperation(const rVex::Syllable& syllable, const std::vector<unsigned int>& binaries) // O(1)
+      AssemblyPrinter::printOperation(const rVex::Base::Syllable& syllable, const std::vector<unsigned int>& binaries) // O(1)
       {
           if(syllable.getTextRepresentation() != "")
                   output << syllable.getTextRepresentation() << std::endl;
@@ -68,10 +68,10 @@ namespace rVex
       * Print the instruction.
       */
       void 
-      AssemblyPrinter::printInstruction(const rVex::Instruction& instruction)
+      AssemblyPrinter::printInstruction(const rVex::Base::Instruction& instruction)
       {
-        rVex::Instruction::SyllableCollection syllables = instruction.getOrderedSyllables();// O(1)
-        rVex::Instruction::SyllableCollection::const_iterator it;
+        rVex::Base::Instruction::SyllableCollection syllables = instruction.getOrderedSyllables();// O(1)
+        rVex::Base::Instruction::SyllableCollection::const_iterator it;
 
         try 
         {
@@ -106,7 +106,7 @@ namespace rVex
           }
 
         }
-        catch (rVex::Syllable::LayoutNotSupportedException e)
+        catch (rVex::Base::Syllable::LayoutNotSupportedException e)
         {
           output << "Error printing: " << e.what() << "Opcode: " << (*it)->getOpcode() << std::endl;
         }

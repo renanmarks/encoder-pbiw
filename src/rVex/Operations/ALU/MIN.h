@@ -33,7 +33,7 @@ namespace rVex
   {
     namespace ALU
     {
-      class MIN : public SyllableALU
+			class MIN : public rVex::Base::SyllableALU
       {
         public:
           unsigned int getOpcode() const { return this->opMIN; }

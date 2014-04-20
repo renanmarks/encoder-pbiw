@@ -30,8 +30,11 @@
 
 namespace rVex
 {
-  class Instruction;
-  class Syllable;
+	namespace Base
+	{
+		class Instruction;
+		class Syllable;
+	}
   
   namespace Printers
   {
@@ -39,7 +42,7 @@ namespace rVex
      * Printer interface
      * Used by the printing mechanisms to output the bytecode.
      */
-    class IPrinter : public GenericAssembly::Interfaces::IPrinter<Instruction, Syllable>
+		class IPrinter : public GenericAssembly::Interfaces::IPrinter<Base::Instruction, Base::Syllable>
     {
     public:
       virtual ~IPrinter() { }

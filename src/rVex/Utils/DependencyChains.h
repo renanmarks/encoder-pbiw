@@ -33,15 +33,18 @@
 
 namespace rVex
 {
-  class Instruction;
-  class Syllable;
+	namespace Base
+	{
+		class Instruction;
+		class Syllable;
+	}
   
   namespace Utils
   {
-    class DependencyChains : public GenericAssembly::Utils::DependencyChains<Instruction, Syllable, rVex::Printers::IPrinter>
+		class DependencyChains : public GenericAssembly::Utils::DependencyChains<rVex::Base::Instruction, rVex::Base::Syllable, rVex::Printers::IPrinter>
     {
     protected:
-      virtual Dependency getDependencies(Syllable* const& operation, const std::deque<Syllable*>& operations);
+			virtual Dependency getDependencies(rVex::Base::Syllable* const& operation, const std::deque<rVex::Base::Syllable*>& operations);
     };
   }
 }

@@ -34,7 +34,7 @@ namespace rVex
   {
     namespace MEM
     {
-      class PFT : public SyllableMEM
+      class PFT : public rVex::Base::SyllableMEM
       {
         public:
           PFT() {}

@@ -208,7 +208,7 @@ namespace PBIWFull
       /**
        * Keeps track of what syllables were packed in this instruction
        */
-      typedef std::list<rVex::Syllable*> SyllableList;
+      typedef std::list<rVex::Base::Syllable*> SyllableList;
       SyllableList syllablesPacked;
       
       AnnulationBits annulBits;

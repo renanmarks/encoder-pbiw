@@ -33,11 +33,11 @@ namespace rVex
   {
     namespace ALU
     {
-      class NANDL : public SyllableALU
+			class NANDL : public rVex::Base::SyllableALU
       {
         public:
           unsigned int getOpcode() const { return this->opNANDL; }
-          SyllableType::Type getSyllableType() const { return SyllableType::ALU; }
+					SyllableType::Type getSyllableType() const { return SyllableType::ALU; }
           
           virtual void fillSyllable(VexParser::SyllableArguments& arguments)
           { this->fillTypeII(arguments); }

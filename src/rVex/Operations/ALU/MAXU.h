@@ -33,7 +33,7 @@ namespace rVex
   {
     namespace ALU
     {
-      class MAXU : public SyllableALU
+			class MAXU : public rVex::Base::SyllableALU
       {
         public:
           unsigned int getOpcode() const { return this->opMAXU; }

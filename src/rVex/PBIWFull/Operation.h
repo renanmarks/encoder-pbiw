@@ -44,8 +44,8 @@ namespace PBIWFull
   {
   public:
     Operation()
-    :type(rVex::Syllable::SyllableType::ALU), 
-      immediateSwitch(rVex::Syllable::ImmediateSwitch::NO_IMM), 
+    :type(rVex::Base::Syllable::SyllableType::ALU), 
+      immediateSwitch(rVex::Base::Syllable::ImmediateSwitch::NO_IMM), 
       opcode(0),
       originalOpcode(0),
       readBrOperand(-1),
@@ -89,7 +89,7 @@ namespace PBIWFull
     { return readBrOperand; }
     
     virtual void setImmediateSwitch(int type)
-    { immediateSwitch = static_cast<rVex::Syllable::ImmediateSwitch::Type>(type); }
+    { immediateSwitch = static_cast<rVex::Base::Syllable::ImmediateSwitch::Type>(type); }
     
     virtual int getImmediateSwitch() const
     { return static_cast<int>(immediateSwitch); }
@@ -116,16 +116,16 @@ namespace PBIWFull
     
     virtual void
     setType(int type)
-    { this->type=static_cast<rVex::Syllable::SyllableType::Type>(type); }
+    { this->type=static_cast<rVex::Base::Syllable::SyllableType::Type>(type); }
 
     virtual int
     getType() const
     { return static_cast<int>(type); }
             
   private:
-    rVex::Syllable::SyllableType::Type type;
+    rVex::Base::Syllable::SyllableType::Type type;
     
-    rVex::Syllable::ImmediateSwitch::Type immediateSwitch;
+    rVex::Base::Syllable::ImmediateSwitch::Type immediateSwitch;
     
     /**
      * Syllable opcode

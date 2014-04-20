@@ -1038,7 +1038,7 @@ namespace VexParser {
                           if (driver.context.isDebuggingEnabled())
                             std::cout << stringRepresentation.str() << std::endl;
                           
-                          rVex::Syllable* syllable = (yysemantic_stack_[(3) - (2)].opcode)->syllableConstructor->create();
+                          rVex::Base::Syllable* syllable = (yysemantic_stack_[(3) - (2)].opcode)->syllableConstructor->create();
                           syllable->setTextRepresentation(stringRepresentation.str());
                           
                           driver.context.packSyllable(syllable , *(yysemantic_stack_[(3) - (3)].syllableArguments) ); 
@@ -1064,7 +1064,7 @@ namespace VexParser {
                           if (driver.context.isDebuggingEnabled())
                             std::cout << stringRepresentation.str() << std::endl;
                           
-                          rVex::Syllable* syllable = (yysemantic_stack_[(2) - (1)].opcode)->syllableConstructor->create();
+                          rVex::Base::Syllable* syllable = (yysemantic_stack_[(2) - (1)].opcode)->syllableConstructor->create();
                           syllable->setTextRepresentation(stringRepresentation.str());
                           
                           driver.context.packSyllable(syllable, syllableArguments); 

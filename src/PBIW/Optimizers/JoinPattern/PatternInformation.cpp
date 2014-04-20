@@ -41,7 +41,7 @@ namespace PBIW
       void
       PatternInformation::addOperation(IOperation* operation, int originalPosition)
       {
-        if (operation->getOpcode() != rVex::Syllable::opNOP)
+				if (operation->getOpcode() != rVex::Base::Syllable::opNOP)
         {
           slots[originalPosition].setOperation(operation);
           slots[originalPosition].setOriginalPosition(originalPosition);
@@ -62,7 +62,7 @@ namespace PBIW
             it != operations.end();
             it++, originalIndex++)
         {
-          if ( (*it)->getOpcode() != rVex::Syllable::opNOP )
+					if ( (*it)->getOpcode() != rVex::Base::Syllable::opNOP )
             addOperation(*it, originalIndex);
         }
       }

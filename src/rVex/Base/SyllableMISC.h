@@ -30,18 +30,21 @@
 
 namespace rVex
 {
-  /**
-   * A r-Vex instruction MISC syllable (operation)
-   */
-  class SyllableMISC : public Syllable
-  {
-    public:
-      virtual ~SyllableMISC() { }
-      
-      virtual void print(rVex::Printers::IPrinter&, bool, bool) const;
-      
-      virtual void fillSyllable(VexParser::SyllableArguments&) = 0;
-  };
+	namespace Base
+	{
+		/**
+		 * A r-Vex instruction MISC syllable (operation)
+		 */
+		class SyllableMISC : public Syllable
+		{
+			public:
+				virtual ~SyllableMISC() { }
+
+				virtual void print(rVex::Printers::IPrinter&, bool, bool) const;
+
+				virtual void fillSyllable(VexParser::SyllableArguments&) = 0;
+		};
+	}
 }
 
 #endif	/* SYLLABLEMISC_H */

@@ -34,7 +34,7 @@ namespace rVex
   {
     namespace MEM
     {
-      class STB : public SyllableMEM
+      class STB : public rVex::Base::SyllableMEM
       {
         public:
           STB() {}

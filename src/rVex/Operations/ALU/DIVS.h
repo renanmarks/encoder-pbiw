@@ -33,7 +33,7 @@ namespace rVex
   {
     namespace ALU
     {
-      class DIVS : public SyllableALU
+      class DIVS : public rVex::Base::SyllableALU
       {
         public:
           unsigned int getOpcode() const { return this->opDIVS | getBrSourceValue(); }

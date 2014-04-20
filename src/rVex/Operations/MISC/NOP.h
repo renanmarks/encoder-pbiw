@@ -36,7 +36,7 @@ namespace rVex
   {
     namespace MISC
     {
-      class NOP : public SyllableCTRL
+			class NOP : public rVex::Base::SyllableCTRL
       {
         public:
           NOP() {}

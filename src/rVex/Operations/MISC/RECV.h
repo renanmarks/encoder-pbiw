@@ -33,7 +33,7 @@ namespace rVex
   {
     namespace MISC
     {
-      class RECV : public SyllableCTRL
+      class RECV : public rVex::Base::SyllableCTRL
       {
         public:
           RECV() {}

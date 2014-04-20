@@ -34,7 +34,7 @@ namespace rVex
   {
     namespace MEM
     {
-      class LDHU : public SyllableMEM
+      class LDHU : public rVex::Base::SyllableMEM
       {
         public:
           unsigned int getOpcode() const { return this->opLDHU; }

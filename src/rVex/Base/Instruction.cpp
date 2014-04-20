@@ -30,267 +30,271 @@
 
 namespace rVex
 {
+	namespace Base
+	{
 
-  Instruction::Instruction()
-  : address(0)
-  {
+		Instruction::Instruction()
+		: address(0)
+		{
 
-  }
-  
-  Instruction::~Instruction()
-  {
-    
-  }
+		}
 
-  unsigned int 
-  Instruction::getAddress() const
-  {
-    return address;
-  }
-  
-  void 
-  Instruction::setAddress(unsigned int address)
-  {
-    this->address = address;
-  }
-  
-  void
-  Instruction::setLabel(rVex::Label& label)
-  {
-    this->labels.push_back(&label);
-  }
+		Instruction::~Instruction()
+		{
 
-  bool
-  Instruction::haveLabels() const
-  {
-    return this->labels.size() > 0;
-  }
+		}
 
-  Instruction::LabelDeque
-  Instruction::getLabels() const
-  {
-    return Instruction::LabelDeque(labels.begin(), labels.end());
-  }
+		unsigned int
+		Instruction::getAddress() const
+		{
+			return address;
+		}
 
-  void
-  Instruction::setWordAddress(unsigned int wordAddress)
-  {
-    this->wordAddress=wordAddress;
-  }
+		void
+		Instruction::setAddress(unsigned int address)
+		{
+			this->address = address;
+		}
 
-  unsigned int
-  Instruction::getWordAddress() const
-  {
-    return wordAddress;
-  }
+		void
+		Instruction::setLabel(rVex::Base::Label& label)
+		{
+			this->labels.push_back(&label);
+		}
 
-  void
-  Instruction::buildSyllableDependencies()
-  {
-    dependencies.buildDependenciesChains(*this);
-  }
+		bool
+		Instruction::haveLabels() const
+		{
+			return this->labels.size() > 0;
+		}
 
-  bool
-  Instruction::canSplitInstruction(const IOperation& syllable) const
-  {
-    return dependencies.canSplitSyllable(dynamic_cast<const Syllable&>(syllable));
-  }
+		Instruction::LabelDeque
+		Instruction::getLabels() const
+		{
+			return Instruction::LabelDeque(labels.begin(), labels.end());
+		}
 
-  unsigned int
-  Instruction::getQuantityNotNopOperations() const
-  {
-    SyllableCollection::const_iterator it;
+		void
+		Instruction::setWordAddress(unsigned int wordAddress)
+		{
+			this->wordAddress=wordAddress;
+		}
 
-    unsigned int quantity=0;
+		unsigned int
+		Instruction::getWordAddress() const
+		{
+			return wordAddress;
+		}
 
-    for (it=syllables.begin(); it < syllables.end(); it++)
-    {
-      if ((*it)->getOpcode() != rVex::Syllable::opNOP)
-        quantity++;
-    }
+		void
+		Instruction::buildSyllableDependencies()
+		{
+			dependencies.buildDependenciesChains(*this);
+		}
 
-    // All nops
-    if (quantity == 0)
-      return 1;
+		bool
+		Instruction::canSplitInstruction(const IOperation& syllable) const
+		{
+			return dependencies.canSplitSyllable(dynamic_cast<const rVex::Base::Syllable&>(syllable));
+		}
 
-    return quantity;
-  }
+		unsigned int
+		Instruction::getQuantityNotNopOperations() const
+		{
+			SyllableCollection::const_iterator it;
 
-  void
-  Instruction::addReferencePBIWInstruction(const PBIW::Interfaces::IPBIWInstruction& instruction)
-  {
-    this->pbiwInstructions.insert(&instruction);
-  }
+			unsigned int quantity=0;
 
-  std::set<const PBIW::Interfaces::IPBIWInstruction*>
-  Instruction::getPBIWInstructions() const
-  {
-    return this->pbiwInstructions;
-  }
+			for (it=syllables.begin(); it < syllables.end(); it++)
+			{
+				if ((*it)->getOpcode() != rVex::Base::Syllable::opNOP)
+					quantity++;
+			}
 
-  bool
-  Instruction::addSyllable(Syllable& syllable) // O(1)
-  {
-    if (this->syllables.size() < this->syllables.max_size()) // O(1)
-    {
-      this->syllables.push_back(&syllable); // O(1)
-      return true;
-    }
+			// All nops
+			if (quantity == 0)
+				return 1;
 
-    return false;
-  }
+			return quantity;
+		}
 
-  bool
-  Instruction::removeSyllable(const Syllable& syllable) // O(1)
-  {
-    if (this->syllables.size() > 0) // O(1)
-    {
-      SyllableCollection::iterator it;
+		void
+		Instruction::addReferencePBIWInstruction(const PBIW::Interfaces::IPBIWInstruction& instruction)
+		{
+			this->pbiwInstructions.insert(&instruction);
+		}
 
-      it=std::find(this->syllables.begin(), this->syllables.end(), &syllable);
+		std::set<const PBIW::Interfaces::IPBIWInstruction*>
+		Instruction::getPBIWInstructions() const
+		{
+			return this->pbiwInstructions;
+		}
 
-      if (it != this->syllables.end())
-      {
-        this->syllables.erase(it);
-        return true;
-      }
-    }
+		bool
+		Instruction::addSyllable(Syllable& syllable) // O(1)
+		{
+			if (this->syllables.size() < this->syllables.max_size()) // O(1)
+			{
+				this->syllables.push_back(&syllable); // O(1)
+				return true;
+			}
 
-    return false;
-  }
+			return false;
+		}
 
-  Instruction::SyllableCollection
-  Instruction::getOrderedSyllables() const
-  {
-    Instruction::SyllableCollection orderedSyllables=this->syllables;
+		bool
+		Instruction::removeSyllable(const Syllable& syllable) // O(1)
+		{
+			if (this->syllables.size() > 0) // O(1)
+			{
+				SyllableCollection::iterator it;
 
-    int counterIt=0;
-    Instruction::SyllableCollection::iterator it;
+				it=std::find(this->syllables.begin(), this->syllables.end(), &syllable);
 
-    // Go through all the syllables ordering them
-    for (it=orderedSyllables.begin(); // O(|syllableBuffer|) = O(4) = O(1)
-         it < orderedSyllables.end();
-         it++)
-    {
-      rVex::Syllable* syllableIt= *it;
+				if (it != this->syllables.end())
+				{
+					this->syllables.erase(it);
+					return true;
+				}
+			}
 
-      // ALU = 1, MUL = 2, MEM = 3 , CTRL = 4
-      if (
-          syllableIt->getOpcode() &&
-          (syllableIt->getSyllableType() != rVex::Syllable::SyllableType::ALU)
-          )
-      {
-        if (
-            (syllableIt->getSyllableType() == rVex::Syllable::SyllableType::CTRL) &&
-            (counterIt != 0)
-            )
-        {
-          // exchange the indexes
-          rVex::Syllable* syllable=orderedSyllables.at(0);
-          orderedSyllables.at(0)=orderedSyllables.at(counterIt);
-          orderedSyllables.at(counterIt)=syllable;
+			return false;
+		}
 
-          counterIt--;
-          it--;
-        } else if (
-                   (syllableIt->getSyllableType() == rVex::Syllable::SyllableType::MEM) &&
-                   (counterIt != 3)
-                   )
-        {
-          // exchange the indexes
-          rVex::Syllable* syllable=orderedSyllables.at(3);
-          orderedSyllables.at(3)=orderedSyllables.at(counterIt);
-          orderedSyllables.at(counterIt)=syllable;
+		Instruction::SyllableCollection
+		Instruction::getOrderedSyllables() const
+		{
+			Instruction::SyllableCollection orderedSyllables=this->syllables;
 
-          counterIt--;
-          it--;
-        }
-        else if (
-                 (syllableIt->getSyllableType() == rVex::Syllable::SyllableType::MUL) &&
-                 ((counterIt != 1) && (counterIt != 2))
-                 )
-        {
-          int index;
+			int counterIt=0;
+			Instruction::SyllableCollection::iterator it;
 
-          // set up the index that will receive the MUL syllable
-          if (orderedSyllables.at(1)->getSyllableType() != rVex::Syllable::SyllableType::MUL)
-            index=1;
-          else
-            index=2;
+			// Go through all the syllables ordering them
+			for (it=orderedSyllables.begin(); // O(|syllableBuffer|) = O(4) = O(1)
+					 it < orderedSyllables.end();
+					 it++)
+			{
+				rVex::Base::Syllable* syllableIt= *it;
 
-          // exchange the indexes
-          rVex::Syllable* syllable=orderedSyllables.at(index);
-          orderedSyllables.at(index)=orderedSyllables.at(counterIt);
-          orderedSyllables.at(counterIt)=syllable;
+				// ALU = 1, MUL = 2, MEM = 3 , CTRL = 4
+				if (
+						syllableIt->getOpcode() &&
+						(syllableIt->getSyllableType() != rVex::Base::Syllable::SyllableType::ALU)
+						)
+				{
+					if (
+							(syllableIt->getSyllableType() == rVex::Base::Syllable::SyllableType::CTRL) &&
+							(counterIt != 0)
+							)
+					{
+						// exchange the indexes
+						rVex::Base::Syllable* syllable=orderedSyllables.at(0);
+						orderedSyllables.at(0)=orderedSyllables.at(counterIt);
+						orderedSyllables.at(counterIt)=syllable;
 
-          counterIt--;
-          it--;
-        }
-      }
-      counterIt++;
-    }
+						counterIt--;
+						it--;
+					} else if (
+										 (syllableIt->getSyllableType() == rVex::Base::Syllable::SyllableType::MEM) &&
+										 (counterIt != 3)
+										 )
+					{
+						// exchange the indexes
+						rVex::Base::Syllable* syllable=orderedSyllables.at(3);
+						orderedSyllables.at(3)=orderedSyllables.at(counterIt);
+						orderedSyllables.at(counterIt)=syllable;
 
-    // Invert the ordering to MEM, ALU, ALU, CTRL to match de rVex slots
-    Instruction::SyllableCollection reverseOrderedSyllables(orderedSyllables.rbegin(), orderedSyllables.rend());
+						counterIt--;
+						it--;
+					}
+					else if (
+									 (syllableIt->getSyllableType() == rVex::Base::Syllable::SyllableType::MUL) &&
+									 ((counterIt != 1) && (counterIt != 2))
+									 )
+					{
+						int index;
 
-    return reverseOrderedSyllables;
-  }
+						// set up the index that will receive the MUL syllable
+						if (orderedSyllables.at(1)->getSyllableType() != rVex::Base::Syllable::SyllableType::MUL)
+							index=1;
+						else
+							index=2;
 
-  void 
-  Instruction::minimizeOperationDependency()
-  {
-    dependencies.sortOperations(*this);
-  }
-  
-  struct MinimumAddress
-  {
-    bool operator()(GenericAssembly::Interfaces::IOperation* first, GenericAssembly::Interfaces::IOperation* second)
-    {
-      return first->getAddress() < second->getAddress();
-    }
-  };
-  
-  void 
-  Instruction::setOperations(Instruction::OperationDeque& operations)
-  {
-    syllables.clear();
-    
-    MinimumAddress min;
-    Instruction::OperationDeque::iterator opIt = std::min_element(operations.begin(), operations.end(), min);
-    int miniumAddress = (*opIt)->getAddress();
-    
-    Instruction::OperationDeque::iterator it;
-    
-    for (it = operations.begin(); it != operations.end(); it++)
-    {
-      (*it)->setAddress(miniumAddress++);
-      syllables.push_back( dynamic_cast<Syllable*>(*it) );
-    }
-    
-    this->buildSyllableDependencies();
-  }
-  
-  Instruction::OperationDeque 
-  Instruction::getOperations() const
-  {
-    return Instruction::OperationDeque(syllables.begin(), syllables.end());
-  }
-  
-  Instruction::SyllableCollection
-  Instruction::getSyllables() const // O(1)
-  {
-    return this->syllables;
-  }
+						// exchange the indexes
+						rVex::Base::Syllable* syllable=orderedSyllables.at(index);
+						orderedSyllables.at(index)=orderedSyllables.at(counterIt);
+						orderedSyllables.at(counterIt)=syllable;
 
-  void
-  Instruction::print(rVex::Printers::IPrinter& printer) const
-  {
-    printer.printInstruction(*this);
-  }
+						counterIt--;
+						it--;
+					}
+				}
+				counterIt++;
+			}
 
-  void
-  Instruction::printSyllableDependencies(rVex::Printers::IPrinter& printer) const
-  {
-    dependencies.print(printer);
-  }
+			// Invert the ordering to MEM, ALU, ALU, CTRL to match de rVex slots
+			Instruction::SyllableCollection reverseOrderedSyllables(orderedSyllables.rbegin(), orderedSyllables.rend());
+
+			return reverseOrderedSyllables;
+		}
+
+		void
+		Instruction::minimizeOperationDependency()
+		{
+			dependencies.sortOperations(*this);
+		}
+
+		struct MinimumAddress
+		{
+			bool operator()(GenericAssembly::Interfaces::IOperation* first, GenericAssembly::Interfaces::IOperation* second)
+			{
+				return first->getAddress() < second->getAddress();
+			}
+		};
+
+		void
+		Instruction::setOperations(Instruction::OperationDeque& operations)
+		{
+			syllables.clear();
+
+			MinimumAddress min;
+			Instruction::OperationDeque::iterator opIt = std::min_element(operations.begin(), operations.end(), min);
+			int miniumAddress = (*opIt)->getAddress();
+
+			Instruction::OperationDeque::iterator it;
+
+			for (it = operations.begin(); it != operations.end(); it++)
+			{
+				(*it)->setAddress(miniumAddress++);
+				syllables.push_back( dynamic_cast<Syllable*>(*it) );
+			}
+
+			this->buildSyllableDependencies();
+		}
+
+		Instruction::OperationDeque
+		Instruction::getOperations() const
+		{
+			return Instruction::OperationDeque(syllables.begin(), syllables.end());
+		}
+
+		Instruction::SyllableCollection
+		Instruction::getSyllables() const // O(1)
+		{
+			return this->syllables;
+		}
+
+		void
+		Instruction::print(rVex::Printers::IPrinter& printer) const
+		{
+			printer.printInstruction(*this);
+		}
+
+		void
+		Instruction::printSyllableDependencies(rVex::Printers::IPrinter& printer) const
+		{
+			dependencies.print(printer);
+		}
+
+	}
 }

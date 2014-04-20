@@ -21,51 +21,54 @@
 
 namespace rVex
 {
-  Label::Label() 
-    : name(""), scope(GenericAssembly::Utils::LabelScope::GLOBAL), destiny(NULL), absoluteAddress(0)
-  { }
-    
-  Label::Label(const Label& other) 
-    : name(other.name), scope(other.scope), destiny(other.destiny), absoluteAddress(other.absoluteAddress)
-  { }
+	namespace Base
+	{
+		Label::Label()
+			: name(""), scope(GenericAssembly::Utils::LabelScope::GLOBAL), destiny(NULL), absoluteAddress(0)
+		{ }
 
-  void Label::setAbsoluteAddress(unsigned int address)
-  { 
-    absoluteAddress = address; 
-  }
+		Label::Label(const Label& other)
+			: name(other.name), scope(other.scope), destiny(other.destiny), absoluteAddress(other.absoluteAddress)
+		{ }
 
-  unsigned int Label::getAbsoluteAddress() const
-  { 
-    return absoluteAddress; 
-  }
+		void Label::setAbsoluteAddress(unsigned int address)
+		{
+			absoluteAddress = address;
+		}
 
-  void Label::setDestiny(IOperation* operation)
-  { 
-    this->destiny = dynamic_cast<rVex::Syllable*>(operation); 
-  }
+		unsigned int Label::getAbsoluteAddress() const
+		{
+			return absoluteAddress;
+		}
 
-  IOperation* Label::getDestiny() const 
-  { 
-    return destiny; 
-  }
+		void Label::setDestiny(IOperation* operation)
+		{
+			this->destiny = dynamic_cast<rVex::Base::Syllable*>(operation);
+		}
 
-  void Label::setScope(GenericAssembly::Utils::LabelScope::Type labelScope)
-  { 
-    this->scope = labelScope; 
-  }
+		IOperation* Label::getDestiny() const
+		{
+			return destiny;
+		}
 
-  GenericAssembly::Utils::LabelScope::Type Label::getScope() const
-  { 
-    return scope; 
-  }
+		void Label::setScope(GenericAssembly::Utils::LabelScope::Type labelScope)
+		{
+			this->scope = labelScope;
+		}
 
-  void Label::setName(const std::string& name)
-  { 
-    this->name = name; 
-  }
+		GenericAssembly::Utils::LabelScope::Type Label::getScope() const
+		{
+			return scope;
+		}
 
-  std::string Label::getName() const
-  { 
-    return name; 
-  }
+		void Label::setName(const std::string& name)
+		{
+			this->name = name;
+		}
+
+		std::string Label::getName() const
+		{
+			return name;
+		}
+	}
 }

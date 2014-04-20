@@ -53,7 +53,7 @@ namespace PBIWPartial
     
     for(it = list.begin(); it != list.end(); it++)
     {
-      syllablesPacked.push_back(static_cast<rVex::Syllable*>(*it));
+      syllablesPacked.push_back(static_cast<rVex::Base::Syllable*>(*it));
       (*it)->getBelongedInstruction()->addReferencePBIWInstruction(*this);
     }
   }
@@ -239,7 +239,7 @@ namespace PBIWPartial
   bool
   rVex64PBIWInstruction::hasControlOperationWithLabelDestiny()
   {
-    using rVex::Syllable;
+    using rVex::Base::Syllable;
     SyllableList::const_iterator it;
 
     for (it=syllablesPacked.begin();
@@ -314,26 +314,26 @@ namespace PBIWPartial
   void 
   rVex64PBIWInstruction::addOperand(IOperand& operand)
   {
-    switch ( static_cast<rVex::Operand::Type>(operand.getTypeCode()) )
+    switch ( static_cast<rVex::Base::Operand::Type>(operand.getTypeCode()) )
     {
-      case rVex::Operand::GRDestiny :
+      case rVex::Base::Operand::GRDestiny :
         if (operand.getValue() == 0)
           break;
 
-      case rVex::Operand::Imm9:
-      case rVex::Operand::Imm12:
+      case rVex::Base::Operand::Imm9:
+      case rVex::Base::Operand::Imm12:
         this->addWriteOperand(operand); // O(1)
         break;
 
-      case rVex::Operand::BRSource :
+      case rVex::Base::Operand::BRSource :
         this->setBranchSourceOperand(operand); // O(1)
         break;
 
-      case rVex::Operand::BRDestiny :
+      case rVex::Base::Operand::BRDestiny :
         this->addReadOperand(operand); // O(1)
         break;
 
-      case rVex::Operand::GRSource :
+      case rVex::Base::Operand::GRSource :
         if (operand.getValue() != 0)
           this->addReadOperand(operand); // O(1)
 
@@ -444,9 +444,9 @@ namespace PBIWPartial
   bool
   rVex64PBIWInstruction::hasOperandSlot(const PBIW::Utils::OperandItemDTO& operand) // O(1)
   {
-    switch ( static_cast<rVex::Operand::Type>(operand.getOperand()->getTypeCode()) )
+    switch ( static_cast<rVex::Base::Operand::Type>(operand.getOperand()->getTypeCode()) )
     {
-      case rVex::Operand::GRDestiny:
+      case rVex::Base::Operand::GRDestiny:
       {
         bool hasWriteSlot = this->hasWriteOperandSlot();
         
@@ -468,7 +468,7 @@ namespace PBIWPartial
       }
         break;
 
-      case rVex::Operand::Imm12:
+      case rVex::Base::Operand::Imm12:
         {
           Operand* convertedOperand = dynamic_cast<Operand*>(operand.getPBIWOperand());
 
@@ -480,7 +480,7 @@ namespace PBIWPartial
         }
         break;
         
-      case rVex::Operand::Imm9:
+      case rVex::Base::Operand::Imm9:
         {
           Operand* convertedOperand = dynamic_cast<Operand*>(operand.getPBIWOperand());
 
@@ -498,12 +498,12 @@ namespace PBIWPartial
         }
         break;
 
-      case rVex::Operand::BRSource:
+      case rVex::Base::Operand::BRSource:
         return !this->hasBranchSourceOperand();
         break;
       
-      case rVex::Operand::BRDestiny:
-      case rVex::Operand::GRSource:
+      case rVex::Base::Operand::BRDestiny:
+      case rVex::Base::Operand::GRSource:
         if (operand.getOperand()->getValue() != 0)
           return this->hasReadOperandSlot();
 

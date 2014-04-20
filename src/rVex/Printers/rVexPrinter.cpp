@@ -45,7 +45,7 @@ namespace rVex
     }
     
     void 
-    rVexPrinter::printOperation(const rVex::Syllable& syllable, const std::vector<unsigned int>& binaries) // O(1)
+    rVexPrinter::printOperation(const rVex::Base::Syllable& syllable, const std::vector<unsigned int>& binaries) // O(1)
     {
       std::string resultBinary;
       std::vector<unsigned int>::const_iterator it;
@@ -72,10 +72,10 @@ namespace rVex
      * Print the instruction.
      */
     void 
-    rVexPrinter::printInstruction(const rVex::Instruction& instruction) // O(1)
+    rVexPrinter::printInstruction(const rVex::Base::Instruction& instruction) // O(1)
     {
-      rVex::Instruction::SyllableCollection syllables = instruction.getSyllables();
-      rVex::Instruction::SyllableCollection::const_iterator it;
+      rVex::Base::Instruction::SyllableCollection syllables = instruction.getSyllables();
+      rVex::Base::Instruction::SyllableCollection::const_iterator it;
       
       output << "[I: " << instruction.getAddress() << "] ["<< instruction.getWordAddress() << "]" << std::endl;
       
@@ -100,7 +100,7 @@ namespace rVex
       
         instruction.printSyllableDependencies(*this);
       }
-      catch (rVex::Syllable::LayoutNotSupportedException* e)
+      catch (rVex::Base::Syllable::LayoutNotSupportedException* e)
       {
         output << "Error printing: " << e->what() << "Opcode: " << (*it)->getOpcode() << std::endl; // O(1)
       }

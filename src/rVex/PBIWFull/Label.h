@@ -53,7 +53,7 @@ namespace PBIWFull
       absoluteAddress(other.getAbsoluteAddress())
     { }
     
-    Label(const rVex::Label& rVexLabel)
+    Label(const rVex::Base::Label& rVexLabel)
       : name(rVexLabel.getName()), 
       scope(rVexLabel.getScope()), 
       destiny(NULL), 

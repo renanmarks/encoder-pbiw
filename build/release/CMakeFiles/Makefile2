@@ -82,10 +82,10 @@ src/preinstall: src/rVex/preinstall
 # Target rules for target src/CMakeFiles/pbiwencoder.dir
 
 # All Build rule for target.
+src/CMakeFiles/pbiwencoder.dir/all: src/rVex/CMakeFiles/RVEX_MODULE.dir/all
 src/CMakeFiles/pbiwencoder.dir/all: src/Encoder/CMakeFiles/ENCODER_MODULE.dir/all
 src/CMakeFiles/pbiwencoder.dir/all: src/GenericAssembly/CMakeFiles/GENERICASSEMBLY_MODULE.dir/all
 src/CMakeFiles/pbiwencoder.dir/all: src/PBIW/CMakeFiles/PBIW_MODULE.dir/all
-src/CMakeFiles/pbiwencoder.dir/all: src/rVex/CMakeFiles/RVEX_MODULE.dir/all
 	$(MAKE) -f src/CMakeFiles/pbiwencoder.dir/build.make src/CMakeFiles/pbiwencoder.dir/depend
 	$(MAKE) -f src/CMakeFiles/pbiwencoder.dir/build.make src/CMakeFiles/pbiwencoder.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles  93

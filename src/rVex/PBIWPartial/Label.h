@@ -47,7 +47,7 @@ namespace PBIWPartial
       : name(other.name), scope(other.getScope()), destiny(other.getDestiny()), absoluteAddress(other.getAbsoluteAddress())
     { }
     
-    Label(const rVex::Label& rVexLabel)
+    Label(const rVex::Base::Label& rVexLabel)
       : name(rVexLabel.getName()), scope(rVexLabel.getScope()), destiny(NULL), absoluteAddress(0)
     { }
     

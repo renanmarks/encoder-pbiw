@@ -68,9 +68,9 @@ namespace PBIWFull
     /**
      * Type definitions to references rVex structures
      */
-    typedef rVex::Instruction::SyllableCollection VexSyllableVector;
+    typedef rVex::Base::Instruction::SyllableCollection VexSyllableVector;
 //    
-//    typedef std::vector<rVex::Instruction*> VexInstructionVector;
+//    typedef std::vector<rVex::Base::Instruction*> VexInstructionVector;
 //    const VexInstructionVector& originalInstructions;
     
     /**
@@ -105,7 +105,7 @@ namespace PBIWFull
     void saveAndCreateNewPBIWElements(rVex64PBIWInstruction*&, rVex96PBIWPattern*&);
     void resetFinalOperation(GenericAssembly::Utils::OperandVector::const_iterator&, 
     IOperation*&, 
-    rVex::Syllable* const&, 
+    rVex::Base::Syllable* const&, 
     const GenericAssembly::Utils::OperandVector&);
 
     /**
@@ -136,7 +136,7 @@ namespace PBIWFull
     virtual ~FullPBIW();
 
     virtual void encode(const std::deque<GenericAssembly::Interfaces::IInstruction*>&);
-    virtual void encode(const std::deque<rVex::Instruction*>&);
+    virtual void encode(const std::deque<rVex::Base::Instruction*>&);
     virtual void decode(const std::deque<IPBIWInstruction*>&, const std::deque<IPBIWPattern*>&);
     
     virtual void registerOptimizer(IPBIWOptimizer&);

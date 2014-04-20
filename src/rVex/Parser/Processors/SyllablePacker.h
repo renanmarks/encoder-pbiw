@@ -42,15 +42,15 @@ namespace VexParser
       SyllablePacker(const SyllablePacker&);
       virtual ~SyllablePacker();
       
-      virtual void process(rVex::SyllableALU* syllable, SyllableArguments& arguments);
+      virtual void process(rVex::Base::SyllableALU* syllable, SyllableArguments& arguments);
       
-      virtual void process(rVex::SyllableCTRL* syllable, SyllableArguments& arguments);
+      virtual void process(rVex::Base::SyllableCTRL* syllable, SyllableArguments& arguments);
       
-      virtual void process(rVex::SyllableMUL* syllable, SyllableArguments& arguments);
+      virtual void process(rVex::Base::SyllableMUL* syllable, SyllableArguments& arguments);
       
-      virtual void process(rVex::SyllableMEM* syllable, SyllableArguments& arguments);
+      virtual void process(rVex::Base::SyllableMEM* syllable, SyllableArguments& arguments);
       
-      virtual void process(rVex::SyllableMISC* syllable, SyllableArguments& arguments);
+      virtual void process(rVex::Base::SyllableMISC* syllable, SyllableArguments& arguments);
 
       VexContext&
       getContext() const

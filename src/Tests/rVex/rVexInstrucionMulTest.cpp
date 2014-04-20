@@ -24,7 +24,7 @@ namespace InstructionMulTest
 {
   TEST(InstructionMulTest, AddSyllable)
   {
-    rVex::Instruction instruction;
+    rVex::Base::Instruction instruction;
     rVex::Operations::MUL::MPYLL MPYLL;
     rVex::Operations::MUL::MPYLLU MPYLLU;
     rVex::Operations::MUL::MPYLH MPYLH;
@@ -87,7 +87,7 @@ namespace InstructionMulTest
 
   TEST(InstructionMulTest, RemoveSyllable)
   {
-    rVex::Instruction instruction;
+    rVex::Base::Instruction instruction;
     rVex::Operations::MUL::MPYLL MPYLL;
     rVex::Operations::MUL::MPYLLU MPYLLU;
     rVex::Operations::MUL::MPYLH MPYLH;
@@ -162,7 +162,7 @@ namespace InstructionMulTest
   
   TEST(InstructionMulTest, GetSyllables)
   {
-    rVex::Instruction instruction;
+    rVex::Base::Instruction instruction;
     rVex::Operations::MUL::MPYLL MPYLL;
     rVex::Operations::MUL::MPYLLU MPYLLU;
     rVex::Operations::MUL::MPYLH MPYLH;
@@ -175,7 +175,7 @@ namespace InstructionMulTest
     rVex::Operations::MUL::MPYHU MPYHU;
     rVex::Operations::MUL::MPYHS MPYHS;
 
-    std::vector<rVex::Syllable*> other;
+    std::vector<rVex::Base::Syllable*> other;
     
     other.push_back(&MPYLL);
     other.push_back(&MPYLLU);
@@ -206,7 +206,7 @@ namespace InstructionMulTest
   
   TEST(InstructionMulTest, PrintInstruction)
   {
-    rVex::Instruction instruction;
+    rVex::Base::Instruction instruction;
     rVex::Operations::MUL::MPYLL MPYLL;
     rVex::Operations::MUL::MPYLLU MPYLLU;
     rVex::Operations::MUL::MPYLH MPYLH;

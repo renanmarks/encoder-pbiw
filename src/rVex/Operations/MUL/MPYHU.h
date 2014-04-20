@@ -33,7 +33,7 @@ namespace rVex
   {
     namespace MUL
     {
-      class MPYHU : public SyllableMUL
+      class MPYHU : public rVex::Base::SyllableMUL
       {
         public:
           unsigned int getOpcode() const { return this->opMPYHU; }

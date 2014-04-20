@@ -130,7 +130,7 @@ namespace PBIWFull
   
   void FullPBIW::resetFinalOperation(GenericAssembly::Utils::OperandVector::const_iterator& operandIt, // O(1)
                                         IOperation*& finalOperation, 
-                                        rVex::Syllable* const& syllable,
+                                        rVex::Base::Syllable* const& syllable,
                                         const GenericAssembly::Utils::OperandVector& operands)
   {
     operandIt = operands.begin();
@@ -141,23 +141,23 @@ namespace PBIWFull
   void                                                                                 
   FullPBIW::encode(const std::deque<GenericAssembly::Interfaces::IInstruction*>& originalInstructions) // O(|codedPatterns|^2)
   {
-    std::deque<rVex::Instruction*> rVexInstructions;
+    std::deque<rVex::Base::Instruction*> rVexInstructions;
     std::deque<GenericAssembly::Interfaces::IInstruction*>::const_iterator it;
     
     for (it = originalInstructions.begin();
          it != originalInstructions.end();
          it++)
     {
-      rVexInstructions.push_back( static_cast<rVex::Instruction*>(*it) );
+      rVexInstructions.push_back( static_cast<rVex::Base::Instruction*>(*it) );
     }
     
     encode(rVexInstructions);
   }
   
   void                                                                                 
-  FullPBIW::encode(const std::deque<rVex::Instruction*>& originalInstructions) // O(|codedPatterns|^2)
+  FullPBIW::encode(const std::deque<rVex::Base::Instruction*>& originalInstructions) // O(|codedPatterns|^2)
   {
-    std::deque<rVex::Instruction*>::const_iterator instructionIt;
+    std::deque<rVex::Base::Instruction*>::const_iterator instructionIt;
     
     originalInstructionsCount = originalInstructions.size();
     
@@ -182,7 +182,7 @@ namespace PBIWFull
         
         for(it = instructionLabel.begin(); it != instructionLabel.end(); it++)
         {
-          PBIWFull::Label label = *(dynamic_cast<rVex::Label*>(*it));
+          PBIWFull::Label label = *(dynamic_cast<rVex::Base::Label*>(*it));
           label.setDestiny(finalInstruction);
 
           labels.push_back(label);
@@ -266,17 +266,17 @@ namespace PBIWFull
           {
             // If found, check if it is some operand of a BR/BRF syllable
             // and put it in its position
-            rVex::Operand::Type type = static_cast<rVex::Operand::Type>(operand->getTypeCode());
+            rVex::Base::Operand::Type type = static_cast<rVex::Base::Operand::Type>(operand->getTypeCode());
             
-            if (type == rVex::Operand::BRSource)
+            if (type == rVex::Base::Operand::BRSource)
             {
-              if (finalOperation->getOpcode() == rVex::Syllable::opBR)
+              if (finalOperation->getOpcode() == rVex::Base::Syllable::opBR)
               {
                 finalInstruction->setOpBRslot(*operand); // O(1)
                 finalOperation->addOperand( *operand ); // O(1)
                 continue;
               }
-              else if (finalOperation->getOpcode() == rVex::Syllable::opBRF)
+              else if (finalOperation->getOpcode() == rVex::Base::Syllable::opBRF)
               {
                 finalInstruction->setOpBRFslot(*operand); // O(1)
                 finalOperation->addOperand( *operand ); // O(1)

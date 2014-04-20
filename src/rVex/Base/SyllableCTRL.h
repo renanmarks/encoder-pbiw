@@ -30,18 +30,21 @@
 
 namespace rVex
 {
-  /**
-   * A r-Vex instruction CTRL syllable (operation)
-   */
-  class SyllableCTRL : public Syllable
-  {
-    public:
-      virtual ~SyllableCTRL() { }
-      
-      virtual void print(rVex::Printers::IPrinter&, bool, bool) const = 0;
-      
-      virtual void fillSyllable(VexParser::SyllableArguments&) = 0;
-  };
+	namespace Base
+	{
+		/**
+		 * A r-Vex instruction CTRL syllable (operation)
+		 */
+		class SyllableCTRL : public Syllable
+		{
+			public:
+				virtual ~SyllableCTRL() { }
+
+				virtual void print(rVex::Printers::IPrinter&, bool, bool) const = 0;
+
+				virtual void fillSyllable(VexParser::SyllableArguments&) = 0;
+		};
+	}
 }
 
 #endif	/* ALUSYLLABLE_H */

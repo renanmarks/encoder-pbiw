@@ -32,7 +32,7 @@ namespace rVex
         Utils::OperandVectorBuilder builder;
         
         if (this->haveBRDestiny)
-          builder.insertOperand(Operand(Operand::GRDestiny));
+					builder.insertOperand(rVex::Base::Operand(rVex::Base::Operand::GRDestiny));
         else
           builder.insertOperand(grDestiny);
         
