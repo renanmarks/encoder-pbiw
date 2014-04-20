@@ -26,8 +26,8 @@
 #define	NOP_H
 
 #include <vector>
-#include "../../Syllable.h"
-#include "../../SyllableCTRL.h"
+#include "rVex/Base/Syllable.h"
+#include "rVex/Base/SyllableCTRL.h"
 #include "rVex/Printers/IPrinter.h"
 
 namespace rVex

@@ -29,7 +29,7 @@
 #include <stdexcept>
 #include "GenericAssembly/Interfaces/IOperation.h"
 #include "PBIW/Interfaces/IOperand.h"
-#include "rVex/Instruction.h"
+#include "rVex/Base/Instruction.h"
 #include "rVex/PBIWFull/rVex64PBIWInstruction.h"
 #include "PBIW/Utils/OperandVector.h"
 

@@ -26,8 +26,8 @@
 #define	PBIWFULL_OPERAND_H
 
 #include "PBIW/Interfaces/IOperand.h"
-#include "rVex/Operand.h"
-#include "rVex/Syllable.h"
+#include "rVex/Base/Operand.h"
+#include "rVex/Base/Syllable.h"
 
 namespace PBIWFull
 {

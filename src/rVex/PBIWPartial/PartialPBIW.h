@@ -33,7 +33,7 @@
 #include "Label.h"
 #include "PBIW/Utils/OperandVectorDTO.h"
 #include "GenericAssembly/Utils/OperandVector.h"
-#include "rVex/Syllable.h"
+#include "rVex/Base/Syllable.h"
 #include "Factory.h"
 
 namespace PBIWPartial

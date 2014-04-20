@@ -18,7 +18,7 @@
 #include <utility>
 #include <iostream>
 #include "Syllable.h"
-#include "Utils/OperandVectorBuilder.h"
+#include "rVex/Utils/OperandVectorBuilder.h"
 #include "Operand.h"
 
 namespace rVex

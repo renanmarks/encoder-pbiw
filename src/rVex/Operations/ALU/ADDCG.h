@@ -25,7 +25,7 @@
 #ifndef ADDCG_H
 #define	ADDCG_H
 
-#include "../../SyllableALU.h"
+#include "rVex/Base/SyllableALU.h"
 
 namespace rVex
 {

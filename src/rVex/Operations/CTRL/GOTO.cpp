@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ***********************************************************************/
 #include <vector>
-#include "rVex/Instruction.h"
+#include "rVex/Base/Instruction.h"
 #include "GOTO.h"
 #include "rVex/Utils/OperandVectorBuilder.h"
 

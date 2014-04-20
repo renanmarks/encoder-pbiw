@@ -28,7 +28,7 @@
 #include "rVex/PBIWPartial/rVex64PBIWInstruction.h"
 #include "PBIW/Interfaces/IOperand.h"
 #include "PBIW/Interfaces/IPBIWInstruction.h"
-#include "rVex/Instruction.h"
+#include "rVex/Base/Instruction.h"
 
 namespace PBIWPartial
 {

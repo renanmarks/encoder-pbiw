@@ -25,7 +25,7 @@
 #ifndef IPARSERPROCESSOR_H
 #define	IPARSERPROCESSOR_H
 
-#include "rVex/rVex.h"
+#include "rVex/Base/rVex.h"
 #include "rVex/Parser/Expressions/SyllableArguments.h"
 
 namespace VexParser

@@ -25,7 +25,7 @@
 #ifndef GOTO_H
 #define	GOTO_H
 
-#include "../../SyllableCTRL.h"
+#include "rVex/Base/SyllableCTRL.h"
 
 namespace rVex
 {

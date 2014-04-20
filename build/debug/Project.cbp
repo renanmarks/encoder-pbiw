@@ -228,11 +228,23 @@
       </Unit>
       <Unit filename="/home/helix/encoder-pbiw/src/pbiw_encoder.cpp">
       </Unit>
-      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Instruction.cpp">
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Base/Instruction.cpp">
       </Unit>
-      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Label.cpp">
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Base/Label.cpp">
       </Unit>
-      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operand.cpp">
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Base/Operand.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Base/Syllable.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Base/SyllableALU.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Base/SyllableCTRL.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Base/SyllableMEM.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Base/SyllableMISC.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Base/SyllableMUL.cpp">
       </Unit>
       <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/ALU/ADDCG.cpp">
       </Unit>
@@ -358,18 +370,6 @@
       </Unit>
       <Unit filename="/home/helix/encoder-pbiw/src/rVex/Printers/rVexPrinter.cpp">
       </Unit>
-      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Syllable.cpp">
-      </Unit>
-      <Unit filename="/home/helix/encoder-pbiw/src/rVex/SyllableALU.cpp">
-      </Unit>
-      <Unit filename="/home/helix/encoder-pbiw/src/rVex/SyllableCTRL.cpp">
-      </Unit>
-      <Unit filename="/home/helix/encoder-pbiw/src/rVex/SyllableMEM.cpp">
-      </Unit>
-      <Unit filename="/home/helix/encoder-pbiw/src/rVex/SyllableMISC.cpp">
-      </Unit>
-      <Unit filename="/home/helix/encoder-pbiw/src/rVex/SyllableMUL.cpp">
-      </Unit>
       <Unit filename="/home/helix/encoder-pbiw/src/rVex/Utils/DependencyChains.cpp">
       </Unit>
       <Unit filename="/home/helix/encoder-pbiw/src/rVex/Utils/OperandVectorBuilder.cpp">
@@ -414,11 +414,23 @@
       </Unit>
       <Unit filename="/home/helix/encoder-pbiw/src/pbiw_encoder.h">
       </Unit>
-      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Instruction.h">
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Base/Instruction.h">
       </Unit>
-      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Label.h">
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Base/Label.h">
       </Unit>
-      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operand.h">
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Base/Operand.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Base/Syllable.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Base/SyllableALU.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Base/SyllableCTRL.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Base/SyllableMEM.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Base/SyllableMISC.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Base/SyllableMUL.h">
       </Unit>
       <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/ALU/ADDCG.h">
       </Unit>
@@ -541,18 +553,6 @@
       <Unit filename="/home/helix/encoder-pbiw/src/rVex/Printers/VHDLPrinter.h">
       </Unit>
       <Unit filename="/home/helix/encoder-pbiw/src/rVex/Printers/rVexPrinter.h">
-      </Unit>
-      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Syllable.h">
-      </Unit>
-      <Unit filename="/home/helix/encoder-pbiw/src/rVex/SyllableALU.h">
-      </Unit>
-      <Unit filename="/home/helix/encoder-pbiw/src/rVex/SyllableCTRL.h">
-      </Unit>
-      <Unit filename="/home/helix/encoder-pbiw/src/rVex/SyllableMEM.h">
-      </Unit>
-      <Unit filename="/home/helix/encoder-pbiw/src/rVex/SyllableMISC.h">
-      </Unit>
-      <Unit filename="/home/helix/encoder-pbiw/src/rVex/SyllableMUL.h">
       </Unit>
       <Unit filename="/home/helix/encoder-pbiw/src/rVex/Utils/DependencyChains.h">
       </Unit>

@@ -25,7 +25,7 @@
 #ifndef NANDL_H
 #define	NANDL_H
 
-#include "../../SyllableALU.h"
+#include "rVex/Base/SyllableALU.h"
 
 namespace rVex
 {

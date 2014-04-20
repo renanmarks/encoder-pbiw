@@ -40,7 +40,7 @@
 #include "rVex/Printers/IPrinter.h"
 #include "rVex/Parser/Expressions/SyllableArguments.h"
 
-#include "Utils/DependencyChains.h"
+#include "rVex/Utils/DependencyChains.h"
 
 #include "Label.h"
 #include "Operand.h"

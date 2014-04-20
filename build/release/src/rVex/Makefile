@@ -112,77 +112,221 @@ RVEX_MODULE/fast:
 	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/build
 .PHONY : RVEX_MODULE/fast
 
-Instruction.o: Instruction.cpp.o
-.PHONY : Instruction.o
+Base/Instruction.o: Base/Instruction.cpp.o
+.PHONY : Base/Instruction.o
 
 # target to build an object file
-Instruction.cpp.o:
-	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Instruction.cpp.o
-.PHONY : Instruction.cpp.o
+Base/Instruction.cpp.o:
+	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Instruction.cpp.o
+.PHONY : Base/Instruction.cpp.o
 
-Instruction.i: Instruction.cpp.i
-.PHONY : Instruction.i
+Base/Instruction.i: Base/Instruction.cpp.i
+.PHONY : Base/Instruction.i
 
 # target to preprocess a source file
-Instruction.cpp.i:
-	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Instruction.cpp.i
-.PHONY : Instruction.cpp.i
+Base/Instruction.cpp.i:
+	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Instruction.cpp.i
+.PHONY : Base/Instruction.cpp.i
 
-Instruction.s: Instruction.cpp.s
-.PHONY : Instruction.s
+Base/Instruction.s: Base/Instruction.cpp.s
+.PHONY : Base/Instruction.s
 
 # target to generate assembly for a file
-Instruction.cpp.s:
-	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Instruction.cpp.s
-.PHONY : Instruction.cpp.s
+Base/Instruction.cpp.s:
+	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Instruction.cpp.s
+.PHONY : Base/Instruction.cpp.s
 
-Label.o: Label.cpp.o
-.PHONY : Label.o
+Base/Label.o: Base/Label.cpp.o
+.PHONY : Base/Label.o
 
 # target to build an object file
-Label.cpp.o:
-	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Label.cpp.o
-.PHONY : Label.cpp.o
+Base/Label.cpp.o:
+	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Label.cpp.o
+.PHONY : Base/Label.cpp.o
 
-Label.i: Label.cpp.i
-.PHONY : Label.i
+Base/Label.i: Base/Label.cpp.i
+.PHONY : Base/Label.i
 
 # target to preprocess a source file
-Label.cpp.i:
-	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Label.cpp.i
-.PHONY : Label.cpp.i
+Base/Label.cpp.i:
+	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Label.cpp.i
+.PHONY : Base/Label.cpp.i
 
-Label.s: Label.cpp.s
-.PHONY : Label.s
+Base/Label.s: Base/Label.cpp.s
+.PHONY : Base/Label.s
 
 # target to generate assembly for a file
-Label.cpp.s:
-	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Label.cpp.s
-.PHONY : Label.cpp.s
+Base/Label.cpp.s:
+	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Label.cpp.s
+.PHONY : Base/Label.cpp.s
 
-Operand.o: Operand.cpp.o
-.PHONY : Operand.o
+Base/Operand.o: Base/Operand.cpp.o
+.PHONY : Base/Operand.o
 
 # target to build an object file
-Operand.cpp.o:
-	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Operand.cpp.o
-.PHONY : Operand.cpp.o
+Base/Operand.cpp.o:
+	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Operand.cpp.o
+.PHONY : Base/Operand.cpp.o
 
-Operand.i: Operand.cpp.i
-.PHONY : Operand.i
+Base/Operand.i: Base/Operand.cpp.i
+.PHONY : Base/Operand.i
 
 # target to preprocess a source file
-Operand.cpp.i:
-	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Operand.cpp.i
-.PHONY : Operand.cpp.i
+Base/Operand.cpp.i:
+	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Operand.cpp.i
+.PHONY : Base/Operand.cpp.i
 
-Operand.s: Operand.cpp.s
-.PHONY : Operand.s
+Base/Operand.s: Base/Operand.cpp.s
+.PHONY : Base/Operand.s
 
 # target to generate assembly for a file
-Operand.cpp.s:
-	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Operand.cpp.s
-.PHONY : Operand.cpp.s
+Base/Operand.cpp.s:
+	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Operand.cpp.s
+.PHONY : Base/Operand.cpp.s
+
+Base/Syllable.o: Base/Syllable.cpp.o
+.PHONY : Base/Syllable.o
+
+# target to build an object file
+Base/Syllable.cpp.o:
+	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Syllable.cpp.o
+.PHONY : Base/Syllable.cpp.o
+
+Base/Syllable.i: Base/Syllable.cpp.i
+.PHONY : Base/Syllable.i
+
+# target to preprocess a source file
+Base/Syllable.cpp.i:
+	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Syllable.cpp.i
+.PHONY : Base/Syllable.cpp.i
+
+Base/Syllable.s: Base/Syllable.cpp.s
+.PHONY : Base/Syllable.s
+
+# target to generate assembly for a file
+Base/Syllable.cpp.s:
+	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Syllable.cpp.s
+.PHONY : Base/Syllable.cpp.s
+
+Base/SyllableALU.o: Base/SyllableALU.cpp.o
+.PHONY : Base/SyllableALU.o
+
+# target to build an object file
+Base/SyllableALU.cpp.o:
+	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableALU.cpp.o
+.PHONY : Base/SyllableALU.cpp.o
+
+Base/SyllableALU.i: Base/SyllableALU.cpp.i
+.PHONY : Base/SyllableALU.i
+
+# target to preprocess a source file
+Base/SyllableALU.cpp.i:
+	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableALU.cpp.i
+.PHONY : Base/SyllableALU.cpp.i
+
+Base/SyllableALU.s: Base/SyllableALU.cpp.s
+.PHONY : Base/SyllableALU.s
+
+# target to generate assembly for a file
+Base/SyllableALU.cpp.s:
+	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableALU.cpp.s
+.PHONY : Base/SyllableALU.cpp.s
+
+Base/SyllableCTRL.o: Base/SyllableCTRL.cpp.o
+.PHONY : Base/SyllableCTRL.o
+
+# target to build an object file
+Base/SyllableCTRL.cpp.o:
+	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableCTRL.cpp.o
+.PHONY : Base/SyllableCTRL.cpp.o
+
+Base/SyllableCTRL.i: Base/SyllableCTRL.cpp.i
+.PHONY : Base/SyllableCTRL.i
+
+# target to preprocess a source file
+Base/SyllableCTRL.cpp.i:
+	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableCTRL.cpp.i
+.PHONY : Base/SyllableCTRL.cpp.i
+
+Base/SyllableCTRL.s: Base/SyllableCTRL.cpp.s
+.PHONY : Base/SyllableCTRL.s
+
+# target to generate assembly for a file
+Base/SyllableCTRL.cpp.s:
+	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableCTRL.cpp.s
+.PHONY : Base/SyllableCTRL.cpp.s
+
+Base/SyllableMEM.o: Base/SyllableMEM.cpp.o
+.PHONY : Base/SyllableMEM.o
+
+# target to build an object file
+Base/SyllableMEM.cpp.o:
+	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMEM.cpp.o
+.PHONY : Base/SyllableMEM.cpp.o
+
+Base/SyllableMEM.i: Base/SyllableMEM.cpp.i
+.PHONY : Base/SyllableMEM.i
+
+# target to preprocess a source file
+Base/SyllableMEM.cpp.i:
+	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMEM.cpp.i
+.PHONY : Base/SyllableMEM.cpp.i
+
+Base/SyllableMEM.s: Base/SyllableMEM.cpp.s
+.PHONY : Base/SyllableMEM.s
+
+# target to generate assembly for a file
+Base/SyllableMEM.cpp.s:
+	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMEM.cpp.s
+.PHONY : Base/SyllableMEM.cpp.s
+
+Base/SyllableMISC.o: Base/SyllableMISC.cpp.o
+.PHONY : Base/SyllableMISC.o
+
+# target to build an object file
+Base/SyllableMISC.cpp.o:
+	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMISC.cpp.o
+.PHONY : Base/SyllableMISC.cpp.o
+
+Base/SyllableMISC.i: Base/SyllableMISC.cpp.i
+.PHONY : Base/SyllableMISC.i
+
+# target to preprocess a source file
+Base/SyllableMISC.cpp.i:
+	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMISC.cpp.i
+.PHONY : Base/SyllableMISC.cpp.i
+
+Base/SyllableMISC.s: Base/SyllableMISC.cpp.s
+.PHONY : Base/SyllableMISC.s
+
+# target to generate assembly for a file
+Base/SyllableMISC.cpp.s:
+	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMISC.cpp.s
+.PHONY : Base/SyllableMISC.cpp.s
+
+Base/SyllableMUL.o: Base/SyllableMUL.cpp.o
+.PHONY : Base/SyllableMUL.o
+
+# target to build an object file
+Base/SyllableMUL.cpp.o:
+	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMUL.cpp.o
+.PHONY : Base/SyllableMUL.cpp.o
+
+Base/SyllableMUL.i: Base/SyllableMUL.cpp.i
+.PHONY : Base/SyllableMUL.i
+
+# target to preprocess a source file
+Base/SyllableMUL.cpp.i:
+	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMUL.cpp.i
+.PHONY : Base/SyllableMUL.cpp.i
+
+Base/SyllableMUL.s: Base/SyllableMUL.cpp.s
+.PHONY : Base/SyllableMUL.s
+
+# target to generate assembly for a file
+Base/SyllableMUL.cpp.s:
+	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMUL.cpp.s
+.PHONY : Base/SyllableMUL.cpp.s
 
 Operations/ALU/ADDCG.o: Operations/ALU/ADDCG.cpp.o
 .PHONY : Operations/ALU/ADDCG.o
@@ -1672,150 +1816,6 @@ Printers/rVexPrinter.cpp.s:
 	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Printers/rVexPrinter.cpp.s
 .PHONY : Printers/rVexPrinter.cpp.s
 
-Syllable.o: Syllable.cpp.o
-.PHONY : Syllable.o
-
-# target to build an object file
-Syllable.cpp.o:
-	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Syllable.cpp.o
-.PHONY : Syllable.cpp.o
-
-Syllable.i: Syllable.cpp.i
-.PHONY : Syllable.i
-
-# target to preprocess a source file
-Syllable.cpp.i:
-	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Syllable.cpp.i
-.PHONY : Syllable.cpp.i
-
-Syllable.s: Syllable.cpp.s
-.PHONY : Syllable.s
-
-# target to generate assembly for a file
-Syllable.cpp.s:
-	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Syllable.cpp.s
-.PHONY : Syllable.cpp.s
-
-SyllableALU.o: SyllableALU.cpp.o
-.PHONY : SyllableALU.o
-
-# target to build an object file
-SyllableALU.cpp.o:
-	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableALU.cpp.o
-.PHONY : SyllableALU.cpp.o
-
-SyllableALU.i: SyllableALU.cpp.i
-.PHONY : SyllableALU.i
-
-# target to preprocess a source file
-SyllableALU.cpp.i:
-	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableALU.cpp.i
-.PHONY : SyllableALU.cpp.i
-
-SyllableALU.s: SyllableALU.cpp.s
-.PHONY : SyllableALU.s
-
-# target to generate assembly for a file
-SyllableALU.cpp.s:
-	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableALU.cpp.s
-.PHONY : SyllableALU.cpp.s
-
-SyllableCTRL.o: SyllableCTRL.cpp.o
-.PHONY : SyllableCTRL.o
-
-# target to build an object file
-SyllableCTRL.cpp.o:
-	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableCTRL.cpp.o
-.PHONY : SyllableCTRL.cpp.o
-
-SyllableCTRL.i: SyllableCTRL.cpp.i
-.PHONY : SyllableCTRL.i
-
-# target to preprocess a source file
-SyllableCTRL.cpp.i:
-	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableCTRL.cpp.i
-.PHONY : SyllableCTRL.cpp.i
-
-SyllableCTRL.s: SyllableCTRL.cpp.s
-.PHONY : SyllableCTRL.s
-
-# target to generate assembly for a file
-SyllableCTRL.cpp.s:
-	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableCTRL.cpp.s
-.PHONY : SyllableCTRL.cpp.s
-
-SyllableMEM.o: SyllableMEM.cpp.o
-.PHONY : SyllableMEM.o
-
-# target to build an object file
-SyllableMEM.cpp.o:
-	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMEM.cpp.o
-.PHONY : SyllableMEM.cpp.o
-
-SyllableMEM.i: SyllableMEM.cpp.i
-.PHONY : SyllableMEM.i
-
-# target to preprocess a source file
-SyllableMEM.cpp.i:
-	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMEM.cpp.i
-.PHONY : SyllableMEM.cpp.i
-
-SyllableMEM.s: SyllableMEM.cpp.s
-.PHONY : SyllableMEM.s
-
-# target to generate assembly for a file
-SyllableMEM.cpp.s:
-	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMEM.cpp.s
-.PHONY : SyllableMEM.cpp.s
-
-SyllableMISC.o: SyllableMISC.cpp.o
-.PHONY : SyllableMISC.o
-
-# target to build an object file
-SyllableMISC.cpp.o:
-	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMISC.cpp.o
-.PHONY : SyllableMISC.cpp.o
-
-SyllableMISC.i: SyllableMISC.cpp.i
-.PHONY : SyllableMISC.i
-
-# target to preprocess a source file
-SyllableMISC.cpp.i:
-	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMISC.cpp.i
-.PHONY : SyllableMISC.cpp.i
-
-SyllableMISC.s: SyllableMISC.cpp.s
-.PHONY : SyllableMISC.s
-
-# target to generate assembly for a file
-SyllableMISC.cpp.s:
-	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMISC.cpp.s
-.PHONY : SyllableMISC.cpp.s
-
-SyllableMUL.o: SyllableMUL.cpp.o
-.PHONY : SyllableMUL.o
-
-# target to build an object file
-SyllableMUL.cpp.o:
-	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMUL.cpp.o
-.PHONY : SyllableMUL.cpp.o
-
-SyllableMUL.i: SyllableMUL.cpp.i
-.PHONY : SyllableMUL.i
-
-# target to preprocess a source file
-SyllableMUL.cpp.i:
-	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMUL.cpp.i
-.PHONY : SyllableMUL.cpp.i
-
-SyllableMUL.s: SyllableMUL.cpp.s
-.PHONY : SyllableMUL.s
-
-# target to generate assembly for a file
-SyllableMUL.cpp.s:
-	cd /home/helix/encoder-pbiw/build/release && $(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMUL.cpp.s
-.PHONY : SyllableMUL.cpp.s
-
 Utils/DependencyChains.o: Utils/DependencyChains.cpp.o
 .PHONY : Utils/DependencyChains.o
 
@@ -1873,15 +1873,33 @@ help:
 	@echo "... RVEX_MODULE"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... Instruction.o"
-	@echo "... Instruction.i"
-	@echo "... Instruction.s"
-	@echo "... Label.o"
-	@echo "... Label.i"
-	@echo "... Label.s"
-	@echo "... Operand.o"
-	@echo "... Operand.i"
-	@echo "... Operand.s"
+	@echo "... Base/Instruction.o"
+	@echo "... Base/Instruction.i"
+	@echo "... Base/Instruction.s"
+	@echo "... Base/Label.o"
+	@echo "... Base/Label.i"
+	@echo "... Base/Label.s"
+	@echo "... Base/Operand.o"
+	@echo "... Base/Operand.i"
+	@echo "... Base/Operand.s"
+	@echo "... Base/Syllable.o"
+	@echo "... Base/Syllable.i"
+	@echo "... Base/Syllable.s"
+	@echo "... Base/SyllableALU.o"
+	@echo "... Base/SyllableALU.i"
+	@echo "... Base/SyllableALU.s"
+	@echo "... Base/SyllableCTRL.o"
+	@echo "... Base/SyllableCTRL.i"
+	@echo "... Base/SyllableCTRL.s"
+	@echo "... Base/SyllableMEM.o"
+	@echo "... Base/SyllableMEM.i"
+	@echo "... Base/SyllableMEM.s"
+	@echo "... Base/SyllableMISC.o"
+	@echo "... Base/SyllableMISC.i"
+	@echo "... Base/SyllableMISC.s"
+	@echo "... Base/SyllableMUL.o"
+	@echo "... Base/SyllableMUL.i"
+	@echo "... Base/SyllableMUL.s"
 	@echo "... Operations/ALU/ADDCG.o"
 	@echo "... Operations/ALU/ADDCG.i"
 	@echo "... Operations/ALU/ADDCG.s"
@@ -2068,24 +2086,6 @@ help:
 	@echo "... Printers/rVexPrinter.o"
 	@echo "... Printers/rVexPrinter.i"
 	@echo "... Printers/rVexPrinter.s"
-	@echo "... Syllable.o"
-	@echo "... Syllable.i"
-	@echo "... Syllable.s"
-	@echo "... SyllableALU.o"
-	@echo "... SyllableALU.i"
-	@echo "... SyllableALU.s"
-	@echo "... SyllableCTRL.o"
-	@echo "... SyllableCTRL.i"
-	@echo "... SyllableCTRL.s"
-	@echo "... SyllableMEM.o"
-	@echo "... SyllableMEM.i"
-	@echo "... SyllableMEM.s"
-	@echo "... SyllableMISC.o"
-	@echo "... SyllableMISC.i"
-	@echo "... SyllableMISC.s"
-	@echo "... SyllableMUL.o"
-	@echo "... SyllableMUL.i"
-	@echo "... SyllableMUL.s"
 	@echo "... Utils/DependencyChains.o"
 	@echo "... Utils/DependencyChains.i"
 	@echo "... Utils/DependencyChains.s"

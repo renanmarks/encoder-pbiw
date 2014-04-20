@@ -25,7 +25,7 @@
 #ifndef XNOP_H
 #define	XNOP_H
 
-#include "../../SyllableCTRL.h"
+#include "rVex/Base/SyllableCTRL.h"
 
 namespace rVex
 {

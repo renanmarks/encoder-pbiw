@@ -25,7 +25,7 @@
 #ifndef CMPLEU_H
 #define	CMPLEU_H
 
-#include "../../SyllableALU.h"
+#include "rVex/Base/SyllableALU.h"
 
 namespace rVex
 {

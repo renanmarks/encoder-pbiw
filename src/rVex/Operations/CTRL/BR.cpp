@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ***********************************************************************/
 #include "BR.h"
-#include "rVex/Instruction.h"
+#include "rVex/Base/Instruction.h"
 #include "rVex/Utils/OperandVectorBuilder.h"
 
 namespace rVex

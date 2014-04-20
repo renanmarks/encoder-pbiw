@@ -25,6 +25,6 @@
 //#ifndef RVEXSYLLABE_H
 //#define	RVEXSYLLABE_H
 
-#include "rVex/Instruction.h"
+#include "rVex/Base/Instruction.h"
 
 //#endif	/* RVEXSYLLABE_H */

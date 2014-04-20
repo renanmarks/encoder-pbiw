@@ -25,7 +25,7 @@
 #ifndef MPYLH_H
 #define	MPYLH_H
 
-#include "../../SyllableMUL.h"
+#include "rVex/Base/SyllableMUL.h"
 
 namespace rVex
 {

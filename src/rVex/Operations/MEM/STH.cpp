@@ -18,8 +18,8 @@
 #include <iostream>
 
 #include "STH.h"
-#include "rVex/Instruction.h"
-#include "rVex/Operand.h"
+#include "rVex/Base/Instruction.h"
+#include "rVex/Base/Operand.h"
 #include "rVex/Utils/OperandVectorBuilder.h"
 
 namespace rVex

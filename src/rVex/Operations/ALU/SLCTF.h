@@ -25,7 +25,7 @@
 #ifndef SLCTF_H
 #define	SLCTF_H
 
-#include "../../SyllableALU.h"
+#include "rVex/Base/SyllableALU.h"
 
 namespace rVex
 {

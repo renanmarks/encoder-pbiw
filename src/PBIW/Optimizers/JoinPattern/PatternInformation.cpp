@@ -27,7 +27,7 @@
 
 #include "OperationInformation.h"
 #include "PatternInformation.h"
-#include "rVex/rVex.h"
+#include "rVex/Base/rVex.h"
 
 namespace PBIW
 {

@@ -25,7 +25,7 @@
 #ifndef XOR_H
 #define	XOR_H
 
-#include "../../SyllableALU.h"
+#include "rVex/Base/SyllableALU.h"
 
 namespace rVex
 {

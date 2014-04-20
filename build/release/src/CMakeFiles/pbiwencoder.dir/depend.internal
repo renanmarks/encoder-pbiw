@@ -25,21 +25,21 @@ src/CMakeFiles/pbiwencoder.dir/pbiw_encoder.cpp.o
  ../../src/PBIW/PBIWOptimizerJoinPatterns.h
  ../../src/PBIW/Utils/OperandItemDTO.h
  ../../src/PBIW/Utils/OperandVector.h
- ../../src/rVex/Instruction.h
- ../../src/rVex/Label.h
- ../../src/rVex/Operand.h
+ ../../src/rVex/Base/Instruction.h
+ ../../src/rVex/Base/Label.h
+ ../../src/rVex/Base/Operand.h
+ ../../src/rVex/Base/Syllable.h
+ ../../src/rVex/Base/SyllableALU.h
+ ../../src/rVex/Base/SyllableCTRL.h
+ ../../src/rVex/Base/SyllableMEM.h
+ ../../src/rVex/Base/SyllableMISC.h
+ ../../src/rVex/Base/SyllableMUL.h
  ../../src/rVex/Parser/Expressions/Arguments.h
  ../../src/rVex/Parser/Expressions/Expression.h
  ../../src/rVex/Parser/Expressions/SyllableArguments.h
  ../../src/rVex/Parser/Structs/SyllableBufferItem.h
  ../../src/rVex/Parser/VexContext.h
  ../../src/rVex/Printers/IPrinter.h
- ../../src/rVex/Syllable.h
- ../../src/rVex/SyllableALU.h
- ../../src/rVex/SyllableCTRL.h
- ../../src/rVex/SyllableMEM.h
- ../../src/rVex/SyllableMISC.h
- ../../src/rVex/SyllableMUL.h
  ../../src/rVex/Utils/DependencyChains.h
  /home/helix/encoder-pbiw/src/Encoder/rVexEncoder.h
  /home/helix/encoder-pbiw/src/pbiw_encoder.cpp

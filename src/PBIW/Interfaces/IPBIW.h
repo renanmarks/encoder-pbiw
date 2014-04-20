@@ -27,7 +27,7 @@
 
 #include <ostream>
 #include <deque>
-#include "rVex/Instruction.h"
+#include "rVex/Base/Instruction.h"
 #include "IPBIWInstruction.h"
 #include "IPBIWPattern.h"
 #include "IPBIWPrinter.h"

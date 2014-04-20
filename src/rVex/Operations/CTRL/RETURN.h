@@ -25,7 +25,7 @@
 #ifndef RETURN_H
 #define	RETURN_H
 
-#include "../../SyllableCTRL.h"
+#include "rVex/Base/SyllableCTRL.h"
 
 namespace rVex
 {

@@ -27,9 +27,16 @@ src/Encoder/CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o: ../../src/PBIW/PBIW
 src/Encoder/CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o: ../../src/PBIW/Utils/OperandItemDTO.h
 src/Encoder/CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o: ../../src/PBIW/Utils/OperandVector.h
 src/Encoder/CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o: ../../src/PBIW/Utils/OperandVectorDTO.h
-src/Encoder/CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o: ../../src/rVex/Instruction.h
-src/Encoder/CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o: ../../src/rVex/Label.h
-src/Encoder/CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o: ../../src/rVex/Operand.h
+src/Encoder/CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o: ../../src/rVex/Base/Instruction.h
+src/Encoder/CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o: ../../src/rVex/Base/Label.h
+src/Encoder/CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o: ../../src/rVex/Base/Operand.h
+src/Encoder/CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o: ../../src/rVex/Base/Syllable.h
+src/Encoder/CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o: ../../src/rVex/Base/SyllableALU.h
+src/Encoder/CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o: ../../src/rVex/Base/SyllableCTRL.h
+src/Encoder/CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o: ../../src/rVex/Base/SyllableMEM.h
+src/Encoder/CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o: ../../src/rVex/Base/SyllableMISC.h
+src/Encoder/CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o: ../../src/rVex/Base/SyllableMUL.h
+src/Encoder/CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o: ../../src/rVex/Base/rVex.h
 src/Encoder/CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o: ../../src/rVex/Operations/ALU/ADD.h
 src/Encoder/CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o: ../../src/rVex/Operations/ALU/ADDCG.h
 src/Encoder/CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o: ../../src/rVex/Operations/ALU/AND.h
@@ -133,15 +140,8 @@ src/Encoder/CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o: ../../src/rVex/Prin
 src/Encoder/CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o: ../../src/rVex/Printers/IPrinter.h
 src/Encoder/CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o: ../../src/rVex/Printers/VHDLPrinter.h
 src/Encoder/CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o: ../../src/rVex/Printers/rVexPrinter.h
-src/Encoder/CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o: ../../src/rVex/Syllable.h
-src/Encoder/CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o: ../../src/rVex/SyllableALU.h
-src/Encoder/CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o: ../../src/rVex/SyllableCTRL.h
-src/Encoder/CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o: ../../src/rVex/SyllableMEM.h
-src/Encoder/CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o: ../../src/rVex/SyllableMISC.h
-src/Encoder/CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o: ../../src/rVex/SyllableMUL.h
 src/Encoder/CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o: ../../src/rVex/Utils/DependencyChains.h
 src/Encoder/CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o: ../../src/rVex/Utils/OperandVectorBuilder.h
-src/Encoder/CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o: ../../src/rVex/rVex.h
 src/Encoder/CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o: ../../src/Encoder/rVexEncoder.cpp
 src/Encoder/CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o: ../../src/Encoder/rVexEncoder.h
 

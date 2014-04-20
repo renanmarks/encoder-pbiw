@@ -25,7 +25,7 @@
 #ifndef CMPEQ_H
 #define	CMPEQ_H
 
-#include "../../SyllableALU.h"
+#include "rVex/Base/SyllableALU.h"
 
 namespace rVex
 {

@@ -2,15 +2,15 @@
 set(
 	RVEX_SRC
 
-	Instruction
-	Label
-	Operand
-	Syllable
-	SyllableALU
-	SyllableCTRL
-	SyllableMEM
-	SyllableMISC
-	SyllableMUL
+	Base/Instruction
+	Base/Label
+	Base/Operand
+	Base/Syllable
+	Base/SyllableALU
+	Base/SyllableCTRL
+	Base/SyllableMEM
+	Base/SyllableMISC
+	Base/SyllableMUL
 	Operations/ALU/ADDCG
 	Operations/ALU/CMPEQ
 	Operations/ALU/CMPGE

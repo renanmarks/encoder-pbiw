@@ -26,7 +26,7 @@
 #include "Syllable.h"
 #include "rVex/Printers/IPrinter.h"
 #include "PBIW/Interfaces/IPBIWInstruction.h"
-#include "Utils/OperandVectorBuilder.h"
+#include "rVex/Utils/OperandVectorBuilder.h"
 
 namespace rVex
 {

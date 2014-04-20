@@ -25,7 +25,7 @@
 #ifndef BRF_H
 #define	BRF_H
 
-#include "../../SyllableCTRL.h"
+#include "rVex/Base/SyllableCTRL.h"
 
 namespace rVex
 {

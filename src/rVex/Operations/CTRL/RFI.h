@@ -25,7 +25,7 @@
 #ifndef RFI_H
 #define	RFI_H
 
-#include "../../SyllableCTRL.h"
+#include "rVex/Base/SyllableCTRL.h"
 
 namespace rVex
 {

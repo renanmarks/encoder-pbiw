@@ -25,7 +25,7 @@
 #ifndef CALL_H
 #define	CALL_H
 
-#include "../../SyllableCTRL.h"
+#include "rVex/Base/SyllableCTRL.h"
 
 namespace rVex
 {

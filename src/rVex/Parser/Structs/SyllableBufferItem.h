@@ -25,7 +25,7 @@
 #ifndef SYLLABLEBUFFERITEM_H
 #define	SYLLABLEBUFFERITEM_H
 
-#include "rVex/Syllable.h"
+#include "rVex/Base/Syllable.h"
 #include "rVex/Parser/Expressions/SyllableArguments.h"
 
 namespace VexParser

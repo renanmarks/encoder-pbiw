@@ -27,9 +27,9 @@
 #include <algorithm>
 #include <sstream>
 #include "VexContext.h"
-#include "rVex/SyllableALU.h"
-#include "rVex/SyllableMISC.h"
-#include "rVex/Syllable.h"
+#include "rVex/Base/SyllableALU.h"
+#include "rVex/Base/SyllableMISC.h"
+#include "rVex/Base/Syllable.h"
 
 #include "Expressions/SyllableArguments.h"
 #include "rVex/Printers/rVexPrinter.h"

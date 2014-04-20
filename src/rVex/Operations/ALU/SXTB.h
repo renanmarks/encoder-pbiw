@@ -25,7 +25,7 @@
 #ifndef SXTB_H
 #define	SXTB_H
 
-#include "../../SyllableALU.h"
+#include "rVex/Base/SyllableALU.h"
 
 namespace rVex
 {

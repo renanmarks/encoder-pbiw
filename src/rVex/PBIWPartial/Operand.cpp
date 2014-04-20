@@ -25,7 +25,7 @@
 #include <ios>
 #include <typeinfo>
 #include "Operand.h"
-#include "rVex/Operand.h"
+#include "rVex/Base/Operand.h"
 
 namespace PBIWPartial
 {

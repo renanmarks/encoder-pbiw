@@ -25,7 +25,7 @@
 #ifndef SUB_H
 #define	SUB_H
 
-#include "../../SyllableALU.h"
+#include "rVex/Base/SyllableALU.h"
 
 namespace rVex
 {

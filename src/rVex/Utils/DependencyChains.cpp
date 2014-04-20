@@ -25,7 +25,7 @@
 #include <iostream>
 #include <functional>
 #include "DependencyChains.h"
-#include "rVex/rVex.h"
+#include "rVex/Base/rVex.h"
 
 namespace rVex
 {

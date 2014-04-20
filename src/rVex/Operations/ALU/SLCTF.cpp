@@ -18,7 +18,7 @@
 #include <iostream>
 
 #include "SLCTF.h"
-#include "rVex/Instruction.h"
+#include "rVex/Base/Instruction.h"
 #include "rVex/Utils/OperandVectorBuilder.h"
 
 namespace rVex

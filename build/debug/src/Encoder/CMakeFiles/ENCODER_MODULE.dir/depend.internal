@@ -28,9 +28,16 @@ src/Encoder/CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o
  ../../src/PBIW/Utils/OperandItemDTO.h
  ../../src/PBIW/Utils/OperandVector.h
  ../../src/PBIW/Utils/OperandVectorDTO.h
- ../../src/rVex/Instruction.h
- ../../src/rVex/Label.h
- ../../src/rVex/Operand.h
+ ../../src/rVex/Base/Instruction.h
+ ../../src/rVex/Base/Label.h
+ ../../src/rVex/Base/Operand.h
+ ../../src/rVex/Base/Syllable.h
+ ../../src/rVex/Base/SyllableALU.h
+ ../../src/rVex/Base/SyllableCTRL.h
+ ../../src/rVex/Base/SyllableMEM.h
+ ../../src/rVex/Base/SyllableMISC.h
+ ../../src/rVex/Base/SyllableMUL.h
+ ../../src/rVex/Base/rVex.h
  ../../src/rVex/Operations/ALU/ADD.h
  ../../src/rVex/Operations/ALU/ADDCG.h
  ../../src/rVex/Operations/ALU/AND.h
@@ -134,14 +141,7 @@ src/Encoder/CMakeFiles/ENCODER_MODULE.dir/rVexEncoder.cpp.o
  ../../src/rVex/Printers/IPrinter.h
  ../../src/rVex/Printers/VHDLPrinter.h
  ../../src/rVex/Printers/rVexPrinter.h
- ../../src/rVex/Syllable.h
- ../../src/rVex/SyllableALU.h
- ../../src/rVex/SyllableCTRL.h
- ../../src/rVex/SyllableMEM.h
- ../../src/rVex/SyllableMISC.h
- ../../src/rVex/SyllableMUL.h
  ../../src/rVex/Utils/DependencyChains.h
  ../../src/rVex/Utils/OperandVectorBuilder.h
- ../../src/rVex/rVex.h
  /home/helix/encoder-pbiw/src/Encoder/rVexEncoder.cpp
  /home/helix/encoder-pbiw/src/Encoder/rVexEncoder.h

@@ -25,7 +25,7 @@
 #ifndef MIN_H
 #define	MIN_H
 
-#include "../../SyllableALU.h"
+#include "rVex/Base/SyllableALU.h"
 
 namespace rVex
 {

@@ -25,7 +25,7 @@
 #ifndef ZXTH_H
 #define	ZXTH_H
 
-#include "../../SyllableALU.h"
+#include "rVex/Base/SyllableALU.h"
 
 namespace rVex
 {

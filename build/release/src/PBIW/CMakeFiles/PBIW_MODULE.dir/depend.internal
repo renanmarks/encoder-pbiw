@@ -19,9 +19,9 @@ src/PBIW/CMakeFiles/PBIW_MODULE.dir/BaseOptimizer.cpp.o
  ../../src/PBIW/Interfaces/IPBIWPrinter.h
  ../../src/PBIW/Utils/OperandItemDTO.h
  ../../src/PBIW/Utils/OperandVector.h
- ../../src/rVex/Instruction.h
- ../../src/rVex/Label.h
- ../../src/rVex/Operand.h
+ ../../src/rVex/Base/Instruction.h
+ ../../src/rVex/Base/Label.h
+ ../../src/rVex/Base/Operand.h
  ../../src/rVex/Parser/Expressions/Arguments.h
  ../../src/rVex/Parser/Expressions/Expression.h
  ../../src/rVex/Parser/Expressions/SyllableArguments.h
@@ -59,9 +59,9 @@ src/PBIW/CMakeFiles/PBIW_MODULE.dir/Generic/Codec.cpp.o
  ../../src/PBIW/Interfaces/IPBIWSet.h
  ../../src/PBIW/Utils/OperandItemDTO.h
  ../../src/PBIW/Utils/OperandVector.h
- ../../src/rVex/Instruction.h
- ../../src/rVex/Label.h
- ../../src/rVex/Operand.h
+ ../../src/rVex/Base/Instruction.h
+ ../../src/rVex/Base/Label.h
+ ../../src/rVex/Base/Operand.h
  ../../src/rVex/Parser/Expressions/Arguments.h
  ../../src/rVex/Parser/Expressions/Expression.h
  ../../src/rVex/Parser/Expressions/SyllableArguments.h
@@ -116,14 +116,14 @@ src/PBIW/CMakeFiles/PBIW_MODULE.dir/Generic/Operation.cpp.o
  ../../src/PBIW/Interfaces/IPBIWPrinter.h
  ../../src/PBIW/Utils/OperandItemDTO.h
  ../../src/PBIW/Utils/OperandVector.h
- ../../src/rVex/Instruction.h
- ../../src/rVex/Label.h
- ../../src/rVex/Operand.h
+ ../../src/rVex/Base/Instruction.h
+ ../../src/rVex/Base/Label.h
+ ../../src/rVex/Base/Operand.h
+ ../../src/rVex/Base/Syllable.h
  ../../src/rVex/Parser/Expressions/Arguments.h
  ../../src/rVex/Parser/Expressions/Expression.h
  ../../src/rVex/Parser/Expressions/SyllableArguments.h
  ../../src/rVex/Printers/IPrinter.h
- ../../src/rVex/Syllable.h
  ../../src/rVex/Utils/DependencyChains.h
  /home/helix/encoder-pbiw/src/PBIW/Generic/Operation.cpp
  /home/helix/encoder-pbiw/src/PBIW/Generic/Operation.h
@@ -152,14 +152,14 @@ src/PBIW/CMakeFiles/PBIW_MODULE.dir/Optimizers/JoinPattern/OperationInformation.
  ../../src/PBIW/Interfaces/IPBIWPrinter.h
  ../../src/PBIW/Utils/OperandItemDTO.h
  ../../src/PBIW/Utils/OperandVector.h
- ../../src/rVex/Instruction.h
- ../../src/rVex/Label.h
- ../../src/rVex/Operand.h
+ ../../src/rVex/Base/Instruction.h
+ ../../src/rVex/Base/Label.h
+ ../../src/rVex/Base/Operand.h
+ ../../src/rVex/Base/Syllable.h
  ../../src/rVex/Parser/Expressions/Arguments.h
  ../../src/rVex/Parser/Expressions/Expression.h
  ../../src/rVex/Parser/Expressions/SyllableArguments.h
  ../../src/rVex/Printers/IPrinter.h
- ../../src/rVex/Syllable.h
  ../../src/rVex/Utils/DependencyChains.h
  /home/helix/encoder-pbiw/src/PBIW/Optimizers/JoinPattern/OperationInformation.cpp
  /home/helix/encoder-pbiw/src/PBIW/Optimizers/JoinPattern/OperationInformation.h
@@ -181,14 +181,14 @@ src/PBIW/CMakeFiles/PBIW_MODULE.dir/Optimizers/JoinPattern/PatternBuilder.cpp.o
  ../../src/PBIW/Interfaces/IPBIWPrinter.h
  ../../src/PBIW/Utils/OperandItemDTO.h
  ../../src/PBIW/Utils/OperandVector.h
- ../../src/rVex/Instruction.h
- ../../src/rVex/Label.h
- ../../src/rVex/Operand.h
+ ../../src/rVex/Base/Instruction.h
+ ../../src/rVex/Base/Label.h
+ ../../src/rVex/Base/Operand.h
+ ../../src/rVex/Base/Syllable.h
  ../../src/rVex/Parser/Expressions/Arguments.h
  ../../src/rVex/Parser/Expressions/Expression.h
  ../../src/rVex/Parser/Expressions/SyllableArguments.h
  ../../src/rVex/Printers/IPrinter.h
- ../../src/rVex/Syllable.h
  ../../src/rVex/Utils/DependencyChains.h
  /home/helix/encoder-pbiw/src/PBIW/Optimizers/JoinPattern/OperationInformation.h
  /home/helix/encoder-pbiw/src/PBIW/Optimizers/JoinPattern/PatternBuilder.cpp
@@ -211,9 +211,16 @@ src/PBIW/CMakeFiles/PBIW_MODULE.dir/Optimizers/JoinPattern/PatternInformation.cp
  ../../src/PBIW/Interfaces/IPBIWPrinter.h
  ../../src/PBIW/Utils/OperandItemDTO.h
  ../../src/PBIW/Utils/OperandVector.h
- ../../src/rVex/Instruction.h
- ../../src/rVex/Label.h
- ../../src/rVex/Operand.h
+ ../../src/rVex/Base/Instruction.h
+ ../../src/rVex/Base/Label.h
+ ../../src/rVex/Base/Operand.h
+ ../../src/rVex/Base/Syllable.h
+ ../../src/rVex/Base/SyllableALU.h
+ ../../src/rVex/Base/SyllableCTRL.h
+ ../../src/rVex/Base/SyllableMEM.h
+ ../../src/rVex/Base/SyllableMISC.h
+ ../../src/rVex/Base/SyllableMUL.h
+ ../../src/rVex/Base/rVex.h
  ../../src/rVex/Operations/ALU/ADD.h
  ../../src/rVex/Operations/ALU/ADDCG.h
  ../../src/rVex/Operations/ALU/AND.h
@@ -294,14 +301,7 @@ src/PBIW/CMakeFiles/PBIW_MODULE.dir/Optimizers/JoinPattern/PatternInformation.cp
  ../../src/rVex/Parser/Expressions/Expression.h
  ../../src/rVex/Parser/Expressions/SyllableArguments.h
  ../../src/rVex/Printers/IPrinter.h
- ../../src/rVex/Syllable.h
- ../../src/rVex/SyllableALU.h
- ../../src/rVex/SyllableCTRL.h
- ../../src/rVex/SyllableMEM.h
- ../../src/rVex/SyllableMISC.h
- ../../src/rVex/SyllableMUL.h
  ../../src/rVex/Utils/DependencyChains.h
- ../../src/rVex/rVex.h
  /home/helix/encoder-pbiw/src/PBIW/Optimizers/JoinPattern/OperationInformation.h
  /home/helix/encoder-pbiw/src/PBIW/Optimizers/JoinPattern/PatternInformation.cpp
  /home/helix/encoder-pbiw/src/PBIW/Optimizers/JoinPattern/PatternInformation.h
@@ -324,9 +324,9 @@ src/PBIW/CMakeFiles/PBIW_MODULE.dir/PBIWOptimizerDataSet.cpp.o
  ../../src/PBIW/Interfaces/IPBIWSet.h
  ../../src/PBIW/Utils/OperandItemDTO.h
  ../../src/PBIW/Utils/OperandVector.h
- ../../src/rVex/Instruction.h
- ../../src/rVex/Label.h
- ../../src/rVex/Operand.h
+ ../../src/rVex/Base/Instruction.h
+ ../../src/rVex/Base/Label.h
+ ../../src/rVex/Base/Operand.h
  ../../src/rVex/Parser/Expressions/Arguments.h
  ../../src/rVex/Parser/Expressions/Expression.h
  ../../src/rVex/Parser/Expressions/SyllableArguments.h
@@ -364,18 +364,18 @@ src/PBIW/CMakeFiles/PBIW_MODULE.dir/PBIWOptimizerJoinPatterns.cpp.o
  ../../src/PBIW/Interfaces/IPBIWSet.h
  ../../src/PBIW/Utils/OperandItemDTO.h
  ../../src/PBIW/Utils/OperandVector.h
- ../../src/rVex/Instruction.h
- ../../src/rVex/Label.h
- ../../src/rVex/Operand.h
+ ../../src/rVex/Base/Instruction.h
+ ../../src/rVex/Base/Label.h
+ ../../src/rVex/Base/Operand.h
+ ../../src/rVex/Base/Syllable.h
+ ../../src/rVex/Base/SyllableALU.h
+ ../../src/rVex/Base/SyllableCTRL.h
  ../../src/rVex/Operations/ALU/NANDL.h
  ../../src/rVex/Operations/MISC/NOP.h
  ../../src/rVex/Parser/Expressions/Arguments.h
  ../../src/rVex/Parser/Expressions/Expression.h
  ../../src/rVex/Parser/Expressions/SyllableArguments.h
  ../../src/rVex/Printers/IPrinter.h
- ../../src/rVex/Syllable.h
- ../../src/rVex/SyllableALU.h
- ../../src/rVex/SyllableCTRL.h
  ../../src/rVex/Utils/DependencyChains.h
  /home/helix/encoder-pbiw/src/PBIW/BaseOptimizer.h
  /home/helix/encoder-pbiw/src/PBIW/Interfaces/ILabel.h

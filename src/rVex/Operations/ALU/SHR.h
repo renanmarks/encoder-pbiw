@@ -25,7 +25,7 @@
 #ifndef SHR_H
 #define	SHR_H
 
-#include "../../SyllableALU.h"
+#include "rVex/Base/SyllableALU.h"
 
 namespace rVex
 {

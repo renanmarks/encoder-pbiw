@@ -26,7 +26,7 @@
 #define	RVEX_PRINTERS_DINEROTOOL_ASSEMBLYPRINTER_H
 
 #include <ostream>
-#include "rVex/rVex.h"
+#include "rVex/Base/rVex.h"
 #include "rVex/Printers/IPrinter.h"
 
 namespace rVex

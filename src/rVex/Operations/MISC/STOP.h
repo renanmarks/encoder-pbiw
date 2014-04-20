@@ -26,7 +26,7 @@
 #define	STOP_H
 
 #include <vector>
-#include "../../SyllableCTRL.h"
+#include "rVex/Base/SyllableCTRL.h"
 
 namespace rVex
 {

@@ -25,7 +25,7 @@
 #ifndef SHRU_H
 #define	SHRU_H
 
-#include "../../SyllableALU.h"
+#include "rVex/Base/SyllableALU.h"
 
 namespace rVex
 {

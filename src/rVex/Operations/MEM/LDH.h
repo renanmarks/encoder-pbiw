@@ -26,7 +26,7 @@
 #define	LDH_H
 
 #include <vector>
-#include "../../SyllableMEM.h"
+#include "rVex/Base/SyllableMEM.h"
 
 namespace rVex
 {

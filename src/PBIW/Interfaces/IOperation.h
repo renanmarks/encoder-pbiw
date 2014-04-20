@@ -27,7 +27,7 @@
 
 #include <vector>
 #include "IOperand.h"
-#include "rVex/Syllable.h"
+#include "rVex/Base/Syllable.h"
 
 namespace PBIW
 {

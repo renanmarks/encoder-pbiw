@@ -25,7 +25,7 @@
 #ifndef ADD_H
 #define	ADD_H
 
-#include "../../SyllableALU.h"
+#include "rVex/Base/SyllableALU.h"
 
 namespace rVex
 {

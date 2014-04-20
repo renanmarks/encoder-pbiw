@@ -25,7 +25,7 @@
 #ifndef RECV_H
 #define	RECV_H
 
-#include "../../SyllableCTRL.h"
+#include "rVex/Base/SyllableCTRL.h"
 
 namespace rVex
 {

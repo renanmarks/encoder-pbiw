@@ -109,16 +109,16 @@ vector
 -
 IOperand.h
 ../../src/PBIW/Interfaces/IOperand.h
-rVex/Syllable.h
-../../src/PBIW/Interfaces/rVex/Syllable.h
+rVex/Base/Syllable.h
+../../src/PBIW/Interfaces/rVex/Base/Syllable.h
 
 ../../src/PBIW/Interfaces/IPBIW.h
 ostream
 -
 deque
 -
-rVex/Instruction.h
-../../src/PBIW/Interfaces/rVex/Instruction.h
+rVex/Base/Instruction.h
+../../src/PBIW/Interfaces/rVex/Base/Instruction.h
 IPBIWInstruction.h
 ../../src/PBIW/Interfaces/IPBIWInstruction.h
 IPBIWPattern.h
@@ -244,7 +244,7 @@ vector
 OperandItemDTO.h
 ../../src/PBIW/Utils/OperandItemDTO.h
 
-../../src/rVex/Instruction.h
+../../src/rVex/Base/Instruction.h
 memory
 -
 vector
@@ -260,357 +260,415 @@ string
 deque
 -
 PBIW/Interfaces/IPBIWInstruction.h
-../../src/rVex/PBIW/Interfaces/IPBIWInstruction.h
+../../src/rVex/Base/PBIW/Interfaces/IPBIWInstruction.h
 GenericAssembly/Interfaces/IInstruction.h
-../../src/rVex/GenericAssembly/Interfaces/IInstruction.h
+../../src/rVex/Base/GenericAssembly/Interfaces/IInstruction.h
 GenericAssembly/Interfaces/IOperation.h
-../../src/rVex/GenericAssembly/Interfaces/IOperation.h
+../../src/rVex/Base/GenericAssembly/Interfaces/IOperation.h
 rVex/Printers/IPrinter.h
-../../src/rVex/rVex/Printers/IPrinter.h
+../../src/rVex/Base/rVex/Printers/IPrinter.h
 rVex/Parser/Expressions/SyllableArguments.h
-../../src/rVex/rVex/Parser/Expressions/SyllableArguments.h
-Utils/DependencyChains.h
-../../src/rVex/Utils/DependencyChains.h
+../../src/rVex/Base/rVex/Parser/Expressions/SyllableArguments.h
+rVex/Utils/DependencyChains.h
+../../src/rVex/Base/rVex/Utils/DependencyChains.h
 Label.h
-../../src/rVex/Label.h
+../../src/rVex/Base/Label.h
 Operand.h
-../../src/rVex/Operand.h
+../../src/rVex/Base/Operand.h
 
-../../src/rVex/Label.h
+../../src/rVex/Base/Label.h
 string
 -
 GenericAssembly/Interfaces/ILabel.h
-../../src/rVex/GenericAssembly/Interfaces/ILabel.h
+../../src/rVex/Base/GenericAssembly/Interfaces/ILabel.h
 
-../../src/rVex/Operand.h
+../../src/rVex/Base/Operand.h
 GenericAssembly/Interfaces/IOperand.h
-../../src/rVex/GenericAssembly/Interfaces/IOperand.h
+../../src/rVex/Base/GenericAssembly/Interfaces/IOperand.h
+
+../../src/rVex/Base/Syllable.h
+rVex/Base/Instruction.h
+../../src/rVex/Base/rVex/Base/Instruction.h
+
+../../src/rVex/Base/SyllableALU.h
+vector
+-
+Syllable.h
+../../src/rVex/Base/Syllable.h
+rVex/Printers/IPrinter.h
+../../src/rVex/Base/rVex/Printers/IPrinter.h
+
+../../src/rVex/Base/SyllableCTRL.h
+Syllable.h
+../../src/rVex/Base/Syllable.h
+rVex/Printers/IPrinter.h
+../../src/rVex/Base/rVex/Printers/IPrinter.h
+
+../../src/rVex/Base/SyllableMEM.h
+vector
+-
+Syllable.h
+../../src/rVex/Base/Syllable.h
+rVex/Printers/IPrinter.h
+../../src/rVex/Base/rVex/Printers/IPrinter.h
+
+../../src/rVex/Base/SyllableMISC.h
+Syllable.h
+../../src/rVex/Base/Syllable.h
+rVex/Printers/IPrinter.h
+../../src/rVex/Base/rVex/Printers/IPrinter.h
+
+../../src/rVex/Base/SyllableMUL.h
+vector
+-
+Syllable.h
+../../src/rVex/Base/Syllable.h
+rVex/Printers/IPrinter.h
+../../src/rVex/Base/rVex/Printers/IPrinter.h
+
+../../src/rVex/Base/rVex.h
+Instruction.h
+../../src/rVex/Base/Instruction.h
+Syllable.h
+../../src/rVex/Base/Syllable.h
+SyllableALU.h
+../../src/rVex/Base/SyllableALU.h
+SyllableCTRL.h
+../../src/rVex/Base/SyllableCTRL.h
+SyllableMUL.h
+../../src/rVex/Base/SyllableMUL.h
+SyllableMEM.h
+../../src/rVex/Base/SyllableMEM.h
+SyllableMISC.h
+../../src/rVex/Base/SyllableMISC.h
+rVex/Operations/Operations.h
+../../src/rVex/Base/rVex/Operations/Operations.h
 
 ../../src/rVex/Operations/ALU/ADD.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/ADDCG.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/AND.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/ANDC.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/ANDL.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/CMPEQ.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/CMPGE.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/CMPGEU.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/CMPGT.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/CMPGTU.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/CMPLE.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/CMPLEU.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/CMPLT.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/CMPLTU.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/CMPNE.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/DIVS.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/MAX.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/MAXU.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/MIN.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/MINU.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/MOV.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/MTB.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/NANDL.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/NORL.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/OR.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/ORC.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/ORL.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/SH1ADD.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/SH2ADD.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/SH3ADD.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/SH4ADD.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/SHL.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/SHR.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/SHRU.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/SLCT.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/SLCTF.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/SUB.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/SXTB.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/SXTH.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/XOR.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/ZXTB.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/ALU/ZXTH.h
-../../SyllableALU.h
-../../src/rVex/SyllableALU.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Operations/ALU/rVex/Base/SyllableALU.h
 
 ../../src/rVex/Operations/CTRL/BR.h
-../../SyllableCTRL.h
-../../src/rVex/SyllableCTRL.h
+rVex/Base/SyllableCTRL.h
+../../src/rVex/Operations/CTRL/rVex/Base/SyllableCTRL.h
 
 ../../src/rVex/Operations/CTRL/BRF.h
-../../SyllableCTRL.h
-../../src/rVex/SyllableCTRL.h
+rVex/Base/SyllableCTRL.h
+../../src/rVex/Operations/CTRL/rVex/Base/SyllableCTRL.h
 
 ../../src/rVex/Operations/CTRL/CALL.h
-../../SyllableCTRL.h
-../../src/rVex/SyllableCTRL.h
+rVex/Base/SyllableCTRL.h
+../../src/rVex/Operations/CTRL/rVex/Base/SyllableCTRL.h
 
 ../../src/rVex/Operations/CTRL/GOTO.h
-../../SyllableCTRL.h
-../../src/rVex/SyllableCTRL.h
+rVex/Base/SyllableCTRL.h
+../../src/rVex/Operations/CTRL/rVex/Base/SyllableCTRL.h
 
 ../../src/rVex/Operations/CTRL/ICALL.h
-../../SyllableCTRL.h
-../../src/rVex/SyllableCTRL.h
+rVex/Base/SyllableCTRL.h
+../../src/rVex/Operations/CTRL/rVex/Base/SyllableCTRL.h
 
 ../../src/rVex/Operations/CTRL/IGOTO.h
-../../SyllableCTRL.h
-../../src/rVex/SyllableCTRL.h
+rVex/Base/SyllableCTRL.h
+../../src/rVex/Operations/CTRL/rVex/Base/SyllableCTRL.h
 
 ../../src/rVex/Operations/CTRL/RETURN.h
-../../SyllableCTRL.h
-../../src/rVex/SyllableCTRL.h
+rVex/Base/SyllableCTRL.h
+../../src/rVex/Operations/CTRL/rVex/Base/SyllableCTRL.h
 
 ../../src/rVex/Operations/CTRL/RFI.h
-../../SyllableCTRL.h
-../../src/rVex/SyllableCTRL.h
+rVex/Base/SyllableCTRL.h
+../../src/rVex/Operations/CTRL/rVex/Base/SyllableCTRL.h
 
 ../../src/rVex/Operations/CTRL/XNOP.h
-../../SyllableCTRL.h
-../../src/rVex/SyllableCTRL.h
+rVex/Base/SyllableCTRL.h
+../../src/rVex/Operations/CTRL/rVex/Base/SyllableCTRL.h
 
 ../../src/rVex/Operations/MEM/LDB.h
 vector
 -
-../../SyllableMEM.h
-../../src/rVex/SyllableMEM.h
+rVex/Base/SyllableMEM.h
+../../src/rVex/Operations/MEM/rVex/Base/SyllableMEM.h
 
 ../../src/rVex/Operations/MEM/LDBU.h
 vector
 -
-../../SyllableMEM.h
-../../src/rVex/SyllableMEM.h
+rVex/Base/SyllableMEM.h
+../../src/rVex/Operations/MEM/rVex/Base/SyllableMEM.h
 
 ../../src/rVex/Operations/MEM/LDH.h
 vector
 -
-../../SyllableMEM.h
-../../src/rVex/SyllableMEM.h
+rVex/Base/SyllableMEM.h
+../../src/rVex/Operations/MEM/rVex/Base/SyllableMEM.h
 
 ../../src/rVex/Operations/MEM/LDHU.h
 vector
 -
-../../SyllableMEM.h
-../../src/rVex/SyllableMEM.h
+rVex/Base/SyllableMEM.h
+../../src/rVex/Operations/MEM/rVex/Base/SyllableMEM.h
 
 ../../src/rVex/Operations/MEM/LDW.h
 vector
 -
-../../SyllableMEM.h
-../../src/rVex/SyllableMEM.h
+rVex/Base/SyllableMEM.h
+../../src/rVex/Operations/MEM/rVex/Base/SyllableMEM.h
 
 ../../src/rVex/Operations/MEM/PFT.h
 vector
 -
-../../SyllableMEM.h
-../../src/rVex/SyllableMEM.h
+rVex/Base/SyllableMEM.h
+../../src/rVex/Operations/MEM/rVex/Base/SyllableMEM.h
 
 ../../src/rVex/Operations/MEM/STB.h
 vector
 -
-../../SyllableMEM.h
-../../src/rVex/SyllableMEM.h
+rVex/Base/SyllableMEM.h
+../../src/rVex/Operations/MEM/rVex/Base/SyllableMEM.h
 
 ../../src/rVex/Operations/MEM/STH.h
 vector
 -
-../../SyllableMEM.h
-../../src/rVex/SyllableMEM.h
+rVex/Base/SyllableMEM.h
+../../src/rVex/Operations/MEM/rVex/Base/SyllableMEM.h
 
 ../../src/rVex/Operations/MEM/STW.h
 vector
 -
-../../SyllableMEM.h
-../../src/rVex/SyllableMEM.h
+rVex/Base/SyllableMEM.h
+../../src/rVex/Operations/MEM/rVex/Base/SyllableMEM.h
 
 ../../src/rVex/Operations/MISC/NOP.h
 vector
 -
-../../Syllable.h
-../../src/rVex/Syllable.h
-../../SyllableCTRL.h
-../../src/rVex/SyllableCTRL.h
+rVex/Base/Syllable.h
+../../src/rVex/Operations/MISC/rVex/Base/Syllable.h
+rVex/Base/SyllableCTRL.h
+../../src/rVex/Operations/MISC/rVex/Base/SyllableCTRL.h
 rVex/Printers/IPrinter.h
 ../../src/rVex/Operations/MISC/rVex/Printers/IPrinter.h
 
 ../../src/rVex/Operations/MISC/RECV.h
-../../SyllableCTRL.h
-../../src/rVex/SyllableCTRL.h
+rVex/Base/SyllableCTRL.h
+../../src/rVex/Operations/MISC/rVex/Base/SyllableCTRL.h
 
 ../../src/rVex/Operations/MISC/SEND.h
-../../SyllableCTRL.h
-../../src/rVex/SyllableCTRL.h
+rVex/Base/SyllableCTRL.h
+../../src/rVex/Operations/MISC/rVex/Base/SyllableCTRL.h
 
 ../../src/rVex/Operations/MISC/STOP.h
 vector
 -
-../../SyllableCTRL.h
-../../src/rVex/SyllableCTRL.h
+rVex/Base/SyllableCTRL.h
+../../src/rVex/Operations/MISC/rVex/Base/SyllableCTRL.h
 
 ../../src/rVex/Operations/MUL/MPYH.h
-../../SyllableMUL.h
-../../src/rVex/SyllableMUL.h
+rVex/Base/SyllableMUL.h
+../../src/rVex/Operations/MUL/rVex/Base/SyllableMUL.h
 
 ../../src/rVex/Operations/MUL/MPYHH.h
-../../SyllableMUL.h
-../../src/rVex/SyllableMUL.h
+rVex/Base/SyllableMUL.h
+../../src/rVex/Operations/MUL/rVex/Base/SyllableMUL.h
 
 ../../src/rVex/Operations/MUL/MPYHHU.h
-../../SyllableMUL.h
-../../src/rVex/SyllableMUL.h
+rVex/Base/SyllableMUL.h
+../../src/rVex/Operations/MUL/rVex/Base/SyllableMUL.h
 
 ../../src/rVex/Operations/MUL/MPYHS.h
-../../SyllableMUL.h
-../../src/rVex/SyllableMUL.h
+rVex/Base/SyllableMUL.h
+../../src/rVex/Operations/MUL/rVex/Base/SyllableMUL.h
 
 ../../src/rVex/Operations/MUL/MPYHU.h
-../../SyllableMUL.h
-../../src/rVex/SyllableMUL.h
+rVex/Base/SyllableMUL.h
+../../src/rVex/Operations/MUL/rVex/Base/SyllableMUL.h
 
 ../../src/rVex/Operations/MUL/MPYL.h
-../../SyllableMUL.h
-../../src/rVex/SyllableMUL.h
+rVex/Base/SyllableMUL.h
+../../src/rVex/Operations/MUL/rVex/Base/SyllableMUL.h
 
 ../../src/rVex/Operations/MUL/MPYLH.h
-../../SyllableMUL.h
-../../src/rVex/SyllableMUL.h
+rVex/Base/SyllableMUL.h
+../../src/rVex/Operations/MUL/rVex/Base/SyllableMUL.h
 
 ../../src/rVex/Operations/MUL/MPYLHU.h
-../../SyllableMUL.h
-../../src/rVex/SyllableMUL.h
+rVex/Base/SyllableMUL.h
+../../src/rVex/Operations/MUL/rVex/Base/SyllableMUL.h
 
 ../../src/rVex/Operations/MUL/MPYLL.h
-../../SyllableMUL.h
-../../src/rVex/SyllableMUL.h
+rVex/Base/SyllableMUL.h
+../../src/rVex/Operations/MUL/rVex/Base/SyllableMUL.h
 
 ../../src/rVex/Operations/MUL/MPYLLU.h
-../../SyllableMUL.h
-../../src/rVex/SyllableMUL.h
+rVex/Base/SyllableMUL.h
+../../src/rVex/Operations/MUL/rVex/Base/SyllableMUL.h
 
 ../../src/rVex/Operations/MUL/MPYLU.h
-../../SyllableMUL.h
-../../src/rVex/SyllableMUL.h
+rVex/Base/SyllableMUL.h
+../../src/rVex/Operations/MUL/rVex/Base/SyllableMUL.h
 
 ../../src/rVex/Operations/Operations.h
 ALU/ADD.h
@@ -779,8 +837,8 @@ PBIW/Utils/OperandVectorDTO.h
 ../../src/rVex/PBIWFull/PBIW/Utils/OperandVectorDTO.h
 GenericAssembly/Utils/OperandVector.h
 ../../src/rVex/PBIWFull/GenericAssembly/Utils/OperandVector.h
-rVex/Syllable.h
-../../src/rVex/PBIWFull/rVex/Syllable.h
+rVex/Base/Syllable.h
+../../src/rVex/PBIWFull/rVex/Base/Syllable.h
 rVex64PBIWInstruction.h
 ../../src/rVex/PBIWFull/rVex64PBIWInstruction.h
 rVex96PBIWPattern.h
@@ -809,8 +867,8 @@ PBIW/Interfaces/IOperand.h
 ../../src/rVex/PBIWFull/PBIW/Interfaces/IOperand.h
 PBIW/Utils/OperandVector.h
 ../../src/rVex/PBIWFull/PBIW/Utils/OperandVector.h
-rVex/Syllable.h
-../../src/rVex/PBIWFull/rVex/Syllable.h
+rVex/Base/Syllable.h
+../../src/rVex/PBIWFull/rVex/Base/Syllable.h
 rVex/Utils/OperandVectorBuilder.h
 ../../src/rVex/PBIWFull/rVex/Utils/OperandVectorBuilder.h
 rVex96PBIWPattern.h
@@ -841,8 +899,8 @@ string
 -
 PBIW/Interfaces/ILabel.h
 ../../src/rVex/PBIWPartial/PBIW/Interfaces/ILabel.h
-rVex/Label.h
-../../src/rVex/PBIWPartial/rVex/Label.h
+rVex/Base/Label.h
+../../src/rVex/PBIWPartial/rVex/Base/Label.h
 
 ../../src/rVex/PBIWPartial/PartialPBIW.h
 set
@@ -859,8 +917,8 @@ PBIW/Utils/OperandVectorDTO.h
 ../../src/rVex/PBIWPartial/PBIW/Utils/OperandVectorDTO.h
 GenericAssembly/Utils/OperandVector.h
 ../../src/rVex/PBIWPartial/GenericAssembly/Utils/OperandVector.h
-rVex/Syllable.h
-../../src/rVex/PBIWPartial/rVex/Syllable.h
+rVex/Base/Syllable.h
+../../src/rVex/PBIWPartial/rVex/Base/Syllable.h
 Factory.h
 ../../src/rVex/PBIWPartial/Factory.h
 
@@ -893,8 +951,8 @@ Arguments.h
 ../../src/rVex/Parser/Expressions/Arguments.h
 
 ../../src/rVex/Parser/Structs/SyllableBufferItem.h
-rVex/Syllable.h
-../../src/rVex/Parser/Structs/rVex/Syllable.h
+rVex/Base/Syllable.h
+../../src/rVex/Parser/Structs/rVex/Base/Syllable.h
 rVex/Parser/Expressions/SyllableArguments.h
 ../../src/rVex/Parser/Structs/rVex/Parser/Expressions/SyllableArguments.h
 
@@ -907,20 +965,20 @@ list
 -
 functional
 -
-rVex/Instruction.h
-../../src/rVex/Parser/rVex/Instruction.h
-rVex/Label.h
-../../src/rVex/Parser/rVex/Label.h
-rVex/SyllableMUL.h
-../../src/rVex/Parser/rVex/SyllableMUL.h
-rVex/SyllableMISC.h
-../../src/rVex/Parser/rVex/SyllableMISC.h
-rVex/SyllableMEM.h
-../../src/rVex/Parser/rVex/SyllableMEM.h
-rVex/SyllableCTRL.h
-../../src/rVex/Parser/rVex/SyllableCTRL.h
-rVex/SyllableALU.h
-../../src/rVex/Parser/rVex/SyllableALU.h
+rVex/Base/Instruction.h
+../../src/rVex/Parser/rVex/Base/Instruction.h
+rVex/Base/Label.h
+../../src/rVex/Parser/rVex/Base/Label.h
+rVex/Base/SyllableMUL.h
+../../src/rVex/Parser/rVex/Base/SyllableMUL.h
+rVex/Base/SyllableMISC.h
+../../src/rVex/Parser/rVex/Base/SyllableMISC.h
+rVex/Base/SyllableMEM.h
+../../src/rVex/Parser/rVex/Base/SyllableMEM.h
+rVex/Base/SyllableCTRL.h
+../../src/rVex/Parser/rVex/Base/SyllableCTRL.h
+rVex/Base/SyllableALU.h
+../../src/rVex/Parser/rVex/Base/SyllableALU.h
 PBIW/Interfaces/IPBIW.h
 ../../src/rVex/Parser/PBIW/Interfaces/IPBIW.h
 PBIW/Interfaces/IPBIWPrinter.h
@@ -937,8 +995,8 @@ vector
 -
 parser.tab.hh
 ../../src/rVex/Parser/parser.tab.hh
-rVex/Syllable.h
-../../src/rVex/Parser/rVex/Syllable.h
+rVex/Base/Syllable.h
+../../src/rVex/Parser/rVex/Base/Syllable.h
 
 ../../src/rVex/Parser/driver.h
 string
@@ -983,8 +1041,8 @@ deque
 ../../src/rVex/Printers/DineroTool/AssemblyPrinter.h
 ostream
 -
-rVex/rVex.h
-../../src/rVex/Printers/DineroTool/rVex/rVex.h
+rVex/Base/rVex.h
+../../src/rVex/Printers/DineroTool/rVex/Base/rVex.h
 rVex/Printers/IPrinter.h
 ../../src/rVex/Printers/DineroTool/rVex/Printers/IPrinter.h
 
@@ -1001,58 +1059,18 @@ GenericAssembly/Interfaces/IPrinter.h
 ../../src/rVex/Printers/VHDLPrinter.h
 ostream
 -
-../rVex.h
-../../src/rVex/rVex.h
+rVex/Base/rVex.h
+../../src/rVex/Printers/rVex/Base/rVex.h
 rVex/Printers/IPrinter.h
 ../../src/rVex/Printers/rVex/Printers/IPrinter.h
 
 ../../src/rVex/Printers/rVexPrinter.h
 ostream
 -
-../rVex.h
-../../src/rVex/rVex.h
+rVex/Base/rVex.h
+../../src/rVex/Printers/rVex/Base/rVex.h
 rVex/Printers/IPrinter.h
 ../../src/rVex/Printers/rVex/Printers/IPrinter.h
-
-../../src/rVex/Syllable.h
-rVex/Instruction.h
-../../src/rVex/rVex/Instruction.h
-
-../../src/rVex/SyllableALU.h
-vector
--
-Syllable.h
-../../src/rVex/Syllable.h
-rVex/Printers/IPrinter.h
-../../src/rVex/rVex/Printers/IPrinter.h
-
-../../src/rVex/SyllableCTRL.h
-Syllable.h
-../../src/rVex/Syllable.h
-rVex/Printers/IPrinter.h
-../../src/rVex/rVex/Printers/IPrinter.h
-
-../../src/rVex/SyllableMEM.h
-vector
--
-Syllable.h
-../../src/rVex/Syllable.h
-rVex/Printers/IPrinter.h
-../../src/rVex/rVex/Printers/IPrinter.h
-
-../../src/rVex/SyllableMISC.h
-Syllable.h
-../../src/rVex/Syllable.h
-rVex/Printers/IPrinter.h
-../../src/rVex/rVex/Printers/IPrinter.h
-
-../../src/rVex/SyllableMUL.h
-vector
--
-Syllable.h
-../../src/rVex/Syllable.h
-rVex/Printers/IPrinter.h
-../../src/rVex/rVex/Printers/IPrinter.h
 
 ../../src/rVex/Utils/DependencyChains.h
 map
@@ -1071,24 +1089,6 @@ GenericAssembly/Utils/OperandVector.h
 ../../src/rVex/Utils/GenericAssembly/Utils/OperandVector.h
 GenericAssembly/Interfaces/IOperation.h
 ../../src/rVex/Utils/GenericAssembly/Interfaces/IOperation.h
-
-../../src/rVex/rVex.h
-Instruction.h
-../../src/rVex/Instruction.h
-Syllable.h
-../../src/rVex/Syllable.h
-SyllableALU.h
-../../src/rVex/SyllableALU.h
-SyllableCTRL.h
-../../src/rVex/SyllableCTRL.h
-SyllableMUL.h
-../../src/rVex/SyllableMUL.h
-SyllableMEM.h
-../../src/rVex/SyllableMEM.h
-SyllableMISC.h
-../../src/rVex/SyllableMISC.h
-Operations/Operations.h
-../../src/rVex/Operations/Operations.h
 
 /home/helix/encoder-pbiw/src/Encoder/rVexEncoder.cpp
 iostream

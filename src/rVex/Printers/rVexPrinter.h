@@ -26,7 +26,7 @@
 #define	RVEXPRINTER_H
 
 #include <ostream>
-#include "../rVex.h"
+#include "rVex/Base/rVex.h"
 #include "rVex/Printers/IPrinter.h"
 
 namespace rVex

@@ -29,7 +29,7 @@
 #include "Operand.h"
 #include "Printers/FullPBIWPrinter.h"
 #include "rVex64PBIWInstruction.h"
-#include "rVex/rVex.h"
+#include "rVex/Base/rVex.h"
 
 #include "PBIW/Interfaces/IPBIWInstruction.h"
 #include "PBIW/Interfaces/IPBIW.h"

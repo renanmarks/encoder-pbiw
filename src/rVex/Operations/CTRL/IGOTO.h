@@ -25,7 +25,7 @@
 #ifndef IIGOTO_H
 #define	IIGOTO_H
 
-#include "../../SyllableCTRL.h"
+#include "rVex/Base/SyllableCTRL.h"
 
 namespace rVex
 {

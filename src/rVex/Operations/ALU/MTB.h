@@ -25,7 +25,7 @@
 #ifndef MTB_H
 #define	MTB_H
 
-#include "../../SyllableALU.h"
+#include "rVex/Base/SyllableALU.h"
 
 namespace rVex
 {

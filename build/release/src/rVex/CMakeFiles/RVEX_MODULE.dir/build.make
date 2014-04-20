@@ -49,212 +49,212 @@ include src/rVex/CMakeFiles/RVEX_MODULE.dir/progress.make
 # Include the compile flags for this target's objects.
 include src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/Instruction.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
-src/rVex/CMakeFiles/RVEX_MODULE.dir/Instruction.cpp.o: ../../src/rVex/Instruction.cpp
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Instruction.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Instruction.cpp.o: ../../src/rVex/Base/Instruction.cpp
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_1)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Instruction.cpp.o"
-	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Instruction.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Instruction.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Instruction.cpp.o"
+	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Base/Instruction.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Base/Instruction.cpp
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/Instruction.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RVEX_MODULE.dir/Instruction.cpp.i"
-	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/helix/encoder-pbiw/src/rVex/Instruction.cpp > CMakeFiles/RVEX_MODULE.dir/Instruction.cpp.i
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Instruction.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RVEX_MODULE.dir/Base/Instruction.cpp.i"
+	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/helix/encoder-pbiw/src/rVex/Base/Instruction.cpp > CMakeFiles/RVEX_MODULE.dir/Base/Instruction.cpp.i
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/Instruction.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RVEX_MODULE.dir/Instruction.cpp.s"
-	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/helix/encoder-pbiw/src/rVex/Instruction.cpp -o CMakeFiles/RVEX_MODULE.dir/Instruction.cpp.s
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Instruction.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RVEX_MODULE.dir/Base/Instruction.cpp.s"
+	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/helix/encoder-pbiw/src/rVex/Base/Instruction.cpp -o CMakeFiles/RVEX_MODULE.dir/Base/Instruction.cpp.s
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/Instruction.cpp.o.requires:
-.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/Instruction.cpp.o.requires
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Instruction.cpp.o.requires:
+.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Instruction.cpp.o.requires
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/Instruction.cpp.o.provides: src/rVex/CMakeFiles/RVEX_MODULE.dir/Instruction.cpp.o.requires
-	$(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Instruction.cpp.o.provides.build
-.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/Instruction.cpp.o.provides
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Instruction.cpp.o.provides: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Instruction.cpp.o.requires
+	$(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Instruction.cpp.o.provides.build
+.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Instruction.cpp.o.provides
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/Instruction.cpp.o.provides.build: src/rVex/CMakeFiles/RVEX_MODULE.dir/Instruction.cpp.o
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Instruction.cpp.o.provides.build: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Instruction.cpp.o
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/Label.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
-src/rVex/CMakeFiles/RVEX_MODULE.dir/Label.cpp.o: ../../src/rVex/Label.cpp
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Label.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Label.cpp.o: ../../src/rVex/Base/Label.cpp
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_2)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Label.cpp.o"
-	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Label.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Label.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Label.cpp.o"
+	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Base/Label.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Base/Label.cpp
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/Label.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RVEX_MODULE.dir/Label.cpp.i"
-	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/helix/encoder-pbiw/src/rVex/Label.cpp > CMakeFiles/RVEX_MODULE.dir/Label.cpp.i
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Label.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RVEX_MODULE.dir/Base/Label.cpp.i"
+	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/helix/encoder-pbiw/src/rVex/Base/Label.cpp > CMakeFiles/RVEX_MODULE.dir/Base/Label.cpp.i
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/Label.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RVEX_MODULE.dir/Label.cpp.s"
-	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/helix/encoder-pbiw/src/rVex/Label.cpp -o CMakeFiles/RVEX_MODULE.dir/Label.cpp.s
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Label.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RVEX_MODULE.dir/Base/Label.cpp.s"
+	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/helix/encoder-pbiw/src/rVex/Base/Label.cpp -o CMakeFiles/RVEX_MODULE.dir/Base/Label.cpp.s
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/Label.cpp.o.requires:
-.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/Label.cpp.o.requires
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Label.cpp.o.requires:
+.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Label.cpp.o.requires
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/Label.cpp.o.provides: src/rVex/CMakeFiles/RVEX_MODULE.dir/Label.cpp.o.requires
-	$(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Label.cpp.o.provides.build
-.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/Label.cpp.o.provides
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Label.cpp.o.provides: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Label.cpp.o.requires
+	$(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Label.cpp.o.provides.build
+.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Label.cpp.o.provides
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/Label.cpp.o.provides.build: src/rVex/CMakeFiles/RVEX_MODULE.dir/Label.cpp.o
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Label.cpp.o.provides.build: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Label.cpp.o
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/Operand.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
-src/rVex/CMakeFiles/RVEX_MODULE.dir/Operand.cpp.o: ../../src/rVex/Operand.cpp
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Operand.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Operand.cpp.o: ../../src/rVex/Base/Operand.cpp
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_3)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Operand.cpp.o"
-	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Operand.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Operand.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Operand.cpp.o"
+	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Base/Operand.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Base/Operand.cpp
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/Operand.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RVEX_MODULE.dir/Operand.cpp.i"
-	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/helix/encoder-pbiw/src/rVex/Operand.cpp > CMakeFiles/RVEX_MODULE.dir/Operand.cpp.i
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Operand.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RVEX_MODULE.dir/Base/Operand.cpp.i"
+	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/helix/encoder-pbiw/src/rVex/Base/Operand.cpp > CMakeFiles/RVEX_MODULE.dir/Base/Operand.cpp.i
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/Operand.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RVEX_MODULE.dir/Operand.cpp.s"
-	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/helix/encoder-pbiw/src/rVex/Operand.cpp -o CMakeFiles/RVEX_MODULE.dir/Operand.cpp.s
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Operand.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RVEX_MODULE.dir/Base/Operand.cpp.s"
+	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/helix/encoder-pbiw/src/rVex/Base/Operand.cpp -o CMakeFiles/RVEX_MODULE.dir/Base/Operand.cpp.s
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/Operand.cpp.o.requires:
-.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/Operand.cpp.o.requires
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Operand.cpp.o.requires:
+.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Operand.cpp.o.requires
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/Operand.cpp.o.provides: src/rVex/CMakeFiles/RVEX_MODULE.dir/Operand.cpp.o.requires
-	$(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Operand.cpp.o.provides.build
-.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/Operand.cpp.o.provides
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Operand.cpp.o.provides: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Operand.cpp.o.requires
+	$(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Operand.cpp.o.provides.build
+.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Operand.cpp.o.provides
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/Operand.cpp.o.provides.build: src/rVex/CMakeFiles/RVEX_MODULE.dir/Operand.cpp.o
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Operand.cpp.o.provides.build: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Operand.cpp.o
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/Syllable.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
-src/rVex/CMakeFiles/RVEX_MODULE.dir/Syllable.cpp.o: ../../src/rVex/Syllable.cpp
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Syllable.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Syllable.cpp.o: ../../src/rVex/Base/Syllable.cpp
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_4)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Syllable.cpp.o"
-	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Syllable.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Syllable.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Syllable.cpp.o"
+	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Base/Syllable.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Base/Syllable.cpp
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/Syllable.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RVEX_MODULE.dir/Syllable.cpp.i"
-	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/helix/encoder-pbiw/src/rVex/Syllable.cpp > CMakeFiles/RVEX_MODULE.dir/Syllable.cpp.i
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Syllable.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RVEX_MODULE.dir/Base/Syllable.cpp.i"
+	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/helix/encoder-pbiw/src/rVex/Base/Syllable.cpp > CMakeFiles/RVEX_MODULE.dir/Base/Syllable.cpp.i
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/Syllable.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RVEX_MODULE.dir/Syllable.cpp.s"
-	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/helix/encoder-pbiw/src/rVex/Syllable.cpp -o CMakeFiles/RVEX_MODULE.dir/Syllable.cpp.s
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Syllable.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RVEX_MODULE.dir/Base/Syllable.cpp.s"
+	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/helix/encoder-pbiw/src/rVex/Base/Syllable.cpp -o CMakeFiles/RVEX_MODULE.dir/Base/Syllable.cpp.s
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/Syllable.cpp.o.requires:
-.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/Syllable.cpp.o.requires
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Syllable.cpp.o.requires:
+.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Syllable.cpp.o.requires
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/Syllable.cpp.o.provides: src/rVex/CMakeFiles/RVEX_MODULE.dir/Syllable.cpp.o.requires
-	$(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Syllable.cpp.o.provides.build
-.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/Syllable.cpp.o.provides
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Syllable.cpp.o.provides: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Syllable.cpp.o.requires
+	$(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Syllable.cpp.o.provides.build
+.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Syllable.cpp.o.provides
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/Syllable.cpp.o.provides.build: src/rVex/CMakeFiles/RVEX_MODULE.dir/Syllable.cpp.o
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Syllable.cpp.o.provides.build: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Syllable.cpp.o
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableALU.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
-src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableALU.cpp.o: ../../src/rVex/SyllableALU.cpp
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableALU.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableALU.cpp.o: ../../src/rVex/Base/SyllableALU.cpp
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_5)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableALU.cpp.o"
-	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/SyllableALU.cpp.o -c /home/helix/encoder-pbiw/src/rVex/SyllableALU.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableALU.cpp.o"
+	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Base/SyllableALU.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Base/SyllableALU.cpp
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableALU.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RVEX_MODULE.dir/SyllableALU.cpp.i"
-	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/helix/encoder-pbiw/src/rVex/SyllableALU.cpp > CMakeFiles/RVEX_MODULE.dir/SyllableALU.cpp.i
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableALU.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RVEX_MODULE.dir/Base/SyllableALU.cpp.i"
+	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/helix/encoder-pbiw/src/rVex/Base/SyllableALU.cpp > CMakeFiles/RVEX_MODULE.dir/Base/SyllableALU.cpp.i
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableALU.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RVEX_MODULE.dir/SyllableALU.cpp.s"
-	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/helix/encoder-pbiw/src/rVex/SyllableALU.cpp -o CMakeFiles/RVEX_MODULE.dir/SyllableALU.cpp.s
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableALU.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RVEX_MODULE.dir/Base/SyllableALU.cpp.s"
+	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/helix/encoder-pbiw/src/rVex/Base/SyllableALU.cpp -o CMakeFiles/RVEX_MODULE.dir/Base/SyllableALU.cpp.s
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableALU.cpp.o.requires:
-.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableALU.cpp.o.requires
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableALU.cpp.o.requires:
+.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableALU.cpp.o.requires
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableALU.cpp.o.provides: src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableALU.cpp.o.requires
-	$(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableALU.cpp.o.provides.build
-.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableALU.cpp.o.provides
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableALU.cpp.o.provides: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableALU.cpp.o.requires
+	$(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableALU.cpp.o.provides.build
+.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableALU.cpp.o.provides
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableALU.cpp.o.provides.build: src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableALU.cpp.o
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableALU.cpp.o.provides.build: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableALU.cpp.o
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableCTRL.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
-src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableCTRL.cpp.o: ../../src/rVex/SyllableCTRL.cpp
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableCTRL.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableCTRL.cpp.o: ../../src/rVex/Base/SyllableCTRL.cpp
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_6)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableCTRL.cpp.o"
-	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/SyllableCTRL.cpp.o -c /home/helix/encoder-pbiw/src/rVex/SyllableCTRL.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableCTRL.cpp.o"
+	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Base/SyllableCTRL.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Base/SyllableCTRL.cpp
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableCTRL.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RVEX_MODULE.dir/SyllableCTRL.cpp.i"
-	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/helix/encoder-pbiw/src/rVex/SyllableCTRL.cpp > CMakeFiles/RVEX_MODULE.dir/SyllableCTRL.cpp.i
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableCTRL.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RVEX_MODULE.dir/Base/SyllableCTRL.cpp.i"
+	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/helix/encoder-pbiw/src/rVex/Base/SyllableCTRL.cpp > CMakeFiles/RVEX_MODULE.dir/Base/SyllableCTRL.cpp.i
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableCTRL.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RVEX_MODULE.dir/SyllableCTRL.cpp.s"
-	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/helix/encoder-pbiw/src/rVex/SyllableCTRL.cpp -o CMakeFiles/RVEX_MODULE.dir/SyllableCTRL.cpp.s
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableCTRL.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RVEX_MODULE.dir/Base/SyllableCTRL.cpp.s"
+	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/helix/encoder-pbiw/src/rVex/Base/SyllableCTRL.cpp -o CMakeFiles/RVEX_MODULE.dir/Base/SyllableCTRL.cpp.s
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableCTRL.cpp.o.requires:
-.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableCTRL.cpp.o.requires
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableCTRL.cpp.o.requires:
+.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableCTRL.cpp.o.requires
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableCTRL.cpp.o.provides: src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableCTRL.cpp.o.requires
-	$(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableCTRL.cpp.o.provides.build
-.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableCTRL.cpp.o.provides
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableCTRL.cpp.o.provides: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableCTRL.cpp.o.requires
+	$(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableCTRL.cpp.o.provides.build
+.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableCTRL.cpp.o.provides
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableCTRL.cpp.o.provides.build: src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableCTRL.cpp.o
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableCTRL.cpp.o.provides.build: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableCTRL.cpp.o
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMEM.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
-src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMEM.cpp.o: ../../src/rVex/SyllableMEM.cpp
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMEM.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMEM.cpp.o: ../../src/rVex/Base/SyllableMEM.cpp
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_7)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMEM.cpp.o"
-	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/SyllableMEM.cpp.o -c /home/helix/encoder-pbiw/src/rVex/SyllableMEM.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMEM.cpp.o"
+	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Base/SyllableMEM.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Base/SyllableMEM.cpp
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMEM.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RVEX_MODULE.dir/SyllableMEM.cpp.i"
-	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/helix/encoder-pbiw/src/rVex/SyllableMEM.cpp > CMakeFiles/RVEX_MODULE.dir/SyllableMEM.cpp.i
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMEM.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RVEX_MODULE.dir/Base/SyllableMEM.cpp.i"
+	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/helix/encoder-pbiw/src/rVex/Base/SyllableMEM.cpp > CMakeFiles/RVEX_MODULE.dir/Base/SyllableMEM.cpp.i
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMEM.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RVEX_MODULE.dir/SyllableMEM.cpp.s"
-	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/helix/encoder-pbiw/src/rVex/SyllableMEM.cpp -o CMakeFiles/RVEX_MODULE.dir/SyllableMEM.cpp.s
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMEM.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RVEX_MODULE.dir/Base/SyllableMEM.cpp.s"
+	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/helix/encoder-pbiw/src/rVex/Base/SyllableMEM.cpp -o CMakeFiles/RVEX_MODULE.dir/Base/SyllableMEM.cpp.s
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMEM.cpp.o.requires:
-.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMEM.cpp.o.requires
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMEM.cpp.o.requires:
+.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMEM.cpp.o.requires
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMEM.cpp.o.provides: src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMEM.cpp.o.requires
-	$(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMEM.cpp.o.provides.build
-.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMEM.cpp.o.provides
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMEM.cpp.o.provides: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMEM.cpp.o.requires
+	$(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMEM.cpp.o.provides.build
+.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMEM.cpp.o.provides
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMEM.cpp.o.provides.build: src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMEM.cpp.o
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMEM.cpp.o.provides.build: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMEM.cpp.o
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMISC.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
-src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMISC.cpp.o: ../../src/rVex/SyllableMISC.cpp
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMISC.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMISC.cpp.o: ../../src/rVex/Base/SyllableMISC.cpp
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_8)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMISC.cpp.o"
-	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/SyllableMISC.cpp.o -c /home/helix/encoder-pbiw/src/rVex/SyllableMISC.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMISC.cpp.o"
+	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Base/SyllableMISC.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Base/SyllableMISC.cpp
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMISC.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RVEX_MODULE.dir/SyllableMISC.cpp.i"
-	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/helix/encoder-pbiw/src/rVex/SyllableMISC.cpp > CMakeFiles/RVEX_MODULE.dir/SyllableMISC.cpp.i
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMISC.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RVEX_MODULE.dir/Base/SyllableMISC.cpp.i"
+	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/helix/encoder-pbiw/src/rVex/Base/SyllableMISC.cpp > CMakeFiles/RVEX_MODULE.dir/Base/SyllableMISC.cpp.i
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMISC.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RVEX_MODULE.dir/SyllableMISC.cpp.s"
-	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/helix/encoder-pbiw/src/rVex/SyllableMISC.cpp -o CMakeFiles/RVEX_MODULE.dir/SyllableMISC.cpp.s
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMISC.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RVEX_MODULE.dir/Base/SyllableMISC.cpp.s"
+	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/helix/encoder-pbiw/src/rVex/Base/SyllableMISC.cpp -o CMakeFiles/RVEX_MODULE.dir/Base/SyllableMISC.cpp.s
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMISC.cpp.o.requires:
-.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMISC.cpp.o.requires
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMISC.cpp.o.requires:
+.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMISC.cpp.o.requires
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMISC.cpp.o.provides: src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMISC.cpp.o.requires
-	$(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMISC.cpp.o.provides.build
-.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMISC.cpp.o.provides
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMISC.cpp.o.provides: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMISC.cpp.o.requires
+	$(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMISC.cpp.o.provides.build
+.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMISC.cpp.o.provides
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMISC.cpp.o.provides.build: src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMISC.cpp.o
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMISC.cpp.o.provides.build: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMISC.cpp.o
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMUL.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
-src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMUL.cpp.o: ../../src/rVex/SyllableMUL.cpp
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMUL.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMUL.cpp.o: ../../src/rVex/Base/SyllableMUL.cpp
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_9)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMUL.cpp.o"
-	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/SyllableMUL.cpp.o -c /home/helix/encoder-pbiw/src/rVex/SyllableMUL.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMUL.cpp.o"
+	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Base/SyllableMUL.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Base/SyllableMUL.cpp
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMUL.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RVEX_MODULE.dir/SyllableMUL.cpp.i"
-	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/helix/encoder-pbiw/src/rVex/SyllableMUL.cpp > CMakeFiles/RVEX_MODULE.dir/SyllableMUL.cpp.i
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMUL.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RVEX_MODULE.dir/Base/SyllableMUL.cpp.i"
+	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/helix/encoder-pbiw/src/rVex/Base/SyllableMUL.cpp > CMakeFiles/RVEX_MODULE.dir/Base/SyllableMUL.cpp.i
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMUL.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RVEX_MODULE.dir/SyllableMUL.cpp.s"
-	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/helix/encoder-pbiw/src/rVex/SyllableMUL.cpp -o CMakeFiles/RVEX_MODULE.dir/SyllableMUL.cpp.s
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMUL.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RVEX_MODULE.dir/Base/SyllableMUL.cpp.s"
+	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/helix/encoder-pbiw/src/rVex/Base/SyllableMUL.cpp -o CMakeFiles/RVEX_MODULE.dir/Base/SyllableMUL.cpp.s
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMUL.cpp.o.requires:
-.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMUL.cpp.o.requires
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMUL.cpp.o.requires:
+.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMUL.cpp.o.requires
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMUL.cpp.o.provides: src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMUL.cpp.o.requires
-	$(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMUL.cpp.o.provides.build
-.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMUL.cpp.o.provides
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMUL.cpp.o.provides: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMUL.cpp.o.requires
+	$(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMUL.cpp.o.provides.build
+.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMUL.cpp.o.provides
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMUL.cpp.o.provides.build: src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMUL.cpp.o
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMUL.cpp.o.provides.build: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMUL.cpp.o
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/ADDCG.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/ADDCG.cpp.o: ../../src/rVex/Operations/ALU/ADDCG.cpp
@@ -1730,15 +1730,15 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Utils/OperandVectorBuilder.cpp.o.provides.bu
 
 # Object files for target RVEX_MODULE
 RVEX_MODULE_OBJECTS = \
-"CMakeFiles/RVEX_MODULE.dir/Instruction.cpp.o" \
-"CMakeFiles/RVEX_MODULE.dir/Label.cpp.o" \
-"CMakeFiles/RVEX_MODULE.dir/Operand.cpp.o" \
-"CMakeFiles/RVEX_MODULE.dir/Syllable.cpp.o" \
-"CMakeFiles/RVEX_MODULE.dir/SyllableALU.cpp.o" \
-"CMakeFiles/RVEX_MODULE.dir/SyllableCTRL.cpp.o" \
-"CMakeFiles/RVEX_MODULE.dir/SyllableMEM.cpp.o" \
-"CMakeFiles/RVEX_MODULE.dir/SyllableMISC.cpp.o" \
-"CMakeFiles/RVEX_MODULE.dir/SyllableMUL.cpp.o" \
+"CMakeFiles/RVEX_MODULE.dir/Base/Instruction.cpp.o" \
+"CMakeFiles/RVEX_MODULE.dir/Base/Label.cpp.o" \
+"CMakeFiles/RVEX_MODULE.dir/Base/Operand.cpp.o" \
+"CMakeFiles/RVEX_MODULE.dir/Base/Syllable.cpp.o" \
+"CMakeFiles/RVEX_MODULE.dir/Base/SyllableALU.cpp.o" \
+"CMakeFiles/RVEX_MODULE.dir/Base/SyllableCTRL.cpp.o" \
+"CMakeFiles/RVEX_MODULE.dir/Base/SyllableMEM.cpp.o" \
+"CMakeFiles/RVEX_MODULE.dir/Base/SyllableMISC.cpp.o" \
+"CMakeFiles/RVEX_MODULE.dir/Base/SyllableMUL.cpp.o" \
 "CMakeFiles/RVEX_MODULE.dir/Operations/ALU/ADDCG.cpp.o" \
 "CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPEQ.cpp.o" \
 "CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPGE.cpp.o" \
@@ -1807,15 +1807,15 @@ RVEX_MODULE_OBJECTS = \
 # External object files for target RVEX_MODULE
 RVEX_MODULE_EXTERNAL_OBJECTS =
 
-src/rVex/libRVEX_MODULE.a: src/rVex/CMakeFiles/RVEX_MODULE.dir/Instruction.cpp.o
-src/rVex/libRVEX_MODULE.a: src/rVex/CMakeFiles/RVEX_MODULE.dir/Label.cpp.o
-src/rVex/libRVEX_MODULE.a: src/rVex/CMakeFiles/RVEX_MODULE.dir/Operand.cpp.o
-src/rVex/libRVEX_MODULE.a: src/rVex/CMakeFiles/RVEX_MODULE.dir/Syllable.cpp.o
-src/rVex/libRVEX_MODULE.a: src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableALU.cpp.o
-src/rVex/libRVEX_MODULE.a: src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableCTRL.cpp.o
-src/rVex/libRVEX_MODULE.a: src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMEM.cpp.o
-src/rVex/libRVEX_MODULE.a: src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMISC.cpp.o
-src/rVex/libRVEX_MODULE.a: src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMUL.cpp.o
+src/rVex/libRVEX_MODULE.a: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Instruction.cpp.o
+src/rVex/libRVEX_MODULE.a: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Label.cpp.o
+src/rVex/libRVEX_MODULE.a: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Operand.cpp.o
+src/rVex/libRVEX_MODULE.a: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Syllable.cpp.o
+src/rVex/libRVEX_MODULE.a: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableALU.cpp.o
+src/rVex/libRVEX_MODULE.a: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableCTRL.cpp.o
+src/rVex/libRVEX_MODULE.a: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMEM.cpp.o
+src/rVex/libRVEX_MODULE.a: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMISC.cpp.o
+src/rVex/libRVEX_MODULE.a: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMUL.cpp.o
 src/rVex/libRVEX_MODULE.a: src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/ADDCG.cpp.o
 src/rVex/libRVEX_MODULE.a: src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPEQ.cpp.o
 src/rVex/libRVEX_MODULE.a: src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPGE.cpp.o
@@ -1890,15 +1890,15 @@ src/rVex/libRVEX_MODULE.a: src/rVex/CMakeFiles/RVEX_MODULE.dir/link.txt
 src/rVex/CMakeFiles/RVEX_MODULE.dir/build: src/rVex/libRVEX_MODULE.a
 .PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/build
 
-src/rVex/CMakeFiles/RVEX_MODULE.dir/requires: src/rVex/CMakeFiles/RVEX_MODULE.dir/Instruction.cpp.o.requires
-src/rVex/CMakeFiles/RVEX_MODULE.dir/requires: src/rVex/CMakeFiles/RVEX_MODULE.dir/Label.cpp.o.requires
-src/rVex/CMakeFiles/RVEX_MODULE.dir/requires: src/rVex/CMakeFiles/RVEX_MODULE.dir/Operand.cpp.o.requires
-src/rVex/CMakeFiles/RVEX_MODULE.dir/requires: src/rVex/CMakeFiles/RVEX_MODULE.dir/Syllable.cpp.o.requires
-src/rVex/CMakeFiles/RVEX_MODULE.dir/requires: src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableALU.cpp.o.requires
-src/rVex/CMakeFiles/RVEX_MODULE.dir/requires: src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableCTRL.cpp.o.requires
-src/rVex/CMakeFiles/RVEX_MODULE.dir/requires: src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMEM.cpp.o.requires
-src/rVex/CMakeFiles/RVEX_MODULE.dir/requires: src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMISC.cpp.o.requires
-src/rVex/CMakeFiles/RVEX_MODULE.dir/requires: src/rVex/CMakeFiles/RVEX_MODULE.dir/SyllableMUL.cpp.o.requires
+src/rVex/CMakeFiles/RVEX_MODULE.dir/requires: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Instruction.cpp.o.requires
+src/rVex/CMakeFiles/RVEX_MODULE.dir/requires: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Label.cpp.o.requires
+src/rVex/CMakeFiles/RVEX_MODULE.dir/requires: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Operand.cpp.o.requires
+src/rVex/CMakeFiles/RVEX_MODULE.dir/requires: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Syllable.cpp.o.requires
+src/rVex/CMakeFiles/RVEX_MODULE.dir/requires: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableALU.cpp.o.requires
+src/rVex/CMakeFiles/RVEX_MODULE.dir/requires: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableCTRL.cpp.o.requires
+src/rVex/CMakeFiles/RVEX_MODULE.dir/requires: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMEM.cpp.o.requires
+src/rVex/CMakeFiles/RVEX_MODULE.dir/requires: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMISC.cpp.o.requires
+src/rVex/CMakeFiles/RVEX_MODULE.dir/requires: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMUL.cpp.o.requires
 src/rVex/CMakeFiles/RVEX_MODULE.dir/requires: src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/ADDCG.cpp.o.requires
 src/rVex/CMakeFiles/RVEX_MODULE.dir/requires: src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPEQ.cpp.o.requires
 src/rVex/CMakeFiles/RVEX_MODULE.dir/requires: src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPGE.cpp.o.requires

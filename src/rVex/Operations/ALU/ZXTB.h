@@ -25,7 +25,7 @@
 #ifndef ZXTB_H
 #define	ZXTB_H
 
-#include "../../SyllableALU.h"
+#include "rVex/Base/SyllableALU.h"
 
 namespace rVex
 {

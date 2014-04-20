@@ -25,7 +25,7 @@
 #ifndef AND_H
 #define	AND_H
 
-#include "../../SyllableALU.h"
+#include "rVex/Base/SyllableALU.h"
 
 namespace rVex
 {

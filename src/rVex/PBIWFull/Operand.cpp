@@ -25,8 +25,8 @@
 #include <ios>
 #include <typeinfo>
 #include "Operand.h"
-#include "rVex/Instruction.h"
-#include "rVex/Operand.h"
+#include "rVex/Base/Instruction.h"
+#include "rVex/Base/Operand.h"
 
 namespace PBIWFull
 {

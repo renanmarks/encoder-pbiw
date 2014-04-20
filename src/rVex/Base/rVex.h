@@ -34,7 +34,7 @@
 #include "SyllableMEM.h"
 #include "SyllableMISC.h"
 
-#include "Operations/Operations.h"
+#include "rVex/Operations/Operations.h"
 
 #endif	/* RVEX_H */
 

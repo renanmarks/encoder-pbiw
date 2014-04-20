@@ -25,7 +25,7 @@
 #ifndef SEND_H
 #define	SEND_H
 
-#include "../../SyllableCTRL.h"
+#include "rVex/Base/SyllableCTRL.h"
 
 namespace rVex
 {

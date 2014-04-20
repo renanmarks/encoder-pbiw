@@ -25,7 +25,7 @@
 #ifndef MOV_H
 #define	MOV_H
 
-#include "../../SyllableALU.h"
+#include "rVex/Base/SyllableALU.h"
 
 namespace rVex
 {

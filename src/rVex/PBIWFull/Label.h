@@ -27,7 +27,7 @@
 
 #include <string>
 #include "PBIW/Interfaces/ILabel.h"
-#include "rVex/Label.h"
+#include "rVex/Base/Label.h"
 
 namespace PBIWFull
 {

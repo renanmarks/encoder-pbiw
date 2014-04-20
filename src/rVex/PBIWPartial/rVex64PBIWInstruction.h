@@ -30,7 +30,7 @@
 
 #include "rVex96PBIWPattern.h"
 #include "Operand.h"
-#include "rVex/Syllable.h"
+#include "rVex/Base/Syllable.h"
 #include "PBIW/Utils/OperandVector.h"
 #include "PBIW/Interfaces/IPBIWInstruction.h"
 #include "PBIW/Interfaces/IOperand.h"

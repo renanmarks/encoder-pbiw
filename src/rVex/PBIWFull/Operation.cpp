@@ -26,7 +26,7 @@
 #include <iostream>
 #include "Operation.h"
 #include "PBIW/Interfaces/IPBIWInstruction.h"
-#include "rVex/Syllable.h"
+#include "rVex/Base/Syllable.h"
 
 namespace PBIWFull
 {
