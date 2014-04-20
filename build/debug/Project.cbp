@@ -5,7 +5,7 @@
       <Option title="Project" />
       <Option makefile_is_custom="1" />
       <Option compiler="gcc" />
-      <Option virtualFolders="CMake Files\;CMake Files\src\;CMake Files\src\Encoder\;CMake Files\src\GenericAssembly\;CMake Files\src\PBIW\;CMake Files\src\rVex\;" />
+      <Option virtualFolders="CMake Files\;CMake Files\src\;CMake Files\src\GenericAssembly\;CMake Files\src\PBIW\;CMake Files\src\rVex\;" />
       <Build>
       <Target title="all">
          <Option working_dir="/home/helix/encoder-pbiw/build/debug" />
@@ -57,38 +57,6 @@
             <CompileFile command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
             <Clean command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/Makefile&quot;  VERBOSE=1 clean" />
             <DistClean command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/Makefile&quot;  VERBOSE=1 clean" />
-         </MakeCommands>
-      </Target>
-      <Target title="ENCODER_MODULE">
-         <Option output="/home/helix/encoder-pbiw/build/debug/src/Encoder/libENCODER_MODULE.a" prefix_auto="0" extension_auto="0" />
-         <Option working_dir="/home/helix/encoder-pbiw/build/debug/src/Encoder" />
-         <Option object_output="./" />
-         <Option type="2" />
-         <Option compiler="gcc" />
-         <Compiler>
-            <Add directory="/home/helix/encoder-pbiw/src" />
-         </Compiler>
-         <MakeCommands>
-            <Build command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/Encoder/Makefile&quot;  VERBOSE=1 ENCODER_MODULE" />
-            <CompileFile command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/Encoder/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
-            <Clean command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/Encoder/Makefile&quot;  VERBOSE=1 clean" />
-            <DistClean command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/Encoder/Makefile&quot;  VERBOSE=1 clean" />
-         </MakeCommands>
-      </Target>
-      <Target title="ENCODER_MODULE/fast">
-         <Option output="/home/helix/encoder-pbiw/build/debug/src/Encoder/libENCODER_MODULE.a" prefix_auto="0" extension_auto="0" />
-         <Option working_dir="/home/helix/encoder-pbiw/build/debug/src/Encoder" />
-         <Option object_output="./" />
-         <Option type="2" />
-         <Option compiler="gcc" />
-         <Compiler>
-            <Add directory="/home/helix/encoder-pbiw/src" />
-         </Compiler>
-         <MakeCommands>
-            <Build command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/Encoder/Makefile&quot;  VERBOSE=1 ENCODER_MODULE/fast" />
-            <CompileFile command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/Encoder/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
-            <Clean command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/Encoder/Makefile&quot;  VERBOSE=1 clean" />
-            <DistClean command="/usr/bin/make -f &quot;/home/helix/encoder-pbiw/build/debug/src/Encoder/Makefile&quot;  VERBOSE=1 clean" />
          </MakeCommands>
       </Target>
       <Target title="GENERICASSEMBLY_MODULE">
@@ -188,8 +156,6 @@
          </MakeCommands>
       </Target>
       </Build>
-      <Unit filename="/home/helix/encoder-pbiw/src/Encoder/rVexEncoder.cpp">
-      </Unit>
       <Unit filename="/home/helix/encoder-pbiw/src/GenericAssembly/Utils/OperandVector.cpp">
       </Unit>
       <Unit filename="/home/helix/encoder-pbiw/src/PBIW/BaseOptimizer.cpp">
@@ -245,6 +211,8 @@
       <Unit filename="/home/helix/encoder-pbiw/src/rVex/Base/SyllableMISC.cpp">
       </Unit>
       <Unit filename="/home/helix/encoder-pbiw/src/rVex/Base/SyllableMUL.cpp">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Encoder/rVexEncoder.cpp">
       </Unit>
       <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/ALU/ADDCG.cpp">
       </Unit>
@@ -374,8 +342,6 @@
       </Unit>
       <Unit filename="/home/helix/encoder-pbiw/src/rVex/Utils/OperandVectorBuilder.cpp">
       </Unit>
-      <Unit filename="/home/helix/encoder-pbiw/src/Encoder/rVexEncoder.h">
-      </Unit>
       <Unit filename="/home/helix/encoder-pbiw/src/GenericAssembly/Utils/OperandVector.h">
       </Unit>
       <Unit filename="/home/helix/encoder-pbiw/src/PBIW/BaseOptimizer.h">
@@ -431,6 +397,8 @@
       <Unit filename="/home/helix/encoder-pbiw/src/rVex/Base/SyllableMISC.h">
       </Unit>
       <Unit filename="/home/helix/encoder-pbiw/src/rVex/Base/SyllableMUL.h">
+      </Unit>
+      <Unit filename="/home/helix/encoder-pbiw/src/rVex/Encoder/rVexEncoder.h">
       </Unit>
       <Unit filename="/home/helix/encoder-pbiw/src/rVex/Operations/ALU/ADDCG.h">
       </Unit>
@@ -566,12 +534,6 @@
       </Unit>
       <Unit filename="/home/helix/encoder-pbiw/src/CMakeLists.txt">
           <Option virtualFolder="CMake Files\src\" />
-      </Unit>
-      <Unit filename="/home/helix/encoder-pbiw/src/Encoder/CMakeLists.txt">
-          <Option virtualFolder="CMake Files\src\Encoder\" />
-      </Unit>
-      <Unit filename="/home/helix/encoder-pbiw/src/Encoder/CMakeLists.txt">
-          <Option virtualFolder="CMake Files\src\Encoder\" />
       </Unit>
       <Unit filename="/home/helix/encoder-pbiw/src/GenericAssembly/CMakeLists.txt">
           <Option virtualFolder="CMake Files\src\GenericAssembly\" />

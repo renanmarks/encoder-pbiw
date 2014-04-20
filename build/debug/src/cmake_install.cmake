@@ -34,7 +34,6 @@ ENDIF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 
 IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  INCLUDE("/home/helix/encoder-pbiw/build/debug/src/Encoder/cmake_install.cmake")
   INCLUDE("/home/helix/encoder-pbiw/build/debug/src/GenericAssembly/cmake_install.cmake")
   INCLUDE("/home/helix/encoder-pbiw/build/debug/src/PBIW/cmake_install.cmake")
   INCLUDE("/home/helix/encoder-pbiw/build/debug/src/rVex/cmake_install.cmake")

@@ -81,7 +81,6 @@ pbiwencoder_EXTERNAL_OBJECTS =
 
 src/pbiwencoder: src/CMakeFiles/pbiwencoder.dir/pbiw_encoder.cpp.o
 src/pbiwencoder: src/CMakeFiles/pbiwencoder.dir/build.make
-src/pbiwencoder: src/Encoder/libENCODER_MODULE.a
 src/pbiwencoder: src/PBIW/libPBIW_MODULE.a
 src/pbiwencoder: src/rVex/libRVEX_MODULE.a
 src/pbiwencoder: src/GenericAssembly/libGENERICASSEMBLY_MODULE.a

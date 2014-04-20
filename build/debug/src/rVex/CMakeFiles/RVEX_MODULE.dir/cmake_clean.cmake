@@ -1,4 +1,5 @@
 FILE(REMOVE_RECURSE
+  "CMakeFiles/RVEX_MODULE.dir/Encoder/rVexEncoder.cpp.o"
   "CMakeFiles/RVEX_MODULE.dir/Base/Instruction.cpp.o"
   "CMakeFiles/RVEX_MODULE.dir/Base/Label.cpp.o"
   "CMakeFiles/RVEX_MODULE.dir/Base/Operand.cpp.o"

@@ -12,7 +12,6 @@ SET(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/2.8.12.1/CMakeCXXCompiler.cmake"
   "CMakeFiles/2.8.12.1/CMakeSystem.cmake"
   "../../src/CMakeLists.txt"
-  "../../src/Encoder/CMakeLists.txt"
   "../../src/GenericAssembly/CMakeLists.txt"
   "../../src/PBIW/CMakeLists.txt"
   "../../src/rVex/CMakeLists.txt"
@@ -41,7 +40,6 @@ SET(CMAKE_MAKEFILE_OUTPUTS
 SET(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   "src/CMakeFiles/CMakeDirectoryInformation.cmake"
-  "src/Encoder/CMakeFiles/CMakeDirectoryInformation.cmake"
   "src/GenericAssembly/CMakeFiles/CMakeDirectoryInformation.cmake"
   "src/PBIW/CMakeFiles/CMakeDirectoryInformation.cmake"
   "src/rVex/CMakeFiles/CMakeDirectoryInformation.cmake"
@@ -50,7 +48,6 @@ SET(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 SET(CMAKE_DEPEND_INFO_FILES
   "src/CMakeFiles/pbiwencoder.dir/DependInfo.cmake"
-  "src/Encoder/CMakeFiles/ENCODER_MODULE.dir/DependInfo.cmake"
   "src/GenericAssembly/CMakeFiles/GENERICASSEMBLY_MODULE.dir/DependInfo.cmake"
   "src/PBIW/CMakeFiles/PBIW_MODULE.dir/DependInfo.cmake"
   "src/rVex/CMakeFiles/RVEX_MODULE.dir/DependInfo.cmake"

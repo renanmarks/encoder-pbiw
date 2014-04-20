@@ -2,6 +2,7 @@
 set(
 	RVEX_SRC
 
+	Encoder/rVexEncoder
 	Base/Instruction
 	Base/Label
 	Base/Operand

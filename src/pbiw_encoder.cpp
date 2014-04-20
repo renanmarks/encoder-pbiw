@@ -26,60 +26,66 @@
 #include <fstream>
 #include <list>
 #include <string>
+#include <map>
 #include "pbiw_encoder.h"
-#include "Encoder/rVexEncoder.h"
+#include "GenericEncoder/GenericEncoderInterface.h"
+#include "rVex/Encoder/rVexEncoder.h"
 
 using namespace std;
 
-void printHelp(const std::string& binaryName)
+std::string version = "3.0";
+
+void printHeader()
 {
-  std::string version = "3.0";
-  
-  
-  typedef std::list<std::string> StringList;
-  StringList archs;
-  archs.push_back("rVex Processor");
-  
-  //--------------------
-  
-  std::cout << 
+	std::cout <<
 "PBIW Encoder - Version "<< version << "\n\
 Copyright (C) 2013 Renan Albuquerque Marks\n\
 \n\
 This program comes with ABSOLUTELY NO WARRANTY;\n\
 This is free software, and you are welcome to redistribute it\n\
 under certain conditions.\n\
----\n" 
-  << std::endl;
+---\n"
+	<< std::endl;
+}
 
-  //--------------------
-  
+void printHelp(const std::string& binaryName, const PBIWFramework::GenericEncoderInterface& encoder)
+{
+  typedef std::list<std::string> StringList;
+  StringList archs;
+	StringList rVexEncoderCPUS = encoder.getSupportedCPUList();
+
+	archs.assign(rVexEncoderCPUS.begin(), rVexEncoderCPUS.end());
+
+	printHeader();
+
   std::cout << "Architectures supported in this version:" << std::endl;
 
-  StringList::const_iterator it;
-  for (it = archs.begin(); it != archs.end(); it++)
+	for (StringList::const_iterator it = archs.begin(); it != archs.end(); it++)
     std::cout << "  " << *it << std::endl;
 
-  std::cout << "---\n" << std::endl;
-
-  //--------------------
-  
-  std::cout << "\tUsage: " << binaryName << " [options] input.s\n" << std::endl
-    << "This will generate 3 files:" << std::endl
-    << "- input.s.vhd: Contains the binary VHDL assembly to run in rVex;" << std::endl
-    << "- input.s.pbiw.vhd: Contains the PBIW instructions binary VHDL assembly to run in rVex;" << std::endl
-    << "- input.s.pcache.vhd: Contains the PBIW patterns binary VHDL assembly to run in rVex;\n" << std::endl;
-
-  std::cout << "Options:" << std::endl
-    << "-p\tTrace parsing" << std::endl
-    << "-s\tTrace scanning" << std::endl
-    << "-O\tEnable PBIW optimization" << std::endl
-    << "-c\tEnable rVex PBIW constrained encoding (Default)" << std::endl
-    << "-uc\tEnable rVex PBIW unconstrained encoding" << std::endl
-    << "-do\tEnable Dinero Tool output data" << std::endl
-    << std::endl;
+	std::cout << "---\n" << std::endl
+	<< "To generate code to a specific target, use --target [name] directive." << std::endl
+	<< "To see extended help for each target, type --morehelp." << std::endl;
 
   return;
+}
+
+void printExtendedHelp(const std::string& binaryName, const PBIWFramework::GenericEncoderInterface& encoder)
+{
+	typedef std::list<std::string> StringList;
+	StringList rVexEncoderCPUS = encoder.getSupportedCPUList();
+
+	std::cout << "------------" << std::endl;
+	std::cout << "Help for target(s): ";
+
+	for (StringList::const_iterator it = rVexEncoderCPUS.begin(); it != rVexEncoderCPUS.end(); it++)
+		std::cout << *it << std::endl;
+
+	std::cout << "---" << std::endl;
+	std::cout << std::endl << encoder.getUsage();
+	std::cout << "------------" << std::endl;
+
+	return;
 }
 
 /**
@@ -95,18 +101,44 @@ main(int argc, char** argv)
   StringList flags;
   
   for (int ai=1; ai < argc; ++ai) // O(|argc|)
-  {
-    flags.push_back(argv[ai]);
-    
-    if (argv[ai] == std::string("-h") || argv[ai] == std::string("--help"))
-    {
-      printHelp(argv[0]);
-      return 0;
-    } 
-  }
-  
-  Encoder::rVexEncoder encoder(flags);
-  encoder.run();
+		flags.push_back(argv[ai]);
+
+	rVex::Encoder::rVexEncoder encoder(flags);
+	std::map<std::string, PBIWFramework::GenericEncoderInterface*> codecs;
+
+	codecs[encoder.getTargetFlag()] = &encoder;
+
+	StringList::const_iterator target = flags.end();
+	StringList::const_iterator it;
+
+	for (it = flags.begin(); it != flags.end(); it++) // O(|argc|)
+	{
+		if (*it == "-t" || *it == "--target")
+		{
+			target = it; target++;
+		}
+
+		if (*it == "--morehelp")
+		{
+			if (target != flags.end())
+			{
+				printExtendedHelp(argv[0], *codecs[*target]);
+				return 0;
+			}
+
+			std::cout << "Please specify a target BEFORE the --morehelp flag." << std::endl;
+			return 0;
+		}
+
+		if (*it == "-h" || *it == "--help")
+		{
+			printHelp(argv[0], encoder);
+			return 0;
+		}
+	}
+
+	if (it == flags.end())
+		codecs[*target]->run();
 
   return 0;
 }

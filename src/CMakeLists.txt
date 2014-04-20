@@ -4,7 +4,6 @@ project(pbiwencoder)
 include_directories("${PROJECT_SOURCE_DIR}")
 
 # Sub-diretórios com códigos a serem compilados
-add_subdirectory(Encoder)
 add_subdirectory(GenericAssembly)
 add_subdirectory(PBIW)
 add_subdirectory(rVex)
@@ -15,7 +14,6 @@ aux_source_directory(. SRC_LIST)
 set(
 	MODULES
 
-	ENCODER_MODULE
 	PBIW_MODULE
 	RVEX_MODULE
 	GENERICASSEMBLY_MODULE

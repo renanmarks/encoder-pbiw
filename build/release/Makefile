@@ -112,19 +112,6 @@ pbiwencoder/fast:
 .PHONY : pbiwencoder/fast
 
 #=============================================================================
-# Target rules for targets named ENCODER_MODULE
-
-# Build rule for target.
-ENCODER_MODULE: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ENCODER_MODULE
-.PHONY : ENCODER_MODULE
-
-# fast build rule for target.
-ENCODER_MODULE/fast:
-	$(MAKE) -f src/Encoder/CMakeFiles/ENCODER_MODULE.dir/build.make src/Encoder/CMakeFiles/ENCODER_MODULE.dir/build
-.PHONY : ENCODER_MODULE/fast
-
-#=============================================================================
 # Target rules for targets named GENERICASSEMBLY_MODULE
 
 # Build rule for target.
@@ -172,7 +159,6 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... pbiwencoder"
-	@echo "... ENCODER_MODULE"
 	@echo "... GENERICASSEMBLY_MODULE"
 	@echo "... PBIW_MODULE"
 	@echo "... RVEX_MODULE"

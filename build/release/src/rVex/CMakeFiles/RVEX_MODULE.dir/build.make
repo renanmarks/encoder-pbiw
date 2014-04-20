@@ -49,9 +49,32 @@ include src/rVex/CMakeFiles/RVEX_MODULE.dir/progress.make
 # Include the compile flags for this target's objects.
 include src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Encoder/rVexEncoder.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Encoder/rVexEncoder.cpp.o: ../../src/rVex/Encoder/rVexEncoder.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_1)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Encoder/rVexEncoder.cpp.o"
+	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Encoder/rVexEncoder.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Encoder/rVexEncoder.cpp
+
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Encoder/rVexEncoder.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RVEX_MODULE.dir/Encoder/rVexEncoder.cpp.i"
+	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/helix/encoder-pbiw/src/rVex/Encoder/rVexEncoder.cpp > CMakeFiles/RVEX_MODULE.dir/Encoder/rVexEncoder.cpp.i
+
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Encoder/rVexEncoder.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RVEX_MODULE.dir/Encoder/rVexEncoder.cpp.s"
+	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/helix/encoder-pbiw/src/rVex/Encoder/rVexEncoder.cpp -o CMakeFiles/RVEX_MODULE.dir/Encoder/rVexEncoder.cpp.s
+
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Encoder/rVexEncoder.cpp.o.requires:
+.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/Encoder/rVexEncoder.cpp.o.requires
+
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Encoder/rVexEncoder.cpp.o.provides: src/rVex/CMakeFiles/RVEX_MODULE.dir/Encoder/rVexEncoder.cpp.o.requires
+	$(MAKE) -f src/rVex/CMakeFiles/RVEX_MODULE.dir/build.make src/rVex/CMakeFiles/RVEX_MODULE.dir/Encoder/rVexEncoder.cpp.o.provides.build
+.PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/Encoder/rVexEncoder.cpp.o.provides
+
+src/rVex/CMakeFiles/RVEX_MODULE.dir/Encoder/rVexEncoder.cpp.o.provides.build: src/rVex/CMakeFiles/RVEX_MODULE.dir/Encoder/rVexEncoder.cpp.o
+
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Instruction.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Instruction.cpp.o: ../../src/rVex/Base/Instruction.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Instruction.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Base/Instruction.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Base/Instruction.cpp
 
@@ -74,7 +97,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Instruction.cpp.o.provides.build: src/r
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Label.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Label.cpp.o: ../../src/rVex/Base/Label.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Label.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Base/Label.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Base/Label.cpp
 
@@ -97,7 +120,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Label.cpp.o.provides.build: src/rVex/CM
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Operand.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Operand.cpp.o: ../../src/rVex/Base/Operand.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_3)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Operand.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Base/Operand.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Base/Operand.cpp
 
@@ -120,7 +143,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Operand.cpp.o.provides.build: src/rVex/
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Syllable.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Syllable.cpp.o: ../../src/rVex/Base/Syllable.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_4)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_5)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Syllable.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Base/Syllable.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Base/Syllable.cpp
 
@@ -143,7 +166,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Syllable.cpp.o.provides.build: src/rVex
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableALU.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableALU.cpp.o: ../../src/rVex/Base/SyllableALU.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_5)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_6)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableALU.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Base/SyllableALU.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Base/SyllableALU.cpp
 
@@ -166,7 +189,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableALU.cpp.o.provides.build: src/r
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableCTRL.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableCTRL.cpp.o: ../../src/rVex/Base/SyllableCTRL.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_6)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_7)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableCTRL.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Base/SyllableCTRL.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Base/SyllableCTRL.cpp
 
@@ -189,7 +212,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableCTRL.cpp.o.provides.build: src/
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMEM.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMEM.cpp.o: ../../src/rVex/Base/SyllableMEM.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_7)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_8)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMEM.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Base/SyllableMEM.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Base/SyllableMEM.cpp
 
@@ -212,7 +235,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMEM.cpp.o.provides.build: src/r
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMISC.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMISC.cpp.o: ../../src/rVex/Base/SyllableMISC.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_8)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_9)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMISC.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Base/SyllableMISC.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Base/SyllableMISC.cpp
 
@@ -235,7 +258,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMISC.cpp.o.provides.build: src/
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMUL.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMUL.cpp.o: ../../src/rVex/Base/SyllableMUL.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_9)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_10)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMUL.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Base/SyllableMUL.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Base/SyllableMUL.cpp
 
@@ -258,7 +281,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/SyllableMUL.cpp.o.provides.build: src/r
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/ADDCG.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/ADDCG.cpp.o: ../../src/rVex/Operations/ALU/ADDCG.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_10)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_11)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/ADDCG.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Operations/ALU/ADDCG.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Operations/ALU/ADDCG.cpp
 
@@ -281,7 +304,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/ADDCG.cpp.o.provides.build: s
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPEQ.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPEQ.cpp.o: ../../src/rVex/Operations/ALU/CMPEQ.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_11)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_12)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPEQ.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPEQ.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Operations/ALU/CMPEQ.cpp
 
@@ -304,7 +327,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPEQ.cpp.o.provides.build: s
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPGE.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPGE.cpp.o: ../../src/rVex/Operations/ALU/CMPGE.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_12)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_13)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPGE.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPGE.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Operations/ALU/CMPGE.cpp
 
@@ -327,7 +350,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPGE.cpp.o.provides.build: s
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPGEU.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPGEU.cpp.o: ../../src/rVex/Operations/ALU/CMPGEU.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_13)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_14)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPGEU.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPGEU.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Operations/ALU/CMPGEU.cpp
 
@@ -350,7 +373,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPGEU.cpp.o.provides.build: 
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPGT.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPGT.cpp.o: ../../src/rVex/Operations/ALU/CMPGT.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_14)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_15)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPGT.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPGT.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Operations/ALU/CMPGT.cpp
 
@@ -373,7 +396,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPGT.cpp.o.provides.build: s
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPGTU.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPGTU.cpp.o: ../../src/rVex/Operations/ALU/CMPGTU.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_15)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_16)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPGTU.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPGTU.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Operations/ALU/CMPGTU.cpp
 
@@ -396,7 +419,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPGTU.cpp.o.provides.build: 
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPLE.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPLE.cpp.o: ../../src/rVex/Operations/ALU/CMPLE.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_16)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_17)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPLE.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPLE.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Operations/ALU/CMPLE.cpp
 
@@ -419,7 +442,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPLE.cpp.o.provides.build: s
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPLEU.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPLEU.cpp.o: ../../src/rVex/Operations/ALU/CMPLEU.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_17)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_18)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPLEU.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPLEU.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Operations/ALU/CMPLEU.cpp
 
@@ -442,7 +465,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPLEU.cpp.o.provides.build: 
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPLT.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPLT.cpp.o: ../../src/rVex/Operations/ALU/CMPLT.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_18)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_19)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPLT.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPLT.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Operations/ALU/CMPLT.cpp
 
@@ -465,7 +488,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPLT.cpp.o.provides.build: s
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPLTU.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPLTU.cpp.o: ../../src/rVex/Operations/ALU/CMPLTU.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_19)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_20)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPLTU.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPLTU.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Operations/ALU/CMPLTU.cpp
 
@@ -488,7 +511,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPLTU.cpp.o.provides.build: 
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPNE.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPNE.cpp.o: ../../src/rVex/Operations/ALU/CMPNE.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_20)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_21)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPNE.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPNE.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Operations/ALU/CMPNE.cpp
 
@@ -511,7 +534,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/CMPNE.cpp.o.provides.build: s
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/DIVS.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/DIVS.cpp.o: ../../src/rVex/Operations/ALU/DIVS.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_21)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_22)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/DIVS.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Operations/ALU/DIVS.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Operations/ALU/DIVS.cpp
 
@@ -534,7 +557,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/DIVS.cpp.o.provides.build: sr
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/MTB.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/MTB.cpp.o: ../../src/rVex/Operations/ALU/MTB.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_22)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_23)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/MTB.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Operations/ALU/MTB.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Operations/ALU/MTB.cpp
 
@@ -557,7 +580,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/MTB.cpp.o.provides.build: src
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/SLCT.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/SLCT.cpp.o: ../../src/rVex/Operations/ALU/SLCT.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_23)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_24)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/SLCT.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Operations/ALU/SLCT.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Operations/ALU/SLCT.cpp
 
@@ -580,7 +603,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/SLCT.cpp.o.provides.build: sr
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/SLCTF.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/SLCTF.cpp.o: ../../src/rVex/Operations/ALU/SLCTF.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_24)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_25)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/SLCTF.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Operations/ALU/SLCTF.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Operations/ALU/SLCTF.cpp
 
@@ -603,7 +626,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/ALU/SLCTF.cpp.o.provides.build: s
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/BR.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/BR.cpp.o: ../../src/rVex/Operations/CTRL/BR.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_25)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_26)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/BR.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/BR.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Operations/CTRL/BR.cpp
 
@@ -626,7 +649,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/BR.cpp.o.provides.build: src
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/BRF.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/BRF.cpp.o: ../../src/rVex/Operations/CTRL/BRF.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_26)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_27)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/BRF.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/BRF.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Operations/CTRL/BRF.cpp
 
@@ -649,7 +672,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/BRF.cpp.o.provides.build: sr
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/CALL.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/CALL.cpp.o: ../../src/rVex/Operations/CTRL/CALL.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_27)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_28)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/CALL.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/CALL.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Operations/CTRL/CALL.cpp
 
@@ -672,7 +695,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/CALL.cpp.o.provides.build: s
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/GOTO.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/GOTO.cpp.o: ../../src/rVex/Operations/CTRL/GOTO.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_28)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_29)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/GOTO.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/GOTO.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Operations/CTRL/GOTO.cpp
 
@@ -695,7 +718,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/GOTO.cpp.o.provides.build: s
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/ICALL.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/ICALL.cpp.o: ../../src/rVex/Operations/CTRL/ICALL.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_29)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_30)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/ICALL.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/ICALL.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Operations/CTRL/ICALL.cpp
 
@@ -718,7 +741,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/ICALL.cpp.o.provides.build: 
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/IGOTO.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/IGOTO.cpp.o: ../../src/rVex/Operations/CTRL/IGOTO.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_30)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_31)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/IGOTO.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/IGOTO.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Operations/CTRL/IGOTO.cpp
 
@@ -741,7 +764,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/IGOTO.cpp.o.provides.build: 
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/RETURN.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/RETURN.cpp.o: ../../src/rVex/Operations/CTRL/RETURN.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_31)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_32)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/RETURN.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/RETURN.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Operations/CTRL/RETURN.cpp
 
@@ -764,7 +787,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/RETURN.cpp.o.provides.build:
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/RFI.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/RFI.cpp.o: ../../src/rVex/Operations/CTRL/RFI.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_32)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_33)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/RFI.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/RFI.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Operations/CTRL/RFI.cpp
 
@@ -787,7 +810,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/CTRL/RFI.cpp.o.provides.build: sr
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/MEM/LDB.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/MEM/LDB.cpp.o: ../../src/rVex/Operations/MEM/LDB.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_33)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_34)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/MEM/LDB.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Operations/MEM/LDB.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Operations/MEM/LDB.cpp
 
@@ -810,7 +833,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/MEM/LDB.cpp.o.provides.build: src
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/MEM/LDBU.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/MEM/LDBU.cpp.o: ../../src/rVex/Operations/MEM/LDBU.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_34)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_35)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/MEM/LDBU.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Operations/MEM/LDBU.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Operations/MEM/LDBU.cpp
 
@@ -833,7 +856,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/MEM/LDBU.cpp.o.provides.build: sr
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/MEM/LDH.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/MEM/LDH.cpp.o: ../../src/rVex/Operations/MEM/LDH.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_35)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_36)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/MEM/LDH.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Operations/MEM/LDH.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Operations/MEM/LDH.cpp
 
@@ -856,7 +879,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/MEM/LDH.cpp.o.provides.build: src
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/MEM/LDHU.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/MEM/LDHU.cpp.o: ../../src/rVex/Operations/MEM/LDHU.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_36)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_37)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/MEM/LDHU.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Operations/MEM/LDHU.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Operations/MEM/LDHU.cpp
 
@@ -879,7 +902,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/MEM/LDHU.cpp.o.provides.build: sr
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/MEM/LDW.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/MEM/LDW.cpp.o: ../../src/rVex/Operations/MEM/LDW.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_37)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_38)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/MEM/LDW.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Operations/MEM/LDW.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Operations/MEM/LDW.cpp
 
@@ -902,7 +925,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/MEM/LDW.cpp.o.provides.build: src
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/MEM/STB.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/MEM/STB.cpp.o: ../../src/rVex/Operations/MEM/STB.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_38)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_39)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/MEM/STB.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Operations/MEM/STB.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Operations/MEM/STB.cpp
 
@@ -925,7 +948,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/MEM/STB.cpp.o.provides.build: src
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/MEM/STH.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/MEM/STH.cpp.o: ../../src/rVex/Operations/MEM/STH.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_39)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_40)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/MEM/STH.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Operations/MEM/STH.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Operations/MEM/STH.cpp
 
@@ -948,7 +971,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/MEM/STH.cpp.o.provides.build: src
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/MEM/STW.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/MEM/STW.cpp.o: ../../src/rVex/Operations/MEM/STW.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_40)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_41)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/MEM/STW.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Operations/MEM/STW.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Operations/MEM/STW.cpp
 
@@ -971,7 +994,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Operations/MEM/STW.cpp.o.provides.build: src
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/Expressions/Arguments.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/Expressions/Arguments.cpp.o: ../../src/rVex/Parser/Expressions/Arguments.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_41)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_42)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/Expressions/Arguments.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Parser/Expressions/Arguments.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Parser/Expressions/Arguments.cpp
 
@@ -994,7 +1017,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/Expressions/Arguments.cpp.o.provides.
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/Expressions/Expression.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/Expressions/Expression.cpp.o: ../../src/rVex/Parser/Expressions/Expression.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_42)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_43)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/Expressions/Expression.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Parser/Expressions/Expression.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Parser/Expressions/Expression.cpp
 
@@ -1017,7 +1040,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/Expressions/Expression.cpp.o.provides
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/Processors/PseudoSyllableProcessor.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/Processors/PseudoSyllableProcessor.cpp.o: ../../src/rVex/Parser/Processors/PseudoSyllableProcessor.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_43)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_44)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/Processors/PseudoSyllableProcessor.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Parser/Processors/PseudoSyllableProcessor.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Parser/Processors/PseudoSyllableProcessor.cpp
 
@@ -1040,7 +1063,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/Processors/PseudoSyllableProcessor.cp
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/Processors/SyllablePacker.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/Processors/SyllablePacker.cpp.o: ../../src/rVex/Parser/Processors/SyllablePacker.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_44)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_45)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/Processors/SyllablePacker.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Parser/Processors/SyllablePacker.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Parser/Processors/SyllablePacker.cpp
 
@@ -1063,7 +1086,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/Processors/SyllablePacker.cpp.o.provi
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/Structs/Function.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/Structs/Function.cpp.o: ../../src/rVex/Parser/Structs/Function.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_45)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_46)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/Structs/Function.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Parser/Structs/Function.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Parser/Structs/Function.cpp
 
@@ -1086,7 +1109,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/Structs/Function.cpp.o.provides.build
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/Structs/ISection.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/Structs/ISection.cpp.o: ../../src/rVex/Parser/Structs/ISection.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_46)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_47)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/Structs/ISection.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Parser/Structs/ISection.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Parser/Structs/ISection.cpp
 
@@ -1109,7 +1132,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/Structs/ISection.cpp.o.provides.build
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/Structs/SyllableBufferItem.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/Structs/SyllableBufferItem.cpp.o: ../../src/rVex/Parser/Structs/SyllableBufferItem.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_47)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_48)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/Structs/SyllableBufferItem.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Parser/Structs/SyllableBufferItem.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Parser/Structs/SyllableBufferItem.cpp
 
@@ -1132,7 +1155,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/Structs/SyllableBufferItem.cpp.o.prov
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/VexContext.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/VexContext.cpp.o: ../../src/rVex/Parser/VexContext.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_48)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_49)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/VexContext.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Parser/VexContext.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Parser/VexContext.cpp
 
@@ -1155,7 +1178,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/VexContext.cpp.o.provides.build: src/
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/driver.cc.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/driver.cc.o: ../../src/rVex/Parser/driver.cc
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_49)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_50)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/driver.cc.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Parser/driver.cc.o -c /home/helix/encoder-pbiw/src/rVex/Parser/driver.cc
 
@@ -1178,7 +1201,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/driver.cc.o.provides.build: src/rVex/
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/parser.tab.cc.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/parser.tab.cc.o: ../../src/rVex/Parser/parser.tab.cc
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_50)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_51)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/parser.tab.cc.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Parser/parser.tab.cc.o -c /home/helix/encoder-pbiw/src/rVex/Parser/parser.tab.cc
 
@@ -1201,7 +1224,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/parser.tab.cc.o.provides.build: src/r
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/scanner.cc.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/scanner.cc.o: ../../src/rVex/Parser/scanner.cc
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_51)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_52)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/scanner.cc.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Parser/scanner.cc.o -c /home/helix/encoder-pbiw/src/rVex/Parser/scanner.cc
 
@@ -1224,7 +1247,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Parser/scanner.cc.o.provides.build: src/rVex
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWFull/Factory.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWFull/Factory.cpp.o: ../../src/rVex/PBIWFull/Factory.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_52)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_53)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWFull/Factory.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/PBIWFull/Factory.cpp.o -c /home/helix/encoder-pbiw/src/rVex/PBIWFull/Factory.cpp
 
@@ -1247,7 +1270,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWFull/Factory.cpp.o.provides.build: src/r
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWFull/FullPBIW.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWFull/FullPBIW.cpp.o: ../../src/rVex/PBIWFull/FullPBIW.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_53)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_54)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWFull/FullPBIW.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/PBIWFull/FullPBIW.cpp.o -c /home/helix/encoder-pbiw/src/rVex/PBIWFull/FullPBIW.cpp
 
@@ -1270,7 +1293,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWFull/FullPBIW.cpp.o.provides.build: src/
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWFull/Operand.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWFull/Operand.cpp.o: ../../src/rVex/PBIWFull/Operand.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_54)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_55)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWFull/Operand.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/PBIWFull/Operand.cpp.o -c /home/helix/encoder-pbiw/src/rVex/PBIWFull/Operand.cpp
 
@@ -1293,7 +1316,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWFull/Operand.cpp.o.provides.build: src/r
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWFull/Operation.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWFull/Operation.cpp.o: ../../src/rVex/PBIWFull/Operation.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_55)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_56)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWFull/Operation.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/PBIWFull/Operation.cpp.o -c /home/helix/encoder-pbiw/src/rVex/PBIWFull/Operation.cpp
 
@@ -1316,7 +1339,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWFull/Operation.cpp.o.provides.build: src
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWFull/Printers/FullPBIWDebugPrinter.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWFull/Printers/FullPBIWDebugPrinter.cpp.o: ../../src/rVex/PBIWFull/Printers/FullPBIWDebugPrinter.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_56)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_57)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWFull/Printers/FullPBIWDebugPrinter.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/PBIWFull/Printers/FullPBIWDebugPrinter.cpp.o -c /home/helix/encoder-pbiw/src/rVex/PBIWFull/Printers/FullPBIWDebugPrinter.cpp
 
@@ -1339,7 +1362,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWFull/Printers/FullPBIWDebugPrinter.cpp.o
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWFull/Printers/FullPBIWPrinter.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWFull/Printers/FullPBIWPrinter.cpp.o: ../../src/rVex/PBIWFull/Printers/FullPBIWPrinter.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_57)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_58)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWFull/Printers/FullPBIWPrinter.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/PBIWFull/Printers/FullPBIWPrinter.cpp.o -c /home/helix/encoder-pbiw/src/rVex/PBIWFull/Printers/FullPBIWPrinter.cpp
 
@@ -1362,7 +1385,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWFull/Printers/FullPBIWPrinter.cpp.o.prov
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWFull/rVex64PBIWInstruction.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWFull/rVex64PBIWInstruction.cpp.o: ../../src/rVex/PBIWFull/rVex64PBIWInstruction.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_58)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_59)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWFull/rVex64PBIWInstruction.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/PBIWFull/rVex64PBIWInstruction.cpp.o -c /home/helix/encoder-pbiw/src/rVex/PBIWFull/rVex64PBIWInstruction.cpp
 
@@ -1385,7 +1408,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWFull/rVex64PBIWInstruction.cpp.o.provide
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWFull/rVex96PBIWPattern.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWFull/rVex96PBIWPattern.cpp.o: ../../src/rVex/PBIWFull/rVex96PBIWPattern.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_59)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_60)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWFull/rVex96PBIWPattern.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/PBIWFull/rVex96PBIWPattern.cpp.o -c /home/helix/encoder-pbiw/src/rVex/PBIWFull/rVex96PBIWPattern.cpp
 
@@ -1408,7 +1431,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWFull/rVex96PBIWPattern.cpp.o.provides.bu
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWPartial/Factory.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWPartial/Factory.cpp.o: ../../src/rVex/PBIWPartial/Factory.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_60)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_61)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWPartial/Factory.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/PBIWPartial/Factory.cpp.o -c /home/helix/encoder-pbiw/src/rVex/PBIWPartial/Factory.cpp
 
@@ -1431,7 +1454,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWPartial/Factory.cpp.o.provides.build: sr
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWPartial/Operand.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWPartial/Operand.cpp.o: ../../src/rVex/PBIWPartial/Operand.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_61)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_62)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWPartial/Operand.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/PBIWPartial/Operand.cpp.o -c /home/helix/encoder-pbiw/src/rVex/PBIWPartial/Operand.cpp
 
@@ -1454,7 +1477,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWPartial/Operand.cpp.o.provides.build: sr
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWPartial/Operation.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWPartial/Operation.cpp.o: ../../src/rVex/PBIWPartial/Operation.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_62)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_63)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWPartial/Operation.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/PBIWPartial/Operation.cpp.o -c /home/helix/encoder-pbiw/src/rVex/PBIWPartial/Operation.cpp
 
@@ -1477,7 +1500,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWPartial/Operation.cpp.o.provides.build: 
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWPartial/PartialPBIW.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWPartial/PartialPBIW.cpp.o: ../../src/rVex/PBIWPartial/PartialPBIW.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_63)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_64)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWPartial/PartialPBIW.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/PBIWPartial/PartialPBIW.cpp.o -c /home/helix/encoder-pbiw/src/rVex/PBIWPartial/PartialPBIW.cpp
 
@@ -1500,7 +1523,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWPartial/PartialPBIW.cpp.o.provides.build
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWPartial/Printers/PartialPBIWDebugPrinter.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWPartial/Printers/PartialPBIWDebugPrinter.cpp.o: ../../src/rVex/PBIWPartial/Printers/PartialPBIWDebugPrinter.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_64)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_65)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWPartial/Printers/PartialPBIWDebugPrinter.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/PBIWPartial/Printers/PartialPBIWDebugPrinter.cpp.o -c /home/helix/encoder-pbiw/src/rVex/PBIWPartial/Printers/PartialPBIWDebugPrinter.cpp
 
@@ -1523,7 +1546,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWPartial/Printers/PartialPBIWDebugPrinter
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWPartial/Printers/PartialPBIWPrinter.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWPartial/Printers/PartialPBIWPrinter.cpp.o: ../../src/rVex/PBIWPartial/Printers/PartialPBIWPrinter.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_65)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_66)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWPartial/Printers/PartialPBIWPrinter.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/PBIWPartial/Printers/PartialPBIWPrinter.cpp.o -c /home/helix/encoder-pbiw/src/rVex/PBIWPartial/Printers/PartialPBIWPrinter.cpp
 
@@ -1546,7 +1569,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWPartial/Printers/PartialPBIWPrinter.cpp.
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWPartial/rVex64PBIWInstruction.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWPartial/rVex64PBIWInstruction.cpp.o: ../../src/rVex/PBIWPartial/rVex64PBIWInstruction.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_66)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_67)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWPartial/rVex64PBIWInstruction.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/PBIWPartial/rVex64PBIWInstruction.cpp.o -c /home/helix/encoder-pbiw/src/rVex/PBIWPartial/rVex64PBIWInstruction.cpp
 
@@ -1569,7 +1592,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWPartial/rVex64PBIWInstruction.cpp.o.prov
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWPartial/rVex96PBIWPattern.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWPartial/rVex96PBIWPattern.cpp.o: ../../src/rVex/PBIWPartial/rVex96PBIWPattern.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_67)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_68)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWPartial/rVex96PBIWPattern.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/PBIWPartial/rVex96PBIWPattern.cpp.o -c /home/helix/encoder-pbiw/src/rVex/PBIWPartial/rVex96PBIWPattern.cpp
 
@@ -1592,7 +1615,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/PBIWPartial/rVex96PBIWPattern.cpp.o.provides
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Printers/DineroTool/AssemblyPrinter.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Printers/DineroTool/AssemblyPrinter.cpp.o: ../../src/rVex/Printers/DineroTool/AssemblyPrinter.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_68)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_69)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Printers/DineroTool/AssemblyPrinter.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Printers/DineroTool/AssemblyPrinter.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Printers/DineroTool/AssemblyPrinter.cpp
 
@@ -1615,7 +1638,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Printers/DineroTool/AssemblyPrinter.cpp.o.pr
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Printers/DineroTool/PBIWPrinter.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Printers/DineroTool/PBIWPrinter.cpp.o: ../../src/rVex/Printers/DineroTool/PBIWPrinter.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_69)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_70)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Printers/DineroTool/PBIWPrinter.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Printers/DineroTool/PBIWPrinter.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Printers/DineroTool/PBIWPrinter.cpp
 
@@ -1638,7 +1661,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Printers/DineroTool/PBIWPrinter.cpp.o.provid
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Printers/rVexPrinter.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Printers/rVexPrinter.cpp.o: ../../src/rVex/Printers/rVexPrinter.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_70)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_71)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Printers/rVexPrinter.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Printers/rVexPrinter.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Printers/rVexPrinter.cpp
 
@@ -1661,7 +1684,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Printers/rVexPrinter.cpp.o.provides.build: s
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Printers/VHDLPrinter.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Printers/VHDLPrinter.cpp.o: ../../src/rVex/Printers/VHDLPrinter.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_71)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_72)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Printers/VHDLPrinter.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Printers/VHDLPrinter.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Printers/VHDLPrinter.cpp
 
@@ -1684,7 +1707,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Printers/VHDLPrinter.cpp.o.provides.build: s
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Utils/DependencyChains.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Utils/DependencyChains.cpp.o: ../../src/rVex/Utils/DependencyChains.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_72)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_73)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Utils/DependencyChains.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Utils/DependencyChains.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Utils/DependencyChains.cpp
 
@@ -1707,7 +1730,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Utils/DependencyChains.cpp.o.provides.build:
 
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Utils/OperandVectorBuilder.cpp.o: src/rVex/CMakeFiles/RVEX_MODULE.dir/flags.make
 src/rVex/CMakeFiles/RVEX_MODULE.dir/Utils/OperandVectorBuilder.cpp.o: ../../src/rVex/Utils/OperandVectorBuilder.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_73)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/helix/encoder-pbiw/build/release/CMakeFiles $(CMAKE_PROGRESS_74)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object src/rVex/CMakeFiles/RVEX_MODULE.dir/Utils/OperandVectorBuilder.cpp.o"
 	cd /home/helix/encoder-pbiw/build/release/src/rVex && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RVEX_MODULE.dir/Utils/OperandVectorBuilder.cpp.o -c /home/helix/encoder-pbiw/src/rVex/Utils/OperandVectorBuilder.cpp
 
@@ -1730,6 +1753,7 @@ src/rVex/CMakeFiles/RVEX_MODULE.dir/Utils/OperandVectorBuilder.cpp.o.provides.bu
 
 # Object files for target RVEX_MODULE
 RVEX_MODULE_OBJECTS = \
+"CMakeFiles/RVEX_MODULE.dir/Encoder/rVexEncoder.cpp.o" \
 "CMakeFiles/RVEX_MODULE.dir/Base/Instruction.cpp.o" \
 "CMakeFiles/RVEX_MODULE.dir/Base/Label.cpp.o" \
 "CMakeFiles/RVEX_MODULE.dir/Base/Operand.cpp.o" \
@@ -1807,6 +1831,7 @@ RVEX_MODULE_OBJECTS = \
 # External object files for target RVEX_MODULE
 RVEX_MODULE_EXTERNAL_OBJECTS =
 
+src/rVex/libRVEX_MODULE.a: src/rVex/CMakeFiles/RVEX_MODULE.dir/Encoder/rVexEncoder.cpp.o
 src/rVex/libRVEX_MODULE.a: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Instruction.cpp.o
 src/rVex/libRVEX_MODULE.a: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Label.cpp.o
 src/rVex/libRVEX_MODULE.a: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Operand.cpp.o
@@ -1890,6 +1915,7 @@ src/rVex/libRVEX_MODULE.a: src/rVex/CMakeFiles/RVEX_MODULE.dir/link.txt
 src/rVex/CMakeFiles/RVEX_MODULE.dir/build: src/rVex/libRVEX_MODULE.a
 .PHONY : src/rVex/CMakeFiles/RVEX_MODULE.dir/build
 
+src/rVex/CMakeFiles/RVEX_MODULE.dir/requires: src/rVex/CMakeFiles/RVEX_MODULE.dir/Encoder/rVexEncoder.cpp.o.requires
 src/rVex/CMakeFiles/RVEX_MODULE.dir/requires: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Instruction.cpp.o.requires
 src/rVex/CMakeFiles/RVEX_MODULE.dir/requires: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Label.cpp.o.requires
 src/rVex/CMakeFiles/RVEX_MODULE.dir/requires: src/rVex/CMakeFiles/RVEX_MODULE.dir/Base/Operand.cpp.o.requires

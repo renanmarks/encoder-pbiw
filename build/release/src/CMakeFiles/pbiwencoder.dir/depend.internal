@@ -41,6 +41,7 @@ src/CMakeFiles/pbiwencoder.dir/pbiw_encoder.cpp.o
  ../../src/rVex/Parser/VexContext.h
  ../../src/rVex/Printers/IPrinter.h
  ../../src/rVex/Utils/DependencyChains.h
- /home/helix/encoder-pbiw/src/Encoder/rVexEncoder.h
+ /home/helix/encoder-pbiw/src/GenericEncoder/GenericEncoderInterface.h
  /home/helix/encoder-pbiw/src/pbiw_encoder.cpp
  /home/helix/encoder-pbiw/src/pbiw_encoder.h
+ /home/helix/encoder-pbiw/src/rVex/Encoder/rVexEncoder.h

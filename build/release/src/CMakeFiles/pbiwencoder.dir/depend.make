@@ -40,7 +40,8 @@ src/CMakeFiles/pbiwencoder.dir/pbiw_encoder.cpp.o: ../../src/rVex/Parser/Structs
 src/CMakeFiles/pbiwencoder.dir/pbiw_encoder.cpp.o: ../../src/rVex/Parser/VexContext.h
 src/CMakeFiles/pbiwencoder.dir/pbiw_encoder.cpp.o: ../../src/rVex/Printers/IPrinter.h
 src/CMakeFiles/pbiwencoder.dir/pbiw_encoder.cpp.o: ../../src/rVex/Utils/DependencyChains.h
-src/CMakeFiles/pbiwencoder.dir/pbiw_encoder.cpp.o: ../../src/Encoder/rVexEncoder.h
+src/CMakeFiles/pbiwencoder.dir/pbiw_encoder.cpp.o: ../../src/GenericEncoder/GenericEncoderInterface.h
 src/CMakeFiles/pbiwencoder.dir/pbiw_encoder.cpp.o: ../../src/pbiw_encoder.cpp
 src/CMakeFiles/pbiwencoder.dir/pbiw_encoder.cpp.o: ../../src/pbiw_encoder.h
+src/CMakeFiles/pbiwencoder.dir/pbiw_encoder.cpp.o: ../../src/rVex/Encoder/rVexEncoder.h
 

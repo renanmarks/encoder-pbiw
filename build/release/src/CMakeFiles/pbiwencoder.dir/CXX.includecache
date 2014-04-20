@@ -380,17 +380,11 @@ GenericAssembly/Utils/DependencyChains.h
 rVex/Printers/IPrinter.h
 ../../src/rVex/Utils/rVex/Printers/IPrinter.h
 
-/home/helix/encoder-pbiw/src/Encoder/rVexEncoder.h
+/home/helix/encoder-pbiw/src/GenericEncoder/GenericEncoderInterface.h
 list
--
-map
 -
 string
 -
-PBIW/PBIWOptimizerDataSet.h
-/home/helix/encoder-pbiw/src/Encoder/PBIW/PBIWOptimizerDataSet.h
-rVex/Parser/VexContext.h
-/home/helix/encoder-pbiw/src/Encoder/rVex/Parser/VexContext.h
 
 /home/helix/encoder-pbiw/src/pbiw_encoder.cpp
 iostream
@@ -401,10 +395,28 @@ list
 -
 string
 -
+map
+-
 pbiw_encoder.h
 /home/helix/encoder-pbiw/src/pbiw_encoder.h
-Encoder/rVexEncoder.h
-/home/helix/encoder-pbiw/src/Encoder/rVexEncoder.h
+GenericEncoder/GenericEncoderInterface.h
+/home/helix/encoder-pbiw/src/GenericEncoder/GenericEncoderInterface.h
+rVex/Encoder/rVexEncoder.h
+/home/helix/encoder-pbiw/src/rVex/Encoder/rVexEncoder.h
 
 /home/helix/encoder-pbiw/src/pbiw_encoder.h
+
+/home/helix/encoder-pbiw/src/rVex/Encoder/rVexEncoder.h
+list
+-
+map
+-
+string
+-
+PBIW/PBIWOptimizerDataSet.h
+/home/helix/encoder-pbiw/src/rVex/Encoder/PBIW/PBIWOptimizerDataSet.h
+rVex/Parser/VexContext.h
+/home/helix/encoder-pbiw/src/rVex/Encoder/rVex/Parser/VexContext.h
+GenericEncoder/GenericEncoderInterface.h
+/home/helix/encoder-pbiw/src/rVex/Encoder/GenericEncoder/GenericEncoderInterface.h
 
