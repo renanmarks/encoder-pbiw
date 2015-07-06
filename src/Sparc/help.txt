@@ -1,0 +1,45 @@
+Options/Syntax of commands to Encoder/Decoder PBIW-SPARC
+Usage: ./pbiw_sparc [options] file...
+Options:
+  -h 				Display this information
+  -o				Flag to use other layout <layoutFile>
+  -e				Encode instructions to PBIW formats
+  -d				Decode/restore instructions and patterns of PBIW formats to original SPARCv8 format
+
+Syntax:
+  Encode 			./pbiw_sparc elfFile
+  Decode 			./pbiw_sparc -d elfFile
+  Encode with other layout 	./pbiw_sparc -o layoutFile.txt elfFile
+  Encode and Decode		./pbiw_sparc -e -d elfFile
+  Encode and decode with	./pbiw_sparc -e -d -o layoutFile.txt elfFile
+  other layout
+              
+Layout file description:
+
+      index_size <size of pattern index>
+
+      instruction
+      fmt0_10 <init_bit, size> <init_bit, size> ...
+      fmt0_100 <init_bit, size> <init_bit, size> ...
+      fmt1 <init_bit, size> <init_bit, size> ...
+      fmt2_0 <init_bit, size> <init_bit, size> ...
+      fmt2_1 <init_bit, size> <init_bit, size> ...
+
+      pattern
+      fmt0_10 <init_bit, size> <init_bit, size> ...
+      fmt0_100 <init_bit, size> <init_bit, size> ...
+      fmt1 <init_bit, size> <init_bit, size> ...
+      fmt2_0 <init_bit, size> <init_bit, size> ...
+      fmt2_1 <init_bit, size> <init_bit, size> ...
+      
+Glossary:
+  elfFile			File ELF 32 bit, SPARCv8
+  layoutFile.txt		File with the description of PBIW pattern and instructions
+  fmtX				X: one of three SPARCv8 formats of instructions
+  fmt1				Call instruction
+  fmt0_XX			YY = 10 to branch instructions / 100 to NOP/SETHI instructions
+  fmt2_XX			YY = 0 instructions with triad registers / 1 instructions with immediate (two registers)
+  <init_bit, size>		Set of substrings (of the original instruction) that compose the instruction/patter encoded
+				use least one and maximum n for each fmtX_YY
+				init_bit: start bit of the substring and size: length  in bits of the substring
+

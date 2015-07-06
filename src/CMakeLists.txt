@@ -7,6 +7,7 @@ include_directories("${PROJECT_SOURCE_DIR}")
 add_subdirectory(GenericAssembly)
 add_subdirectory(PBIW)
 add_subdirectory(rVex)
+add_subdirectory(Sparc)
 
 # Diretório que contém código base
 aux_source_directory(. SRC_LIST)
@@ -16,6 +17,7 @@ set(
 
 	PBIW_MODULE
 	RVEX_MODULE
+        SPARC_MODULE
 	GENERICASSEMBLY_MODULE
 )
 
