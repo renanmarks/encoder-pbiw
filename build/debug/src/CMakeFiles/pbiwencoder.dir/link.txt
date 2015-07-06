@@ -1,1 +1,0 @@
-/usr/bin/c++   -g    CMakeFiles/pbiwencoder.dir/pbiw_encoder.cpp.o  -o pbiwencoder -rdynamic PBIW/libPBIW_MODULE.a rVex/libRVEX_MODULE.a GenericAssembly/libGENERICASSEMBLY_MODULE.a PBIW/libPBIW_MODULE.a 
