@@ -63,6 +63,7 @@ namespace rVex
 
 		private:
 			rVexEncoder(const rVexEncoder&);
+            rVexEncoder& operator=(const rVexEncoder&);
 
 			typedef struct
 			{

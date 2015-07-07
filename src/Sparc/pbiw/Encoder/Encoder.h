@@ -11,13 +11,19 @@ namespace Sparc
         class Encoder : public PBIWFramework::GenericEncoderInterface
         {
         public:
-            explicit Encoder();
+            explicit Encoder(const std::list<std::string>&inputFlags);
             virtual ~Encoder();
 
             virtual void run();
             virtual std::list<std::string> getSupportedCPUList() const;
             virtual std::string getUsage() const;
             virtual std::string getTargetFlag() const;
+
+        private:
+            Encoder(const Encoder&);
+            Encoder& operator=(const Encoder&);
+
+            std::list<std::string> flagList;
         };
     }
 }
