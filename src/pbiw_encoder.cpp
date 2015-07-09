@@ -30,6 +30,7 @@
 #include "pbiw_encoder.h"
 #include "GenericEncoder/GenericEncoderInterface.h"
 #include "rVex/Encoder/rVexEncoder.h"
+#include "Sparc/pbiw/Encoder/Encoder.h"
 
 using namespace std;
 
@@ -38,8 +39,8 @@ std::string version = "3.0";
 void printHeader()
 {
 	std::cout <<
-"PBIW Encoder - Version "<< version << "\n\
-Copyright (C) 2013 Renan Albuquerque Marks\n\
+"PBIW Encoding Framework - Version "<< version << "\n\
+Copyright (C) 2013-2015 Renan Albuquerque Marks\n\
 \n\
 This program comes with ABSOLUTELY NO WARRANTY;\n\
 This is free software, and you are welcome to redistribute it\n\
@@ -48,24 +49,29 @@ under certain conditions.\n\
 	<< std::endl;
 }
 
-void printHelp(const std::string& binaryName, const PBIWFramework::GenericEncoderInterface& encoder)
+void printHelp(const std::string& binaryName, const std::map<std::string, PBIWFramework::GenericEncoderInterface*>& encoders)
 {
-  typedef std::list<std::string> StringList;
-  StringList archs;
-	StringList rVexEncoderCPUS = encoder.getSupportedCPUList();
+    typedef std::list<std::string> StringList;
+    typedef std::map<std::string, PBIWFramework::GenericEncoderInterface*> EncoderList;
+    StringList archs;
 
-	archs.assign(rVexEncoderCPUS.begin(), rVexEncoderCPUS.end());
+    printHeader();
 
-	printHeader();
+    std::cout << "Architectures supported in this version:" << std::endl;
 
-  std::cout << "Architectures supported in this version:" << std::endl;
+    for (EncoderList::const_iterator encoder = encoders.begin(); encoder != encoders.end(); encoder++)
+    {
+        StringList encoderCPUS = (encoder->second)->getSupportedCPUList();
 
-	for (StringList::const_iterator it = archs.begin(); it != archs.end(); it++)
-    std::cout << "  " << *it << std::endl;
+        archs.assign(encoderCPUS.begin(), encoderCPUS.end());
 
-	std::cout << "---\n" << std::endl
-	<< "To generate code to a specific target, use --target [name] directive." << std::endl
-	<< "To see extended help for each target, type --morehelp." << std::endl;
+        for (StringList::const_iterator it = archs.begin(); it != archs.end(); it++)
+            std::cout << "  " << *it << std::endl;
+    }
+
+    std::cout << "---\n" << std::endl
+    << "To generate code to a specific target, use --target [name] directive." << std::endl
+    << "To see extended help for each target, type --morehelp." << std::endl;
 
   return;
 }
@@ -73,12 +79,12 @@ void printHelp(const std::string& binaryName, const PBIWFramework::GenericEncode
 void printExtendedHelp(const std::string& binaryName, const PBIWFramework::GenericEncoderInterface& encoder)
 {
 	typedef std::list<std::string> StringList;
-	StringList rVexEncoderCPUS = encoder.getSupportedCPUList();
+    StringList encoderCPUS = encoder.getSupportedCPUList();
 
 	std::cout << "------------" << std::endl;
 	std::cout << "Help for target(s): ";
 
-	for (StringList::const_iterator it = rVexEncoderCPUS.begin(); it != rVexEncoderCPUS.end(); it++)
+    for (StringList::const_iterator it = encoderCPUS.begin(); it != encoderCPUS.end(); it++)
 		std::cout << *it << std::endl;
 
 	std::cout << "---" << std::endl;
@@ -103,11 +109,14 @@ main(int argc, char** argv)
   for (int ai=1; ai < argc; ++ai) // O(|argc|)
 		flags.push_back(argv[ai]);
 
-	rVex::Encoder::rVexEncoder encoder(flags);
+    rVex::Encoder::rVexEncoder rvexEncoder(flags);
+    Sparc::PBIW::Encoder sparcEncoder(flags);
 	std::map<std::string, PBIWFramework::GenericEncoderInterface*> codecs;
 
-	codecs[encoder.getTargetFlag()] = &encoder;
+    codecs[rvexEncoder.getTargetFlag()] = &rvexEncoder;
+    codecs[sparcEncoder.getTargetFlag()] = &sparcEncoder;
 
+    bool printedHelp = false;
 	StringList::const_iterator target = flags.end();
 	StringList::const_iterator it;
 
@@ -123,6 +132,7 @@ main(int argc, char** argv)
 			if (target != flags.end())
 			{
 				printExtendedHelp(argv[0], *codecs[*target]);
+                printedHelp = true;
 				return 0;
 			}
 
@@ -132,12 +142,13 @@ main(int argc, char** argv)
 
 		if (*it == "-h" || *it == "--help")
 		{
-			printHelp(argv[0], encoder);
+            printHelp(argv[0], codecs);
+            printedHelp = true;
 			return 0;
 		}
 	}
 
-	if (it == flags.end())
+    if (it == flags.end() && target != flags.end())
 		codecs[*target]->run();
 
   return 0;

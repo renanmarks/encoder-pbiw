@@ -3,6 +3,7 @@
 
 #include <string>
 #include "GenericEncoder/GenericEncoderInterface.h"
+#include "Sparc/pbiw/elfio/elfio.hpp"
 
 namespace Sparc
 {
@@ -24,6 +25,15 @@ namespace Sparc
             Encoder& operator=(const Encoder&);
 
             std::list<std::string> flagList;
+
+            std::string elfFile;
+            std::string layoutFile;
+            bool flag_o;
+            bool flag_e;
+            bool flag_d;
+            bool flag_p;
+
+            ELFIO::elfio elf;
         };
     }
 }
