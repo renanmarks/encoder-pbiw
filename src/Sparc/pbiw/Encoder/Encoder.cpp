@@ -112,17 +112,50 @@ namespace Sparc
 
         std::string Encoder::getUsage() const
         {
-            ifstream help("help.txt");
-            std::string helpMessage;
-
-//            help.seekg(0, ios::end);
-//            int size = help.tellg();
-//            help.seekg(0, ios::beg);
-
-            while (!help.eof())
-            {
-                // TODO
-            }
+            std::string helpMessage = "Options/Syntax of commands to Encoder/Decoder PBIW-SPARC\n\
+Usage: [options] file...\n\
+Options:\n\
+  -h 				Display this information\n\
+  -o				Flag to use other layout <layoutFile>\n\
+  -e				Encode instructions to PBIW formats\n\
+  -d				Decode/restore instructions and patterns of PBIW formats to original SPARCv8 format\n\
+\n\
+Syntax:\n\
+  Encode 			./pbiw_sparc elfFile\n\
+  Decode 			./pbiw_sparc -d elfFile\n\
+  Encode with other layout 	./pbiw_sparc -o layoutFile.txt elfFile\n\
+  Encode and Decode		./pbiw_sparc -e -d elfFile\n\
+  Encode and decode with	./pbiw_sparc -e -d -o layoutFile.txt elfFile\n\
+  other layout\n\
+\n\
+Layout file description:\n\
+\n\
+      index_size <size of pattern index>\n\
+\n\
+      instruction\n\
+      fmt0_10 <init_bit, size> <init_bit, size> ...\n\
+      fmt0_100 <init_bit, size> <init_bit, size> ...\n\
+      fmt1 <init_bit, size> <init_bit, size> ...\n\
+      fmt2_0 <init_bit, size> <init_bit, size> ...\n\
+      fmt2_1 <init_bit, size> <init_bit, size> ...\n\
+\n\
+      pattern\n\
+      fmt0_10 <init_bit, size> <init_bit, size> ...\n\
+      fmt0_100 <init_bit, size> <init_bit, size> ...\n\
+      fmt1 <init_bit, size> <init_bit, size> ...\n\
+      fmt2_0 <init_bit, size> <init_bit, size> ...\n\
+      fmt2_1 <init_bit, size> <init_bit, size> ...\n\
+\n\
+Glossary:\n\
+  elfFile               File ELF 32 bit, SPARCv8\n\
+  layoutFile.tx         File with the description of PBIW pattern and instructions\n\
+  fmtX                  X: one of three SPARCv8 formats of instructions\n\
+  fmt1	                Call instruction\n\
+  fmt0_XX               YY = 10 to branch instructions / 100 to NOP/SETHI instructions\n\
+  fmt2_XX               YY = 0 instructions with triad registers / 1 instructions with immediate (two registers)\n\
+  <init_bit, size>      Set of substrings (of the original instruction) that compose the instruction/patter encoded\n\
+                        use least one and maximum n for each fmtX_YY\n\
+                        init_bit: start bit of the substring and size: length  in bits of the substring";
 
             return helpMessage;
         }
