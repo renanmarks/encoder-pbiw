@@ -36,6 +36,20 @@ namespace Tools {
     }
 
     Encode::~Encode() {
+        for(EncInstDeque::iterator it = encodedInstructions.begin(); it != encodedInstructions.end(); it++)
+        {
+            delete *it;
+        }
+
+        for(EncPatDeque::iterator it = encodedPatterns.begin(); it != encodedPatterns.end(); it++)
+        {
+            delete *it;
+        }
+
+        for(EncInstDeque::iterator it = hexInstructions.begin(); it != hexInstructions.end(); it++)
+        {
+            delete *it;
+        }
     }
 
     void
